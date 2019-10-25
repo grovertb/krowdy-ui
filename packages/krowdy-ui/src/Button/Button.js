@@ -1,10 +1,11 @@
 import React from 'react';
+import MuiButton from '@material-ui/core/Button'
 
-function Button(props) {
+function Button({children, ...props}) {
   return (
-    <div>
-      Hola {props.color}
-    </div>
+    <MuiButton {...props}>
+      {children}
+    </MuiButton>
   );
 }
 

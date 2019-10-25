@@ -1,6 +1,6 @@
 {
   "name": "@krowdy-ui/core",
-  "version": "0.0.1-next",
+  "version": "0.0.3-next",
   "private": false,
   "author": "Krowdy Team",
   "description": "React components that implement Google's Material Design.",
@@ -28,15 +28,13 @@
     "build:es": "cross-env NODE_ENV=production BABEL_ENV=es babel --config-file ../../babel.config.js ./src --out-dir ./build/es --ignore \"**/*.test.js\"",
     "build:umd": "cross-env BABEL_ENV=production-umd rollup -c scripts/rollup.config.js",
     "build:copy-files": "node ../../scripts/copy-files.js",
-    "release": "rimraf build && yarn build && npm publish build --tag next"
+    "prebuild": "rimraf build",
+    "release": "yarn build && npm publish build --tag next"
   },
   "peerDependencies": {},
   "dependencies": {
     "@babel/runtime": "^7.6.3",
-    "@krowdy-ui/styles": "^0.0.3",
-    "@material-ui/system": "^4.5.1",
-    "@material-ui/types": "^4.1.1",
-    "@material-ui/utils": "^4.4.0",
+    "@material-ui/core": "^4.5.1",
     "clsx": "^1.0.4",
     "convert-css-length": "^2.0.1",
     "prop-types": "^15.7.2"

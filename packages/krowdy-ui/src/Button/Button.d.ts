@@ -1,11 +1,39 @@
 import * as React from 'react';
 
-export interface ButtonProps {
-  color?: 'default' | 'primary' | 'secondary' | 'krowdy';
-  size?: 'small' | 'medium' | 'large';
-  variant?: 'text' | 'outlined' | 'contained';
-}
+import { ButtonProps } from '@material-ui/core/Button';
+import { PropTypes } from '..';
 
-declare const Button: React.ComponentType<ButtonProps>;
+export type KrowdyButtonProps = ButtonProps & {
+  color?: PropTypes.Color;
+};
 
-export default Button;
+// export type TouchRippleClassKey =
+//   | 'root'
+//   | 'ripple'
+//   | 'rippleVisible'
+//   | 'ripplePulsate'
+//   | 'child'
+//   | 'childLeaving'
+//   | 'childPulsate';
+
+declare const Buttons: React.ComponentType<KrowdyButtonProps>;
+
+export default Buttons;
+// export type KrowdyButtonTypeMap<
+//   P = {},
+//   D extends React.ElementType = 'button'
+// > = ButtonTypeMap<{
+//   props: P & {
+//     color: PropTypes.Color
+//     // active?: boolean;
+//     // direction?: 'asc' | 'desc';
+//     // hideSortIcon?: boolean;
+//     // IconComponent?: React.ComponentType<SvgIconProps>;
+//   };
+//   // defaultComponent: D;
+//   // classKey: TableSortLabelClassKey;
+// }>;
+
+// declare const Button: React.ComponentType<KrowdyButtonTypeMap>;
+
+// export default Button;
