@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from 'prop-types'
 import MuiIconButton from '@material-ui/core/IconButton'
 
 function IconButton({children, ...props}) {
@@ -8,6 +8,13 @@ function IconButton({children, ...props}) {
       {children}
     </MuiIconButton>
   );
+}
+
+IconButton.propTypes = {
+  /**
+   * The content of the iconButton.
+   */
+  children: PropTypes.node.isRequired
 }
 
 export default IconButton;

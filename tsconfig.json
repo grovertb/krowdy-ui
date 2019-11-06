@@ -15,7 +15,7 @@
     "allowJs": true,
     "paths": {
       "@krowdy-ui/core": ["./packages/krowdy-ui/src"],
-      "@krowdy-ui/core/*": ["./packages/krowdy-ui/src/*"],
+      "@krowdy-ui/core/*": ["./packages/krowdy-ui/src/*"]
     }
   },
   "exclude": ["**/build/"]

@@ -17,13 +17,7 @@ if (process.env.BABEL_ENV === 'es') {
 }
 
 const defaultAlias = {
-  '@krowdy-ui/core': './packages/material-ui/src',
-  '@material-ui/docs': './packages/material-ui-docs/src',
-  '@krowdy-ui/icons': './packages/material-ui-icons/src',
-  '@material-ui/lab': './packages/material-ui-lab/src',
-  '@krowdy-ui/styles': './packages/material-ui-styles/src',
-  '@material-ui/system': './packages/material-ui-system/src',
-  '@material-ui/utils': './packages/material-ui-utils/src',
+  '@krowdy-ui/core': './packages/material-ui/src'
 };
 
 const productionPlugins = [

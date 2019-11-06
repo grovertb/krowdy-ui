@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 import MuiButton from '@material-ui/core/Button'
 
 function Button({children, ...props}) {
@@ -7,6 +8,13 @@ function Button({children, ...props}) {
       {children}
     </MuiButton>
   );
+}
+
+Button.propTypes = {
+  /**
+   * The content of the button.
+   */
+  children: PropTypes.node.isRequired
 }
 
 export default Button;

@@ -1,39 +1,42 @@
-import * as React from 'react';
+export { default } from '@material-ui/core/Button';
+export * from '@material-ui/core/Button';
 
-import { ButtonProps } from '@material-ui/core/Button';
-import { PropTypes } from '..';
+// import * as React from 'react';
 
-export type KrowdyButtonProps = ButtonProps & {
-  color?: PropTypes.Color;
-};
+// import { ButtonProps } from '@material-ui/core/Button';
+// import { PropTypes } from '..';
 
-// export type TouchRippleClassKey =
-//   | 'root'
-//   | 'ripple'
-//   | 'rippleVisible'
-//   | 'ripplePulsate'
-//   | 'child'
-//   | 'childLeaving'
-//   | 'childPulsate';
+// export type KrowdyButtonProps = ButtonProps & {
+//   color?: PropTypes.Color;
+// };
 
-declare const Buttons: React.ComponentType<KrowdyButtonProps>;
+// // export type TouchRippleClassKey =
+// //   | 'root'
+// //   | 'ripple'
+// //   | 'rippleVisible'
+// //   | 'ripplePulsate'
+// //   | 'child'
+// //   | 'childLeaving'
+// //   | 'childPulsate';
 
-export default Buttons;
-// export type KrowdyButtonTypeMap<
-//   P = {},
-//   D extends React.ElementType = 'button'
-// > = ButtonTypeMap<{
-//   props: P & {
-//     color: PropTypes.Color
-//     // active?: boolean;
-//     // direction?: 'asc' | 'desc';
-//     // hideSortIcon?: boolean;
-//     // IconComponent?: React.ComponentType<SvgIconProps>;
-//   };
-//   // defaultComponent: D;
-//   // classKey: TableSortLabelClassKey;
-// }>;
+// declare const Buttons: React.ComponentType<KrowdyButtonProps>;
 
-// declare const Button: React.ComponentType<KrowdyButtonTypeMap>;
+// export default Buttons;
+// // export type KrowdyButtonTypeMap<
+// //   P = {},
+// //   D extends React.ElementType = 'button'
+// // > = ButtonTypeMap<{
+// //   props: P & {
+// //     color: PropTypes.Color
+// //     // active?: boolean;
+// //     // direction?: 'asc' | 'desc';
+// //     // hideSortIcon?: boolean;
+// //     // IconComponent?: React.ComponentType<SvgIconProps>;
+// //   };
+// //   // defaultComponent: D;
+// //   // classKey: TableSortLabelClassKey;
+// // }>;
 
-// export default Button;
+// // declare const Button: React.ComponentType<KrowdyButtonTypeMap>;
+
+// // export default Button;
