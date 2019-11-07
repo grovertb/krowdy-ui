@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@krowdy-ui/core": "0.0.3-next",
+    "@krowdy-ui/icons": "^0.0.2",
     "babel-plugin-module-resolver": "^3.2.0",
     "customize-cra": "^0.8.0",
     "react": "^16.11.0",

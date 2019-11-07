@@ -1,15 +1,15 @@
 import React from 'react';
 
-import { Button, Toolbar, AppBar } from '@krowdy-ui/core'
+import { CssBaseline, ThemeProvider, createMuiTheme } from '@krowdy-ui/core'
+
+import Header from './components/Header'
 
 function App() {
   return (
-    <div>
-      <AppBar position='static' color='secondary'>
-        <Toolbar/>
-      </AppBar>
-      <Button size='large' variant='contained' color='primary'>JS</Button>
-    </div>
+    <ThemeProvider theme={createMuiTheme()}>
+      <CssBaseline />
+      <Header />
+    </ThemeProvider>
   );
 }
 
