@@ -1,16 +1,14 @@
-import React from 'react';
-
+import React from 'react'
 import { CssBaseline, ThemeProvider, createMuiTheme } from '@krowdy-ui/core'
 
-import Header from './components/Header'
+import Header from '../components/Header'
 
-function App() {
+export default function Main(props) {
   return (
     <ThemeProvider theme={createMuiTheme()}>
       <CssBaseline />
       <Header />
+      {props.children}
     </ThemeProvider>
-  );
+  )
 }
-
-export default App;
