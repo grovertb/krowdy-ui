@@ -1,103 +1,103 @@
-interface Page {
-  label: string; 
+export interface Page {
+  title: string; 
   routes?: Array<Page>;
 }
 
 const pages: Array<Page> = [
   {
-    label: 'Getting Started',
+    title: 'Getting Started',
     routes: [
       {
-        label: 'Installation'
+        title: 'Installation'
       },
       {
-        label: 'Usage'
+        title: 'Usage'
       },
       {
-        label: 'Example Projects'
+        title: 'Example Projects'
       }
     ]
   },
   {
-    label: 'Components',
+    title: 'Components',
     routes: [
       {
-        label: 'Layout',
+        title: 'Layout',
         routes: [
           {
-            label: 'Box'
+            title: 'Box'
           },
           {
-            label: 'Container'
+            title: 'Container'
           },
           {
-            label: 'Grid'
+            title: 'Grid'
           },
           {
-            label: 'Grid List'
+            title: 'Grid List'
           },
           {
-            label: 'Hidden'
+            title: 'Hidden'
           }
         ]
       },
       {
-        label: 'Inputs',
+        title: 'Inputs',
         routes: [
           {
-            label: 'Buttons'
+            title: 'Buttons'
           },
           {
-            label: 'Checkboxes'
+            title: 'Checkboxes'
           },
           {
-            label: 'Date / Time'
+            title: 'Date / Time'
           },
           {
-            label: 'Radio Buttons'
+            title: 'Radio Buttons'
           },
           {
-            label: 'Selects'
+            title: 'Selects'
           },
           {
-            label: 'Slider'
+            title: 'Slider'
           },
           {
-            label: 'Switches'
+            title: 'Switches'
           },
           {
-            label: 'Text Fields'
+            title: 'Text Fields'
           }
         ]
       },
       // {
-      //   label: 'Navigation'
+      //   title: 'Navigation'
       // },
       // {
-      //   label: 'Surfaces'
+      //   title: 'Surfaces'
       // },
       // {
-      //   label: 'Feedback'
+      //   title: 'Feedback'
       // },
       // {
-      //   label: 'Data Display'
+      //   title: 'Data Display'
       // },
       // {
-      //   label: 'Utils'
+      //   title: 'Utils'
       // },
       // {
-      //   label: 'Lab'
+      //   title: 'Lab'
       // }
     ]
   },
   // {
-  //   label: 'Styles'
+  //   title: 'Styles'
   // },
   // {
-  //   label: 'System'
+  //   title: 'System'
   // },
   // {
-  //   label: 'Customization'
+  //   title: 'Customization'
   // }
 ]
 

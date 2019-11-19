@@ -1,24 +1,27 @@
 import React from 'react'
 
-
 import { Theme } from '@material-ui/core'
 import { makeStyles } from '@krowdy-ui/styles'
-// import { 
-//   Toolbar, 
-//   AppBar, 
-//   IconButton, 
-//   SwipeableDrawer,
-//   Collapse,
-//   Divider,
-//   Link,
-//   List,
-//   ListItem,
-//   Typography,
-//   Button
-// } from '@krowdy-ui/core'
 
-// import pages from '../../routes/pages'
-// import pkg from '../../../package.json'
+import { 
+  SwipeableDrawer,
+  // Collapse,
+  Divider,
+  Link,
+  List,
+  // ListItem,
+  Typography,
+  // Button
+} from '@krowdy-ui/core'
+
+import AppDrawerItem from './AppDrawerItem'
+
+import pages, { Page } from '../../routes/pages'
+
+interface Props {
+  onToggleDrawer: React.ReactEventHandler<{}>;
+  drawerOpen: boolean
+}
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
@@ -52,17 +55,32 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-export default function AppDrawer() {
+function renderListItems(routes: Array<Page>) {
+  return (
+    <List>
+      {
+        routes.map(route => (
+          renderChildItem(route)
+        ))
+      }
+    </List>
+  )
+}
+
+function renderChildItem({ routes, title }: Page) {
+ return (
+  <AppDrawerItem routes={routes} title={title} />
+ ) 
+}
+
+export default function AppDrawer(props: Props) {
   const classes = useStyles()
-  console.log('Grover: AppDrawer -> classes', classes)
 
   return (
-    <div>
-      AppDrawer
-      {/* <SwipeableDrawer
-        onClose={_handleToggleDrawer}
-        onOpen={_handleToggleDrawer}
-        open={drawerOpen}
+    <SwipeableDrawer
+        onClose={props.onToggleDrawer}
+        onOpen={props.onToggleDrawer}
+        open={props.drawerOpen}
         classes={{
           paper: classes.paper
         }}
@@ -70,46 +88,40 @@ export default function AppDrawer() {
         <div className={classes.toolbarIe11}>
           <div className={classes.toolbar}>
             <Link className={classes.title} href='/' variant="h6" color="inherit">
-              Material-UI
+              Krowdy-UI
             </Link>
-            {
-              pkg.version ? (
-                <Typography
-                // onClick={onClose}
-                // href="https://material-ui.com/versions/"
-                  color="textSecondary"
-                  variant="caption"
-                >
-                  {`v${pkg.version}`}
-                </Typography>
-              ) : null
-            }
+            <Typography
+            // onClick={onClose}
+            // href="https://material-ui.com/versions/"
+              color="textSecondary"
+              variant="caption"
+            >v0.0.1</Typography>
           </div>
         </div>
         <Divider />
-        <List>
+        {
+          renderListItems(pages)
+        }
+        {/* <List>
           {
             pages.map(({label, routes = []}, key) =>(
-              <React.Fragment key={`path-${key}`}>
-                <ListItem disableGutters className={classes.itemLeaf}>
-                  <Button>{label}</Button>
-                  <Collapse in={true} unmountOnExit>
-                    <List disablePadding>
-                      {
-                        routes.map((route, keyRoute)=> (
-                          <ListItem disableGutters className={classes.itemLeaf} button key={`route-${key}-${keyRoute}`}>
-                            <Button>{route.label}</Button>
-                          </ListItem>
-                        ))
-                      }
-                    </List>
-                  </Collapse>
-                </ListItem>
-              </React.Fragment>
+              <ListItem disableGutters key={`path-${key}`} className={classes.itemLeaf}>
+                <Button>{label}</Button>
+                <Collapse in={true} unmountOnExit>
+                  <List disablePadding>
+                    {
+                      routes.map((route, keyRoute)=> (
+                        <ListItem disableGutters className={classes.itemLeaf} button key={`route-${key}-${keyRoute}`}>
+                          <Button>{route.label}</Button>
+                        </ListItem>
+                      ))
+                    }
+                  </List>
+                </Collapse>
+              </ListItem>
             ))
           }
-        </List>
-      </SwipeableDrawer> */}
-    </div>
+        </List> */}
+      </SwipeableDrawer>
   )
 }
