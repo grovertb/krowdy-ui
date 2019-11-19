@@ -1,6 +1,5 @@
 import React from 'react'
 
-import { Theme } from '@material-ui/core'
 import { makeStyles } from '@krowdy-ui/styles'
 
 import { 
@@ -9,6 +8,7 @@ import {
   Divider,
   Link,
   List,
+  Theme,
   // ListItem,
   Typography,
   // Button
