@@ -6,5 +6,15 @@ export default {
     secondary: blueSecondary,
     krowdy,
     grey
-  }
+  },
+  // overrides: {
+  //   MuiButton: {
+  //     contained: {
+  //       '&:hover, &:active': {
+  //         boxShadow: 'none'
+  //       },
+  //       boxShadow: 'none'
+  //     }
+  //   }
+  // }
 }

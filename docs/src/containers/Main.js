@@ -1,6 +1,6 @@
 import React from 'react'
 import { ThemeProvider } from '@krowdy-ui/styles'
-import { CssBaseline, createMuiTheme, krowdyTheme } from '@krowdy-ui/core'
+import { CssBaseline, createMuiTheme, krowdyTheme, Container } from '@krowdy-ui/core'
 
 import Header from '../components/Header'
 
@@ -9,7 +9,9 @@ export default function Main(props) {
     <ThemeProvider theme={createMuiTheme(krowdyTheme)}>
       <CssBaseline />
       <Header />
-      {props.children}
+      <Container>
+        {props.children}
+      </Container>
     </ThemeProvider>
   )
 }

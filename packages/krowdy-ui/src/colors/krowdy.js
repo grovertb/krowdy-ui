@@ -10,4 +10,8 @@ export default {
   800: '#8C3D00',
   900: '#662900',
   A14: '#FF8B0814',
+  contrastText: '#fff',
+  light: '#FFA530',
+  main: '#FF8B08',
+  dark: '#D96C00',
 }

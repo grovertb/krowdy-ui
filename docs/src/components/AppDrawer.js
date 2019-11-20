@@ -13,7 +13,7 @@ import {
   Button
 } from '@krowdy-ui/core'
 
-import pages from '../../routes/pages'
+import pages from '../routes/pages'
 
 const useStylesDrawer = makeStyles({
   itemContent: {

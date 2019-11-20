@@ -12,6 +12,15 @@ module.exports = override(
 
     config.module.rules[2].oneOf[1].include = [config.module.rules[2].oneOf[1].include, pathPackages]
     
+    config.module.rules = [
+      ...config.module.rules, 
+      {
+        test: /\.md$/,
+        use: 'raw-loader'
+        // use: 'file-loader'
+      }
+    ]
+
     return config
   },
   addWebpackAlias({
