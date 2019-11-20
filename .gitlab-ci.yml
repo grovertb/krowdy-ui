@@ -1,8 +1,8 @@
 deploy to dev:
   image: ubuntu:latest
   script: 
-    - apt-get update -y
-    - apt-get install sudo curl tzdata awscli git wget gnupg -y
+    - DEBIAN_FRONTEND=noninteractive apt-get update -y
+    - DEBIAN_FRONTEND=noninteractive apt-get install sudo curl tzdata awscli git wget gnupg -y
     - sudo dpkg-reconfigure --frontend noninteractive tzdata
     - echo "Australia/Adelaide" | sudo tee /etc/timezone
     - curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
