@@ -32,11 +32,7 @@
   },
   "peerDependencies": {},
   "dependencies": {
-    "@babel/runtime": "^7.6.3",
-    "@material-ui/styles": "^4.5.1",
-    "clsx": "^1.0.4",
-    "convert-css-length": "^2.0.1",
-    "prop-types": "^15.7.2"
+    "@material-ui/styles": "^4.5.1"
   },
   "sideEffects": false,
   "publishConfig": {
