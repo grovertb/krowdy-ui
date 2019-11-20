@@ -12,7 +12,7 @@ deploy to dev:
     - echo "Recovering .env"
     - yarn docs:build
     - aws configure set preview.cloudfront true
-    - aws s3 cp ./docs/build/ s3://${S3_BUCKET_NAME_BUILD}/ --recursive --acl public-read
+    - aws s3 cp ./docs/build/ s3://${S3_BUCKET_NAME_BUILD}/ --recursive
     - aws cloudfront create-invalidation --distribution-id ${DISTRIBUTION_ID_BUILD} --paths '/*'
   only:
     - /^[0-9]+(?:.[0-9]+)+-dev$/
