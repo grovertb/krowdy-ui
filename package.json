@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "docs:dev": "yarn workspace docs dev",
+    "docs:build": "yarn workspace docs build",
     "lint": "eslint . --cache --report-unused-disable-directives"
   },
   "devDependencies": {
