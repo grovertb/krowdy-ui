@@ -18,13 +18,11 @@ export default function Header() {
 
   return (
     <Fragment>
-      <AppBar position='static' color='secondary'>
+      <AppBar position='static' color='primary'>
         <Toolbar >
           <IconButton
               edge="start"
               color="inherit"
-              // aria-label={t('openDrawer')}
-              // className={navIconClassName}
               onClick={_handleToggleDrawer}
             >
               <MenuIcon />

@@ -8,23 +8,12 @@ import {
   Divider,
   Link,
   List,
-  Theme,
   ListItem,
   Typography,
   Button
 } from '@krowdy-ui/core'
 
-import pages, { Page } from '../../routes/pages'
-
-interface Props {
-  onToggleDrawer: React.ReactEventHandler<{}>;
-  drawerOpen: boolean
-}
-
-interface ListItemProps {
-  page: Page;
-  depth: number;
-}
+import pages from '../../routes/pages'
 
 const useStylesDrawer = makeStyles({
   itemContent: {
@@ -49,7 +38,7 @@ const useStylesDrawer = makeStyles({
   }
 })
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles(theme => ({
   paper: {
     width: 240,
     // backgroundColor: theme.shadows[1],
@@ -76,7 +65,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-function DrawerListItem({ page, depth }: ListItemProps) {
+function DrawerListItem({ page, depth }) {
   const classes = useStylesDrawer({depth: 8 * (3 + 2 * depth)})
   const [ openCollapse, setOpenCollapse ] = React.useState(false)
   const { routes, title, path } = page 
@@ -111,7 +100,7 @@ function DrawerListItem({ page, depth }: ListItemProps) {
   }
 }
 
-const renderDrawerList = (routes: Array<Page>, depth: number) => (
+const renderDrawerList = (routes, depth) => (
   <List>
     {
       routes.map((route, index) => <DrawerListItem key={`listItem-${index}`} page={route} depth={depth} />)
@@ -120,7 +109,7 @@ const renderDrawerList = (routes: Array<Page>, depth: number) => (
 )
 
 
-export default function AppDrawer(props: Props) {
+export default function AppDrawer(props) {
   const classes = useStyles()
 
   return (

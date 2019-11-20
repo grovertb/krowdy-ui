@@ -1,5 +1,6 @@
 export interface Page {
-  title: string; 
+  title: string;
+  path?: string;
   routes?: Array<Page>;
 }
 
@@ -45,16 +46,20 @@ const pages: Array<Page> = [
         title: 'Inputs',
         routes: [
           {
-            title: 'Buttons'
+            title: 'Buttons',
+            path: '/components/buttons'
           },
           {
-            title: 'Checkboxes'
+            title: 'Checkboxes',
+            path: '/components/checkboxes'
           },
           {
-            title: 'Date / Time'
+            title: 'Date / Time',
+            path: '/components/pickers'
           },
           {
-            title: 'Radio Buttons'
+            title: 'Radio Buttons',
+            path: '/components/radio-buttons'
           },
           {
             title: 'Selects'

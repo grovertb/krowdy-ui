@@ -121,4 +121,5 @@ export {
   useTheme,
   withStyles,
   withTheme,
+  krowdyTheme
 } from './styles';

@@ -119,15 +119,34 @@ export {
   StyleRulesCallback,
   StylesProvider,
   Theme,
+  ThemeProvider,
   useTheme,
   withStyles,
   WithStyles,
   withTheme,
   WithTheme,
+  krowdyTheme
 } from './styles'
 
 export namespace PropTypes {
   type Alignment = 'inherit' | 'left' | 'center' | 'right' | 'justify';
   type Color = 'inherit' | 'primary' | 'secondary' | 'default' | 'krowdy' | 'danger'; 
   type Margin = 'none' | 'dense' | 'normal';
+}
+
+export interface Color {
+  50: string;
+  100: string;
+  200: string;
+  300: string;
+  400: string;
+  500: string;
+  600: string;
+  700: string;
+  800: string;
+  900: string;
+  A100: string;
+  A200: string;
+  A400: string;
+  A700: string;
 }
