@@ -1,0 +1,18 @@
+deploy to dev:
+  image: ubuntu:latest
+  script: 
+    - apt-get update -y
+    - apt-get install sudo curl tzdata awscli git wget gnupg -y
+    - sudo dpkg-reconfigure --frontend noninteractive tzdata
+    - echo "Australia/Adelaide" | sudo tee /etc/timezone
+    - curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+    - apt-get install -y nodejs
+    - npm install -g yarn
+    - yarn
+    - echo "Recovering .env"
+    - yarn build
+    - aws configure set preview.cloudfront true
+    - aws s3 cp ./build/ s3://${S3_BUCKET_NAME_BUILD}/ --recursive --acl public-read
+    - aws cloudfront create-invalidation --distribution-id ${DISTRIBUTION_ID_BUILD} --paths '/*'
+  only:
+    - /^[0-9]+(?:.[0-9]+)+-dev$/
