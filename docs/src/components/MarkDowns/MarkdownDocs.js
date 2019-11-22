@@ -9,10 +9,12 @@ export default function MarkdownDocs(props) {
     req,
     reqPrefix,
     reqSource,
+    markdown: markdownProp,
     markdownLocation: markdownLocationProp,
   } = props;
 
-  let demos, markdown
+  let demos
+  let markdown = markdownProp;
 
   if (req) {
     demos = {};

@@ -6,11 +6,11 @@ import {
   Route,
 } from 'react-router-dom';
 
-import pages from './pages'
+import pages, { apiRoutes } from './pages'
 import Main from '../containers/Main'
 import Home from '../containers/Home'
 
-const RouteComponent = loadable(props => import(`../pages${props.path}`))
+const PageComponent = loadable(props => import(`../pages${props.path}`))
 
 function getPaths(routes) {
   return [].concat(...routes.map(page => {
@@ -25,8 +25,18 @@ export default () => {
         <Switch>
           {
             getPaths(pages).map((path, index) =>
-              <Route key={`path-${index}`} component={() => <RouteComponent path={path} />} path={path} />
+              <Route key={`page-${index}`} component={() => <PageComponent path={path} />} path={path} />
             )
+          }
+          {
+            apiRoutes.map((path, index) => {
+              return (
+                <Route 
+                key={`api-${index}`} 
+                component={() => <PageComponent path={path} />} 
+                path={path} />
+              )
+            })
           }
           <Route component={Home} path='/' />
         </Switch>

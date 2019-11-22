@@ -106,4 +106,8 @@ const pages: Array<Page> = [
   // }
 ]
 
+export const apiRoutes = [
+  '/api/button'
+]
+
 export default pages

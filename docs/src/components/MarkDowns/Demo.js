@@ -273,31 +273,35 @@ export default function Demo(props) {
               title={showCodeLabel}
               placement="top"
             >
-              <IconButton
-                aria-label={showCodeLabel}
-                data-ga-event-category={gaCategory}
-                data-ga-event-action="expand"
-                onClick={_handleClickCodeOpen}
-                color={demoHovered ? 'primary' : 'default'}
-              >
-                <CodeIcon fontSize="small" />
-              </IconButton>
+              <React.Fragment>
+                <IconButton
+                  aria-label={showCodeLabel}
+                  data-ga-event-category={gaCategory}
+                  data-ga-event-action="expand"
+                  onClick={_handleClickCodeOpen}
+                  color={demoHovered ? 'primary' : 'default'}
+                >
+                  <CodeIcon fontSize="small" />
+                </IconButton>
+              </React.Fragment>
             </Tooltip>
             <Tooltip
               classes={{ popper: classes.tooltip }}
               title={t('viewGitHub')}
               placement="top"
             >
-              <IconButton
-                aria-label={t('viewGitHub')}
-                data-ga-event-category={gaCategory}
-                data-ga-event-action="github"
-                href={demoData.githubLocation}
-                target="_blank"
-                rel="noopener nofollow"
-              >
-                <GitHubIcon fontSize="small" />
-              </IconButton>
+              <React.Fragment>
+                <IconButton
+                  aria-label={t('viewGitHub')}
+                  data-ga-event-category={gaCategory}
+                  data-ga-event-action="github"
+                  href={demoData.githubLocation}
+                  target="_blank"
+                  rel="noopener nofollow"
+                >
+                  <GitHubIcon fontSize="small" />
+                </IconButton>
+              </React.Fragment>
             </Tooltip>
             {
               demoOptions.hideEditButton ?
@@ -308,14 +312,16 @@ export default function Demo(props) {
                     title={t('codesandbox')}
                     placement="top"
                   >
+                    <React.Fragment>
                     <IconButton
-                      aria-label={t('codesandbox')}
-                      data-ga-event-category={gaCategory}
-                      data-ga-event-action="codesandbox"
-                      onClick={_handleClickCodeSandbox}
-                    >
-                      <EditIcon fontSize="small" />
-                    </IconButton>
+                        aria-label={t('codesandbox')}
+                        data-ga-event-category={gaCategory}
+                        data-ga-event-action="codesandbox"
+                        onClick={_handleClickCodeSandbox}
+                      >
+                        <EditIcon fontSize="small" />
+                      </IconButton>
+                    </React.Fragment>
                   </Tooltip>
                 )
             }

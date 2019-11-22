@@ -31,6 +31,7 @@ export default function useMarkdownDocsContents(options) {
         }/${component.toLowerCase()})`,
     )
     .join('\n')
+
     contents.push(`
 ## API
 

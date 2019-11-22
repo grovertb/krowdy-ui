@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@krowdy-ui/core": "0.0.4-next",
+    "@krowdy-ui/core": "0.0.5-next",
     "@krowdy-ui/icons": "^0.0.2",
     "@krowdy-ui/styles": "0.0.2-next",
     "@loadable/component": "^5.10.3",

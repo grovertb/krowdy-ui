@@ -3,7 +3,7 @@ import { makeStyles } from '@krowdy-ui/styles';
 import Fade from '@krowdy-ui/core/Fade';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
-// import { JavaScript as JavaScriptIcon, TypeScript as TypeScriptIcon } from '@material-ui/docs';
+import { Javascript as JavaScriptIcon, TypeScript as TypeScriptIcon } from 'components/Icons'
 import { CODE_VARIANTS, t } from './utils';
 
 const useStyles = makeStyles({
@@ -42,7 +42,7 @@ function DemoLanguages(props) {
           data-ga-event-category={gaEventCategory}
           data-ga-event-action="source-js"
         >
-          JS {/* <JavaScriptIcon /> */}
+          <JavaScriptIcon />
         </ToggleButton>
         <ToggleButton
           className={classes.toggleButton}
@@ -52,7 +52,7 @@ function DemoLanguages(props) {
           data-ga-event-category={gaEventCategory}
           data-ga-event-action="source-ts"
         >
-          TS {/* <TypeScriptIcon /> */}
+          <TypeScriptIcon />
         </ToggleButton>
       </ToggleButtonGroup>
     </Fade>
