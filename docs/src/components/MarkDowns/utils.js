@@ -7,7 +7,7 @@ const headerKeyValueRegExp = /(.*): (.*)/g;
 const emptyRegExp = /^\s*$/;
 
 export const demoRegexp = /^"demo": "(.*)"/;
-export const SOURCE_CODE_ROOT_URL = 'https://github.com/mui-org/material-ui/blob/master/docs/src';
+export const SOURCE_CODE_ROOT_URL = 'https://github.com/grovertb/krowdy-ui/blob/dev/docs/src';
 export const CODE_VARIANTS = {
   JS: 'JS',
   TS: 'TS',
@@ -346,10 +346,10 @@ export function getDependencies(raw, options = {}) {
   const versions = {
     'react-dom': reactVersion,
     react: reactVersion,
-    '@material-ui/core': 'latest',
-    '@material-ui/icons': 'latest',
+    '@krowdy-ui/core': 'latest',
+    '@krowdy-ui/icons': 'latest',
     '@material-ui/lab': 'latest',
-    '@material-ui/styles': 'latest',
+    '@krowdy-ui/styles': 'latest',
     '@material-ui/system': 'latest',
     '@material-ui/utils': 'latest',
     'date-fns': 'next',

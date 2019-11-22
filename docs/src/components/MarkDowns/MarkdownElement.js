@@ -1,6 +1,6 @@
 import React from 'react'
 import marked from 'marked'
-import { makeStyles } from '@material-ui/styles'
+import { makeStyles } from '@krowdy-ui/styles'
 import clsx from 'clsx'
 import prism from './prism';
 

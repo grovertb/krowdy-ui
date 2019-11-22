@@ -16,7 +16,8 @@ export {
   StyleRulesCallback,
   Theme,
   WithStyles,
-  WithTheme
+  WithTheme,
+  fade
 } from '@material-ui/core/styles'
 
 export { default as krowdyTheme } from './krowdyTheme'
