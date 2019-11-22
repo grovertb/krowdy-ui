@@ -10,7 +10,7 @@ import pages from './pages'
 import Main from '../containers/Main'
 import Home from '../containers/Home'
 
-const RouteComponent = loadable(props => import(`../containers${props.path}`))
+const RouteComponent = loadable(props => import(`../pages${props.path}`))
 
 function getPaths(routes) {
   return [].concat(...routes.map(page => {
