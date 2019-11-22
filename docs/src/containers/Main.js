@@ -9,7 +9,7 @@ export default function Main(props) {
     <ThemeProvider theme={createMuiTheme(krowdyTheme)}>
       <CssBaseline />
       <Header />
-      <Container>
+      <Container component='main'>
         {props.children}
       </Container>
     </ThemeProvider>

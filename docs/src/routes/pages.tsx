@@ -5,43 +5,43 @@ export interface Page {
 }
 
 const pages: Array<Page> = [
-  {
-    title: 'Getting Started',
-    routes: [
-      {
-        title: 'Installation'
-      },
-      {
-        title: 'Usage'
-      },
-      {
-        title: 'Example Projects'
-      }
-    ]
-  },
+  // {
+  //   title: 'Getting Started',
+  //   routes: [
+  //     {
+  //       title: 'Installation'
+  //     },
+  //     {
+  //       title: 'Usage'
+  //     },
+  //     {
+  //       title: 'Example Projects'
+  //     }
+  //   ]
+  // },
   {
     title: 'Components',
     routes: [
-      {
-        title: 'Layout',
-        routes: [
-          {
-            title: 'Box'
-          },
-          {
-            title: 'Container'
-          },
-          {
-            title: 'Grid'
-          },
-          {
-            title: 'Grid List'
-          },
-          {
-            title: 'Hidden'
-          }
-        ]
-      },
+      // {
+      //   title: 'Layout',
+      //   routes: [
+      //     {
+      //       title: 'Box'
+      //     },
+      //     {
+      //       title: 'Container'
+      //     },
+      //     {
+      //       title: 'Grid'
+      //     },
+      //     {
+      //       title: 'Grid List'
+      //     },
+      //     {
+      //       title: 'Hidden'
+      //     }
+      //   ]
+      // },
       {
         title: 'Inputs',
         routes: [
@@ -49,30 +49,30 @@ const pages: Array<Page> = [
             title: 'Buttons',
             path: '/components/buttons'
           },
-          {
-            title: 'Checkboxes',
-            path: '/components/checkboxes'
-          },
-          {
-            title: 'Date / Time',
-            path: '/components/pickers'
-          },
-          {
-            title: 'Radio Buttons',
-            path: '/components/radio-buttons'
-          },
-          {
-            title: 'Selects'
-          },
-          {
-            title: 'Slider'
-          },
-          {
-            title: 'Switches'
-          },
-          {
-            title: 'Text Fields'
-          }
+          // {
+          //   title: 'Checkboxes',
+          //   path: '/components/checkboxes'
+          // },
+          // {
+          //   title: 'Date / Time',
+          //   path: '/components/pickers'
+          // },
+          // {
+          //   title: 'Radio Buttons',
+          //   path: '/components/radio-buttons'
+          // },
+          // {
+          //   title: 'Selects'
+          // },
+          // {
+          //   title: 'Slider'
+          // },
+          // {
+          //   title: 'Switches'
+          // },
+          // {
+          //   title: 'Text Fields'
+          // }
         ]
       },
       // {
@@ -95,6 +95,15 @@ const pages: Array<Page> = [
       // }
     ]
   },
+  {
+    title: 'Component API',
+    routes: [
+      {
+        title: 'Button',
+        path: '/api/button'
+      }
+    ]
+  }
   // {
   //   title: 'Styles'
   // },

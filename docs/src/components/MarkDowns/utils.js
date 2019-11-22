@@ -69,7 +69,7 @@ const translations = {
   "strapline": "React components for faster and easier web development. Build your own design system, or start with Material Design.",
   "getStarted": "Get Started",
   "installation": "Installation",
-  "installDescr": "Install Material-UI's source files via npm. We take care of injecting the CSS needed.",
+  "installDescr": "Install Krowdy-UI's source files via npm. We take care of injecting the CSS needed.",
   "cdn": "or use a CDN.",
   "loadFont": "Load the default Roboto font.",
   "installButton": "Read installation docs",

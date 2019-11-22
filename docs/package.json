@@ -22,6 +22,7 @@
     "react": "^16.11.0",
     "react-app-rewired": "^2.1.4",
     "react-dom": "^16.11.0",
+    "react-github-btn": "^1.1.1",
     "react-markdown": "^4.2.2",
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
