@@ -106,7 +106,7 @@ function Home() {
         <GitHubButton 
           href="https://github.com/grovertb/krowdy-ui" 
           data-icon="octicon-star" 
-          data-show-count="true" 
+          data-show-count="true"
           aria-label="Star grovertb/krowdy-ui on GitHub">
           Star
         </GitHubButton>

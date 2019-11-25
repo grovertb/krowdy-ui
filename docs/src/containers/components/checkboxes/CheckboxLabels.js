@@ -29,9 +29,11 @@ export default function CheckboxLabels() {
     checkedB: true,
     checkedF: true,
     checkedG: true,
+    checkedKrowdy: true,
+    checkedDanger: true,
   });
 
-  const handleChange = name => event => {
+  const _handleChange = name => event => {
     setState({ ...state, [name]: event.target.checked });
   };
 
@@ -39,7 +41,7 @@ export default function CheckboxLabels() {
     <FormGroup row>
       <FormControlLabel
         control={
-          <Checkbox checked={state.checkedA} onChange={handleChange('checkedA')} value="checkedA" />
+          <Checkbox checked={state.checkedA} onChange={_handleChange('checkedA')} value="checkedA" />
         }
         label="Secondary"
       />
@@ -47,13 +49,31 @@ export default function CheckboxLabels() {
         control={
           <Checkbox
             checked={state.checkedB}
-            onChange={handleChange('checkedB')}
+            onChange={_handleChange('checkedB')}
             value="checkedB"
             color="primary"
           />
         }
         label="Primary"
       />
+      <FormControlLabel 
+        control={
+          <Checkbox 
+            checked={state.checkedKrowdy}
+            onChange={_handleChange('checkedKrowdy')}
+            value="checkedKrowdy"
+            color='krowdy' />
+        } 
+        label="Krowdy" />
+      <FormControlLabel 
+        control={
+          <Checkbox
+            checked={state.checkedDanger}
+            onChange={_handleChange('checkedDanger')}
+            value="checkedDanger"
+            color='danger' />
+        } 
+        label="Danger" />
       <FormControlLabel control={<Checkbox value="checkedC" />} label="Uncontrolled" />
       <FormControlLabel disabled control={<Checkbox value="checkedD" />} label="Disabled" />
       <FormControlLabel disabled control={<Checkbox checked value="checkedE" />} label="Disabled" />
@@ -61,7 +81,7 @@ export default function CheckboxLabels() {
         control={
           <Checkbox
             checked={state.checkedF}
-            onChange={handleChange('checkedF')}
+            onChange={_handleChange('checkedF')}
             value="checkedF"
             indeterminate
           />
@@ -72,7 +92,7 @@ export default function CheckboxLabels() {
         control={
           <GreenCheckbox
             checked={state.checkedG}
-            onChange={handleChange('checkedG')}
+            onChange={_handleChange('checkedG')}
             value="checkedG"
           />
         }

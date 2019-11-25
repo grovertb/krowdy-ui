@@ -18,7 +18,7 @@ export default function Header() {
 
   return (
     <Fragment>
-      <AppBar position='static' color='primary'>
+      <AppBar position='static' color='primary' elevation={0}>
         <Toolbar >
           <IconButton
               edge="start"

@@ -101,6 +101,10 @@ const pages: Array<Page> = [
       {
         title: 'Button',
         path: '/api/button'
+      },
+      {
+        title: 'Checkbox',
+        path: '/api/checkbox'
       }
     ]
   }

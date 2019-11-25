@@ -10,6 +10,7 @@ import pages, { apiRoutes } from './pages'
 
 import Main from '../containers/Main'
 import Home from '../containers/Home'
+import { Container } from '@krowdy-ui/core';
 
 const PageComponent = loadable(props => import(`../pages${props.path}`))
 
@@ -26,7 +27,10 @@ export default () => {
         <Switch>
           {
             getPaths(pages).map((path, index) =>
-              <Route key={`page-${index}`} component={() => <PageComponent path={path} />} path={path} />
+              <Route 
+                key={`page-${index}`} 
+                component={() => <Container maxWidth='lg' ><PageComponent path={path} /></Container>} 
+                path={path} />
             )
           }
           {
@@ -34,7 +38,7 @@ export default () => {
               return (
                 <Route 
                 key={`api-${index}`} 
-                component={() => <PageComponent path={path} />} 
+                component={() => <Container maxWidth='lg' ><PageComponent path={path} /></Container>} 
                 path={path} />
               )
             })

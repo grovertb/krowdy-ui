@@ -1,5 +1,5 @@
 export default {
-  50: '#FFFFFF',
+  50: '#fafafa',
   100: '#F5F5F5',
   200: '#EFEFEF',
   300: '#E8E8E8',

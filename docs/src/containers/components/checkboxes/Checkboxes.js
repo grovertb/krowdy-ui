@@ -5,7 +5,9 @@ export default function Checkboxes() {
   const [state, setState] = React.useState({
     checkedA: true,
     checkedB: true,
-    checkedF: true,
+    checkedC: true,
+    checkedD: true,
+    checkedH: true,
   });
 
   const _handleChange = name => ev => {
@@ -32,14 +34,32 @@ export default function Checkboxes() {
         }}
       />
       <Checkbox
+        checked={state.checkedC}
+        onChange={_handleChange('checkedC')}
         value="checkedC"
+        color='krowdy'
+        inputProps={{
+          'aria-label': 'krowdy checkbox',
+        }}
+      />
+      <Checkbox
+        checked={state.checkedD}
+        onChange={_handleChange('checkedD')}
+        value="checkedD"
+        color="danger"
+        inputProps={{
+          'aria-label': 'danger checkbox',
+        }}
+      />
+      <Checkbox
+        value="checkedE"
         inputProps={{
           'aria-label': 'uncontrolled-checkbox',
         }}
       />
       <Checkbox
         disabled
-        value="checkedD"
+        value="checkedF"
         inputProps={{
           'aria-label': 'disabled checkbox',
         }}
@@ -47,15 +67,15 @@ export default function Checkboxes() {
       <Checkbox
         disabled
         checked
-        value="checkedE"
+        value="checkedG"
         inputProps={{
           'aria-label': 'disabled checked checkbox',
         }}
       />
       <Checkbox
-        checked={state.checkedF}
-        onChange={_handleChange('checkedF')}
-        value="checkedF"
+        checked={state.checkedH}
+        onChange={_handleChange('checkedH')}
+        value="checkedH"
         indeterminate
         inputProps={{
           'aria-label': 'indeterminate checkbox',
@@ -64,7 +84,7 @@ export default function Checkboxes() {
       <Checkbox
         defaultChecked
         color="default"
-        value="checkedG"
+        value="checkedI"
         inputProps={{
           'aria-label': 'checkbox with default color',
         }}

@@ -2,13 +2,14 @@ import React from 'react'
 import clsx from 'clsx'
 import { Grid, Typography, Link } from '@krowdy-ui/core'
 import { makeStyles } from '@krowdy-ui/styles'
+import BuildIcon from '@krowdy-ui/icons/Build';
 import { t } from '../MarkDowns/utils'
 import { FileDownload as FileDownloadIcon } from '../Icons'
 import MarkdownElement from '../MarkDowns/MarkdownElement'
 
 const useStyles = makeStyles(theme => ({
   step: {
-    border: `12px solid ${theme.palette.background.level1}`,
+    border: `12px solid ${theme.palette.grey[50]}`,
     padding: theme.spacing(3, 2),
     backgroundColor: theme.palette.background.level2,
     borderRightWidth: 0,
@@ -71,14 +72,14 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     height: 'auto',
   },
-}))
+}), { name: 'Steps' })
 
 export default function Steps () {
   const classes = useStyles()
 
   return (
     <Grid container>
-      <Grid item xs={12} md={4} className={clsx(classes.step, classes.leftStep)}>
+      <Grid item xs={12} md={6} className={clsx(classes.step, classes.leftStep)}>
         <div className={classes.stepTitle}>
           <FileDownloadIcon className={classes.stepIcon} />
           <Typography variant="h6" component="h3">
@@ -122,7 +123,7 @@ export default function Steps () {
         {/* <Divider className={classes.divider} /> */}
         {/* <Button component={InstallationLink}>{t('installButton')}</Button> */}
       </Grid>
-      {/* <Grid item xs={12} md={4} className={classes.step}>
+      <Grid item xs={12} md={6} className={classes.step}>
         <div className={classes.stepTitle}>
           <BuildIcon className={classes.stepIcon} />
           <Typography variant="h6" component="h3">
@@ -138,10 +139,10 @@ export default function Steps () {
             text={`
   \`\`\`jsx
   import React from 'react';
-  import Button from '@material-ui/core/Button';
+  import Button from '@krowdy-ui/core/Button';
 
   const App = () => (
-    <Button variant="contained" color="primary">
+    <Button variant="contained" color="krowdy">
       Hello World
     </Button>
   );
@@ -149,9 +150,9 @@ export default function Steps () {
                 `}
           />
         </div>
-        <Divider className={classes.divider} />
-        <Button component={UsageLink}>{t('usageButton')}</Button>
-      </Grid> */}
+        {/* <Divider className={classes.divider} />
+        <Button component={UsageLink}>{t('usageButton')}</Button> */}
+      </Grid>
       {/* <Grid item xs={12} md={4} className={clsx(classes.step, classes.rightStep)}>
         <div className={classes.stepTitle}>
           <WhatshotIcon className={classes.stepIcon} />
