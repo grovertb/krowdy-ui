@@ -5,20 +5,22 @@ export interface Page {
 }
 
 const pages: Array<Page> = [
-  // {
-  //   title: 'Getting Started',
-  //   routes: [
-  //     {
-  //       title: 'Installation'
-  //     },
-  //     {
-  //       title: 'Usage'
-  //     },
-  //     {
-  //       title: 'Example Projects'
-  //     }
-  //   ]
-  // },
+  {
+    title: 'Getting Started',
+    routes: [
+      {
+        title: 'Installation',
+        path: '/getting-started/installation'
+      },
+      {
+        title: 'Usage',
+        path: '/getting-started/usage'
+      },
+      // {
+      //   title: 'Example Projects'
+      // }
+    ]
+  },
   {
     title: 'Components',
     routes: [
