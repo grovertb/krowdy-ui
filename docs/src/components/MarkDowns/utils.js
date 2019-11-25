@@ -74,7 +74,7 @@ const translations = {
   "loadFont": "Load the default Roboto font.",
   "installButton": "Read installation docs",
   "usage": "Usage",
-  "usageDescr": "Material-UI components work without any additional setup, and don't pollute the global scope.",
+  "usageDescr": "Krowdy-UI components work without any additional setup, and don't pollute the global scope.",
   "usageButton": "Explore the docs",
   "themes": "Premium themes",
   "themesDescr": "Take Material-UI to the next level with premium themes from our official marketplace – all built on Material-UI.",
