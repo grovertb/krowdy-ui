@@ -49,10 +49,10 @@ const pages: Array<Page> = [
             title: 'Buttons',
             path: '/components/buttons'
           },
-          // {
-          //   title: 'Checkboxes',
-          //   path: '/components/checkboxes'
-          // },
+          {
+            title: 'Checkboxes',
+            path: '/components/checkboxes'
+          },
           // {
           //   title: 'Date / Time',
           //   path: '/components/pickers'
