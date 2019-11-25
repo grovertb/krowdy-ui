@@ -1,7 +1,5 @@
 import React from 'react'
-
 import { makeStyles } from '@krowdy-ui/styles'
-
 import { 
   SwipeableDrawer,
   Collapse,
@@ -10,10 +8,14 @@ import {
   List,
   ListItem,
   Typography,
-  Button
+  Button,
+  Hidden,
+  Drawer
 } from '@krowdy-ui/core'
 
 import pages from '../routes/pages'
+import { t } from './MarkDowns/utils'
+import clsx from 'clsx'
 
 const useStylesDrawer = makeStyles({
   itemContent: {
@@ -39,6 +41,10 @@ const useStylesDrawer = makeStyles({
 })
 
 const useStyles = makeStyles(theme => ({
+  drawer: {
+    width: 240,
+    flexShrink: 0
+  },
   paper: {
     width: 240,
     // backgroundColor: theme.shadows[1],
@@ -112,32 +118,91 @@ const renderDrawerList = (routes, depth) => (
 export default function AppDrawer(props) {
   const classes = useStyles()
 
-  return (
-    <SwipeableDrawer
-        onClose={props.onToggleDrawer}
-        onOpen={props.onToggleDrawer}
-        open={props.drawerOpen}
-        classes={{
-          paper: classes.paper
-        }}
-      >
-        <div className={classes.toolbarIe11}>
-          <div className={classes.toolbar}>
-            <Link className={classes.title} href='/' variant="h6" color="inherit">
-              Krowdy-UI
-            </Link>
-            <Typography
-            // onClick={onClose}
-            // href="https://material-ui.com/versions/"
-              color="textSecondary"
-              variant="caption"
-            >v0.0.1</Typography>
-          </div>
+  const drawer = (
+    <React.Fragment>
+      <div className={classes.toolbarIe11}>
+        <div className={classes.toolbar}>
+          <Link className={classes.title} href='/' variant="h6" color="inherit">
+            Krowdy-UI
+          </Link>
+          <Typography
+          // onClick={onClose}
+          // href="https://material-ui.com/versions/"
+            color="textSecondary"
+            variant="caption"
+          >v0.0.1</Typography>
         </div>
-        <Divider />
-        {
-          renderDrawerList(pages, 0)
-        }
-      </SwipeableDrawer>
+      </div>
+      <Divider />
+      {
+        renderDrawerList(pages, 0)
+      }
+    </React.Fragment>
+  )
+  // return (
+  //   <nav>
+  //     <SwipeableDrawer
+  //       onClose={props.onToggleDrawer}
+  //       onOpen={props.onToggleDrawer}
+  //       open={props.drawerOpen}
+  //       classes={{
+  //         paper: classes.paper
+  //       }}
+  //     >
+  //       {drawer}
+  //     </SwipeableDrawer>
+  //   </nav>
+  // )
+
+  // const disablePermanent = false
+
+  return (
+    <nav 
+      className={classes.drawer} 
+      aria-label={t('mainNavigation')}>
+      <Hidden 
+        // lgUp={!disablePermanent} 
+        implementation="js">
+        <SwipeableDrawer
+          classes={{
+            paper: clsx(classes.paper, 'algolia-drawer'),
+          }}
+          // disableBackdropTransition={!iOS}
+          variant="temporary"
+          open={props.drawerOpen}
+          onOpen={props.onToggleDrawer}
+          onClose={props.onToggleDrawer}
+          ModalProps={{
+            keepMounted: true,
+          }}
+        >
+          {drawer}
+        </SwipeableDrawer>
+      </Hidden>
+      {/* {disablePermanent ? null : (
+        <Hidden mdDown implementation="css">
+          <Drawer
+            classes={{
+              paper: classes.paper,
+            }}
+            variant="permanent"
+            open
+          >
+            {drawer}
+          </Drawer>
+        </Hidden>
+      )} */}
+      <Hidden mdDown implementation="css">
+        <Drawer
+          classes={{
+            paper: classes.paper,
+          }}
+          variant="permanent"
+          open
+        >
+          {drawer}
+        </Drawer>
+      </Hidden>
+    </nav>
   )
 }

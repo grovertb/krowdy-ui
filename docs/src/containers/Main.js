@@ -1,10 +1,17 @@
 import React from 'react'
-import { ThemeProvider } from '@krowdy-ui/styles'
-import { CssBaseline, createMuiTheme, krowdyTheme/*, Container*/ } from '@krowdy-ui/core'
+import { useLocation } from 'react-router-dom'
+import { ThemeProvider, makeStyles } from '@krowdy-ui/styles'
+import { CssBaseline, createMuiTheme, krowdyTheme, Container } from '@krowdy-ui/core'
 
 import Header from '../components/Header'
 
-export default function Main(props) {
+const useStyles = makeStyles({
+  root: {
+    display: 'flex'
+  }
+})
+
+export default function Main({ children }) {
   const theme  = createMuiTheme({
     palette: {
       ...krowdyTheme.palette,
@@ -15,15 +22,23 @@ export default function Main(props) {
     }
   })
 
-  console.log("TCL: Main -> theme", theme)
-
+  const classes = useStyles()
+  const location = useLocation()
+  
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Header />
-      {/* <Container component='main'> */}
-        {props.children}
-      {/* </Container> */}
+      <div className={classes.root}>
+        <Header />
+        {
+          location.pathname === '/' ?
+            children :
+            <Container style={{marginTop: 96}} component='main' maxWidth='lg' >
+              {children}
+            </Container>
+
+        }
+      </div>
     </ThemeProvider>
   )
 }
