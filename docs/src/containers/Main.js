@@ -15,7 +15,7 @@ const useStyles = makeStyles({
   spaceDefault: {
     marginTop: 96
   }
-})
+}, { name: 'Main' })
 
 export default function Main({ children }) {
   const theme  = createMuiTheme({

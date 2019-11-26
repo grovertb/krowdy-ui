@@ -13,7 +13,7 @@ const useStyles = makeStyles({
   toggleButton: {
     height: 32,
   },
-});
+}, { name: 'DemoLanguages'});
 
 function DemoLanguages(props) {
   const { codeOpen, codeVariant, demo, gaEventCategory, onLanguageClick } = props;

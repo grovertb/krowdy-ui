@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => {
       },
     },
   })
-})
+}, { name: 'KrowdyIconButton'})
 
 function IconButton({ color = 'default', className: classNameProps, ...props}) {
   const classes = useStyles()

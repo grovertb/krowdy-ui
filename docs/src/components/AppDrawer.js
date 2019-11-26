@@ -39,7 +39,7 @@ const useStylesDrawer = makeStyles({
     justifyContent: 'flex-start',
     paddingLeft: ({depth}) => depth
   }
-})
+}, { name: 'DrawerListItem' })
 
 const useStyles = makeStyles(theme => ({
   drawer: {
