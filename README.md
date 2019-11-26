@@ -82,6 +82,10 @@ Check out our [documentation website](https://ui.krowdy.com).
 Recently Updated?
 Please read the [changelog](https://github.com/grovertb/krowdy-ui/releases).
 
+## Contributing
+
+Read our [contributing guide](/CONTRIBUTING.md) to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes to Krowdy-UI.
+
 ## License
 
 This project is licensed under the terms of the
