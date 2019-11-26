@@ -111,11 +111,7 @@ const useStyles = makeStyles(theme => {
   })
 }, {name: 'KrowdyButton'})
 
-function Button({
-  color = 'default',
-  variant = 'text',
-  ...props
-}) {
+const Button = React.forwardRef(function Button({ color = 'default', variant = 'text', ...props }, ref) {
 
   const { 
     children,
@@ -137,11 +133,11 @@ function Button({
   if(variant === 'krowdy') variant = 'text'
 
   return (
-    <MuiButton className={className} color={color} variant={variant} {...otherProps}>
+    <MuiButton ref={ref} className={className} color={color} variant={variant} {...otherProps}>
       {children}
     </MuiButton>
   );
-}
+})
 
 Button.propTypes = {
   /**

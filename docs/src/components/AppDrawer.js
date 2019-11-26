@@ -28,6 +28,7 @@ const useStylesDrawer = makeStyles({
     letterSpacing: 0,
     textTransform: 'none',
     justifyContent: 'flex-start',
+    fontWeight: 500,
     paddingLeft: ({depth}) => depth
   },
   itemTitleLink: {
@@ -133,7 +134,7 @@ export default function AppDrawer(props) {
           // href="https://material-ui.com/versions/"
             color="textSecondary"
             variant="caption"
-          >v0.0.1</Typography>
+          >v0.0.13</Typography>
         </div>
       </div>
       <Divider />

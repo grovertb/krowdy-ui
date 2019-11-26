@@ -2,6 +2,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "docs:api": "rimraf ./docs/src/pages/api && cross-env BABEL_ENV=test babel-node ./docs/scripts/buildApi.js ./packages/krowdy-ui/src ./docs/src/pages/api",
     "docs:dev": "yarn workspace docs dev",
     "docs:build": "yarn workspace docs build",
     "lint": "eslint . --cache --report-unused-disable-directives"
@@ -61,6 +62,7 @@
     "docs"
   ],
   "dependencies": {
+    "chai": "^4.2.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.5.0",
     "eslint-plugin-material-ui": "^1.0.1",
