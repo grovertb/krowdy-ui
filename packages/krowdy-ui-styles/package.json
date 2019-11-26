@@ -1,6 +1,6 @@
 {
   "name": "@krowdy-ui/styles",
-  "version": "0.0.2-next",
+  "version": "0.0.5",
   "private": false,
   "author": "Krowdy Team",
   "description": "React components that implement Google's Material Design.",
