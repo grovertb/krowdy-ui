@@ -9,7 +9,7 @@
 [React](https://reactjs.org/) components that implement [Google's Material Design](https://material.io/design/introduction/).
 
 [![npm package](https://img.shields.io/npm/v/@krowdy-ui/core/latest.svg?color=%231890ff&label=%40krowdy-ui%2Fcore@latest)](https://www.npmjs.com/package/@krowdy-ui/core)
-[![npm package](https://img.shields.io/npm/v/@krowdy-ui/core/next.svg?label=%40krowdy-ui%2Fcore@next)](https://www.npmjs.com/package/@krowdy-ui/core)
+[![npm package](https://img.shields.io/npm/v/@krowdy-ui/core/next.svg?label=%40krowdy-ui%2Fcore@next)](https://www.npmjs.com/package/@krowdy-ui/core/v/next)
 [![npm downloads](https://img.shields.io/npm/dm/@krowdy-ui/core.svg)](https://www.npmjs.com/package/@krowdy-ui/core)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/3444/badge)](https://bestpractices.coreinfrastructure.org/projects/3444)
 ![Code style](https://img.shields.io/badge/code_style-eslint-4b32c3.svg)
