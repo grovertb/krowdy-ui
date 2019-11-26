@@ -7,14 +7,12 @@ export default {
     krowdy,
     grey
   },
-  // overrides: {
-  //   MuiButton: {
-  //     contained: {
-  //       '&:hover, &:active': {
-  //         boxShadow: 'none'
-  //       },
-  //       boxShadow: 'none'
-  //     }
-  //   }
-  // }
+  overrides: {
+    MuiButton: {
+      root: {
+        textTransform : 'initial',
+        fontWeight: 400
+      }
+    }
+  }
 }

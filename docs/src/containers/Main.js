@@ -19,6 +19,7 @@ const useStyles = makeStyles({
 
 export default function Main({ children }) {
   const theme  = createMuiTheme({
+    ...krowdyTheme,
     palette: {
       ...krowdyTheme.palette,
       background: {
