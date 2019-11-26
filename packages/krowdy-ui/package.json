@@ -1,6 +1,6 @@
 {
   "name": "@krowdy-ui/core",
-  "version": "0.0.7-next",
+  "version": "0.0.8-next",
   "private": false,
   "author": "Krowdy Team",
   "description": "React components that implement Google's Material Design.",
@@ -29,7 +29,7 @@
     "build:umd": "cross-env BABEL_ENV=production-umd rollup -c scripts/rollup.config.js",
     "build:copy-files": "node ../../scripts/copy-files.js",
     "prebuild": "rimraf build",
-    "release": "yarn build && npm publish build --tag next"
+    "release": "yarn build && npm publish build --tag latest"
   },
   "peerDependencies": {},
   "dependencies": {

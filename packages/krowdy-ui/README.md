@@ -16,4 +16,4 @@ yarn add @krowdy-ui/core
 
 ## Documentation
 
-[The documentation](https://material-ui.com/)
+[The documentation](https://ui.krowdy.com)

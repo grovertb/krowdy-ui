@@ -1080,6 +1080,13 @@
   dependencies:
     "@babel/runtime" "^7.4.4"
 
+"@krowdy-ui/styles@0.0.2-next":
+  version "0.0.2-next"
+  resolved "https://registry.yarnpkg.com/@krowdy-ui/styles/-/styles-0.0.2-next.tgz#170c33dd8fc04065d38ab4f670c11f567e00700d"
+  integrity sha512-0DPyzBEfuck8kZedf56WNsXQStxlt2lnbLVba3uw6o9FBR9WvG8tOomnoPibBRYbOsjHZSFWenbSdF2pEg9qyg==
+  dependencies:
+    "@material-ui/styles" "^4.6.0"
+
 "@loadable/component@^5.10.3":
   version "5.10.3"
   resolved "https://registry.yarnpkg.com/@loadable/component/-/component-5.10.3.tgz#e1ad811ac4834a6ed187605d8464351d0c52896f"
