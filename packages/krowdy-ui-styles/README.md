@@ -1,6 +1,6 @@
-# @krowdy-ui/core
+# @krowdy-ui/styles
 
-React components that implement Google's Material Design.
+You can leverage our styling solution, even if you are not using our components.
 
 ## Installation
 
@@ -8,12 +8,12 @@ Install the package in your project directory with:
 
 ```sh
 // with npm
-npm install @krowdy-ui/core
+npm install @krowdy-ui/styles
 
 // with yarn
-yarn add @krowdy-ui/core
+yarn add @krowdy-ui/styles
 ```
 
 ## Documentation
 
-[The documentation](https://ui.krowdy.com)
+[The documentation](https://ui.krowdy.com/)
