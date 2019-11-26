@@ -9,6 +9,7 @@ import {
 import MenuIcon from '@krowdy-ui/icons/Menu'
 import AppDrawer from '../components/AppDrawer'
 import { makeStyles } from '@krowdy-ui/styles'
+import clsx from 'clsx'
 
 const useStyles = makeStyles(theme => ({
   appBarShift: {
@@ -17,14 +18,24 @@ const useStyles = makeStyles(theme => ({
       width: 'calc(100% - 240px)',
     },
   },
+  appBarHome: {
+    boxShadow: 'none',
+  },
   navIconHide: {
     [theme.breakpoints.up('lg')]: {
       display: 'none',
     },
+  },
+  drawer: {
+    [theme.breakpoints.up('lg')]: {
+      flexShrink: 0,
+      width: 240,
+    },
   }
-}))
+}), { name: 'Header'})
 
-export default function Header() {
+export default function Header(props) {
+  const { className, isRootPath } = props
   const [ drawerOpen, setDrawerOpen ] = React.useState(false);
   const classes = useStyles()
 
@@ -32,21 +43,44 @@ export default function Header() {
     setDrawerOpen(!drawerOpen);
   }
 
+  let disablePermanent = false;
+  let navIconClassName = '';
+  let appBarClassName = classes.appBar;
+
+  if(isRootPath) {
+    disablePermanent = true
+    appBarClassName += ` ${classes.appBarHome}`;
+  } else {
+    navIconClassName = classes.navIconHide;
+    appBarClassName += ` ${classes.appBarShift}`;
+  }
+  
   return (
     <Fragment>
-      <AppBar position='fixed' color='primary' elevation={0} className={classes.appBarShift}>
+      <AppBar position='fixed' color='primary' elevation={0} className={appBarClassName}>
         <Toolbar >
           <IconButton
             edge="start"
             color="inherit"
-            className={classes.navIconHide}
+            className={navIconClassName}
             onClick={_handleToggleDrawer}
           >
             <MenuIcon />
           </IconButton>
         </Toolbar>
       </AppBar>
-      <AppDrawer onToggleDrawer={_handleToggleDrawer} drawerOpen={drawerOpen} />
+      <AppDrawer
+        className={
+          clsx(
+            classes.drawer, 
+            {
+              [className]: isRootPath 
+            }
+          )
+        }
+        disablePermanent={disablePermanent} 
+        onToggleDrawer={_handleToggleDrawer} 
+        drawerOpen={drawerOpen} />
     </Fragment>
   )
 }

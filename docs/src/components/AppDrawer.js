@@ -42,8 +42,10 @@ const useStylesDrawer = makeStyles({
 
 const useStyles = makeStyles(theme => ({
   drawer: {
-    width: 240,
-    flexShrink: 0
+    [theme.breakpoints.up('lg')]: {
+      flexShrink: 0,
+      width: 240,
+    },
   },
   paper: {
     width: 240,
@@ -69,7 +71,7 @@ const useStyles = makeStyles(theme => ({
       color: theme.palette.primary.main,
     },
   },
-}))
+}), { name: 'AppDrawer'})
 
 function DrawerListItem({ page, depth }) {
   const classes = useStylesDrawer({depth: 8 * (3 + 2 * depth)})
@@ -116,6 +118,7 @@ const renderDrawerList = (routes, depth) => (
 
 
 export default function AppDrawer(props) {
+  const { disablePermanent, className } = props
   const classes = useStyles()
 
   const drawer = (
@@ -139,29 +142,13 @@ export default function AppDrawer(props) {
       }
     </React.Fragment>
   )
-  // return (
-  //   <nav>
-  //     <SwipeableDrawer
-  //       onClose={props.onToggleDrawer}
-  //       onOpen={props.onToggleDrawer}
-  //       open={props.drawerOpen}
-  //       classes={{
-  //         paper: classes.paper
-  //       }}
-  //     >
-  //       {drawer}
-  //     </SwipeableDrawer>
-  //   </nav>
-  // )
-
-  // const disablePermanent = false
 
   return (
     <nav 
-      className={classes.drawer} 
+      className={className} 
       aria-label={t('mainNavigation')}>
       <Hidden 
-        // lgUp={!disablePermanent} 
+        lgUp={!disablePermanent} 
         implementation="js">
         <SwipeableDrawer
           classes={{
@@ -179,7 +166,7 @@ export default function AppDrawer(props) {
           {drawer}
         </SwipeableDrawer>
       </Hidden>
-      {/* {disablePermanent ? null : (
+      {disablePermanent ? null : (
         <Hidden mdDown implementation="css">
           <Drawer
             classes={{
@@ -191,18 +178,7 @@ export default function AppDrawer(props) {
             {drawer}
           </Drawer>
         </Hidden>
-      )} */}
-      <Hidden mdDown implementation="css">
-        <Drawer
-          classes={{
-            paper: classes.paper,
-          }}
-          variant="permanent"
-          open
-        >
-          {drawer}
-        </Drawer>
-      </Hidden>
+      )}
     </nav>
   )
 }

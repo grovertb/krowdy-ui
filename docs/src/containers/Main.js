@@ -8,6 +8,12 @@ import Header from '../components/Header'
 const useStyles = makeStyles({
   root: {
     display: 'flex'
+  },
+  drawer: {
+    width: 0
+  },
+  spaceDefault: {
+    marginTop: 96
   }
 })
 
@@ -24,20 +30,20 @@ export default function Main({ children }) {
 
   const classes = useStyles()
   const location = useLocation()
+
+  const isRootPath = location.pathname === '/'
   
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <div className={classes.root}>
-        <Header />
-        {
-          location.pathname === '/' ?
-            children :
-            <Container style={{marginTop: 96}} component='main' maxWidth='lg' >
-              {children}
-            </Container>
-
-        }
+        <Header isRootPath={isRootPath} className={classes.drawer} />
+        <Container 
+          className={classes.spaceDefault} 
+          component='main' 
+          maxWidth={isRootPath ? false : 'lg'} >
+          {children}
+        </Container>
       </div>
     </ThemeProvider>
   )

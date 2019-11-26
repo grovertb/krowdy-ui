@@ -2,7 +2,10 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "es5",
-    "lib": ["es6", "dom"],
+    "lib": [
+      "es6",
+      "dom"
+    ],
     "jsx": "react",
     "moduleResolution": "node",
     "forceConsistentCasingInFileNames": true,
@@ -12,13 +15,9 @@
     "baseUrl": "./",
     "allowSyntheticDefaultImports": true,
     "noErrorTruncation": true,
-    "allowJs": true,
-    "paths": {
-      "@krowdy-ui/core": ["./packages/krowdy-ui/src"],
-      "@krowdy-ui/core/*": ["./packages/krowdy-ui/src/*"],
-      "@krowdy-ui/styles": ["./packages/krowdy-ui-styles/src"],
-      "@krowdy-ui/styles/*": ["./packages/krowdy-ui-styles/src/*"]
-    }
+    "allowJs": true
   },
-  "exclude": ["**/build/"]
+  "exclude": [
+    "**/build/"
+  ]
 }
