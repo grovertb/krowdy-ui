@@ -20,7 +20,7 @@
   "bugs": {
     "url": "https://github.com/grovertb/krowdy-ui/issues"
   },
-  "homepage": "https://krowdy.com/",
+  "homepage": "https://ui.krowdy.com",
   "scripts": {
     "build": "yarn build:cjs && yarn build:esm && yarn build:es && yarn build:copy-files",
     "build:cjs": "cross-env NODE_ENV=production BABEL_ENV=cjs babel --config-file ../../scripts/babel.config.js ./src --out-dir ./build --ignore \"**/*.test.js\"",
