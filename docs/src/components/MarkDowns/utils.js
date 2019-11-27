@@ -298,12 +298,12 @@ function includePeerDependencies(deps, versions) {
     react: versions.react,
   });
 
-  if (deps['@material-ui/lab'] && !deps['@material-ui/core']) {
-    deps['@material-ui/core'] = versions['@material-ui/core'];
+  if (deps['@krowdy-ui/lab'] && !deps['@krowdy-ui/core']) {
+    deps['@krowdy-ui/core'] = versions['@krowdy-ui/core'];
   }
 }
 
-const packagesWithBundledTypes = ['@material-ui/core', '@material-ui/lab'];
+const packagesWithBundledTypes = ['@krowdy-ui/core', '@krowdy-ui/lab'];
 
 /**
  * WARNING: Always uses `latest` typings.

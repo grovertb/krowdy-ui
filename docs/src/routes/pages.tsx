@@ -24,26 +24,31 @@ const pages: Array<Page> = [
   {
     title: 'Components',
     routes: [
-      // {
-      //   title: 'Layout',
-      //   routes: [
-      //     {
-      //       title: 'Box'
-      //     },
-      //     {
-      //       title: 'Container'
-      //     },
-      //     {
-      //       title: 'Grid'
-      //     },
-      //     {
-      //       title: 'Grid List'
-      //     },
-      //     {
-      //       title: 'Hidden'
-      //     }
-      //   ]
-      // },
+      {
+        title: 'Layout',
+        routes: [
+          {
+            title: 'Box',
+            path: '/components/box'
+          },
+          {
+            title: 'Container',
+            path: '/components/container'
+          },
+          {
+            title: 'Grid',
+            path: '/components/grid'
+          },
+          // {
+          //   title: 'Grid List',
+          //   path: '/components/gridlist'
+          // },
+          {
+            title: 'Hidden',
+            path: '/components/hidden'
+          }
+        ]
+      },
       {
         title: 'Inputs',
         routes: [

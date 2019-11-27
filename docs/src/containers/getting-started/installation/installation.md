@@ -51,17 +51,17 @@ npm install @krowdy-ui/icons
 yarn add @krowdy-ui/icons
 ```
 
-<!-- ## CDN
+## CDN
 
-You can start using Material-UI with minimal Front-end infrastructure,
+You can start using Krowdy-UI with minimal Front-end infrastructure,
 which is great for prototyping.
 
 Two Universal Module Definition (**UMD**) files are provided:
 
-- one for development: https://unpkg.com/@material-ui/core@latest/umd/material-ui.development.js
-- one for production: https://unpkg.com/@material-ui/core@latest/umd/material-ui.production.min.js
+- one for development: https://unpkg.com/@krowdy-ui/core@latest/umd/krowdy-ui.development.js
+- one for production: https://unpkg.com/@krowdy-ui/core@latest/umd/krowdy-ui.production.min.js
 
-You can follow [this CDN example](https://github.com/mui-org/material-ui/tree/master/examples/cdn) to quickly get started.
+<!-- You can follow [this CDN example](https://github.com/grovertb/krowdy-ui/tree/master/examples/cdn) to quickly get started. -->
 
 ⚠️ Using this approach in **production** is **discouraged** though -
 the client has to download the entire library, regardless of which components are actually used,
@@ -69,4 +69,4 @@ affecting performance and bandwidth utilization.
 
 ⚠️ The UMD links are using the `latest` tag to point to the latest version of the library.
 This pointer is **unstable**, it shifts as we release new versions.
-You should considehttps://unpkg.com/@krowdy-ui/core@latest/umd/krowdy-ui.development.jsr pointing to a specific version, such as [v4.4.0](https://unpkg.comkrowdymaterial-ui/core@4.4.0/umd/material-ui.development.js). -->
+You should consider pointing to a specific version, such as [v0.0.13](https://unpkg.com/@krowdy-ui/core@0.0.13/umd/krowdy-ui.development.js).

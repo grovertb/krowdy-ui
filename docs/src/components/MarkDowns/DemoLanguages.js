@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@krowdy-ui/styles';
-import Fade from '@krowdy-ui/core/Fade';
+import { Fade } from '@krowdy-ui/core';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import { Javascript as JavaScriptIcon, TypeScript as TypeScriptIcon } from 'components/Icons'

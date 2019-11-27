@@ -1,5 +1,5 @@
 import React from 'react';
-import SvgIcon from '@material-ui/core/SvgIcon';
+import SvgIcon from '@krowdy-ui/core/SvgIcon';
 
 function FileDownload(props) {
   return (
