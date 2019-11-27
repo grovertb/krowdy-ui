@@ -66,6 +66,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
   },
   title: {
+    fontWeight: 500,
     color: theme.palette.text.secondary,
     marginBottom: theme.spacing(0.5),
     '&:hover': {
@@ -126,7 +127,7 @@ export default function AppDrawer(props) {
     <React.Fragment>
       <div className={classes.toolbarIe11}>
         <div className={classes.toolbar}>
-          <Link className={classes.title} href='/' variant="h6" color="inherit">
+          <Link className={classes.title} href='/' variant="h5" color="inherit">
             Krowdy-UI
           </Link>
           <Typography

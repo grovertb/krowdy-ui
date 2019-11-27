@@ -13,8 +13,8 @@ const useStyles = makeStyles(theme => ({
     paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(8),
     [theme.breakpoints.up('md')]: {
-      paddingTop: theme.spacing(20),
-      paddingBottom: theme.spacing(20),
+      paddingTop: theme.spacing(16),
+      paddingBottom: theme.spacing(16),
       flexDirection: 'row',
       alignItems: 'flex-start',
       textAlign: 'left',
@@ -63,7 +63,7 @@ const useStyles = makeStyles(theme => ({
       color: theme.palette.background.paper,
     },
   }
-}))
+}), { name: 'Home' })
 
 function Home() {
   const classes = useStyles()
@@ -78,15 +78,14 @@ function Home() {
             src='https://s3.amazonaws.com/cdn.krowdy.com/media/images/krowdy-home.svg' />
           <div>
             <Typography
-              variant="h3"
+              variant="display2"
               component="h1"
-              color="inherit"
               gutterBottom
               className={classes.title}
               >
               KROWDY-UI
             </Typography>
-            <Typography variant="h5" component="h2" color="inherit">
+            <Typography variant="h4" style={{ fontWeight: 400 }} component="h2" color="inherit">
               {t('strapline')}
             </Typography>
             <Button
