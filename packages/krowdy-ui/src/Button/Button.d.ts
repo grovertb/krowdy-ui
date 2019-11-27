@@ -5,7 +5,7 @@ type PropsButton = {
   color?: PropTypes.Color;
 }
 
-export type KrowdyButtonProps = Omit<ButtonProps, keyof Props> & Props;
+export type KrowdyButtonProps = Omit<ButtonProps, keyof PropsButton> & PropsButton;
 
 declare const Button: React.ComponentType<KrowdyButtonProps>;
 

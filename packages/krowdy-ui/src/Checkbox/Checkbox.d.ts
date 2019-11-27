@@ -2,7 +2,7 @@ import { CheckboxProps } from '@material-ui/core/Checkbox';
 import { PropTypes } from '..';
 
 type Props = {
-  color?: 'primary' | 'secondary' | 'default' | 'krowdy' | 'danger';
+  color?: 'primary' | 'secondary' | 'default' | 'krowdy' | 'error';
 }
 
 export type KrowdyCheckboxProps =Omit<CheckboxProps, keyof Props> & Props;

@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
       color: theme.palette.action.disabled,
     },
   },
-  colorDanger: {
+  colorError: {
     '&$checked': {
       color: theme.palette.error.main,
       '&:hover': {
@@ -59,7 +59,7 @@ function Checkbox({
     classes[`color${capitalize(color)}`]
   )
 
-  if(color === 'krowdy' || color === 'danger') color = 'secondary'
+  if(color === 'krowdy' || color === 'error') color = 'secondary'
 
   return (
     <MuiCheckbox
@@ -92,7 +92,7 @@ Checkbox.propTypes = {
   /**
    * The color of the component. It supports those theme colors that make sense for this component.
    */
-  color: PropTypes.oneOf(['primary', 'secondary', 'default', 'krowdy', 'danger']),
+  color: PropTypes.oneOf(['primary', 'secondary', 'default', 'krowdy', 'error']),
 }
 
 export default Checkbox

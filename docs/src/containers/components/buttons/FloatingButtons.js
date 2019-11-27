@@ -33,7 +33,7 @@ export default () => {
       <Fab color="krowdy" aria-label="edit">
         <AppleIcon />
       </Fab>
-      <Fab color="danger" aria-label="edit">
+      <Fab color="error" aria-label="edit">
         <DeleteIcon />
       </Fab>
       <Fab variant="extended" aria-label="like">

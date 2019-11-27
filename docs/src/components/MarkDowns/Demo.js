@@ -119,8 +119,8 @@ const useStyles = makeStyles(theme => ({
 
 export default function Demo(props) {
   const { demo, demoOptions, githubLocation } = props;
-  const codeVariant = 'JS'
 
+  const [codeVariant, setCodeVariant] = React.useState('JS')
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [codeOpen, setCodeOpen] = React.useState(demoOptions.defaultCodeOpen || false);
   const [demoHovered, setDemoHovered] = React.useState(false);
@@ -169,6 +169,10 @@ export default function Demo(props) {
     // document.cookie = `sourceHintSeen=true;path=/;max-age=31536000`;
     setCodeOpen(open => !open);
     setSourceHintSeen(true);
+  }
+
+  const _handleCodeLanguageClick = (event, clickedCodeVariant) => {
+    if (codeVariant !== clickedCodeVariant) setCodeVariant(clickedCodeVariant)
   }
 
   const _handleClickCodeSandbox = () => {
@@ -262,7 +266,7 @@ export default function Demo(props) {
             codeOpen={codeOpen}
             codeVariant={codeVariant}
             gaEventCategory={gaCategory}
-            // onLanguageClick={handleCodeLanguageClick}
+            onLanguageClick={_handleCodeLanguageClick}
           />
           <div className={classes.headerButtons}>
             <Tooltip

@@ -25,8 +25,8 @@ export default function TextButtons() {
       <Button color="krowdy">
         Krowdy
       </Button>
-      <Button color="danger">
-        Danger
+      <Button color="error">
+        Error
       </Button>
       <Button disabled>
         Disabled

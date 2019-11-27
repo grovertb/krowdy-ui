@@ -45,7 +45,7 @@ export default () =>  (
           </Grid>
           <Grid item>
             <ButtonGroup
-              color="danger"
+              color="error"
               size="small"
               aria-label="small outlined secondary button group"
             >
@@ -102,9 +102,9 @@ export default () =>  (
           <Grid item>
             <ButtonGroup
               variant="contained"
-              color="danger"
+              color="error"
               size='small'
-              aria-label="small contained danger button group"
+              aria-label="small contained error button group"
             >
               <Button>One</Button>
               <Button>Two</Button>
@@ -159,9 +159,9 @@ export default () =>  (
           <Grid item>
             <ButtonGroup
               variant="text"
-              color="danger"
+              color="error"
               size="small"
-              aria-label="small contained danger button group"
+              aria-label="small contained error button group"
             >
               <Button>One</Button>
               <Button>Two</Button>

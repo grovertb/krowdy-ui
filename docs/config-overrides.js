@@ -32,6 +32,7 @@ module.exports = override(
   },
   addWebpackAlias({
     ...aliases,
+    'react-dom': '@hot-loader/react-dom',
     '@krowdy-ui/core': path.resolve(__dirname, "../packages/krowdy-ui/src"),
     '@krowdy-ui/styles': path.resolve(__dirname, "../packages/krowdy-ui-styles/src")
   }),

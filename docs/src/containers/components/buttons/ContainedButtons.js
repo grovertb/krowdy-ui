@@ -25,8 +25,8 @@ export default function ContainedButtons() {
       <Button variant="contained" color="krowdy">
         Krowdy
       </Button>
-      <Button variant="contained" color="danger">
-        Danger
+      <Button variant="contained" color="error">
+        Error
       </Button>
       <Button variant="contained" disabled>
         Disabled

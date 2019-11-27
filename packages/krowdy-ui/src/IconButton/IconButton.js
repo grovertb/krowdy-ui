@@ -19,8 +19,8 @@ const useStyles = makeStyles(theme => {
         },
       },
     },
-    /* Styles applied to the root element if `color="danger"`. */
-    colorDanger: {
+    /* Styles applied to the root element if `color="error"`. */
+    colorError: {
       color: theme.palette.error.main,
       '&:hover': {
         backgroundColor: fade(theme.palette.error.main, theme.palette.action.hoverOpacity),
@@ -43,7 +43,7 @@ function IconButton({ color = 'default', className: classNameProps, ...props}) {
     }
   )
 
-  if(color === 'krowdy' || color === 'danger') color = 'default'
+  if(color === 'krowdy' || color === 'error') color = 'default'
  
   return (
     <MuiIconButton className={className} color={color} {...props} />
@@ -58,7 +58,7 @@ IconButton.propTypes = {
   /**
    * The color of the component. It supports those theme colors that make sense for this component.
    */
-  color: PropTypes.oneOf(['default', 'inherit', 'primary', 'secondary', 'krowdy', 'danger'])
+  color: PropTypes.oneOf(['default', 'inherit', 'primary', 'secondary', 'krowdy', 'error'])
 }
 
 export default IconButton;

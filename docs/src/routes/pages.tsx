@@ -86,9 +86,15 @@ const pages: Array<Page> = [
       // {
       //   title: 'Feedback'
       // },
-      // {
-      //   title: 'Data Display'
-      // },
+      {
+        title: 'Data Display',
+        routes: [
+          {
+            title: 'Typography',
+            path: '/components/typography'
+          }
+        ]
+      },
       // {
       //   title: 'Utils'
       // },

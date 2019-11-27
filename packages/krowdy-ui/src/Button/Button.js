@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => {
         },
       },
     },
-    textDanger: {
+    textError: {
       color: theme.palette.error.main,
       '&:hover': {
         backgroundColor: fade(theme.palette.error.main, theme.palette.action.hoverOpacity),
@@ -65,7 +65,7 @@ const useStyles = makeStyles(theme => {
         },
       },
     },
-    containedDanger: {
+    containedError: {
       color: theme.palette.error.contrastText,
       backgroundColor: theme.palette.error.main,
       '&:hover': {
@@ -91,7 +91,7 @@ const useStyles = makeStyles(theme => {
         border: `1px solid ${theme.palette.action.disabled}`,
       },
     },
-    outlinedDanger: {
+    outlinedError: {
       color: theme.palette.error.main,
       border: `1px solid ${fade(theme.palette.error.main, 0.5)}`,
       '&:hover': {
@@ -129,7 +129,7 @@ const Button = React.forwardRef(function Button({ color = 'default', variant = '
     }
   )
 
-  if(color === 'krowdy' || color === 'danger') color = 'default'
+  if(color === 'krowdy' || color === 'error') color = 'default'
   if(variant === 'krowdy') variant = 'text'
 
   return (
@@ -151,7 +151,7 @@ Button.propTypes = {
   /**
    * The color of the component. It supports those theme colors that make sense for this component.
    */
-  color: PropTypes.oneOf(['default', 'inherit', 'primary', 'secondary', 'krowdy', 'danger']),
+  color: PropTypes.oneOf(['default', 'inherit', 'primary', 'secondary', 'krowdy', 'error']),
   /**
    * The variant to use.
    */

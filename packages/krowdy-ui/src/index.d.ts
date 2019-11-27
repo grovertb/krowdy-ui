@@ -131,7 +131,7 @@ export {
 
 export namespace PropTypes {
   type Alignment = 'inherit' | 'left' | 'center' | 'right' | 'justify';
-  type Color = 'inherit' | 'primary' | 'secondary' | 'default' | 'krowdy' | 'danger'; 
+  type Color = 'inherit' | 'primary' | 'secondary' | 'default' | 'krowdy' | 'error'; 
   type Margin = 'none' | 'dense' | 'normal';
 }
 

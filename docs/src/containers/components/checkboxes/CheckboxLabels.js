@@ -30,7 +30,7 @@ export default function CheckboxLabels() {
     checkedF: true,
     checkedG: true,
     checkedKrowdy: true,
-    checkedDanger: true,
+    checkedError: true,
   });
 
   const _handleChange = name => event => {
@@ -68,12 +68,12 @@ export default function CheckboxLabels() {
       <FormControlLabel 
         control={
           <Checkbox
-            checked={state.checkedDanger}
-            onChange={_handleChange('checkedDanger')}
-            value="checkedDanger"
-            color='danger' />
+            checked={state.checkedError}
+            onChange={_handleChange('checkedError')}
+            value="checkedError"
+            color='error' />
         } 
-        label="Danger" />
+        label="Error" />
       <FormControlLabel control={<Checkbox value="checkedC" />} label="Uncontrolled" />
       <FormControlLabel disabled control={<Checkbox value="checkedD" />} label="Disabled" />
       <FormControlLabel disabled control={<Checkbox checked value="checkedE" />} label="Disabled" />

@@ -63,8 +63,8 @@ export const styles = theme => ({
       borderColor: fade(theme.palette.krowdy.main, 0.5),
     },
   },
-  /* Styles applied to the children if `variant="text"` and `color="danger"`. */
-  groupedTextDanger: {
+  /* Styles applied to the children if `variant="text"` and `color="error"`. */
+  groupedTextError: {
     '&:not(:last-child)': {
       borderColor: fade(theme.palette.error.main, 0.5),
     },
@@ -96,8 +96,8 @@ export const styles = theme => ({
       borderColor: theme.palette.krowdy.main,
     },
   },
-  /* Styles applied to the children if `variant="outlined"` and `color="danger"`. */
-  groupedOutlinedDanger: {
+  /* Styles applied to the children if `variant="outlined"` and `color="error"`. */
+  groupedOutlinedError: {
     '&:hover': {
       borderColor: theme.palette.error.main,
     },
@@ -130,8 +130,8 @@ export const styles = theme => ({
       borderRight: `1px solid ${theme.palette.krowdy.dark}`,
     },
   },
-  /* Styles applied to the children if `variant="contained"` and `color="danger"`. */
-  groupedContainedDanger: {
+  /* Styles applied to the children if `variant="contained"` and `color="error"`. */
+  groupedContainedError: {
     '&:not(:last-child)': {
       borderRight: `1px solid ${theme.palette.error.dark}`,
     },
@@ -227,7 +227,7 @@ ButtonGroup.propTypes = {
   /**
    * The color of the component. It supports those theme colors that make sense for this component.
    */
-  color: PropTypes.oneOf(['default', 'inherit', 'primary', 'secondary', 'krowdy', 'danger']),
+  color: PropTypes.oneOf(['default', 'inherit', 'primary', 'secondary', 'krowdy', 'error']),
   /**
    * The component used for the root node.
    * Either a string to use a DOM element or a component.

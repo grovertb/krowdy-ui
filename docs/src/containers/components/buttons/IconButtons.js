@@ -36,7 +36,7 @@ export default () => {
       <IconButton variant='contained' color='krowdy'>
         <AppleIcon />
       </IconButton>
-      <IconButton variant='contained' color='danger'>
+      <IconButton variant='contained' color='error'>
         <DeleteIcon />
       </IconButton>
       <IconButton variant='contained' disabled>

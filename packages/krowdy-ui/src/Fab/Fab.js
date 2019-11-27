@@ -18,8 +18,8 @@ const useStyles = makeStyles(theme => {
         },
       },
     },
-    /* Styles applied to the root element if `color="danger"`. */
-    danger: {
+    /* Styles applied to the root element if `color="error"`. */
+    error: {
       color: theme.palette.error.contrastText,
       backgroundColor: theme.palette.error.main,
       '&:hover': {
@@ -41,11 +41,11 @@ function Fab({color = 'default', className: classNameProps, ...props }) {
     classNameProps,
     {
       [classes.krowdy]: color === 'krowdy',
-      [classes.danger]: color === 'danger'
+      [classes.error]: color === 'error'
     }
   )
 
-  if(color === 'krowdy' || color === 'danger') color = 'default'
+  if(color === 'krowdy' || color === 'error') color = 'default'
   
   return (
     <MuiFab
@@ -63,7 +63,7 @@ Fab.propTypes = {
   /**
    * The color of the component. It supports those theme colors that make sense for this component.
    */
-  color: PropTypes.oneOf(['default', 'inherit', 'primary', 'secondary', 'krowdy', 'danger']),
+  color: PropTypes.oneOf(['default', 'inherit', 'primary', 'secondary', 'krowdy', 'error']),
 }
 
 export default Fab

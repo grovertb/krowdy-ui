@@ -25,8 +25,8 @@ export default function OutlinedButtons() {
       <Button variant="outlined" color="krowdy">
         Krowdy
       </Button>
-      <Button variant="outlined" color="danger">
-        Danger
+      <Button variant="outlined" color="error">
+        Error
       </Button>
       <Button variant="outlined" disabled>
         Disabled

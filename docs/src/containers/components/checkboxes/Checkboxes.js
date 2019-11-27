@@ -46,9 +46,9 @@ export default function Checkboxes() {
         checked={state.checkedD}
         onChange={_handleChange('checkedD')}
         value="checkedD"
-        color="danger"
+        color="error"
         inputProps={{
-          'aria-label': 'danger checkbox',
+          'aria-label': 'error checkbox',
         }}
       />
       <Checkbox
