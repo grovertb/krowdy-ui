@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
   colorInfo:{
     color: theme.palette.grey[600]
   },
-}), { name: 'KrowdyTypography'})
+}), { name: 'KrowdyTypography' })
 
 const Typography = React.forwardRef(function Typography({
   variant = 'body1',
