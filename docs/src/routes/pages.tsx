@@ -120,6 +120,15 @@ const pages: Array<Page> = [
         path: '/api/checkbox'
       }
     ]
+  },
+  {
+    title: 'Views',
+    routes: [
+      {
+        title: 'Job Detail',
+        path: '/views/jobdetail'
+      },
+    ]
   }
   // {
   //   title: 'Styles'

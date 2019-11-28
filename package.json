@@ -8,25 +8,30 @@
     "lint": "eslint . --cache --report-unused-disable-directives"
   },
   "devDependencies": {
-    "@babel/cli": "^7.6.4",
-    "@babel/core": "^7.6.4",
-    "@babel/node": "^7.6.3",
-    "@babel/plugin-proposal-class-properties": "^7.5.5",
-    "@babel/plugin-transform-object-assign": "^7.2.0",
-    "@babel/plugin-transform-runtime": "^7.6.2",
-    "@babel/preset-env": "^7.6.3",
-    "@babel/preset-react": "^7.6.3",
+    "@babel/cli": "^7.7.4",
+    "@babel/core": "^7.7.4",
+    "@babel/node": "^7.7.4",
+    "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "@babel/plugin-transform-object-assign": "^7.7.4",
+    "@babel/plugin-transform-runtime": "^7.7.4",
+    "@babel/preset-env": "^7.7.4",
+    "@babel/preset-react": "^7.7.4",
     "babel-eslint": "^10.0.3",
     "babel-plugin-optimize-clsx": "^2.5.0",
     "babel-plugin-react-remove-properties": "^0.3.0",
     "babel-plugin-transform-dev-warning": "^0.1.1",
     "babel-plugin-transform-react-constant-elements": "^6.23.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+    "chai": "^4.2.0",
     "cross-env": "^6.0.3",
     "eslint": "^6.6.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.7.0",
     "eslint-import-resolver-webpack": "^0.11.1",
     "eslint-plugin-babel": "^5.3.0",
     "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-material-ui": "^1.0.1",
+    "eslint-plugin-mocha": "^6.2.2",
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-react-hooks": "^2.2.0",
     "fs-extra": "^8.1.0",
@@ -40,15 +45,16 @@
     "rollup-plugin-node-globals": "^1.4.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-size-snapshot": "^0.10.0",
-    "rollup-plugin-terser": "^5.1.2"
+    "rollup-plugin-terser": "^5.1.2",
+    "typescript": "^3.7.2"
   },
   "resolutions": {
-    "**/@babel/core": "^7.6.4",
-    "**/@babel/plugin-proposal-class-properties": "^7.5.5",
-    "**/@babel/plugin-transform-runtime": "^7.6.2",
-    "**/@babel/preset-env": "^7.6.3",
-    "**/@babel/preset-react": "^7.6.3",
-    "**/@babel/runtime": "^7.4.4"
+    "**/@babel/core": "^7.7.4",
+    "**/@babel/plugin-proposal-class-properties": "^7.7.4",
+    "**/@babel/plugin-transform-runtime": "^7.7.4",
+    "**/@babel/preset-env": "^7.7.4",
+    "**/@babel/preset-react": "^7.7.4",
+    "**/@babel/runtime": "^7.7.4"
   },
   "nyc": {
     "include": [
@@ -61,12 +67,5 @@
     "packages/*",
     "docs"
   ],
-  "dependencies": {
-    "chai": "^4.2.0",
-    "eslint-config-airbnb": "^18.0.1",
-    "eslint-config-prettier": "^6.5.0",
-    "eslint-plugin-material-ui": "^1.0.1",
-    "eslint-plugin-mocha": "^6.2.1",
-    "typescript": "^3.7.2"
-  }
+  "dependencies": {}
 }

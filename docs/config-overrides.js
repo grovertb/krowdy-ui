@@ -34,7 +34,8 @@ module.exports = override(
     ...aliases,
     'react-dom': '@hot-loader/react-dom',
     '@krowdy-ui/core': path.resolve(__dirname, "../packages/krowdy-ui/src"),
-    '@krowdy-ui/styles': path.resolve(__dirname, "../packages/krowdy-ui-styles/src")
+    '@krowdy-ui/styles': path.resolve(__dirname, "../packages/krowdy-ui-styles/src"),
+    '@krowdy-ui/views': path.resolve(__dirname, "../packages/krowdy-ui-views/src")
   }),
   addBabelPlugin([
     "babel-plugin-module-resolver", {
@@ -42,6 +43,7 @@ module.exports = override(
       "alias": {
         "@krowdy-ui/core": path.resolve(__dirname, "../packages/krowdy-ui/src"),
         "@krowdy-ui/styles": path.resolve(__dirname, "../packages/krowdy-ui-styles/src"),
+        "@krowdy-ui/views": path.resolve(__dirname, "../packages/krowdy-ui-views/src"),
       },
       transformFunctions: ['require', 'require.context'],
     }
