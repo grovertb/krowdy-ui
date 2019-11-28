@@ -1,2 +1,2 @@
-export { default } from './ExpansionPanel';
-export * from './ExpansionPanel';
+export { default } from './ExpansionPanelActions';
+export * from './ExpansionPanelActions';
