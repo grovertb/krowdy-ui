@@ -2,4 +2,4 @@
 
 <p class="description">View of job detail for portals, landing and ats.</p>
 
-{{"demo": "containers/views/jobdetail/JobDetail.js", "hideHeader": false, "bg": false, "bgColor": "white"}}
+{{"demo": "containers/views/jobdetail/JobDetail.js", "hideHeader": false, "bg": true, "bgColor": "white", "iframe": true }}
