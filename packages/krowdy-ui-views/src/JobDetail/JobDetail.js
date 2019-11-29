@@ -1,16 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types' 
 import { Typography, Button, Grid, Divider, List, ListItem } from '@krowdy-ui/core'
-import { makeStyles } from '@krowdy-ui/styles'
+import { withStyles } from '@krowdy-ui/styles'
 
-const useStyles = makeStyles(theme => ({
+export const styles = theme => ({
   contentTitle: {
     display: 'flex'
   },
   contentJobDetail: {
     '& > *': {
       margin: theme.spacing(2, 0)
-    }
+    },
+    [theme.breakpoints.down('xs')]: {
+      paddingBottom: theme.spacing(5)
+    },
+    margin: theme.spacing(0, 3)
   },
   contentOptions: {
     display: 'flex',
@@ -58,21 +62,20 @@ const useStyles = makeStyles(theme => ({
       zIndex: 1,
       backgroundColor: 'white',
       width: '100%',
-      padding: '1rem'
+      padding: theme.spacing(2)
     }
   }
-}), { name: 'JobDetail' })
+})
 
 const JobDetail = props => {
   const {
+    classes,
     title,
     detailOptions = [],
     basicInformation = [],
     competencies = [],
     description
   } = props
-
-  const classes = useStyles()
 
   return (
     <div className={classes.contentJobDetail}>
@@ -153,10 +156,17 @@ const JobDetail = props => {
 
 JobDetail.propTypes = {
   basicInformation: PropTypes.array,
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css) below for more details.
+   */
+  classes: PropTypes.object,
   competencies: PropTypes.array,
   description: PropTypes.string,
   detailOptions: PropTypes.array,
   title: PropTypes.string
 }
 
-export default JobDetail
+JobDetail.muiName = 'JobDetail';
+
+export default withStyles(styles, { name: 'KrowdyJobDetail' })(JobDetail)
