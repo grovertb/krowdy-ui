@@ -1,6 +1,6 @@
 export {
   createGenerateClassName,
-  createMuiTheme,
+  // createMuiTheme,
   createStyles,
   jssPreset,
   makeStyles,
@@ -20,5 +20,6 @@ export {
   fade
 } from '@material-ui/core/styles'
 
+export { default as createMuiTheme } from './createMuiTheme'
 export { default as krowdyTheme } from './krowdyTheme'
 export { default as withStyles } from './withStyles'
