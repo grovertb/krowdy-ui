@@ -7,7 +7,7 @@ const headerKeyValueRegExp = /(.*): (.*)/g;
 const emptyRegExp = /^\s*$/;
 
 export const demoRegexp = /^"demo": "(.*)"/;
-export const SOURCE_CODE_ROOT_URL = 'https://github.com/grovertb/krowdy-ui/blob/dev/docs/src';
+export const SOURCE_CODE_ROOT_URL = 'https://github.com/grovertb/krowdy-ui/blob/master/docs/src';
 export const CODE_VARIANTS = {
   JS: 'JS',
   TS: 'TS',
