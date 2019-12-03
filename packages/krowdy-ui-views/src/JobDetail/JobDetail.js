@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types' 
 import { Typography, Button, Grid, Divider, List, ListItem } from '@krowdy-ui/core'
-import { withStyles } from '@krowdy-ui/styles'
+import { withStyles } from '@krowdy-ui/core/styles'
 
 export const styles = theme => ({
   contentTitle: {
