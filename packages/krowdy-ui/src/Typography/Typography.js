@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import MuiTypography from '@material-ui/core/Typography'
-import makeStyles from '@material-ui/styles/makeStyles'
+import withStyles from '../styles/withStyles'
 import capitalize from '../utils/capitalize';
 
-const useStyles = makeStyles(theme => ({
+export const styles = theme => ({
   display1: {
     fontWeight: 500,
     fontSize: '3.3125rem',
@@ -29,15 +29,15 @@ const useStyles = makeStyles(theme => ({
   colorInfo:{
     color: theme.palette.grey[600]
   },
-}), { name: 'KrowdyTypography' })
+})
 
 const Typography = React.forwardRef(function Typography({
   variant = 'body1',
   color = 'initial',
+  classes,
   className: classNameProps,
   ...props
 }, ref) {
-  const classes = useStyles()
 
   const isKrowdyVariant = variant === 'display1' || variant === 'display2' || variant === 'body3' || variant === 'info1' || variant === 'info2'
   const isKrowdyColor = color === 'body' || color === 'info'
@@ -54,11 +54,21 @@ const Typography = React.forwardRef(function Typography({
   if(isKrowdyColor) color = 'initial'
 
   return (
-    <MuiTypography color={color} className={className} variant={variant} {...props} ref={ref} />
+    <MuiTypography 
+      color={color} 
+      className={className} 
+      variant={variant} 
+      ref={ref}
+      {...props} />
   )
 })
 
 Typography.propTypes = {
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css) below for more details.
+   */
+  classes: PropTypes.object.isRequired,
    /**
    * @ignore
    */
@@ -104,4 +114,4 @@ Typography.propTypes = {
   ]),
 }
 
-export default Typography
+export default withStyles(styles, { name: 'KrowdyTypography' })(Typography)

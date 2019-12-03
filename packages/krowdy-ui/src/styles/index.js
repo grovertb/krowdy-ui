@@ -10,9 +10,10 @@ export {
   StylesProvider,
   ThemeProvider,
   useTheme,
-  withStyles,
+  // withStyles,
   withTheme,
   fade
 } from '@material-ui/core/styles'
 
 export { default as krowdyTheme } from './krowdyTheme'
+export { default as withStyles } from './withStyles'
