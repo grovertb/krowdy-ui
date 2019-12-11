@@ -6,7 +6,6 @@ import capitalize from '../utils/capitalize';
 import withStyles from '../styles/withStyles';
 import { fade } from '../styles/colorManipulator';
 
-// const useStyles = makeStyles(theme => {
 export const styles = theme => ({
   /* Styles applied to the root element if `color="krowdy"`. */
   colorKrowdy: {
@@ -32,10 +31,12 @@ export const styles = theme => ({
   },
 })
 
-function IconButton({ color = 'default', className: classNameProps, ...props}) {
+const IconButton = React.forwardRef(function IconButton({ color = 'default', ...props }, ref) {
   const {
+    className: classNameProps,
     classes,
-    ...otherProps    
+    
+    ...otherProps
   } = props
 
   const className = clsx(
@@ -48,9 +49,9 @@ function IconButton({ color = 'default', className: classNameProps, ...props}) {
   if(color === 'krowdy' || color === 'error') color = 'default'
  
   return (
-    <MuiIconButton className={className} color={color} {...otherProps} />
+    <MuiIconButton ref={ref} className={className} color={color} {...otherProps} />
   );
-}
+})
 
 IconButton.propTypes = {
   /**

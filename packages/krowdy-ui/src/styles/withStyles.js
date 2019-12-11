@@ -1,4 +1,4 @@
-import { withStyles as withStylesWithoutDefault } from '@material-ui/styles';
+import { withStyles as withStylesWithoutDefault } from '@krowdy-ui/styles';
 import createMuiTheme from './createMuiTheme';
 import krowdyTheme from './krowdyTheme';
 
