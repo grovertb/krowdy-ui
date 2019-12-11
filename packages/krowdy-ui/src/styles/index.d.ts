@@ -3,8 +3,6 @@ export {
   // createMuiTheme,
   createStyles,
   jssPreset,
-  makeStyles,
-  responsiveFontSizes,
   ServerStyleSheets,
   styled,
   StylesProvider,
@@ -22,4 +20,6 @@ export {
 
 export { default as createMuiTheme } from './createMuiTheme'
 export { default as krowdyTheme } from './krowdyTheme'
+export { default as makeStyles } from './makeStyles'
+export { default as responsiveFontSizes } from './responsiveFontSizes'
 export { default as withStyles } from './withStyles'
