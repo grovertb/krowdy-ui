@@ -1,10 +1,10 @@
-import babel from 'rollup-plugin-babel';
-import commonjs from 'rollup-plugin-commonjs';
-import nodeGlobals from 'rollup-plugin-node-globals';
 import nodeResolve from 'rollup-plugin-node-resolve';
-import { sizeSnapshot } from 'rollup-plugin-size-snapshot';
+import commonjs from 'rollup-plugin-commonjs';
+import babel from 'rollup-plugin-babel';
 import replace from 'rollup-plugin-replace';
+import nodeGlobals from 'rollup-plugin-node-globals';
 import { terser } from 'rollup-plugin-terser';
+import { sizeSnapshot } from 'rollup-plugin-size-snapshot';
 
 const input = './src/index.js';
 const globals = {
