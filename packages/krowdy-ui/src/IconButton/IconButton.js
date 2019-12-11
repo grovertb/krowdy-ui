@@ -1,40 +1,42 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
-import { makeStyles } from '@material-ui/styles';
 import MuiIconButton from '@material-ui/core/IconButton'
 import capitalize from '../utils/capitalize';
+import withStyles from '../styles/withStyles';
 import { fade } from '../styles/colorManipulator';
 
-const useStyles = makeStyles(theme => {
-  return ({
-    /* Styles applied to the root element if `color="krowdy"`. */
-    colorKrowdy: {
-      color: theme.palette.krowdy.main,
-      '&:hover': {
-        backgroundColor: fade(theme.palette.krowdy.main, theme.palette.action.hoverOpacity),
-        // Reset on touch devices, it doesn't add specificity
-        '@media (hover: none)': {
-          backgroundColor: 'transparent',
-        },
+// const useStyles = makeStyles(theme => {
+export const styles = theme => ({
+  /* Styles applied to the root element if `color="krowdy"`. */
+  colorKrowdy: {
+    color: theme.palette.krowdy.main,
+    '&:hover': {
+      backgroundColor: fade(theme.palette.krowdy.main, theme.palette.action.hoverOpacity),
+      // Reset on touch devices, it doesn't add specificity
+      '@media (hover: none)': {
+        backgroundColor: 'transparent',
       },
     },
-    /* Styles applied to the root element if `color="error"`. */
-    colorError: {
-      color: theme.palette.error.main,
-      '&:hover': {
-        backgroundColor: fade(theme.palette.error.main, theme.palette.action.hoverOpacity),
-        // Reset on touch devices, it doesn't add specificity
-        '@media (hover: none)': {
-          backgroundColor: 'transparent',
-        },
+  },
+  /* Styles applied to the root element if `color="error"`. */
+  colorError: {
+    color: theme.palette.error.main,
+    '&:hover': {
+      backgroundColor: fade(theme.palette.error.main, theme.palette.action.hoverOpacity),
+      // Reset on touch devices, it doesn't add specificity
+      '@media (hover: none)': {
+        backgroundColor: 'transparent',
       },
     },
-  })
-}, { name: 'KrowdyIconButton'})
+  },
+})
 
 function IconButton({ color = 'default', className: classNameProps, ...props}) {
-  const classes = useStyles()
+  const {
+    classes,
+    ...otherProps    
+  } = props
 
   const className = clsx(
     classNameProps,
@@ -46,11 +48,16 @@ function IconButton({ color = 'default', className: classNameProps, ...props}) {
   if(color === 'krowdy' || color === 'error') color = 'default'
  
   return (
-    <MuiIconButton className={className} color={color} {...props} />
+    <MuiIconButton className={className} color={color} {...otherProps} />
   );
 }
 
 IconButton.propTypes = {
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css) below for more details.
+   */
+  classes: PropTypes.object.isRequired,
   /**
    * @ignore
    */
@@ -61,4 +68,4 @@ IconButton.propTypes = {
   color: PropTypes.oneOf(['default', 'inherit', 'primary', 'secondary', 'krowdy', 'error'])
 }
 
-export default IconButton;
+export default withStyles(styles, { name: 'KrowdyIconButton' })(IconButton);
