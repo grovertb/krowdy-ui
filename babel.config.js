@@ -17,7 +17,8 @@ if (process.env.BABEL_ENV === 'es') {
 }
 
 const defaultAlias = {
-  '@krowdy-ui/core': './packages/material-ui/src'
+  '@krowdy-ui/core': './packages/krowdy-ui/src',
+  '@krowdy-ui/styles': './packages/krowdy-ui-styles/src',
 };
 
 const productionPlugins = [

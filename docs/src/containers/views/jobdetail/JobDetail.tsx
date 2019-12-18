@@ -15,7 +15,7 @@ export default function () {
       <JobDetail
         title='Analista UI Designer Senior' 
         description='Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry`s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'
-        detailOptions={[
+        detailJob={[
           {
             icon: <ScheduleIcon />,
             text: 'Full Time'
@@ -37,7 +37,7 @@ export default function () {
             text: 'Gerente'
           }
         ]}
-        basicInformation={[
+        basicEdition={[
           {
             "visible": true,
             "title": "Descripción del puesto",

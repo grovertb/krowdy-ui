@@ -131,7 +131,7 @@ const Button = React.forwardRef(function Button({ color = 'default', variant = '
   if(color === 'krowdy' || color === 'error') color = 'default'
   if(variant === 'krowdy') variant = 'text'
 
-  return <MuiButton ref={ref} className={className} color={color} variant={variant} {...otherProps} />
+  return <MuiButton ref={ref} fullWidth={fullWidth} className={className} color={color} variant={variant} {...otherProps} />
 })
 
 Button.propTypes = {

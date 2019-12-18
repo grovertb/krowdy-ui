@@ -12,6 +12,7 @@
     "@babel/core": "^7.7.4",
     "@babel/node": "^7.7.4",
     "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.7.4",
     "@babel/plugin-transform-object-assign": "^7.7.4",
     "@babel/plugin-transform-runtime": "^7.7.4",
     "@babel/preset-env": "^7.7.4",
@@ -53,6 +54,7 @@
   "resolutions": {
     "**/@babel/core": "^7.7.4",
     "**/@babel/plugin-proposal-class-properties": "^7.7.4",
+    "**/@babel/plugin-proposal-object-rest-spread": "^7.7.4",
     "**/@babel/plugin-transform-runtime": "^7.7.4",
     "**/@babel/preset-env": "^7.7.4",
     "**/@babel/preset-react": "^7.7.4",
@@ -60,7 +62,11 @@
   },
   "nyc": {
     "include": [
-      "packages/krowdy-ui/src/**/*.js"
+      "packages/krowdy-ui/src/**/*.js",
+      "packages/krowdy-ui-styles/src/**/*.js"
+    ],
+    "exclude": [
+      "**/*.test.js"
     ],
     "sourceMap": false,
     "instrument": false
