@@ -1,3 +1,5 @@
+export * from './colorManipulator';
+
 export {
   createGenerateClassName,
   // createMuiTheme,
@@ -10,7 +12,6 @@ export {
   useTheme,
   // withStyles,
   withTheme,
-  fade
 } from '@material-ui/core/styles'
 
 export { default as createMuiTheme } from './createMuiTheme'
