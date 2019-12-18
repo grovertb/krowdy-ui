@@ -1,9 +1,11 @@
 export type JobDetailProps = {
-  basicInformation?: object[];
+  basicEdition?: object[];
+  benefits?: object[];
   competencies?: object[];
   description?: string;
   title?: string;
-  detailOptions?: object[];
+  detailJob?: object[];
+  onClickPostulation?: Function;
 };
 
 declare const JobDetail: React.ComponentType<JobDetailProps>;

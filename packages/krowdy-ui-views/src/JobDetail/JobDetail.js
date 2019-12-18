@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types' 
-import { Typography, Button, Grid, Divider, List, ListItem } from '@krowdy-ui/core'
+import { Typography, Button, Grid, Divider, List, ListItem, ListItemText, Chip } from '@krowdy-ui/core'
 import { withStyles } from '@krowdy-ui/core/styles'
 
 export const styles = theme => ({
@@ -71,11 +71,43 @@ const JobDetail = props => {
   const {
     classes,
     title,
-    detailOptions = [],
-    basicInformation = [],
     competencies = [],
-    description
+    description,
+    basicEdition = [],
+    benefits = [],
+    // company = {},
+    detailJob = [],
+    // expirationDate,
+    requirements = [],
+    onClickPostulation= () => {},
+    // visibleInformation
   } = props
+
+  const renderItemRequirement = requirement => {
+    switch (requirement.title.toLowerCase()) {
+      case 'carreras':
+        return requirement.value.map((career, indexCareer) => (
+          <Chip
+            // className={classes.requirementsChip}
+            color='primary' 
+            key={`career-${indexCareer}`} 
+            label={career}
+            size='small' 
+            variant='outlined' />)
+        )
+      case 'idioma':
+        return requirement.value.map((idioma, indexIdioma) => (
+            <Typography
+              // className={classes.requirementsSubtitle}
+              // component='span'
+              key={`idioma-${indexIdioma}`}>
+              {idioma}
+            </Typography>
+          ))
+      default:
+        return requirement.value
+    }
+  }
 
   return (
     <div className={classes.contentJobDetail}>
@@ -84,7 +116,7 @@ const JobDetail = props => {
           <Typography variant='h1'>{title}</Typography>
         </Grid>
         <Grid item sm={2} xs={12} className={classes.btnPostular}>
-          <Button fullWidth size='large' variant='contained' color='primary'>Postular</Button>
+          <Button onClick={onClickPostulation} fullWidth size='large' variant='contained' color='primary'>Postular</Button>
         </Grid>
       </Grid>
       <Grid item>
@@ -92,7 +124,7 @@ const JobDetail = props => {
       </Grid>
       <Grid item xs={12} className={classes.contentOptions}>
         {
-          detailOptions.map(({icon, text}, index) => (
+          detailJob.map(({icon, text}, index) => (
             <div key={`option-${index}`} className={classes.itemOptions}>
                 {
                   icon
@@ -107,7 +139,7 @@ const JobDetail = props => {
         }
       </Grid>
       {
-        basicInformation.filter(({ visible }) => visible).map((item, key) => (
+        basicEdition.filter(({ visible }) => visible).map((item, key) => (
           <section key={`information-${key}`} className={classes.sectionInformation}>
             <Typography variant='h4'>{item.title}</Typography>
             {
@@ -140,8 +172,49 @@ const JobDetail = props => {
               <List className={classes.list}>
                 {
                   competencies.map((competencie, index) => (
-                    <ListItem className={classes.itemList} key={`benefit-${index}`}>
+                    <ListItem className={classes.itemList} key={`competencie-${index}`}>
                       {competencie.title}
+                    </ListItem>
+                  ))
+                }
+              </List>
+            </section>
+          </>
+        ) : null
+      }
+      {
+        benefits.length ? (
+          <>
+            <Divider />
+             <section className={classes.sectionInformation}>
+              <Typography className={classes.titleSection} variant='h5'>Beneficios</Typography>
+              <List className={classes.list}>
+                {
+                  benefits.map((benefit, index) => (
+                    <ListItem className={classes.itemList} key={`benefit-${index}`}>
+                      {benefit.title}
+                      <ListItemText 
+                        secondary={benefit.description} />
+                    </ListItem>
+                  ))
+                }
+              </List>
+            </section> 
+          </>
+        ) : null
+      }
+      {
+        requirements.length ? (
+          <>
+            <Divider />
+            <section className={classes.sectionInformation}>
+              <Typography className={classes.titleSection} variant='h5'>Requerimientos</Typography>
+              <List className={classes.list}>
+                {
+                  requirements.map((requirement, index) => (
+                    <ListItem className={classes.itemList} key={`requirement-${index}`}>
+                      {requirement.title}
+                      <div>{renderItemRequirement(requirement)}</div>
                     </ListItem>
                   ))
                 }
@@ -155,16 +228,24 @@ const JobDetail = props => {
 }
 
 JobDetail.propTypes = {
-  basicInformation: PropTypes.array,
+  basicEdition: PropTypes.array,
   /**
    * Override or extend the styles applied to the component.
    * See [CSS API](#css) below for more details.
    */
+  benefits: PropTypes.array,
   classes: PropTypes.object,
+  // company: PropTypes.object,
   competencies: PropTypes.array,
+  // _id
   description: PropTypes.string,
-  detailOptions: PropTypes.array,
-  title: PropTypes.string
+  detailJob: PropTypes.array,
+  // status: PropTypes.string
+  // expirationDate: PropTypes.string,
+  onClickPostulation: PropTypes.func,
+  requirements: PropTypes.array,
+  title: PropTypes.string,
+  // visibleInformation: PropTypes.bool
 }
 
 JobDetail.muiName = 'JobDetail';
