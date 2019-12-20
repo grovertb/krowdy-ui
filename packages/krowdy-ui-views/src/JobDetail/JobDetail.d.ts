@@ -6,6 +6,8 @@ export type JobDetailProps = {
   title?: string;
   detailJob?: object[];
   onClickPostulation?: Function;
+  userInJob?: boolean;
+  visibleInformation?: boolean;
 };
 
 declare const JobDetail: React.ComponentType<JobDetailProps>;

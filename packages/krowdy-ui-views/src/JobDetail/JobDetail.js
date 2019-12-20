@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types' 
-import { Typography, Button, Grid, Divider, List, ListItem, ListItemText, Chip } from '@krowdy-ui/core'
+import { Typography, Button, Grid, Divider, List, ListItem, ListItemText, Chip, Box, Link } from '@krowdy-ui/core'
 import { withStyles } from '@krowdy-ui/core/styles'
 
 export const styles = theme => ({
@@ -24,6 +24,19 @@ export const styles = theme => ({
       display: 'flex',
       alignItems: 'center'
     }
+  },
+  contentCompany: {
+    '& > img': {
+      width: 64,
+      height: 64,
+      borderRadius: 6,
+      border: '1px solid rgb(234, 234, 234)'
+    },
+    '& > a': {
+      marginLeft: theme.spacing(1)
+    },
+    display: 'flex',
+    alignItems: 'baseline'
   },
   itemOptions: {
     '& > svg': {
@@ -53,6 +66,14 @@ export const styles = theme => ({
     display  : 'list-item',
     padding  : 6
   },
+  titleJob: {
+    fontSize: '3rem'
+  },
+  titleCompany: {
+    fontSize: '2rem',
+    fontWeight: 'bold',
+    marginLeft: theme.spacing(1)
+  },
   btnPostular: {
     [theme.breakpoints.down('xs')]: {
       position: 'fixed',
@@ -75,12 +96,13 @@ const JobDetail = props => {
     description,
     basicEdition = [],
     benefits = [],
-    // company = {},
+    userInJob = false,
+    company = {},
     detailJob = [],
     // expirationDate,
     requirements = [],
     onClickPostulation= () => {},
-    // visibleInformation
+    // visibleInformation = false
   } = props
 
   const renderItemRequirement = requirement => {
@@ -113,11 +135,18 @@ const JobDetail = props => {
     <div className={classes.contentJobDetail}>
       <Grid container>
         <Grid item sm={10} xs={12}>
-          <Typography variant='h1'>{title}</Typography>
+          <Typography className={classes.titleJob} variant='h1'>{title}</Typography>
         </Grid>
         <Grid item sm={2} xs={12} className={classes.btnPostular}>
-          <Button onClick={onClickPostulation} fullWidth size='large' variant='contained' color='primary'>Postular</Button>
+          <Button onClick={onClickPostulation} fullWidth size='large' variant='contained' color='primary'>{userInJob ? 'Ver postulación': 'Postular' }</Button>
         </Grid>
+      </Grid>
+      <Grid  item xs={12} >
+        <div className={classes.contentCompany}>
+          <img alt='company logo' src={company.company_logo} />
+          <Typography className={classes.titleCompany}>{company.company_name}</Typography>
+          <Link underline='none' href='/'>Ver más</Link>
+        </div>
       </Grid>
       <Grid item>
         <Typography variant='body3'>{description}</Typography>
@@ -229,23 +258,24 @@ const JobDetail = props => {
 
 JobDetail.propTypes = {
   basicEdition: PropTypes.array,
+  benefits: PropTypes.array,
   /**
    * Override or extend the styles applied to the component.
    * See [CSS API](#css) below for more details.
    */
-  benefits: PropTypes.array,
   classes: PropTypes.object,
-  // company: PropTypes.object,
+  company: PropTypes.object,
   competencies: PropTypes.array,
   // _id
   description: PropTypes.string,
   detailJob: PropTypes.array,
+  onClickPostulation: PropTypes.func,
   // status: PropTypes.string
   // expirationDate: PropTypes.string,
-  onClickPostulation: PropTypes.func,
   requirements: PropTypes.array,
   title: PropTypes.string,
-  // visibleInformation: PropTypes.bool
+  userInJob: PropTypes.bool,
+  visibleInformation: PropTypes.bool
 }
 
 JobDetail.muiName = 'JobDetail';
