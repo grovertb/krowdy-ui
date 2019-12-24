@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types' 
-import { Typography, Button, Grid, Divider, List, ListItem, ListItemText, Chip, Box, Link } from '@krowdy-ui/core'
+import { Typography, Button, Grid, Divider, List, ListItem, ListItemText, Chip, Link } from '@krowdy-ui/core'
 import { withStyles } from '@krowdy-ui/core/styles'
 
 export const styles = theme => ({
@@ -25,13 +25,18 @@ export const styles = theme => ({
       alignItems: 'center'
     }
   },
-  contentCompany: {
-    '& > img': {
-      width: 64,
-      height: 64,
-      borderRadius: 6,
-      border: '1px solid rgb(234, 234, 234)'
+  contentCompanyLogo: {
+    '& > img':{
+      display: 'block',
+      width: '100%'
     },
+    backgroundColor: '#EFEFEF',
+    border: '1px solid rgb(234, 234, 234)',
+    borderRadius: 6,
+    width: 64,
+    height: 64,
+  },
+  contentCompany: {
     '& > a': {
       marginLeft: theme.spacing(1)
     },
@@ -70,9 +75,10 @@ export const styles = theme => ({
     fontSize: '3rem'
   },
   titleCompany: {
-    fontSize: '2rem',
+    fontSize: '1.5rem',
     fontWeight: 'bold',
-    marginLeft: theme.spacing(1)
+    marginLeft: theme.spacing(1),
+    lineHeight: 1
   },
   btnPostular: {
     [theme.breakpoints.down('xs')]: {
@@ -101,8 +107,9 @@ const JobDetail = props => {
     detailJob = [],
     // expirationDate,
     requirements = [],
-    onClickPostulation= () => {},
-    // visibleInformation = false
+    onClickPostulation = () => {},
+    onViewCompany = () => {},
+    visibleInformation = false
   } = props
 
   const renderItemRequirement = requirement => {
@@ -143,9 +150,23 @@ const JobDetail = props => {
       </Grid>
       <Grid  item xs={12} >
         <div className={classes.contentCompany}>
-          <img alt='company logo' src={company.company_logo} />
-          <Typography className={classes.titleCompany}>{company.company_name}</Typography>
-          <Link underline='none' href='/'>Ver más</Link>
+          <div className={classes.contentCompanyLogo}>
+            {
+              company.company_logo ? <img alt='company logo' src={company.company_logo} /> : null
+            }
+          </div>
+          {
+            visibleInformation ? (
+              <Typography className={classes.titleCompany}>Confidencial</Typography>
+            ) : (
+              <>
+                <Typography className={classes.titleCompany}>{company.company_name}</Typography>
+                <Button color='primary' onClick={onViewCompany} >
+                  Ver más
+                </Button>
+              </>
+            )
+          }
         </div>
       </Grid>
       <Grid item>
@@ -270,6 +291,7 @@ JobDetail.propTypes = {
   description: PropTypes.string,
   detailJob: PropTypes.array,
   onClickPostulation: PropTypes.func,
+  onViewCompany: PropTypes.func,
   // status: PropTypes.string
   // expirationDate: PropTypes.string,
   requirements: PropTypes.array,

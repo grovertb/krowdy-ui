@@ -157,6 +157,9 @@ export default function () {
           "company_logo": "https://s3.amazonaws.com/test.krowdy.apps/company/5df94c923e5ee30034fe1859/2019-12-17T16-53-22-199Z71a50283e8ab9334ccf054d2caa3760a_%281%29.jpeg",
           "company_name": "TV PERU"
         }}
+        onViewCompany={()=>{
+          console.log('Groverrrr')
+        }}
         description='Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry`s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'
         detailJob={[
           {
