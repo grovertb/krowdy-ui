@@ -152,7 +152,7 @@ const JobDetail = props => {
         <div className={classes.contentCompany}>
           <div className={classes.contentCompanyLogo}>
             {
-              company.company_logo ? <img alt='company logo' src={company.company_logo} /> : null
+              company.company_logo && !visibleInformation ? <img alt='company logo' src={company.company_logo} /> : null
             }
           </div>
           {
