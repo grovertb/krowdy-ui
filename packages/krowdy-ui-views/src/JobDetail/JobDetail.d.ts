@@ -1,11 +1,13 @@
 export type JobDetailProps = {
   basicEdition?: object[];
   benefits?: object[];
+  company?: object;
   competencies?: object[];
   description?: string;
-  title?: string;
   detailJob?: object[];
   onClickPostulation?: Function;
+  requirements?: object[];
+  title?: string;
   userInJob?: boolean;
   visibleInformation?: boolean;
 };

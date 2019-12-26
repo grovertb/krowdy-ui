@@ -1,6 +1,7 @@
 import React from 'react'
-import PropTypes from 'prop-types' 
-import { Typography, Button, Grid, Divider, List, ListItem, ListItemText, Chip, Link } from '@krowdy-ui/core'
+import PropTypes from 'prop-types'
+import { Typography, Button, Grid, Divider, List, ListItem, ListItemText, Chip } from '@krowdy-ui/core'
+import BusinessIcon from '@krowdy-ui/icons/Business'
 import { withStyles } from '@krowdy-ui/core/styles'
 
 export const styles = theme => ({
@@ -14,27 +15,30 @@ export const styles = theme => ({
     [theme.breakpoints.down('xs')]: {
       paddingBottom: theme.spacing(5)
     },
-    margin: theme.spacing(0, 3)
+    margin: theme.spacing(0, 5)
   },
   contentOptions: {
     display: 'flex',
     flexWrap: 'wrap',
-    '& > div' :{
+    '& > div': {
       color: theme.palette.primary.main,
       display: 'flex',
       alignItems: 'center'
     }
   },
   contentCompanyLogo: {
-    '& > img':{
+    '& > img': {
       display: 'block',
       width: '100%'
     },
     backgroundColor: '#EFEFEF',
     border: '1px solid rgb(234, 234, 234)',
     borderRadius: 6,
-    width: 64,
-    height: 64,
+    width: 47,
+    height: 47,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   contentCompany: {
     '& > a': {
@@ -44,19 +48,22 @@ export const styles = theme => ({
     alignItems: 'baseline'
   },
   itemOptions: {
-    '& > svg': {
-      marginRight: 8
-    },
     marginTop: 8,
     marginRight: 20
+  },
+  iconDetail: {
+    marginRight: 8
+  },
+  textDetail: {
+    fontSize: '.8rem'
   },
   descriptionEmpty: {
     '& > img': {
       maxWidth: '100%'
     },
-    alignItems    : 'center',
-    display       : 'flex',
-    flexDirection : 'column'
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'column'
   },
   sectionInformation: {
     margin: theme.spacing(5, 0)
@@ -68,17 +75,31 @@ export const styles = theme => ({
     paddingLeft: 40
   },
   itemList: {
-    display  : 'list-item',
-    padding  : 6
+    display: 'list-item',
+    padding: 6,
+    fontWeight: 'bold',
+    fontSize: '.8rem',
+    '& > div': {
+      fontWeight: 'normal'
+    }
+  },
+  listCompetitions: {
+    display: 'list-item',
+    padding: 6,
+    fontWeight: 'normal',
+    fontSize: '.8rem'
   },
   titleJob: {
-    fontSize: '3rem'
+    fontSize: '2.5rem'
   },
   titleCompany: {
-    fontSize: '1.5rem',
+    fontSize: '1.4rem',
     fontWeight: 'bold',
     marginLeft: theme.spacing(1),
-    lineHeight: 1
+    lineHeight: 1,
+    '&.no-visible': {
+      fontSize: '1rem'
+    }
   },
   btnPostular: {
     [theme.breakpoints.down('xs')]: {
@@ -91,6 +112,27 @@ export const styles = theme => ({
       width: '100%',
       padding: theme.spacing(2)
     }
+  },
+  seeMoreCompany: {
+    color: theme.palette.primary.main,
+    marginLeft: 10,
+    cursor: 'pointer',
+    fontSize: '.8rem'
+  },
+  textDescription: {
+    fontSize: '.8rem'
+  },
+  titleSection: {
+    fontSize: '1.2rem'
+  },
+  chips: {
+    marginRight: '5px',
+    '&:nth-last-child(1)': {
+      marginRight: 0
+    }
+  },
+  iconCompany: {
+    color: '#595959'
   }
 })
 
@@ -107,8 +149,8 @@ const JobDetail = props => {
     detailJob = [],
     // expirationDate,
     requirements = [],
-    onClickPostulation = () => {},
-    onViewCompany = () => {},
+    onClickPostulation = () => { },
+    onViewCompany = () => { },
     visibleInformation = false
   } = props
 
@@ -118,21 +160,22 @@ const JobDetail = props => {
         return requirement.value.map((career, indexCareer) => (
           <Chip
             // className={classes.requirementsChip}
-            color='primary' 
-            key={`career-${indexCareer}`} 
+            color='primary'
+            key={`career-${indexCareer}`}
             label={career}
-            size='small' 
+            size='small'
+            className={classes.chips}
             variant='outlined' />)
         )
       case 'idioma':
         return requirement.value.map((idioma, indexIdioma) => (
-            <Typography
-              // className={classes.requirementsSubtitle}
-              // component='span'
-              key={`idioma-${indexIdioma}`}>
-              {idioma}
-            </Typography>
-          ))
+          <Typography
+            // className={classes.requirementsSubtitle}
+            // component='span'
+            key={`idioma-${indexIdioma}`}>
+            {idioma}
+          </Typography>
+        ))
       default:
         return requirement.value
     }
@@ -145,45 +188,41 @@ const JobDetail = props => {
           <Typography className={classes.titleJob} variant='h1'>{title}</Typography>
         </Grid>
         <Grid item sm={2} xs={12} className={classes.btnPostular}>
-          <Button onClick={onClickPostulation} fullWidth size='large' variant='contained' color='primary'>{userInJob ? 'Ver postulación': 'Postular' }</Button>
+          <Button onClick={onClickPostulation} fullWidth size='large' variant='contained' color='primary'>{userInJob ? 'Ver postulación' : 'Postular'}</Button>
         </Grid>
       </Grid>
-      <Grid  item xs={12} >
+      <Grid item xs={12}>
         <div className={classes.contentCompany}>
           <div className={classes.contentCompanyLogo}>
             {
-              company.company_logo && !visibleInformation ? <img alt='company logo' src={company.company_logo} /> : null
+              company.company_logo && !visibleInformation ? <img alt='company logo' src={company.company_logo} /> : <BusinessIcon className={classes.iconCompany} />
             }
           </div>
           {
             visibleInformation ? (
-              <Typography className={classes.titleCompany}>Confidencial</Typography>
+              <Typography className={`${classes.titleCompany} no-visible`}>Confidencial</Typography>
             ) : (
-              <>
-                <Typography className={classes.titleCompany}>{company.company_name}</Typography>
-                <Button color='primary' onClick={onViewCompany} >
-                  Ver más
-                </Button>
-              </>
-            )
+                <>
+                  <Typography className={classes.titleCompany}>{company.company_name}</Typography>
+                  <Typography onClick={onViewCompany} className={classes.seeMoreCompany}>Ver más</Typography>
+                </>
+              )
           }
         </div>
       </Grid>
-      <Grid item>
-        <Typography variant='body3'>{description}</Typography>
-      </Grid>
+
+      {description ? (
+        <Grid item>
+          <Typography variant='body3' className={classes.textDescription}>{description}</Typography>
+        </Grid>
+      ) : null}
+
       <Grid item xs={12} className={classes.contentOptions}>
         {
-          detailJob.map(({icon, text}, index) => (
+          detailJob.map(({ icon, text }, index) => (
             <div key={`option-${index}`} className={classes.itemOptions}>
-                {
-                  icon
-                }
-              <Typography color='body' variant='h6'>
-                {
-                  text
-                }
-              </Typography>
+              <Typography className={classes.iconDetail}>{icon}</Typography>
+              <Typography color='body' className={classes.textDetail} variant='h6'>{text}</Typography>
             </div>
           ))
         }
@@ -191,25 +230,26 @@ const JobDetail = props => {
       {
         basicEdition.filter(({ visible }) => visible).map((item, key) => (
           <section key={`information-${key}`} className={classes.sectionInformation}>
-            <Typography variant='h4'>{item.title}</Typography>
+            <Typography variant='h4' className={classes.titleSection}>{item.title}</Typography>
             {
               item.description ? (
                 <Typography
-                component='div'
-                dangerouslySetInnerHTML={{ __html: item.description }}
-                variant='body2' />
+                  component='div'
+                  className={classes.textDescription}
+                  dangerouslySetInnerHTML={{ __html: item.description }}
+                  variant='body2' />
               ) : (
-                <div className={classes.descriptionEmpty}>
-                  <img
-                    alt='without-description'
-                    src='https://s3.amazonaws.com/cdn.krowdy.com/media/images/empty-job.png' />
-                  <Typography color='info' variant='body3' align='center'>
-                    Sin descripción
+                  <div className={classes.descriptionEmpty}>
+                    <img
+                      alt='without-description'
+                      src='https://s3.amazonaws.com/cdn.krowdy.com/media/images/empty-job.png' />
+                    <Typography color='info' variant='body3' align='center'>
+                      Sin descripción
                   </Typography>
-                </div>
-              )
+                  </div>
+                )
             }
-            
+
           </section>
         ))
       }
@@ -222,7 +262,7 @@ const JobDetail = props => {
               <List className={classes.list}>
                 {
                   competencies.map((competencie, index) => (
-                    <ListItem className={classes.itemList} key={`competencie-${index}`}>
+                    <ListItem className={classes.listCompetitions} key={`competencie-${index}`}>
                       {competencie.title}
                     </ListItem>
                   ))
@@ -236,20 +276,20 @@ const JobDetail = props => {
         benefits.length ? (
           <>
             <Divider />
-             <section className={classes.sectionInformation}>
+            <section className={classes.sectionInformation}>
               <Typography className={classes.titleSection} variant='h5'>Beneficios</Typography>
               <List className={classes.list}>
                 {
                   benefits.map((benefit, index) => (
                     <ListItem className={classes.itemList} key={`benefit-${index}`}>
                       {benefit.title}
-                      <ListItemText 
+                      <ListItemText
                         secondary={benefit.description} />
                     </ListItem>
                   ))
                 }
               </List>
-            </section> 
+            </section>
           </>
         ) : null
       }
