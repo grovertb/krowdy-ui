@@ -79,15 +79,18 @@ export const styles = theme => ({
     padding: 6,
     fontWeight: 'bold',
     fontSize: '.8rem',
+    wordBreak: 'break-all',
     '& > div': {
-      fontWeight: 'normal'
+      fontWeight: 'normal',
+      wordBreak: 'break-all'
     }
   },
   listCompetitions: {
     display: 'list-item',
     padding: 6,
     fontWeight: 'normal',
-    fontSize: '.8rem'
+    fontSize: '.8rem',
+    wordBreak: 'break-all'
   },
   titleJob: {
     fontSize: '2.5rem'
@@ -110,8 +113,15 @@ export const styles = theme => ({
       zIndex: 1,
       backgroundColor: 'white',
       width: '100%',
-      padding: theme.spacing(2)
-    }
+      padding: theme.spacing(2),
+      flex: '1 1 0'
+    },
+    '& button': {
+      [theme.breakpoints.down('xs')]: {
+        width: '100%'
+      }
+    },
+    flex: '1 0 1'
   },
   seeMoreCompany: {
     color: theme.palette.primary.main,
@@ -120,7 +130,8 @@ export const styles = theme => ({
     fontSize: '.8rem'
   },
   textDescription: {
-    fontSize: '.8rem'
+    fontSize: '.8rem',
+    wordBreak: 'break-all'
   },
   titleSection: {
     fontSize: '1.2rem'
@@ -133,6 +144,16 @@ export const styles = theme => ({
   },
   iconCompany: {
     color: '#595959'
+  },
+  headerJob: {
+    display: 'flex',
+    flexDirection: 'column',
+    [theme.breakpoints.up('sm')]: {
+      flexDirection: 'row',
+    }
+  },
+  headerLeft: {
+    flex: '1'
   }
 })
 
@@ -148,6 +169,10 @@ const JobDetail = props => {
     company = {},
     detailJob = [],
     // expirationDate,
+    disabledPerson: {
+      visible: visibleDisabled,
+      accepted: acceptedDisabled
+    } = {},
     requirements = [],
     onClickPostulation = () => { },
     onViewCompany = () => { },
@@ -184,22 +209,26 @@ const JobDetail = props => {
   return (
     <div className={classes.contentJobDetail}>
       <Grid container>
-        <Grid item sm={10} xs={12}>
-          <Typography className={classes.titleJob} variant='h1'>{title}</Typography>
-        </Grid>
-        <Grid item sm={2} xs={12} className={classes.btnPostular}>
-          <Button onClick={onClickPostulation} fullWidth size='large' variant='contained' color='primary'>{userInJob ? 'Ver postulación' : 'Postular'}</Button>
+        <Grid item xs={12}>
+          <div className={classes.headerJob}>
+            <div className={classes.headerLeft}>
+              <Typography className={classes.titleJob} variant='h1'>{title}</Typography>
+            </div>
+            <div className={classes.btnPostular}>
+              <Button onClick={onClickPostulation} size='large' variant='contained' color='primary'>{userInJob ? 'Ver postulación' : 'Postular'}</Button>
+            </div>
+          </div>
         </Grid>
       </Grid>
       <Grid item xs={12}>
         <div className={classes.contentCompany}>
           <div className={classes.contentCompanyLogo}>
             {
-              company.company_logo && !visibleInformation ? <img alt='company logo' src={company.company_logo} /> : <BusinessIcon className={classes.iconCompany} />
+              company.company_logo && visibleInformation ? <img alt='company logo' src={company.company_logo} /> : <BusinessIcon className={classes.iconCompany} />
             }
           </div>
           {
-            visibleInformation ? (
+            !visibleInformation ? (
               <Typography className={`${classes.titleCompany} no-visible`}>Confidencial</Typography>
             ) : (
                 <>
@@ -280,11 +309,10 @@ const JobDetail = props => {
               <Typography className={classes.titleSection} variant='h5'>Beneficios</Typography>
               <List className={classes.list}>
                 {
-                  benefits.map((benefit, index) => (
+                  benefits.map(({ title: titleBenefits, description: descriptionBenefits }, index) => (
                     <ListItem className={classes.itemList} key={`benefit-${index}`}>
-                      {benefit.title}
-                      <ListItemText
-                        secondary={benefit.description} />
+                      {titleBenefits}
+                      <ListItemText secondary={titleBenefits === 'EPS' ? descriptionBenefits ? `${descriptionBenefits}%` : '' : descriptionBenefits} />
                     </ListItem>
                   ))
                 }
@@ -294,7 +322,7 @@ const JobDetail = props => {
         ) : null
       }
       {
-        requirements.length ? (
+        requirements.length || visibleDisabled ? (
           <>
             <Divider />
             <section className={classes.sectionInformation}>
@@ -308,6 +336,13 @@ const JobDetail = props => {
                     </ListItem>
                   ))
                 }
+                {visibleDisabled ? (
+                  <ListItem className={classes.itemList}>
+                    Apto para discapacitados
+                <div>{acceptedDisabled ? 'Si' : 'No'}</div>
+                  </ListItem>
+                ) : null}
+
               </List>
             </section>
           </>

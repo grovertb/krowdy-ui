@@ -152,7 +152,7 @@ export default function () {
       <JobDetail
 
         title='Analista UI Designer Senior'
-        userInJob={false}
+        userInJob={true}
         company={{
           "company_id": "5df94c923e5ee30034fe1859",
           "company_logo": "https://s3.amazonaws.com/test.krowdy.apps/company/5df94c923e5ee30034fe1859/2019-12-17T16-53-22-199Z71a50283e8ab9334ccf054d2caa3760a_%281%29.jpeg",
@@ -270,7 +270,11 @@ export default function () {
             "value": "Si"
           }
         ]}
-        visibleInformation={false}
+        disabledPerson={{
+          accepted: true,
+          visible: true
+        }}
+        visibleInformation={true}
       />
     </Grid>
   )

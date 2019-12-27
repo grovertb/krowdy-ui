@@ -10,6 +10,7 @@ export type JobDetailProps = {
   title?: string;
   userInJob?: boolean;
   visibleInformation?: boolean;
+  disabledPerson?: object;
 };
 
 declare const JobDetail: React.ComponentType<JobDetailProps>;
