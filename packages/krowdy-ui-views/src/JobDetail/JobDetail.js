@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import xdate from 'xdate'
 import { Typography, Button, Grid, Divider, List, ListItem, ListItemText, Chip } from '@krowdy-ui/core'
 import BusinessIcon from '@krowdy-ui/icons/Business'
 import { withStyles } from '@krowdy-ui/core/styles'
@@ -121,7 +122,10 @@ export const styles = theme => ({
         width: '100%'
       }
     },
-    flex: '1 0 1'
+    flex: '1 0 1',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-end'
   },
   seeMoreCompany: {
     color: theme.palette.primary.main,
@@ -154,6 +158,11 @@ export const styles = theme => ({
   },
   headerLeft: {
     flex: '1'
+  },
+  textEndJob: {
+    fontSize: '12px',
+    paddingRight: '5px',
+    marginTop: '5px'
   }
 })
 
@@ -168,7 +177,7 @@ const JobDetail = props => {
     userInJob = false,
     company = {},
     detailJob = [],
-    // expirationDate,
+    expirationDate,
     disabledPerson: {
       visible: visibleDisabled,
       accepted: acceptedDisabled
@@ -178,6 +187,8 @@ const JobDetail = props => {
     onViewCompany = () => { },
     visibleInformation = false
   } = props
+
+  const timeToDown = Math.round((new xdate()).diffDays(new xdate(expirationDate)))
 
   const renderItemRequirement = requirement => {
     switch (requirement.title.toLowerCase()) {
@@ -215,7 +226,13 @@ const JobDetail = props => {
               <Typography className={classes.titleJob} variant='h1'>{title}</Typography>
             </div>
             <div className={classes.btnPostular}>
-              <Button onClick={onClickPostulation} size='large' variant='contained' color='primary'>{userInJob ? 'Ver postulación' : 'Postular'}</Button>
+              <Button onClick={onClickPostulation} disabled={timeToDown < 0} size='large' variant='contained' color='primary'>{userInJob ? 'Ver postulación' : 'Postular'}</Button>
+              {
+                (timeToDown > 0 && timeToDown <= 14) ?
+                  <Typography className={classes.textEndJob} component='span'>
+                    Finaliza en {timeToDown} día{timeToDown === 1 ? '' : 's'}.
+                  </Typography> : null
+              }
             </div>
           </div>
         </Grid>

@@ -274,6 +274,7 @@ export default function () {
           accepted: true,
           visible: true
         }}
+        expirationDate='2019-12-31T16:37:00.000Z'
         visibleInformation={true}
       />
     </Grid>
