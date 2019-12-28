@@ -141,7 +141,7 @@ export const styles = theme => ({
     fontSize: '1.2rem'
   },
   chips: {
-    marginRight: '5px',
+    margin: '5px 5px 5px 0',
     '&:nth-last-child(1)': {
       marginRight: 0
     }
