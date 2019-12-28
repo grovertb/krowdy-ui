@@ -7,16 +7,19 @@ import { terser } from 'rollup-plugin-terser';
 import { sizeSnapshot } from 'rollup-plugin-size-snapshot';
 
 const input = './src/index.js';
+
 const globals = {
   react: 'React',
-  'react-dom': 'ReactDOM',
+  'react-dom': 'ReactDOM'
 };
+
 const babelOptions = {
   exclude: /node_modules/,
   // We are using @babel/plugin-transform-runtime
   runtimeHelpers: true,
   configFile: '../../babel.config.js',
 };
+
 const commonjsOptions = {
   ignoreGlobal: true,
   include: /node_modules/,
