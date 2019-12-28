@@ -49,7 +49,8 @@
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-size-snapshot": "^0.10.0",
     "rollup-plugin-terser": "^5.1.2",
-    "typescript": "^3.7.2"
+    "typescript": "^3.7.2",
+    "jss": "10.0.0"
   },
   "resolutions": {
     "**/@babel/core": "^7.7.4",

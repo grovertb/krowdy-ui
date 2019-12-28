@@ -3,6 +3,7 @@ let defaultPresets;
 // We release a ES version of Material-UI.
 // It's something that matches the latest official supported features of JavaScript.
 // Nothing more (stage-1, etc), nothing less (require, etc).
+
 if (process.env.BABEL_ENV === 'es') {
   defaultPresets = [];
 } else {
@@ -33,7 +34,7 @@ const productionPlugins = [
   ],
 ];
 
-module.exports = {
+module.exports =  {
   presets: defaultPresets.concat(['@babel/preset-react']),
   plugins: [
     'babel-plugin-optimize-clsx',
