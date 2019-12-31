@@ -267,11 +267,16 @@ const JobDetail = props => {
         </div>
       </Grid>
 
-      {description ? (
-        <Grid item>
-          <Typography variant='body3' className={classes.textDescription}>{description}</Typography>
-        </Grid>
-      ) : null}
+      {
+        description ? (
+          <Grid item>
+            <Typography 
+              variant='body3'
+              dangerouslySetInnerHTML={{ __html: description }}
+              className={classes.textDescription} />
+          </Grid>
+        ) : null
+      }
 
       <Grid item xs={12} className={classes.contentOptions}>
         {
