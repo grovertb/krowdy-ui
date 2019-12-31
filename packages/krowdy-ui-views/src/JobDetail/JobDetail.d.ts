@@ -3,7 +3,7 @@ export type JobDetailProps = {
   benefits?: object[];
   company?: object;
   competencies?: object[];
-  description?: string;
+  description?: string | object;
   detailJob?: object[];
   onClickPostulation?: Function;
   requirements?: object[];

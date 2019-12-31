@@ -191,7 +191,7 @@ const JobDetail = props => {
   const [ imageFailed, setImageFailed ] = React.useState(false)
 
 
-  const timeToDown = Math.round((new XDate()).diffDays(new XDate(expirationDate)))
+  const timeToDown = expirationDate ? Math.round((new XDate()).diffDays(new XDate(expirationDate))) : -1
 
   const renderItemRequirement = requirement => {
     switch (requirement.title.toLowerCase()) {
@@ -270,10 +270,15 @@ const JobDetail = props => {
       {
         description ? (
           <Grid item>
-            <Typography 
-              variant='body3'
-              dangerouslySetInnerHTML={{ __html: description }}
-              className={classes.textDescription} />
+            {
+              typeof description === 'object' ? 
+              description : 
+              <Typography 
+                variant='body3'
+                className={classes.textDescription} >
+                {description}
+              </Typography>
+            }
           </Grid>
         ) : null
       }
@@ -403,7 +408,10 @@ JobDetail.propTypes = {
   classes: PropTypes.object,
   company: PropTypes.object,
   competencies: PropTypes.array,
-  description: PropTypes.string,
+  description: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object
+  ]),
   // _id
   detailJob: PropTypes.array,
   disabledPerson: PropTypes.object,
