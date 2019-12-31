@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import xdate from 'xdate'
+import XDate from 'xdate'
 import { Typography, Button, Grid, Divider, List, ListItem, ListItemText, Chip } from '@krowdy-ui/core'
 import BusinessIcon from '@krowdy-ui/icons/Business'
 import { withStyles } from '@krowdy-ui/core/styles'
@@ -46,7 +46,7 @@ export const styles = theme => ({
       marginLeft: theme.spacing(1)
     },
     display: 'flex',
-    alignItems: 'baseline'
+    alignItems: 'flex-end'
   },
   itemOptions: {
     marginTop: 8,
@@ -188,7 +188,10 @@ const JobDetail = props => {
     visibleInformation = false
   } = props
 
-  const timeToDown = Math.round((new xdate()).diffDays(new xdate(expirationDate)))
+  const [ imageFailed, setImageFailed ] = React.useState(false)
+
+
+  const timeToDown = Math.round((new XDate()).diffDays(new XDate(expirationDate)))
 
   const renderItemRequirement = requirement => {
     switch (requirement.title.toLowerCase()) {
@@ -217,6 +220,11 @@ const JobDetail = props => {
     }
   }
 
+
+  const handleErrorImage = () => {
+    setImageFailed(true)
+  }
+
   return (
     <div className={classes.contentJobDetail}>
       <Grid container>
@@ -241,7 +249,9 @@ const JobDetail = props => {
         <div className={classes.contentCompany}>
           <div className={classes.contentCompanyLogo}>
             {
-              company.company_logo && visibleInformation ? <img alt='company logo' src={company.company_logo} /> : <BusinessIcon className={classes.iconCompany} />
+              (company.company_logo && visibleInformation && !imageFailed) ? 
+                <img alt='company logo' src={company.company_logo} onError={handleErrorImage} /> : 
+                <BusinessIcon className={classes.iconCompany} />
             }
           </div>
           {
@@ -329,7 +339,14 @@ const JobDetail = props => {
                   benefits.map(({ title: titleBenefits, description: descriptionBenefits }, index) => (
                     <ListItem className={classes.itemList} key={`benefit-${index}`}>
                       {titleBenefits}
-                      <ListItemText secondary={titleBenefits === 'EPS' ? descriptionBenefits ? `${descriptionBenefits}%` : '' : descriptionBenefits} />
+                      <ListItemText 
+                      secondary={
+                        // eslint-disable-next-line no-nested-ternary
+                        titleBenefits === 'EPS' ? 
+                          descriptionBenefits ? `${descriptionBenefits}%` : 
+                          '' : 
+                          descriptionBenefits
+                        } />
                     </ListItem>
                   ))
                 }
@@ -353,12 +370,14 @@ const JobDetail = props => {
                     </ListItem>
                   ))
                 }
-                {visibleDisabled ? (
+                {
+                  visibleDisabled ? (
                   <ListItem className={classes.itemList}>
                     Apto para discapacitados
-                <div>{acceptedDisabled ? 'Si' : 'No'}</div>
+                    <div>{acceptedDisabled ? 'Si' : 'No'}</div>
                   </ListItem>
-                ) : null}
+                ) : null
+                }
 
               </List>
             </section>
@@ -379,13 +398,14 @@ JobDetail.propTypes = {
   classes: PropTypes.object,
   company: PropTypes.object,
   competencies: PropTypes.array,
-  // _id
   description: PropTypes.string,
+  // _id
   detailJob: PropTypes.array,
+  disabledPerson: PropTypes.object,
+  expirationDate: PropTypes.string,
   onClickPostulation: PropTypes.func,
-  onViewCompany: PropTypes.func,
   // status: PropTypes.string
-  // expirationDate: PropTypes.string,
+  onViewCompany: PropTypes.func,
   requirements: PropTypes.array,
   title: PropTypes.string,
   userInJob: PropTypes.bool,
