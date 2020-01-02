@@ -195,8 +195,11 @@ const JobDetail = props => {
     setImageFailed(false)
   }, [jobId])
 
-
-  const timeToDown = expirationDate ? Math.round((new XDate()).diffDays(new XDate(expirationDate))) : -1
+  const expDate = new XDate(expirationDate) // DEVUELVE 2019-12-29 10:38:20
+  const expDateFormat = new XDate(expDate.getFullYear(), expDate.getMonth(), expDate.getDate()) // DEVUELVE 2019-12-29
+  const today = new XDate() // DEVUELVE 2019-12-30 10:38:20
+  const todayFormat = new XDate(today.getFullYear(), today.getMonth(), today.getDate()) // DEVUELVE 2019-12-30
+  const timeToDown = todayFormat.diffDays(expDateFormat)
 
   const renderItemRequirement = requirement => {
     switch (requirement.title.toLowerCase()) {
@@ -241,9 +244,9 @@ const JobDetail = props => {
             <div className={classes.btnPostular}>
               <Button onClick={onClickPostulation} disabled={timeToDown < 0} size='large' variant='contained' color='primary'>{userInJob ? 'Ver postulación' : 'Postular'}</Button>
               {
-                (timeToDown > 0 && timeToDown <= 14) ?
+                (timeToDown >= 0 && timeToDown <= 14) ?
                   <Typography className={classes.textEndJob} component='span'>
-                    Finaliza en {timeToDown} día{timeToDown === 1 ? '' : 's'}.
+                    Finaliza {timeToDown === 0 ? 'Hoy' : `en ${timeToDown} día${timeToDown === 1 ? '' : 's'}`}.
                   </Typography> : null
               }
             </div>

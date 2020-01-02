@@ -152,7 +152,7 @@ export default function () {
       <JobDetail
         jobId='564c66sd54es545d4584545'
         title='Analista UI Designer Senior'
-        userInJob={true}
+        userInJob={false}
         company={{
           "company_id": "5df94c923e5ee30034fe1859",
           //"company_logo": "https://s3.amazonaws.com/test.krowdy.apps/company/5df94c923e5ee30034fe1859/2019-12-17T16-53-22-199Z71a50283e8ab9334ccf054d2caa3760a_%281%29.jpeg",
@@ -276,7 +276,7 @@ export default function () {
           accepted: true,
           visible: true
         }}
-        expirationDate='2019-12-31T16:37:00.000Z'
+        expirationDate='2020-01-04T05:00:00.000Z'
         visibleInformation={true}
       />
     </Grid>
