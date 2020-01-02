@@ -1,4 +1,5 @@
 export type JobDetailProps = {
+  jobId?: string,
   basicEdition?: object[];
   benefits?: object[];
   company?: object;

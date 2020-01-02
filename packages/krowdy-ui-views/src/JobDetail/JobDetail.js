@@ -168,6 +168,7 @@ export const styles = theme => ({
 
 const JobDetail = props => {
   const {
+    jobId,
     classes,
     title,
     competencies = [],
@@ -188,7 +189,11 @@ const JobDetail = props => {
     visibleInformation = false
   } = props
 
-  const [ imageFailed, setImageFailed ] = React.useState(false)
+  const [imageFailed, setImageFailed] = React.useState(false)
+
+  React.useEffect(() => {
+    setImageFailed(false)
+  }, [jobId])
 
 
   const timeToDown = expirationDate ? Math.round((new XDate()).diffDays(new XDate(expirationDate))) : -1
@@ -249,8 +254,8 @@ const JobDetail = props => {
         <div className={classes.contentCompany}>
           <div className={classes.contentCompanyLogo}>
             {
-              (company.company_logo && visibleInformation && !imageFailed) ? 
-                <img alt='company logo' src={company.company_logo} onError={handleErrorImage} /> : 
+              (company.company_logo && visibleInformation && !imageFailed) ?
+                <img alt='company logo' src={company.company_logo} onError={handleErrorImage} /> :
                 <BusinessIcon className={classes.iconCompany} />
             }
           </div>
@@ -271,13 +276,13 @@ const JobDetail = props => {
         description ? (
           <Grid item>
             {
-              typeof description === 'object' ? 
-              description : 
-              <Typography 
-                variant='body3'
-                className={classes.textDescription} >
-                {description}
-              </Typography>
+              typeof description === 'object' ?
+                description :
+                <Typography
+                  variant='body3'
+                  className={classes.textDescription} >
+                  {description}
+                </Typography>
             }
           </Grid>
         ) : null
@@ -349,13 +354,13 @@ const JobDetail = props => {
                   benefits.map(({ title: titleBenefits, description: descriptionBenefits }, index) => (
                     <ListItem className={classes.itemList} key={`benefit-${index}`}>
                       {titleBenefits}
-                      <ListItemText 
-                      secondary={
-                        // eslint-disable-next-line no-nested-ternary
-                        titleBenefits === 'EPS' ? 
-                          descriptionBenefits ? `${descriptionBenefits}%` : 
-                          '' : 
-                          descriptionBenefits
+                      <ListItemText
+                        secondary={
+                          // eslint-disable-next-line no-nested-ternary
+                          titleBenefits === 'EPS' ?
+                            descriptionBenefits ? `${descriptionBenefits}%` :
+                              '' :
+                            descriptionBenefits
                         } />
                     </ListItem>
                   ))
@@ -382,11 +387,11 @@ const JobDetail = props => {
                 }
                 {
                   visibleDisabled ? (
-                  <ListItem className={classes.itemList}>
-                    Apto para discapacitados
+                    <ListItem className={classes.itemList}>
+                      Apto para discapacitados
                     <div>{acceptedDisabled ? 'Si' : 'No'}</div>
-                  </ListItem>
-                ) : null
+                    </ListItem>
+                  ) : null
                 }
 
               </List>
@@ -416,6 +421,7 @@ JobDetail.propTypes = {
   detailJob: PropTypes.array,
   disabledPerson: PropTypes.object,
   expirationDate: PropTypes.string,
+  jobId: PropTypes.string,
   onClickPostulation: PropTypes.func,
   // status: PropTypes.string
   onViewCompany: PropTypes.func,
