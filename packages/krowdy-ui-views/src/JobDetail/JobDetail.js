@@ -14,6 +14,8 @@ export const styles = theme => ({
       margin: theme.spacing(2, 0)
     },
     [theme.breakpoints.down('xs')]: {
+      marginLeft: '15px',
+      marginRight: '15px',
       paddingBottom: theme.spacing(5)
     },
     margin: theme.spacing(0, 5)
@@ -46,7 +48,10 @@ export const styles = theme => ({
       marginLeft: theme.spacing(1)
     },
     display: 'flex',
-    alignItems: 'flex-end'
+    alignItems: 'flex-end',
+    [theme.breakpoints.down('xs')]: {
+      alignItems: 'center'
+    }
   },
   itemOptions: {
     marginTop: 8,
@@ -94,7 +99,15 @@ export const styles = theme => ({
     wordBreak: 'break-word'
   },
   titleJob: {
-    fontSize: '2.5rem'
+    fontSize: '2.5rem',
+    textTransform: 'lowercase',
+    wordBreak: 'break-word',
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '1.75rem',
+    },
+    '&:first-letter': {
+      textTransform: 'uppercase'
+    },
   },
   titleCompany: {
     fontSize: '1.4rem',
@@ -142,6 +155,7 @@ export const styles = theme => ({
   },
   chips: {
     margin: '5px 5px 5px 0',
+    maxWidth: '100%',
     '&:nth-last-child(1)': {
       marginRight: 0
     }
