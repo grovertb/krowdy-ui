@@ -80,10 +80,10 @@ export const styles = theme => ({
     padding: 6,
     fontWeight: 'bold',
     fontSize: '.8rem',
-    wordBreak: 'break-all',
+    wordBreak: 'break-word',
     '& > div': {
       fontWeight: 'normal',
-      wordBreak: 'break-all'
+      wordBreak: 'break-word'
     }
   },
   listCompetitions: {
@@ -91,7 +91,7 @@ export const styles = theme => ({
     padding: 6,
     fontWeight: 'normal',
     fontSize: '.8rem',
-    wordBreak: 'break-all'
+    wordBreak: 'break-word'
   },
   titleJob: {
     fontSize: '2.5rem'
@@ -135,7 +135,7 @@ export const styles = theme => ({
   },
   textDescription: {
     fontSize: '.8rem',
-    wordBreak: 'break-all'
+    wordBreak: 'break-word'
   },
   titleSection: {
     fontSize: '1.2rem'
