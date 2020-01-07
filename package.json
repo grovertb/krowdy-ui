@@ -1,5 +1,5 @@
 {
-  "version": "0.0.16",
+  "version": "0.0.20",
   "private": true,
   "scripts": {
     "docs:api": "rimraf ./docs/src/pages/api && cross-env BABEL_ENV=test babel-node ./docs/scripts/buildApi.js ./packages/krowdy-ui/src ./docs/src/pages/api",

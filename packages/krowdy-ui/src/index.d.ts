@@ -125,7 +125,6 @@ export {
   ThemeProvider,
   useTheme,
   withStyles,
-  WithStyles,
   withTheme,
   WithTheme,
   krowdyTheme

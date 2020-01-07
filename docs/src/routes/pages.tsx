@@ -128,6 +128,10 @@ const pages: Array<Page> = [
         title: 'Job Detail',
         path: '/views/jobdetail'
       },
+      {
+        title: 'Card User',
+        path: '/views/carduser'
+      },
     ]
   }
   // {
