@@ -148,7 +148,8 @@ export const styles = theme => ({
   },
   textDescription: {
     fontSize: '.8rem',
-    wordBreak: 'break-word'
+    wordBreak: 'break-word',
+    marginTop: theme.spacing(4),
   },
   titleSection: {
     fontSize: '1.2rem'
