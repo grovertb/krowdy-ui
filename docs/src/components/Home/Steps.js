@@ -2,7 +2,7 @@ import React from 'react'
 import clsx from 'clsx'
 import { Grid, Typography, Link } from '@krowdy-ui/core'
 import { makeStyles } from '@krowdy-ui/styles'
-import BuildIcon from '@krowdy-ui/icons/Build';
+import BuildIcon from '@material-ui/icons/Build';
 import { t } from '../MarkDowns/utils'
 import { FileDownload as FileDownloadIcon } from '../Icons'
 import MarkdownElement from '../MarkDowns/MarkdownElement'

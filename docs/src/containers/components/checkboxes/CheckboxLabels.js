@@ -11,7 +11,7 @@ import {
 	CheckBox as CheckBoxIcon,
 	Favorite as FavoriteIcon,
 	FavoriteBorder as FavoriteBorderIcon
-}  from '@krowdy-ui/icons';
+}  from '@material-ui/icons';
 
 const GreenCheckbox = withStyles({
   root: {

@@ -41,14 +41,14 @@ For instance, via Google Web Fonts:
 ## SVG Icons
 
 In order to use prebuilt SVG Material icons, such as those found in the [icons demos](/components/icons/)
-you must first install the [@krowdy-ui/icons](https://www.npmjs.com/package/@krowdy-ui/icons) package:
+you must first install the [@material-ui/icons](https://www.npmjs.com/package/@material-ui/icons) package:
 
 ```sh
 // with npm
-npm install @krowdy-ui/icons
+npm install @material-ui/icons
 
 // with yarn
-yarn add @krowdy-ui/icons
+yarn add @material-ui/icons
 ```
 
 ## CDN

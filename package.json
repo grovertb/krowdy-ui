@@ -49,8 +49,7 @@
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-size-snapshot": "^0.10.0",
     "rollup-plugin-terser": "^5.1.2",
-    "typescript": "^3.7.2",
-    "jss": "10.0.0"
+    "typescript": "^3.7.2"
   },
   "resolutions": {
     "**/@babel/core": "^7.7.4",
@@ -59,8 +58,7 @@
     "**/@babel/plugin-transform-runtime": "^7.7.4",
     "**/@babel/preset-env": "^7.7.4",
     "**/@babel/preset-react": "^7.7.4",
-    "**/@babel/runtime": "^7.7.4",
-    "**/jss":"10.0.0"
+    "**/@babel/runtime": "^7.7.4"
   },
   "nyc": {
     "include": [
