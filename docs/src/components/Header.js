@@ -6,7 +6,7 @@ import {
   IconButton
 } from '@krowdy-ui/core'
 
-import MenuIcon from '@krowdy-ui/icons/Menu'
+import MenuIcon from '@material-ui/icons/Menu'
 import AppDrawer from '../components/AppDrawer'
 import { makeStyles } from '@krowdy-ui/styles'
 import clsx from 'clsx'

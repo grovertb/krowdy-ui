@@ -9,7 +9,7 @@ import {
   Navigation as NavigationIcon,
   Apple as AppleIcon,
   Delete as DeleteIcon
-} from '@krowdy-ui/icons'
+} from '@material-ui/icons'
 
 const useStyles = makeStyles(theme => ({
   root: {

@@ -32,8 +32,8 @@
   },
   "peerDependencies": {},
   "dependencies": {
-    "@krowdy-ui/core": "0.0.27",
-    "@krowdy-ui/icons": "^0.0.2",
+    "@krowdy-ui/core": "0.0.28",
+    "@material-ui/icons": "4.5.1",
     "xdate": "0.8.2"
   },
   "sideEffects": false,

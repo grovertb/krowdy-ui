@@ -7,7 +7,7 @@ import {
   AttachMoney as AttachMoneyIcon,
   Work as WorkIcon,
   Business as BusinessIcon
-} from '@krowdy-ui/icons'
+} from '@material-ui/icons'
 
 export default function () {
   //   const job = {

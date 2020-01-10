@@ -10,7 +10,7 @@ import {
   GitHub as GitHubIcon,
   MoreVert as MoreVertIcon,
   Edit as EditIcon
-} from '@krowdy-ui/icons'
+} from '@material-ui/icons'
 
 import DemoSandboxed from './DemoSandboxed';
 import MarkdownElement from './MarkdownElement'
