@@ -4,7 +4,8 @@ import { CardFilter } from '@krowdy-ui/views'
 export default function () {
     return (
         <div>
-            <CardFilter title='Prueba' />
+            <CardFilter
+                title='Prueba' />
         </div>
     )
 }

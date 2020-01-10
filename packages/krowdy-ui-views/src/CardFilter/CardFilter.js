@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@krowdy-ui/core/styles'
-import { Card, CardContent } from '@krowdy-ui/core'
+import { Card, CardContent, CardHeader, Avatar } from '@krowdy-ui/core'
 
 export const styles = () => ({
     headerLeft: {
@@ -17,6 +17,14 @@ const CardFilter = props => {
     return (
         <div style={{ margin: 10 }}>
             <Card>
+                <CardHeader
+                    avatar={
+                        <Avatar aria-label="recipe">
+                            R </Avatar>
+                    }
+                    title={title}
+                    subheader="September 14, 2016"
+                />
                 <CardContent>
                     cardFilter: {title}
                 </CardContent>
