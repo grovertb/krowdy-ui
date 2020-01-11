@@ -133,8 +133,8 @@ const pages: Array<Page> = [
         path: '/views/carduser'
       },
       {
-        title: 'Card Filter',
-        path: '/views/cardfilter'
+        title: 'Select Candidates',
+        path: '/views/selectcandidates'
       }
     ]
   }

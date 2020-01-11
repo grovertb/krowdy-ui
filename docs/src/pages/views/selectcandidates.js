@@ -1,13 +1,13 @@
 import React from 'react';
 import MarkdownDocs from 'components/MarkDowns/MarkdownDocs';
 
-const req = require.context('containers/views/cardfilter', false, /\.(md|js|tsx)$/);
+const req = require.context('containers/views/selectcandidates', false, /\.(md|js|tsx)$/);
 const reqSource = require.context(
-    '!raw-loader!containers/views/cardfilter',
+    '!raw-loader!containers/views/selectcandidates',
     false,
     /\.(js|tsx)$/,
 );
-const reqPrefix = 'containers/views/cardfilter';
+const reqPrefix = 'containers/views/selectcandidates';
 
 function Page() {
     return <MarkdownDocs disableAd req={req} reqSource={reqSource} reqPrefix={reqPrefix} />;
