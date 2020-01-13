@@ -1,77 +1,77 @@
-const fs = require('fs');
-const path = require('path');
-const os = require('os');
+const fs = require('fs')
+const path = require('path')
+const os = require('os')
 
-const markdownRegex = /\.md$/;
-const componentRegex = /^([A-Z][a-z]+)+\.js/;
+const markdownRegex = /\.md$/
+const componentRegex = /^([A-Z][a-z]+)+\.js/
 
 function findPagesMarkdown(
   directory = path.resolve(__dirname, '../src/containers'),
   pagesMarkdown = [],
 ) {
-  const items = fs.readdirSync(directory);
+  const items = fs.readdirSync(directory)
 
   items.forEach(item => {
-    const itemPath = path.resolve(directory, item);
+    const itemPath = path.resolve(directory, item)
 
     if (fs.statSync(itemPath).isDirectory()) {
-      findPagesMarkdown(itemPath, pagesMarkdown);
-      return;
+      findPagesMarkdown(itemPath, pagesMarkdown)
+      return
     }
 
     if (!markdownRegex.test(item)) {
-      return;
+      return
     }
 
     let pathname = itemPath
       .replace(new RegExp(`\\${path.sep}`, 'g'), '/')
       .replace(/^.*\/pages/, '')
-      .replace('.md', '');
+      .replace('.md', '')
 
     // Remove the last pathname segment.
     pathname = pathname
       .split('/')
       .slice(0, 3)
-      .join('/');
+      .join('/')
 
     pagesMarkdown.push({
       // Relative location in the path (URL) system.
-      pathname,
-      // Relative location in the file system.
       filename: itemPath,
-    });
-  });
+      // Relative location in the file system.
+      pathname,
+    })
+  })
 
-  return pagesMarkdown;
+  return pagesMarkdown
 }
 
 // Returns the component source in a flat array.
 function findComponents(directory, components = []) {
-  const items = fs.readdirSync(directory);
+  const items = fs.readdirSync(directory)
 
   items.forEach(item => {
-    const itemPath = path.resolve(directory, item);
+    const itemPath = path.resolve(directory, item)
 
     if (fs.statSync(itemPath).isDirectory()) {
-      findComponents(itemPath, components);
-      return;
+      findComponents(itemPath, components)
+      return
     }
 
     if (!componentRegex.test(item)) {
-      return;
+      return
     }
 
     components.push({
       filename: itemPath,
-    });
-  });
+    })
+  })
 
-  return components;
+  return components
 }
 
 function getLineFeed(source) {
-  const match = source.match(/\r?\n/);
-  return match === null ? os.EOL : match[0];
+  const match = source.match(/\r?\n/)
+  return match === null ? os.EOL : match[0]
 }
 
 function kebabCase(cadena) {
@@ -79,8 +79,8 @@ function kebabCase(cadena) {
 } 
 
 module.exports = {
-  findPagesMarkdown,
   findComponents,
+  findPagesMarkdown,
   getLineFeed,
   kebabCase
 }

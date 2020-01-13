@@ -1,1 +1,1 @@
-export { default } from './FormControlLabel';
+export { default } from './FormControlLabel'

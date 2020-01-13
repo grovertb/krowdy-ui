@@ -1,1 +1,1 @@
-export { default } from './withWidth';
+export { default } from './withWidth'

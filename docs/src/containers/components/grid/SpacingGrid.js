@@ -1,32 +1,32 @@
-import React from 'react';
-import { makeStyles } from '@krowdy-ui/styles';
-import { Grid, FormLabel, FormControlLabel, RadioGroup, Radio, Paper } from '@krowdy-ui/core';
+import React from 'react'
+import { makeStyles } from '@krowdy-ui/styles'
+import { Grid, FormLabel, FormControlLabel, RadioGroup, Radio, Paper } from '@krowdy-ui/core'
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
+  control: {
+    padding: theme.spacing(2),
   },
   paper: {
     height: 140,
     width: 120,
   },
-  control: {
-    padding: theme.spacing(2),
+  root: {
+    flexGrow: 1,
   },
-}));
+}))
 
 export default function SpacingGrid() {
-  const [spacing, setSpacing] = React.useState(2);
-  const classes = useStyles();
+  const [spacing, setSpacing] = React.useState(2)
+  const classes = useStyles()
 
   const handleChange = event => {
-    setSpacing(Number(event.target.value));
-  };
+    setSpacing(Number(event.target.value))
+  }
 
   return (
     <Grid container className={classes.root} spacing={2}>
       <Grid item xs={12}>
-        <Grid container justify="center" spacing={spacing}>
+        <Grid container justify='center' spacing={spacing}>
           {[0, 1, 2].map(value => (
             <Grid key={value} item>
               <Paper className={classes.paper} />
@@ -40,8 +40,8 @@ export default function SpacingGrid() {
             <Grid item>
               <FormLabel>spacing</FormLabel>
               <RadioGroup
-                name="spacing"
-                aria-label="spacing"
+                name='spacing'
+                aria-label='spacing'
                 value={spacing.toString()}
                 onChange={handleChange}
                 row
@@ -60,5 +60,5 @@ export default function SpacingGrid() {
         </Paper>
       </Grid>
     </Grid>
-  );
+  )
 }

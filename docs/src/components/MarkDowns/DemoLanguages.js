@@ -1,30 +1,30 @@
-import React from 'react';
-import { makeStyles } from '@krowdy-ui/styles';
-import { Fade } from '@krowdy-ui/core';
-import ToggleButton from '@material-ui/lab/ToggleButton';
-import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
+import React from 'react'
+import { makeStyles } from '@krowdy-ui/styles'
+import { Fade } from '@krowdy-ui/core'
+import ToggleButton from '@material-ui/lab/ToggleButton'
+import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup'
 import { Javascript as JavaScriptIcon, TypeScript as TypeScriptIcon } from 'components/Icons'
-import { CODE_VARIANTS, t } from './utils';
+import { CODE_VARIANTS, t } from './utils'
 
 const useStyles = makeStyles({
-  toggleButtonGroup: {
-    margin: '8px 0',
-  },
   toggleButton: {
     height: 32,
   },
-}, { name: 'DemoLanguages'});
+  toggleButtonGroup: {
+    margin: '8px 0',
+  },
+}, { name: 'DemoLanguages'})
 
 function DemoLanguages(props) {
-  const { codeOpen, codeVariant, demo, gaEventCategory, onLanguageClick } = props;
+  const { codeOpen, codeVariant, demo, gaEventCategory, onLanguageClick } = props
   const classes = useStyles()
-  const hasTSVariant = demo.rawTS;
+  const hasTSVariant = demo.rawTS
 
   function renderedCodeVariant() {
     if (codeVariant === CODE_VARIANTS.TS && hasTSVariant) {
-      return CODE_VARIANTS.TS;
+      return CODE_VARIANTS.TS
     }
-    return CODE_VARIANTS.JS;
+    return CODE_VARIANTS.JS
   }
 
   return (
@@ -40,7 +40,7 @@ function DemoLanguages(props) {
           value={CODE_VARIANTS.JS}
           aria-label={t('showJSSource')}
           data-ga-event-category={gaEventCategory}
-          data-ga-event-action="source-js"
+          data-ga-event-action='source-js'
         >
           <JavaScriptIcon />
         </ToggleButton>
@@ -50,13 +50,13 @@ function DemoLanguages(props) {
           disabled={!hasTSVariant}
           aria-label={t('showTSSource')}
           data-ga-event-category={gaEventCategory}
-          data-ga-event-action="source-ts"
+          data-ga-event-action='source-ts'
         >
           <TypeScriptIcon />
         </ToggleButton>
       </ToggleButtonGroup>
     </Fade>
-  );
+  )
 }
 
-export default DemoLanguages;
+export default DemoLanguages

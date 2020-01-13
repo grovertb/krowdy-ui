@@ -1,1 +1,1 @@
-export { default } from '@material-ui/core/Modal';
+export { default } from '@material-ui/core/Modal'

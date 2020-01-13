@@ -1,1 +1,1 @@
-export { default } from './NativeSelect';
+export { default } from './NativeSelect'

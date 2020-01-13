@@ -1,4 +1,4 @@
-import { CODE_VARIANTS, getDependencies } from './utils';
+import { CODE_VARIANTS, getDependencies } from './utils'
 
 function jsDemo(demoData) {
   return {
@@ -13,7 +13,7 @@ import Demo from './demo';
 ReactDOM.render(<Demo />, document.querySelector('#root'));
     `,
     },
-  };
+  }
 }
 
 function tsDemo(demoData) {
@@ -59,23 +59,22 @@ ReactDOM.render(<Demo />, document.querySelector('#root'));
     scripts: {
       start: 'react-scripts start',
     },
-  };
+  }
 }
 
 function getLanguageConfig(demoData) {
   switch (demoData.codeVariant) {
     case CODE_VARIANTS.TS:
-      return tsDemo(demoData);
+      return tsDemo(demoData)
     case CODE_VARIANTS.JS:
-      return jsDemo(demoData);
+      return jsDemo(demoData)
     default:
-      throw new Error(`Unsupported codeVariant: ${demoData.codeVariant}`);
+      throw new Error(`Unsupported codeVariant: ${demoData.codeVariant}`)
   }
 }
 
 export default function getDemoConfig(demoData) {
   const baseConfig = {
-    title: 'Material demo',
     description: demoData.githubLocation,
     files: {
       'index.html': `
@@ -88,8 +87,9 @@ export default function getDemoConfig(demoData) {
 </body>
       `,
     },
-  };
-  const languageConfig = getLanguageConfig(demoData);
+    title: 'Material demo',
+  }
+  const languageConfig = getLanguageConfig(demoData)
 
   return {
     ...baseConfig,
@@ -98,5 +98,5 @@ export default function getDemoConfig(demoData) {
       ...baseConfig.files,
       ...languageConfig.files,
     },
-  };
+  }
 }

@@ -1,1 +1,1 @@
-export { default } from './FilledInput';
+export { default } from './FilledInput'

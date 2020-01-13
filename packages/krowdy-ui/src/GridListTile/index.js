@@ -1,1 +1,1 @@
-export { default } from './GridListTile';
+export { default } from './GridListTile'

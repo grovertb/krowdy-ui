@@ -3,15 +3,15 @@
 function consoleError() {
   console.error = (...args) => {
     // Can't use log as karma is not displaying them.
-    console.info(...args);
-    throw new Error(...args);
-  };
+    console.info(...args)
+    throw new Error(...args)
+  }
 
   console.warn = (...args) => {
     // Can't use log as karma is not displaying them.
-    console.info(...args);
-    throw new Error(...args);
-  };
+    console.info(...args)
+    throw new Error(...args)
+  }
 }
 
-module.exports = consoleError;
+module.exports = consoleError

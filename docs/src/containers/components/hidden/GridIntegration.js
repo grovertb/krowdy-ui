@@ -1,26 +1,26 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { makeStyles } from '@krowdy-ui/styles';
-import { Paper, Hidden, withWidth, Typography, Grid } from '@krowdy-ui/core';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { makeStyles } from '@krowdy-ui/styles'
+import { Paper, Hidden, withWidth, Typography, Grid } from '@krowdy-ui/core'
 
 const useStyles = makeStyles(theme => ({
+  paper: {
+    color: theme.palette.text.secondary,
+    padding: theme.spacing(2),
+    textAlign: 'center',
+  },
   root: {
     flexGrow: 1,
   },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  },
-}));
+}))
 
 function GridIntegration(props) {
-  const classes = useStyles();
-  const { width } = props;
+  const classes = useStyles()
+  const { width } = props
 
   return (
     <div className={classes.root}>
-      <Typography variant="subtitle1" gutterBottom>
+      <Typography variant='subtitle1' gutterBottom>
         Current width: {width}
       </Typography>
       <Grid container spacing={3}>
@@ -51,11 +51,11 @@ function GridIntegration(props) {
         </Hidden>
       </Grid>
     </div>
-  );
+  )
 }
 
 GridIntegration.propTypes = {
   width: PropTypes.oneOf(['lg', 'md', 'sm', 'xl', 'xs']).isRequired,
-};
+}
 
-export default withWidth()(GridIntegration);
+export default withWidth()(GridIntegration)

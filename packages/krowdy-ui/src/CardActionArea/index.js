@@ -1,1 +1,1 @@
-export { default } from './CardActionArea';
+export { default } from './CardActionArea'

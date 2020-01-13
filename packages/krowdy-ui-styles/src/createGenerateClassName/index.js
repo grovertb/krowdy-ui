@@ -1,1 +1,1 @@
-export { default } from './createGenerateClassName';
+export { default } from './createGenerateClassName'

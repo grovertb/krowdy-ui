@@ -1,1 +1,1 @@
-export { default } from './ListSubheader';
+export { default } from './ListSubheader'

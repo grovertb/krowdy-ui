@@ -1,7 +1,6 @@
-import React from 'react';
+import React from 'react'
 import { makeStyles } from '@krowdy-ui/styles'
 import { Fab } from '@krowdy-ui/core'
-
 import {
   Add as AddIcon,
   Edit as EditIcon,
@@ -17,30 +16,30 @@ const useStyles = makeStyles(theme => ({
       margin: theme.spacing(1),
     },
   },
-}));
+}))
 
 export default () => {
-  const classes = useStyles();
+  const classes = useStyles()
 
   return (
     <div className={classes.root}>
-      <Fab color="primary" aria-label="add">
+      <Fab color='primary' aria-label='add'>
         <AddIcon />
       </Fab>
-      <Fab color="secondary" aria-label="edit">
+      <Fab color='secondary' aria-label='edit'>
         <EditIcon />
       </Fab>
-      <Fab color="krowdy" aria-label="edit">
+      <Fab color='krowdy' aria-label='edit'>
         <AppleIcon />
       </Fab>
-      <Fab color="error" aria-label="edit">
+      <Fab color='error' aria-label='edit'>
         <DeleteIcon />
       </Fab>
-      <Fab variant="extended" aria-label="like">
+      <Fab variant='extended' aria-label='like'>
         <NavigationIcon />
         Extended
       </Fab>
-      <Fab disabled aria-label="like">
+      <Fab disabled aria-label='like'>
         <FavoriteIcon />
       </Fab>
     </div>

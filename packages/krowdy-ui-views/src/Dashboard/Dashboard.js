@@ -363,7 +363,7 @@ function Dashboard(props) {
                       component={RouterLink}
                       to={item.path}
                       underline='none'>
-                        {/* {
+                        {
                           item.icon ?
                           <ListItemIcon>
                             <Suspense fallback={<div>Loading...</div>}>
@@ -372,7 +372,7 @@ function Dashboard(props) {
                               }
                             </Suspense>
                           </ListItemIcon> : null
-                        } */}
+                        }
                       <ListItemText
                         className={classes.labelDrawer}
                         primary={item.title} />

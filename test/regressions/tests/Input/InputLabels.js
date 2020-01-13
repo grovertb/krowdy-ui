@@ -1,19 +1,19 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles'
+import InputLabel from '@material-ui/core/InputLabel'
 
 const styles = {
   container: {
+    alignItems: 'flex-start',
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'flex-start',
     padding: 20, // so transform doesn't let things get cut off
   },
-};
+}
 
 function InputLabels(props) {
-  const { classes } = props;
+  const { classes } = props
 
   return (
     <div className={classes.container}>
@@ -29,11 +29,11 @@ function InputLabels(props) {
         Required Error
       </InputLabel>
     </div>
-  );
+  )
 }
 
 InputLabels.propTypes = {
   classes: PropTypes.object.isRequired,
-};
+}
 
-export default withStyles(styles)(InputLabels);
+export default withStyles(styles)(InputLabels)

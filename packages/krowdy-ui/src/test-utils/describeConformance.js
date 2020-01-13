@@ -1,8 +1,8 @@
-import { assert } from 'chai';
-import React from 'react';
-import findOutermostIntrinsic from './findOutermostIntrinsic';
-import ReactTestRenderer from 'react-test-renderer';
-import testRef from './testRef';
+import { assert } from 'chai'
+import React from 'react'
+import findOutermostIntrinsic from './findOutermostIntrinsic'
+import ReactTestRenderer from 'react-test-renderer'
+import testRef from './testRef'
 
 /**
  * Glossary
@@ -22,17 +22,17 @@ import testRef from './testRef';
  * @param {import('react').ElementType} component
  */
 function findRootComponent(wrapper, { component }) {
-  const outermostHostElement = findOutermostIntrinsic(wrapper).getElement();
+  const outermostHostElement = findOutermostIntrinsic(wrapper).getElement()
 
   return wrapper.find(component).filterWhere(componentWrapper => {
-    return componentWrapper.contains(outermostHostElement);
-  });
+    return componentWrapper.contains(outermostHostElement)
+  })
 }
 
 function randomStringValue() {
   return Math.random()
     .toString(36)
-    .slice(2);
+    .slice(2)
 }
 
 /**
@@ -44,17 +44,17 @@ function randomStringValue() {
  */
 function testClassName(element, getOptions) {
   it('applies the className to the root component', () => {
-    const { mount } = getOptions();
-    const className = randomStringValue();
+    const { mount } = getOptions()
+    const className = randomStringValue()
 
-    const wrapper = mount(React.cloneElement(element, { className }));
+    const wrapper = mount(React.cloneElement(element, { className }))
 
     assert.strictEqual(
       findOutermostIntrinsic(wrapper).hasClass(className),
       true,
       'does have a custom `className`',
-    );
-  });
+    )
+  })
 }
 
 /**
@@ -67,13 +67,13 @@ function testClassName(element, getOptions) {
 function testComponentProp(element, getOptions) {
   describe('prop: component', () => {
     it('can render another root component with the `component` prop', () => {
-      const { classes, mount, testComponentPropWith: component = 'em' } = getOptions();
+      const { classes, mount, testComponentPropWith: component = 'em' } = getOptions()
 
-      const wrapper = mount(React.cloneElement(element, { component }));
+      const wrapper = mount(React.cloneElement(element, { component }))
 
-      assert.strictEqual(findRootComponent(wrapper, { classes, component }).exists(), true);
-    });
-  });
+      assert.strictEqual(findRootComponent(wrapper, { classes, component }).exists(), true)
+    })
+  })
 }
 
 /**
@@ -84,17 +84,17 @@ function testComponentProp(element, getOptions) {
  * @param {() => ConformanceOptions} getOptions
  */
 function testPropsSpread(element, getOptions) {
-  it(`does spread props to the root component`, () => {
+  it('does spread props to the root component', () => {
     // type def in ConformanceOptions
-    const { classes, inheritComponent, mount } = getOptions();
-    const testProp = 'data-test-props-spread';
-    const value = randomStringValue();
+    const { classes, inheritComponent, mount } = getOptions()
+    const testProp = 'data-test-props-spread'
+    const value = randomStringValue()
 
-    const wrapper = mount(React.cloneElement(element, { [testProp]: value }));
-    const root = findRootComponent(wrapper, { classes, component: inheritComponent });
+    const wrapper = mount(React.cloneElement(element, { [testProp]: value }))
+    const root = findRootComponent(wrapper, { classes, component: inheritComponent })
 
-    assert.strictEqual(root.props()[testProp], value);
-  });
+    assert.strictEqual(root.props()[testProp], value)
+  })
 }
 
 /**
@@ -108,20 +108,20 @@ function testPropsSpread(element, getOptions) {
  */
 function describeRef(element, getOptions) {
   describe('ref', () => {
-    it(`attaches the ref`, () => {
+    it('attaches the ref', () => {
       // type def in ConformanceOptions
-      const { inheritComponent, mount, refInstanceof } = getOptions();
+      const { inheritComponent, mount, refInstanceof } = getOptions()
 
       testRef(element, mount, (instance, wrapper) => {
-        assert.instanceOf(instance, refInstanceof);
+        assert.instanceOf(instance, refInstanceof)
 
         if (inheritComponent && instance instanceof window.Element) {
-          const rootHost = findOutermostIntrinsic(wrapper);
-          assert.strictEqual(instance, rootHost.instance());
+          const rootHost = findOutermostIntrinsic(wrapper)
+          assert.strictEqual(instance, rootHost.instance())
         }
-      });
-    });
-  });
+      })
+    })
+  })
 }
 
 /**
@@ -132,21 +132,21 @@ function describeRef(element, getOptions) {
  */
 function testRootClass(element, getOptions) {
   it('applies to root class to the root component if it has this class', () => {
-    const { classes, mount } = getOptions();
+    const { classes, mount } = getOptions()
     if (classes.root == null) {
-      return;
+      return
     }
 
-    const className = randomStringValue();
-    const wrapper = mount(React.cloneElement(element, { className }));
+    const className = randomStringValue()
+    const wrapper = mount(React.cloneElement(element, { className }))
 
     // we established that the root component renders the outermost host previously. We immediately
     // jump to the host component because some components pass the `root` class
     // to the `classes` prop of the root component.
     // https://github.com/mui-org/material-ui/blob/f9896bcd129a1209153106296b3d2487547ba205/packages/material-ui/src/OutlinedInput/OutlinedInput.js#L101
-    assert.strictEqual(findOutermostIntrinsic(wrapper).hasClass(classes.root), true);
-    assert.strictEqual(findOutermostIntrinsic(wrapper).hasClass(className), true);
-  });
+    assert.strictEqual(findOutermostIntrinsic(wrapper).hasClass(classes.root), true)
+    assert.strictEqual(findOutermostIntrinsic(wrapper).hasClass(className), true)
+  })
 }
 
 /**
@@ -160,21 +160,21 @@ function testReactTestRenderer(element) {
     ReactTestRenderer.act(() => {
       ReactTestRenderer.create(element, {
         createNodeMock: node => {
-          return document.createElement(node.type);
+          return document.createElement(node.type)
         },
-      });
-    });
-  });
+      })
+    })
+  })
 }
 
 const fullSuite = {
   componentProp: testComponentProp,
   mergeClassName: testClassName,
   propsSpread: testPropsSpread,
+  reactTestRenderer: testReactTestRenderer,
   refForwarding: describeRef,
   rootClass: testRootClass,
-  reactTestRenderer: testReactTestRenderer,
-};
+}
 
 /**
  * @typedef {Object} ConformanceOptions
@@ -196,15 +196,15 @@ const fullSuite = {
  *
  */
 export default function describeConformance(minimalElement, getOptions) {
-  const { after: runAfterHook = () => {}, only = Object.keys(fullSuite), skip = [] } = getOptions();
+  const { after: runAfterHook = () => {}, only = Object.keys(fullSuite), skip = [] } = getOptions()
   describe('Material-UI component API', () => {
-    after(runAfterHook);
+    after(runAfterHook)
 
     Object.keys(fullSuite)
       .filter(testKey => only.indexOf(testKey) !== -1 && skip.indexOf(testKey) === -1)
       .forEach(testKey => {
-        const test = fullSuite[testKey];
-        test(minimalElement, getOptions);
-      });
-  });
+        const test = fullSuite[testKey]
+        test(minimalElement, getOptions)
+      })
+  })
 }
