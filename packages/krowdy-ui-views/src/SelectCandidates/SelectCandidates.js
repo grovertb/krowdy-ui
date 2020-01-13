@@ -13,7 +13,6 @@ import {
     ListItemText,
     ListItemAvatar,
     Divider,
-
     FormGroup,
     FormControlLabel,
     InputBase,
@@ -21,7 +20,30 @@ import {
 } from '@krowdy-ui/core'
 
 const useStyles = makeStyles(theme => ({
-
+    titleCardheader: {
+        fontSize: '18px',
+        color: '#595959',
+        fontWeight: 'bold',
+        lineHeight: '24px',
+    },
+    text: {
+        fontStyle: 'normal',
+        fontWeight: 'normal',
+        fontSize: '14px',
+        lineHeight: '20px',
+        color: '#262626',
+        margin: '20px 0px 16px 0px'
+    },
+    searchCandidate: {
+        fontStyle: 'normal',
+        fontWeight: 'normal',
+        fontSize: '14px',
+        color: '#8C8C8C',
+    },
+    icon: {
+        color: '#8C8C8C',
+        fontSize: '18px'
+    }
 }))
 
 export const styles = () => ({
@@ -38,22 +60,22 @@ const items = [
     },
     {
         id: '2',
-        person: 'hola hola ',
+        person: 'nombre apellido ',
         src: 'foto2'
     },
     {
         id: '3',
-        person: 'hola hola ',
+        person: 'nombre apellido ',
         src: 'foto2'
     },
     {
         id: '4',
-        person: 'hola hola ',
+        person: 'nombre apellido ',
         src: 'foto2'
     },
     {
         id: '5',
-        person: 'hola hola ',
+        person: 'nombre apellido ',
         src: 'foto2'
     }
 ]
@@ -72,27 +94,42 @@ const SelectCandidates = props => {
                 <CardHeader
                     style={{ margin: '16px 38px 16px 20px', padding: 0 }}
                     title='Seleccion de candidatos'
+                    classes={{ title: classes.titleCardheader }}
                 />
                 <Divider />
                 <CardContent style={{ margin: '20px 38px 35px 42px', padding: 0 }}>
-                    <Typography>
-                        Para que etapa es la tarea?
+                    <Typography className={classes.text}>
+                        ¿Para qué etapa es la tarea?
                     </Typography>
                     <Select
                         native
-                        style={{ width: 340 }}
+                        style={{
+                            width: 340,
+                            fontSize: '14px',
+                            color: '#595959',
+                            lineHeight: '16px',
+                            fontWeight: 'normal'
+                        }}
                     >
                         {
                             options.map((item) => (
-                                <option value={item}>
+                                <option
+                                    value={item}
+                                    style={{
+                                        fontSize: '14px',
+                                        color: '#595959',
+                                        lineHeight: '16px',
+                                        fontWeight: 'normal'
+                                    }}
+                                >
                                     {item}
                                 </option>
                             ))
                         }
 
                     </Select>
-                    <Typography>
-                        Para que candidato es la tarea
+                    <Typography className={classes.text}>
+                        ¿Para que candidato es la tarea?
                     </Typography>
                     <FormGroup style={{ display: ' flex', flexDirection: 'row' }}>
                         {descriptions.map((txt) => (
@@ -102,17 +139,40 @@ const SelectCandidates = props => {
                                     <Checkbox color='primary' />
                                 }
                                 label={txt}
+                                style={{
+                                    fontStyle: 'normal',
+                                    fontWeight: 'normal',
+                                    fontSize: '14px',
+                                    lineHeight: '16px',
+                                    color: '#595959'
+                                }}
                             />
                         ))}
                     </FormGroup>
-                    <div style={{ display: 'flex', alignItems: 'center' }} >
-                        <div >
-                            <SearchIcon />
-                        </div>
+                    <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        border: '1px solid #E8E8E8',
+                        boxSizing: 'border-box',
+                        borderRadius: '4px',
+                        margin: '14px 0px 12px 0px',
+                        width: '340px',
+                        height: '40px',
+                        justifyContent: 'space-between'
+                    }} >
                         <InputBase
-                            placeholder="Search…"
-                            inputProps={{ 'aria-label': 'search' }}
+                            placeholder="Buscar Candidato"
+                            inputProps={{
+                                'aria-label': 'search'
+                            }}
+                            style={{
+                                marginLeft: '11px',
+                            }}
+                            className={classes.searchCandidate}
                         />
+                        <div style={{ marginRight: '9PX' }} >
+                            <SearchIcon fontSize='small' className={classes.icon} />
+                        </div>
                     </div>
                     <List >
                         {items.map(({ id, person, src }) => (
