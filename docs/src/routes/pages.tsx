@@ -135,6 +135,10 @@ const pages: Array<Page> = [
       {
         title: 'Select Candidates',
         path: '/views/selectcandidates'
+      },
+      {
+        title: 'Card Candidate',
+        path: '/views/cardcandidate'
       }
     ]
   }

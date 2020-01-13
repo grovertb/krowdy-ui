@@ -1,13 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles, makeStyles } from '@krowdy-ui/core/styles'
+// import { CardCandidate } from 'packages/krowdy-ui-views/src/CardCandidate/CardCandidate'
 import SearchIcon from '@krowdy-ui/icons/Search';
 import {
     Card,
     CardContent,
     Checkbox,
     Typography,
-    Paper,
     Select,
     List,
     ListItemText,
@@ -52,40 +52,17 @@ export const styles = () => ({
     }
 })
 
-const items = [
-    {
-        id: '1',
-        person: 'nombre apellido',
-        src: 'foto1'
-    },
-    {
-        id: '2',
-        person: 'nombre apellido ',
-        src: 'foto2'
-    },
-    {
-        id: '3',
-        person: 'nombre apellido ',
-        src: 'foto2'
-    },
-    {
-        id: '4',
-        person: 'nombre apellido ',
-        src: 'foto2'
-    },
-    {
-        id: '5',
-        person: 'nombre apellido ',
-        src: 'foto2'
-    }
-]
 
-const options = ['option1', 'option2', 'option3']
-const descriptions = ['Candidatos actuales', 'Candidatos nuevos']
+// const optionSelect = ['option1', 'option2', 'option3']
+// const labelCheckbox = ['Candidatos actuales', 'Candidatos nuevos']
 const SelectCandidates = props => {
+    const [changeCheckbox, setChangeCheckbox] = useState(false)
     const classes = useStyles();
     const {
-        title,
+        optionSelect,
+        labelCheckbox,
+        CardCandidate,
+        label
     } = props
 
     return (
@@ -112,7 +89,7 @@ const SelectCandidates = props => {
                         }}
                     >
                         {
-                            options.map((item) => (
+                            optionSelect.map((item) => (
                                 <option
                                     value={item}
                                     style={{
@@ -132,7 +109,7 @@ const SelectCandidates = props => {
                         ¿Para que candidato es la tarea?
                     </Typography>
                     <FormGroup style={{ display: ' flex', flexDirection: 'row' }}>
-                        {descriptions.map((txt) => (
+                        {labelCheckbox.map((txt) => (
                             <FormControlLabel
                                 value={txt}
                                 control={
@@ -161,7 +138,7 @@ const SelectCandidates = props => {
                         justifyContent: 'space-between'
                     }} >
                         <InputBase
-                            placeholder="Buscar Candidato"
+                            placeholder="Buscar candidato"
                             inputProps={{
                                 'aria-label': 'search'
                             }}
@@ -174,17 +151,23 @@ const SelectCandidates = props => {
                             <SearchIcon fontSize='small' className={classes.icon} />
                         </div>
                     </div>
-                    <List >
-                        {items.map(({ id, person, src }) => (
-                            <Paper key={id} style={{ display: 'flex', alignItems: 'center', marginBottom: 8 }} >
-                                <ListItemAvatar aria-label="recipe">
-                                    <Checkbox color='primary' />
-                                </ListItemAvatar>
-                                <ListItemText primary={person} />
-                            </Paper>
-                        ))}
+                    {/* <List > */}
+                    {label.map(({ id, name, src }) => (
+                        // <Card key={id} style={{ display: 'flex', alignItems: 'center', marginBottom: 8 }} >
+                        //     <ListItemAvatar aria-label="recipe">
+                        //         <Checkbox color='primary' />
+                        //     </ListItemAvatar>
+                        //     <ListItemText primary={name} />
+                        // </Card>
+                        <CardCandidate
+                            style={{ display: 'flex', alignItems: 'center', marginBottom: 8 }}
+                            label={name}
+                            src={src}
+                            id={id}
+                        />
+                    ))}
 
-                    </List>
+                    {/* </List> */}
                 </CardContent>
 
             </Card>
@@ -193,7 +176,10 @@ const SelectCandidates = props => {
 }
 
 SelectCandidates.propTypes = {
-    title: PropTypes.string,
+    optionSelect: PropTypes.array,
+    labelCheckbox: PropTypes.array,
+    CardCandidate: PropTypes.any,
+    label: PropTypes.array
 }
 
 SelectCandidates.muiName = 'SelectCandidates';
