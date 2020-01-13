@@ -1,18 +1,18 @@
-import React from 'react';
-import createShallow from './createShallow';
+import React from 'react'
+import createShallow from './createShallow'
 
-const shallow = createShallow();
+const shallow = createShallow()
 
 // Helper function to extract the classes from a styleSheet.
 export default function getClasses(element) {
-  const { useStyles } = element.type;
+  const { useStyles } = element.type
 
-  let classes;
+  let classes
   function Listener() {
-    classes = useStyles(element.props);
-    return null;
+    classes = useStyles(element.props)
+    return null
   }
-  shallow(<Listener />);
+  shallow(<Listener />)
 
-  return classes;
+  return classes
 }

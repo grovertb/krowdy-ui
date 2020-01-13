@@ -1,16 +1,12 @@
-import React from 'react';
-
+import React from 'react'
 import clsx from 'clsx'
-
 import {
   Menu as MenuIcon,
   ChevronLeft as ChevronLeftIcon
 } from '@material-ui/icons'
-
 import { 
   AppBar,
   Toolbar,
-  IconButton,
   Typography,
   Button,
   Drawer,
@@ -18,17 +14,32 @@ import {
   List,
   ListItem
 } from '@krowdy-ui/core'
-
 import { makeStyles } from '@krowdy-ui/styles' 
 
 const drawerWidth = 210
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
+  drawerPaper: {
+    overflow  : 'hidden',
+    position  : 'relative',
+    transition: theme.transitions.create('width', {
+      duration: theme.transitions.duration.enteringScreen,
+      easing  : theme.transitions.easing.sharp
+    }),
+    whiteSpace: 'nowrap',
+    width     : drawerWidth,
+    zIndex    : 1
+  },
+  main: {
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: '100vh'
   },
   menuButton: {
     marginRight: theme.spacing(2),
+  },
+  root: {
+    flexGrow: 1,
   },
   title: {
     flexGrow: 1,
@@ -46,22 +57,6 @@ const useStyles = makeStyles(theme => ({
     justifyContent : 'center',
     margin         : 12
     // width          : '100%'
-  },
-  drawerPaper: {
-    overflow  : 'hidden',
-    position  : 'relative',
-    transition: theme.transitions.create('width', {
-      duration: theme.transitions.duration.enteringScreen,
-      easing  : theme.transitions.easing.sharp
-    }),
-    whiteSpace: 'nowrap',
-    width     : drawerWidth,
-    zIndex    : 1
-  },
-  main: {
-    display: 'flex',
-    minHeight: '100vh',
-    flexDirection: 'column'
   }
 }))
 
@@ -73,12 +68,12 @@ function Dashboard() {
 
   return (
     <div className={classes.main}>
-      <AppBar elevation={1} position="sticky">
+      <AppBar elevation={1} position='sticky'>
         <Toolbar>
-          <Typography variant="h4" className={classes.title}>
+          <Typography variant='h4' className={classes.title}>
             News
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button color='inherit'>Login</Button>
         </Toolbar>
       </AppBar>
       <div className={classes.wrapper}>
@@ -94,8 +89,7 @@ function Dashboard() {
           }}
           data-test='adminDrawer'
           open={isOpenDrawer}
-          variant='permanent'>
-          </Drawer>
+          variant='permanent' />
           <List
             data-test='adminDrawerItemsList'
             disablePadding>
@@ -116,7 +110,7 @@ function Dashboard() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Dashboard;
+export default Dashboard

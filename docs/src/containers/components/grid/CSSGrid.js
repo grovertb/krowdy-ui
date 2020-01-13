@@ -1,31 +1,31 @@
-import React from 'react';
-import { makeStyles } from '@krowdy-ui/styles';
-import { Divider, Grid, Paper, Typography } from '@krowdy-ui/core';
+import React from 'react'
+import { makeStyles } from '@krowdy-ui/styles'
+import { Divider, Grid, Paper, Typography } from '@krowdy-ui/core'
 
 const useStyles = makeStyles(theme => ({
   container: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(12, 1fr)',
     gridGap: theme.spacing(3),
-  },
-  paper: {
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-    whiteSpace: 'nowrap',
-    marginBottom: theme.spacing(1),
+    gridTemplateColumns: 'repeat(12, 1fr)',
   },
   divider: {
     margin: theme.spacing(2, 0),
   },
-}));
+  paper: {
+    color: theme.palette.text.secondary,
+    marginBottom: theme.spacing(1),
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    whiteSpace: 'nowrap',
+  },
+}))
 
 export default function CSSGrid() {
-  const classes = useStyles();
+  const classes = useStyles()
 
   return (
     <div>
-      <Typography variant="subtitle1" gutterBottom>
+      <Typography variant='subtitle1' gutterBottom>
         Krowdy-UI Grid:
       </Typography>
       <Grid container spacing={3}>
@@ -49,7 +49,7 @@ export default function CSSGrid() {
         </Grid>
       </Grid>
       <Divider className={classes.divider} />
-      <Typography variant="subtitle1" gutterBottom>
+      <Typography variant='subtitle1' gutterBottom>
         CSS Grid Layout:
       </Typography>
       <div className={classes.container}>
@@ -73,5 +73,5 @@ export default function CSSGrid() {
         </div>
       </div>
     </div>
-  );
+  )
 }

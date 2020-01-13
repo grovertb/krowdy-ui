@@ -1,16 +1,16 @@
 import React from 'react'
-import MarkdownDocs from 'components/MarkDowns/MarkdownDocs';
+import MarkdownDocs from 'components/MarkDowns/MarkdownDocs'
 
-const req = require.context('containers/components/hidden', false, /\.(md|js|tsx)$/);
+const req = require.context('containers/components/hidden', false, /\.(md|js|tsx)$/)
 
 const reqSource = require.context(
   '!raw-loader!containers/components/hidden',
   false,
   /\.(js|tsx)$/,
-);
+)
 
-const reqPrefix = 'containers/components/hidden';
+const reqPrefix = 'containers/components/hidden'
 
 export default function Hidden() {
-  return <MarkdownDocs req={req} reqSource={reqSource} reqPrefix={reqPrefix} />;
+  return <MarkdownDocs req={req} reqSource={reqSource} reqPrefix={reqPrefix} />
 }

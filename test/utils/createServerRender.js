@@ -1,6 +1,6 @@
 /* eslint-env mocha */
-import { render as enzymeRender } from 'enzyme';
-import { stub } from 'sinon';
+import { render as enzymeRender } from 'enzyme'
+import { stub } from 'sinon'
 
 /**
  *
@@ -8,28 +8,28 @@ import { stub } from 'sinon';
  * @param {boolean} [options.expectUseLayoutEffectWarning]
  */
 export default function createServerRender(options = {}) {
-  const { expectUseLayoutEffectWarning } = options;
+  const { expectUseLayoutEffectWarning } = options
 
   beforeEach(() => {
     stub(console, 'error').callsFake((message, ...args) => {
       const isUseLayoutEffectWarning = /Warning: useLayoutEffect does nothing on the server/.test(
         message,
-      );
+      )
 
       if (!expectUseLayoutEffectWarning || !isUseLayoutEffectWarning) {
         // callThrough
         // eslint-disable-next-line no-console
-        console.info(message, ...args);
-        throw new Error(message, ...args);
+        console.info(message, ...args)
+        throw new Error(message, ...args)
       }
-    });
-  });
+    })
+  })
 
   afterEach(() => {
-    console.error.restore();
-  });
+    console.error.restore()
+  })
 
   return function render(node) {
-    return enzymeRender(node);
-  };
+    return enzymeRender(node)
+  }
 }

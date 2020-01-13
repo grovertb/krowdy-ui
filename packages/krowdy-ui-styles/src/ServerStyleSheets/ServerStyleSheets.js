@@ -1,1 +1,1 @@
-export { default } from '@material-ui/styles/ServerStyleSheets';
+export { default } from '@material-ui/styles/ServerStyleSheets'

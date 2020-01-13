@@ -29,6 +29,6 @@ CardUser.propTypes = {
   title: PropTypes.string,
 }
 
-CardUser.muiName = 'CardUser';
+CardUser.muiName = 'CardUser'
 
 export default withStyles(styles, { name: 'KrowdyCardUser' })(CardUser)

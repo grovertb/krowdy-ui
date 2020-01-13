@@ -1,9 +1,9 @@
-import React from 'react';
-import { assert } from 'chai';
+import React from 'react'
+import { assert } from 'chai'
 
 function assertDOMNode(node) {
   // duck typing a DOM node
-  assert.ok(node.nodeName);
+  assert.ok(node.nodeName)
 }
 
 /**
@@ -15,7 +15,7 @@ function assertDOMNode(node) {
  *                           Assert that the ref is a DOM node by default
  */
 export default function testRef(element, mount, onRef = assertDOMNode) {
-  const ref = React.createRef();
-  const wrapper = mount(<React.Fragment>{React.cloneElement(element, { ref })}</React.Fragment>);
-  onRef(ref.current, wrapper);
+  const ref = React.createRef()
+  const wrapper = mount(<React.Fragment>{React.cloneElement(element, { ref })}</React.Fragment>)
+  onRef(ref.current, wrapper)
 }

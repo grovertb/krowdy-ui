@@ -1,1 +1,1 @@
-export { default } from './StepConnector';
+export { default } from './StepConnector'

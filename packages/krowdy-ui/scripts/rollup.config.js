@@ -1,24 +1,24 @@
-import nodeResolve from 'rollup-plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
-import babel from 'rollup-plugin-babel';
-import replace from 'rollup-plugin-replace';
-import nodeGlobals from 'rollup-plugin-node-globals';
-import { terser } from 'rollup-plugin-terser';
-import { sizeSnapshot } from 'rollup-plugin-size-snapshot';
+import nodeResolve from 'rollup-plugin-node-resolve'
+import commonjs from 'rollup-plugin-commonjs'
+import babel from 'rollup-plugin-babel'
+import replace from 'rollup-plugin-replace'
+import nodeGlobals from 'rollup-plugin-node-globals'
+import { terser } from 'rollup-plugin-terser'
+import { sizeSnapshot } from 'rollup-plugin-size-snapshot'
 
-const input = './src/index.js';
+const input = './src/index.js'
 
 const globals = {
   react: 'React',
   'react-dom': 'ReactDOM'
-};
+}
 
 const babelOptions = {
-  exclude: /node_modules/,
-  // We are using @babel/plugin-transform-runtime
-  runtimeHelpers: true,
   configFile: '../../babel.config.js',
-};
+  // We are using @babel/plugin-transform-runtime
+  exclude: /node_modules/,
+  runtimeHelpers: true,
+}
 
 const commonjsOptions = {
   ignoreGlobal: true,
@@ -40,23 +40,23 @@ const commonjsOptions = {
       'isValidElementType',
     ],
   },
-};
+}
 
 function onwarn(warning) {
-  throw Error(warning.message);
+  throw Error(warning.message)
 }
 
 export default [
   {
+    external: Object.keys(globals),
     input,
     onwarn,
     output: {
       file: 'build/umd/krowdy-ui.development.js',
       format: 'umd',
-      name: 'KrowdyUI',
       globals,
+      name: 'KrowdyUI',
     },
-    external: Object.keys(globals),
     plugins: [
       nodeResolve(),
       babel(babelOptions),
@@ -66,15 +66,15 @@ export default [
     ],
   },
   {
+    external: Object.keys(globals),
     input,
     onwarn,
     output: {
       file: 'build/umd/krowdy-ui.production.min.js',
       format: 'umd',
-      name: 'KrowdyUI',
       globals,
+      name: 'KrowdyUI',
     },
-    external: Object.keys(globals),
     plugins: [
       nodeResolve(),
       babel(babelOptions),
@@ -85,4 +85,4 @@ export default [
       terser(),
     ],
   },
-];
+]

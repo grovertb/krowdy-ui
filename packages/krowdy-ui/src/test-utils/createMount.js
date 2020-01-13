@@ -1,7 +1,7 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import * as PropTypes from 'prop-types';
-import { mount as enzymeMount } from 'enzyme';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import * as PropTypes from 'prop-types'
+import { mount as enzymeMount } from 'enzyme'
 
 /**
  * Can't just mount <React.Fragment>{node}</React.Fragment>
@@ -24,27 +24,27 @@ class Mode extends React.Component {
 
   render() {
     // Excess props will come from e.g. enzyme setProps
-    const { __element, __strict, ...other } = this.props;
-    const Component = __strict ? React.StrictMode : React.Fragment;
+    const { __element, __strict, ...other } = this.props
+    const Component = __strict ? React.StrictMode : React.Fragment
 
-    return <Component>{React.cloneElement(__element, other)}</Component>;
+    return <Component>{React.cloneElement(__element, other)}</Component>
   }
 }
 
 // Generate an enhanced mount function.
 export default function createMount(options = {}) {
-  const { mount = enzymeMount, strict: globalStrict, ...globalEnzymeOptions } = options;
+  const { mount = enzymeMount, strict: globalStrict, ...globalEnzymeOptions } = options
 
-  const attachTo = document.createElement('div');
-  attachTo.className = 'app';
-  attachTo.setAttribute('id', 'app');
-  document.body.insertBefore(attachTo, document.body.firstChild);
+  const attachTo = document.createElement('div')
+  attachTo.className = 'app'
+  attachTo.setAttribute('id', 'app')
+  document.body.insertBefore(attachTo, document.body.firstChild)
 
   const mountWithContext = function mountWithContext(node, localOptions = {}) {
-    const { disableUnnmount = false, strict = globalStrict, ...localEnzymeOptions } = localOptions;
+    const { disableUnnmount = false, strict = globalStrict, ...localEnzymeOptions } = localOptions
 
     if (!disableUnnmount) {
-      ReactDOM.unmountComponentAtNode(attachTo);
+      ReactDOM.unmountComponentAtNode(attachTo)
     }
 
     // some tests require that no other components are in the tree
@@ -53,14 +53,14 @@ export default function createMount(options = {}) {
       attachTo,
       ...globalEnzymeOptions,
       ...localEnzymeOptions,
-    });
-  };
+    })
+  }
 
-  mountWithContext.attachTo = attachTo;
+  mountWithContext.attachTo = attachTo
   mountWithContext.cleanUp = () => {
-    ReactDOM.unmountComponentAtNode(attachTo);
-    attachTo.parentElement.removeChild(attachTo);
-  };
+    ReactDOM.unmountComponentAtNode(attachTo)
+    attachTo.parentElement.removeChild(attachTo)
+  }
 
-  return mountWithContext;
+  return mountWithContext
 }

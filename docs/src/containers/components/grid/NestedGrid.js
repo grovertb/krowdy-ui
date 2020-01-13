@@ -1,20 +1,20 @@
-import React from 'react';
-import { makeStyles } from '@krowdy-ui/styles';
-import { Paper, Grid } from '@krowdy-ui/core';
+import React from 'react'
+import { makeStyles } from '@krowdy-ui/styles'
+import { Paper, Grid } from '@krowdy-ui/core'
 
 const useStyles = makeStyles(theme => ({
+  paper: {
+    color: theme.palette.text.secondary,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+  },
   root: {
     flexGrow: 1,
   },
-  paper: {
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  },
-}));
+}))
 
 export default function NestedGrid() {
-  const classes = useStyles();
+  const classes = useStyles()
 
   function FormRow() {
     return (
@@ -29,7 +29,7 @@ export default function NestedGrid() {
           <Paper className={classes.paper}>item</Paper>
         </Grid>
       </React.Fragment>
-    );
+    )
   }
 
   return (
@@ -46,5 +46,5 @@ export default function NestedGrid() {
         </Grid>
       </Grid>
     </div>
-  );
+  )
 }

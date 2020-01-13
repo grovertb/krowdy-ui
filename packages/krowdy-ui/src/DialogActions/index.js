@@ -1,1 +1,1 @@
-export { default } from './DialogActions';
+export { default } from './DialogActions'
