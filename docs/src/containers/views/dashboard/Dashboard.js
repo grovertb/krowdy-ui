@@ -1,122 +1,62 @@
-import React from 'react';
+import React from 'react'
+import { Dashboard } from '@krowdy-ui/views'
 
-import clsx from 'clsx'
+// import { 
+//   Schedule as ScheduleIcon,
+//   Home as HomeIcon,
+//   AttachMoney as AttachMoneyIcon,
+//   Work as WorkIcon,
+//   Business as BusinessIcon
+// } from '@material-ui/icons'
 
-import {
-  Menu as MenuIcon,
-  ChevronLeft as ChevronLeftIcon
-} from '@material-ui/icons'
-
-import { 
-  AppBar,
-  Toolbar,
-  IconButton,
-  Typography,
-  Button,
-  Drawer,
-  Divider,
-  List,
-  ListItem
-} from '@krowdy-ui/core'
-
-import { makeStyles } from '@krowdy-ui/styles' 
-
-const drawerWidth = 210
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },
-  wrapper: {
-    backgroundColor: '#EFEFEF',
-    display        : 'flex',
-    flex           : 1
-  },
-  wrapperContent: {
-    backgroundColor: '#fff',
-    borderRadius   : 4,
-    display        : 'flex',
-    flex           : 1,
-    justifyContent : 'center',
-    margin         : 12
-    // width          : '100%'
-  },
-  drawerPaper: {
-    overflow  : 'hidden',
-    position  : 'relative',
-    transition: theme.transitions.create('width', {
-      duration: theme.transitions.duration.enteringScreen,
-      easing  : theme.transitions.easing.sharp
-    }),
-    whiteSpace: 'nowrap',
-    width     : drawerWidth,
-    zIndex    : 1
-  },
-  main: {
-    display: 'flex',
-    minHeight: '100vh',
-    flexDirection: 'column'
-  }
-}))
-
-function Dashboard() {
-  const classes = useStyles()
-  const [ isOpenDrawer, setToggleDrawer ] = React.useState(false)
-
-  const _handleClickToggleDrawer = () => setToggleDrawer(!isOpenDrawer)
-
-  return (
-    <div className={classes.main}>
-      <AppBar elevation={1} position="sticky">
-        <Toolbar>
-          <Typography variant="h4" className={classes.title}>
-            News
-          </Typography>
-          <Button color="inherit">Login</Button>
-        </Toolbar>
-      </AppBar>
-      <div className={classes.wrapper}>
-        <div>
-        <Drawer
-          classes={{
-            paper: clsx(
-              classes.drawerPaper,
-              {
-                [classes.drawerPaperClose]: isOpenDrawer
-              }
-            )
-          }}
-          data-test='adminDrawer'
-          open={isOpenDrawer}
-          variant='permanent'>
-          </Drawer>
-          <List
-            data-test='adminDrawerItemsList'
-            disablePadding>
-            <ListItem
-              button
-              className={classes.drawerContentIcon}
-              onClick={_handleClickToggleDrawer}>
-              {
-                !isOpenDrawer ? <ChevronLeftIcon /> : <MenuIcon />
-              }
-            </ListItem>
-            <Divider />
-          </List>
-        </div>
-        <div className={classes.wrapperContent}>
-          {/* {props.children} */}
-          Contenido
-        </div>
-      </div>
-    </div>
-  );
+export default function () {
+  const _handleClickLogout = () => console.log("close")
+  
+  return <Dashboard
+    user={{
+      firstName: 'Xavi',
+      lastName: 'Gonzalez',
+      photo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZFvVFIsVQw4gBlCOw45vcWAGoD75tkHP6dnIx6AYEHUNwLpUG&s',
+    }}
+    userMenu={[
+      {
+        type: 'link',
+        title: 'View card',
+        url: '/views/carduser',
+        target: '_self'
+      },
+      {
+        type: 'button',
+        title: 'Google',
+        url: 'https://google.com',
+        target: '_blank'
+      },
+      {
+        type: 'action',
+        title: 'Cerrar sesiòn',
+        action: 'logout'
+      }
+    ]}
+    actions={{
+      logout: _handleClickLogout
+    }}
+    logo={{
+      source: 'https://site.krowdy.com/wp-content/uploads/2019/01/14153940/logoKrowdymenu.png',
+      alt: 'Logo'
+    }}
+    menus={[
+      {
+        title: 'Dashboard',
+        path: '/views/dashboard',
+        icon: 'Home'
+      },
+      {
+        title: 'Groups',
+        path: '/',
+        icon: 'Group'
+      },
+    ]}
+  >
+    <h1>Dashboard</h1>
+  </Dashboard>
 }
-
-export default Dashboard;
