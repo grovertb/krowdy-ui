@@ -2,8 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@krowdy-ui/core/styles'
 import { Input } from '@krowdy-ui/core'
-/* import { RemoveCircleOutline, DragIndicator } from '@krowdy-ui/icons'
- */
+
 export const styles = theme => ({
   content: {
     width: '80%',
@@ -45,19 +44,13 @@ function changeInputField(event, setNewQuestion) {
   }
 }
 
-function printQuestion(element, index, classes, setDeleted) {
+function printQuestion(element, index, classes) {
   return (<div className={classes.divQuestion} key={index}>
     {/*     <DragIndicator color='disabled' className={classes.left} />
  */}    {element}
     {(typeof index == 'number')
       ? <div className={classes.right}>
-        {/*  <RemoveCircleOutline
-          id={`remove-${element.order}`}
-          color='error'
-          order={element.order}
-          onClick={(event) => {
-            handleRemoveQuestion(setDeleted, event)
-          }} /> */}</div>
+      </div>
       : <></>}
   </div>
   )

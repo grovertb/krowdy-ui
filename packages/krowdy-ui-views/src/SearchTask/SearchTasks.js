@@ -6,25 +6,25 @@ import { Input, Divider, List, ListItem } from '@krowdy-ui/core'
 export const styles = theme => ({
   buttonSelected: {
     '&:hover': {
-      backgroundColor: '#E6F7FF',
+      backgroundColor: theme.palette.primary['50'],
       borderRadius: '4px',
-      color: '#40A9FF',
+      color: theme.palette.primary['400'],
     }
   },
   content: {
     border: '1px solid #EAEAEA',
     borderRadius: '8px',
-    height: '400px',
+    height: '450px',
     width: '312px',
   },
   list: {
     listStyle: 'none',
-    margin: theme.spacing(0, 1.5),
-    width: '90%'
+    margin: 'auto',
+    width: '88%'
   },
   search: {
-    margin: theme.spacing(2, 1.5, 0.5, 1.5),
-    width: '90%',
+    margin: theme.spacing(2),
+    width: '88%',
   }
 })
 
@@ -49,21 +49,19 @@ const SearchTasks = props => {
 
   return (
     <div className={classes.content}>
-      <div>
-        <Input
-          className={classes.search}
-          color='secondary'
-          placeholder='Buscar Tarea'
-          endAdornment={iconOnSeeker}
-          {...propsInput}
-        />
-      </div>
+      <Input
+        className={classes.search}
+        color='secondary'
+        placeholder='Buscar Tarea'
+        endAdornment={iconOnSeeker}
+        {...propsInput}
+      />
       <List className={classes.list} key='firtsList' {...propsLists}>
         {
           (firtsList && firtsList.length > 0)
             ? firtsList.map((element, index) => <ListItem button key={`firts-${index}`}
               className={classes.buttonSelected}
-              onClick={_handleClickOnFirtsTasks(element.action)}
+              onClick={(element.action) ? _handleClickOnFirtsTasks(element.action) : null}
               {...propsListItemsToFirstList}
             >{element.taskName}</ListItem>)
             : null
@@ -76,7 +74,7 @@ const SearchTasks = props => {
             ? secondList.map((element, index) => <ListItem button
               key={`second-${index}`}
               className={classes.buttonSelected}
-              onClick={_handleClickOnSecondsTasks(element.action)}
+              onClick={(element.action) ? _handleClickOnSecondsTasks(element.action) : null}
               {...propsListItemsToSecondList}
             >{element.taskName}</ListItem>)
             : null

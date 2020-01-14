@@ -1,8 +1,9 @@
 import React from 'react'
 import { CardUser } from '@krowdy-ui/views/Cards'
 import { Grid } from '@krowdy-ui/core'
-/* import { MoreVert } from '@krowdy-ui/icons'
- */
+import { MoreVert, Videocam, Assignment, NavigateNext } from '@material-ui/icons'
+import { Rating } from '@material-ui/lab'
+
 export default function () {
 
   return (
@@ -12,26 +13,24 @@ export default function () {
           title='Card User'
           items={[
             {
-              rating: 1.5,
+              icon: <Assignment />,
+              rating: <Rating value={1.5} name='rating1' size='small' precision={0.5} />,
               text: 'Formulario',
-              type: 'assignment',
             },
             {
-              rating: 2.5,
+              icon: <Videocam />,
+              rating: <Rating value={1.5} name='rating2' size='small' precision={0.5} />,
               text: 'Video Cuestionario',
-              type: 'video',
             },
             {
-              rating: 4,
+              icon: <Videocam />,
+              rating: <Rating value={1.5} name='rating3' size='small' precision={0.5} />,
               text: 'Video Entrevista',
-              type: 'video',
             },
           ]}
           borderColor='error'
-/*           iconRight={<MoreVert />}
- */          withDivider
-          withAvatar
-          lessShadow
+          iconRight={<MoreVert />}
+          nextIcon={<NavigateNext />}
         />
 
       </Grid >
