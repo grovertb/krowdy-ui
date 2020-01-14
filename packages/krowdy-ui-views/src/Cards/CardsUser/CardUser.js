@@ -54,7 +54,6 @@ function generate(items, classes) {
 const CardUser = props => {
   const {
     classes,
-    iconRight,
     items,
     title,
     withAvatar = false,
