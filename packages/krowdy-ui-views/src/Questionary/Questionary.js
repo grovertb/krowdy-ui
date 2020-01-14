@@ -104,9 +104,10 @@ const Questionary = props => {
 Questionary.propTypes = {
   classes: PropTypes.object,
   deleteItem: PropTypes.func,
-  items: PropTypes.array,
-  questions: PropTypes.array.isRequired,
+  items: PropTypes.array.isRequired,
   setItems: PropTypes.func,
+  showInstructions: PropTypes.func,
+  updateItem: PropTypes.func
 }
 
 /* 

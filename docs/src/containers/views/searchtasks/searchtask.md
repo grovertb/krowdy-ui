@@ -2,8 +2,10 @@
 
 <p class="description">Search and filter tasks</p>
 
+{{"demo": "containers/views/searchtasks/SearchTask.js", "hideHeader": false, "bg": true, "bgColor": "white", "iframe": true }}
+
 | prop                       | type    |default| description                                               |
-| :------------------------- |:--------|------:|---------------------------------------------------------- |
+| :------------------------- |:--------|------:|----------------------------------------------------------- |
 | classes                    | object  | | Modify class.                                             |
 | firtsList                  | array   | [] | Array contains first list. Contains taskName and action keys    |
 | iconOnSeeker               | node    | null| Contains icon.                                            |
@@ -12,6 +14,3 @@
 | propsListItemsToSecondList | object  | | Props applied to the 'ListItems' element of second  list. |
 | propsLists                 | object  | | Props applied to the 'List' element.                      |
 | secondList                 | array   |[]| Array contains second lis. Contains taskName and action keys  |
-
-
-{{"demo": "containers/views/searchtasks/SearchTask.js", "hideHeader": false, "bg": true, "bgColor": "white", "iframe": true }}

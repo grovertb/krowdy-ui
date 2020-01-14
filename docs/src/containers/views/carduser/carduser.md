@@ -2,6 +2,8 @@
 
 <p class="description">View of User Card .</p>
 
+{{"demo": "containers/views/carduser/CardUser.js", "hideHeader": false, "bg": true, "bgColor": "white", "iframe": true }}
+
 | prop                       | type    | description                                               |
 | -------------------------- |---------| ---------------------------------------------------------:|
 | classes                    | object  | Modify class.                                             |
@@ -12,4 +14,3 @@
 | withAvatar | boolean  |  |
 | withDivider                 | boolean  |                       |
 
-{{"demo": "containers/views/carduser/CardUser.js", "hideHeader": false, "bg": true, "bgColor": "white", "iframe": true }}
