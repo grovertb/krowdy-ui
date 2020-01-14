@@ -133,11 +133,16 @@ const pages: Array<Page> = [
         path: '/views/carduser'
       },
       {
-        title: 'Dashboard',
-        path: '/views/dashboard'
+        title: 'Questionary',
+        path: '/views/questionary'
+      },
+      {
+        title: 'Tasks',
+        path: '/views/cardtask'
       },
     ]
-  }
+  },
+
   // {
   //   title: 'Styles'
   // },
