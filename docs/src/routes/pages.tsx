@@ -136,8 +136,17 @@ const pages: Array<Page> = [
         title: 'Dashboard',
         path: '/views/dashboard'
       },
+      {
+        title: 'Questionary',
+        path: '/views/questionary'
+      },
+      {
+        title: 'Tasks',
+        path: '/views/cardtask'
+      },
     ]
-  }
+  },
+
   // {
   //   title: 'Styles'
   // },
