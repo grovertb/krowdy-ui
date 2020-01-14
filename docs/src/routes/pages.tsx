@@ -148,8 +148,17 @@ const pages: Array<Page> = [
         title: 'Search',
         path: '/views/search'
       },
+      {
+        title: 'Questionary',
+        path: '/views/questionary'
+      },
+      {
+        title: 'Tasks',
+        path: '/views/cardtask'
+      },
     ]
-  }
+  },
+
   // {
   //   title: 'Styles'
   // },

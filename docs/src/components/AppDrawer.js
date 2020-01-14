@@ -1,6 +1,6 @@
 import React from 'react'
 import { makeStyles } from '@krowdy-ui/styles'
-import { 
+import {
   SwipeableDrawer,
   Collapse,
   Divider,
@@ -26,17 +26,15 @@ const useStylesDrawer = makeStyles({
     fontWeight: 500,
     justifyContent: 'flex-start',
     letterSpacing: 0,
-    paddingLeft: ({depth}) => depth,
+    paddingLeft: ({ depth }) => depth,
     textTransform: 'none',
-    width: '100%'
   },
   itemTitleLink: {
     fontWeight: 400,
     justifyContent: 'flex-start',
     letterSpacing: 0,
-    paddingLeft: ({depth}) => depth,
+    paddingLeft: ({ depth }) => depth,
     textTransform: 'none',
-    width: '100%'
   }
 }, { name: 'DrawerListItem' })
 
@@ -72,18 +70,18 @@ const useStyles = makeStyles(theme => ({
   toolbarIe11: {
     display: 'flex',
   },
-}), { name: 'AppDrawer'})
+}), { name: 'AppDrawer' })
 
 function DrawerListItem({ page, depth }) {
-  const classes = useStylesDrawer({depth: 8 * (3 + 2 * depth)})
-  const [ openCollapse, setOpenCollapse ] = React.useState(false)
-  const { routes, title, path } = page 
+  const classes = useStylesDrawer({ depth: 8 * (3 + 2 * depth) })
+  const [openCollapse, setOpenCollapse] = React.useState(false)
+  const { routes, title, path } = page
 
   const _handleToggleCollapse = () => {
     setOpenCollapse(!openCollapse)
   }
 
-  if(routes && routes.length) {
+  if (routes && routes.length) {
     return (
       <ListItem disableGutters className={classes.itemContent}>
         <Button
@@ -91,22 +89,22 @@ function DrawerListItem({ page, depth }) {
           onClick={routes && routes.length ? _handleToggleCollapse : undefined}>
           {title}
         </Button>
-          <Collapse in={openCollapse} unmountOnExit>
-            {
-              renderDrawerList(routes, depth + 1)
-            }
-          </Collapse>
+        <Collapse in={openCollapse} unmountOnExit>
+          {
+            renderDrawerList(routes, depth + 1)
+          }
+        </Collapse>
       </ListItem>
     )
-  } 
-    return (
-      <ListItem disableGutters className={classes.itemContent}>
-        <Button href={path || '#'} className={classes.itemTitleLink} >
-          {title}
-        </Button>
-      </ListItem>
-    )
-  
+  }
+  return (
+    <ListItem disableGutters className={classes.itemContent}>
+      <Button href={path || '#'} className={classes.itemTitleLink} >
+        {title}
+      </Button>
+    </ListItem>
+  )
+
 }
 
 const renderDrawerList = (routes, depth) => (
@@ -130,8 +128,8 @@ export default function AppDrawer(props) {
             Krowdy-UI
           </Link>
           <Typography
-          // onClick={onClose}
-          // href="https://material-ui.com/versions/"
+            // onClick={onClose}
+            // href="https://material-ui.com/versions/"
             color='textSecondary'
             variant='caption'
           >v0.0.16</Typography>
@@ -145,11 +143,11 @@ export default function AppDrawer(props) {
   )
 
   return (
-    <nav 
-      className={className} 
+    <nav
+      className={className}
       aria-label={t('mainNavigation')}>
-      <Hidden 
-        lgUp={!disablePermanent} 
+      <Hidden
+        lgUp={!disablePermanent}
         implementation='js'>
         <SwipeableDrawer
           classes={{
