@@ -2,12 +2,62 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import XDate from 'xdate'
 import { Typography, Button, Grid, Divider, List, ListItem, ListItemText, Chip } from '@krowdy-ui/core'
-import BusinessIcon from '@krowdy-ui/icons/Business'
+import BusinessIcon from '@material-ui/icons/Business'
 import { withStyles } from '@krowdy-ui/core/styles'
 
 export const styles = theme => ({
-  contentTitle: {
-    display: 'flex'
+  btnPostular: {
+    [theme.breakpoints.down('xs')]: {
+      backgroundColor: 'white',
+      bottom: 0,
+      flex: '1 1 0',
+      left: 0,
+      padding: theme.spacing(2),
+      position: 'fixed',
+      right: 0,
+      width: '100%',
+      zIndex: 1
+    },
+    '& button': {
+      [theme.breakpoints.down('xs')]: {
+        width: '100%'
+      }
+    },
+    alignItems: 'flex-end',
+    display: 'flex',
+    flex: '1 0 1',
+    flexDirection: 'column'
+  },
+  chips: {
+    '&:nth-last-child(1)': {
+      marginRight: 0
+    },
+    margin: '5px 5px 5px 0',
+    maxWidth: '100%'
+  },
+  contentCompany: {
+    '& > a': {
+      marginLeft: theme.spacing(1)
+    },
+    alignItems: 'flex-end',
+    display: 'flex',
+    [theme.breakpoints.down('xs')]: {
+      alignItems: 'center'
+    }
+  },
+  contentCompanyLogo: {
+    '& > img': {
+      display: 'block',
+      width: '100%'
+    },
+    alignItems: 'center',
+    backgroundColor: '#EFEFEF',
+    border: '1px solid rgb(234, 234, 234)',
+    borderRadius: 6,
+    display: 'flex',
+    height: 47,
+    justifyContent: 'center',
+    width: 47
   },
   contentJobDetail: {
     '& > *': {
@@ -21,47 +71,16 @@ export const styles = theme => ({
     margin: theme.spacing(0, 5)
   },
   contentOptions: {
-    display: 'flex',
-    flexWrap: 'wrap',
     '& > div': {
+      alignItems: 'center',
       color: theme.palette.primary.main,
-      display: 'flex',
-      alignItems: 'center'
-    }
-  },
-  contentCompanyLogo: {
-    '& > img': {
-      display: 'block',
-      width: '100%'
-    },
-    backgroundColor: '#EFEFEF',
-    border: '1px solid rgb(234, 234, 234)',
-    borderRadius: 6,
-    width: 47,
-    height: 47,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  contentCompany: {
-    '& > a': {
-      marginLeft: theme.spacing(1)
+      display: 'flex'
     },
     display: 'flex',
-    alignItems: 'flex-end',
-    [theme.breakpoints.down('xs')]: {
-      alignItems: 'center'
-    }
+    flexWrap: 'wrap'
   },
-  itemOptions: {
-    marginTop: 8,
-    marginRight: 20
-  },
-  iconDetail: {
-    marginRight: 8
-  },
-  textDetail: {
-    fontSize: '.8rem'
+  contentTitle: {
+    display: 'flex'
   },
   descriptionEmpty: {
     '& > img': {
@@ -70,99 +89,6 @@ export const styles = theme => ({
     alignItems: 'center',
     display: 'flex',
     flexDirection: 'column'
-  },
-  sectionInformation: {
-    margin: theme.spacing(5, 0)
-  },
-  list: {
-    display: 'block',
-    listStyleType: 'disc',
-    margin: 0,
-    paddingLeft: 40
-  },
-  itemList: {
-    display: 'list-item',
-    padding: 6,
-    fontWeight: 'bold',
-    fontSize: '.8rem',
-    wordBreak: 'break-word',
-    '& > div': {
-      fontWeight: 'normal',
-      wordBreak: 'break-word'
-    }
-  },
-  listCompetitions: {
-    display: 'list-item',
-    padding: 6,
-    fontWeight: 'normal',
-    fontSize: '.8rem',
-    wordBreak: 'break-word'
-  },
-  titleJob: {
-    fontSize: '2.5rem',
-    textTransform: 'lowercase',
-    wordBreak: 'break-word',
-    [theme.breakpoints.down('xs')]: {
-      fontSize: '1.75rem',
-    },
-    '&:first-letter': {
-      textTransform: 'uppercase'
-    },
-  },
-  titleCompany: {
-    fontSize: '1.4rem',
-    fontWeight: 'bold',
-    marginLeft: theme.spacing(1),
-    lineHeight: 1,
-    '&.no-visible': {
-      fontSize: '1rem'
-    }
-  },
-  btnPostular: {
-    [theme.breakpoints.down('xs')]: {
-      position: 'fixed',
-      left: 0,
-      right: 0,
-      bottom: 0,
-      zIndex: 1,
-      backgroundColor: 'white',
-      width: '100%',
-      padding: theme.spacing(2),
-      flex: '1 1 0'
-    },
-    '& button': {
-      [theme.breakpoints.down('xs')]: {
-        width: '100%'
-      }
-    },
-    flex: '1 0 1',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-end'
-  },
-  seeMoreCompany: {
-    color: theme.palette.primary.main,
-    marginLeft: 10,
-    cursor: 'pointer',
-    fontSize: '.8rem'
-  },
-  textDescription: {
-    fontSize: '.8rem',
-    wordBreak: 'break-word',
-    marginTop: theme.spacing(4),
-  },
-  titleSection: {
-    fontSize: '1.2rem'
-  },
-  chips: {
-    margin: '5px 5px 5px 0',
-    maxWidth: '100%',
-    '&:nth-last-child(1)': {
-      marginRight: 0
-    }
-  },
-  iconCompany: {
-    color: '#595959'
   },
   headerJob: {
     display: 'flex',
@@ -174,10 +100,84 @@ export const styles = theme => ({
   headerLeft: {
     flex: '1'
   },
+  iconCompany: {
+    color: '#595959'
+  },
+  iconDetail: {
+    marginRight: 8
+  },
+  itemList: {
+    '& > div': {
+      fontWeight: 'normal',
+      wordBreak: 'break-word'
+    },
+    display: 'list-item',
+    fontSize: '.8rem',
+    fontWeight: 'bold',
+    padding: 6,
+    wordBreak: 'break-word'
+  },
+  itemOptions: {
+    marginRight: 20,
+    marginTop: 8
+  },
+  list: {
+    display: 'block',
+    listStyleType: 'disc',
+    margin: 0,
+    paddingLeft: 40
+  },
+  listCompetitions: {
+    display: 'list-item',
+    fontSize: '.8rem',
+    fontWeight: 'normal',
+    padding: 6,
+    wordBreak: 'break-word'
+  },
+  sectionInformation: {
+    margin: theme.spacing(5, 0)
+  },
+  seeMoreCompany: {
+    color: theme.palette.primary.main,
+    cursor: 'pointer',
+    fontSize: '.8rem',
+    marginLeft: 10
+  },
+  textDescription: {
+    fontSize: '.8rem',
+    marginTop: theme.spacing(4),
+    wordBreak: 'break-word',
+  },
+  textDetail: {
+    fontSize: '.8rem'
+  },
   textEndJob: {
     fontSize: '12px',
-    paddingRight: '5px',
-    marginTop: '5px'
+    marginTop: '5px',
+    paddingRight: '5px'
+  },
+  titleCompany: {
+    '&.no-visible': {
+      fontSize: '1rem'
+    },
+    fontSize: '1.4rem',
+    fontWeight: 'bold',
+    lineHeight: 1,
+    marginLeft: theme.spacing(1)
+  },
+  titleJob: {
+    '&:first-letter': {
+      textTransform: 'uppercase'
+    },
+    fontSize: '2.5rem',
+    textTransform: 'lowercase',
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '1.75rem',
+    },
+    wordBreak: 'break-word',
+  },
+  titleSection: {
+    fontSize: '1.2rem'
   }
 })
 
@@ -449,6 +449,6 @@ JobDetail.propTypes = {
   visibleInformation: PropTypes.bool
 }
 
-JobDetail.muiName = 'JobDetail';
+JobDetail.muiName = 'JobDetail'
 
 export default withStyles(styles, { name: 'KrowdyJobDetail' })(JobDetail)

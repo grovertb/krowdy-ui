@@ -1,13 +1,13 @@
-import LZString from 'lz-string';
+import LZString from 'lz-string'
 
-const headerRegExp = /---[\r\n]([\s\S]*)[\r\n]---/;
+const headerRegExp = /---[\r\n]([\s\S]*)[\r\n]---/
 // const titleRegExp = /# (.*)[\r\n]/;
 // const descriptionRegExp = /<p class="description">(.*)<\/p>[\r\n]/;
-const headerKeyValueRegExp = /(.*): (.*)/g;
-const emptyRegExp = /^\s*$/;
+const headerKeyValueRegExp = /(.*): (.*)/g
+const emptyRegExp = /^\s*$/
 
-export const demoRegexp = /^"demo": "(.*)"/;
-export const SOURCE_CODE_ROOT_URL = 'https://github.com/grovertb/krowdy-ui/blob/master/docs/src';
+export const demoRegexp = /^"demo": "(.*)"/
+export const SOURCE_CODE_ROOT_URL = 'https://github.com/grovertb/krowdy-ui/blob/master/docs/src'
 export const CODE_VARIANTS = {
   JS: 'JS',
   TS: 'TS',
@@ -17,274 +17,274 @@ export function getContents(markdown) {
   return markdown
     .replace(headerRegExp, '') // Remove header information
     .split(/^{{("demo":[^}]*)}}$/gm) // Split markdown into an array, separating demos
-    .filter(content => !emptyRegExp.test(content)); // Remove empty lines
+    .filter(content => !emptyRegExp.test(content)) // Remove empty lines
 }
 
 export function getHeaders(markdown) {
-  let header = markdown.match(headerRegExp);
+  let header = markdown.match(headerRegExp)
 
   if (!header) {
     return {
       components: [],
-    };
+    }
   }
 
-  header = header[1];
+  header = header[1]
 
-  let regexMatches;
-  const headers = {};
+  let regexMatches
+  const headers = {}
 
   // eslint-disable-next-line no-cond-assign
   while ((regexMatches = headerKeyValueRegExp.exec(header)) !== null) {
-    headers[regexMatches[1]] = regexMatches[2];
+    headers[regexMatches[1]] = regexMatches[2]
   }
 
   if (headers.components) {
     headers.components = headers.components
       .split(',')
       .map(x => x.trim())
-      .sort();
+      .sort()
   } else {
-    headers.components = [];
+    headers.components = []
   }
 
-  return headers;
+  return headers
 }
 
 export function addHiddenInput(form, name, value) {
-  const input = document.createElement('input');
-  input.type = 'hidden';
-  input.name = name;
-  input.value = value;
-  form.appendChild(input);
+  const input = document.createElement('input')
+  input.type = 'hidden'
+  input.name = name
+  input.value = value
+  form.appendChild(input)
 }
 
 const translations = {
-  "homeQuickWord": "A quick word from our sponsors:",
-  "helpToTranslate": "Help to translate",
-  "editWebsiteColors": "Edit website colors",
-  "toggleTheme": "Toggle light/dark theme",
-  "toggleRTL": "Toggle right-to-left/left-to-right",
-  "github": "GitHub repository",
-  "strapline": "React components for faster and easier web development. Build your own design system, or start with Material Design.",
-  "getStarted": "Get Started",
-  "installation": "Installation",
-  "installDescr": "Install Krowdy-UI's source files via npm. We take care of injecting the CSS needed.",
-  "cdn": "or use a CDN.",
-  "loadFont": "Load the default Roboto font.",
-  "installButton": "Read installation docs",
-  "usage": "Usage",
-  "usageDescr": "Krowdy-UI components work without any additional setup, and don't pollute the global scope.",
-  "usageButton": "Explore the docs",
-  "themes": "Premium themes",
-  "themesDescr": "Take Material-UI to the next level with premium themes from our official marketplace – all built on Material-UI.",
-  "themesButton": "Browse themes",
-  "whosUsing": "Who's using Material-UI?",
-  "joinThese": "Join these and other great organisations!",
-  "usingMui": "Are you using Material-UI?",
-  "letUsKnow": "Let us know!",
-  "footerCommunity": "Community",
-  "footerResources": "Resources",
-  "homeFooterRelease": "Currently {{versionNumber}}. Released under the {{license}}.",
-  "license": "MIT License",
-  "likeMui": "Help us keep running",
-  "adblock": "If you don't mind tech related ads (no tracking or remarketing), and want to keep us running, please whitelist Material-UI in your blocker.",
-  "thanks": "Thank you!",
-  "editPage": "Edit this page",
-  "tableOfContents": "Contents",
-  "sourceCode": "Source code",
-  "traffic": "Traffic",
-  "newest": "Newest",
-  "stars": "GitHub stars",
-  "visit": "Visit the website",
-  "dashboardTitle": "Dashboard",
-  "dashboardDescr": "A minimal dashboard with taskbar and mini variant draw. The chart is courtesy of Recharts, but it is simple to substitute an alternative.",
-  "signInTitle": "Sign In",
-  "signInDescr": "A simple Sign In page.",
-  "signInSideTitle": "Sign-in side",
-  "signInSideDescr": "A simple Sign In side page.",
-  "signUpTitle": "Sign Up",
-  "signUpDescr": "A simple Sign Up page.",
-  "blogTitle": "Blog",
-  "blogDescr": "A sophisticated blog page layout. Markdown support is courtesy of markdown-to-jsx but is easily replaced.",
-  "checkoutTitle": "Checkout",
-  "checkoutDescr": "A step-by-step checkout page layout. Adapt the number of steps to suit your needs, or make steps optional.",
-  "albumTitle": "Album",
-  "albumDescr": "A responsive album / gallery page layout with a hero unit and footer.",
-  "pricingTitle": "Pricing",
-  "pricingDescr": "Quickly build an effective pricing table for your potential customers with this page layout.",
-  "stickyFooterTitle": "Sticky footer",
-  "stickyFooterDescr": "Attach a footer to the bottom of the viewport when page content is short.",
-  "expandAll": "Expand all",
-  "showSource": "Show the source",
-  "hideSource": "Hide the source",
-  "showFullSource": "Show the full source",
-  "hideFullSource": "Hide the full source",
-  "viewGitHub": "View the source on GitHub",
-  "codesandbox": "Edit in CodeSandbox",
-  "seeMore": "See more",
-  "copySource": "Copy the source",
-  "copySourceLinkJS": "Copy link to JavaScript source",
-  "copySourceLinkTS": "Copy link to TypeScript source",
-  "stackblitz": "Edit in StackBlitz (JS only)",
-  "headTitle": "Material-UI: A popular React UI framework",
-  "emojiLove": "Love",
-  "emoojiWarning": "Warning",
-  "mainNavigation": "Main navigation",
-  "skipToContent": "Skip to content",
-  "openDrawer": "Open main navigation",
-  "changeLanguage": "Change language",
-  "pageTOC": "Page table of contents",
-  "showJSSource": "Show JavaScript source",
-  "showTSSource": "Show TypeScript source",
-  "close": "Close",
-  "useHighDensity": "Apply higher density via props",
-  "spacingUnit": "Spacing unit",
-  "resetDensity": "Reset density",
-  "increaseSpacing": "increase spacing",
-  "decreaseSpacing": "decrease spacing",
-  "getProfessionalSupport": "Get Professional Support",
-  "diamondSponsors": "Diamond Sponsors",
-  "pages": {
-    "/getting-started": "Getting Started",
-    "/getting-started/installation": "Installation",
-    "/getting-started/usage": "Usage",
-    "/getting-started/example-projects": "Example Projects",
-    "/getting-started/templates": "Templates",
-    "/getting-started/learn": "Learn",
-    "/getting-started/faq": "FAQs",
-    "/getting-started/supported-components": "Supported Components",
-    "/getting-started/supported-platforms": "Supported Platforms",
-    "/getting-started/support": "Support",
-    "/components": "Components",
-    "/components/about-the-lab": "About The Lab",
-    "/components/click-away-listener": "Click Away Listener",
-    "/component/about": "About The Lab",
-    "/components/app-bar": "App Bar",
-    "/components/autocomplete": "Autocomplete",
-    "/components/avatars": "Avatars",
-    "/components/badges": "Badges",
-    "/components/basic-inputs": "Basic Inputs",
-    "/components/bottom-navigation": "Bottom Navigation",
-    "/components/box": "Box",
-    "/components/breadcrumbs": "Breadcrumbs",
-    "/components/buttons": "Buttons",
-    "/components/cards": "Cards",
-    "/components/checkboxes": "Checkboxes",
-    "/components/chips": "Chips",
-    "/components/container": "Container",
-    "/components/content": "Content",
-    "/components/css-baseline": "CSS Baseline",
-    "/components/data-display": "Data Display",
-    "/components/dialogs": "Dialogs",
-    "/components/dividers": "Dividers",
-    "/components/drawers": "Drawers",
-    "/components/expansion-panels": "Expansion Panels",
-    "/components/feedback": "Feedback",
-    "/components/grid": "Grid",
-    "/components/hidden": "Hidden",
-    "/components/grid-list": "Grid List",
-    "/components/icons": "Icons",
-    "/components/inputs": "Inputs",
-    "/components/lab": "Lab",
-    "/components/layout": "Layout",
-    "/components/links": "Links",
-    "/components/lists": "Lists",
-    "/components/menus": "Menus",
-    "/components/modal": "Modal",
-    "/components/navigation": "Navigation",
-    "/components/no-ssr": "No SSR",
-    "/components/other": "Other",
-    "/components/paper": "Paper",
-    "/components/pickers": "Date / Time",
-    "/components/popover": "Popover",
-    "/components/popper": "Popper",
-    "/components/portal": "Portal",
-    "/components/progress": "Progress",
-    "/components/progress-validation": "Feedback",
-    "/components/radio-buttons": "Radio Buttons",
-    "/components/selection-controls": "Selection Controls",
-    "/components/selects": "Selects",
-    "/components/slider": "Slider",
-    "/components/snackbars": "Snackbars",
-    "/components/speed-dial": "Speed Dial",
-    "/components/steppers": "Steppers",
-    "/components/surfaces": "Surfaces",
-    "/components/switches": "Switches",
-    "/components/tables": "Tables",
-    "/components/tabs": "Tabs",
-    "/components/text-fields": "Text Fields",
-    "/components/toggle-button": "Toggle Button",
-    "/components/tooltips": "Tooltips",
-    "/components/transfer-list": "Transfer List",
-    "/components/transitions": "Transitions",
-    "/components/typography": "Typography",
-    "/components/use-media-query": "useMediaQuery",
-    "/components/utils": "Utils",
-    "/css-in-js": "Styles",
-    "/css-in-js/basics": "Basics",
-    "/css-in-js/advanced": "Advanced",
-    "/system": "System",
-    "/system/basics": "Basics",
-    "/system/borders": "Borders",
-    "/system/display": "Display",
-    "/system/flexbox": "Flexbox",
-    "/system/palette": "Palette",
-    "/system/positions": "Positions",
-    "/system/shadows": "Shadows",
-    "/system/sizing": "Sizing",
-    "/system/spacing": "Spacing",
-    "/system/typography": "Typography",
-    "/customization": "Customization",
-    "/customization/theming": "Overview",
-    "/customization/breakpoints": "Breakpoints",
-    "/customization/color": "Color",
-    "/customization/themes": "Overview",
-    "/customization/palette": "Palette",
-    "/customization/type": "Type (light / dark theme)",
-    "/customization/typography": "Typography",
-    "/customization/spacing": "Spacing",
-    "/customization/z-index": "z-index",
-    "/customization/globals": "Globals",
-    "/customization/components": "Components",
-    "/customization/default-theme": "Default Theme",
-    "/guides": "Guides",
-    "/guides/api": "API Design Approach",
-    "/guides/typescript": "TypeScript",
-    "/guides/interoperability": "Style Library Interoperability",
-    "/guides/minimizing-bundle-size": "Minimizing Bundle Size",
-    "/guides/composition": "Composition",
-    "/guides/responsive-ui": "Responsive UI",
-    "/guides/server-rendering": "Server Rendering",
-    "/guides/migration-v3": "Migration From v3",
-    "/guides/migration-v0x": "Migration From v0.x",
-    "/guides/testing": "Testing",
-    "/guides/flow": "Flow",
-    "/guides/right-to-left": "Right-to-left",
-    "/guides/localization": "Localization",
-    "/discover-more": "Discover More",
-    "/discover-more/showcase": "Showcase",
-    "/discover-more/related-projects": "Related Projects",
-    "/discover-more/roadmap": "Roadmap",
-    "/discover-more/backers": "Sponsors & Backers",
-    "/discover-more/vision": "Vision",
-    "/discover-more/team": "Team",
-    "/discover-more/community": "Community",
-    "/discover-more/changelog": "Changelog",
-    "/discover-more/governance": "Governance",
-    "/discover-more/languages": "Languages",
-    "/versions": "Versions",
-    "/styles": "Styles",
-    "/styles/basics": "Basics",
-    "/styles/advanced": "Advanced",
-    "https://themes.material-ui.com/": "Premium Themes",
-    "/components/material-icons": "Material Icons",
-    "/components/textarea-autosize": "Textarea Autosize",
-    "/components/rating": "Rating",
-    "/components/skeleton": "Skeleton",
-    "/components/tree-view": "Tree View",
-    "/customization/density": "Density"
-  }
+  adblock: "If you don't mind tech related ads (no tracking or remarketing), and want to keep us running, please whitelist Material-UI in your blocker.",
+  albumDescr: 'A responsive album / gallery page layout with a hero unit and footer.',
+  albumTitle: 'Album',
+  blogDescr: 'A sophisticated blog page layout. Markdown support is courtesy of markdown-to-jsx but is easily replaced.',
+  blogTitle: 'Blog',
+  cdn: 'or use a CDN.',
+  changeLanguage: 'Change language',
+  checkoutDescr: 'A step-by-step checkout page layout. Adapt the number of steps to suit your needs, or make steps optional.',
+  checkoutTitle: 'Checkout',
+  close: 'Close',
+  codesandbox: 'Edit in CodeSandbox',
+  copySource: 'Copy the source',
+  copySourceLinkJS: 'Copy link to JavaScript source',
+  copySourceLinkTS: 'Copy link to TypeScript source',
+  dashboardDescr: 'A minimal dashboard with taskbar and mini variant draw. The chart is courtesy of Recharts, but it is simple to substitute an alternative.',
+  dashboardTitle: 'Dashboard',
+  decreaseSpacing: 'decrease spacing',
+  diamondSponsors: 'Diamond Sponsors',
+  editPage: 'Edit this page',
+  editWebsiteColors: 'Edit website colors',
+  emojiLove: 'Love',
+  emoojiWarning: 'Warning',
+  expandAll: 'Expand all',
+  footerCommunity: 'Community',
+  footerResources: 'Resources',
+  getProfessionalSupport: 'Get Professional Support',
+  getStarted: 'Get Started',
+  github: 'GitHub repository',
+  headTitle: 'Material-UI: A popular React UI framework',
+  helpToTranslate: 'Help to translate',
+  hideFullSource: 'Hide the full source',
+  hideSource: 'Hide the source',
+  homeFooterRelease: 'Currently {{versionNumber}}. Released under the {{license}}.',
+  homeQuickWord: 'A quick word from our sponsors:',
+  increaseSpacing: 'increase spacing',
+  installButton: 'Read installation docs',
+  installDescr: "Install Krowdy-UI's source files via npm. We take care of injecting the CSS needed.",
+  installation: 'Installation',
+  joinThese: 'Join these and other great organisations!',
+  letUsKnow: 'Let us know!',
+  license: 'MIT License',
+  likeMui: 'Help us keep running',
+  loadFont: 'Load the default Roboto font.',
+  mainNavigation: 'Main navigation',
+  newest: 'Newest',
+  openDrawer: 'Open main navigation',
+  pageTOC: 'Page table of contents',
+  pages: {
+    '/component/about': 'About The Lab',
+    '/components': 'Components',
+    '/components/about-the-lab': 'About The Lab',
+    '/components/app-bar': 'App Bar',
+    '/components/autocomplete': 'Autocomplete',
+    '/components/avatars': 'Avatars',
+    '/components/badges': 'Badges',
+    '/components/basic-inputs': 'Basic Inputs',
+    '/components/bottom-navigation': 'Bottom Navigation',
+    '/components/box': 'Box',
+    '/components/breadcrumbs': 'Breadcrumbs',
+    '/components/buttons': 'Buttons',
+    '/components/cards': 'Cards',
+    '/components/checkboxes': 'Checkboxes',
+    '/components/chips': 'Chips',
+    '/components/click-away-listener': 'Click Away Listener',
+    '/components/container': 'Container',
+    '/components/content': 'Content',
+    '/components/css-baseline': 'CSS Baseline',
+    '/components/data-display': 'Data Display',
+    '/components/dialogs': 'Dialogs',
+    '/components/dividers': 'Dividers',
+    '/components/drawers': 'Drawers',
+    '/components/expansion-panels': 'Expansion Panels',
+    '/components/feedback': 'Feedback',
+    '/components/grid': 'Grid',
+    '/components/grid-list': 'Grid List',
+    '/components/hidden': 'Hidden',
+    '/components/icons': 'Icons',
+    '/components/inputs': 'Inputs',
+    '/components/lab': 'Lab',
+    '/components/layout': 'Layout',
+    '/components/links': 'Links',
+    '/components/lists': 'Lists',
+    '/components/material-icons': 'Material Icons',
+    '/components/menus': 'Menus',
+    '/components/modal': 'Modal',
+    '/components/navigation': 'Navigation',
+    '/components/no-ssr': 'No SSR',
+    '/components/other': 'Other',
+    '/components/paper': 'Paper',
+    '/components/pickers': 'Date / Time',
+    '/components/popover': 'Popover',
+    '/components/popper': 'Popper',
+    '/components/portal': 'Portal',
+    '/components/progress': 'Progress',
+    '/components/progress-validation': 'Feedback',
+    '/components/radio-buttons': 'Radio Buttons',
+    '/components/rating': 'Rating',
+    '/components/selection-controls': 'Selection Controls',
+    '/components/selects': 'Selects',
+    '/components/skeleton': 'Skeleton',
+    '/components/slider': 'Slider',
+    '/components/snackbars': 'Snackbars',
+    '/components/speed-dial': 'Speed Dial',
+    '/components/steppers': 'Steppers',
+    '/components/surfaces': 'Surfaces',
+    '/components/switches': 'Switches',
+    '/components/tables': 'Tables',
+    '/components/tabs': 'Tabs',
+    '/components/text-fields': 'Text Fields',
+    '/components/textarea-autosize': 'Textarea Autosize',
+    '/components/toggle-button': 'Toggle Button',
+    '/components/tooltips': 'Tooltips',
+    '/components/transfer-list': 'Transfer List',
+    '/components/transitions': 'Transitions',
+    '/components/tree-view': 'Tree View',
+    '/components/typography': 'Typography',
+    '/components/use-media-query': 'useMediaQuery',
+    '/components/utils': 'Utils',
+    '/css-in-js': 'Styles',
+    '/css-in-js/advanced': 'Advanced',
+    '/css-in-js/basics': 'Basics',
+    '/customization': 'Customization',
+    '/customization/breakpoints': 'Breakpoints',
+    '/customization/color': 'Color',
+    '/customization/components': 'Components',
+    '/customization/default-theme': 'Default Theme',
+    '/customization/density': 'Density',
+    '/customization/globals': 'Globals',
+    '/customization/palette': 'Palette',
+    '/customization/spacing': 'Spacing',
+    '/customization/themes': 'Overview',
+    '/customization/theming': 'Overview',
+    '/customization/type': 'Type (light / dark theme)',
+    '/customization/typography': 'Typography',
+    '/customization/z-index': 'z-index',
+    '/discover-more': 'Discover More',
+    '/discover-more/backers': 'Sponsors & Backers',
+    '/discover-more/changelog': 'Changelog',
+    '/discover-more/community': 'Community',
+    '/discover-more/governance': 'Governance',
+    '/discover-more/languages': 'Languages',
+    '/discover-more/related-projects': 'Related Projects',
+    '/discover-more/roadmap': 'Roadmap',
+    '/discover-more/showcase': 'Showcase',
+    '/discover-more/team': 'Team',
+    '/discover-more/vision': 'Vision',
+    '/getting-started': 'Getting Started',
+    '/getting-started/example-projects': 'Example Projects',
+    '/getting-started/faq': 'FAQs',
+    '/getting-started/installation': 'Installation',
+    '/getting-started/learn': 'Learn',
+    '/getting-started/support': 'Support',
+    '/getting-started/supported-components': 'Supported Components',
+    '/getting-started/supported-platforms': 'Supported Platforms',
+    '/getting-started/templates': 'Templates',
+    '/getting-started/usage': 'Usage',
+    '/guides': 'Guides',
+    '/guides/api': 'API Design Approach',
+    '/guides/composition': 'Composition',
+    '/guides/flow': 'Flow',
+    '/guides/interoperability': 'Style Library Interoperability',
+    '/guides/localization': 'Localization',
+    '/guides/migration-v0x': 'Migration From v0.x',
+    '/guides/migration-v3': 'Migration From v3',
+    '/guides/minimizing-bundle-size': 'Minimizing Bundle Size',
+    '/guides/responsive-ui': 'Responsive UI',
+    '/guides/right-to-left': 'Right-to-left',
+    '/guides/server-rendering': 'Server Rendering',
+    '/guides/testing': 'Testing',
+    '/guides/typescript': 'TypeScript',
+    '/styles': 'Styles',
+    '/styles/advanced': 'Advanced',
+    '/styles/basics': 'Basics',
+    '/system': 'System',
+    '/system/basics': 'Basics',
+    '/system/borders': 'Borders',
+    '/system/display': 'Display',
+    '/system/flexbox': 'Flexbox',
+    '/system/palette': 'Palette',
+    '/system/positions': 'Positions',
+    '/system/shadows': 'Shadows',
+    '/system/sizing': 'Sizing',
+    '/system/spacing': 'Spacing',
+    '/system/typography': 'Typography',
+    '/versions': 'Versions',
+    'https://themes.material-ui.com/': 'Premium Themes'
+  },
+  pricingDescr: 'Quickly build an effective pricing table for your potential customers with this page layout.',
+  pricingTitle: 'Pricing',
+  resetDensity: 'Reset density',
+  seeMore: 'See more',
+  showFullSource: 'Show the full source',
+  showJSSource: 'Show JavaScript source',
+  showSource: 'Show the source',
+  showTSSource: 'Show TypeScript source',
+  signInDescr: 'A simple Sign In page.',
+  signInSideDescr: 'A simple Sign In side page.',
+  signInSideTitle: 'Sign-in side',
+  signInTitle: 'Sign In',
+  signUpDescr: 'A simple Sign Up page.',
+  signUpTitle: 'Sign Up',
+  skipToContent: 'Skip to content',
+  sourceCode: 'Source code',
+  spacingUnit: 'Spacing unit',
+  stackblitz: 'Edit in StackBlitz (JS only)',
+  stars: 'GitHub stars',
+  stickyFooterDescr: 'Attach a footer to the bottom of the viewport when page content is short.',
+  stickyFooterTitle: 'Sticky footer',
+  strapline: 'React components for faster and easier web development. Build your own design system, or start with Material Design.',
+  tableOfContents: 'Contents',
+  thanks: 'Thank you!',
+  themes: 'Premium themes',
+  themesButton: 'Browse themes',
+  themesDescr: 'Take Material-UI to the next level with premium themes from our official marketplace – all built on Material-UI.',
+  toggleRTL: 'Toggle right-to-left/left-to-right',
+  toggleTheme: 'Toggle light/dark theme',
+  traffic: 'Traffic',
+  usage: 'Usage',
+  usageButton: 'Explore the docs',
+  usageDescr: "Krowdy-UI components work without any additional setup, and don't pollute the global scope.",
+  useHighDensity: 'Apply higher density via props',
+  usingMui: 'Are you using Material-UI?',
+  viewGitHub: 'View the source on GitHub',
+  visit: 'Visit the website',
+  whosUsing: "Who's using Material-UI?"
 }
 
 export function t(key) { 
@@ -294,16 +294,16 @@ export function t(key) {
 
 function includePeerDependencies(deps, versions) {
   Object.assign(deps, {
-    'react-dom': versions['react-dom'],
     react: versions.react,
-  });
+    'react-dom': versions['react-dom'],
+  })
 
   if (deps['@krowdy-ui/lab'] && !deps['@krowdy-ui/core']) {
-    deps['@krowdy-ui/core'] = versions['@krowdy-ui/core'];
+    deps['@krowdy-ui/core'] = versions['@krowdy-ui/core']
   }
 }
 
-const packagesWithBundledTypes = ['@krowdy-ui/core', '@krowdy-ui/lab'];
+const packagesWithBundledTypes = ['@krowdy-ui/core', '@krowdy-ui/lab']
 
 /**
  * WARNING: Always uses `latest` typings.
@@ -318,18 +318,18 @@ const packagesWithBundledTypes = ['@krowdy-ui/core', '@krowdy-ui/lab'];
 function addTypeDeps(deps) {
   const packagesWithDTPackage = Object.keys(deps).filter(
     name => packagesWithBundledTypes.indexOf(name) === -1,
-  );
+  )
 
   packagesWithDTPackage.forEach(name => {
-    let resolvedName = name;
+    let resolvedName = name
     // scoped package?
     if (name.startsWith('@')) {
       // https://github.com/DefinitelyTyped/DefinitelyTyped#what-about-scoped-packages
-      resolvedName = name.slice(1).replace('/', '__');
+      resolvedName = name.slice(1).replace('/', '__')
     }
 
-    deps[`@types/${resolvedName}`] = 'latest';
-  });
+    deps[`@types/${resolvedName}`] = 'latest'
+  })
 }
 
 /**
@@ -340,68 +340,68 @@ function addTypeDeps(deps) {
  * @returns {Record<string, 'latest'>} map of packages with their required version
  */
 export function getDependencies(raw, options = {}) {
-  const { codeLanguage = CODE_VARIANTS.JS, reactVersion = 'latest' } = options;
+  const { codeLanguage = CODE_VARIANTS.JS, reactVersion = 'latest' } = options
 
-  const deps = {};
+  const deps = {}
   const versions = {
-    'react-dom': reactVersion,
-    react: reactVersion,
     '@krowdy-ui/core': 'latest',
-    '@krowdy-ui/icons': 'latest',
-    '@material-ui/lab': 'latest',
     '@krowdy-ui/styles': 'latest',
+    '@material-ui/icons': 'latest',
+    '@material-ui/lab': 'latest',
     '@material-ui/system': 'latest',
     '@material-ui/utils': 'latest',
     'date-fns': 'next',
     jss: 'next',
     'jss-plugin-template': 'next',
-  };
+    react: reactVersion,
+    'react-dom': reactVersion,
+  }
 
-  const re = /^import\s'([^']+)'|import\s[\s\S]*?\sfrom\s+'([^']+)/gm;
-  let m;
+  const re = /^import\s'([^']+)'|import\s[\s\S]*?\sfrom\s+'([^']+)/gm
+  let m
   // eslint-disable-next-line no-cond-assign
   while ((m = re.exec(raw))) {
-    let name;
+    let name
 
     if (m[2]) {
       // full import
       // handle scope names
-      name = m[2].charAt(0) === '@' ? m[2].split('/', 2).join('/') : m[2].split('/', 1)[0];
+      name = m[2].charAt(0) === '@' ? m[2].split('/', 2).join('/') : m[2].split('/', 1)[0]
     } else {
-      name = m[1];
+      name = m[1]
     }
 
     if (!deps[name]) {
-      deps[name] = versions[name] ? versions[name] : 'latest';
+      deps[name] = versions[name] ? versions[name] : 'latest'
     }
   }
 
-  includePeerDependencies(deps, versions);
+  includePeerDependencies(deps, versions)
 
   if (codeLanguage === CODE_VARIANTS.TS) {
-    addTypeDeps(deps);
-    deps.typescript = 'latest';
+    addTypeDeps(deps)
+    deps.typescript = 'latest'
   }
 
-  return deps;
+  return deps
 }
 
 export function compress(object) {
   return LZString.compressToBase64(JSON.stringify(object))
     .replace(/\+/g, '-') // Convert '+' to '-'
     .replace(/\//g, '_') // Convert '/' to '_'
-    .replace(/=+$/, ''); // Remove ending '='
+    .replace(/=+$/, '') // Remove ending '='
 }
 
 function makeUnique(hash, unique, i = 1) {
-  const uniqueHash = i === 1 ? hash : `${hash}-${i}`;
+  const uniqueHash = i === 1 ? hash : `${hash}-${i}`
 
   if (!unique[uniqueHash]) {
-    unique[uniqueHash] = true;
-    return uniqueHash;
+    unique[uniqueHash] = true
+    return uniqueHash
   }
 
-  return makeUnique(hash, unique, i + 1);
+  return makeUnique(hash, unique, i + 1)
 }
 
 export function textToHash(text, unique = {}) {
@@ -420,7 +420,7 @@ export function textToHash(text, unique = {}) {
         .replace(/^-|-$/g, ''),
     ),
     unique,
-  );
+  )
 }
 
 
@@ -437,10 +437,10 @@ export default function getJsxPreview(code, defaultCodeOpen) {
    */
   let jsx = code.match(
     /export default .*(?:\n {2}return \(\n|\n {2}return )(?: {4}<div.*?>\n)?(.*?)(\n {4}<\/div>)?(\n {2}\);\n}|;\n})/s,
-  );
+  )
   // Just the match, otherwise the full source if either no match or preview disabled,
   // so as not to break the Collapse transition.
-  jsx = jsx && defaultCodeOpen !== false ? jsx[1] : code;
+  jsx = jsx && defaultCodeOpen !== false ? jsx[1] : code
 
   // Remove leading spaces from each line
   return jsx.split(/\n/).reduce(
@@ -450,5 +450,5 @@ export default function getJsxPreview(code, defaultCodeOpen) {
         jsx.match(/^ */)[0].length,
       )}\n`,
     '',
-  );
+  )
 }

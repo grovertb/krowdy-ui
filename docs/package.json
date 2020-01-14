@@ -4,10 +4,10 @@
   "private": true,
   "dependencies": {
     "@hot-loader/react-dom": "^16.11.0",
-    "@krowdy-ui/core": "^0.0.26",
-    "@krowdy-ui/icons": "^0.0.2",
-    "@krowdy-ui/views": "^0.0.14",
+    "@krowdy-ui/core": "^0.0.27",
+    "@krowdy-ui/views": "^0.0.21",
     "@loadable/component": "^5.11.0",
+    "@material-ui/icons": "^4.5.1",
     "@material-ui/lab": "^4.0.0-alpha.35",
     "@types/react-router": "^5.1.3",
     "@types/react-router-dom": "^5.1.3",

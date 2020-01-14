@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import PropTypes from 'prop-types'
 import MuiToolbar from '@material-ui/core/Toolbar'
 
@@ -7,7 +7,7 @@ function Toolbar({children, ...props}) {
     <MuiToolbar {...props}>
       {children}
     </MuiToolbar>
-  );
+  )
 }
 
 Toolbar.propTypes = {
@@ -17,4 +17,4 @@ Toolbar.propTypes = {
   children: PropTypes.node.isRequired
 }
 
-export default Toolbar;
+export default Toolbar

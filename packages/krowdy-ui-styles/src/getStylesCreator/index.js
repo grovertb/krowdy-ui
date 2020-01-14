@@ -1,1 +1,1 @@
-export { default } from './getStylesCreator';
+export { default } from './getStylesCreator'

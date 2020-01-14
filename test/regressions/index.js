@@ -1,28 +1,28 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import vrtest from 'vrtest/client';
-import webfontloader from 'webfontloader';
-import { createMuiTheme } from '@material-ui/core/styles';
-import { ThemeProvider } from '@material-ui/styles';
-import TestViewer from './TestViewer';
+import React from 'react'
+import ReactDOM from 'react-dom'
+// import vrtest from 'vrtest/client';
+// import webfontloader from 'webfontloader';
+import { createMuiTheme } from '@material-ui/core/styles'
+import { ThemeProvider } from '@material-ui/styles'
+import TestViewer from './TestViewer'
 
-const theme = createMuiTheme();
+const theme = createMuiTheme()
 
 // Get all the tests specifically written for preventing regressions.
-const requireRegression = require.context('./tests', true, /js$/);
+const requireRegression = require.context('./tests', true, /js$/)
 const regressions = requireRegression.keys().reduce((res, path) => {
   const [suite, name] = path
     .replace('./', '')
     .replace('.js', '')
-    .split('/');
+    .split('/')
   res.push({
+    'case': requireRegression(path).default,
+    name,
     path,
     suite: `regression-${suite}`,
-    name,
-    case: requireRegression(path).default,
-  });
-  return res;
-}, []);
+  })
+  return res
+}, [])
 
 const blacklistSuite = [
   // Flaky
@@ -56,7 +56,7 @@ const blacklistSuite = [
   'docs-versions',
   'docs-layouts',
   'docs-customization-color',
-];
+]
 
 const blacklistFilename = [
   'docs-components-grid-list/tileData.png', // no component
@@ -87,80 +87,80 @@ const blacklistFilename = [
   'docs-components-popper/ScrollPlayground.png',
   'docs-components-grid/InteractiveGrid.png',
   'docs-customization-density/DensityTool.png',
-];
+]
 
 // Also use some of the demos to avoid code duplication.
-const requireDemos = require.context('docs/src/pages', true, /js$/);
+const requireDemos = require.context('docs/src/pages', true, /js$/)
 const demos = requireDemos.keys().reduce((res, path) => {
   const [name, ...suiteArray] = path
     .replace('./', '')
     .replace('.js', '')
     .split('/')
-    .reverse();
-  const suite = `docs-${suiteArray.reverse().join('-')}`;
+    .reverse()
+  const suite = `docs-${suiteArray.reverse().join('-')}`
 
   if (blacklistSuite.includes(suite)) {
-    return res;
+    return res
   }
 
   if (blacklistFilename.includes(`${suite}/${name}.png`)) {
-    return res;
+    return res
   }
 
   if (/^docs-premium-themes(.*)/.test(suite)) {
-    return res;
+    return res
   }
 
   res.push({
+    'case': requireDemos(path).default,
+    name,
     path,
     suite,
-    name,
-    case: requireDemos(path).default,
-  });
+  })
 
-  return res;
-}, []);
+  return res
+}, [])
 
-const rootEl = document.createElement('div');
-rootEl.style.display = 'inline-block';
+const rootEl = document.createElement('div')
+rootEl.style.display = 'inline-block'
 
-vrtest.before(() => {
-  if (document && document.body) {
-    document.body.appendChild(rootEl);
-  }
+// vrtest.before(() => {
+//   if (document && document.body) {
+//     document.body.appendChild(rootEl);
+//   }
 
-  return new Promise((resolve, reject) => {
-    webfontloader.load({
-      google: {
-        families: ['Roboto:300,400,500', 'Material+Icons'],
-      },
-      custom: {
-        families: ['Font Awesome 5 Free:400,900'],
-        urls: ['https://use.fontawesome.com/releases/v5.1.0/css/all.css'],
-      },
-      timeout: 20000,
-      active: () => {
-        resolve('webfontloader: active');
-      },
-      inactive: () => {
-        reject(new Error('webfontloader: inactive'));
-      },
-    });
-  });
-});
+//   return new Promise((resolve, reject) => {
+//     webfontloader.load({
+//       google: {
+//         families: ['Roboto:300,400,500', 'Material+Icons'],
+//       },
+//       custom: {
+//         families: ['Font Awesome 5 Free:400,900'],
+//         urls: ['https://use.fontawesome.com/releases/v5.1.0/css/all.css'],
+//       },
+//       timeout: 20000,
+//       active: () => {
+//         resolve('webfontloader: active');
+//       },
+//       inactive: () => {
+//         reject(new Error('webfontloader: inactive'));
+//       },
+//     });
+//   });
+// });
 
-let suite;
+let suite
 
-const tests = regressions.concat(demos);
+const tests = regressions.concat(demos)
 tests.forEach(test => {
-  if (!suite || suite.name !== test.suite) {
-    suite = vrtest.createSuite(test.suite);
-  }
+  // if (!suite || suite.name !== test.suite) {
+  //   suite = vrtest.createSuite(test.suite);
+  // }
 
-  const TestCase = test.case;
+  const TestCase = test.case
 
   if (!TestCase) {
-    return;
+    return
   }
 
   suite.createTest(test.name, () => {
@@ -171,6 +171,6 @@ tests.forEach(test => {
         </TestViewer>
       </ThemeProvider>,
       rootEl,
-    );
-  });
-});
+    )
+  })
+})

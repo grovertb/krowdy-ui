@@ -1,25 +1,11 @@
 import React from 'react'
-import PropTypes from 'prop-types';
-import clsx from 'clsx';
+import PropTypes from 'prop-types'
+import clsx from 'clsx'
 import MuiTypography from '@material-ui/core/Typography'
 import withStyles from '../styles/withStyles'
-import capitalize from '../utils/capitalize';
+import capitalize from '../utils/capitalize'
 
 export const styles = theme => ({
-  display1: {
-    fontWeight: 500,
-    fontSize: '3.3125rem',
-  },
-  display2: {
-    fontWeight: 300,
-    fontSize: '3.3125rem',
-  },
-  info1: {
-    fontSize: '0.75rem',
-  },
-  info2: {
-    fontSize: '0.875rem',
-  },
   body3: {
     fontSize: '1rem',
   },
@@ -28,6 +14,20 @@ export const styles = theme => ({
   },
   colorInfo:{
     color: theme.palette.grey[600]
+  },
+  display1: {
+    fontSize: '3.3125rem',
+    fontWeight: 500,
+  },
+  display2: {
+    fontSize: '3.3125rem',
+    fontWeight: 300,
+  },
+  info1: {
+    fontSize: '0.75rem',
+  },
+  info2: {
+    fontSize: '0.875rem',
   },
 })
 
@@ -68,11 +68,11 @@ Typography.propTypes = {
    * Override or extend the styles applied to the component.
    * See [CSS API](#css) below for more details.
    */
-  classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
    /**
    * @ignore
    */
-  className: PropTypes.string,
+  classes: PropTypes.object.isRequired,
   /**
    * The color of the component. It supports those theme colors that make sense for this component.
    */

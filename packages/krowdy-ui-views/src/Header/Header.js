@@ -24,6 +24,6 @@ Header.propTypes = {
   title: PropTypes.string
 }
 
-Header.muiName = 'Header';
+Header.muiName = 'Header'
 
 export default withStyles(styles, { name: 'KrowdyHeader' })(Header)

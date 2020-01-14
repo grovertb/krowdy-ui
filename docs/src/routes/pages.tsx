@@ -139,7 +139,11 @@ const pages: Array<Page> = [
       {
         title: 'Card Candidate',
         path: '/views/cardcandidate'
-      }
+      },
+      {
+        title: 'Dashboard',
+        path: '/views/dashboard'
+      },
     ]
   }
   // {

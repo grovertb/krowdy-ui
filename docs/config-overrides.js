@@ -1,13 +1,13 @@
 const { override, addWebpackAlias, addBabelPlugin } = require('customize-cra')
-const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
+const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin')
 const path = require('path')
-
 const paths = require('react-scripts/config/paths')
+
 const aliases = {}
 
 const _moduleAliases = {
-  'containers': './containers',
-  'components': './components'
+  components: './components',
+  containers: './containers'
 }
 
 Object.keys(_moduleAliases).forEach(key => {
@@ -32,18 +32,18 @@ module.exports = override(
   },
   addWebpackAlias({
     ...aliases,
-    'react-dom': '@hot-loader/react-dom',
-    '@krowdy-ui/core': path.resolve(__dirname, "../packages/krowdy-ui/src"),
-    '@krowdy-ui/styles': path.resolve(__dirname, "../packages/krowdy-ui-styles/src"),
-    '@krowdy-ui/views': path.resolve(__dirname, "../packages/krowdy-ui-views/src")
+    '@krowdy-ui/core': path.resolve(__dirname, '../packages/krowdy-ui/src'),
+    '@krowdy-ui/styles': path.resolve(__dirname, '../packages/krowdy-ui-styles/src'),
+    '@krowdy-ui/views': path.resolve(__dirname, '../packages/krowdy-ui-views/src'),
+    'react-dom': '@hot-loader/react-dom'
   }),
   addBabelPlugin([
-    "babel-plugin-module-resolver", {
+    'babel-plugin-module-resolver', {
       // "root": ["./src"],
-      "alias": {
-        "@krowdy-ui/core": path.resolve(__dirname, "../packages/krowdy-ui/src"),
-        "@krowdy-ui/styles": path.resolve(__dirname, "../packages/krowdy-ui-styles/src"),
-        "@krowdy-ui/views": path.resolve(__dirname, "../packages/krowdy-ui-views/src"),
+      alias: {
+        '@krowdy-ui/core': path.resolve(__dirname, '../packages/krowdy-ui/src'),
+        '@krowdy-ui/styles': path.resolve(__dirname, '../packages/krowdy-ui-styles/src'),
+        '@krowdy-ui/views': path.resolve(__dirname, '../packages/krowdy-ui-views/src'),
       },
       transformFunctions: ['require', 'require.context'],
     }

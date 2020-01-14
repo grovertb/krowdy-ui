@@ -1,4 +1,4 @@
-export * from './colorManipulator';
+export * from './colorManipulator'
 
 export {
   createGenerateClassName,

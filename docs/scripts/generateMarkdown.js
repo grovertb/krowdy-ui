@@ -1,43 +1,43 @@
-import { parse as parseDoctrine } from 'doctrine';
-import * as recast from 'recast';
-import { parse as docgenParse } from 'react-docgen';
+import { parse as parseDoctrine } from 'doctrine'
+import * as recast from 'recast'
+import { parse as docgenParse } from 'react-docgen'
 // import { Router as Router2 } from 'next/router';
 // import { pageToTitle } from './helpers';
 // import { LANGUAGES_IN_PROGRESS } from 'docs/src/modules/constants';
 
-const SOURCE_CODE_ROOT_URL = 'https://github.com/grovertb/krowdy-ui/blob/master';
-const PATH_REPLACE_REGEX = /\\/g;
-const PATH_SEPARATOR = '/';
+const SOURCE_CODE_ROOT_URL = 'https://github.com/grovertb/krowdy-ui/blob/master'
+const PATH_REPLACE_REGEX = /\\/g
+const PATH_SEPARATOR = '/'
 // const DEMO_IGNORE = LANGUAGES_IN_PROGRESS.map(language => `-${language}.md`);
 
 function normalizePath(path) {
-  return path.replace(PATH_REPLACE_REGEX, PATH_SEPARATOR);
+  return path.replace(PATH_REPLACE_REGEX, PATH_SEPARATOR)
 }
 
 function generateHeader(reactAPI) {
-  return ['---', `filename: ${normalizePath(reactAPI.filename)}`, '---'].join('\n');
+  return ['---', `filename: ${normalizePath(reactAPI.filename)}`, '---'].join('\n')
 }
 
 function getDeprecatedInfo(type) {
-  const marker = /deprecatedPropType\((\r*\n)*\s*PropTypes\./g;
-  const match = type.raw.match(marker);
-  const startIndex = type.raw.search(marker);
+  const marker = /deprecatedPropType\((\r*\n)*\s*PropTypes\./g
+  const match = type.raw.match(marker)
+  const startIndex = type.raw.search(marker)
   if (match) {
-    const offset = match[0].length;
+    const offset = match[0].length
 
     return {
-      propTypes: type.raw.substring(startIndex + offset, type.raw.indexOf(',')),
       explanation: recast.parse(type.raw).program.body[0].expression.arguments[1].value,
-    };
+      propTypes: type.raw.substring(startIndex + offset, type.raw.indexOf(',')),
+    }
   }
 
-  return false;
+  return false
 }
 
 function getChained(type) {
   if (type.raw) {
-    const marker = 'chainPropTypes';
-    const indexStart = type.raw.indexOf(marker);
+    const marker = 'chainPropTypes'
+    const indexStart = type.raw.indexOf(marker)
 
     if (indexStart !== -1) {
       const parsed = docgenParse(
@@ -53,15 +53,15 @@ function getChained(type) {
         null,
         // helps react-docgen pickup babel.config.js
         { filename: './' },
-      );
+      )
       return {
-        type: parsed.props.bar.type,
         required: parsed.props.bar.required,
-      };
+        type: parsed.props.bar.type,
+      }
     }
   }
 
-  return false;
+  return false
 }
 
 function escapeCell(value) {
@@ -69,136 +69,136 @@ function escapeCell(value) {
   return value
     .replace(/</g, '&lt;')
     .replace(/`&lt;/g, '`<')
-    .replace(/\|/g, '\\|');
+    .replace(/\|/g, '\\|')
 }
 
 function isElementTypeAcceptingRefProp(type) {
-  return type.raw === 'elementTypeAcceptingRef';
+  return type.raw === 'elementTypeAcceptingRef'
 }
 
 function isRefType(type) {
-  return type.raw === 'refType';
+  return type.raw === 'refType'
 }
 
 function isElementAcceptingRefProp(type) {
-  return /^elementAcceptingRef/.test(type.raw);
+  return /^elementAcceptingRef/.test(type.raw)
 }
 
 function generatePropDescription(prop) {
-  const { description } = prop;
-  const type = prop.flowType || prop.type;
-  let deprecated = '';
+  const { description } = prop
+  const type = prop.flowType || prop.type
+  let deprecated = ''
 
   if (type.name === 'custom') {
-    const deprecatedInfo = getDeprecatedInfo(type);
+    const deprecatedInfo = getDeprecatedInfo(type)
     if (deprecatedInfo) {
-      deprecated = `*Deprecated*. ${deprecatedInfo.explanation}<br><br>`;
+      deprecated = `*Deprecated*. ${deprecatedInfo.explanation}<br><br>`
     }
   }
 
   const parsed = parseDoctrine(description, {
     sloppy: true,
-  });
+  })
 
   // Two new lines result in a newline in the table.
   // All other new lines must be eliminated to prevent markdown mayhem.
   const jsDocText = escapeCell(parsed.description)
     .replace(/(\r?\n){2}/g, '<br>')
-    .replace(/\r?\n/g, ' ');
+    .replace(/\r?\n/g, ' ')
 
   if (parsed.tags.some(tag => tag.title === 'ignore')) {
-    return null;
+    return null
   }
 
-  let signature = '';
+  let signature = ''
 
   if (type.name === 'func' && parsed.tags.length > 0) {
     // Remove new lines from tag descriptions to avoid markdown errors.
     parsed.tags.forEach(tag => {
       if (tag.description) {
-        tag.description = tag.description.replace(/\r*\n/g, ' ');
+        tag.description = tag.description.replace(/\r*\n/g, ' ')
       }
-    });
+    })
 
     // Split up the parsed tags into 'arguments' and 'returns' parsed objects. If there's no
     // 'returns' parsed object (i.e., one with title being 'returns'), make one of type 'void'.
-    const parsedLength = parsed.tags.length;
-    let parsedArgs = [];
-    let parsedReturns;
+    const parsedLength = parsed.tags.length
+    let parsedArgs = []
+    let parsedReturns
 
     if (parsed.tags[parsedLength - 1].title === 'returns') {
-      parsedArgs = parsed.tags.slice(0, parsedLength - 1);
-      parsedReturns = parsed.tags[parsedLength - 1];
+      parsedArgs = parsed.tags.slice(0, parsedLength - 1)
+      parsedReturns = parsed.tags[parsedLength - 1]
     } else {
-      parsedArgs = parsed.tags;
-      parsedReturns = { type: { name: 'void' } };
+      parsedArgs = parsed.tags
+      parsedReturns = { type: { name: 'void' } }
     }
 
-    signature += '<br><br>**Signature:**<br>`function(';
+    signature += '<br><br>**Signature:**<br>`function('
     signature += parsedArgs
       .map(tag => {
         if (tag.type.type === 'AllLiteral') {
-          return `${tag.name}: any`;
+          return `${tag.name}: any`
         }
 
         if (tag.type.type === 'OptionalType') {
-          return `${tag.name}?: ${tag.type.expression.name}`;
+          return `${tag.name}?: ${tag.type.expression.name}`
         }
 
-        return `${tag.name}: ${tag.type.name}`;
+        return `${tag.name}: ${tag.type.name}`
       })
-      .join(', ');
-    signature += `) => ${parsedReturns.type.name}\`<br>`;
-    signature += parsedArgs.map(tag => `*${tag.name}:* ${tag.description}`).join('<br>');
+      .join(', ')
+    signature += `) => ${parsedReturns.type.name}\`<br>`
+    signature += parsedArgs.map(tag => `*${tag.name}:* ${tag.description}`).join('<br>')
     if (parsedReturns.description) {
-      signature += `<br> *returns* (${parsedReturns.type.name}): ${parsedReturns.description}`;
+      signature += `<br> *returns* (${parsedReturns.type.name}): ${parsedReturns.description}`
     }
   }
 
-  let notes = '';
+  let notes = ''
   if (isElementAcceptingRefProp(type) || isElementTypeAcceptingRefProp(type)) {
-    notes += '<br>⚠️ [Needs to be able to hold a ref](/guides/composition/#caveat-with-refs).';
+    notes += '<br>⚠️ [Needs to be able to hold a ref](/guides/composition/#caveat-with-refs).'
   }
 
-  return `${deprecated}${jsDocText}${signature}${notes}`;
+  return `${deprecated}${jsDocText}${signature}${notes}`
 }
 
 function generatePropType(type) {
   switch (type.name) {
     case 'custom': {
       if (isElementTypeAcceptingRefProp(type)) {
-        return `element type`;
+        return 'element type'
       }
       if (isElementAcceptingRefProp(type)) {
-        return `element`;
+        return 'element'
       }
       if (isRefType(type)) {
-        return `ref`;
+        return 'ref'
       }
 
-      const deprecatedInfo = getDeprecatedInfo(type);
+      const deprecatedInfo = getDeprecatedInfo(type)
       if (deprecatedInfo !== false) {
         return generatePropType({
           // eslint-disable-next-line react/forbid-foreign-prop-types
           name: deprecatedInfo.propTypes,
-        });
+        })
       }
 
-      const chained = getChained(type);
+      const chained = getChained(type)
       if (chained !== false) {
-        return generatePropType(chained.type);
+        return generatePropType(chained.type)
       }
 
-      return type.raw;
+      return type.raw
     }
 
     case 'shape':
       return `{ ${Object.keys(type.value)
         .map(subValue => {
-          const subType = type.value[subValue];
-          return `${subValue}${subType.required ? '' : '?'}: ${generatePropType(subType)}`;
+          const subType = type.value[subValue]
+          return `${subValue}${subType.required ? '' : '?'}: ${generatePropType(subType)}`
         })
-        .join(', ')} }`;
+        .join(', ')} }`
 
     case 'union':
     case 'enum': {
@@ -206,29 +206,29 @@ function generatePropType(type) {
         type.value
           .map(type2 => {
             if (type.name === 'enum') {
-              return escapeCell(type2.value);
+              return escapeCell(type2.value)
             }
 
-            return generatePropType(type2);
+            return generatePropType(type2)
           })
           // Display one value per line as it's better for visibility.
           .join('<br>&#124;&nbsp;')
-      );
+      )
     }
 
     case 'arrayOf': {
-      return `Array&lt;${generatePropType(type.value)}&gt;`;
+      return `Array&lt;${generatePropType(type.value)}&gt;`
     }
 
     case 'instanceOf': {
       if (type.value.startsWith('typeof')) {
-        return /typeof (.*) ===/.exec(type.value)[1];
+        return /typeof (.*) ===/.exec(type.value)[1]
       }
-      return type.value;
+      return type.value
     }
 
     default:
-      return type.name;
+      return type.name
   }
 }
 
@@ -238,77 +238,77 @@ function getProp(props, key) {
       return {
         ...props[key],
         required: false,
-      };
+      }
     default:
-      return props[key];
+      return props[key]
   }
 }
 
 function generateProps(reactAPI) {
-  const header = '## Props';
+  const header = '## Props'
 
   let text = `${header}
 
 | Name | Type | Default | Description |
-|:-----|:-----|:--------|:------------|\n`;
+|:-----|:-----|:--------|:------------|\n`
 
   text = Object.keys(reactAPI.props).reduce((textProps, propRaw) => {
-    const prop = getProp(reactAPI.props, propRaw);
+    const prop = getProp(reactAPI.props, propRaw)
 
     if (typeof prop.description === 'undefined') {
-      throw new Error(`The "${propRaw}" prop is missing a description`);
+      throw new Error(`The "${propRaw}" prop is missing a description`)
     }
 
-    const description = generatePropDescription(prop);
+    const description = generatePropDescription(prop)
 
     if (description === null) {
-      return textProps;
+      return textProps
     }
 
-    let defaultValue = '';
+    let defaultValue = ''
 
     if (prop.defaultValue) {
       defaultValue = `<span class="prop-default">${escapeCell(
         prop.defaultValue.value.replace(/\r*\n/g, ''),
-      )}</span>`;
+      )}</span>`
     }
 
-    const chainedPropType = getChained(prop.type);
+    const chainedPropType = getChained(prop.type)
 
     if (
       prop.required ||
       /\.isRequired/.test(prop.type.raw) ||
       (chainedPropType !== false && chainedPropType.required)
     ) {
-      propRaw = `<span class="prop-name required">${propRaw}&nbsp;*</span>`;
+      propRaw = `<span class="prop-name required">${propRaw}&nbsp;*</span>`
     } else {
-      propRaw = `<span class="prop-name">${propRaw}</span>`;
+      propRaw = `<span class="prop-name">${propRaw}</span>`
     }
 
     if (prop.type.name === 'custom') {
       if (getDeprecatedInfo(prop.type)) {
-        propRaw = `~~${propRaw}~~`;
+        propRaw = `~~${propRaw}~~`
       }
     }
 
     textProps += `| ${propRaw} | <span class="prop-type">${generatePropType(
       prop.type,
-    )}</span> | ${defaultValue} | ${description} |\n`;
+    )}</span> | ${defaultValue} | ${description} |\n`
 
-    return textProps;
-  }, text);
+    return textProps
+  }, text)
 
-  let refHint = 'The `ref` is forwarded to the root element.';
+  let refHint = 'The `ref` is forwarded to the root element.'
   if (reactAPI.forwardsRefTo == null) {
-    refHint = 'The component cannot hold a ref.';
+    refHint = 'The component cannot hold a ref.'
   } else if (reactAPI.forwardsRefTo === 'React.Component') {
-    refHint = 'The `ref` is attached to a component class.';
+    refHint = 'The `ref` is attached to a component class.'
   } else if (reactAPI.forwardsRefTo === 'Object') {
     refHint = `The \`ref\` is attached to an Imperative Handle. Have a look at the [implementation of the component](${SOURCE_CODE_ROOT_URL}${normalizePath(
       reactAPI.filename,
-    )}) for more detail.`;
+    )}) for more detail.`
   }
-  text = `${text}\n${refHint}\n`;
+  text = `${text}\n${refHint}\n`
 
   if (reactAPI.spread) {
     text = `${text}
@@ -316,25 +316,25 @@ Any other props supplied will be provided to the root element (${
       reactAPI.inheritance
         ? `[${reactAPI.inheritance.component}](${reactAPI.inheritance.pathname})`
         : 'native element'
-    }).`;
+    }).`
   }
 
-  return text;
+  return text
 }
 
 function generateClasses(reactAPI) {
   if (!reactAPI.styles.classes.length) {
-    return '';
+    return ''
   }
 
   if (!reactAPI.styles.name) {
-    throw new Error(`Missing styles name on ${reactAPI.name} component`);
+    throw new Error(`Missing styles name on ${reactAPI.name} component`)
   }
 
-  let text = '';
+  let text = ''
   if (Object.keys(reactAPI.styles.descriptions).length) {
     text = `| Rule name | Global class | Description |
-|:-----|:-------------|:------------|\n`;
+|:-----|:-------------|:------------|\n`
     text += reactAPI.styles.classes
       .map(
         styleRule =>
@@ -346,9 +346,9 @@ function generateClasses(reactAPI) {
               : ''
           }`,
       )
-      .join('\n');
+      .join('\n')
   } else {
-    text = reactAPI.styles.classes.map(styleRule => `- \`${styleRule}\``).join('\n');
+    text = reactAPI.styles.classes.map(styleRule => `- \`${styleRule}\``).join('\n')
   }
 
   return `## CSS
@@ -368,7 +368,7 @@ If that's not sufficient, you can check the [implementation of the component](${
     reactAPI.filename,
   )}) for more detail.
 
-`;
+`
 }
 
 // function generateInheritance(reactAPI) {
@@ -429,7 +429,7 @@ function generateImportStatement(reactAPI) {
       (match, dash, pkg) => `@krowdy-ui/${pkg || 'core'}`,
     )
     // convert things like `/Table/Table.js` to ``
-    .replace(/\/([^/]+)\/\1\.js$/, '');
+    .replace(/\/([^/]+)\/\1\.js$/, '')
   return `## Import
 
 \`\`\`js
@@ -438,7 +438,7 @@ import ${reactAPI.name} from '${source}/${reactAPI.name}';
 import { ${reactAPI.name} } from '${source}';
 \`\`\`
 
-You can learn more about the difference by [reading this guide](/guides/minimizing-bundle-size/).`;
+You can learn more about the difference by [reading this guide](/guides/minimizing-bundle-size/).`
 }
 
 export default function generateMarkdown(reactAPI) {
@@ -460,5 +460,5 @@ export default function generateMarkdown(reactAPI) {
     '',
     `${generateClasses(reactAPI)}`,
     // `${generateClasses(reactAPI)}${generateInheritance(reactAPI)}${generateDemos(reactAPI)}`,
-  ].join('\n');
+  ].join('\n')
 }

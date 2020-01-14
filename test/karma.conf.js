@@ -1,38 +1,37 @@
-const webpack = require('webpack');
+const webpack = require('webpack')
 
 const browserStack = {
-  username: process.env.BROWSERSTACK_USERNAME,
   accessKey: process.env.BROWSERSTACK_ACCESS_KEY,
   build: `material-ui-${new Date().toISOString()}`,
-};
+  username: process.env.BROWSERSTACK_USERNAME,
+}
 
-process.env.CHROME_BIN = require('puppeteer').executablePath();
+process.env.CHROME_BIN = require('puppeteer').executablePath()
 
 // Karma configuration
 module.exports = function setKarmaConfig(config) {
   const baseConfig = {
     basePath: '../',
-    browsers: ['ChromeHeadlessNoSandbox'],
-    browserDisconnectTimeout: 120000, // default 2000
-    browserDisconnectTolerance: 1, // default 0
-    browserNoActivityTimeout: 300000, // default 10000
+    browserDisconnectTimeout: 120000,
+    browserDisconnectTolerance: 1, // default 2000
+    browserNoActivityTimeout: 300000, // default 0
+    browsers: ['ChromeHeadlessNoSandbox'], // default 10000
     colors: true,
-    frameworks: ['mocha'],
+    customLaunchers: {
+      ChromeHeadlessNoSandbox: {
+        base: 'ChromeHeadless',
+        flags: ['--no-sandbox'],
+      },
+    },
     files: [
       {
-        pattern: 'test/karma.tests.js',
-        watched: true,
-        served: true,
         included: true,
+        pattern: 'test/karma.tests.js',
+        served: true,
+        watched: true,
       },
     ],
-    plugins: [
-      'karma-mocha',
-      'karma-chrome-launcher',
-      'karma-sourcemap-loader',
-      'karma-webpack',
-      'karma-mocha-reporter',
-    ],
+    frameworks: ['mocha'],
     /**
      * possible values:
      * - config.LOG_DISABLE
@@ -42,27 +41,28 @@ module.exports = function setKarmaConfig(config) {
      * - config.LOG_DEBUG
      */
     logLevel: config.LOG_INFO,
+    plugins: [
+      'karma-mocha',
+      'karma-chrome-launcher',
+      'karma-sourcemap-loader',
+      'karma-webpack',
+      'karma-mocha-reporter',
+    ],
     port: 9876,
     preprocessors: {
       'test/karma.tests.js': ['webpack', 'sourcemap'],
     },
     reporters: ['dots'],
+    singleRun: Boolean(process.env.CI),
     webpack: {
-      mode: 'development',
       devtool: 'inline-source-map',
-      plugins: [
-        new webpack.DefinePlugin({
-          'process.env': {
-            NODE_ENV: JSON.stringify('test'),
-          },
-        }),
-      ],
+      mode: 'development',
       module: {
         rules: [
           {
-            test: /\.js$/,
-            loader: 'babel-loader',
             exclude: /node_modules/,
+            loader: 'babel-loader',
+            test: /\.js$/,
           },
         ],
       },
@@ -70,31 +70,31 @@ module.exports = function setKarmaConfig(config) {
         // Some tests import fs
         fs: 'empty',
       },
+      plugins: [
+        new webpack.DefinePlugin({
+          'process.env': {
+            NODE_ENV: JSON.stringify('test'),
+          },
+        }),
+      ],
       resolve: {
         alias: {
           // https://github.com/sinonjs/sinon/issues/1951
           // use the cdn main field. Neither module nor main are supported for browserbuilds
-          sinon: 'sinon/pkg/sinon.js',
-          // https://github.com/testing-library/react-testing-library/issues/486
-          // "default" bundles are not browser compatible
           '@testing-library/react/pure':
             '@testing-library/react/dist/@testing-library/react.pure.esm',
+          // https://github.com/testing-library/react-testing-library/issues/486
+          // "default" bundles are not browser compatible
+          sinon: 'sinon/pkg/sinon.js',
         },
       },
     },
     webpackServer: {
       noInfo: true,
     },
-    customLaunchers: {
-      ChromeHeadlessNoSandbox: {
-        base: 'ChromeHeadless',
-        flags: ['--no-sandbox'],
-      },
-    },
-    singleRun: Boolean(process.env.CI),
-  };
+  }
 
-  let newConfig = baseConfig;
+  let newConfig = baseConfig
 
   if (browserStack.accessKey) {
     newConfig = Object.assign({}, baseConfig, {
@@ -105,39 +105,39 @@ module.exports = function setKarmaConfig(config) {
         'BrowserStack_Safari',
         'BrowserStack_Edge',
       ]),
-      plugins: baseConfig.plugins.concat(['karma-browserstack-launcher']),
       customLaunchers: Object.assign({}, baseConfig.customLaunchers, {
         BrowserStack_Chrome: {
           base: 'BrowserStack',
-          os: 'OS X',
-          os_version: 'Sierra',
           browser: 'Chrome',
           browser_version: '49.0',
-        },
-        BrowserStack_Firefox: {
-          base: 'BrowserStack',
-          os: 'Windows',
-          os_version: '10',
-          browser: 'Firefox',
-          browser_version: '52.0',
-        },
-        BrowserStack_Safari: {
-          base: 'BrowserStack',
           os: 'OS X',
           os_version: 'Sierra',
-          browser: 'Safari',
-          browser_version: '10.1',
         },
         BrowserStack_Edge: {
           base: 'BrowserStack',
-          os: 'Windows',
-          os_version: '10',
           browser: 'Edge',
           browser_version: '14.0',
+          os: 'Windows',
+          os_version: '10',
+        },
+        BrowserStack_Firefox: {
+          base: 'BrowserStack',
+          browser: 'Firefox',
+          browser_version: '52.0',
+          os: 'Windows',
+          os_version: '10',
+        },
+        BrowserStack_Safari: {
+          base: 'BrowserStack',
+          browser: 'Safari',
+          browser_version: '10.1',
+          os: 'OS X',
+          os_version: 'Sierra',
         },
       }),
-    });
+      plugins: baseConfig.plugins.concat(['karma-browserstack-launcher']),
+    })
   }
 
-  config.set(newConfig);
-};
+  config.set(newConfig)
+}

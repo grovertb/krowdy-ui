@@ -7,7 +7,7 @@ import {
   AttachMoney as AttachMoneyIcon,
   Work as WorkIcon,
   Business as BusinessIcon
-} from '@krowdy-ui/icons'
+} from '@material-ui/icons'
 
 export default function () {
   //   const job = {
@@ -154,10 +154,10 @@ export default function () {
         title='Analista UI Designer Senior'
         userInJob={false}
         company={{
-          "company_id": "5df94c923e5ee30034fe1859",
+          company_id: '5df94c923e5ee30034fe1859',
           //"company_logo": "https://s3.amazonaws.com/test.krowdy.apps/company/5df94c923e5ee30034fe1859/2019-12-17T16-53-22-199Z71a50283e8ab9334ccf054d2caa3760a_%281%29.jpeg",
-          "company_logo": "https://s3.amazonaws.com/www.laborum.pe/",
-          "company_name": "Krowdy Sac Perú"
+          company_logo: 'https://s3.amazonaws.com/www.laborum.pe/',
+          company_name: 'Krowdy Sac Perú'
         }}
         onViewCompany={() => {
           console.log('Detalle de compania')
@@ -191,85 +191,85 @@ export default function () {
         ]}
         basicEdition={[
           {
-            "visible": true,
-            "title": "Funciones",
-            "description": "<ol>\n<li>Crear aplicaciones</li>\n<li>Desarrollar aplicaciones</li>\n<li>Producir aplicaciones</li>\n</ol>\n",
+            description: '<ol>\n<li>Crear aplicaciones</li>\n<li>Desarrollar aplicaciones</li>\n<li>Producir aplicaciones</li>\n</ol>\n',
+            title: 'Funciones',
+            visible: true,
           },
           {
-            "visible": true,
-            "title": "Conocimientos y Requisitos",
-            "description": "<ul>\n<li>conocimiento 1</li>\n<li>react</li>\n<li>nodejs</li>\n<li>android</li>\n<li>java</li>\n<li>kotlin</li>\n</ul>\n",
+            description: '<ul>\n<li>conocimiento 1</li>\n<li>react</li>\n<li>nodejs</li>\n<li>android</li>\n<li>java</li>\n<li>kotlin</li>\n</ul>\n',
+            title: 'Conocimientos y Requisitos',
+            visible: true,
           },
           {
-            "visible": true,
-            "title": "Nueva Seccion",
-            "description": "<p>Sección de prueba krowdy</p>\n",
+            description: '<p>Sección de prueba krowdy</p>\n',
+            title: 'Nueva Seccion',
+            visible: true,
           }
         ]}
         benefits={[
           {
-            "title": "Planilla",
-            "description": "b1"
+            description: 'b1',
+            title: 'Planilla'
           },
           {
-            "title": "EPS",
-            "description": "12"
+            description: '12',
+            title: 'EPS'
           },
           {
-            "title": "Otros seguros",
-            "description": "b3"
+            description: 'b3',
+            title: 'Otros seguros'
           },
           {
-            "title": "Convenios",
-            "description": "b4"
+            description: 'b4',
+            title: 'Convenios'
           },
           {
-            "title": "Capacitaciones",
-            "description": "b5"
+            description: 'b5',
+            title: 'Capacitaciones'
           },
           {
-            "title": "Otros",
-            "description": "b6"
+            description: 'b6',
+            title: 'Otros'
           }
         ]}
         competencies={[
           {
-            "title": "Autodidacta"
+            title: 'Autodidacta'
           },
           {
-            "title": "Capacidad de Tomar Decisiones"
+            title: 'Capacidad de Tomar Decisiones'
           },
           {
-            "title": "Comunicación"
+            title: 'Comunicación'
           }
         ]}
         requirements={[
           {
-            "title": "Tiempo de experiencia laboral",
-            "value": "12 Años"
+            title: 'Tiempo de experiencia laboral',
+            value: '12 Años'
           },
           {
-            "title": "Nivel de educación",
-            "value": "Instituto - Estudiando"
+            title: 'Nivel de educación',
+            value: 'Instituto - Estudiando'
           },
           {
-            "title": "Carreras",
-            "value": [
-              "ciencias computacion",
-              "ingenieria sistemas",
-              "computacion informatica",
+            title: 'Carreras',
+            value: [
+              'ciencias computacion',
+              'ingenieria sistemas',
+              'computacion informatica',
             ]
           },
           {
-            "title": "Idioma",
-            "value": [
-              "Inglés - Básico",
-              "Español - Básico"
+            title: 'Idioma',
+            value: [
+              'Inglés - Básico',
+              'Español - Básico'
             ]
           },
           {
-            "title": "Disponibilidad para viajar",
-            "value": "Si"
+            title: 'Disponibilidad para viajar',
+            value: 'Si'
           }
         ]}
         disabledPerson={{

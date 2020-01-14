@@ -1,6 +1,6 @@
-const createDOM = require('./createDOM');
+const createDOM = require('./createDOM')
 
-process.browser = true;
+process.browser = true
 
-createDOM();
-require('./init');
+createDOM()
+require('./init')

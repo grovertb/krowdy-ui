@@ -4,10 +4,8 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-} from 'react-router-dom';
-
-import pages, { apiRoutes } from './pages'
-
+} from 'react-router-dom'
+import pages, { apiRoutes } from './pages.tsx'
 import Main from '../containers/Main'
 import Home from '../containers/Home'
 

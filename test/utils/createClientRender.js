@@ -1,6 +1,6 @@
 /* eslint-env mocha */
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 import {
   act,
   buildQueries,
@@ -9,22 +9,22 @@ import {
   fireEvent as rtlFireEvent,
   queries,
   render as testingLibraryRender,
-} from '@testing-library/react/pure';
+} from '@testing-library/react/pure'
 
 // holes are *All* selectors which aren't necessary for id selectors
 const [queryDescriptionOf, , getDescriptionOf, , findDescriptionOf] = buildQueries(
   function queryAllDescriptionsOf(container, element) {
-    return container.querySelectorAll(`#${element.getAttribute('aria-describedby')}`);
+    return container.querySelectorAll(`#${element.getAttribute('aria-describedby')}`)
   },
   function getMultipleError() {
-    return `Found multiple descriptions. An element should be described by a unique element.`;
+    return 'Found multiple descriptions. An element should be described by a unique element.'
   },
   function getMissingError() {
-    return `Found no describing element.`;
+    return 'Found no describing element.'
   },
-);
+)
 
-const customQueries = { queryDescriptionOf, getDescriptionOf, findDescriptionOf };
+const customQueries = { findDescriptionOf, getDescriptionOf, queryDescriptionOf }
 
 /**
  *
@@ -37,49 +37,49 @@ const customQueries = { queryDescriptionOf, getDescriptionOf, findDescriptionOf 
  * TODO: type return RenderResult in setProps
  */
 function clientRender(element, options = {}) {
-  const { baseElement, strict = false, wrapper: InnerWrapper = React.Fragment } = options;
+  const { baseElement, strict = false, wrapper: InnerWrapper = React.Fragment } = options
 
-  const Mode = strict ? React.StrictMode : React.Fragment;
+  const Mode = strict ? React.StrictMode : React.Fragment
   function Wrapper({ children }) {
     return (
       <Mode>
         <InnerWrapper>{children}</InnerWrapper>
       </Mode>
-    );
+    )
   }
-  Wrapper.propTypes = { children: PropTypes.node };
+  Wrapper.propTypes = { children: PropTypes.node }
 
   const result = testingLibraryRender(element, {
     baseElement,
     queries: { ...queries, ...customQueries },
     wrapper: Wrapper,
-  });
+  })
 
   /**
    * convenience helper. Better than repeating all props.
    */
   result.setProps = function setProps(props) {
-    result.rerender(React.cloneElement(element, props));
-    return result;
-  };
+    result.rerender(React.cloneElement(element, props))
+    return result
+  }
 
-  return result;
+  return result
 }
 
 export function createClientRender(globalOptions = {}) {
-  const { strict: globalStrict } = globalOptions;
+  const { strict: globalStrict } = globalOptions
 
   afterEach(() => {
     act(() => {
-      cleanup();
-    });
-  });
+      cleanup()
+    })
+  })
 
   return function configuredClientRender(element, options = {}) {
-    const { strict = globalStrict, ...localOptions } = options;
+    const { strict = globalStrict, ...localOptions } = options
 
-    return clientRender(element, { ...localOptions, strict });
-  };
+    return clientRender(element, { ...localOptions, strict })
+  }
 }
 
 const fireEvent = Object.assign(rtlFireEvent, {
@@ -87,32 +87,32 @@ const fireEvent = Object.assign(rtlFireEvent, {
   // for user-interactions react does the polyfilling but manually created
   // events don't have this luxury
   keyDown(element, options = {}) {
-    const event = createEvent.keyDown(element, options);
+    const event = createEvent.keyDown(element, options)
     Object.defineProperty(event, 'key', {
       get() {
-        return options.key || '';
+        return options.key || ''
       },
-    });
+    })
 
-    rtlFireEvent(element, event);
+    rtlFireEvent(element, event)
   },
   keyUp(element, options = {}) {
-    const event = createEvent.keyUp(element, options);
+    const event = createEvent.keyUp(element, options)
     Object.defineProperty(event, 'key', {
       get() {
-        return options.key || '';
+        return options.key || ''
       },
-    });
+    })
 
-    rtlFireEvent(element, event);
+    rtlFireEvent(element, event)
   },
-});
+})
 
-export * from '@testing-library/react/pure';
-export { act, cleanup, fireEvent };
+export * from '@testing-library/react/pure'
+export { act, cleanup, fireEvent }
 
 export function render() {
   throw new Error(
     "Don't use `render` directly. Instead use the return value from `createClientRender`",
-  );
+  )
 }

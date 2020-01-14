@@ -1,1 +1,1 @@
-export { default } from './makeStyles';
+export { default } from './makeStyles'

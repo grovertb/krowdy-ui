@@ -1,7 +1,6 @@
-import React from 'react';
+import React from 'react'
 import { makeStyles } from '@krowdy-ui/styles'
 import { IconButton } from '@krowdy-ui/core'
-
 import {
   Add as AddIcon,
   Edit as EditIcon,
@@ -9,7 +8,7 @@ import {
   Navigation as NavigationIcon,
   Apple as AppleIcon,
   Delete as DeleteIcon,
-} from '@krowdy-ui/icons';
+} from '@material-ui/icons'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -17,10 +16,10 @@ const useStyles = makeStyles(theme => ({
       margin: theme.spacing(1),
     },
   },
-}));
+}))
 
 export default () => {
-  const classes = useStyles();
+  const classes = useStyles()
   
   return (
     <div className={classes.root}>

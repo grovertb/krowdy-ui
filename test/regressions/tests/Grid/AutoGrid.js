@@ -1,21 +1,21 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Paper from '@material-ui/core/Paper';
-import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
+import React from 'react'
+import PropTypes from 'prop-types'
+import Paper from '@material-ui/core/Paper'
+import { withStyles } from '@material-ui/core/styles'
+import Grid from '@material-ui/core/Grid'
 
 const styles = {
-  root: {
-    width: 400,
-  },
   paper: {
     padding: 16,
     textAlign: 'center',
   },
-};
+  root: {
+    width: 400,
+  },
+}
 
 function AutoGrid(props) {
-  const { classes } = props;
+  const { classes } = props
 
   return (
     <div className={classes.root}>
@@ -42,11 +42,11 @@ function AutoGrid(props) {
         </Grid>
       </Grid>
     </div>
-  );
+  )
 }
 
 AutoGrid.propTypes = {
   classes: PropTypes.object.isRequired,
-};
+}
 
-export default withStyles(styles)(AutoGrid);
+export default withStyles(styles)(AutoGrid)

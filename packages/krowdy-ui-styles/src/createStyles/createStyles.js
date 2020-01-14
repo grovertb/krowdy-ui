@@ -1,1 +1,1 @@
-export { default } from '@material-ui/styles/createStyles';
+export { default } from '@material-ui/styles/createStyles'

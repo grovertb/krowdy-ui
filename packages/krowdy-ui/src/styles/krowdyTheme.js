@@ -1,20 +1,17 @@
 import { bluePrimary, blueSecondary, krowdy, grey } from '../colors'
 
 export default {
-  palette: {
-    primary: bluePrimary,
-    secondary: blueSecondary,
-    krowdy,
-    grey
-  },
   overrides: {
     MuiButton: {
       root: {
-        textTransform : 'initial',
-        fontWeight: 400
+        fontWeight: 400,
+        textTransform : 'initial'
       }
     },
     MuiTypography: {
+      body1: {
+        fontSize: '0.75rem'
+      },
       h1: {
         fontSize: '2.75rem',
         fontWeight: 'bold'
@@ -38,10 +35,13 @@ export default {
       h6: {
         fontSize: '0.875rem',
         fontWeight: 'bold'
-      },
-      body1: {
-        fontSize: '0.75rem'
       }
     }
+  },
+  palette: {
+    grey,
+    krowdy,
+    primary: bluePrimary,
+    secondary: blueSecondary
   }
 }

@@ -1,51 +1,51 @@
-import clsx from 'clsx';
-import React from 'react';
-import PropTypes from 'prop-types';
-import Avatar from '@material-ui/core/Avatar';
-import { withStyles } from '@material-ui/core/styles';
-import { capitalize } from '@material-ui/core/utils';
-import SpeedDial from '@material-ui/lab/SpeedDial';
-import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
-import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
+import clsx from 'clsx'
+import React from 'react'
+import PropTypes from 'prop-types'
+import Avatar from '@material-ui/core/Avatar'
+import { withStyles } from '@material-ui/core/styles'
+import { capitalize } from '@material-ui/core/utils'
+import SpeedDial from '@material-ui/lab/SpeedDial'
+import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon'
+import SpeedDialAction from '@material-ui/lab/SpeedDialAction'
 
 const styles = {
+  directionDown: {},
+  directionLeft: {},
+  directionRight: {},
+  directionUp: {},
   root: {
-    position: 'relative',
     height: 360,
+    position: 'relative',
     width: 400,
   },
   speedDial: {
-    position: 'absolute',
-    '&$directionUp': {
-      bottom: 0,
+    '&$directionDown': {
+      left: 0,
+      top: 0,
+    },
+    '&$directionLeft': {
       right: 0,
+      top: 0,
     },
     '&$directionRight': {
       bottom: 0,
       left: 0,
     },
-    '&$directionDown': {
-      top: 0,
-      left: 0,
-    },
-    '&$directionLeft': {
-      top: 0,
+    '&$directionUp': {
+      bottom: 0,
       right: 0,
     },
+    position: 'absolute',
   },
-  directionUp: {},
-  directionRight: {},
-  directionDown: {},
-  directionLeft: {},
-};
+}
 
 function SimpleSpeedDial(props) {
   const tooltipPlacement = {
-    up: 'left',
-    right: 'top',
     down: 'right',
     left: 'bottom',
-  };
+    right: 'top',
+    up: 'left',
+  }
 
   return (
     <SpeedDial icon={<SpeedDialIcon />} open {...props}>
@@ -59,16 +59,16 @@ function SimpleSpeedDial(props) {
         />
       ))}
     </SpeedDial>
-  );
+  )
 }
 
 SimpleSpeedDial.propTypes = {
   direction: PropTypes.string.isRequired,
-};
+}
 
 function Directions({ classes }) {
   const speedDialClassName = direction =>
-    clsx(classes.speedDial, classes[`direction${capitalize(direction)}`]);
+    clsx(classes.speedDial, classes[`direction${capitalize(direction)}`])
 
   return (
     <div className={classes.root}>
@@ -81,11 +81,11 @@ function Directions({ classes }) {
         />
       ))}
     </div>
-  );
+  )
 }
 
 Directions.propTypes = {
   classes: PropTypes.object.isRequired,
-};
+}
 
-export default withStyles(styles)(Directions);
+export default withStyles(styles)(Directions)
