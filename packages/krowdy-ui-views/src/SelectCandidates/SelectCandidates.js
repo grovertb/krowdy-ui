@@ -1,113 +1,88 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { withStyles, makeStyles } from '@krowdy-ui/core/styles'
-import SearchIcon from '@krowdy-ui/icons/Search';
+import { withStyles } from '@krowdy-ui/core/styles'
 import {
     Card,
     CardContent,
     Checkbox,
     Typography,
     Select,
-    List,
-    ListItemText,
-    ListItemAvatar,
     Divider,
     FormGroup,
     FormControlLabel,
-    InputBase,
     CardHeader
 } from '@krowdy-ui/core'
 
-const useStyles = makeStyles(theme => ({
-    titleCardheader: {
-        fontSize: '18px',
-        color: '#595959',
-        fontWeight: 'bold',
-        lineHeight: '24px',
-    },
-    text: {
-        fontStyle: 'normal',
-        fontWeight: 'normal',
-        fontSize: '14px',
-        lineHeight: '20px',
-        color: '#262626',
-        margin: '20px 0px 16px 0px'
-    },
-    search: {
-        display: 'flex',
-        alignItems: 'center',
-        border: '1px solid #E8E8E8',
-        boxSizing: 'border-box',
-        borderRadius: '4px',
-        margin: '14px 0px 12px 0px',
-        width: '340px',
-        height: '40px',
-        justifyContent: 'space-between'
-    },
-    searchCandidate: {
-        fontStyle: 'normal',
-        fontWeight: 'normal',
-        fontSize: '14px',
-        color: '#8C8C8C',
-    },
-    icon: {
-        color: '#8C8C8C',
-        fontSize: '18px'
-    },
+export const styles = theme => ({
     card: {
-        width: 420,
+        borderRadius: 8,
         height: 'auto',
-        borderRadius: 8
-    },
-    cardHeader: {
-        margin: '16px 38px 16px 20px',
-        padding: 0
+        width: 420
     },
     cardContent: {
         margin: '20px 38px 35px 42px',
         padding: 0
     },
-    selectStage: {
-        width: 340,
-        fontSize: '14px',
-        color: '#595959',
-        lineHeight: '16px',
-        fontWeight: 'normal'
-    },
-    optionStages: {
-        fontSize: '14px',
-        color: '#595959',
-        lineHeight: '16px',
-        fontWeight: 'normal'
+    cardHeader: {
+        margin: '16px 38px 16px 20px',
+        padding: 0
     },
     formGroup: {
         display: ' flex',
         flexDirection: 'row'
     },
-    labelCheckbox: {
-        fontStyle: 'normal',
-        fontWeight: 'normal',
-        fontSize: '14px',
-        lineHeight: '16px',
-        color: '#595959'
-    }
-}))
-
-export const styles = () => ({
     headerLeft: {
         flex: '1'
+    },
+    labelCheckbox: {
+        color: theme.palette.grey['700'],
+        fontSize: '14px',
+        fontStyle: 'normal',
+        fontWeight: 'normal',
+        lineHeight: '16px'
+    },
+    optionStages: {
+        color: theme.palette.grey['700'],
+        fontSize: '14px',
+        fontWeight: 'normal',
+        lineHeight: '16px'
+    },
+    selectStage: {
+        color: theme.palette.grey['700'],
+        fontSize: '14px',
+        fontWeight: 'normal',
+        lineHeight: '16px',
+        width: 340
+    },
+    text: {
+        color: theme.palette.grey['800'],
+        fontSize: '14px',
+        fontStyle: 'normal',
+        fontWeight: 'normal',
+        lineHeight: '20px',
+        margin: '20px 0px 16px 0px'
+    },
+    titleCardheader: {
+        color: theme.palette.grey['700'],
+        fontSize: '18px',
+        fontWeight: 'bold',
+        lineHeight: '24px',
     }
 })
 
 
 const SelectCandidates = props => {
     const [changeCheckbox, setChangeCheckbox] = useState(false)
-    const classes = useStyles();
+
     const {
-        optionSelect,
-        labelCheckbox,
+        optionsSelect,
+        placeholderSearch,
+        searchIcon,
+        labelsCheckbox,
         CardCandidate,
-        label
+        labels,
+        Search,
+        classes
     } = props
 
     return (
@@ -128,8 +103,9 @@ const SelectCandidates = props => {
                         native
                     >
                         {
-                            optionSelect.map((item, index) => (
+                            optionsSelect.map((item, index) => (
                                 <option
+                                    key={item}
                                     value={item}
                                     className={classes.optionStages}
                                 >
@@ -143,8 +119,9 @@ const SelectCandidates = props => {
                         ¿Para que candidato es la tarea?
                     </Typography>
                     <FormGroup className={classes.formGroup}>
-                        {labelCheckbox.map((txt) => (
+                        {labelsCheckbox.map((txt) => (
                             <FormControlLabel
+                                key={txt}
                                 value={txt}
                                 control={
                                     <Checkbox color='primary' />
@@ -155,52 +132,39 @@ const SelectCandidates = props => {
                             />
                         ))}
                     </FormGroup>
-                    <div className={classes.search} >
-                        <InputBase
-                            placeholder="Buscar candidato"
-                            inputProps={{
-                                'aria-label': 'search'
-                            }}
-                            style={{
-                                marginLeft: '11px',
-                            }}
-                            className={classes.searchCandidate}
-                        />
-                        <div style={{ marginRight: '9PX' }} >
-                            <SearchIcon fontSize='small' className={classes.icon} />
-                        </div>
-                    </div>
-                    {/* <List > */}
-                    {label.map(({ id, name, src }) => (
-                        // <Card key={id} style={{ display: 'flex', alignItems: 'center', marginBottom: 8 }} >
-                        //     <ListItemAvatar aria-label="recipe">
-                        //         <Checkbox color='primary' />
-                        //     </ListItemAvatar>
-                        //     <ListItemText primary={name} />
-                        // </Card>
+                    <Search
+                        placeholder={placeholderSearch}
+                        searchIcon={searchIcon}
+                    />
+                    {labels.map(({ id, name, photo }) => (
                         <CardCandidate
-                            style={{ display: 'flex', alignItems: 'center', marginBottom: 8 }}
-                            label={name}
-                            src={src}
+                            key={id}
+                            style={{ alignItems: 'center', display: 'flex', marginBottom: 8 }}
+                            fullName={name}
+                            photo={photo}
                             id={id}
                         />
                     ))}
 
-                    {/* </List> */}
+
                 </CardContent>
 
-            </Card>
+            </Card >
         </div >
     )
 }
 
 SelectCandidates.propTypes = {
     CardCandidate: PropTypes.any,
-    label: PropTypes.array,
-    labelCheckbox: PropTypes.array,
-    optionSelect: PropTypes.array
+    Search: PropTypes.any,
+    classes: PropTypes.object,
+    labels: PropTypes.array,
+    labelsCheckbox: PropTypes.array,
+    optionsSelect: PropTypes.array,
+    placeholderSearch: PropTypes.string,
+    searchIcon: PropTypes.any
 }
 
-SelectCandidates.muiName = 'SelectCandidates';
+SelectCandidates.muiName = 'SelectCandidates'
 
 export default withStyles(styles, { name: 'KrowdySelectCandidates' })(SelectCandidates)

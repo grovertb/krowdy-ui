@@ -9,3 +9,9 @@ export * from './CardUser';
 
 export { default as CardCandidate } from './CardCandidate';
 export * from './CardCandidate';
+
+export { default as Search } from './Search';
+export * from './Search';
+
+export { default as SelectCandidates } from './SelectCandidates';
+export * from './SelectCandidates';

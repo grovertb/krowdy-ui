@@ -144,6 +144,10 @@ const pages: Array<Page> = [
         title: 'Dashboard',
         path: '/views/dashboard'
       },
+      {
+        title: 'Search',
+        path: '/views/search'
+      },
     ]
   }
   // {

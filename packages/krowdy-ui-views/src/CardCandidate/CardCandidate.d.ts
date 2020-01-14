@@ -1,5 +1,6 @@
 export type CardCandidateProps = {
-    title?: string;
+    fullName: string,
+    imageAvatar: node,
 };
 
 declare const CardCandidate: React.ComponentType<CardCandidateProps>;
