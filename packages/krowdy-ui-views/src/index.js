@@ -1,4 +1,7 @@
 export { default as Header } from './Header'
 export { default as JobDetail } from './JobDetail'
+export { default as SelectCandidates } from './SelectCandidates'
+export { default as CardCandidate } from './CardCandidate'
+export { default as Search } from './Search'
 export { default as Questionary } from './Questionary'
 export * from './Cards'
