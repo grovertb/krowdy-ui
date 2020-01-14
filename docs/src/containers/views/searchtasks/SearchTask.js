@@ -35,9 +35,9 @@ export default function () {
           /*  propsListItemsToFirstList={{
              divider: true
            }} */
-          propsInput={{
-/*             onChange: (e) => console.log(e.target.value)
- */          }}
+          /*  propsInput={{
+             onChange: (e) => console.log(e.target.value)
+            }} */
           iconOnSeeker={<SearchOutlined />}
         />
 
