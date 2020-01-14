@@ -20,3 +20,6 @@ export * from './Cards';
 
 export { default as Questionary } from './Questionary';
 export * from './Questionary';
+
+export { default as SearchTask } from './SearchTask';
+export * from './SearchTask';

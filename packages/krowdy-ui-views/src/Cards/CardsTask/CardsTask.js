@@ -8,68 +8,59 @@ import {
   CardHeader,
   CardContent,
 } from '@krowdy-ui/core'
-/* import CloseIcon from '@krowdy-ui/icons/Close'
- */
+
 export const styles = theme => ({
   card: {
+    border: `1px solid ${theme.palette.grey[300]}`,
+    borderRadius: '8px',
+    boxSizing: 'border-box',
     fontFamily: 'Roboto',
+    fontSize: '14px',
     width: theme.spacing(40),
   },
   content: {
     align: 'left',
-    fontSize: '14px',
     lineHeight: '20px',
     paddingLeft: theme.spacing(3),
-    verticalAlign: 'Top',
+    paddingTop: '0px'
   },
   header: {
-    paddingLeft: theme.spacing(2)
+    paddingLeft: theme.spacing(2),
   },
   icon: {
     margin: theme.spacing(0, 1, 0, 5)
   },
-  moreButton: {
-    'float': 'right'
-  },
-  next: {
-    'float': 'right',
-    marginLeft: theme.spacing(3),
-  },
+  title: {
+    color: theme.palette.grey['800'],
+    fontSize: '14px',
+    fontWeight: 'bold'
+  }
 })
 
 const CardTask = props => {
   const {
     avatarProps,
-    borderColor,
     classes,
     content,
-    raised = false,
-    iconRight,
-    lessShadow,
     title,
-    ...others
+    cardProps,
+    cardContentProps,
   } = props
 
 
   return (
     <Card
       className={clsx(classes.card)}
-      lessShadow={lessShadow}
-      borderColor={borderColor}
-      raised={raised}
-      {...others}
+      {...cardProps}
     >
       <CardHeader
         className={classes.header}
         avatar={<Avatar {...avatarProps} />}
-        title={
-          <div className={classes.title}>
-            {title}
-          </div>
-        }
-/*         rightElement={(iconRight) ? <CloseIcon type='close' color={'error'} /> : null}
- */      />
-      <CardContent className={classes.content}>{content}</CardContent>
+        title={(!title || typeof title === 'string')
+          ? <div className={classes.title}>{title}</div>
+          : null}
+      />
+      <CardContent className={classes.content} {...cardContentProps}>{content}</CardContent>
     </Card>
   )
 }
@@ -77,13 +68,12 @@ const CardTask = props => {
 CardTask.propTypes = {
   avatar: PropTypes.node,
   avatarProps: PropTypes.object,
-  borderColor: PropTypes.oneOf(['light', 'dark', 'krowdy', 'error', 'none']),
+  cardContentProps: PropTypes.object,
+  cardProps: PropTypes.object,
   classes: PropTypes.object,
   content: PropTypes.node,
   iconRight: PropTypes.node,
-  lessShadow: PropTypes.bool,
-  raised: PropTypes.bool,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
 }
 
 CardTask.muiName = 'CardTask'
