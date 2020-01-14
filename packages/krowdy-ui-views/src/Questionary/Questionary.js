@@ -110,14 +110,6 @@ Questionary.propTypes = {
   updateItem: PropTypes.func
 }
 
-/* 
-deleteItem={deleteItem}
-        items={questions}
-        setItems={updateItems}
-        showInstructions={reviewedByKrowders}
-        updateItem={updateItem}
-
-*/
 Questionary.muiName = 'Questionary'
 
 export default withStyles(styles, { name: 'KrowdyQuestionary' })(Questionary)
