@@ -11,7 +11,7 @@ import {
 
 export const styles = theme => ({
   card: {
-    border: '1px solid #E8E8E8',
+    border: `1px solid ${theme.palette.grey[300]}`,
     borderRadius: '8px',
     boxSizing: 'border-box',
     fontFamily: 'Roboto',
@@ -31,7 +31,7 @@ export const styles = theme => ({
     margin: theme.spacing(0, 1, 0, 5)
   },
   title: {
-    color: '#262626',
+    color: theme.palette.grey['800'],
     fontSize: '14px',
     fontWeight: 'bold'
   }

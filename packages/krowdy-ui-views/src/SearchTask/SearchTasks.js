@@ -12,7 +12,7 @@ export const styles = theme => ({
     }
   },
   content: {
-    border: '1px solid #EAEAEA',
+    border: `1px solid ${theme.palette.grey['200']}`,
     borderRadius: '8px',
     height: '450px',
     width: '312px',

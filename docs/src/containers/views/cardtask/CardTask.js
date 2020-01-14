@@ -18,17 +18,6 @@ export default function () {
         />
 
       </Grid >
-
-      {/*       <Grid container justify='center'>
-        <Card borderColor='dark' lessShadow>
-          <CardHeader title='Card 2'
-            rightElement={<IconKrowdy type='close' color='error' />}
-          />
-          <CardContent variant='narrow'>
-            <IconKrowdy type='prueba' color='error' />
-          </CardContent>
-        </Card>
-      </Grid> */}
     </>
   )
 }

@@ -27,15 +27,11 @@ export const styles = theme => ({
     marginLeft: '5px'
   },
   textField: {
-    color: '#595959',
+    color: theme.palette.grey['700'],
     marginLeft: '1%',
     minWidth: '90%',
   },
 })
-
-/* function handleRemoveQuestion(setDeleted, event) {
-  setDeleted({ id: event.target.id, order: event.target.order })
-} */
 
 function changeInputField(event, setNewQuestion) {
   const target = event.target
@@ -46,8 +42,7 @@ function changeInputField(event, setNewQuestion) {
 
 function printQuestion(element, index, classes) {
   return (<div className={classes.divQuestion} key={index}>
-    {/*     <DragIndicator color='disabled' className={classes.left} />
- */}    {element}
+    {element}
     {(typeof index == 'number')
       ? <div className={classes.right}>
       </div>
@@ -108,10 +103,20 @@ const Questionary = props => {
 
 Questionary.propTypes = {
   classes: PropTypes.object,
+  deleteItem: PropTypes.func,
+  items: PropTypes.array,
   questions: PropTypes.array.isRequired,
+  setItems: PropTypes.func,
 }
 
+/* 
+deleteItem={deleteItem}
+        items={questions}
+        setItems={updateItems}
+        showInstructions={reviewedByKrowders}
+        updateItem={updateItem}
 
+*/
 Questionary.muiName = 'Questionary'
 
 export default withStyles(styles, { name: 'KrowdyQuestionary' })(Questionary)
