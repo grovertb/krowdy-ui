@@ -4,12 +4,6 @@ import { withStyles, makeStyles } from '@krowdy-ui/core/styles'
 import { Card, Avatar, Typography, IconButton, Checkbox } from '@krowdy-ui/core'
 import MoreVertIcon from '@krowdy-ui/icons/MoreVert';
 
-export const styles = () => ({
-    headerLeft: {
-        flex: '1'
-    }
-})
-
 const useStyles = makeStyles(theme => ({
     root: {
         marginLeft: '8px'
@@ -91,15 +85,7 @@ const CardCandidate = props => {
                             onMouseLeave={handleMouseLeave}
                         />
                         :
-                        <Avatar
-                            src={src}
-                            className={classes.avatar}
-                            onMouseOver={handleMouseOver}
-                            style={{
-                                width: '28px',
-                                height: '28px'
-                            }}
-                        >
+                        <Avatar onMouseOver={handleMouseOver} src={src} style={{ height: '28px', width: '28px' }} >
                             CA
                         </Avatar>
 
@@ -131,4 +117,4 @@ CardCandidate.propTypes = {
 
 CardCandidate.muiName = 'CardCandidate';
 
-export default withStyles(styles, { name: 'KrowdyCardUser' })(CardCandidate)
+export default CardCandidate

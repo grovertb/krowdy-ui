@@ -2,7 +2,7 @@ import React from 'react'
 import { SelectCandidates } from '@krowdy-ui/views'
 import { CardCandidate } from '@krowdy-ui/views'
 
-const label = [
+const labels = [
     {
         id: '1',
         name: 'nombre apellido',
@@ -38,7 +38,7 @@ export default function () {
                 optionSelect={optionSelect}
                 labelCheckbox={labelCheckbox}
                 CardCandidate={CardCandidate}
-                label={label}
+                label={labels}
             />
         </div>
     )
