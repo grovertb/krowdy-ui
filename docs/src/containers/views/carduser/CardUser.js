@@ -28,7 +28,7 @@ export default function () {
             },
           ]}
           borderColor='error'
-/*           iconRight={<MoreVert type='morev' />}
+/*           iconRight={<MoreVert />}
  */          withDivider
           withAvatar
           lessShadow

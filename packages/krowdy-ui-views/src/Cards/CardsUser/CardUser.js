@@ -53,7 +53,6 @@ function generate(items, classes) {
 
 const CardUser = props => {
   const {
-    borderColor,
     classes,
     iconRight,
     items,
@@ -65,7 +64,6 @@ const CardUser = props => {
   return (
     <Card
       className={clsx(classes.card)}
-      borderColor={borderColor}
     >
       <CardHeader
         className={classes.header}
@@ -79,8 +77,8 @@ const CardUser = props => {
             {title}
           </div>
         }
-        rightElement={(iconRight) ? <div className={classes.moreButton} >{iconRight}</div> : null}
-      />
+/*         rightElement={(iconRight) ? <div className={classes.moreButton} >{iconRight}</div> : null}
+ */      />
       {
         (withDivider)
           ? <div className={classes.divider}><Divider variant='middle' /></div>
@@ -92,7 +90,6 @@ const CardUser = props => {
 }
 
 CardUser.propTypes = {
-  borderColor: PropTypes.oneOf(['light', 'dark', 'krowdy', 'error', 'none']),
   classes: PropTypes.object,
   iconRight: PropTypes.node,
   items: PropTypes.array,
