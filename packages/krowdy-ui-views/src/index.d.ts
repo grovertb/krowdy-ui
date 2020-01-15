@@ -6,3 +6,6 @@ export * from './Header';
 
 export { default as CardUser } from './CardUser';
 export * from './CardUser';
+
+export { default as Table } from './Table';
+export * from './Table';

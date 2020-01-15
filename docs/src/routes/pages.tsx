@@ -132,6 +132,10 @@ const pages: Array<Page> = [
         title: 'Card User',
         path: '/views/carduser'
       },
+      {
+        title: 'Table',
+        path: '/views/table'
+      }
     ]
   }
   // {

@@ -1122,12 +1122,13 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^13.0.0"
 
-"@krowdy-ui/icons@^0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@krowdy-ui/icons/-/icons-0.0.2.tgz#38590d615c3ded2a2d37957e2be2b912764d28c4"
-  integrity sha512-0fRzx8wJ+D75dGFk3+dT/vqtN2n/GigYOwRHFWbihvmHGnllTA+5Oe09TNx/QVbwSzms2OZ/+32qW9Feww/GqA==
+"@krowdy-ui/core@^0.0.27":
+  version "0.0.27"
+  resolved "https://registry.yarnpkg.com/@krowdy-ui/core/-/core-0.0.27.tgz#f5442ed8472c5ec63faadfa993970ba520c16558"
+  integrity sha512-uEZiwkZgYSzvAFrk29AT6skduCY4YeqNk3wvW7wF7tf4Il7OOy0SehEOJchm95lrJ8wR00ca5jGQwSc2sYMPCw==
   dependencies:
-    "@babel/runtime" "^7.4.4"
+    "@krowdy-ui/styles" "0.0.14"
+    "@material-ui/core" "4.8.1"
 
 "@krowdy-ui/styles@0.0.14":
   version "0.0.14"
@@ -1136,15 +1137,6 @@
   dependencies:
     "@material-ui/styles" "^4.7.1"
 
-"@krowdy-ui/views@^0.0.21":
-  version "0.0.21"
-  resolved "https://registry.yarnpkg.com/@krowdy-ui/views/-/views-0.0.21.tgz#bc74bbfb05afc356edeb92e5070d6cec2326ee78"
-  integrity sha512-g+nwXki/p9zEUxKOaTYXniABlKpqRelaKvgSUtlcrBiBUgxEUl8zjwToHebM0gh0ozl/0W5PFbWagwa3vwHAaA==
-  dependencies:
-    "@krowdy-ui/core" "0.0.27"
-    "@krowdy-ui/icons" "^0.0.2"
-    xdate "0.8.2"
-
 "@loadable/component@^5.11.0":
   version "5.11.0"
   resolved "https://registry.yarnpkg.com/@loadable/component/-/component-5.11.0.tgz#e495834279663d20aabf0e4ca25e5c44bef308eb"
@@ -1152,6 +1144,26 @@
   dependencies:
     "@babel/runtime" "^7.7.4"
     hoist-non-react-statics "^3.3.1"
+
+"@material-ui/core@4.8.1":
+  version "4.8.1"
+  resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-4.8.1.tgz#a2451739e2b4a478f8f9f364a5a87b8896c76b97"
+  integrity sha512-fAIysk8JiV+TbqI7uWo/kunmwPROEz9JvE2gE4xmAgLikF7rfoodhFL6aV5clIzWelpdRbcOUYfGaq2yAnjOoA==
+  dependencies:
+    "@babel/runtime" "^7.4.4"
+    "@material-ui/styles" "^4.7.1"
+    "@material-ui/system" "^4.7.1"
+    "@material-ui/types" "^4.1.1"
+    "@material-ui/utils" "^4.7.1"
+    "@types/react-transition-group" "^4.2.0"
+    clsx "^1.0.2"
+    convert-css-length "^2.0.1"
+    hoist-non-react-statics "^3.2.1"
+    normalize-scroll-left "^0.2.0"
+    popper.js "^1.14.1"
+    prop-types "^15.7.2"
+    react-is "^16.8.0"
+    react-transition-group "^4.3.0"
 
 "@material-ui/core@4.8.3":
   version "4.8.3"
