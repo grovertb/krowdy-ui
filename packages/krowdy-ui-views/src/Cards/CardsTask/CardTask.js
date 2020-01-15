@@ -19,8 +19,9 @@ export const styles = theme => ({
   },
   content: {
     align: 'left',
+    color: theme.palette.grey['700'],
     padding: theme.spacing(0, 3),
-    verticalAlign: 'top'
+    verticalAlign: 'top',
   },
   header: {
     paddingBottom: 0,
