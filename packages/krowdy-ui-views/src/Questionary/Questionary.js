@@ -9,62 +9,84 @@ export const styles = theme => ({
   button: {
     '&:hover': {
       backgroundColor: 'transparent'
-    }
+    },
+    paddingTop: '0px'
   },
-  content: {
-    margni: 'auto',
-    width: '100%',
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%'
   },
   divQuestion: {
+    alignItems: 'flex-start',
+    display: 'flex',
+    flexDirection: 'row',
     fontSize: '1rem',
-    margin: theme.spacing(1.5),
-    width: '100%',
+    margin: theme.spacing(0, 2, 2, 2)
+  },
+  iconDragContainer: {
+    color: theme.palette.grey[500]
+  },
+  inputsContent: {
+    alignContent: 'flex-start',
+    display: 'flex',
+    flexDirection: 'column',
+    minWidth: '80%',
+    verticalAlign: 'top'
   },
   label: {
-    fontSize: '1.5rem',
-  },
-  left: {
-    'float': 'left',
+    fontSize: '1.5rem'
   },
   order: {
     fontWeight: 'bold'
   },
-  right: {
-    'float': 'right',
-  },
   textField: {
+    '&:hover': {
+      color: theme.palette.primary['600']
+    },
     color: theme.palette.grey['700'],
-    width: '80%'
+    flexGrow: 8,
+    margin: theme.spacing(0, 1, 1, 2),
+    minWidth: '80%'
   },
+  underline: {
+    '&::after': {
+      border: '1px solid red'
+    },
+    color: 'green'
+  }
 })
-
 
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list)
   const [removed] = result.splice(startIndex, 1)
   result.splice(endIndex, 0, removed)
+
   return result
 }
 
+function handleInputSearch(callback) {
+  return callback
+}
 
 const Questionary = props => {
-
   const {
     classes,
     iconRemove,
     iconDrag,
+    iconDragStyle = {},
     disabled = false,
-    items,
+    items = [],
+    lastInputProps,
     setItems,
-    showInstructions,
+    showInstructions = true,
     onDeleteItem,
+    onLastInput,
     onUpdateItem
   } = props
 
   const onDragEnd = (result) => {
-
-    if (!result.destination)
-      return
+    if (!result.destination) return
 
     const newItems = reorder(
       items,
@@ -75,40 +97,39 @@ const Questionary = props => {
   }
 
   return (
-    <div className={classes.content}>
+    <div className={classes.container} >
       <DragDropContext onDragEnd={onDragEnd} >
         <Droppable direction='vertical' droppableId='droppable'>
-          {(provided, snapshot) => {
-            return (<div
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-            >
-              {items.map((item, index) => (
-                <Draggable draggableId={item._id} index={index} key={item._id}>
-                  {(provided, snapshot) => (
-                    <div ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      className={classes.divQuestion}
-                    >
-                      <Button disabled={disabled}
-                        disableFocusRipple
-                        onClick={() => onDeleteItem(index)}
-                        className={clsx(classes.button, classes.left)}
-                      >
-                        {iconDrag}
-                      </Button>
+          {(provided) => (<div
+            {...provided.droppableProps}
+            ref={provided.innerRef}>
+            {items.map((item, index) => (
+              <Draggable draggableId={item._id} index={index} key={item._id}>
+                {(provided) => (
+                  <div
+                    className={classes.divQuestion}
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}>
+                    <div classes={iconDragStyle} className={clsx(styles.iconDragContainer)}>
+                      {iconDrag}
+                    </div>
+                    <span className={classes.order}>
+                      {(index + 1 < 10) ? `0${index + 1}.` : `${index + 1}.`}
+                    </span>
+                    <div className={classes.inputsContent}>
                       <Input
                         className={classes.textField}
                         disabled={disabled}
+                        inputProps={{ classes: { underline: classes.underline } }}
                         multiline
-                        rowsMax={4}
                         onChange={event => {
-                          onUpdateItem(index, {
+                          onUpdateItem(item._id, {
                             question: event.target.value
                           })
                         }
                         }
+                        rowsMax={3}
                         value={item.question} />
                       {
                         showInstructions &&
@@ -116,43 +137,55 @@ const Questionary = props => {
                           className={classes.textField}
                           disabled={disabled}
                           multiline
-                          rowsMax={4}
                           onChange={event => {
-                            onUpdateItem(index, {
+                            onUpdateItem(item._id, {
                               instructions: event.target.value
                             })
                           }
                           }
+                          rowsMax={4}
                           value={item.instructions} />
                       }
-                      <Button
-                        disabled={disabled}
-                        className={clsx(classes.button, classes.right)}
-                        onClick={() => onDeleteItem(index)}>
-                        {iconRemove}
-                      </Button>
                     </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </div>)
-          }
+                    <Button
+                      className={clsx(classes.button, classes.right)}
+                      disabled={disabled}
+                      onClick={() => onDeleteItem(item._id)}>
+                      {iconRemove}
+                    </Button>
+                  </div>
+                )}
+              </Draggable>
+            ))}
+            {provided.placeholder}
+          </div>)
           }
         </Droppable>
       </DragDropContext>
-    </div>)
+      <div >
+        <Input
+          className={clsx(classes.lastInput)}
+          onInput={handleInputSearch(onLastInput)}
+          placeholder='Escriba una nueva pregunta'
+          {...lastInputProps} />
+      </div>
+    </div>
+  )
 }
+
 Questionary.propTypes = {
   classes: PropTypes.object,
   disabled: PropTypes.bool,
   iconDrag: PropTypes.node,
+  iconDragStyle: PropTypes.object,
   iconRemove: PropTypes.node,
   items: PropTypes.array.isRequired,
+  lastInputProps: PropTypes.object,
   onDeleteItem: PropTypes.func,
+  onLastInput: PropTypes.func,
   onUpdateItem: PropTypes.func,
   setItems: PropTypes.func,
-  showInstructions: PropTypes.func,
+  showInstructions: PropTypes.func
 }
 
 Questionary.muiName = 'Questionary'

@@ -7,7 +7,7 @@ export default function () {
 
   return (
     <>
-      <Grid container justify='center' style={{ width: '700px' }}>
+      <Grid container justify='center'>
         <Questionary
           items={
             [{
@@ -29,6 +29,7 @@ export default function () {
           }
           iconDrag={<DragIndicator />}
           iconRemove={<RemoveCircleOutline color='error' />}
+          showInstructions={false}
         />
       </Grid>
     </>

@@ -29,8 +29,8 @@ export default function () {
             },
           ]}
           borderColor='error'
-          iconRight={<MoreVert />}
-          nextIcon={<NavigateNext />}
+/*           iconRight={<MoreVert />}
+ */          nextIcon={<NavigateNext />}
         />
 
       </Grid >
