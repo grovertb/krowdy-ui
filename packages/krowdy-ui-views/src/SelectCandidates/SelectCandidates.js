@@ -159,6 +159,7 @@ const SelectCandidates = props => {
 					{dataSource.map(({ id, firstName, lastName, photo }) => (
 						<CardCandidate
 							key={id}
+							checked={candidatesSelectIds.includes(id)}
 							style={{ alignItems: 'center', display: 'flex', marginBottom: 8 }}
 							firstName={firstName}
 							lastName={lastName}

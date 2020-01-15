@@ -43,30 +43,27 @@ export const styles = theme => ({
 })
 
 const CardCandidate = props => {
-	const [checked, setChecked] = useState(false)
-	const [changeCheckbox, setChangeCheckbox] = useState(false)
-	const _handleMouseOver = () => {
-		setChangeCheckbox(true)
-
-	}
-	const _handleMouseLeave = () => {
-		if (checked === false) {
-			setChangeCheckbox(false)
-		} else {
-			setChangeCheckbox(true)
-		}
-	}
-
-	const _handleChange = (event) => {
-		setChecked(event.target.checked)
-	}
 	const {
+		checked,
 		id,
 		firstName,
 		lastName,
+		onChangeCheckbox,
 		imageAvatar,
 		classes
 	} = props
+
+
+	const [changeCheckbox, setChangeCheckbox] = useState(false)
+	const _handleMouseOver = () => {
+		setChangeCheckbox(checked)
+
+	}
+	const _handleMouseLeave = () => {
+		setChangeCheckbox(checked)
+
+	}
+
 
 	return (
 		<Card
@@ -79,7 +76,7 @@ const CardCandidate = props => {
 						checked={checked}
 						className={classes.checkbox}
 						color='primary'
-						onChange={_handleChange}
+						onChange={onChangeCheckbox}
 						onMouseLeave={_handleMouseLeave}
 					/>
 					:
@@ -100,10 +97,13 @@ const CardCandidate = props => {
 }
 
 CardCandidate.propTypes = {
+	checked: PropTypes.any,
 	classes: PropTypes.object,
 	firstName: PropTypes.string,
+	id: PropTypes.number,
 	imageAvatar: PropTypes.node,
 	lastName: PropTypes.string,
+	onChangeCheckbox: PropTypes.func,
 }
 
 CardCandidate.muiName = 'CardCandidate'
