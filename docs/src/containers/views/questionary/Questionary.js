@@ -1,26 +1,34 @@
 import React from 'react'
 import { Grid } from '@krowdy-ui/core'
 import { Questionary } from '@krowdy-ui/views'
+import {RemoveCircleOutline,DragIndicator} from '@material-ui/icons'
 
 export default function () {
 
   return (
     <>
-      <Grid container justify='center'>
+      <Grid container justify='center' style={{width:'700px'}}>
         <Questionary
-          questions={[
-            {
-              order: 1,
-              question: 'Cuentame alguna vez que hayas tenido que tomar una decision quee no te gusto el trabajo ? que es l que hiciste? usa un ejemplo claro'
-            },
-            {
-              order: 2,
-              question: 'question2'
-            },
-          ]}
-          eventRemoveIcon={() => {
-            console.log('eliminar')
-          }}
+          items={ 
+           [{
+            _id         : 'item-1',
+            instructions: ()=>{},
+            question    : 'question 1',
+          },
+          {
+            _id         : 'item-2',
+            instructions: ()=>{},
+            question    : 'question 2',
+          },
+          {
+            _id         : 'item-3',
+            instructions: ()=>{},
+            question    : 'question 3',
+          },
+        ]
+        }
+          iconDrag={<DragIndicator/>}
+          iconRemove={<RemoveCircleOutline color='error'/>}
         />
       </Grid>
     </>

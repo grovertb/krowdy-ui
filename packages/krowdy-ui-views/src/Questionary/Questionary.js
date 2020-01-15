@@ -1,16 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@krowdy-ui/core/styles'
-import { Input } from '@krowdy-ui/core'
-
+import { Input ,Button} from '@krowdy-ui/core'
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
+ 
 export const styles = theme => ({
   content: {
-    width: '80%',
+    width: '100%',
   },
   divQuestion: {
     fontSize: '1rem',
-    margin: theme.spacing(2, 0),
-    width: '100%',
+    margin: theme.spacing(4),
   },
   label: {
     fontSize: '1.5rem',
@@ -24,90 +24,114 @@ export const styles = theme => ({
   },
   right: {
     'float': 'right',
-    marginLeft: '5px'
   },
   textField: {
     color: theme.palette.grey['700'],
-    marginLeft: '1%',
     minWidth: '90%',
   },
 })
 
-function changeInputField(event, setNewQuestion) {
-  const target = event.target
-  if (event.which === 13 || event.keyCode === 13) {
-    setNewQuestion({ id: target.id, value: target.value })
-  }
-}
 
-function printQuestion(element, index, classes) {
-  return (<div className={classes.divQuestion} key={index}>
-    {element}
-    {(typeof index == 'number')
-      ? <div className={classes.right}>
-      </div>
-      : <></>}
-  </div>
-  )
+const reorder = (list, startIndex, endIndex) => {
+  const result = Array.from(list)
+  const [ removed ] = result.splice(startIndex, 1)
+  result.splice(endIndex, 0, removed)
+  return result
 }
-
 
 
 const Questionary = props => {
 
   const {
-    classes,
-    questions,
+/*     classes,*/
+    iconRemove,
+    iconDrag, 
+    disabled=false,
+    items,
+    setItems,
+    showInstructions,
+    onDeleteItem,
+    onUpdateItem
   } = props
 
-  const [deletedQuestion, setDeleted] = React.useState({})
-  const [newQuestion, setNewQuestion] = React.useState({})
+  const onDragEnd = (result) => {
 
-  React.useEffect(() => {
-    if (deletedQuestion.order && deletedQuestion.id.indexOf('remove') !== -1) {
-      questions.filter(elem => elem.order !== deletedQuestion.order)
-    } else if (newQuestion.value && newQuestion.id.indexOf('question') !== -1) {
-      questions.push({ order: questions.length + 1, question: newQuestion.value })
-    }
-  })
+    if(!result.destination)
+      return
+
+    const newItems = reorder(
+      items,
+      result.source.index,
+      result.destination.index
+    )
+    setItems(newItems)
+  }
+
 
   return (
-    <form className={classes.content} >
-      {(questions && questions.length > 0)
-        ? questions.map((element, index) => printQuestion(
-          <>
-            <span className={classes.order}>{index + 1}.</span>
-            <Input
-              id={`question-${element.index + 1}`}
-              rowsMax={4}
-              defaultValue={element.question}
-              inputProps={{ 'aria-label': 'description' }}
-              className={classes.textField}
-            /></>, index, classes, setDeleted))
-        : null
-      }
-      {printQuestion(
-        <>
-          <span className={classes.order}>{questions.length + 1}.</span>
-          <Input
-            id='question0'
-            className={classes.textField}
-            placeholder='Escribe una pregunta'
-            inputProps={{ 'aria-label': 'description' }}
-            onKeyPress={e => changeInputField(e, setNewQuestion)}
-          />
-        </>, null, classes)}
-    </form>
-  )
+    <>
+  <DragDropContext onDragEnd={onDragEnd} >
+  <Droppable direction='vertical' droppableId='droppable'>
+    {(provided, snapshot) => {
+      return (<div
+        {...provided.droppableProps}
+        ref={provided.innerRef}
+        >
+        {items.map((item, index) => (
+          <Draggable draggableId={item._id} index={index} key={item._id}>
+            {(provided, snapshot) => (
+              <div ref={provided.innerRef}
+                {...provided.draggableProps}
+                {...provided.dragHandleProps}>
+              <Button disabled={disabled} onClick={() => onDeleteItem(index)}>
+                 {iconDrag}
+              </Button> 
+                <Input
+                  disabled={disabled}
+                  onChange={event => {
+                    onUpdateItem(index, {
+                      question: event.target.value
+                    })
+                  }
+                  }
+                  value={item.question} />
+                {
+                  showInstructions &&
+                  <Input
+                    disabled={disabled}
+                    onChange={event => {
+                      onUpdateItem(index, {
+                        instructions: event.target.value
+                      })
+                    }
+                    }
+                    value={item.instructions} />
+                }
+                <Button disabled={disabled} onClick={() => onDeleteItem(index)}>
+                    {iconRemove}
+                </Button> 
+              </div>
+            )}
+          </Draggable>
+        ))}
+        {provided.placeholder}
+      </div>)
+    }
+    }
+  </Droppable>
+</DragDropContext>
+</>)
 }
-
 Questionary.propTypes = {
   classes: PropTypes.object,
-  deleteItem: PropTypes.func,
+  disabled: PropTypes.bool,
+  iconDrag:PropTypes.node,
+  iconRemove:PropTypes.node,
   items: PropTypes.array.isRequired,
+  onDeleteItem: PropTypes.func,
+  onUpdateItem: PropTypes.func,
   setItems: PropTypes.func,
   showInstructions: PropTypes.func,
-  updateItem: PropTypes.func
 }
 
 Questionary.muiName = 'Questionary'
