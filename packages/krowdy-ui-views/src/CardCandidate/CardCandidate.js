@@ -62,7 +62,8 @@ const CardCandidate = props => {
 	}
 	const {
 		id,
-		fullName,
+		firstName,
+		lastName,
 		imageAvatar,
 		classes
 	} = props
@@ -90,7 +91,7 @@ const CardCandidate = props => {
 			</div>
 			<div className={classes.labelCandidate}>
 				<Typography className={classes.name} >
-					{fullName}
+					{firstName} {lastName}
 				</Typography>
 			</div>
 		</Card>
@@ -100,8 +101,9 @@ const CardCandidate = props => {
 
 CardCandidate.propTypes = {
 	classes: PropTypes.object,
-	fullName: PropTypes.string,
+	firstName: PropTypes.string,
 	imageAvatar: PropTypes.node,
+	lastName: PropTypes.string,
 }
 
 CardCandidate.muiName = 'CardCandidate'

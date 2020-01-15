@@ -8,10 +8,10 @@ import {
 	TextField,
 	Switch,
 	IconButton,
-	FormControlLabel
+	FormControlLabel,
+
 } from '@krowdy-ui/core'
-
-
+import { Dropdown } from '@krowdy-ui/views'
 export const styles = theme => ({
 	buttonsRight: {
 		alignItems: 'center',
@@ -85,31 +85,37 @@ const HeaderTask = props => {
 		onClickActiveTask,
 		onChangeTitleTask,
 		onKeyUpTitleTask,
-		nameTask,
+		titleHeader,
 		titleTask,
 		valueTitleTask,
 		numberCandidates,
-		index,
-		iconArrow,
+		stageIndex,
+		arrowBackIcon,
+		contentButton,
+		onClickArrowBackIcon,
 		id
 	} = props
 
 	return (
 		<Paper className={classes.paper}>
 			<div className={classes.task}>
-				<IconButton >
-					{iconArrow}
+				<IconButton onClick={onClickArrowBackIcon} >
+					{arrowBackIcon}
 				</IconButton>
 				<Typography className={classes.nameTask}>
-					{nameTask}
+					{titleHeader}
 				</Typography>
-				<Button
-					variant='outlined'
-					color='primary'
-					onClick={onClickSelectCandidates}
-					className={classes.textButton}>
-					{`${numberCandidates} Candidatos - Etapa ${index + 1}`}
-				</Button>
+				<Dropdown
+					content={contentButton}
+				>
+					<Button
+						variant='outlined'
+						color='primary'
+						onClick={onClickSelectCandidates}
+						className={classes.textButton}>
+						{numberCandidates} Candidatos - Etapa {stageIndex + 1}
+					</Button>
+				</Dropdown>
 				<TextField
 					onChange={onChangeTitleTask}
 					onKeyUp={onKeyUpTitleTask}
@@ -171,7 +177,8 @@ const HeaderTask = props => {
 								onClick={onClickActiveTask}
 								variant='contained'
 								color='primary'
-								className={classes.textButton}>
+								className={classes.textButton}
+							>
 								Activar tarea
             </Button>
 						</div>
@@ -185,19 +192,22 @@ const HeaderTask = props => {
 }
 
 HeaderTask.propTypes = {
+	arrowBackIcon: PropTypes.node,
 	classes: PropTypes.object,
+	contentButton: PropTypes.any,
 	id: PropTypes.number,
-	index: PropTypes.number,
-	nameTask: PropTypes.string,
 	numberCandidates: PropTypes.number,
 	onChangeTitleTask: PropTypes.any,
 	onClickActiveTask: PropTypes.any,
+	onClickArrowBackIcon: PropTypes.func,
 	onClickSave: PropTypes.any,
 	onClickSelectCandidates: PropTypes.any,
 	onClickUpdateTask: PropTypes.any,
 	onKeyUpTitleTask: PropTypes.any,
+	stageIndex: PropTypes.number,
+	titleHeader: PropTypes.string,
 	titleTask: PropTypes.string,
-	valueTitleTask: PropTypes.any,
+	valueTitleTask: PropTypes.any
 
 }
 

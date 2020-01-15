@@ -6,30 +6,35 @@ import {
 } from '@krowdy-ui/views'
 import SearchIcon from '@material-ui/icons/Search'
 
-const labels = [
+const dataSource = [
     {
+        firstName: 'Nombres',
         id: '1',
-        name: 'nombre apellido',
+        lastName: 'Apellidos',
         photo: 'foto1'
     },
     {
+        firstName: 'Nombres',
         id: '2',
-        name: 'nombre2 apellido ',
+        lastName: 'Apellidos',
         photo: 'foto2'
     },
     {
+        firstName: 'Nombres',
         id: '3',
-        name: 'nombre3 apellido ',
+        lastName: 'Apellidos',
         photo: 'foto2'
     },
     {
+        firstName: 'Nombres',
         id: '4',
-        name: 'nombre4 apellido ',
+        lastName: 'Apellidos',
         photo: 'foto2'
     },
     {
+        firstName: 'Nombres',
         id: '5',
-        name: 'nombre5 apellido ',
+        lastName: 'Apellidos',
         photo: 'foto2'
     }
 ]
@@ -47,7 +52,7 @@ export default function () {
                 optionsSelect={optionsSelect}
                 labelsCheckbox={labelsCheckbox}
                 CardCandidate={CardCandidate}
-                labels={labels}
+                dataSource={dataSource}
             />
         </div>
     )

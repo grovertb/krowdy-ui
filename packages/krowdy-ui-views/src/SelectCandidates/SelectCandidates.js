@@ -81,7 +81,7 @@ const SelectCandidates = props => {
 		searchIcon,
 		labelsCheckbox,
 		CardCandidate,
-		labels,
+		dataSource,
 		Search,
 		classes
 	} = props
@@ -110,7 +110,7 @@ const SelectCandidates = props => {
 									value={item}
 									className={classes.optionStages}
 								>
-									{`Etapa ${index + 1}`}
+									Etapa {index + 1}
 								</option>
 							))
 						}
@@ -137,11 +137,12 @@ const SelectCandidates = props => {
 						placeholder={placeholderSearch}
 						searchIcon={searchIcon}
 					/>
-					{labels.map(({ id, name, photo }) => (
+					{dataSource.map(({ id, firstName, lastName, photo }) => (
 						<CardCandidate
 							key={id}
 							style={{ alignItems: 'center', display: 'flex', marginBottom: 8 }}
-							fullName={name}
+							firstName={firstName}
+							lastName={lastName}
 							photo={photo}
 							id={id}
 						/>
@@ -159,7 +160,7 @@ SelectCandidates.propTypes = {
 	CardCandidate: PropTypes.any,
 	Search: PropTypes.any,
 	classes: PropTypes.object,
-	labels: PropTypes.array,
+	dataSource: PropTypes.array,
 	labelsCheckbox: PropTypes.array,
 	optionsSelect: PropTypes.array,
 	placeholderSearch: PropTypes.string,
