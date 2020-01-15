@@ -8,6 +8,10 @@ export const styles = theme => ({
     '&:active': {
       backgroundColor: theme.palette.primary['50'],
       color: theme.palette.primary['400'],
+    },
+    '&:hover': {
+      backgroundColor: theme.palette.primary['50'],
+      color: theme.palette.primary['400'],
     }
   },
   content: {
@@ -59,7 +63,9 @@ const SearchTasks = props => {
       <List className={classes.list} key='firtsList' {...propsLists}>
         {
           (firtsList && firtsList.length > 0)
-            ? firtsList.map((element, index) => <ListItem button selected={(itemSelected && element._id === itemSelected) ? true : false} key={`firts-${index}`}
+            ? firtsList.map((element, index) => <ListItem button
+              selected={(itemSelected && element._id === itemSelected) ? true : false}
+              key={`firts-${index}`}
               className={classes.buttonSelected}
               onClick={(element.action) ? _handleClickOnFirtsTasks(element.action) : null}
               {...propsListItemsToFirstList}
@@ -74,6 +80,7 @@ const SearchTasks = props => {
             ? secondList.map((element, index) => <ListItem button
               key={`second-${index}`}
               className={classes.buttonSelected}
+              selected={(itemSelected && element._id === itemSelected) ? true : false}
               onClick={(element.action) ? _handleClickOnSecondsTasks(element.action) : null}
               {...propsListItemsToSecondList}
             >{element.taskName}</ListItem>)
