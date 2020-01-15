@@ -1,16 +1,8 @@
 import React from 'react'
 import { Dashboard } from '@krowdy-ui/views'
 
-// import { 
-//   Schedule as ScheduleIcon,
-//   Home as HomeIcon,
-//   AttachMoney as AttachMoneyIcon,
-//   Work as WorkIcon,
-//   Business as BusinessIcon
-// } from '@material-ui/icons'
-
 export default function () {
-  const _handleClickLogout = () => console.log("close")
+  const _handleClickLogout = () => console.log('close')
   
   return <Dashboard
     user={{
@@ -20,43 +12,60 @@ export default function () {
     }}
     userMenu={[
       {
-        type: 'link',
+        target: '_self',
         title: 'View card',
-        url: '/views/carduser',
-        target: '_self'
+        type: 'link',
+        url: '/views/carduser'
       },
       {
-        type: 'button',
+        target: '_blank',
         title: 'Google',
-        url: 'https://google.com',
-        target: '_blank'
+        type: 'link',
+        url: 'https://google.com'
       },
       {
-        type: 'action',
+        action: 'logout',
         title: 'Cerrar sesiòn',
-        action: 'logout'
+        type: 'action'
       }
     ]}
     actions={{
       logout: _handleClickLogout
     }}
     logo={{
-      source: 'https://site.krowdy.com/wp-content/uploads/2019/01/14153940/logoKrowdymenu.png',
-      alt: 'Logo'
+      alt: 'Logo',
+      source: 'https://site.krowdy.com/wp-content/uploads/2019/01/14153940/logoKrowdymenu.png'
     }}
     menus={[
       {
+        icon: 'Home',
+        target: '_self',
         title: 'Dashboard',
-        path: '/views/dashboard',
-        icon: 'Home'
+        type: 'link',
+        url: '/views/dashboard'
       },
       {
+        icon: 'Group',
+        target: '_self',
         title: 'Groups',
-        path: '/',
-        icon: 'Group'
+        type: 'link',
+        url: '/view/groups'
       },
-    ]}
-  >
+      {
+        icon: 'GroudpWork',
+        target: '_self',
+        title: 'Groups',
+        type: 'link',
+        url: '/'
+      },
+      {
+        icon: 'GroudpWork',
+        target: '_blank',
+        title: 'Google',
+        type: 'link',
+        url: 'https://google.com'
+      },
+    ]}>
     <h1>Dashboard</h1>
   </Dashboard>
 }

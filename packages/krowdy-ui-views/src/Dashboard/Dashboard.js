@@ -1,7 +1,7 @@
-import React, {useState, Suspense} from 'react';
-import { Link as RouterLink } from 'react-router-dom'
-import {lazy} from '@loadable/component'
+import React, {useState} from 'react'
+import { Link as RouterLink, useHistory } from 'react-router-dom'
 import clsx from 'clsx'
+import { makeStyles } from '@krowdy-ui/styles' 
 import {
   Menu as MenuIcon,
   ChevronLeft as ChevronLeftIcon
@@ -18,47 +18,22 @@ import {
   ListItem,
   Menu,
   Link,
-  ListItemIcon,
-  ListItemText
+  // ListItemIcon,
+  ListItemText,
+  // Icon
 } from '@krowdy-ui/core'
-import { makeStyles } from '@krowdy-ui/styles' 
 
 const drawerWidth = 210
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    color: theme.palette.primary.main,
-    flexGrow: 1,
-  },
-  wrapper: {
-    backgroundColor: '#EFEFEF',
-    display        : 'flex',
-    flex           : 1
-  },
-  wrapperContent: {
-    backgroundColor: '#fff',
-    borderRadius   : 4,
-    display        : 'flex',
-    flex           : 1,
-    justifyContent : 'center',
-    margin         : 12
-    // width          : '100%'
-  },
   drawerContentIcon: {
-    color         : 'rgba(0, 0, 0, 0.54)',
+    color         : theme.palette.common.white,
     height        : 50,
     justifyContent: 'flex-end'
   },
-  drawerRoot: {
-    height: '100%',
-  },
   drawerPaper: {
+    background: theme.palette.primary.main,
+    borderRight: '0',
     overflow  : 'hidden',
     position  : 'relative',
     transition: theme.transitions.create('width', {
@@ -72,14 +47,100 @@ const useStyles = makeStyles(theme => ({
   drawerPaperClose: {
     width: 56
   },
+  drawerRoot: {
+    height: '100%',
+  },
+  labelDrawer: {
+    '& > span': {
+      fontSize: '1rem'
+    }
+  },
+  logoCompany: {
+    '& > img': {
+      maxHeight: 50,
+      maxWidth : 115
+    },
+    alignItems    : 'center',
+    cursor        : 'pointer',
+    display       : 'flex',
+    height        : 64,
+    justifyContent: 'center',
+    marginLeft    : theme.spacing(3),
+    marginRight   : 10,
+    position      : 'relative'
+    // width         : '13.78%'
+  },
   main: {
     display: 'flex',
-    minHeight: '100vh',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    minHeight: '100vh'
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  menuDashboardItem: {
+    '&:active': {
+      '& > div': {
+        color: 'inherit'
+      },
+      backgroundColor: theme.palette.primary.main,
+    },
+    alignItems   : 'center',
+    color          : theme.palette.common.white,
+    display      : 'flex',
+    paddingBottom: 10,
+    paddingLeft  : 16,
+    paddingRight : 16,
+    paddingTop   : 10,
+    width        : '100%'
+  },
+  menuDashboardItemActive: {
+    '& > div': {
+      color: 'inherit'
+    },
+    // '&:hover': {
+    //   backgroundColor: theme.palette.primary.main, // '#1890FF',
+    //   color          : 'white'
+    // },
+    backgroundColor: theme.palette.common.white,
+    color          : theme.palette.primary.main
+  },
+  menuDashboardItemLink: {
+    display: 'flex'
   },
   menuDashboardListItem: {
     paddingBottom: 0,
     paddingTop   : 0
+  },
+  menuItemContentName: {
+    '&:focus': {
+      outline: 'none'
+    },
+    display      : 'flex',
+    flexDirection: 'column'
+  },
+  menuItemName: {
+    fontSize  : '1rem',
+    fontWeight: 600,
+    lineHeight: '1.5',
+    minHeight : 'auto',
+    padding   : '8px 16px'
+  },
+  menuLink: {
+    '& > a': {
+      color         : '#273142',
+      display: 'block',
+      width: '100%',
+    },
+    '& > a:hover': {
+      textDecoration: 'none',
+    },
+    '&:hover': {
+      textDecoration: 'none'
+    },
+    padding       : '8px 16px',
+    textDecoration: 'none',
+    width         : '100%'
   },
   notificationIcon: {
     '& svg': {
@@ -104,97 +165,43 @@ const useStyles = makeStyles(theme => ({
     position       : 'relative',
     width          : 34
   },
-  topBar: {
-    backgroundColor: '#fff'
+  root: {
+    flexGrow: 1,
   },
-  logoCompany: {
-    '& > img': {
-      maxHeight: 50,
-      maxWidth : 115
-    },
-    alignItems    : 'center',
-    cursor        : 'pointer',
-    display       : 'flex',
-    height        : 64,
-    justifyContent: 'center',
-    marginLeft    : theme.spacing(3),
-    marginRight   : 10,
-    position      : 'relative'
-    // width         : '13.78%'
-  },
-  menuItemContentName: {
-    '&:focus': {
-      outline: 'none'
-    },
-    display      : 'flex',
-    flexDirection: 'column'
-  },
-  menuItemName: {
-    fontSize  : '1rem',
-    fontWeight: 600,
-    lineHeight: '1.5',
-    minHeight : 'auto',
-    padding   : '8px 16px'
-  },
-  menuLink: {
-    '&:hover': {
-      textDecoration: 'none'
-    },
-    '& > a:hover': {
-      textDecoration: 'none',
-    },
-    '& > a': {
-      display: 'block',
-      width: '100%',
-      color         : '#273142',
-    },
-    padding       : '8px 16px',
-    textDecoration: 'none',
-    width         : '100%'
+  title: {
+    color: theme.palette.primary.main,
+    flexGrow: 1,
   },
   toolbar: {
     display       : 'flex',
     justifyContent: 'space-between',
     paddingRight  : 24 // keep right padding when drawer closed
   },
-  menuDashboardItemLink: {
-    display: 'flex'
+  topBar: {
+    backgroundColor: '#fff'
   },
-  menuDashboardItem: {
-    '&:active': {
-      '& > div': {
-        color: 'inherit'
-      },
-      backgroundColor: theme.palette.primary.main,
-      color          : 'white'
-    },
-    alignItems   : 'center',
-    display      : 'flex',
-    paddingBottom: 10,
-    paddingLeft  : 16,
-    paddingRight : 16,
-    paddingTop   : 10,
-    width        : '100%'
+  wrapper: {
+    backgroundColor: '#EFEFEF',
+    display        : 'flex',
+    flex           : 1
   },
-  menuDashboardItemActive: {
-    '& > div': {
-      color: 'inherit'
-    },
-    '&:hover': {
-      backgroundColor: theme.palette.primary.main, // '#1890FF',
-      color          : 'white'
-    },
-    backgroundColor: theme.palette.primary.main,
-    color          : 'white'
-  },
-  labelDrawer: {
-    '& > span': {
-      fontSize: '1rem'
-    }
+  wrapperContent: {
+    backgroundColor: '#fff',
+    borderRadius   : 4,
+    display        : 'flex',
+    flex           : 1,
+    justifyContent : 'center',
+    margin         : 12
+    // width          : '100%'
   },
 }))
 
-
+const validURL = str => new RegExp('^(https?:\\/\\/)?' +
+'((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' +
+'((\\d{1,3}\\.){3}\\d{1,3}))' +
+'(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' +
+'(\\?[;&a-z\\d%_.~+=-]*)?' +
+'(\\#[-a-z\\d_]*)?$', 'i').test(str)
 
 function Dashboard(props) {
   const {
@@ -205,12 +212,17 @@ function Dashboard(props) {
     menus,
     children
   } = props
-
+  
   const {
     logout
   } = actions
 
-  console.log('Xavi :) ===> :(: Dashboard -> props', props)
+  const history = useHistory()
+  
+  const {
+    location
+  } = history
+
   const classes = useStyles()
   const [ isOpenDrawer, setToggleDrawer ] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null)
@@ -219,17 +231,12 @@ function Dashboard(props) {
   const _handleOpenMenu = ev => setAnchorEl(ev.currentTarget)
   const _handleCloseMenu = () => setAnchorEl(null)
 
-  const getIcon = (icon) => {
-    const Icon = lazy(() => import(`@material-ui/icons/${icon}`))
-    return <Icon />
-  }
-
   return (
     <div className={classes.main}>
       <AppBar
         className={classes.topBar}
         elevation={1}
-        position="sticky">
+        position='sticky'>
         <Toolbar className={classes.toolbar}>
           <Link className={classes.logoCompany} component={RouterLink} to='/'>
             <img
@@ -282,38 +289,34 @@ function Dashboard(props) {
                   </Typography>
                   <Divider />
                 </li>
-
                 {
-                  userMenu.map((item, n) => {
-                    if(item.type === 'action') {
-                      if(item.action === 'logout')
-                        return <MenuItem
+                  userMenu.map((item, n) => (
+                    item.type === 'action' ?
+                      <MenuItem
                         key={n}
-                        // className={classes.menuLink}
+                        className={classes.menuLink}
                         onClick={logout}>
                           {item.title}
-                        </MenuItem>
-                    }else if(item.type === 'button') {
-                      return <MenuItem
-                      className={classes.menuLink}
-                      key={n}>
-                      <Link
-                        component='a'
-                        href={item.url}
-                        target={item.target ? item.target : '_blank'}>{item.title}</Link>
-                    </MenuItem>
-                    }else{
-                      return <MenuItem
-                      className={classes.menuLink}
-                      key={n}>
-                        <Link
-                          component={RouterLink}
-                          to={item.url}>
-                          {item.title}
-                        </Link>
-                      </MenuItem>
-                    }
-                  })
+                        </MenuItem> :
+                        validURL(item.url) ?
+                          <MenuItem
+                            className={classes.menuLink}
+                            key={n}>
+                            <Link
+                              component='a'
+                              href={item.url}
+                              target={item.target ? item.target : '_blank'}>{item.title}</Link>
+                          </MenuItem> :
+                          <MenuItem
+                            className={classes.menuLink}
+                            key={n}>
+                            <Link
+                              component={RouterLink}
+                              to={item.url}>
+                              {item.title}
+                            </Link>
+                          </MenuItem>
+                  ))
                 }
             </Menu>
           </div>
@@ -323,13 +326,13 @@ function Dashboard(props) {
         <div>
         <Drawer
           classes={{
-            root: classes.drawerRoot,
             paper: clsx(
               classes.drawerPaper,
               {
                 [classes.drawerPaperClose]: isOpenDrawer
               }
-            )
+            ),
+            root: classes.drawerRoot
           }}
           data-test='adminDrawer'
           open={isOpenDrawer}
@@ -347,37 +350,64 @@ function Dashboard(props) {
             </ListItem>
             <Divider />
             {
-              menus.map((item, n) => <ListItem
-                button
-                key={n}
-                disableGutters
-                className={classes.menuDashboardListItem}>
-                  <Link
-                      className={clsx(
-                        classes.menuDashboardItem,
-                        {
-                          [classes.menuDashboardItemActive]: location.pathname === item.path
-                        }
-                      )}
-                      color='inherit'
-                      component={RouterLink}
-                      to={item.path}
-                      underline='none'>
-                        {
-                          item.icon ?
-                          <ListItemIcon>
-                            <Suspense fallback={<div>Loading...</div>}>
-                              {
-                                getIcon(item.icon)
-                              }
-                            </Suspense>
-                          </ListItemIcon> : null
-                        }
-                      <ListItemText
-                        className={classes.labelDrawer}
-                        primary={item.title} />
-                    </Link>
-              </ListItem>)
+              menus.map((item, n) => (
+                validURL(item.url) ?
+                  <ListItem
+                    button
+                    key={n}
+                    disableGutters
+                    className={classes.menuDashboardListItem}>
+                    <Link
+                        className={clsx(
+                          classes.menuDashboardItem,
+                          {
+                            [classes.menuDashboardItemActive]: location.pathname === item.path
+                          }
+                        )}
+                        color='inherit'
+                        component='a'
+                        href={item.url}
+                        target={item.target ? item.target : '_blank'}
+                        underline='none'>
+                          {/* {
+                            item.icon ?
+                            <ListItemIcon>
+                              <Icon icon={item.icon} />
+                            </ListItemIcon> : null
+                          } */}
+                        <ListItemText
+                          className={classes.labelDrawer}
+                          primary={item.title} />
+                      </Link>
+                </ListItem> :
+                <ListItem
+                  button
+                  key={n}
+                  disableGutters
+                  className={classes.menuDashboardListItem}>
+                    <Link
+                        className={clsx(
+                          classes.menuDashboardItem,
+                          {
+                            [classes.menuDashboardItemActive]: location.pathname === item.url
+                          }
+                        )}
+                        color='inherit'
+                        component={RouterLink}
+                        to={item.url}
+                        underline='none'>
+                          {/* {
+                            item.icon ?
+                            <ListItemIcon>
+                              <Icon icon={item.icon} />
+                            </ListItemIcon> : null
+                          } */}
+                        <ListItemText
+                          className={classes.labelDrawer}
+                          primary={item.title} />
+                      </Link>
+                </ListItem>
+              ))
             }
           </List>
           </Drawer>
@@ -387,7 +417,7 @@ function Dashboard(props) {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Dashboard;
+export default Dashboard
