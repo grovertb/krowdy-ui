@@ -11,20 +11,19 @@ import {
 
 export const styles = theme => ({
   card: {
-    border: `1px solid ${theme.palette.grey[300]}`,
-    borderRadius: '8px',
-    boxSizing: 'border-box',
+    border: `${1} solid ${theme.palette.grey[300]}`,
+    borderRadius: 8,
+    cursor: 'pointer',
     fontFamily: 'Roboto',
-    fontSize: '14px',
-    width: theme.spacing(40),
+    fontSize: 14,
   },
   content: {
     align: 'left',
-    lineHeight: '20px',
-    paddingLeft: theme.spacing(3),
-    paddingTop: '0px'
+    padding: theme.spacing(0, 3),
+    verticalAlign: 'top'
   },
   header: {
+    paddingBottom: 0,
     paddingLeft: theme.spacing(2),
   },
   icon: {
@@ -32,8 +31,9 @@ export const styles = theme => ({
   },
   title: {
     color: theme.palette.grey['800'],
-    fontSize: '14px',
-    fontWeight: 'bold'
+    fontSize: 14,
+    fontWeight: 'bold',
+    marginBottom: 0
   }
 })
 

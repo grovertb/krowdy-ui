@@ -6,7 +6,7 @@ export default function () {
 
   return (
     <>
-      <Grid container justify='center'>
+      <Grid container justify='center' xs={4}>
         <CardTask
           title='Card User'
           avatarProps={{
@@ -14,7 +14,7 @@ export default function () {
             variant: 'square',
           }}
           content={<div>Define cuáles de los campos del perfil del candidato deben ser
-             obligatorios y cuáles no deberían aparecer.</div>}
+             obligatorios y cuáles no deberían aparecer. cuáles no deberían aparecer</div>}
         />
 
       </Grid >

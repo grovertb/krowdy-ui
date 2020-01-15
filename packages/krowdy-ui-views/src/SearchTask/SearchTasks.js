@@ -5,11 +5,7 @@ import { Input, Divider, List, ListItem } from '@krowdy-ui/core'
 
 export const styles = theme => ({
   buttonSelected: {
-    '&:active': {
-      backgroundColor: theme.palette.primary['50'],
-      color: theme.palette.primary['400'],
-    },
-    '&:hover': {
+    '&$selected, &$selected:hover': {
       backgroundColor: theme.palette.primary['50'],
       color: theme.palette.primary['400'],
     }
