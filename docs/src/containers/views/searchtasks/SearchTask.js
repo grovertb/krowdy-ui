@@ -11,18 +11,26 @@ export default function () {
         <SearchTask
           firtsList={[
             {
-/*               action: (e) => console.log('Todas las tareas'),
- */              taskName: 'Todas las tareas',
+              /*               action: (e) => console.log('Todas las tareas'),
+               */
+              _id: 'id1',
+              taskName: 'Todas las tareas',
             },
             {
-/*               action: (e) => console.log('Usados recientemente'),
- */              taskName: 'Usados recientemente'
+              /*               action: (e) => console.log('Usados recientemente'),
+                            id: 'id1',
+              
+               */
+              _id: 'id2',
+              taskName: 'Usados recientemente'
             }]}
 
           secondList={[
             {
-/*               action: (e) => console.log(e.target),
- */              taskName: 'Pruebas',
+              /*               action: (e) => console.log(e.target),
+               */
+              _id: 'id3',
+              taskName: 'Pruebas',
             },
             {
 /*               action: (e) => console.log('Entrevistas'),
@@ -38,6 +46,7 @@ export default function () {
           /*  propsInput={{
              onChange: (e) => console.log(e.target.value)
             }} */
+          itemSelected='id1'
           iconOnSeeker={<SearchOutlined />}
         />
 

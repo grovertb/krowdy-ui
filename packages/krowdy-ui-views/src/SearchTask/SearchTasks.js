@@ -7,7 +7,6 @@ export const styles = theme => ({
   buttonSelected: {
     '&:active': {
       backgroundColor: theme.palette.primary['50'],
-      borderRadius: '4px',
       color: theme.palette.primary['400'],
     }
   },
@@ -45,6 +44,7 @@ const SearchTasks = props => {
     propsLists,
     propsListItemsToFirstList,
     propsListItemsToSecondList,
+    itemSelected
   } = props
 
   return (
@@ -59,7 +59,7 @@ const SearchTasks = props => {
       <List className={classes.list} key='firtsList' {...propsLists}>
         {
           (firtsList && firtsList.length > 0)
-            ? firtsList.map((element, index) => <ListItem button key={`firts-${index}`}
+            ? firtsList.map((element, index) => <ListItem button selected={(itemSelected && element._id === itemSelected) ? true : false} key={`firts-${index}`}
               className={classes.buttonSelected}
               onClick={(element.action) ? _handleClickOnFirtsTasks(element.action) : null}
               {...propsListItemsToFirstList}
@@ -88,6 +88,7 @@ SearchTasks.propTypes = {
   classes: PropTypes.object,
   firtsList: PropTypes.array,
   iconOnSeeker: PropTypes.node,
+  itemSelected: PropTypes.bool,
   propsInput: PropTypes.object,
   propsListItemsToFirstList: PropTypes.object,
   propsListItemsToSecondList: PropTypes.object,
