@@ -1,2 +1,2 @@
-export { default } from './CardsTask';
-export * from './CardsTask';
+export { default } from './CardTask'
+export * from './CardTask'
