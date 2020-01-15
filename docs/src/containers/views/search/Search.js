@@ -16,7 +16,12 @@ export default function () {
   }
 
   return (
-    <div style={{ alignItems: 'center', display: 'flex', justifyContent: 'center', margin: '50px' }}>
+    <div style={{
+      alignItems: 'center',
+      display: 'flex',
+      justifyContent: 'center',
+      margin: '50px'
+    }}>
       <Search
         value={search}
         onChange={onChange}

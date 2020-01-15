@@ -1,12 +1,13 @@
+
+import 'CardCandidate' from './CardCandidate'
 export type SelectCandidatesProps = {
-    CardCandidate: any,
+    CardCandidate: React.ComponentType<CardCandidateProps>,
     Search: any,
-    classes: object,
-    labels: array,
-    labelsCheckbox: array,
-    optionsSelect: array,
+    labels: object[],
+    labelsCheckbox: string[],
+    optionsSelect: string[],
     placeholderSearch: string,
-    searchIcon: any
+    searchIcon: Node
 };
 
 declare const SelectCandidates: React.ComponentType<SelectCandidatesProps>;

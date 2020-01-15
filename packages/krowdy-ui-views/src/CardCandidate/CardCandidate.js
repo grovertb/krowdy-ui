@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { withStyles } from '@krowdy-ui/core/styles'
+import { withStyles } from '@krowdy-ui/styles'
 import { Card, Avatar, Typography, Checkbox } from '@krowdy-ui/core'
 
 export const styles = theme => ({
 	avatar: {
-		height: '28px',
-		width: '28px'
+		height: 28,
+		width: 28
 	},
 	card: {
 		'&:hover': {
@@ -21,27 +21,24 @@ export const styles = theme => ({
 		width: 340
 	},
 	checkbox: {
-		height: '28px',
-		width: '28px'
+		height: 28,
+		width: 28
 	},
 	headerLeft: {
 		flex: '1'
 	},
-	iconMoreVert: {
-		'& .MuiSvgIcon-root': {
-			height: 18,
-			width: 18
-		},
-		marginRight: '4px',
+	labelCandidate: {
+		marginLeft: 8,
+		width: 300
 	},
 	name: {
 		color: theme.palette.grey['700'],
-		fontSize: '12px',
+		fontSize: 12,
 		fontStyle: 'normal',
 		fontWeight: 'normal'
 	},
 	root: {
-		marginLeft: '8px'
+		marginLeft: 8
 	}
 })
 
@@ -71,37 +68,33 @@ const CardCandidate = props => {
 	} = props
 
 	return (
-		<div style={{ display: 'flex' }}>
-			<Card
-				key={id}
-				className={classes.card}
-			>
-				<div className={classes.root}>{
-					changeCheckbox ?
-						<Checkbox
-							checked={checked}
-							className={classes.checkbox}
-							color='primary'
-							onChange={_handleChange}
-							onMouseLeave={_handleMouseLeave}
-						/>
-						:
-						<Avatar onMouseOver={_handleMouseOver} src={imageAvatar} className={classes.avatar} >
-							CA
+		<Card
+			key={id}
+			className={classes.card}
+		>
+			<div className={classes.root}>{
+				changeCheckbox ?
+					<Checkbox
+						checked={checked}
+						className={classes.checkbox}
+						color='primary'
+						onChange={_handleChange}
+						onMouseLeave={_handleMouseLeave}
+					/>
+					:
+					<Avatar onMouseOver={_handleMouseOver} src={imageAvatar} className={classes.avatar} >
+						CA
             </Avatar>
 
-				}
-				</div>
-				<div style={{
-					marginLeft: '8px',
-					width: '300px'
-				}}>
-					<Typography className={classes.name} >
-						{fullName}
-					</Typography>
-				</div>
-			</Card>
-		</div >
+			}
+			</div>
+			<div className={classes.labelCandidate}>
+				<Typography className={classes.name} >
+					{fullName}
+				</Typography>
+			</div>
+		</Card>
+
 	)
 }
 

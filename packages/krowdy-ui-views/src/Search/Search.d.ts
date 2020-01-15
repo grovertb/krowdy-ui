@@ -1,10 +1,10 @@
+
 export type SearchProps = {
-  classes: object,
   onChange: any,
   onKeyDown: any,
   placeholder: string,
-  searchIcon: any,
-  value: any
+  searchIcon: Node,
+  value: string
 };
 
 declare const Search: React.ComponentType<SearchProps>;

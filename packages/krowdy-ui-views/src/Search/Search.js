@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { withStyles } from '@krowdy-ui/core/styles'
+import { withStyles } from '@krowdy-ui/styles'
 import { InputBase, Paper, InputAdornment } from '@krowdy-ui/core'
 
 export const styles = theme => ({
@@ -9,16 +9,16 @@ export const styles = theme => ({
   },
   icon: {
     color: theme.palette.grey['600'],
-    fontSize: '18px',
-    marginRight: '8px'
+    fontSize: 18,
+    marginRight: 8
   },
   inputBase: {
     flex: 1,
-    fontSize: '14px',
+    fontSize: 14,
     fontStyle: 'normal',
     fontWeight: 'normal',
-    lineHeight: '16px',
-    marginLeft: '10px'
+    lineHeight: 16,
+    marginLeft: 11,
   },
   paper: {
     '&:active': {
@@ -33,12 +33,12 @@ export const styles = theme => ({
     alignItems: 'center',
     background: theme.palette.primary['contrastText'],
     border: `1px solid ${theme.palette.grey['400']}`,
-    borderRadius: '4px',
+    borderRadius: 4,
     boxShadow: 'none',
     boxSizing: 'border-box',
     display: 'flex',
-    height: '40px',
-    width: '340px'
+    height: 40,
+    width: 340
   },
 })
 
@@ -65,9 +65,6 @@ const Search = props => {
         onChange={onChange}
         inputProps={{
           'aria-label': 'search'
-        }}
-        style={{
-          marginLeft: '11px',
         }}
         className={classes.inputBase}
       />

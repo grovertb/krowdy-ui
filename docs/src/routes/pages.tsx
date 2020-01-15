@@ -156,6 +156,10 @@ const pages: Array<Page> = [
         title: 'Tasks',
         path: '/views/cardtask'
       },
+      {
+        title: 'Header Task',
+        path: '/views/headertask'
+      },
     ]
   },
 
