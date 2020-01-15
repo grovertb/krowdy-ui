@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
     SelectCandidates,
     CardCandidate,
@@ -6,6 +6,7 @@ import {
 } from '@krowdy-ui/views'
 import SearchIcon from '@material-ui/icons/Search'
 
+const candidatesSelectIds = [1, 2]
 const dataSource = [
     {
         firstName: 'Nombres',
@@ -42,17 +43,37 @@ const placeholderSearch = 'Buscar candidatos'
 const searchIcon = <SearchIcon />
 const labelsCheckbox = ['Candidatos actuales', 'Candidatos nuevos']
 const optionsSelect = ['option1', 'option2', 'option3']
+
 export default function () {
+    const [checkedCheckbox, setCheckedCheckbox] = useState('')
+    const [itemSelect, setItemSelect] = useState('')
+    const _handleChangeItemSelect = event => {
+        setItemSelect(event.target.value)
+    }
+    const _handleChangeCurrentCandidates = event => {
+        setCheckedCheckbox(event.target.value)
+    }
+
+
     return (
         <div>
             <SelectCandidates
-                searchIcon={searchIcon}
-                placeholderSearch={placeholderSearch}
-                Search={Search}
-                optionsSelect={optionsSelect}
-                labelsCheckbox={labelsCheckbox}
-                CardCandidate={CardCandidate}
+                // onChangeIndeterminateCandidates={onChangeIndeterminateCandidates}
+                // checkedCurrentCandidates={checkedCurrentCandidates}
+                // onChangeCurrentCandidates={_handleChangeCurrentCandidates}
+                // checkedcandidatesToCome={checkedcandidatesToCome}
+                // onChangecandidatesToCome={onChangecandidatesToCome}
+
+                candidatesSelectIds={candidatesSelectIds}
                 dataSource={dataSource}
+                itemSelect={itemSelect}
+                labelsCheckbox={labelsCheckbox}
+                onChangeSelectOptions={_handleChangeItemSelect}
+                optionsSelect={optionsSelect}
+                placeholderSearch={placeholderSearch}
+                searchIcon={searchIcon}
+                Search={Search}
+                CardCandidate={CardCandidate}
             />
         </div>
     )

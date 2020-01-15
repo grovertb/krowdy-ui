@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@krowdy-ui/styles'
 import {
@@ -73,17 +73,23 @@ export const styles = theme => ({
 
 
 const SelectCandidates = props => {
-	const [changeCheckbox, setChangeCheckbox] = useState(false)
 
 	const {
+		candidatesSelectIds,
 		optionsSelect,
 		placeholderSearch,
+		onChangeSelectOptions,
+		itemSelect,
 		searchIcon,
-		labelsCheckbox,
 		CardCandidate,
 		dataSource,
 		Search,
-		classes
+		onChangeIndeterminateCandidates,
+		classes,
+		checkedCurrentCandidates,
+		onChangeCurrentCandidates,
+		checkedcandidatesToCome,
+		onChangecandidatesToCome
 	} = props
 
 	return (
@@ -101,6 +107,8 @@ const SelectCandidates = props => {
                     </Typography>
 					<Select
 						className={classes.selectStage}
+						onChange={onChangeSelectOptions}
+						value={itemSelect}
 						native
 					>
 						{
@@ -120,18 +128,29 @@ const SelectCandidates = props => {
 						¿Para que candidato es la tarea?
                     </Typography>
 					<FormGroup className={classes.formGroup}>
-						{labelsCheckbox.map((txt) => (
-							<FormControlLabel
-								key={txt}
-								value={txt}
-								control={
-									<Checkbox color='primary' />
-								}
-								label={txt}
-								className={classes.labelCheckbox}
-
-							/>
-						))}
+						<FormControlLabel
+							// value={txt}
+							control={
+								<Checkbox
+									checked={checkedCurrentCandidates}
+									onChange={onChangeCurrentCandidates}
+									indeterminate={onChangeIndeterminateCandidates}
+									color='primary' />
+							}
+							label='Candidatos actuales'
+							className={classes.labelCheckbox}
+						/>
+						<FormControlLabel
+							// value={txt}
+							control={
+								<Checkbox
+									checked={checkedcandidatesToCome}
+									onChange={onChangecandidatesToCome}
+									color='primary' />
+							}
+							label='Candidatos nuevos'
+							className={classes.labelCheckbox}
+						/>
 					</FormGroup>
 					<Search
 						placeholder={placeholderSearch}
@@ -159,9 +178,17 @@ const SelectCandidates = props => {
 SelectCandidates.propTypes = {
 	CardCandidate: PropTypes.any,
 	Search: PropTypes.any,
+	candidatesSelectIds: PropTypes.array,
+	checkedCurrentCandidates: PropTypes.any,
+	checkedcandidatesToCome: PropTypes.any,
 	classes: PropTypes.object,
 	dataSource: PropTypes.array,
+	itemSelect: PropTypes.any,
 	labelsCheckbox: PropTypes.array,
+	onChangeCurrentCandidates: PropTypes.func,
+	onChangeIndeterminateCandidates: PropTypes.bool,
+	onChangeSelectOptions: PropTypes.func,
+	onChangecandidatesToCome: PropTypes.func,
 	optionsSelect: PropTypes.array,
 	placeholderSearch: PropTypes.string,
 	searchIcon: PropTypes.any

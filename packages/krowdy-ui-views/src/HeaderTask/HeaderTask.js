@@ -42,7 +42,7 @@ export const styles = theme => ({
 		display: 'flex',
 		height: 56,
 		justifyContent: 'space-between',
-		width: 1308
+		width: 'auto'
 	},
 	'switch': {
 		marginRight: 6
@@ -72,11 +72,6 @@ export const styles = theme => ({
 })
 
 const HeaderTask = props => {
-	// const nameTask = 'Video Cuestionario'
-	// const titleTask = 'Titulo de video entrevista'
-	// const numberCandidates = 10
-	// const index = 0
-	// const id = null
 	const {
 		classes,
 		onClickSelectCandidates,
