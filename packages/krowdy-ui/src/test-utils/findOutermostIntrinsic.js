@@ -5,7 +5,7 @@
  * @returns {boolean} true if the given reactWrapper wraps an intrinsic element
  */
 export function wrapsIntrinsicElement(reactWrapper) {
-  return typeof reactWrapper.type() === 'string';
+  return typeof reactWrapper.type() === 'string'
 }
 
 /**
@@ -15,5 +15,5 @@ export function wrapsIntrinsicElement(reactWrapper) {
  * @returns {import('enzyme').ReactWrapper} the wrapper for the outermost DOM node
  */
 export default function findOutermostIntrinsic(reactWrapper) {
-  return reactWrapper.findWhere(n => n.exists() && wrapsIntrinsicElement(n)).first();
+  return reactWrapper.findWhere(n => n.exists() && wrapsIntrinsicElement(n)).first()
 }

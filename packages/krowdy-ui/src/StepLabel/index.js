@@ -1,1 +1,1 @@
-export { default } from './StepLabel';
+export { default } from './StepLabel'

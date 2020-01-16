@@ -1,1 +1,1 @@
-export { default } from './StepButton';
+export { default } from './StepButton'

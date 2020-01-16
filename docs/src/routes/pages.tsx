@@ -135,7 +135,11 @@ const pages: Array<Page> = [
       {
         title: 'Table',
         path: '/views/table'
-      }
+      },
+      {
+        title: 'Dashboard',
+        path: '/views/dashboard'
+      },
     ]
   }
   // {

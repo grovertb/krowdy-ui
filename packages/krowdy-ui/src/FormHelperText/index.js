@@ -1,1 +1,1 @@
-export { default } from './FormHelperText';
+export { default } from './FormHelperText'

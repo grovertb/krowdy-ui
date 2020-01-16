@@ -1,1 +1,1 @@
-export { default } from './GridList';
+export { default } from './GridList'

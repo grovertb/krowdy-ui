@@ -1,1 +1,1 @@
-export { default } from './mergeClasses';
+export { default } from './mergeClasses'

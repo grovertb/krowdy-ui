@@ -3,44 +3,44 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import MuiCheckbox from '@material-ui/core/Checkbox'
-import { makeStyles } from '@material-ui/styles';
-import capitalize from '../utils/capitalize';
-import { fade } from '../styles/colorManipulator';
+import { makeStyles } from '@material-ui/styles'
+import capitalize from '../utils/capitalize'
+import { fade } from '../styles/colorManipulator'
 
 const useStyles = makeStyles(theme => ({
-  colorKrowdy: {
+  checked: {
+  },
+  colorError: {
     '&$checked': {
-      color: theme.palette.krowdy.main,
       '&:hover': {
-        backgroundColor: fade(theme.palette.krowdy.main, theme.palette.action.hoverOpacity),
-        // Reset on touch devices, it doesn't add specificity
         '@media (hover: none)': {
           backgroundColor: 'transparent',
         },
+        // Reset on touch devices, it doesn't add specificity
+        backgroundColor: fade(theme.palette.error.main, theme.palette.action.hoverOpacity),
       },
+      color: theme.palette.error.main,
     },
     '&$disabled': {
       color: theme.palette.action.disabled,
     },
   },
-  colorError: {
+  colorKrowdy: {
     '&$checked': {
-      color: theme.palette.error.main,
       '&:hover': {
-        backgroundColor: fade(theme.palette.error.main, theme.palette.action.hoverOpacity),
-        // Reset on touch devices, it doesn't add specificity
         '@media (hover: none)': {
           backgroundColor: 'transparent',
         },
+        // Reset on touch devices, it doesn't add specificity
+        backgroundColor: fade(theme.palette.krowdy.main, theme.palette.action.hoverOpacity),
       },
+      color: theme.palette.krowdy.main,
     },
     '&$disabled': {
       color: theme.palette.action.disabled,
     },
   },
   disabled: {
-  },
-  checked: {
   }
 }), {
   name: 'KrowdyCheckbox'
@@ -84,11 +84,11 @@ Checkbox.propTypes = {
   /**
    * @ignore
    */
-  classes: PropTypes.object,
+  className: PropTypes.string,
   /**
    * @ignore
    */
-  className: PropTypes.string,
+  classes: PropTypes.object,
   /**
    * The color of the component. It supports those theme colors that make sense for this component.
    */

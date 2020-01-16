@@ -1,1 +1,1 @@
-export { default } from './jssPreset';
+export { default } from './jssPreset'

@@ -3,21 +3,33 @@ const path = require('path');
 
 module.exports = {
   root: true, // So parent files don't get applied
-  globals: {
-    preval: false, // Used in the documentation
-  },
+  // globals: {
+  //   preval: false, // Used in the documentation
+  // },
   env: {
     es6: true,
     browser: true,
     node: true,
   },
-  extends: ['plugin:import/recommended', 'airbnb', 'prettier', 'prettier/react'],
+  extends: [
+    // 'plugin:import/recommended',
+    'react-app'
+    // 'airbnb', 
+    // 'prettier', 
+    // 'prettier/react'
+  ],
   parser: 'babel-eslint',
   parserOptions: {
-    ecmaVersion: 7,
+    ecmaVersion: 6,
     sourceType: 'module',
   },
-  plugins: ['babel', 'mocha', 'react-hooks'], //'material-ui', 
+  plugins: [
+    // 'babel',
+    'mocha',
+    // 'react-hooks',
+    'react',
+    'sort-keys-fix'
+  ], //'material-ui', 
   settings: {
     'import/resolver': {
       webpack: {
@@ -30,11 +42,28 @@ module.exports = {
    * their own groups.
    */
   rules: {
+    'semi': ['error', 'never'],
+    'quotes': [
+      'error',
+      'single',
+      {
+        'avoidEscape': true
+      }
+    ],
+    "jsx-quotes": ["error", "prefer-single"],
+    "quote-props": [
+      2,
+      "as-needed",
+      {
+        "keywords": true
+      }
+    ],
+    'sort-keys-fix/sort-keys-fix': 'error',
     'consistent-this': ['error', 'self'],
     'linebreak-style': 'off', // Doesn't play nicely with Windows
     'no-alert': 'error',
     // Strict, airbnb is using warn; allow warn and error for dev environments
-    'no-console': ['error', { allow: ['warn', 'error'] }],
+    'no-console': ['warn', { allow: ['warn', 'error'] }],
     'no-constant-condition': 'error',
     // Airbnb use error
     'no-param-reassign': 'off',
@@ -43,7 +72,7 @@ module.exports = {
     // we have to be disciplined about the usage and ensure the Number type for its
     // arguments
     'no-restricted-globals': ['error'].concat(confusingBrowserGlobals),
-    'no-underscore-dangle': ['error', { allow: ['_rewriteUrlForNextExport'] }],
+    // 'no-underscore-dangle': ['error', { allow: ['_rewriteUrlForNextExport'] }],
     'prefer-arrow-callback': ['error', { allowNamedFunctions: true }],
     'prefer-destructuring': 'off', // Destructuring harm grep potential.
 
@@ -70,7 +99,7 @@ module.exports = {
         eventHandlerPropPrefix: 'on',
       },
     ],
-    'react/no-danger': 'error',
+    // 'react/no-danger': 'error',
     // Strict, airbnb is using off
     'react/no-direct-mutation-state': 'error',
     'react/no-find-dom-node': 'off',
@@ -120,16 +149,16 @@ module.exports = {
         'mocha/valid-suite-description': 'error',
       },
     },
-    {
-      files: ['docs/src/**/*.js'],
-      rules: {
-        'material-ui/no-hardcoded-labels': [
-          'error',
-          { 
-            allow: ['Material-UI', 'Twitter', 'GitHub', 'Spectrum', 'StackOverflow'] 
-          },
-        ],
-      },
-    },
+    // {
+    //   files: ['docs/src/**/*.js'],
+    //   rules: {
+    //     'material-ui/no-hardcoded-labels': [
+    //       'error',
+    //       { 
+    //         allow: ['Material-UI', 'Twitter', 'GitHub', 'Spectrum', 'StackOverflow'] 
+    //       },
+    //     ],
+    //   },
+    // },
   ],
 };

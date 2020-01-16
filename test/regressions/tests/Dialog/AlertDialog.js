@@ -1,10 +1,10 @@
-import React from 'react';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
+import React from 'react'
+import DialogActions from '@material-ui/core/DialogActions'
+import DialogContent from '@material-ui/core/DialogContent'
+import DialogContentText from '@material-ui/core/DialogContentText'
+import DialogTitle from '@material-ui/core/DialogTitle'
+import Paper from '@material-ui/core/Paper'
+import Button from '@material-ui/core/Button'
 
 export default function AlertDialog() {
   return (
@@ -22,9 +22,9 @@ export default function AlertDialog() {
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button color="primary">Disagree</Button>
-        <Button color="primary">Agree</Button>
+        <Button color='primary'>Disagree</Button>
+        <Button color='primary'>Agree</Button>
       </DialogActions>
     </Paper>
-  );
+  )
 }

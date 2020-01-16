@@ -1,113 +1,113 @@
-import React from 'react';
+import React from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import MuiButton from '@material-ui/core/Button'
-import capitalize from '../utils/capitalize';
-import withStyles from '../styles/withStyles';
-import { fade } from '../styles/colorManipulator';
+import capitalize from '../utils/capitalize'
+import withStyles from '../styles/withStyles'
+import { fade } from '../styles/colorManipulator'
 
 export const styles = theme => ({
-  textKrowdy: {
-    color: theme.palette.krowdy.main,
-    '&:hover': {
-      backgroundColor: fade(theme.palette.krowdy.main, theme.palette.action.hoverOpacity),
-      '@media (hover: none)': {
-        backgroundColor: 'transparent',
-      },
-    },
-  },
-  textError: {
-    color: theme.palette.error.main,
-    '&:hover': {
-      backgroundColor: fade(theme.palette.error.main, theme.palette.action.hoverOpacity),
-      '@media (hover: none)': {
-        backgroundColor: 'transparent',
-      },
-    },
-  },
   contained: {
     '&:hover': {
       boxShadow: 'none'
     },
     boxShadow: 'none'
   },
-  containedPrimary: {
-    color: theme.palette.primary.contrastText,
-    backgroundColor: theme.palette.primary.main,
-    '&:hover': {
-      backgroundColor: theme.palette.primary.light,
-      // Reset on touch devices, it doesn't add specificity
-      '@media (hover: none)': {
-        backgroundColor: theme.palette.primary.main,
-      },
-    },
-  },
-  containedSecondary: {
-    color: theme.palette.secondary.contrastText,
-    backgroundColor: theme.palette.secondary.main,
-    '&:hover': {
-      backgroundColor: theme.palette.secondary.light,
-      // Reset on touch devices, it doesn't add specificity
-      '@media (hover: none)': {
-        backgroundColor: theme.palette.secondary.main,
-      },
-    },
-  },
-  containedKrowdy: {
-    color: theme.palette.krowdy.contrastText,
-    backgroundColor: theme.palette.krowdy.main,
-    '&:hover': {
-      backgroundColor: theme.palette.krowdy.light,
-      // Reset on touch devices, it doesn't add specificity
-      '@media (hover: none)': {
-        backgroundColor: theme.palette.krowdy.main,
-      },
-    },
-  },
   containedError: {
-    color: theme.palette.error.contrastText,
-    backgroundColor: theme.palette.error.main,
     '&:hover': {
-      backgroundColor: theme.palette.error.light,
-      // Reset on touch devices, it doesn't add specificity
       '@media (hover: none)': {
         backgroundColor: theme.palette.error.main,
       },
-    },
-  },
-  outlinedKrowdy: {
-    color: theme.palette.krowdy.main,
-    border: `1px solid ${fade(theme.palette.krowdy.main, 0.5)}`,
-    '&:hover': {
-      border: `1px solid ${theme.palette.krowdy.main}`,
-      backgroundColor: fade(theme.palette.krowdy.main, theme.palette.action.hoverOpacity),
       // Reset on touch devices, it doesn't add specificity
-      '@media (hover: none)': {
-        backgroundColor: 'transparent',
-      },
+      backgroundColor: theme.palette.error.light,
     },
+    backgroundColor: theme.palette.error.main,
+    color: theme.palette.error.contrastText,
+  },
+  containedKrowdy: {
+    '&:hover': {
+      '@media (hover: none)': {
+        backgroundColor: theme.palette.krowdy.main,
+      },
+      // Reset on touch devices, it doesn't add specificity
+      backgroundColor: theme.palette.krowdy.light,
+    },
+    backgroundColor: theme.palette.krowdy.main,
+    color: theme.palette.krowdy.contrastText,
+  },
+  containedPrimary: {
+    '&:hover': {
+      '@media (hover: none)': {
+        backgroundColor: theme.palette.primary.main,
+      },
+      // Reset on touch devices, it doesn't add specificity
+      backgroundColor: theme.palette.primary.light,
+    },
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.primary.contrastText,
+  },
+  containedSecondary: {
+    '&:hover': {
+      '@media (hover: none)': {
+        backgroundColor: theme.palette.secondary.main,
+      },
+      // Reset on touch devices, it doesn't add specificity
+      backgroundColor: theme.palette.secondary.light,
+    },
+    backgroundColor: theme.palette.secondary.main,
+    color: theme.palette.secondary.contrastText,
+  },
+  disabled:{},
+  fullWidth: {},
+  outlinedError: {
     '&$disabled': {
       border: `1px solid ${theme.palette.action.disabled}`,
     },
-  },
-  outlinedError: {
-    color: theme.palette.error.main,
-    border: `1px solid ${fade(theme.palette.error.main, 0.5)}`,
     '&:hover': {
-      border: `1px solid ${theme.palette.error.main}`,
+      '@media (hover: none)': {
+        backgroundColor: 'transparent',
+      },
       backgroundColor: fade(theme.palette.error.main, theme.palette.action.hoverOpacity),
       // Reset on touch devices, it doesn't add specificity
-      '@media (hover: none)': {
-        backgroundColor: 'transparent',
-      },
+      border: `1px solid ${theme.palette.error.main}`,
     },
+    border: `1px solid ${fade(theme.palette.error.main, 0.5)}`,
+    color: theme.palette.error.main,
+  },
+  outlinedKrowdy: {
     '&$disabled': {
       border: `1px solid ${theme.palette.action.disabled}`,
     },
+    '&:hover': {
+      '@media (hover: none)': {
+        backgroundColor: 'transparent',
+      },
+      backgroundColor: fade(theme.palette.krowdy.main, theme.palette.action.hoverOpacity),
+      // Reset on touch devices, it doesn't add specificity
+      border: `1px solid ${theme.palette.krowdy.main}`,
+    },
+    border: `1px solid ${fade(theme.palette.krowdy.main, 0.5)}`,
+    color: theme.palette.krowdy.main,
   },
   /* Pseudo-class applied to the root element if `disabled={true}`. */
-  disabled:{},
-  fullWidth: {}
+  textError: {
+    '&:hover': {
+      '@media (hover: none)': {
+        backgroundColor: 'transparent',
+      },
+      backgroundColor: fade(theme.palette.error.main, theme.palette.action.hoverOpacity),
+    },
+    color: theme.palette.error.main,
+  },
+  textKrowdy: {
+    '&:hover': {
+      '@media (hover: none)': {
+        backgroundColor: 'transparent',
+      },
+      backgroundColor: fade(theme.palette.krowdy.main, theme.palette.action.hoverOpacity),
+    },
+    color: theme.palette.krowdy.main,
+  }
 })
 
 const Button = React.forwardRef(function Button({ color = 'default', variant = 'text', ...props }, ref) {
@@ -143,11 +143,11 @@ Button.propTypes = {
    * Override or extend the styles applied to the component.
    * See [CSS API](#css) below for more details.
    */
-  classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
   /**
    * @ignore
    */
-  className: PropTypes.string,
+  classes: PropTypes.object.isRequired,
   /**
    * The color of the component. It supports those theme colors that make sense for this component.
    */
@@ -162,4 +162,4 @@ Button.propTypes = {
   variant: PropTypes.oneOf(['text', 'outlined', 'contained']),
 }
 
-export default withStyles(styles, { name: 'KrowdyButton' })(Button);
+export default withStyles(styles, { name: 'KrowdyButton' })(Button)

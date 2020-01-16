@@ -1,1 +1,1 @@
-export { default } from './GridListTileBar';
+export { default } from './GridListTileBar'

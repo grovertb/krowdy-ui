@@ -1,4 +1,4 @@
-import { spy } from 'sinon';
+import { spy } from 'sinon'
 
 /**
  * One alternative to this module is to use something like:
@@ -17,30 +17,30 @@ class ConsoleErrorMock {
   consoleErrorContainer;
 
   spy = () => {
-    this.consoleErrorContainer = console.error;
-    console.error = spy();
+    this.consoleErrorContainer = console.error
+    console.error = spy()
   };
 
   reset = () => {
-    console.error = this.consoleErrorContainer;
-    delete this.consoleErrorContainer;
+    console.error = this.consoleErrorContainer
+    delete this.consoleErrorContainer
   };
 
   callCount = () => {
     if (this.consoleErrorContainer) {
-      return console.error.callCount;
+      return console.error.callCount
     }
 
-    throw new Error('Requested call count before spy() was called');
+    throw new Error('Requested call count before spy() was called')
   };
 
   args = () => {
     if (this.consoleErrorContainer) {
-      return console.error.args;
+      return console.error.args
     }
 
-    throw new Error('Requested call count before spy() was called');
+    throw new Error('Requested call count before spy() was called')
   };
 }
 
-export default new ConsoleErrorMock();
+export default new ConsoleErrorMock()

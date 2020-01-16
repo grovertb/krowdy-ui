@@ -1,34 +1,34 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
-import { makeStyles } from '@material-ui/styles';
-import MuiFab from '@material-ui/core/Fab';
+import { makeStyles } from '@material-ui/styles'
+import MuiFab from '@material-ui/core/Fab'
 
 const useStyles = makeStyles(theme => {
   return ({
     /* Styles applied to the root element if `color="krowdy"`. */
-    krowdy: {
-      color: theme.palette.krowdy.contrastText,
-      backgroundColor: theme.palette.krowdy.main,
-      '&:hover': {
-        backgroundColor: theme.palette.krowdy.dark,
-        // Reset on touch devices, it doesn't add specificity
-        '@media (hover: none)': {
-          backgroundColor: theme.palette.krowdy.main,
-        },
-      },
-    },
-    /* Styles applied to the root element if `color="error"`. */
     error: {
-      color: theme.palette.error.contrastText,
-      backgroundColor: theme.palette.error.main,
       '&:hover': {
-        backgroundColor: theme.palette.error.dark,
-        // Reset on touch devices, it doesn't add specificity
         '@media (hover: none)': {
           backgroundColor: theme.palette.error.main,
         },
+        // Reset on touch devices, it doesn't add specificity
+        backgroundColor: theme.palette.error.dark,
       },
+      backgroundColor: theme.palette.error.main,
+      color: theme.palette.error.contrastText,
+    },
+    /* Styles applied to the root element if `color="error"`. */
+    krowdy: {
+      '&:hover': {
+        '@media (hover: none)': {
+          backgroundColor: theme.palette.krowdy.main,
+        },
+        // Reset on touch devices, it doesn't add specificity
+        backgroundColor: theme.palette.krowdy.dark,
+      },
+      backgroundColor: theme.palette.krowdy.main,
+      color: theme.palette.krowdy.contrastText,
     },
   })
 })

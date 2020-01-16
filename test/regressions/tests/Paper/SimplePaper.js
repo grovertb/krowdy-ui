@@ -1,10 +1,10 @@
-import React from 'react';
-import Paper from '@material-ui/core/Paper';
+import React from 'react'
+import Paper from '@material-ui/core/Paper'
 
 const style = {
   margin: 15,
   padding: 30,
-};
+}
 
 export default function SimplePaper() {
   return (
@@ -13,5 +13,5 @@ export default function SimplePaper() {
       <Paper style={style} square />
       <Paper style={style} elevation={6} />
     </div>
-  );
+  )
 }

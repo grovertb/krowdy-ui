@@ -1,1 +1,1 @@
-export { default } from './ListItemAvatar';
+export { default } from './ListItemAvatar'

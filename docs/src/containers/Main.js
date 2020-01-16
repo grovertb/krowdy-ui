@@ -2,15 +2,14 @@ import React from 'react'
 import { useLocation } from 'react-router-dom'
 import { ThemeProvider, makeStyles } from '@krowdy-ui/styles'
 import { CssBaseline, createMuiTheme, krowdyTheme, Container } from '@krowdy-ui/core'
-
 import Header from '../components/Header'
 
 const useStyles = makeStyles({
-  root: {
-    display: 'flex'
-  },
   drawer: {
     width: 0
+  },
+  root: {
+    display: 'flex'
   },
   spaceDefault: {
     marginTop: 96
