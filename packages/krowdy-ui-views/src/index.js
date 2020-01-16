@@ -1,4 +1,4 @@
 export { default as Header } from './Header'
 export { default as JobDetail } from './JobDetail'
 export { default as CardUser } from './CardUser'
-export {default as Modal } from './ModalKrowder'
+export {default as ModalKrowder } from './ModalKrowder'
