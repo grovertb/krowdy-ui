@@ -4,6 +4,7 @@ import clsx from 'clsx'
 import { withStyles } from '@krowdy-ui/core/styles'
 import { Input, Button } from '@krowdy-ui/core'
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
+import InputComponent from './InputsTextField'
 
 export const styles = theme => ({
   button: {
@@ -30,14 +31,13 @@ export const styles = theme => ({
   inputsContent: {
     alignContent: 'flex-start',
     display: 'flex',
-    flexDirection: 'column',
-    minWidth: '80%',
+    minWidth: '70%',
   },
   label: {
     fontSize: '1.5rem'
   },
-  lastInput:{
-    marginLeft:theme.spacing(10),
+  lastInput: {
+    marginLeft: theme.spacing(8),
     minWidth: '75%'
   },
   order: {
@@ -49,9 +49,9 @@ export const styles = theme => ({
     },
     color: theme.palette.grey[700],
     margin: theme.spacing(0, 1, 1, 2),
-    minWidth: '80%'
   },
 })
+
 
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list)
@@ -109,37 +109,13 @@ const Questionary = props => {
                     <div className={clsx(styles.iconDragContainer)}>
                       {iconDrag}
                     </div>
-                    <span className={classes.order}>
-                      {(index + 1 < 10) ? `0${index + 1}.` : `${index + 1}.`}
-                    </span>
                     <div className={classes.inputsContent}>
-                      <Input
-                        className={classes.textField}
+                      <InputComponent
+                        instructions={showInstructions}
                         disabled={disabled}
-                        multiline
-                        onChange={event => {
-                          onUpdateItem(item._id, {
-                            question: event.target.value
-                          })
-                        }
-                        }
-                        rowsMax={3}
-                        value={item.question} />
-                      {
-                        showInstructions &&
-                        <Input
-                          className={classes.textField}
-                          disabled={disabled}
-                          multiline
-                          onChange={event => {
-                            onUpdateItem(item._id, {
-                              instructions: event.target.value
-                            })
-                          }
-                          }
-                          rowsMax={4}
-                          value={item.instructions} />
-                      }
+                        item={item}
+                        order={(index + 1 < 10) ? `0${index + 1}.` : `${index + 1}.`}
+                        onUpdateItem={onUpdateItem} />
                     </div>
                     <Button
                       className={clsx(classes.button, classes.right)}
