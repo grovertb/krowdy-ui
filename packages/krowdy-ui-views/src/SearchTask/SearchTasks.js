@@ -27,9 +27,15 @@ export const styles = theme => ({
     }
   },
   search: {
+    '&:hover': {
+      borderBottom: `1px solid ${theme.palette.primary[400]}`,
+    },
+    borderBottom: `1px solid ${theme.palette.grey[400]}`,
+    color: theme.palette.grey[700],
     margin: theme.spacing(2),
-    width: '88%',
-  }
+    minWidth: '88%',
+  },
+
 })
 
 
@@ -53,8 +59,9 @@ const SearchTasks = props => {
       <Input
         className={classes.search}
         color='secondary'
-        placeholder='Buscar Tarea'
+        placeholder='Buscar tarea'
         endAdornment={iconOnSeeker}
+        disableUnderline
         {...propsInput}
       />
       <List className={classes.list} key='firtsList' {...propsLists}>

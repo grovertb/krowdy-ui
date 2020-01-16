@@ -22,7 +22,12 @@ const items = [{
 }]
 
 export default function () {
+  const [questions, setItems] = React.useState(items)
 
+  const deleteItem = (id) => {
+    const newQuestions = [...questions.slice(0, id), ...questions.slice(id + 1)]
+    setItems(newQuestions)
+  }
   return (
     <Grid container justify='center'>
       <Grid item xs={10}>
@@ -30,7 +35,9 @@ export default function () {
           items={items}
           iconDrag={<DragIndicator />}
           iconRemove={<RemoveCircleOutline color='error' />}
-          addInputComponent={<Input placeholder='Escriba una nueva pregunta' />}
+          addInputComponent={<Input placeholder='Escriba una nueva pregunta' classes={{ width: '100%' }} />}
+          onDeleteItem={deleteItem} // logica para eliminar
+          showInstructions={true}
         />
       </Grid>
     </Grid>

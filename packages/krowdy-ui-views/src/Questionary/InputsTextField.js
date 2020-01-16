@@ -1,8 +1,8 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-/* import clsx from 'clsx'
- */import { withStyles } from '@krowdy-ui/core/styles'
+import { withStyles } from '@krowdy-ui/core/styles'
+import clsx from 'clsx'
 import { Input } from '@krowdy-ui/core'
 
 export const styles = theme => ({
@@ -10,6 +10,9 @@ export const styles = theme => ({
     display: 'flex',
     flexDirection: 'row',
     width: '100%'
+  },
+  focused: {
+    borderBottom: `1px solid ${theme.palette.primary[600]}`,
   },
   inputsContent: {
     alignContent: 'flex-start',
@@ -22,52 +25,54 @@ export const styles = theme => ({
   },
   textField: {
     '&:hover': {
-      color: theme.palette.primary[600]
+      borderBottom: `1px solid ${theme.palette.primary[400]}`,
     },
+    borderBottom: `1px solid ${theme.palette.grey[400]}`,
     color: theme.palette.grey[700],
-    margin: theme.spacing(0, 1, 1, 2),
+    margin: theme.spacing(0, 1, 2, 1),
   },
 })
 
 const InputComponent = (props) => {
   const { classes, instructions, disabled, item, onUpdateItem, order } = props
 
-  return (
-    <div className={classes.container}>
-      <span className={classes.order}>
-        {order}
-      </span>
-      <div className={classes.inputsContent}>
+  return (<div className={classes.container}>
+    <span className={classes.order}>
+      {order}
+    </span>
+    <div className={classes.inputsContent}>
+      <Input
+        className={clsx(classes.textField, classes.focused)}
+        disableUnderline
+        autoFocus
+        disabled={disabled}
+        multiline
+        onChange={event => {
+          onUpdateItem(item._id, {
+            question: event.target.value
+          })
+        }}
+        placeholder='Escribe una pregunta'
+        rowsMax={3}
+        defaultValue={item.question} />
+      {
+        instructions &&
         <Input
-          className={classes.textField}
-          autoFocus
+          disableUnderline
+          className={clsx(classes.textField)}
           disabled={disabled}
           multiline
           onChange={event => {
             onUpdateItem(item._id, {
-              question: event.target.value
+              instructions: event.target.value
             })
-          }
-          }
-          rowsMax={3}
-          value={item.question} />
-        {
-          instructions &&
-          <Input
-            className={classes.textField}
-            disabled={disabled}
-            multiline
-            onChange={event => {
-              onUpdateItem(item._id, {
-                instructions: event.target.value
-              })
-            }
-            }
-            rowsMax={4}
-            value={item.instructions} />
-        }
-      </div>
-    </div>)
+          }}
+          placeholder='Agrega instrucciones para Krowder'
+          rowsMax={4}
+          defaultValue={item.instructions} />
+      }
+    </div>
+  </div>)
 }
 
 InputComponent.propTypes = {

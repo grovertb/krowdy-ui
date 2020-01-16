@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import { withStyles } from '@krowdy-ui/core/styles'
-import { Button } from '@krowdy-ui/core'
+import { Button, Grid } from '@krowdy-ui/core'
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
 import InputComponent from './InputsTextField'
 
@@ -13,42 +13,22 @@ export const styles = theme => ({
     },
     paddingTop: 0
   },
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    width: '100%'
-  },
   divQuestion: {
-    alignItems: 'flex-start',
-    display: 'flex',
     flexDirection: 'row',
     fontSize: '1rem',
-    margin: theme.spacing(0, 2, 2, 2)
   },
   iconDragContainer: {
     color: theme.palette.grey[500]
-  },
-  inputsContent: {
-    alignContent: 'flex-start',
-    display: 'flex',
-    minWidth: '70%',
   },
   label: {
     fontSize: '1.5rem'
   },
   lastInput: {
-    marginLeft: theme.spacing(8),
-    minWidth: '75%'
+    margin: 'auto',
+    paddingLeft: theme.spacing(1)
   },
   order: {
     fontWeight: 'bold'
-  },
-  textField: {
-    '&:hover': {
-      color: theme.palette.primary[600]
-    },
-    color: theme.palette.grey[700],
-    margin: theme.spacing(0, 1, 1, 2),
   },
 })
 
@@ -87,50 +67,53 @@ const Questionary = props => {
   }
 
   return (
-    <div className={classes.container} >
-      <DragDropContext onDragEnd={onDragEnd} >
-        <Droppable direction='vertical' droppableId='droppable'>
-          {(provided) => (<div
-            {...provided.droppableProps}
-            ref={provided.innerRef}>
-            {items.map((item, index) => (
-              <Draggable draggableId={item._id} index={index} key={item._id}>
-                {(provided) => (
-                  <div
-                    className={classes.divQuestion}
-                    ref={provided.innerRef}
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}>
-                    <div className={clsx(styles.iconDragContainer)}>
-                      {(iconDrag) ? iconDrag : null}
-                    </div>
-                    <div className={classes.inputsContent}>
-                      <InputComponent
-                        instructions={showInstructions}
-                        disabled={disabled}
-                        item={item}
-                        order={(index + 1 < 10) ? `0${index + 1}.` : `${index + 1}.`}
-                        onUpdateItem={onUpdateItem} />
-                    </div>
-                    <Button
-                      className={clsx(classes.button, classes.right)}
-                      disabled={disabled}
-                      onClick={() => onDeleteItem(item._id)}>
-                      {(iconRemove) ? iconRemove : null}
-                    </Button>
-                  </div>
-                )}
-              </Draggable>
-            ))}
-            {provided.placeholder}
-          </div>)
-          }
-        </Droppable>
-      </DragDropContext>
-      <div className={clsx(classes.lastInput)}>
+    <Grid container>
+      <Grid item xs={12} >
+        <DragDropContext onDragEnd={onDragEnd} >
+          <Droppable direction='vertical' droppableId='droppable'>
+            {(provided) => (<div
+              {...provided.droppableProps}
+              ref={provided.innerRef}>
+              {items.map((item, index) => (
+                <Draggable draggableId={item._id} index={index} key={item._id}>
+                  {(provided) => (
+                    <Grid container
+                      className={classes.divQuestion}
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}>
+                      <Grid item className={clsx(classes.iconDragContainer)}>
+                        {(iconDrag) ? iconDrag : null}
+                      </Grid>
+                      <Grid item xs={10} className={classes.inputsContent}>
+                        <InputComponent
+                          instructions={showInstructions}
+                          disabled={disabled}
+                          item={item}
+                          order={(index + 1 < 10) ? `0${index + 1}.` : `${index + 1}.`}
+                          onUpdateItem={onUpdateItem} />
+                      </Grid>
+                      <Grid item>
+                        <Button
+                          className={clsx(classes.button, classes.right)}
+                          disabled={disabled}
+                          onClick={() => onDeleteItem(item._id)}>
+                          {(iconRemove) ? iconRemove : null}
+                        </Button></Grid>
+                    </Grid>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </div>)
+            }
+          </Droppable>
+        </DragDropContext>
+      </Grid>
+      <Grid item xs={11} className={clsx(classes.lastInput)}>
         {addInputComponent}
-      </div>
-    </div>
+      </Grid>
+    </Grid>
   )
 }
 
