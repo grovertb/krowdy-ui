@@ -36,6 +36,40 @@ export default function () {
       alt: 'Logo',
       source: 'https://site.krowdy.com/wp-content/uploads/2019/01/14153940/logoKrowdymenu.png'
     }}
+    menuTopLeft={[
+      {
+        target: '_self',
+        title: 'View card',
+        type: 'button',
+        url: '/views/carduser'
+      },
+      {
+        target: '_blank',
+        title: 'Google',
+        type: 'link',
+        url: 'https://google.com'
+      },
+      {
+        target: '_blank',
+        title: 'Link interno',
+        type: 'link',
+        url: '/views'
+      },
+    ]}
+    menuTopRight={[
+      {
+        target: '_self',
+        title: 'View card',
+        type: 'link',
+        url: '/views/carduser'
+      },
+      {
+        target: '_blank',
+        title: 'Google',
+        type: 'button',
+        url: 'https://google.com'
+      }
+    ]}
     menus={[
       {
         icon: 'Home',

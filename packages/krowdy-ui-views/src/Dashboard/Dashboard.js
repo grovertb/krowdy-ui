@@ -18,6 +18,7 @@ import {
   ListItem,
   Menu,
   Link,
+  Button,
   // ListItemIcon,
   ListItemText,
   // Icon
@@ -177,6 +178,31 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'space-between',
     paddingRight  : 24 // keep right padding when drawer closed
   },
+  toolbarCenter: {
+    display: 'flex',
+    flex: 1,
+    justifyContent: 'space-between',
+    padding: '0 10px',
+  },
+  toolbarCenterLeft: {
+    '& > a': {
+      marginLeft: '10px'
+    },
+      '& > a:first-child': {
+      marginLeft: '0'
+    },
+    display: 'flex',
+    padding: '0 10px'
+  },
+  toolbarCenterRight: {
+    '& > a': {
+      marginRight: '10px'
+    },
+      '& > a:last-child': {
+      marginRight: '0'
+    },
+    display: 'flex'
+  },
   topBar: {
     backgroundColor: '#fff'
   },
@@ -193,7 +219,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent : 'center',
     margin         : 12
     // width          : '100%'
-  },
+  }
 }))
 
 const validURL = str => new RegExp('^(https?:\\/\\/)?' +
@@ -206,10 +232,12 @@ const validURL = str => new RegExp('^(https?:\\/\\/)?' +
 function Dashboard(props) {
   const {
     user,
-    userMenu,
+    userMenu = [],
     actions,
     logo,
-    menus,
+    menus = [],
+    menuTopLeft = [],
+    menuTopRight = [],
     children
   } = props
   
@@ -244,6 +272,92 @@ function Dashboard(props) {
               data-test='logo'
               src={logo.source} />
           </Link>
+          <div className={classes.toolbarCenter}>
+            <div className={classes.toolbarCenterLeft}>
+            {
+              menuTopLeft.length ?
+              menuTopLeft.map((item, n) => {
+                switch (item.type) {
+                  case 'button':
+                    if(validURL(item.url)) {
+                      return <Button
+                          key={n}
+                          color='primary'
+                          variant='contained'
+                          href={item.url}
+                          target={item.target ? item.target : '_blank'}>{item.title}</Button>
+                    }else {
+                      return <Button
+                          key={n}
+                          color='primary'
+                          variant='contained'
+                          component={RouterLink}
+                          to={item.url}>
+                        {item.title}
+                      </Button>
+                    }
+                
+                  default:
+                    if(validURL(item.url)) {
+                      return <Button
+                          key={n}
+                          href={item.url}
+                          target={item.target ? item.target : '_blank'}>{item.title}</Button>
+                    }else {
+                      return <Button
+                        key={n}
+                        component={RouterLink}
+                        to={item.url}>
+                        {item.title}
+                      </Button>
+                    }
+                }
+              }) : null
+            }
+            </div>
+            <div className={classes.toolbarCenterRight}>
+            {
+              menuTopRight.length ?
+              menuTopRight.map((item, n) => {
+                switch (item.type) {
+                  case 'button':
+                    if(validURL(item.url)) {
+                      return <Button
+                          key={n}
+                          color='primary'
+                          variant='contained'
+                          href={item.url}
+                          target={item.target ? item.target : '_blank'}>{item.title}</Button>
+                    }else {
+                      return <Button
+                          key={n}
+                          color='primary'
+                          variant='contained'
+                          component={RouterLink}
+                          to={item.url}>
+                        {item.title}
+                      </Button>
+                    }
+                
+                  default:
+                    if(validURL(item.url)) {
+                      return <Button
+                          key={n}
+                          href={item.url}
+                          target={item.target ? item.target : '_blank'}>{item.title}</Button>
+                    }else {
+                      return <Button
+                        key={n}
+                        component={RouterLink}
+                        to={item.url}>
+                        {item.title}
+                      </Button>
+                    }
+                }
+              }) : null
+            }
+            </div>
+          </div>
           <div>
             <IconButton
               aria-controls='simple-menu'
@@ -290,6 +404,7 @@ function Dashboard(props) {
                   <Divider />
                 </li>
                 {
+                  userMenu.length ?
                   userMenu.map((item, n) => (
                     item.type === 'action' ?
                       <MenuItem
@@ -316,7 +431,7 @@ function Dashboard(props) {
                               {item.title}
                             </Link>
                           </MenuItem>
-                  ))
+                  )) : null
                 }
             </Menu>
           </div>
@@ -350,6 +465,7 @@ function Dashboard(props) {
             </ListItem>
             <Divider />
             {
+              menus.length ?
               menus.map((item, n) => (
                 validURL(item.url) ?
                   <ListItem
@@ -407,7 +523,7 @@ function Dashboard(props) {
                           primary={item.title} />
                       </Link>
                 </ListItem>
-              ))
+              )) : null
             }
           </List>
           </Drawer>

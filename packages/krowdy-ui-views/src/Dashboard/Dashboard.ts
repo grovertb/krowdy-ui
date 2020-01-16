@@ -1,18 +1,11 @@
 export type DashboardProps = {
-  jobId?: string,
-  basicEdition?: object[];
-  benefits?: object[];
-  company?: object;
-  competencies?: object[];
-  description?: string | object;
-  detailJob?: object[];
-  onClickPostulation?: Function;
-  requirements?: object[];
-  title?: string;
-  userInJob?: boolean;
-  visibleInformation?: boolean;
-  expirationDate?: string;
-  disabledPerson?: object;
+  user?: object;
+  userMenu?: object[];
+  menus?: object[];
+  menuTopLeft?: object[];
+  menuTopRight?: object[];
+  actions?: object;
+  logo?: object;
 };
 
 declare const Dashboard: React.ComponentType<DashboardProps>;
