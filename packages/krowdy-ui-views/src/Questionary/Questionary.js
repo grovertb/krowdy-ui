@@ -11,7 +11,12 @@ export const styles = theme => ({
     '&:hover': {
       backgroundColor: 'transparent'
     },
-    paddingTop: 0
+    paddingTop: 2
+  },
+  container: {
+    maxHeight: '100%',
+    overflow: 'auto',
+    width: '100%'
   },
   divQuestion: {
     flexDirection: 'row',
@@ -43,13 +48,14 @@ const reorder = (list, startIndex, endIndex) => {
 
 const Questionary = props => {
   const {
+    addInputComponent,
     classes,
     iconRemove,
     iconDrag,
-    disabled = false,
+    disabled,
     items = [],
-    addInputComponent,
-    onSetItems = () => { },
+/*     inputComponent: InputComponent,
+ */ onSetItems = () => { },
     showInstructions = true,
     onDeleteItem = () => { },
     onUpdateItem = () => { }
@@ -67,11 +73,12 @@ const Questionary = props => {
   }
 
   return (
-    <Grid container>
+    <Grid container >
       <Grid item xs={12} >
         <DragDropContext onDragEnd={onDragEnd} >
           <Droppable direction='vertical' droppableId='droppable'>
             {(provided) => (<div
+              className={classes.container}
               {...provided.droppableProps}
               ref={provided.innerRef}>
               {items.map((item, index) => (
@@ -95,7 +102,7 @@ const Questionary = props => {
                       </Grid>
                       <Grid item>
                         <Button
-                          className={clsx(classes.button, classes.right)}
+                          className={clsx(classes.button)}
                           disabled={disabled}
                           onClick={() => onDeleteItem(item._id)}>
                           {(iconRemove) ? iconRemove : null}
@@ -123,7 +130,8 @@ Questionary.propTypes = {
   disabled: PropTypes.bool,
   iconDrag: PropTypes.node,
   iconRemove: PropTypes.node,
-  items: PropTypes.array.isRequired,
+/*   inputComponent: PropTypes.func.isRequired,
+ */  items: PropTypes.array.isRequired,
   onDeleteItem: PropTypes.func,
   onSetItems: PropTypes.func,
   onUpdateItem: PropTypes.func,

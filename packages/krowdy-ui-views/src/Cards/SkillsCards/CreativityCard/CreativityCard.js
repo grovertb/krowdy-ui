@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { withStyles } from '@krowdy-ui/core/styles'
 import clsx from 'clsx'
 import {
-  Avatar,
   Card,
   CardHeader,
   CardContent,
@@ -11,15 +10,7 @@ import {
 
 export const styles = theme => ({
   card: {
-    '&:hover': {
-      border: `1px solid ${theme.palette.primary[500]}`,
-      boxShadow: '0px 4px 5px rgba(0, 39, 102, 0.08), 0px 3px 14px rgba(0, 39, 102, 0.04), 0px 8px 10px rgba(0, 39, 102, 0.05)'
-    },
-    border: `1px solid ${theme.palette.grey[300]}`,
-    borderRadius: 8,
-    cursor: 'pointer',
-    fontFamily: 'Roboto',
-    fontSize: 14
+
   },
   content: {
     align: 'left',
@@ -44,9 +35,8 @@ export const styles = theme => ({
   }
 })
 
-const CardTask = props => {
+const CreativityCard = props => {
   const {
-    avatarProps,
     classes,
     content,
     title,
@@ -63,7 +53,6 @@ const CardTask = props => {
     >
       <CardHeader
         className={classes.header}
-        avatar={<Avatar {...avatarProps} />}
         title={(!title || typeof title === 'string')
           ? <div className={classes.title}>{title}</div>
           : null}
@@ -73,7 +62,7 @@ const CardTask = props => {
   )
 }
 
-CardTask.propTypes = {
+CreativityCard.propTypes = {
   avatar: PropTypes.node,
   avatarProps: PropTypes.object,
   cardContentProps: PropTypes.object,
@@ -85,6 +74,6 @@ CardTask.propTypes = {
   title: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
 }
 
-CardTask.muiName = 'CardTask'
+CreativityCard.muiName = 'CreativityCard'
 
-export default withStyles(styles, { name: 'KrowdyCardTask' })(CardTask)
+export default withStyles(styles, { name: 'KrowdyCreativityCard' })(CreativityCard)

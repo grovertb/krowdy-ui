@@ -4,4 +4,5 @@ export * from './UserCard'
 export { default as TaskCard } from './TaskCard'
 export * from './TaskCard'
 
-/* export * from './SkillsCards' */
+export { default as SkillsCards } from './SkillsCards'
+export * from './SkillsCards'

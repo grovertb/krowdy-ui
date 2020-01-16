@@ -1,4 +1,6 @@
-export type CardTask = {
+
+
+export type SkillCard = {
 
   avatar?: object[],
   avatarProps?: object,
@@ -11,6 +13,6 @@ export type CardTask = {
   title?: string,
 };
 
-declare const CardTask: React.ComponentType<CardTask>;
+declare const SkillCard: React.ComponentType<SkillCard>;
 
-export default CardTask;
+export default SkillCard;

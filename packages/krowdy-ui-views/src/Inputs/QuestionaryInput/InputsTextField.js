@@ -20,12 +20,8 @@ export const styles = theme => ({
     flexDirection: 'column',
     width: '100%'
   },
-  multiline: {
-    paddingTop: 2
-  },
   order: {
-    fontSize: '14px',
-    fontWeight: 'bold',
+    fontWeight: 'bold'
   },
   textField: {
     '&:hover': {
@@ -33,7 +29,6 @@ export const styles = theme => ({
     },
     borderBottom: `1px solid ${theme.palette.grey[400]}`,
     color: theme.palette.grey[700],
-    fontSize: '14px',
     margin: theme.spacing(0, 1, 2, 1),
   },
 })
@@ -50,9 +45,6 @@ const InputComponent = (props) => {
         className={clsx(classes.textField, classes.focused)}
         disableUnderline
         autoFocus
-        classes={{
-          multiline: classes.multiline
-        }}
         disabled={disabled}
         multiline
         onChange={event => {
@@ -67,9 +59,6 @@ const InputComponent = (props) => {
         <Input
           disableUnderline
           className={clsx(classes.textField)}
-          classes={{
-            multiline: classes.multiline
-          }}
           disabled={disabled}
           multiline
           onChange={event => {
