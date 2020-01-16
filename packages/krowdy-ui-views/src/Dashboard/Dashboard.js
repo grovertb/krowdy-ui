@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import { Link as RouterLink, useHistory } from 'react-router-dom'
+import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import { makeStyles } from '@krowdy-ui/styles' 
 import {
@@ -535,5 +536,18 @@ function Dashboard(props) {
     </div>
   )
 }
+
+Dashboard.propTypes = {
+  actions: PropTypes.object,
+  classes: PropTypes.object,
+  logo: PropTypes.object,
+  menuTopLeft: PropTypes.object,
+  menuTopRight: PropTypes.object,
+  menus: PropTypes.object,
+  user: PropTypes.object,
+  userMenu: PropTypes.object
+}
+
+Dashboard.muiName = 'Dashboard'
 
 export default Dashboard
