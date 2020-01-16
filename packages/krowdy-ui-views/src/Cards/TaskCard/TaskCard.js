@@ -82,7 +82,6 @@ CardTask.propTypes = {
   classes: PropTypes.object,
   content: PropTypes.node,
   focused: PropTypes.bool,
-  iconRight: PropTypes.node,
   onClick: PropTypes.func,
   title: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
 }

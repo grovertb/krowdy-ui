@@ -13,6 +13,5 @@
 | classes  | object  | Modify class.   |
 | content | node  | Card Content  |
 | focused | bool  |  If is true,  element will have styles default |
-| iconRight  | node  | Element in right position   |
 | onClick | func  | Card Function |
 | title   | node o string  |  If is string title     |  
