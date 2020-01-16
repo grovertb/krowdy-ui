@@ -6,35 +6,35 @@ import {
 } from '@krowdy-ui/views'
 import SearchIcon from '@material-ui/icons/Search'
 
-const candidatesSelectIds = [1, 2]
+const candidatesSelectIds = [5]
 const dataSource = [
     {
         firstName: 'Nombres',
-        id: '1',
+        id: 1,
         lastName: 'Apellidos',
         photo: 'foto1'
     },
     {
         firstName: 'Nombres',
-        id: '2',
+        id: 2,
         lastName: 'Apellidos',
         photo: 'foto2'
     },
     {
         firstName: 'Nombres',
-        id: '3',
+        id: 3,
         lastName: 'Apellidos',
         photo: 'foto2'
     },
     {
         firstName: 'Nombres',
-        id: '4',
+        id: 4,
         lastName: 'Apellidos',
         photo: 'foto2'
     },
     {
         firstName: 'Nombres',
-        id: '5',
+        id: 5,
         lastName: 'Apellidos',
         photo: 'foto2'
     }
@@ -56,7 +56,7 @@ export default function () {
 
 
     return (
-        <div>
+        <div style={{ alignItems: 'center', display: 'flex', justifyContent: 'center' }}>
             <SelectCandidates
                 // onChangeIndeterminateCandidates={onChangeIndeterminateCandidates}
                 // checkedCurrentCandidates={checkedCurrentCandidates}

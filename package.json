@@ -92,5 +92,8 @@
       "eslint . --ext .js --fix",
       "git add"
     ]
+  },
+  "dependencies": {
+    "react-infinite-scroll-component": "^5.0.4"
   }
 }

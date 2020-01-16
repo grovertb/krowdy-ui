@@ -1,12 +1,20 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@krowdy-ui/styles'
-import { Card, Avatar, Typography, Checkbox } from '@krowdy-ui/core'
+import { Card, Avatar, Typography, Checkbox, Paper } from '@krowdy-ui/core'
 
 export const styles = theme => ({
 	avatar: {
 		height: 28,
-		width: 28
+		width: 28,
+		fontStyle: 'normal',
+		fontWeight: 'normal',
+		fontSize: 10,
+		lineHeight: '100%',
+		textAlign: 'center',
+		color: '#8C8C8C',
+		backgroundColor: '#FFFFFF',
+		border: '1px solid #E8E8E8'
 	},
 	card: {
 		'&:hover': {
@@ -14,11 +22,15 @@ export const styles = theme => ({
 			border: `0.5px solid ${theme.palette.primary['100']}`
 		},
 		alignItems: 'center',
+		borderRadius: 8,
 		display: 'flex',
+		boxShadow: 'none',
+		boxSizing: 'border-box',
+		border: `1px solid ${theme.palette.grey['400']}`,
 		height: 40,
 		justifyContent: 'space-between',
 		marginBottom: 8,
-		width: 340
+		width: '100%'
 	},
 	checkbox: {
 		height: 28,
@@ -47,6 +59,7 @@ const CardCandidate = props => {
 		checked,
 		id,
 		firstName,
+		initials,
 		lastName,
 		onChangeCheckbox,
 		imageAvatar,
@@ -66,7 +79,7 @@ const CardCandidate = props => {
 
 
 	return (
-		<Card
+		<Paper
 			className={classes.card}
 			key={id}
 		>
@@ -76,7 +89,7 @@ const CardCandidate = props => {
 						checked={checked}
 						className={classes.checkbox}
 						color='primary'
-						onChange={({ target: { checked } }) => onChangeCheckbox(id, checked)}
+						onChange={onChangeCheckbox}
 						onMouseLeave={_handleMouseLeave}
 					/>
 				) : changeCheckbox ?
@@ -84,7 +97,7 @@ const CardCandidate = props => {
 							checked={checked}
 							className={classes.checkbox}
 							color='primary'
-							onChange={({ target: { checked } }) => onChangeCheckbox(id, checked)}
+							onChange={onChangeCheckbox}
 							onMouseLeave={_handleMouseLeave}
 						/>
 						:
@@ -93,8 +106,8 @@ const CardCandidate = props => {
 							onMouseOver={_handleMouseOver}
 							src={imageAvatar}
 						>
-							CA
-            </Avatar>
+							{initials}
+						</Avatar>
 
 			}
 			</div>
@@ -103,19 +116,20 @@ const CardCandidate = props => {
 					{firstName} {lastName}
 				</Typography>
 			</div>
-		</Card>
+		</Paper>
 
 	)
 }
 
 CardCandidate.propTypes = {
+	initials: PropTypes.string,
 	checked: PropTypes.any,
 	classes: PropTypes.object,
 	firstName: PropTypes.string,
 	id: PropTypes.number,
 	imageAvatar: PropTypes.node,
 	lastName: PropTypes.string,
-	onChangeCheckbox: PropTypes.func,
+	onChangeCheckbox: PropTypes.any,
 }
 
 CardCandidate.muiName = 'CardCandidate'
