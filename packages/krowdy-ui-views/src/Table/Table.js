@@ -25,13 +25,11 @@ import MuiTable from '@krowdy-ui/core/Table';
 import IconButton from '@krowdy-ui/core/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import SearchIcon from '@material-ui/icons/Search';
-import AddIcon from '@material-ui/icons/Add'
 
-
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
 	container: {
 		// maxHeight: 400,
-		overflow: 'auto'
+		// overflow: 'auto'
 	},
 	containerSearch: {
 		display: 'flex',
@@ -73,21 +71,50 @@ const useStyles = makeStyles({
 			alignItems: 'center',
 			justifyContent: 'space-between'
 		}
+	},
+	textAmount: {
+		color: theme.palette.primary.main,
+		fontSize: 18,
+		lineHeight: '24px',
+		fontWeight: 'bold'
+	},
+	textTotal: {
+		marginRight: 5,
+		fontSize: 14,
+		lineHeight: '20px',
+		fontWeight: 'bold'
+	},
+	buttonFooter: {
+		width: '100px',
+		fontSize: 12
 	}
-})
+}))
 
 const Table = ({ 
 	titleTable,
 	titleButton,
 	sortTable,
 	pagination,
+	paymentAmount,
+	iconButton,
 	columns = [], 
 	rows = [],
+	withFooter = false,
+	withCheckbox = false,
+	withPagination = false,
+	withHeader = false,
+	withSelectColumns = false,
+	withOrder = false,
+	withSearch = true,
+	withButton = false,
 	onHandleSortTable = () => false,
 	onHandleSearch = () => false,
 	onHandleBtnAction = () => false,
 	onHandleChangePage = () => false,
-	onHandleChangeRowsPerPage = () => false
+	onHandleChangeRowsPerPage = () => false,
+	onHandleSelectAll = () => false,
+	onHandleSelectItem = () => false,
+	onHandlePaymentButton = () => false
 }) => {
 	const classes = useStyles()
 	const inputSearch = useRef(null)
@@ -97,61 +124,79 @@ const Table = ({
 		if (e.keyCode === 13) onHandleSearch(value)
 	}
 
+	const handleSortTable = (id, ref) => {
+		const { orderBy, sort } = ref
+		const invertSort = sort === 'asc' ? 'desc' : 'asc'
+		if(id !== orderBy){
+			return onHandleSortTable(id, 'asc')
+		}
+		return onHandleSortTable(id, invertSort)
+	}
+
 	return (
 		<Paper className={classes.containerTable}>
-			<div className={clsx(classes.containerHeaderTable, { spaceBetween: titleTable })}>
-				{titleTable  && <Typography>{titleTable}</Typography>}
-				<div className={clsx(classes.containerSearch, { flexEnd: titleTable })}>
-					<TextField
-						variant="outlined"
-						className={classes.inputSearch}
-						id="input-with-icon-textfield"
-						placeholder='Buscar'
-						inputRef={inputSearch}
-						onKeyUp={_handleSearchValidate}
-						InputLabelProps={{ shrink: false }}
-						InputProps={{
-							endAdornment: (
-								<InputAdornment position="end">
-									<SearchIcon onClick={() => onHandleSearch(inputSearch.current.value)} className={classes.searchIcon} />
-								</InputAdornment>
-							),
-						}}
-					/>
-					<Button
-						className={classes.customBottomAdd}
-						color='primary'
-						onClick={onHandleBtnAction}
-						variant='outlined'>
-						<AddIcon />
-						{titleButton}
-					</Button> 
-				</div>
-			</div>
+			{
+				withHeader ? (
+					<div className={clsx(classes.containerHeaderTable, { spaceBetween: titleTable })}>
+						{titleTable && <Typography>{titleTable}</Typography>}
+						<div className={clsx(classes.containerSearch, { flexEnd: titleTable })}>
+							{withSearch ? (
+								<TextField
+									variant="outlined"
+									className={classes.inputSearch}
+									id="input-with-icon-textfield"
+									placeholder='Buscar'
+									inputRef={inputSearch}
+									onKeyUp={_handleSearchValidate}
+									InputLabelProps={{ shrink: false }}
+									InputProps={{
+										endAdornment: (
+											<InputAdornment position="end">
+												<SearchIcon onClick={() => onHandleSearch(inputSearch.current.value)} className={classes.searchIcon} />
+											</InputAdornment>
+										),
+									}}
+								/>
+							) : null}
+							{withButton ? (
+								<Button
+									className={classes.customBottomAdd}
+									color='primary'
+									onClick={onHandleBtnAction}
+									variant='outlined'>
+									{iconButton}
+									{titleButton}
+								</Button>
+							) : null}
+							
+						</div>
+					</div>
+				) : null
+			}
 			<TableContainer className={classes.container}>
 				<MuiTable stickyHeader aria-label="sticky table">
 					<TableHead>
 						<TableRow>
-							<TableCell padding="checkbox">
-								<Checkbox
-									// indeterminate={numSelected > 0 && numSelected < rowCount}
-									// checked={numSelected === rowCount}
-									onChange={() => false}
-									inputProps={{ 'aria-label': 'select all desserts' }}
-								/>
-							</TableCell>
+							{withCheckbox ? (
+								<TableCell padding="checkbox">
+									<Checkbox
+										onChange={(e) => onHandleSelectAll(e.target.checked)}
+										inputProps={{ 'aria-label': 'select all desserts' }}
+									/>
+								</TableCell>
+							) : null}
 							{columns.filter(({ active }) =>  active).map(({ id, align, minWidth, label, ordering }) => (
 								<TableCell
 									key={id}
 									align={align}
 									style={{ minWidth }}
-									sortDirection={sortTable.key === id ? sortTable.order : false}
+									sortDirection={sortTable.orderBy === id ? sortTable.sort : false}
 								>
-									{ordering ? (
+									{withOrder && ordering ? (
 										<TableSortLabel
-											active={sortTable.key === id}
-											direction={sortTable.key === id ? sortTable.order : 'asc'}
-											onClick={() => onHandleSortTable(id, 'asc')}
+											active={sortTable.orderBy === id}
+											direction={sortTable.orderBy === id ? sortTable.sort : 'asc'}
+											onClick={() => handleSortTable(id, sortTable)}
 										>
 											<Typography className={classes.headerTable}>{label}</Typography>
 										</TableSortLabel>
@@ -160,52 +205,78 @@ const Table = ({
 									) }
 								</TableCell>
 							))}
+							{withSelectColumns ? (
 								<TableCell>
 									<IconButton
 										aria-label="more"
 										aria-controls="long-menu"
 										aria-haspopup="true"
-										// onClick={_handleClickOpenMenu}
+									// onClick={_handleClickOpenMenu}
 									>
 										<MoreVertIcon />
 									</IconButton>
 								</TableCell>
+							) : null}
+								
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{rows.map(({ name, status, type, incharge, currentTasks, amountPayable, amountTasks, incidents }, index) => {
+						{rows.map((row, index) => {
+
+							const { _id, selected } = row
 							return (
 								<TableRow hover key={index} role="checkbox">
-									<TableCell padding="checkbox">
-										<Checkbox
-											// checked={isItemSelected}
-											// inputProps={{ 'aria-labelledby': labelId }}
-										/>
-									</TableCell>
-									<TableCell><Typography className={classes.bodyTable}>{name}</Typography></TableCell>
-									<TableCell><Typography className={classes.bodyTable}>{status}</Typography></TableCell>
-									<TableCell><Typography className={classes.bodyTable}>{type.join(', ')}</Typography></TableCell>
-									<TableCell><Typography className={classes.bodyTable}>{incharge}</Typography></TableCell>
-									<TableCell align='right'><Typography className={classes.bodyTable}>{currentTasks}</Typography></TableCell>
-									<TableCell align='right'><Typography className={classes.bodyTable}>{amountPayable}</Typography></TableCell>
-									<TableCell align='right'><Typography className={classes.bodyTable}>{amountTasks}</Typography></TableCell>
-									<TableCell align='right'><Typography className={classes.bodyTable}>{incidents}</Typography></TableCell>
-									<TableCell />
+									{withCheckbox ? (
+										<TableCell padding="checkbox">
+											<Checkbox
+												checked={selected}
+												onChange={() => onHandleSelectItem(_id)}
+												// inputProps={{ 'aria-labelledby': name }}
+											/>
+										</TableCell>
+									) : null}
+									{columns.filter(({ active }) => active).map(({ id }) => {
+										return (
+											<TableCell align={typeof row[id] === 'number' ? 'right': 'left'}>
+												<Typography className={classes.bodyTable}>
+													{Array.isArray(row[id]) ? (row[id].join(', ')) : row[id] }
+												</Typography>
+											</TableCell>
+										)
+									})}
+									{withSelectColumns ? (<TableCell />) : null}
 								</TableRow>
 							);
 						})}
 					</TableBody>
 				</MuiTable>
 			</TableContainer>
-			<TablePagination
-				rowsPerPageOptions={[10, 25, 100]}
-				component="div"
-				count={pagination.totalRows}
-				rowsPerPage={pagination.rowsPerPage}
-				page={pagination.currentPage}
-				onChangePage={onHandleChangePage}
-				onChangeRowsPerPage={onHandleChangeRowsPerPage}
-			/>
+			{
+				withPagination ? (
+					<TablePagination
+						rowsPerPageOptions={[10, 25, 100]}
+						component="div"
+						count={pagination.totalRows}
+						rowsPerPage={pagination.rowsPerPage}
+						page={pagination.currentPage}
+						onChangePage={onHandleChangePage}
+						onChangeRowsPerPage={onHandleChangeRowsPerPage}
+					/>
+				) : null
+			}
+			{
+				withFooter ? (
+					<Box display='flex' justifyContent='flex-end' padding={2} className={classes.footerTable}>
+						<Box display='flex' className={classes.containerPayment}>
+							<Box display='flex' marginRight={3} alignItems='center' className={classes.paymentText}>
+								<Typography className={classes.textTotal}>Total</Typography>
+								<Typography className={classes.textAmount}>s/ {paymentAmount.toFixed(2)}</Typography>
+							</Box>
+							<Button onClick={onHandlePaymentButton} className={classes.buttonFooter} color='primary' variant='contained'>Pagar</Button>
+						</Box>
+					</Box>
+				) : null
+			}
 		</Paper>
 	)
 }
@@ -222,21 +293,33 @@ Table.propTypes = {
 	).isRequired,
 	rows: PropTypes.arrayOf(
 		PropTypes.shape({
+			_id: PropTypes.string.isRequired,
 			amountPayable: PropTypes.number,
 			amountTasks: PropTypes.number,
 			currentTasks: PropTypes.number,
 			incharge: PropTypes.string,
 			incidents: PropTypes.number,
 			name: PropTypes.string.isRequired,
+			selected: PropTypes.bool,
 			status: PropTypes.string.isRequired,
 			type: PropTypes.array.isRequired
 		})
 	).isRequired,
 	titleTable: PropTypes.string,
 	titleButton: PropTypes.string,
+	withFooter: PropTypes.bool,
+	withCheckbox: PropTypes.bool,
+	withPagination: PropTypes.bool,
+	withHeader: PropTypes.bool,
+	withSelectColumns: PropTypes.bool,
+	withOrder: PropTypes.bool,
+	withSearch: PropTypes.bool,
+	withButton: PropTypes.bool,
+	iconButton: PropTypes.element,
+	paymentAmount: PropTypes.number,
 	sortTable: PropTypes.shape({
-		key: PropTypes.string.isRequired,
-		order: PropTypes.oneOf(['asc', 'desc'])
+		orderBy: PropTypes.string,
+		sort: PropTypes.oneOf(['asc', 'desc'])
 	}),
 	pagination: PropTypes.shape({
 		totalRows: PropTypes.number.isRequired,
@@ -247,7 +330,10 @@ Table.propTypes = {
 	onHandleSearch: PropTypes.func.isRequired,
 	onHandleBtnAction: PropTypes.func.isRequired,
 	onHandleChangePage: PropTypes.func.isRequired,
-	onHandleChangeRowsPerPage: PropTypes.func.isRequired
+	onHandleChangeRowsPerPage: PropTypes.func.isRequired,
+	onHandleSelectAll: PropTypes.func.isRequired,
+	onHandleSelectItem: PropTypes.func.isRequired,
+	onHandlePaymentButton: PropTypes.func
 }
 
 export default Table
