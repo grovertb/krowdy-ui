@@ -6,7 +6,7 @@ import clsx from 'clsx'
 
 export const styles = theme => ({
   buttonSelected: {
-    backgroundColor: theme.palette.primary[50],
+    backgroundColor: `${theme.palette.primary[50]} !important`,
     color: theme.palette.primary[400]
   },
   container: {
@@ -34,7 +34,6 @@ export const styles = theme => ({
 
 
 const SearchTasks = props => {
-  const [selected, setSelected] = React.useState('')
 
   const {
     classes,
@@ -46,6 +45,7 @@ const SearchTasks = props => {
     propsListItemsToFirstList,
     propsListItemsToSecondList,
   } = props
+  const [selected, setSelected] = React.useState(firtsList[0] ? firtsList[0]._id : '')
 
   return (
     <div className={classes.container}>
@@ -58,33 +58,31 @@ const SearchTasks = props => {
       />
       <List className={classes.list} key='firtsList' {...propsLists}>
         {
-          (firtsList && firtsList.length > 0)
-            ? firtsList.map((element, index) => {
-              const value = (selected === element._id)
-              return <ListItem button
-                selected={value}
-                key={`firts-${index}`}
-                className={clsx(classes.listItem, { [classes.buttonSelected]: value })}
-                onClick={() => setSelected(element._id)}
-                {...propsListItemsToFirstList}
-              >{element.taskName}</ListItem>
-            })
-            : null
+          firtsList.map((element, index) => {
+            const value = (selected === element._id)
+            return <ListItem button
+              selected={value}
+              key={`firts-${index}`}
+              className={clsx(classes.listItem, { [classes.buttonSelected]: value })}
+              onClick={() => setSelected(element._id)}
+              {...propsListItemsToFirstList}
+            >{element.taskName}</ListItem>
+          })
         }
         <Divider variant='middle' />
+      </List>
+      <List className={classes.list} key='secondList' {...propsLists}>
         {
-          (secondList && secondList.length > 0)
-            ? secondList.map((element, index) => {
-              const value = (selected === element._id)
-              return <ListItem button
-                key={`second-${index}`}
-                className={clsx(classes.listItem, { [classes.buttonSelected]: value })}
-                selected={(selected === element._id)}
-                onClick={() => setSelected(element._id)}
-                {...propsListItemsToSecondList}
-              >{element.taskName}</ListItem>
-            })
-            : null
+          secondList.map((element, index) => {
+            const value = (selected === element._id)
+            return <ListItem button
+              key={`second-${index}`}
+              className={clsx(classes.listItem, { [classes.buttonSelected]: value })}
+              selected={(selected === element._id)}
+              onClick={() => setSelected(element._id)}
+              {...propsListItemsToSecondList}
+            >{element.taskName}</ListItem>
+          })
         }
       </List>
     </div>
@@ -97,7 +95,9 @@ SearchTasks.propTypes = {
   iconOnSeeker: PropTypes.node,
   propsInput: PropTypes.object,
   propsListItemsToFirstList: PropTypes.object,
+  propsListItemsToSecondList: PropTypes.object,
   propsLists: PropTypes.object,
+  secondList: PropTypes.array,
 }
 
 SearchTasks.muiName = 'SearchTasks'

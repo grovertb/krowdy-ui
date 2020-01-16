@@ -24,7 +24,7 @@ export const styles = theme => ({
     verticalAlign: 'top',
   },
   header: {
-    paddingBottom: 0,
+    paddingBottom: theme.spacing(1),
     paddingLeft: theme.spacing(2),
   },
   icon: {
