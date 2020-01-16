@@ -1,14 +1,14 @@
 import React from 'react'
 import { Grid } from '@krowdy-ui/core'
-import { CardTask } from '@krowdy-ui/views/Cards'
+import { TaskCard } from '@krowdy-ui/views/Cards'
 
 export default function () {
 
   return (
     <Grid container justify='center' >
       <Grid item xs={4} >
-        <CardTask
-          title='Card User'
+        <TaskCard
+          title='Tasks'
           avatarProps={{
             src: 'https://instaperfil.com/images/instaperfilseguidores.png',
             variant: 'square',

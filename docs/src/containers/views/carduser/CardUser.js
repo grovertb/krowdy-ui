@@ -1,5 +1,5 @@
 import React from 'react'
-import { CardUser } from '@krowdy-ui/views/Cards'
+import { UserCard } from '@krowdy-ui/views/Cards'
 import { Grid } from '@krowdy-ui/core'
 import { Videocam, Assignment, NavigateNext } from '@material-ui/icons'
 import { Rating } from '@material-ui/lab'
@@ -9,7 +9,7 @@ export default function () {
   return (
     <>
       <Grid container justify='center'>
-        <CardUser
+        <UserCard
           title='Card User'
           items={[
             {
