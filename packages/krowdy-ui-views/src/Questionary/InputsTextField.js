@@ -40,6 +40,7 @@ const InputComponent = (props) => {
       <div className={classes.inputsContent}>
         <Input
           className={classes.textField}
+          autoFocus
           disabled={disabled}
           multiline
           onChange={event => {

@@ -6,7 +6,8 @@ import clsx from 'clsx'
 
 export const styles = theme => ({
   buttonSelected: {
-    backgroundColor: `${theme.palette.primary[100]} !important`,
+    backgroundColor: `${theme.palette.primary[50]} !important`,
+    borderRadius: 4,
     color: theme.palette.primary[400]
   },
   container: {
@@ -23,7 +24,6 @@ export const styles = theme => ({
   listItem: {
     '&:hover': {
       backgroundColor: theme.palette.primary[50],
-      color: theme.palette.primary[400]
     }
   },
   search: {
@@ -94,13 +94,13 @@ SearchTasks.propTypes = {
   classes: PropTypes.object,
   firtsList: PropTypes.array,
   iconOnSeeker: PropTypes.node,
-  onClickInItem : PropTypes.func,
+  onClickInItem: PropTypes.func,
   propsInput: PropTypes.object,
   propsListItemsToFirstList: PropTypes.object,
   propsListItemsToSecondList: PropTypes.object,
   propsLists: PropTypes.object,
   secondList: PropTypes.array,
-  selected:PropTypes.string,
+  selected: PropTypes.string,
 }
 
 SearchTasks.muiName = 'SearchTasks'
