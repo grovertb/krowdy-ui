@@ -26,8 +26,10 @@ const Counter = props => {
     classes,
     addIcon,
     removeIcon,
+    minLimit,
+    maxLimit,
     initialCounterValue,
-    onChange= (value) => console.log('Dante: ' ,value)
+    onChange = () => { },
   } = props
 
 
@@ -35,13 +37,13 @@ const Counter = props => {
 
   useEffect(() => {
     onChange(number)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [number])
-  
+
   return (
     <div style={{ alignItems: 'center', display: 'flex' }}>
       <IconButton
-        onClick={() => number > 1 && setNumber(number - 1)}
+        onClick={() => number > minLimit && setNumber(number - 1)}
         size='small'>
         {removeIcon}
       </IconButton>
@@ -56,7 +58,7 @@ const Counter = props => {
       >
       </TextField>
       <IconButton
-        onClick={() => number < 9 && setNumber(number + 1)}
+        onClick={() => number < maxLimit && setNumber(number + 1)}
         size='small'>
         {addIcon}
       </IconButton>
@@ -68,8 +70,11 @@ const Counter = props => {
 Counter.propTypes = {
   addIcon: PropTypes.node,
   classes: PropTypes.object,
+  initialCounterValue: PropTypes.number,
+  maxLimit: PropTypes.number,
+  minLimit: PropTypes.number,
+  onChange: PropTypes.func,
   removeIcon: PropTypes.node
-
 }
 
 Counter.muiName = 'Search'
