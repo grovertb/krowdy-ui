@@ -24,7 +24,7 @@ export const styles = theme => ({
     paddingTop: 2
   },
   order: {
-    fontSize: '14px',
+    fontSize: 14,
     fontWeight: 'bold',
   },
   textField: {
@@ -33,7 +33,7 @@ export const styles = theme => ({
     },
     borderBottom: `1px solid ${theme.palette.grey[400]}`,
     color: theme.palette.grey[700],
-    fontSize: '14px',
+    fontSize: 14,
     margin: theme.spacing(0, 1, 2, 1),
   },
 })

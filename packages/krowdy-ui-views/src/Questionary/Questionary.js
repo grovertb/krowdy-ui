@@ -11,16 +11,22 @@ export const styles = theme => ({
     '&:hover': {
       backgroundColor: 'transparent'
     },
-    paddingTop: 2
+    minWidth: 0,
+    padding: theme.spacing(2, 0, 0, 0),
   },
   container: {
-    maxHeight: '100%',
+    height: '100%',
     overflow: 'auto',
     width: '100%'
   },
   divQuestion: {
     flexDirection: 'row',
-    fontSize: '1rem',
+  },
+  gridContainer: {
+    height: 'calc(100%-40px)',
+  },
+  gridItem: {
+    maxHeight: '100%',
   },
   iconDragContainer: {
     color: theme.palette.grey[500]
@@ -29,8 +35,9 @@ export const styles = theme => ({
     fontSize: '1.5rem'
   },
   lastInput: {
+    fontSize: '14px',
     margin: 'auto',
-    paddingLeft: theme.spacing(1)
+    paddingLeft: theme.spacing(1),
   },
   order: {
     fontWeight: 'bold'
@@ -54,8 +61,7 @@ const Questionary = props => {
     iconDrag,
     disabled,
     items = [],
-/*     inputComponent: InputComponent,
- */ onSetItems = () => { },
+    onSetItems = () => { },
     showInstructions = true,
     onDeleteItem = () => { },
     onUpdateItem = () => { }
@@ -73,8 +79,8 @@ const Questionary = props => {
   }
 
   return (
-    <Grid container >
-      <Grid item xs={12} >
+    <Grid container className={classes.gridContainer}>
+      <Grid item xs={12} className={classes.gridItem} >
         <DragDropContext onDragEnd={onDragEnd} >
           <Droppable direction='vertical' droppableId='droppable'>
             {(provided) => (<div
@@ -85,6 +91,7 @@ const Questionary = props => {
                 <Draggable draggableId={item._id} index={index} key={item._id}>
                   {(provided) => (
                     <Grid container
+                      justify='space-between'
                       className={classes.divQuestion}
                       ref={provided.innerRef}
                       {...provided.draggableProps}
@@ -92,7 +99,7 @@ const Questionary = props => {
                       <Grid item className={clsx(classes.iconDragContainer)}>
                         {(iconDrag) ? iconDrag : null}
                       </Grid>
-                      <Grid item xs={10} className={classes.inputsContent}>
+                      <Grid item xs={11} className={classes.inputsContent}>
                         <InputComponent
                           instructions={showInstructions}
                           disabled={disabled}
@@ -112,13 +119,13 @@ const Questionary = props => {
                 </Draggable>
               ))}
               {provided.placeholder}
+              <Grid className={clsx(classes.lastInput)} item xs={11}>
+                {addInputComponent}
+              </Grid>
             </div>)
             }
           </Droppable>
         </DragDropContext>
-      </Grid>
-      <Grid item xs={11} className={clsx(classes.lastInput)}>
-        {addInputComponent}
       </Grid>
     </Grid>
   )

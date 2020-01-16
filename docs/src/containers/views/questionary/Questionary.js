@@ -62,7 +62,7 @@ export default () => {
           items={items}
           iconDrag={<DragIndicator />}
           iconRemove={<RemoveCircleOutline color='error' />}
-          addInputComponent={<Input placeholder='Escriba una nueva pregunta' classes={{ width: '100%' }} />}
+          addInputComponent={<Input placeholder='Escriba una nueva pregunta' />}
           onDeleteItem={deleteItem}
           showInstructions={true}
         />
