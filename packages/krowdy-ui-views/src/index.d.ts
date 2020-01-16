@@ -15,8 +15,14 @@ export * from './Search';
 
 export { default as SelectCandidates } from './SelectCandidates';
 export * from './SelectCandidates';
+
 export { default as Cards } from './Cards';
 export * from './Cards';
 
 export { default as Questionary } from './Questionary';
 export * from './Questionary';
+
+
+export { default as Counter } from './Counter';
+export * from './Counter';
+

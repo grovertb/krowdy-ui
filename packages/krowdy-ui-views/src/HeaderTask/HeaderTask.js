@@ -72,6 +72,7 @@ export const styles = theme => ({
 })
 
 const HeaderTask = props => {
+
 	const {
 		classes,
 		onClickSelectCandidates,

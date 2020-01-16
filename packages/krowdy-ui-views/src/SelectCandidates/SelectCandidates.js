@@ -7,6 +7,7 @@ import {
 	CardContent,
 	Checkbox,
 	Typography,
+	MenuItem,
 	Select,
 	Divider,
 	FormGroup,
@@ -80,6 +81,16 @@ export const styles = theme => ({
 		lineHeight: '16px'
 	},
 	selectStage: {
+		'&:active': {
+			borderBottom: '1px solid #096DD9'
+		},
+		'&:hover': {
+			borderBottom: '1px solid #40A9FF'
+		},
+		'&:inactive': {
+			borderBottom: '1px solid #D9D9D9'
+		},
+		borderBottom: '1px solid #D9D9D9',
 		color: theme.palette.grey['700'],
 		fontSize: 14,
 		fontWeight: 'normal',
@@ -130,7 +141,7 @@ const SelectCandidates = props => {
 		<Card className={classes.card}>
 			<CardHeader
 				className={classes.cardHeader}
-				title='Seleccion de candidatos'
+				title='Selección de candidatos'
 				classes={{ title: classes.titleCardheader }}
 			/>
 			<Divider />
@@ -139,26 +150,26 @@ const SelectCandidates = props => {
 					¿Para qué etapa es la tarea?
           </Typography>
 				<Select
+					disableUnderline
 					className={classes.selectStage}
 					onChange={onChangeSelectOptions}
 					value={itemSelect}
-					native
 				>
 					{
 						optionsSelect.map((item, index) => (
-							<option
+							<MenuItem
 								key={item}
 								value={item}
 								className={classes.optionStages}
 							>
 								Etapa {index + 1}
-							</option>
+							</MenuItem>
 						))
 					}
 
 				</Select>
 				<Typography className={classes.text}>
-					¿Para que candidato es la tarea?
+					¿Para qué candidatos es la tarea?
           </Typography>
 				<FormGroup className={classes.formGroup}>
 					<FormControlLabel

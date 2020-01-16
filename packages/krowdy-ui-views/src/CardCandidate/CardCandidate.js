@@ -16,10 +16,15 @@ export const styles = theme => ({
 		backgroundColor: '#FFFFFF',
 		border: '1px solid #E8E8E8'
 	},
-	card: {
+	paper: {
+		'&:active': {
+			border: `1px solid ${theme.palette.grey['500']}`
+		},
+		'&:focus': {
+			border: `1px solid ${theme.palette.primary['600']}`
+		},
 		'&:hover': {
-			background: theme.palette.primary['50'],
-			border: `0.5px solid ${theme.palette.primary['100']}`
+			border: `1px solid ${theme.palette.primary['400']}`
 		},
 		alignItems: 'center',
 		borderRadius: 8,
@@ -80,7 +85,7 @@ const CardCandidate = props => {
 
 	return (
 		<Paper
-			className={classes.card}
+			className={classes.paper}
 			key={id}
 		>
 			<div className={classes.root}>{

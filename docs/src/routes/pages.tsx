@@ -160,6 +160,10 @@ const pages: Array<Page> = [
         title: 'Header Task',
         path: '/views/headertask'
       },
+      {
+        title: 'Counter',
+        path: '/views/counter'
+      },
     ]
   },
 
