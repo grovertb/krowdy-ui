@@ -1,21 +1,22 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@krowdy-ui/styles'
-import { TextField, IconButton } from '@krowdy-ui/core'
+import { IconButton, Input } from '@krowdy-ui/core'
 
 export const styles = theme => ({
   headerLeft: {
     flex: '1'
   },
   input: {
-    color: '#595959',
+    textAlign: 'center'
+  },
+  root: {
+    borderBottom: '1px solid #BFBFBF',
     fontSize: 14,
     fontStyle: 'normal',
     fontWeight: 'normal',
     lineHeight: '100%',
-    textAlign: 'center'
-  },
-  textfield: {
+    textAlign: 'center',
     width: 23
   }
 })
@@ -27,6 +28,7 @@ const Counter = props => {
     addIcon,
     removeIcon,
     minLimit,
+    disabled,
     maxLimit,
     initialCounterValue,
     onChange = () => { },
@@ -43,21 +45,24 @@ const Counter = props => {
   return (
     <div style={{ alignItems: 'center', display: 'flex' }}>
       <IconButton
+        color='primary'
+        disabled={disabled}
         onClick={() => number > minLimit && setNumber(number - 1)}
         size='small'>
         {removeIcon}
       </IconButton>
-      <TextField
-        InputProps={{
-          classes: {
-            input: classes.input
-          }
+      <Input
+        disabled={disabled}
+        disableUnderline
+        classes={{
+          input: classes.input,
+          root: classes.root
         }}
-        className={classes.textfield}
         value={number}
-      >
-      </TextField>
+      />
       <IconButton
+        color='primary'
+        disabled={disabled}
         onClick={() => number < maxLimit && setNumber(number + 1)}
         size='small'>
         {addIcon}
@@ -70,6 +75,7 @@ const Counter = props => {
 Counter.propTypes = {
   addIcon: PropTypes.node,
   classes: PropTypes.object,
+  disabled: PropTypes.bool,
   initialCounterValue: PropTypes.number,
   maxLimit: PropTypes.number,
   minLimit: PropTypes.number,
