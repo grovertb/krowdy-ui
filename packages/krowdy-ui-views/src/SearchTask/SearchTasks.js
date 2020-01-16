@@ -2,24 +2,29 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@krowdy-ui/styles'
 import { Input, Divider, List, ListItem } from '@krowdy-ui/core'
+import clsx from 'clsx'
 
 export const styles = theme => ({
   buttonSelected: {
-    '&$selected, &$selected:hover': {
-      backgroundColor: theme.palette.primary['50'],
-      color: theme.palette.primary['400'],
-    }
+    backgroundColor: theme.palette.primary[50],
+    color: theme.palette.primary[400]
   },
-  content: {
-    border: `1px solid ${theme.palette.grey['200']}`,
-    borderRadius: '8px',
-    height: '450px',
-    width: '312px',
+  container: {
+    border: `${1} solid ${theme.palette.grey[200]}`,
+    borderRadius: 8,
+    height: 'auto',
+    minWidth: 312,
   },
   list: {
     listStyle: 'none',
     margin: 'auto',
     width: '88%'
+  },
+  listItem: {
+    '&:hover': {
+      backgroundColor: theme.palette.primary[50],
+      color: theme.palette.primary[400]
+    }
   },
   search: {
     margin: theme.spacing(2),
@@ -27,14 +32,10 @@ export const styles = theme => ({
   }
 })
 
-function _handleClickOnSecondsTasks(callback) {
-  return callback
-}
 
-function _handleClickOnFirtsTasks(callback) {
-  return callback
-}
 const SearchTasks = props => {
+  const [selected, setSelected] = React.useState('')
+
   const {
     classes,
     firtsList = [],
@@ -44,11 +45,10 @@ const SearchTasks = props => {
     propsLists,
     propsListItemsToFirstList,
     propsListItemsToSecondList,
-    itemSelected
   } = props
 
   return (
-    <div className={classes.content}>
+    <div className={classes.container}>
       <Input
         className={classes.search}
         color='secondary'
@@ -59,27 +59,31 @@ const SearchTasks = props => {
       <List className={classes.list} key='firtsList' {...propsLists}>
         {
           (firtsList && firtsList.length > 0)
-            ? firtsList.map((element, index) => <ListItem button
-              selected={(itemSelected && element._id === itemSelected) ? true : false}
-              key={`firts-${index}`}
-              className={classes.buttonSelected}
-              onClick={(element.action) ? _handleClickOnFirtsTasks(element.action) : null}
-              {...propsListItemsToFirstList}
-            >{element.taskName}</ListItem>)
+            ? firtsList.map((element, index) => {
+              const value = (selected === element._id)
+              return <ListItem button
+                selected={value}
+                key={`firts-${index}`}
+                className={clsx(classes.listItem, { [classes.buttonSelected]: value })}
+                onClick={() => setSelected(element._id)}
+                {...propsListItemsToFirstList}
+              >{element.taskName}</ListItem>
+            })
             : null
         }
-      </List>
-      <Divider variant='middle' />
-      <List className={classes.list} key='secondList' {...propsLists}>
+        <Divider variant='middle' />
         {
           (secondList && secondList.length > 0)
-            ? secondList.map((element, index) => <ListItem button
-              key={`second-${index}`}
-              className={classes.buttonSelected}
-              selected={(itemSelected && element._id === itemSelected) ? true : false}
-              onClick={(element.action) ? _handleClickOnSecondsTasks(element.action) : null}
-              {...propsListItemsToSecondList}
-            >{element.taskName}</ListItem>)
+            ? secondList.map((element, index) => {
+              const value = (selected === element._id)
+              return <ListItem button
+                key={`second-${index}`}
+                className={clsx(classes.listItem, { [classes.buttonSelected]: value })}
+                selected={(selected === element._id)}
+                onClick={() => setSelected(element._id)}
+                {...propsListItemsToSecondList}
+              >{element.taskName}</ListItem>
+            })
             : null
         }
       </List>
@@ -91,12 +95,9 @@ SearchTasks.propTypes = {
   classes: PropTypes.object,
   firtsList: PropTypes.array,
   iconOnSeeker: PropTypes.node,
-  itemSelected: PropTypes.bool,
   propsInput: PropTypes.object,
   propsListItemsToFirstList: PropTypes.object,
-  propsListItemsToSecondList: PropTypes.object,
   propsLists: PropTypes.object,
-  secondList: PropTypes.array,
 }
 
 SearchTasks.muiName = 'SearchTasks'
