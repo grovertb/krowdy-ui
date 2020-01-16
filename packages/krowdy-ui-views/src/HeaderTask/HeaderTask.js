@@ -86,6 +86,8 @@ const HeaderTask = props => {
 		numberCandidates,
 		stageIndex,
 		arrowBackIcon,
+		checkedSwitch,
+		onChangeSwitch,
 		contentButton,
 		onClickArrowBackIcon,
 		id
@@ -144,8 +146,8 @@ const HeaderTask = props => {
 									<Switch
 										color='primary'
 										size='small'
-									// checked={checked} 
-									// onChange={toggleChecked}
+										checked={checkedSwitch}
+										onChange={onChangeSwitch}
 									/>
 								}
 								label='Tarea activada'
@@ -188,10 +190,12 @@ const HeaderTask = props => {
 
 HeaderTask.propTypes = {
 	arrowBackIcon: PropTypes.node,
+	checked: PropTypes.any,
 	classes: PropTypes.object,
 	contentButton: PropTypes.any,
 	id: PropTypes.number,
 	numberCandidates: PropTypes.number,
+	onChange: PropTypes.any,
 	onChangeTitleTask: PropTypes.any,
 	onClickActiveTask: PropTypes.any,
 	onClickArrowBackIcon: PropTypes.func,

@@ -21,6 +21,8 @@ export default function () {
         // onKeyUpTitleTask={}
         // onClickArrowBackIcon={}
         // valueTitleTask={}
+        checkedSwitch={checkedSwitch}
+        onChangeSwitch={onChangeSwitch}
         arrowBackIcon={arrowBackIcon}
         titleHeader={titleHeader}
         titleTask={titleTask}
