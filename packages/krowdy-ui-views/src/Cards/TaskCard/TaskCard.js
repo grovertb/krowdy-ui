@@ -53,7 +53,7 @@ const CardTask = props => {
     cardProps,
     cardContentProps,
     focused,
-    onClick
+    onClick = () => { }
   } = props
 
 
