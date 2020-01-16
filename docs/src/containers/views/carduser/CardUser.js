@@ -1,7 +1,7 @@
 import React from 'react'
 import { CardUser } from '@krowdy-ui/views/Cards'
 import { Grid } from '@krowdy-ui/core'
-import { MoreVert, Videocam, Assignment, NavigateNext } from '@material-ui/icons'
+import { Videocam, Assignment, NavigateNext } from '@material-ui/icons'
 import { Rating } from '@material-ui/lab'
 
 export default function () {

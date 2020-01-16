@@ -15,6 +15,7 @@ export default function () {
           }}
           content={<div>Define cuáles de los campos del perfil del candidato deben ser
              obligatorios y cuáles no deberían aparecer. cuáles no deberían aparecer</div>}
+
         />
 
       </Grid >
