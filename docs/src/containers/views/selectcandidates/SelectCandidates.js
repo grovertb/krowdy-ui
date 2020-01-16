@@ -45,14 +45,14 @@ const labelsCheckbox = ['Candidatos actuales', 'Candidatos nuevos']
 const optionsSelect = ['option1', 'option2', 'option3']
 
 export default function () {
-    const [checkedCheckbox, setCheckedCheckbox] = useState('')
+    // const [checkedCheckbox, setCheckedCheckbox] = useState('')
     const [itemSelect, setItemSelect] = useState('')
     const _handleChangeItemSelect = event => {
         setItemSelect(event.target.value)
     }
-    const _handleChangeCurrentCandidates = event => {
-        setCheckedCheckbox(event.target.value)
-    }
+    // const _handleChangeCurrentCandidates = event => {
+    //     setCheckedCheckbox(event.target.value)
+    // }
 
 
     return (
@@ -63,7 +63,7 @@ export default function () {
                 // onChangeCurrentCandidates={_handleChangeCurrentCandidates}
                 // checkedcandidatesToCome={checkedcandidatesToCome}
                 // onChangecandidatesToCome={onChangecandidatesToCome}
-
+                // onChangeCheckboxItem={_handleClickCheckboxItem}
                 candidatesSelectIds={candidatesSelectIds}
                 dataSource={dataSource}
                 itemSelect={itemSelect}

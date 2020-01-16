@@ -67,21 +67,33 @@ const CardCandidate = props => {
 
 	return (
 		<Card
-			key={id}
 			className={classes.card}
+			key={id}
 		>
 			<div className={classes.root}>{
-				changeCheckbox ?
+				checked ? (
 					<Checkbox
 						checked={checked}
 						className={classes.checkbox}
 						color='primary'
-						onChange={onChangeCheckbox}
+						onChange={({ target: { checked } }) => onChangeCheckbox(id, checked)}
 						onMouseLeave={_handleMouseLeave}
 					/>
-					:
-					<Avatar onMouseOver={_handleMouseOver} src={imageAvatar} className={classes.avatar} >
-						CA
+				) : changeCheckbox ?
+						<Checkbox
+							checked={checked}
+							className={classes.checkbox}
+							color='primary'
+							onChange={({ target: { checked } }) => onChangeCheckbox(id, checked)}
+							onMouseLeave={_handleMouseLeave}
+						/>
+						:
+						<Avatar
+							className={classes.avatar}
+							onMouseOver={_handleMouseOver}
+							src={imageAvatar}
+						>
+							CA
             </Avatar>
 
 			}

@@ -75,21 +75,22 @@ export const styles = theme => ({
 const SelectCandidates = props => {
 
 	const {
-		candidatesSelectIds,
-		optionsSelect,
+		candidatesSelectIds = [],
+		optionsSelect = [],
 		placeholderSearch,
 		onChangeSelectOptions,
 		itemSelect,
 		searchIcon,
+		dataSource = [],
 		CardCandidate,
-		dataSource,
 		Search,
 		onChangeIndeterminateCandidates,
 		classes,
 		checkedCurrentCandidates,
 		onChangeCurrentCandidates,
 		checkedcandidatesToCome,
-		onChangecandidatesToCome
+		onChangecandidatesToCome,
+		onChangeCheckboxItem
 	} = props
 
 	return (
@@ -104,7 +105,7 @@ const SelectCandidates = props => {
 				<CardContent className={classes.cardContent} >
 					<Typography className={classes.text}>
 						¿Para qué etapa es la tarea?
-                    </Typography>
+          </Typography>
 					<Select
 						className={classes.selectStage}
 						onChange={onChangeSelectOptions}
@@ -126,12 +127,12 @@ const SelectCandidates = props => {
 					</Select>
 					<Typography className={classes.text}>
 						¿Para que candidato es la tarea?
-                    </Typography>
+          </Typography>
 					<FormGroup className={classes.formGroup}>
 						<FormControlLabel
-							// value={txt}
 							control={
 								<Checkbox
+									name='currentCandidates'
 									checked={checkedCurrentCandidates}
 									onChange={onChangeCurrentCandidates}
 									indeterminate={onChangeIndeterminateCandidates}
@@ -141,9 +142,9 @@ const SelectCandidates = props => {
 							className={classes.labelCheckbox}
 						/>
 						<FormControlLabel
-							// value={txt}
 							control={
 								<Checkbox
+									name='candidatesToCome'
 									checked={checkedcandidatesToCome}
 									onChange={onChangecandidatesToCome}
 									color='primary' />
@@ -158,10 +159,11 @@ const SelectCandidates = props => {
 					/>
 					{dataSource.map(({ id, firstName, lastName, photo }) => (
 						<CardCandidate
-							key={id}
 							checked={candidatesSelectIds.includes(id)}
-							style={{ alignItems: 'center', display: 'flex', marginBottom: 8 }}
 							firstName={firstName}
+							key={id}
+							onChangeCheckbox={onChangeCheckboxItem}
+							style={{ alignItems: 'center', display: 'flex', marginBottom: 8 }}
 							lastName={lastName}
 							photo={photo}
 							id={id}
