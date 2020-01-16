@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import { withStyles } from '@krowdy-ui/core/styles'
-import { Input, Button } from '@krowdy-ui/core'
+import { Button } from '@krowdy-ui/core'
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
 import InputComponent from './InputsTextField'
 
@@ -61,10 +61,6 @@ const reorder = (list, startIndex, endIndex) => {
   return result
 }
 
-function handleInputSearch(callback) {
-  return callback
-}
-
 const Questionary = props => {
   const {
     classes,
@@ -72,11 +68,10 @@ const Questionary = props => {
     iconDrag,
     disabled = false,
     items = [],
-    lastInputProps,
+    addInputComponent,
     onSetItems,
     showInstructions = true,
     onDeleteItem,
-    onLastInput,
     onUpdateItem
   } = props
 
@@ -132,26 +127,21 @@ const Questionary = props => {
           }
         </Droppable>
       </DragDropContext>
-      <div >
-        <Input
-          className={clsx(classes.lastInput)}
-          onInput={handleInputSearch(onLastInput)}
-          placeholder='Escriba una nueva pregunta'
-          {...lastInputProps} />
+      <div className={clsx(classes.lastInput)}>
+        {addInputComponent}
       </div>
     </div>
   )
 }
 
 Questionary.propTypes = {
+  addInputComponent: PropTypes.node,
   classes: PropTypes.object,
   disabled: PropTypes.bool,
   iconDrag: PropTypes.node,
   iconRemove: PropTypes.node,
   items: PropTypes.array.isRequired,
-  lastInputProps: PropTypes.object,
   onDeleteItem: PropTypes.func,
-  onLastInput: PropTypes.func,
   onSetItems: PropTypes.func,
   onUpdateItem: PropTypes.func,
   showInstructions: PropTypes.bool

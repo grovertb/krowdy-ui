@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid } from '@krowdy-ui/core'
+import { Grid, Input } from '@krowdy-ui/core'
 import { Questionary } from '@krowdy-ui/views'
 import { RemoveCircleOutline, DragIndicator } from '@material-ui/icons'
 
@@ -30,6 +30,7 @@ export default function () {
           items={items}
           iconDrag={<DragIndicator />}
           iconRemove={<RemoveCircleOutline color='error' />}
+          addInputComponent={<Input placeholder='Escriba una nueva pregunta' />}
         />
       </Grid>
     </Grid>
