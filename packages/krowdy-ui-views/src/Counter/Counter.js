@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@krowdy-ui/styles'
 import { TextField, IconButton } from '@krowdy-ui/core'
@@ -27,13 +27,21 @@ const Counter = props => {
     addIcon,
     removeIcon,
     initialCounterValue,
+    onChange= (value) => console.log('Dante: ' ,value)
   } = props
 
+
   const [number, setNumber] = useState(initialCounterValue)
+
+  useEffect(() => {
+    onChange(number)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [number])
+  
   return (
     <div style={{ alignItems: 'center', display: 'flex' }}>
       <IconButton
-        onClick={() => setNumber(number - 1)}
+        onClick={() => number > 1 && setNumber(number - 1)}
         size='small'>
         {removeIcon}
       </IconButton>
@@ -48,7 +56,7 @@ const Counter = props => {
       >
       </TextField>
       <IconButton
-        onClick={() => setNumber(number + 1)}
+        onClick={() => number < 9 && setNumber(number + 1)}
         size='small'>
         {addIcon}
       </IconButton>

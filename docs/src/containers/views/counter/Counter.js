@@ -4,7 +4,7 @@ import AddIcon from '@material-ui/icons/Add'
 import RemoveIcon from '@material-ui/icons/Remove'
 
 export default function () {
-  const initialCounterValue = 0
+  const initialCounterValue = 1
 
 
   return (
