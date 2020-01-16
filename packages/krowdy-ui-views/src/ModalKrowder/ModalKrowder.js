@@ -1,14 +1,104 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { makeStyles } from '@krowdy-ui/core/styles'
+import { makeStyles } from '@krowdy-ui/styles'
 import {
   Modal,
   Backdrop,
   Grow,
-  Box
+  Card,
+  CardContent,
+  Typography,
+  CardHeader,
+  IconButton,
+  ExpansionPanel,
+  ExpansionPanelSummary,
+  ExpansionPanelDetails
 } from '@krowdy-ui/core'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import CloseIcon from '@material-ui/icons/Close'
+import DeleteIcon from '@material-ui/icons/Delete'
+import PauseCircleOutlineIcon from '@material-ui/icons/PauseCircleOutline'
 
 const useStyles = makeStyles(theme => ({
+  expandHeader: {
+    '&.Mui-expanded': {
+      height: '40px',
+      minHeight: '40px',
+    },
+    background: '#F5F5F5',
+    border: '1px solid #EAEAEA',
+    height: '40px',
+    minHeight: '40px'
+  },
+  expandHeaderTitle: {
+    color: '#262626',
+    fontSize: '14px',
+    fontWeight: 'bold',
+  },
+  expandIcon: {
+    color: theme.palette.primary.main
+  },
+  expandItem: {
+    '&.Mui-expanded': {
+      margin: '0'
+    },
+    '&:before': {
+      content: 'none'
+    },
+    boxShadow: 'none'
+  },
+  headerProfile: {
+    display: 'flex',
+  },
+  headerProfileContent: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    padding: '20px 0'
+  },
+  headerProfileName: {
+    alignItems: 'center',
+    border: `solid 2px ${theme.palette.primary.main}`,
+    borderRadius: '50%',
+    display: 'flex',
+    height: '48px',
+    justifyContent: 'center',
+    marginRight: '0.75rem',
+    width: '48px'
+  },
+  iconProfileActionDelete: {
+    color: '#FF4053',
+    cursor: 'pointer',
+    fontSize: '1.125rem',
+    marginLeft: '10px'
+
+  },
+  iconProfileActionPause: {
+    color: theme.palette.primary.main,
+    cursor: 'pointer',
+    fontSize: '1.125rem'
+  },
+  krowderAvatar:{
+    border: `solid 2px ${theme.palette.primary.main}`,
+    height: '48px',
+    marginRight: '0.75rem',
+    width: '48px'
+  },
+  krowderEmail: {
+    color: '#595959',
+    fontSize: '0.75rem',
+    marginBottom: '4px'
+  },
+  krowderName: {
+    color: '#262626',
+    fontSize: '1.125rem',
+    fontWeight: 'bold',
+    marginBottom: '4px'
+  },
+  krowderPhone: {
+    color: '#595959',
+    /* Gray/700 */
+    fontSize: '0.75rem'
+  },
   modal: {
     alignItems: 'center',
     display: 'flex',
@@ -19,12 +109,17 @@ const useStyles = makeStyles(theme => ({
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-  },
+  }
 }), { name: 'ModalKrowder' })
 
-const ModalKrowder = props => {
+function ModalKrowder (props) {
   const {
     open,
+    onclose,
+    user,
+    onsuspend,
+    ondelete,
+    collapses
   } = props
 
   const classes = useStyles()
@@ -33,7 +128,7 @@ const ModalKrowder = props => {
     <Modal
         className={classes.modal}
         open={true}
-        // onClose={handleClose}
+        onClose={onclose}
         closeAfterTransition
         disableAutoFocus={true}
         BackdropComponent={Backdrop}
@@ -42,10 +137,64 @@ const ModalKrowder = props => {
         }}
       >
         <Grow in={true}>
-          <Box className={classes.paper}>
-            <h2 className={classes.paper}>Transition modal</h2>
-            <p id='transition-modal-description'>react-transition-group animates me.</p>
-          </Box>
+          <Card className={classes.card}>
+          <CardHeader
+              action={
+                <IconButton aria-label='settings' onClick={onclose}>
+                  <CloseIcon />
+                </IconButton>
+              }
+              title='Editar Krowder'
+            />
+            <CardContent>
+              {/* profile */}
+             <div className={classes.headerProfileContent}>
+               <div className={classes.headerProfile}>
+                {
+                    user.photo ? <img className={classes.krowderAvatar} src={user.photo} /> :
+                    <div className={classes.headerProfileName}>
+                      {
+                        `${user.firstName ? user.firstName.charAt().toUpperCase() : ''}
+                        ${user.lastName ? user.lastName.charAt().toUpperCase() : ''}`
+                      }
+                    </div>
+                  }
+                  <div>
+                    <Typography className={classes.krowderName}>{user.firstName} {user.lastName}</Typography>
+                    <Typography className={classes.krowderEmail}>{user.email}</Typography>
+                    <Typography className={classes.krowderPhone}>{user.phone}</Typography>
+                  </div>
+               </div>
+               <div className={classes.headerProfileActions}>
+                 <PauseCircleOutlineIcon
+                  onClick={onsuspend}
+                  className={classes.iconProfileActionPause} />
+                 <DeleteIcon
+                  onClick={ondelete}
+                 className={classes.iconProfileActionDelete} />
+               </div>
+             </div>
+             {/* collapses */}
+             {
+               collapses.length ?
+                collapses.map(item => (
+                  <ExpansionPanel  className={classes.expandItem}>
+                      <ExpansionPanelSummary
+                        className={classes.expandHeader}
+                        expandIcon={<ExpandMoreIcon className={classes.expandIcon} />}>
+                        <Typography className={classes.expandHeaderTitle}>{item.title}</Typography>
+                      </ExpansionPanelSummary>
+                      <ExpansionPanelDetails>
+                        {
+                          item.component ?
+                            item.component : null
+                        }
+                      </ExpansionPanelDetails>
+                    </ExpansionPanel>
+                )) : null
+             }
+            </CardContent>
+          </Card>
         </Grow>
       </Modal>
   )
