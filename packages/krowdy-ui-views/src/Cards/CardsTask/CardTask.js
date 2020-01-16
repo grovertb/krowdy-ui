@@ -12,9 +12,10 @@ import {
 export const styles = theme => ({
   card: {
     '&:hover': {
-      border: `${1} solid ${theme.palette.primary[500]}`
+      border: `1px solid ${theme.palette.primary[500]}`,
+      boxShadow: '0px 4px 5px rgba(0, 39, 102, 0.08), 0px 3px 14px rgba(0, 39, 102, 0.04), 0px 8px 10px rgba(0, 39, 102, 0.05)'
     },
-    border: `${1} solid ${theme.palette.grey[300]}`,
+    border: `1px solid ${theme.palette.grey[300]}`,
     borderRadius: 8,
     cursor: 'pointer',
     fontFamily: 'Roboto',
@@ -32,6 +33,9 @@ export const styles = theme => ({
   icon: {
     margin: theme.spacing(0, 1, 0, 5)
   },
+  lessShadow: {
+    boxShadow: 'none'
+  },
   title: {
     color: theme.palette.grey['800'],
     fontSize: 14,
@@ -48,12 +52,12 @@ const CardTask = props => {
     title,
     cardProps,
     cardContentProps,
-    focused = false
+    focused
   } = props
 
 
   return (
-    <Card className={clsx(classes.card)}
+    <Card className={clsx(classes.card, { [classes.lessShadow]: !focused })}
       raised={focused}
       {...cardProps}
     >
