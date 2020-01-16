@@ -94,11 +94,13 @@ SearchTasks.propTypes = {
   classes: PropTypes.object,
   firtsList: PropTypes.array,
   iconOnSeeker: PropTypes.node,
+  onClickInItem : PropTypes.func,
   propsInput: PropTypes.object,
   propsListItemsToFirstList: PropTypes.object,
   propsListItemsToSecondList: PropTypes.object,
   propsLists: PropTypes.object,
   secondList: PropTypes.array,
+  selected:PropTypes.string,
 }
 
 SearchTasks.muiName = 'SearchTasks'

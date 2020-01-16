@@ -5,9 +5,9 @@ import { CardTask } from '@krowdy-ui/views/Cards'
 export default function () {
 
   return (
-    <>
-      <Grid container justify='center' xs={4}>
-        <CardTask
+    <Grid container justify='center' >
+      <Grid item xs={4}>       
+       <CardTask
           title='Card User'
           avatarProps={{
             src: 'https://instaperfil.com/images/instaperfilseguidores.png',
@@ -19,7 +19,7 @@ export default function () {
         />
 
       </Grid >
-    </>
+    </Grid >
   )
 }
 

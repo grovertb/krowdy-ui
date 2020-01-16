@@ -3,7 +3,14 @@ import { Grid } from '@krowdy-ui/core'
 import { SearchTask } from '@krowdy-ui/views'
 import { SearchOutlined } from '@material-ui/icons'
 
+
 export default function () {
+  
+  const [clicked, setClicked] = React.useState('id1')
+  
+  function _handleClicked(id){
+    setClicked(id)
+  }
 
   return (
     <>
@@ -39,7 +46,8 @@ export default function () {
           /*  propsInput={{
              onChange: (e) => console.log(e.target.value)
             }} */
-          itemSelected='id1'
+          onClickInItem = {_handleClicked}
+          selected={clicked}
           iconOnSeeker={<SearchOutlined />}
         />
 

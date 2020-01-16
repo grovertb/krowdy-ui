@@ -1,5 +1,5 @@
-# User Card
+# Task Card
 
-<p class="description">View of job detail for portals, landing and ats.</p>
+<p class="description">View tasks cards </p>
 
 {{"demo": "containers/views/cardtask/CardTask.js", "hideHeader": false, "bg": true, "bgColor": "white", "iframe": true }}

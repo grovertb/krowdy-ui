@@ -10,7 +10,7 @@ export const styles = theme => ({
     '&:hover': {
       backgroundColor: 'transparent'
     },
-    paddingTop: '0px'
+    paddingTop: 0
   },
   container: {
     display: 'flex',
@@ -32,29 +32,25 @@ export const styles = theme => ({
     display: 'flex',
     flexDirection: 'column',
     minWidth: '80%',
-    verticalAlign: 'top'
   },
   label: {
     fontSize: '1.5rem'
+  },
+  lastInput:{
+    marginLeft:theme.spacing(10),
+    minWidth: '75%'
   },
   order: {
     fontWeight: 'bold'
   },
   textField: {
     '&:hover': {
-      color: theme.palette.primary['600']
+      color: theme.palette.primary[600]
     },
-    color: theme.palette.grey['700'],
-    flexGrow: 8,
+    color: theme.palette.grey[700],
     margin: theme.spacing(0, 1, 1, 2),
     minWidth: '80%'
   },
-  underline: {
-    '&::after': {
-      border: '1px solid red'
-    },
-    color: 'green'
-  }
 })
 
 const reorder = (list, startIndex, endIndex) => {
@@ -74,11 +70,10 @@ const Questionary = props => {
     classes,
     iconRemove,
     iconDrag,
-    iconDragStyle = {},
     disabled = false,
     items = [],
     lastInputProps,
-    setItems,
+    onSetItems,
     showInstructions = true,
     onDeleteItem,
     onLastInput,
@@ -93,7 +88,7 @@ const Questionary = props => {
       result.source.index,
       result.destination.index
     )
-    setItems(newItems)
+    onSetItems(newItems)
   }
 
   return (
@@ -111,7 +106,7 @@ const Questionary = props => {
                     ref={provided.innerRef}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}>
-                    <div classes={iconDragStyle} className={clsx(styles.iconDragContainer)}>
+                    <div className={clsx(styles.iconDragContainer)}>
                       {iconDrag}
                     </div>
                     <span className={classes.order}>
@@ -121,7 +116,6 @@ const Questionary = props => {
                       <Input
                         className={classes.textField}
                         disabled={disabled}
-                        inputProps={{ classes: { underline: classes.underline } }}
                         multiline
                         onChange={event => {
                           onUpdateItem(item._id, {
@@ -177,15 +171,14 @@ Questionary.propTypes = {
   classes: PropTypes.object,
   disabled: PropTypes.bool,
   iconDrag: PropTypes.node,
-  iconDragStyle: PropTypes.object,
   iconRemove: PropTypes.node,
   items: PropTypes.array.isRequired,
   lastInputProps: PropTypes.object,
   onDeleteItem: PropTypes.func,
   onLastInput: PropTypes.func,
+  onSetItems: PropTypes.func,
   onUpdateItem: PropTypes.func,
-  setItems: PropTypes.func,
-  showInstructions: PropTypes.func
+  showInstructions: PropTypes.bool
 }
 
 Questionary.muiName = 'Questionary'
