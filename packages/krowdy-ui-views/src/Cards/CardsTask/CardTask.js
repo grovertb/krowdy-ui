@@ -11,11 +11,14 @@ import {
 
 export const styles = theme => ({
   card: {
+    '&:hover': {
+      border: `${1} solid ${theme.palette.primary[500]}`
+    },
     border: `${1} solid ${theme.palette.grey[300]}`,
     borderRadius: 8,
     cursor: 'pointer',
     fontFamily: 'Roboto',
-    fontSize: 14,
+    fontSize: 14
   },
   content: {
     align: 'left',
@@ -45,12 +48,13 @@ const CardTask = props => {
     title,
     cardProps,
     cardContentProps,
+    focused = false
   } = props
 
 
   return (
-    <Card
-      className={clsx(classes.card)}
+    <Card className={clsx(classes.card)}
+      raised={focused}
       {...cardProps}
     >
       <CardHeader
@@ -72,6 +76,7 @@ CardTask.propTypes = {
   cardProps: PropTypes.object,
   classes: PropTypes.object,
   content: PropTypes.node,
+  focused: PropTypes.bool,
   iconRight: PropTypes.node,
   title: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
 }

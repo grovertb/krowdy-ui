@@ -6,6 +6,7 @@
 
 | prop                       | type    |default| description                                               |
 | :------------------------- |:--------|------:|----------------------------------------------------------- |
+| addInputComponent   | node  | | Lst Componet or aditional component in form                               |
 | classes                    | object  | | Modify class.                                             |
 | disabled                  | bool   |  false | disabled questions edition    |
 | iconDrag               | node    | | Contains icon.                                            |

@@ -69,10 +69,10 @@ const Questionary = props => {
     disabled = false,
     items = [],
     addInputComponent,
-    onSetItems,
+    onSetItems = () => { },
     showInstructions = true,
-    onDeleteItem,
-    onUpdateItem
+    onDeleteItem = () => { },
+    onUpdateItem = () => { }
   } = props
 
   const onDragEnd = (result) => {
@@ -102,7 +102,7 @@ const Questionary = props => {
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}>
                     <div className={clsx(styles.iconDragContainer)}>
-                      {iconDrag}
+                      {(iconDrag) ? iconDrag : null}
                     </div>
                     <div className={classes.inputsContent}>
                       <InputComponent
@@ -116,7 +116,7 @@ const Questionary = props => {
                       className={clsx(classes.button, classes.right)}
                       disabled={disabled}
                       onClick={() => onDeleteItem(item._id)}>
-                      {iconRemove}
+                      {(iconRemove) ? iconRemove : null}
                     </Button>
                   </div>
                 )}
