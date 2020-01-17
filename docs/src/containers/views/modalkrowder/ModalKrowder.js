@@ -5,7 +5,7 @@ import {
 } from '@krowdy-ui/core'
 
 export default function () {
-  const [open, setOpen] = useState(null)
+  const [open, setOpen] = useState(false)
 
   const _handleClickOpen = () => {
     setOpen(true)
@@ -23,9 +23,9 @@ export default function () {
     console.log('DELETE')
   }
 
-  const testComponent = <Typography>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto.
+  const TestComponent = () => (<Typography>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto.
   Lorem Ipsum ha sido el texto de relleno estándar de las 
-  industrias desde el año 1500, cuando un impresor (N. del T.</Typography>
+  industrias desde el año 1500, cuando un impresor (N. del T.</Typography>)
 
   return (
     <div>
@@ -43,15 +43,14 @@ export default function () {
       }}
       collapses={[
         {
-          component: testComponent,
+          component: <TestComponent />,
           title: 'prueba de collapse 1'
         },
         {
-          component: null,
+          component: <TestComponent />,
           title: 'title 2'
         }
       ]}
-      open={Boolean(open)} />
+      open={open} />
     </div>
-  )
-}
+  )}

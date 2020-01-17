@@ -7,7 +7,7 @@ export * from './Header';
 export { default as CardUser } from './CardUser';
 export * from './CardUser';
 
-export { default as Modal } from './ModalKrowder';
+export { default as ModalKrowder } from './ModalKrowder';
 export * from './ModalKrowder';
 
 export {default as AvatarUser } from './AvatarUser';

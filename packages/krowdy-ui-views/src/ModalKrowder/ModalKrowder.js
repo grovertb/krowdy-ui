@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { makeStyles } from '@krowdy-ui/styles'
+import { withStyles } from '@krowdy-ui/styles'
 import {
   Modal,
   Backdrop,
@@ -20,7 +20,7 @@ import CloseIcon from '@material-ui/icons/Close'
 import DeleteIcon from '@material-ui/icons/Delete'
 import PauseCircleOutlineIcon from '@material-ui/icons/PauseCircleOutline'
 
-const useStyles = makeStyles(theme => ({
+export const styles = theme => ({
   expandHeader: {
     '&.Mui-expanded': {
       height: '40px',
@@ -111,7 +111,7 @@ const useStyles = makeStyles(theme => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   }
-}), { name: 'ModalKrowder' })
+})
 
 function ModalKrowder (props) {
   const {
@@ -120,15 +120,14 @@ function ModalKrowder (props) {
     user,
     onsuspend,
     ondelete,
-    collapses
+    collapses,
+    classes
   } = props
-
-  const classes = useStyles()
 
   return (
     <Modal
         className={classes.modal}
-        open={true}
+        open={open}
         onClose={onclose}
         closeAfterTransition
         disableAutoFocus={true}
@@ -136,7 +135,7 @@ function ModalKrowder (props) {
         BackdropProps={{
           timeout: 500,
         }}>
-        <Grow in={true}>
+        <>
           <Card className={classes.card}>
           <CardHeader
               action={
@@ -189,16 +188,31 @@ function ModalKrowder (props) {
              }
             </CardContent>
           </Card>
-        </Grow>
+        </>
       </Modal>
   )
 }
 
 ModalKrowder.propTypes = {
   classes: PropTypes.object,
-  title: PropTypes.string,
+  collapses: PropTypes.arrayOf(
+    PropTypes.shape({
+      component: PropTypes.element.isRequired,
+      title: PropTypes.string.isRequired
+    })
+  ),
+  onclose: PropTypes.func.isRequired,
+  ondelete: PropTypes.func,
+  onsuspend: PropTypes.func,
+  open: PropTypes.bool.isRequired,
+  user: PropTypes.shape({
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    photo: PropTypes.string
+  })
 }
+
 
 ModalKrowder.muiName = 'ModalKrowder'
 
-export default ModalKrowder
+export default withStyles(styles, { name: 'ModalKrowder' })(ModalKrowder)

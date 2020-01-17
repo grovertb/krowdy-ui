@@ -74,7 +74,8 @@ IconButton.propTypes = {
   /**
    * The color of the component. It supports those theme colors that make sense for this component.
    */
-  color: PropTypes.oneOf(['default', 'inherit', 'primary', 'secondary', 'krowdy', 'error'])
+  color: PropTypes.oneOf(['default', 'inherit', 'primary', 'secondary', 'krowdy', 'error']),
+  tooltip: PropTypes.string
 }
 
 export default withStyles(styles, { name: 'KrowdyIconButton' })(IconButton)
