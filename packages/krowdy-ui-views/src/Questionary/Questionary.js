@@ -4,7 +4,7 @@ import clsx from 'clsx'
 import { withStyles } from '@krowdy-ui/core/styles'
 import { Button, Grid } from '@krowdy-ui/core'
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
-import InputComponent from './InputsTextField'
+// import InputComponent from './InputsTextField'
 
 export const styles = theme => ({
   button: {
@@ -12,38 +12,40 @@ export const styles = theme => ({
       backgroundColor: 'transparent'
     },
     minWidth: 0,
-    padding: theme.spacing(2, 0, 0, 0),
+    padding: 0
   },
   container: {
     height: '100%',
-    overflow: 'auto',
     width: '100%'
   },
   divQuestion: {
-    flexDirection: 'row',
+    flexDirection: 'row'
   },
   gridContainer: {
-    height: 'calc(100%-40px)',
+    height: 'calc(100% - 40px)',
+    overflow: 'auto',
   },
   gridItem: {
-    maxHeight: '100%',
+    maxHeight: '100%'
   },
   iconDragContainer: {
     color: theme.palette.grey[500]
+  },
+  inputsContent: {
+    flex: 1
   },
   label: {
     fontSize: '1.5rem'
   },
   lastInput: {
-    fontSize: '14px',
+    fontSize: 14,
     margin: 'auto',
-    paddingLeft: theme.spacing(1),
+    paddingLeft: theme.spacing(1)
   },
   order: {
     fontWeight: 'bold'
-  },
+  }
 })
-
 
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list)
@@ -59,6 +61,7 @@ const Questionary = props => {
     classes,
     iconRemove,
     iconDrag,
+    inputComponent: InputComponent,
     disabled,
     items = [],
     onSetItems = () => { },
@@ -79,8 +82,8 @@ const Questionary = props => {
   }
 
   return (
-    <Grid container className={classes.gridContainer}>
-      <Grid item xs={12} className={classes.gridItem} >
+    <Grid className={classes.gridContainer} container>
+      <Grid className={classes.gridItem} item xs={12} >
         <DragDropContext onDragEnd={onDragEnd} >
           <Droppable direction='vertical' droppableId='droppable'>
             {(provided) => (<div
@@ -88,24 +91,30 @@ const Questionary = props => {
               {...provided.droppableProps}
               ref={provided.innerRef}>
               {items.map((item, index) => (
-                <Draggable draggableId={item._id} index={index} key={item._id}>
+                <Draggable
+                  draggableId={item._id}
+                  index={index}
+                  key={item._id}>
                   {(provided) => (
-                    <Grid container
-                      justify='space-between'
+                    <Grid
                       className={classes.divQuestion}
+                      container
+                      justify='space-between'
+                      key={item._id}
                       ref={provided.innerRef}
                       {...provided.draggableProps}
-                      {...provided.dragHandleProps}>
-                      <Grid item className={clsx(classes.iconDragContainer)}>
+                      {...provided.dragHandleProps}
+                      tabIndex='-1'>
+                      <Grid className={clsx(classes.iconDragContainer)} item>
                         {(iconDrag) ? iconDrag : null}
                       </Grid>
-                      <Grid item xs={11} className={classes.inputsContent}>
+                      <Grid className={classes.inputsContent} item xs={11}>
                         <InputComponent
-                          instructions={showInstructions}
                           disabled={disabled}
+                          instructions={showInstructions}
                           item={item}
-                          order={(index + 1 < 10) ? `0${index + 1}.` : `${index + 1}.`}
-                          onUpdateItem={onUpdateItem} />
+                          onUpdateItem={onUpdateItem}
+                          order={(index + 1 < 10) ? `0${index + 1}.` : `${index + 1}.`} />
                       </Grid>
                       <Grid item>
                         <Button
@@ -137,8 +146,8 @@ Questionary.propTypes = {
   disabled: PropTypes.bool,
   iconDrag: PropTypes.node,
   iconRemove: PropTypes.node,
-/*   inputComponent: PropTypes.func.isRequired,
- */  items: PropTypes.array.isRequired,
+  inputComponent: PropTypes.object.isRequired,
+  items: PropTypes.array.isRequired,
   onDeleteItem: PropTypes.func,
   onSetItems: PropTypes.func,
   onUpdateItem: PropTypes.func,

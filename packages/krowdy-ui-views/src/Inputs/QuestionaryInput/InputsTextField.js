@@ -7,30 +7,35 @@ import { Input } from '@krowdy-ui/core'
 
 export const styles = theme => ({
   container: {
-    display: 'flex',
+    display      : 'flex',
     flexDirection: 'row',
-    width: '100%'
+    width        : '100%'
   },
   focused: {
-    borderBottom: `1px solid ${theme.palette.primary[600]}`,
+    borderBottom: `1px solid ${theme.palette.primary[600]}`
   },
   inputsContent: {
-    alignContent: 'flex-start',
-    display: 'flex',
+    alignContent : 'flex-start',
+    display      : 'flex',
     flexDirection: 'column',
-    width: '100%'
+    width        : '100%'
+  },
+  multiline: {
+    paddingTop: 2
   },
   order: {
+    fontSize  : 14,
     fontWeight: 'bold'
   },
   textField: {
     '&:hover': {
-      borderBottom: `1px solid ${theme.palette.primary[400]}`,
+      borderBottom: `1px solid ${theme.palette.primary[400]}`
     },
     borderBottom: `1px solid ${theme.palette.grey[400]}`,
-    color: theme.palette.grey[700],
-    margin: theme.spacing(0, 1, 2, 1),
-  },
+    color       : theme.palette.grey[700],
+    fontSize    : 14,
+    margin      : theme.spacing(0, 1, 2, 1)
+  }
 })
 
 const InputComponent = (props) => {
@@ -42,42 +47,48 @@ const InputComponent = (props) => {
     </span>
     <div className={classes.inputsContent}>
       <Input
-        className={clsx(classes.textField, classes.focused)}
-        disableUnderline
         autoFocus
+        classes={{
+          multiline: classes.multiline
+        }}
+        className={clsx(classes.textField, classes.focused)}
+        defaultValue={item.question}
         disabled={disabled}
+        disableUnderline
         multiline
         onChange={event => {
           onUpdateItem(item._id, {
             question: event.target.value
           })
         }}
-        placeholder='Escribe una pregunta'
-        defaultValue={item.question} />
+        placeholder='Escribe una pregunta' />
       {
         instructions &&
         <Input
-          disableUnderline
+          classes={{
+            multiline: classes.multiline
+          }}
           className={clsx(classes.textField)}
+          defaultValue={item.instructions}
           disabled={disabled}
+          disableUnderline
           multiline
           onChange={event => {
             onUpdateItem(item._id, {
               instructions: event.target.value
             })
           }}
-          placeholder='Agrega instrucciones para Krowder'
-          defaultValue={item.instructions} />
+          placeholder='Agrega instrucciones para Krowder' />
       }
     </div>
   </div>)
 }
 
 InputComponent.propTypes = {
-  classes: PropTypes.object,
-  disabled: PropTypes.bool,
+  classes     : PropTypes.object,
+  disabled    : PropTypes.bool,
   instructions: PropTypes.bool,
-  item: PropTypes.object,
+  item        : PropTypes.object,
   onUpdateItem: PropTypes.func
 }
 

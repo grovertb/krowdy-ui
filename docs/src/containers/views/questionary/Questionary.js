@@ -2,8 +2,8 @@ import React from 'react'
 import { Grid, Input } from '@krowdy-ui/core'
 import { Questionary } from '@krowdy-ui/views'
 import { RemoveCircleOutline, DragIndicator } from '@material-ui/icons'
-/* import { QuestionaryInput } from '@krowdy-ui/views/Inputs'
- */
+import { QuestionaryInput } from '@krowdy-ui/views/Inputs'
+
 const items = [{
   _id: 'item-1',
   instructions: () => { },
@@ -65,6 +65,7 @@ export default () => {
           addInputComponent={<Input placeholder='Escriba una nueva pregunta' />}
           onDeleteItem={deleteItem}
           showInstructions={true}
+          inputComponent={QuestionaryInput}
         />
       </Grid>
     </Grid>

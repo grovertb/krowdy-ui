@@ -84,12 +84,10 @@ const CardCandidate = props => {
 							color='primary'
 							onChange={_handleChange}
 							onMouseLeave={_handleMouseLeave}
-						/>
-						:
+						/> :
 						<Avatar onMouseOver={_handleMouseOver} src={imageAvatar} className={classes.avatar} >
 							CA
             </Avatar>
-
 				}
 				</div>
 				<div style={{
