@@ -14,6 +14,7 @@ import {
   ExpansionPanelSummary,
   ExpansionPanelDetails
 } from '@krowdy-ui/core'
+import { AvatarUser } from '@krowdy-ui/views'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import CloseIcon from '@material-ui/icons/Close'
 import DeleteIcon from '@material-ui/icons/Delete'
@@ -69,7 +70,7 @@ const useStyles = makeStyles(theme => ({
     color: '#FF4053',
     cursor: 'pointer',
     fontSize: '1.125rem',
-    marginLeft: '10px'
+    // marginLeft: '10px'
 
   },
   iconProfileActionPause: {
@@ -134,8 +135,7 @@ function ModalKrowder (props) {
         BackdropComponent={Backdrop}
         BackdropProps={{
           timeout: 500,
-        }}
-      >
+        }}>
         <Grow in={true}>
           <Card className={classes.card}>
           <CardHeader
@@ -150,15 +150,7 @@ function ModalKrowder (props) {
               {/* profile */}
              <div className={classes.headerProfileContent}>
                <div className={classes.headerProfile}>
-                {
-                    user.photo ? <img className={classes.krowderAvatar} src={user.photo} /> :
-                    <div className={classes.headerProfileName}>
-                      {
-                        `${user.firstName ? user.firstName.charAt().toUpperCase() : ''}
-                        ${user.lastName ? user.lastName.charAt().toUpperCase() : ''}`
-                      }
-                    </div>
-                  }
+                 <AvatarUser user={user} />
                   <div>
                     <Typography className={classes.krowderName}>{user.firstName} {user.lastName}</Typography>
                     <Typography className={classes.krowderEmail}>{user.email}</Typography>
@@ -166,19 +158,21 @@ function ModalKrowder (props) {
                   </div>
                </div>
                <div className={classes.headerProfileActions}>
-                 <PauseCircleOutlineIcon
-                  onClick={onsuspend}
-                  className={classes.iconProfileActionPause} />
-                 <DeleteIcon
-                  onClick={ondelete}
-                 className={classes.iconProfileActionDelete} />
+                 <IconButton tooltip='Suspender' onClick={onsuspend}>
+                  <PauseCircleOutlineIcon
+                    className={classes.iconProfileActionPause} />
+                 </IconButton>
+                 <IconButton tooltip='Eliminar' onClick={ondelete}>
+                  <DeleteIcon
+                  className={classes.iconProfileActionDelete} />
+                 </IconButton>
                </div>
              </div>
              {/* collapses */}
              {
                collapses.length ?
-                collapses.map(item => (
-                  <ExpansionPanel  className={classes.expandItem}>
+                collapses.map((item, n) => (
+                  <ExpansionPanel key={n} className={classes.expandItem}>
                       <ExpansionPanelSummary
                         className={classes.expandHeader}
                         expandIcon={<ExpandMoreIcon className={classes.expandIcon} />}>

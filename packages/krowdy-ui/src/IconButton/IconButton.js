@@ -1,6 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
+import {
+  Tooltip
+} from '@material-ui/core'
 import MuiIconButton from '@material-ui/core/IconButton'
 import capitalize from '../utils/capitalize'
 import withStyles from '../styles/withStyles'
@@ -35,10 +38,10 @@ const IconButton = React.forwardRef(function IconButton({ color = 'default', ...
   const {
     className: classNameProps,
     classes,
-    
+    tooltip,
     ...otherProps
   } = props
-
+  
   const className = clsx(
     classNameProps,
     {
@@ -49,7 +52,12 @@ const IconButton = React.forwardRef(function IconButton({ color = 'default', ...
   if(color === 'krowdy' || color === 'error') color = 'default'
  
   return (
+    tooltip ?
+      <Tooltip title={tooltip}>
+        <MuiIconButton ref={ref} className={className} color={color} {...otherProps} />
+      </Tooltip> :
     <MuiIconButton ref={ref} className={className} color={color} {...otherProps} />
+
   )
 })
 
