@@ -26,7 +26,8 @@ export default function () {
       {
         action: 'logout',
         title: 'Cerrar sesiòn',
-        type: 'action'
+        type: 'action',
+        url: '#'
       }
     ]}
     actions={{
@@ -38,21 +39,23 @@ export default function () {
     }}
     menuTopLeft={[
       {
+        color: 'primary',
         target: '_self',
         title: 'View card',
         type: 'button',
-        url: '/views/carduser'
+        url: '/views/carduser',
+        variant: 'contained'
       },
       {
         target: '_blank',
-        title: 'Google',
+        title: 'Link Externo',
         type: 'link',
         url: 'https://google.com'
       },
       {
         target: '_blank',
-        title: 'Link interno',
-        type: 'link',
+        title: 'Icon',
+        type: 'icon',
         url: '/views'
       },
     ]}
@@ -64,10 +67,12 @@ export default function () {
         url: '/views/carduser'
       },
       {
+        color: 'secondary',
         target: '_blank',
         title: 'Google',
         type: 'button',
-        url: 'https://google.com'
+        url: 'https://google.com',
+        variant: 'contained'
       }
     ]}
     menus={[

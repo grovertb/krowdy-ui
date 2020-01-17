@@ -28,6 +28,33 @@ import {
 const drawerWidth = 210
 
 const useStyles = makeStyles(theme => ({
+  buttonLink: {
+    '& > .MuiButton-label': {
+      '&:after': {
+        backgroundColor: theme.palette.primary.main,
+        bottom: '-2px',
+        content: '""',
+        height: '1px',
+        left: 0,
+        position: 'absolute',
+        right: 0,
+        transform: 'scaleX(0)',
+        transition: 'all .2s ease 0s',
+      },
+      cursor      : 'pointer',
+      position    : 'relative'
+    },
+    '&:hover': {
+      '& > .MuiButton-label': {
+        '&:after': {
+        transform: 'scaleX(1)'
+        }
+      },
+      backgroundColor: 'transparent',
+      color: theme.palette.primary.main
+    },
+    backgroundColor: 'transparent',
+  },
   drawerContentIcon: {
     color         : theme.palette.common.white,
     height        : 50,
@@ -75,7 +102,8 @@ const useStyles = makeStyles(theme => ({
   main: {
     display: 'flex',
     flexDirection: 'column',
-    minHeight: '100vh'
+    minHeight: '100vh',
+    width: '100%'
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -277,85 +305,55 @@ function Dashboard(props) {
             <div className={classes.toolbarCenterLeft}>
             {
               menuTopLeft.length ?
-              menuTopLeft.map((item, n) => {
-                switch (item.type) {
-                  case 'button':
-                    if(validURL(item.url)) {
-                      return <Button
-                          key={n}
-                          color='primary'
-                          variant='contained'
-                          href={item.url}
-                          target={item.target ? item.target : '_blank'}>{item.title}</Button>
-                    }else {
-                      return <Button
-                          key={n}
-                          color='primary'
-                          variant='contained'
-                          component={RouterLink}
-                          to={item.url}>
+                menuTopLeft.map((item, n) => (
+                  validURL(item.url) ?
+                    <Button
+                      key={n}
+                      className={item.type === 'link' ? classes.buttonLink : ''}
+                      color={item.color ? item.color : 'default'}
+                      variant={item.variant ? item.variant : 'text'}
+                      href={item.url}
+                      target={item.target ? item.target : '_blank'}>
                         {item.title}
-                      </Button>
-                    }
-                
-                  default:
-                    if(validURL(item.url)) {
-                      return <Button
-                          key={n}
-                          href={item.url}
-                          target={item.target ? item.target : '_blank'}>{item.title}</Button>
-                    }else {
-                      return <Button
-                        key={n}
-                        component={RouterLink}
-                        to={item.url}>
+                    </Button>
+                  :
+                    <Button
+                      key={n}
+                      className={item.type === 'link' ? classes.buttonLink : ''}
+                      color={item.color ? item.color : 'default'}
+                      variant={item.variant ? item.variant : 'text'}
+                      component={RouterLink}
+                      to={item.url}>
                         {item.title}
-                      </Button>
-                    }
-                }
-              }) : null
+                    </Button>
+                )) : null
             }
             </div>
             <div className={classes.toolbarCenterRight}>
             {
               menuTopRight.length ?
-              menuTopRight.map((item, n) => {
-                switch (item.type) {
-                  case 'button':
-                    if(validURL(item.url)) {
-                      return <Button
-                          key={n}
-                          color='primary'
-                          variant='contained'
-                          href={item.url}
-                          target={item.target ? item.target : '_blank'}>{item.title}</Button>
-                    }else {
-                      return <Button
-                          key={n}
-                          color='primary'
-                          variant='contained'
-                          component={RouterLink}
-                          to={item.url}>
-                        {item.title}
-                      </Button>
-                    }
-                
-                  default:
-                    if(validURL(item.url)) {
-                      return <Button
-                          key={n}
-                          href={item.url}
-                          target={item.target ? item.target : '_blank'}>{item.title}</Button>
-                    }else {
-                      return <Button
-                        key={n}
-                        component={RouterLink}
-                        to={item.url}>
-                        {item.title}
-                      </Button>
-                    }
-                }
-              }) : null
+              menuTopRight.map((item, n) => (
+                validURL(item.url) ?
+                  <Button
+                    key={n}
+                    className={item.type === 'link' ? classes.buttonLink : ''}
+                    color={item.color ? item.color : 'default'}
+                    variant={item.variant ? item.variant : 'text'}
+                    href={item.url}
+                    target={item.target ? item.target : '_blank'}>
+                      {item.title}
+                  </Button>
+                :
+                  <Button
+                    key={n}
+                    className={item.type === 'link' ? classes.buttonLink : ''}
+                    color={item.color ? item.color : 'default'}
+                    variant={item.variant ? item.variant : 'text'}
+                    component={RouterLink}
+                    to={item.url}>
+                      {item.title}
+                  </Button>
+              )) : null
             }
             </div>
           </div>
@@ -367,13 +365,14 @@ function Dashboard(props) {
               onClick={ev => _handleOpenMenu(ev)}
               color='inherit'>
                 {
-                  user.photo ? <img className={classes.profileName} src={user.photo} /> :
-                  <div className={classes.profileName}>
+                  user.photo ?
+                    <img className={classes.profileName} src={user.photo} /> :
+                    <div className={classes.profileName}>
                     {
                       `${user.firstName ? user.firstName.charAt().toUpperCase() : ''}
                       ${user.lastName ? user.lastName.charAt().toUpperCase() : ''}`
                     }
-                  </div>
+                    </div>
                 }
             </IconButton>
             <Menu
@@ -538,14 +537,57 @@ function Dashboard(props) {
 }
 
 Dashboard.propTypes = {
-  actions: PropTypes.object,
+  actions: PropTypes.shape({
+    logout: PropTypes.func
+  }),
   classes: PropTypes.object,
-  logo: PropTypes.object,
-  menuTopLeft: PropTypes.object,
-  menuTopRight: PropTypes.object,
-  menus: PropTypes.object,
-  user: PropTypes.object,
-  userMenu: PropTypes.object
+  logo: PropTypes.shape({
+    alt: PropTypes.string,
+    source: PropTypes.string
+  }),
+  menuTopLeft: PropTypes.arrayOf(
+    PropTypes.shape({
+      color: PropTypes.string,
+        target: PropTypes.string,
+        title: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+        url: PropTypes.string.isRequired,
+        variant: PropTypes.string
+    })
+  ),
+  menuTopRight: PropTypes.arrayOf(
+    PropTypes.shape({
+      color: PropTypes.string,
+        target: PropTypes.string,
+        title: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+        url: PropTypes.string.isRequired,
+        variant: PropTypes.string
+    })
+  ),
+  menus: PropTypes.arrayOf(
+    PropTypes.shape({
+      icon: PropTypes.string,
+        target: PropTypes.string,
+        title: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+        url: PropTypes.string.isRequired,
+    })
+  ),
+  user: PropTypes.shape({
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    photo: PropTypes.string
+  }),
+  userMenu: PropTypes.arrayOf(
+    PropTypes.shape({
+      action: PropTypes.string,
+      target: PropTypes.string,
+      title: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+      url: PropTypes.string.isRequired
+    })
+  ),
 }
 
 Dashboard.muiName = 'Dashboard'
