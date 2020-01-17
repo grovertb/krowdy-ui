@@ -3,7 +3,6 @@ import { HeaderTask } from '@krowdy-ui/views'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 
 export default function () {
-  const titleHeader = 'Video Cuestionario'
   const arrowBackIcon = <ArrowBackIcon style={{ height: 18, width: 18 }} />
   const titleTask = 'Titulo de video entrevista'
   const numberCandidates = 10
@@ -28,7 +27,7 @@ export default function () {
           showButtonsRight={showButtonsRight}
           showInputName={true}
           arrowBackIcon={arrowBackIcon}
-          titleHeader={titleHeader}
+          titleHeader={'Video Cuestionario'}
           titleTask={titleTask}
           numberCandidates={numberCandidates}
           stageIndex={stageIndex}
@@ -42,7 +41,7 @@ export default function () {
           showButtonsRight={showButtonsRight}
           showInputName={true}
           arrowBackIcon={arrowBackIcon}
-          titleHeader={titleHeader}
+          titleHeader={'Videos'}
           titleTask={titleTask}
           numberCandidates={numberCandidates}
           stageIndex={stageIndex}
@@ -51,12 +50,12 @@ export default function () {
       </div>
       <div>
         <HeaderTask
+          checkbox={true}
           isDraft={false}
-          checkbox={checkbox}
           showButtonsRight={false}
           showInputName={false}
           arrowBackIcon={arrowBackIcon}
-          titleHeader={titleHeader}
+          titleHeader={'Tareas'}
           titleTask={titleTask}
           numberCandidates={numberCandidates}
           stageIndex={stageIndex}
