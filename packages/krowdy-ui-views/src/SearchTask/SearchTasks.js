@@ -24,6 +24,6 @@ SearchTasks.propTypes = {
   title: PropTypes.string
 }
 
-SearchTasks.muiName = 'SearchTasks';
+SearchTasks.muiName = 'SearchTasks'
 
 export default withStyles(styles, { name: 'KrowdySearchTasks' })(SearchTasks)

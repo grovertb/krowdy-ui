@@ -101,7 +101,7 @@ export const styles = theme => ({
 		color: theme.palette.grey['800'],
 		fontSize: 14,
 		fontStyle: 'normal',
-		fontWeight: 'normal',
+		fontWeight: 'bold',
 		height: 20,
 		lineHeight: '20px',
 		margin: '20px 0px 16px 0px'
@@ -126,22 +126,25 @@ const SelectCandidates = props => {
 		searchIcon,
 		dataSource = [],
 		CardCandidate,
+		numberSelecteds,
 		Search,
-		onChangeIndeterminateCandidates,
+		checkboxIndeterminate,
 		classes,
+		onChangeSearchText,
 		checkedCurrentCandidates,
 		onChangeCurrentCandidates,
 		checkedcandidatesToCome,
 		onChangecandidatesToCome,
-		onChangeCheckboxItem
+		onChangeCheckboxItem,
+		onNextCandidates,
+		hasMore
 	} = props
 
 	return (
-		// <div style={{ margin: 10 }}>
 		<Card className={classes.card}>
 			<CardHeader
 				className={classes.cardHeader}
-				title='Selección de candidatos'
+				title={`Candidatos (${numberSelecteds} seleccionados)`}
 				classes={{ title: classes.titleCardheader }}
 			/>
 			<Divider />
@@ -173,59 +176,59 @@ const SelectCandidates = props => {
           </Typography>
 				<FormGroup className={classes.formGroup}>
 					<FormControlLabel
+						className={classes.labelCheckbox}
 						control={
 							<Checkbox
-								name='currentCandidates'
 								checked={checkedCurrentCandidates}
+								color='primary'
+								indeterminate={checkboxIndeterminate}
+								name='currentCandidates'
 								onChange={onChangeCurrentCandidates}
-								indeterminate={onChangeIndeterminateCandidates}
-								color='primary' />
+							/>
 						}
 						label='Candidatos actuales'
-						className={classes.labelCheckbox}
 					/>
 					<FormControlLabel
+						className={classes.labelCheckbox}
 						control={
 							<Checkbox
-								name='candidatesToCome'
 								checked={checkedcandidatesToCome}
+								color='primary'
+								name='candidatesToCome'
 								onChange={onChangecandidatesToCome}
-								color='primary' />
+							/>
 						}
 						label='Candidatos nuevos'
-						className={classes.labelCheckbox}
 					/>
 				</FormGroup>
 				<Search
+					onChange={onChangeSearchText}
 					placeholder={placeholderSearch}
 					searchIcon={searchIcon}
 				/>
 				<InfiniteScroll
 					className={classes.infiniteScroll}
 					dataLength={dataSource.length}
+					hasMore={hasMore}
 					height={218}
-					next={() => {
-						console.log('trae mas')
-					}}
-					hasMore={true}
 					loader={
 						<div className={classes.circularProgress} >
 							<CircularProgress size={20} />
 						</div>
-
 					}
+					next={onNextCandidates}
 				>
-					{dataSource.map(({ id, firstName, lastName, photo }) => (
+					{dataSource.map(({ _id, firstName, lastName, photo }) => (
 						<CardCandidate
-							initials={`${firstName.charAt(0).toUpperCase()}${lastName.charAt(0).toUpperCase()}`}
-							style={{ marginRight: '10px' }}
-							checked={candidatesSelectIds.includes(id)}
+							_id={_id}
+							checked={candidatesSelectIds.includes(_id)}
 							firstName={firstName}
-							key={id}
-							onChangeCheckbox={onChangeCheckboxItem}
+							initials={`${firstName.charAt(0).toUpperCase()}${lastName.charAt(0).toUpperCase()}`}
+							key={_id}
 							lastName={lastName}
+							onChangeCheckbox={onChangeCheckboxItem}
 							photo={photo}
-							id={id}
+							style={{ marginRight: '10px' }}
 						/>
 					))}
 				</InfiniteScroll>
@@ -233,7 +236,6 @@ const SelectCandidates = props => {
 			</CardContent>
 
 		</Card >
-		// </div >
 	)
 }
 
@@ -241,14 +243,15 @@ SelectCandidates.propTypes = {
 	CardCandidate: PropTypes.any,
 	Search: PropTypes.any,
 	candidatesSelectIds: PropTypes.array,
+	checkboxIndeterminate: PropTypes.bool,
 	checkedCurrentCandidates: PropTypes.any,
 	checkedcandidatesToCome: PropTypes.any,
 	classes: PropTypes.object,
 	dataSource: PropTypes.array,
 	itemSelect: PropTypes.any,
 	labelsCheckbox: PropTypes.array,
+	numberSelecteds: PropTypes.number,
 	onChangeCurrentCandidates: PropTypes.func,
-	onChangeIndeterminateCandidates: PropTypes.bool,
 	onChangeSelectOptions: PropTypes.func,
 	onChangecandidatesToCome: PropTypes.func,
 	optionsSelect: PropTypes.array,

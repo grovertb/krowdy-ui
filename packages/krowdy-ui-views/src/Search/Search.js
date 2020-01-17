@@ -38,7 +38,7 @@ export const styles = theme => ({
     boxSizing: 'border-box',
     display: 'flex',
     height: 40,
-    width: 340
+    width: 330
   },
 })
 

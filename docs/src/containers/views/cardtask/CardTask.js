@@ -12,8 +12,8 @@ export default function () {
           borderColor='light'
           lessShadow
           avatarProps={{
-            variant: 'square',
-            src: 'https://instaperfil.com/images/instaperfilseguidores.png'
+            src: 'https://instaperfil.com/images/instaperfilseguidores.png',
+            variant: 'square'
           }}
           content={<div>Define cuáles de los campos del perfil del candidato deben ser
              obligatorios y cuáles no deberían aparecer.</div>}

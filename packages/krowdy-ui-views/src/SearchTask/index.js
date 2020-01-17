@@ -1,1 +1,1 @@
-export { default } from './SearchTasks';
+export { default } from './SearchTasks'

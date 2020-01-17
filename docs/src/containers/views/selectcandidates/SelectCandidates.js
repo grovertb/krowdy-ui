@@ -64,6 +64,11 @@ export default function () {
                 // checkedcandidatesToCome={checkedcandidatesToCome}
                 // onChangecandidatesToCome={onChangecandidatesToCome}
                 // onChangeCheckboxItem={_handleClickCheckboxItem}
+                // numberSelecteds={numberSelecteds}
+                // checkboxIndeterminate={checkboxIndeterminate}
+                // onChangeSearchText={onChangeSearchText}
+                // onNextCandidates={onNextCandidates}
+                // hasMore={hasMore}
                 candidatesSelectIds={candidatesSelectIds}
                 dataSource={dataSource}
                 itemSelect={itemSelect}
