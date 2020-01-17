@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Popover } from '@krowdy-ui/core'
+import { Modal } from '@krowdy-ui/core'
 
 const Dropdown = props => {
   const {
@@ -23,20 +23,14 @@ const Dropdown = props => {
       <div onClick={_handleClick}>
         {children}
       </div>
-      <Popover
+      <Modal
         anchorEl={anchorEl}
-        anchorOrigin={{
-          horizontal: 'right',
-          vertical: 'center'
-        }}
+        style={{ alignItems: 'center', display: 'flex', justifyContent: 'center' }}
         onClose={handleClose}
         open={open}
-        transformOrigin={{
-          horizontal: 'left',
-          vertical: 'top'
-        }}>
+      >
         {content}
-      </Popover>
+      </Modal>
     </div>
   )
 }

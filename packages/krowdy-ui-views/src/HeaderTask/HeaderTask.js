@@ -6,9 +6,9 @@ import {
 	Typography,
 	Button,
 	TextField,
-	Switch,
+	// Switch,
 	IconButton,
-	FormControlLabel,
+	// FormControlLabel,
 
 } from '@krowdy-ui/core'
 import { Dropdown } from '@krowdy-ui/views'
@@ -24,12 +24,12 @@ export const styles = theme => ({
 		height: 18,
 		width: 18
 	},
-	labelSwitch: {
-		fontSize: '14px !important',
-		fontStyle: 'normal',
-		fontWeight: 'normal',
-		lineHeight: '20px',
-	},
+	// labelSwitch: {
+	// 	fontSize: '14px !important',
+	// 	fontStyle: 'normal',
+	// 	fontWeight: 'normal',
+	// 	lineHeight: '20px',
+	// },
 	nameTask: {
 		fontSize: 18,
 		fontStyle: 'normal',
@@ -44,9 +44,9 @@ export const styles = theme => ({
 		justifyContent: 'space-between',
 		width: 'auto'
 	},
-	'switch': {
-		marginRight: 6
-	},
+	// 'switch': {
+	// 	marginRight: 6
+	// },
 	task: {
 		alignItems: 'center',
 		display: 'flex'
@@ -87,8 +87,8 @@ const HeaderTask = props => {
 		numberCandidates,
 		stageIndex,
 		arrowBackIcon,
-		checkedSwitch,
-		onChangeSwitch,
+		// checkedSwitch,
+		// onChangeSwitch,
 		contentButton,
 		onClickArrowBackIcon,
 		id
@@ -138,7 +138,7 @@ const HeaderTask = props => {
 					id
 						?
 						<div>
-							<FormControlLabel
+							{/* <FormControlLabel
 								classes={{
 									label: classes.labelSwitch,
 								}}
@@ -153,7 +153,7 @@ const HeaderTask = props => {
 								}
 								label='Tarea activada'
 								labelPlacement='start'
-							/>
+							/> */}
 							<Button
 								onClick={onClickUpdateTask}
 								variant='outlined'
@@ -194,7 +194,7 @@ HeaderTask.propTypes = {
 	checked: PropTypes.any,
 	classes: PropTypes.object,
 	contentButton: PropTypes.any,
-	id: PropTypes.number,
+	id: PropTypes.string,
 	numberCandidates: PropTypes.number,
 	onChange: PropTypes.any,
 	onChangeTitleTask: PropTypes.any,
@@ -214,3 +214,4 @@ HeaderTask.propTypes = {
 HeaderTask.muiName = 'HeaderTask'
 
 export default withStyles(styles, { name: 'KrowdyHeaderTask' })(HeaderTask)
+

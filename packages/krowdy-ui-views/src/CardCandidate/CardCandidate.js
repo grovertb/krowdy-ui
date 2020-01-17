@@ -50,7 +50,6 @@ export const styles = theme => ({
     boxSizing: 'border-box',
     display: 'flex',
     height: 40,
-    justifyContent: 'space-between',
     marginBottom: 8,
     width: '100%'
   },
