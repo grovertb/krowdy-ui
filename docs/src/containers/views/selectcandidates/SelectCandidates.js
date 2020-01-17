@@ -66,7 +66,7 @@ export default function () {
                 // onChangeCurrentCandidates={_handleChangeCurrentCandidates}
                 // checkedcandidatesToCome={checkedcandidatesToCome}
                 // onChangecandidatesToCome={onChangecandidatesToCome}
-                onChangeCheckboxItem={() => {}}
+                // onChangeCheckboxItem={() => {}}
                 numberSelecteds={numberSelecteds}
                 // checkboxIndeterminate={checkboxIndeterminate}
                 // onChangeSearchText={onChangeSearchText}

@@ -84,7 +84,7 @@ const CardCandidate = props => {
     _id,
     firstName,
     lastName,
-    onChangeCheckbox,
+    onChangeCheckbox = () => {},
     imageAvatar,
     classes
   } = props
