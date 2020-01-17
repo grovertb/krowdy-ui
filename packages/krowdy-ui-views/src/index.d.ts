@@ -9,3 +9,6 @@ export * from './CardUser';
 
 export { default as Modal } from './ModalKrowder';
 export * from './ModalKrowder';
+
+export {default as AvatarUser } from './AvatarUser';
+export * from './AvatarUser';
