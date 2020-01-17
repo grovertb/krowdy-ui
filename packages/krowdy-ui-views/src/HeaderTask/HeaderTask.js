@@ -51,6 +51,7 @@ export const styles = theme => ({
 		fontSize: 12,
 		fontStyle: 'normal',
 		fontWeight: 'normal',
+		height: 35,
 		lineHeight: '100%',
 		marginRight: 12,
 		textAlign: 'center'
