@@ -1,15 +1,22 @@
 # Search
 
 <p class="description">Component search candidates</p>
-<span>
-Props:
-<ul>
-<li> onChange: function</li>
-<li>onKeyDown: function,</li>
-<li>placeholder: string,</li>
-<li>searchIcon: icon,</li>
-<li>value: string</li>
-</ul>
-</span>
 
 {{"demo": "containers/views/search/Search.js", "hideHeader": false, "bg": true, "bgColor": "white", "iframe": true }}
+
+<h1>
+Props:
+</h1>
+
+| Name                               |      Type      |  Default | Description   |
+|:-----------------------------------|:---------------|:---------|:-------------| 
+|   classes        | object       |       |               |
+|   placeholder        |   string     |       |               |
+|    searchIcon       |    icon    |       |               |
+|   value        |   string     |       |               |
+|   onChange        |    function    |       |               |
+|    onKeyDown       |   function     |       |               |
+|     type      |   'border-bottom' o 'border'    |  'border'     |               |
+|           |        |       |               |
+	
+

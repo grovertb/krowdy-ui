@@ -15,6 +15,7 @@ export default function () {
         <div style={{ alignItems: 'center', display: 'flex', justifyContent: 'center', margin: '50px' }}>
             <CardCandidate
                 // id={id}
+
                 checked={checked}
                 onChangeCheckbox={_handleChange}
                 firstName={firstName}

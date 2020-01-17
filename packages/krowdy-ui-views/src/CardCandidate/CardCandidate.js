@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@krowdy-ui/styles'
-import { Card, Avatar, Typography, Checkbox, Paper } from '@krowdy-ui/core'
+import { Avatar, Typography, Checkbox, Paper } from '@krowdy-ui/core'
 
 export const styles = theme => ({
   avatar: {
-    backgroundColor: '#FFFFFF',
-    border: '1px solid #E8E8E8',
-    color: '#8C8C8C',
+    backgroundColor: theme.palette.primary['contrastText'],
+    border: `1px solid ${theme.palette.grey['300']}`,
+    color: theme.palette.grey['300'],
     fontSize: 10,
     fontStyle: 'normal',
     fontWeight: 'normal',
@@ -19,6 +19,14 @@ export const styles = theme => ({
   checkbox: {
     height: 28,
     width: 28
+  },
+  checked: {
+    '& .avatar': {
+      display: 'none'
+    },
+    '& .checkbox-hover': {
+      display: 'inline-flex'
+    }
   },
   headerLeft: {
     flex: '1'
@@ -54,66 +62,53 @@ export const styles = theme => ({
     width: '100%'
   },
   root: {
+    '& .checkbox-hover': {
+      display: 'none'
+    },
+    '&:hover': {
+      '& .avatar': {
+        display: 'none'
+      },
+      '& .checkbox-hover': {
+        display: 'inline-flex'
+      }
+    },
     marginLeft: 8
   }
 })
+
 
 const CardCandidate = props => {
   const {
     checked,
     id,
     firstName,
-    initials,
     lastName,
     onChangeCheckbox,
     imageAvatar,
     classes
   } = props
 
-
-  const [changeCheckbox, setChangeCheckbox] = useState(false)
-  const _handleMouseOver = () => {
-    setChangeCheckbox(checked)
-
-  }
-  const _handleMouseLeave = () => {
-    setChangeCheckbox(checked)
-
-  }
-
+  const initials = `${firstName.charAt(0).toUpperCase()}${lastName.charAt(0).toUpperCase()}`
 
   return (
     <Paper
       className={classes.paper}
       key={id}
     >
-      <div className={classes.root}>{
-        checked ? (
-          <Checkbox
-            checked={checked}
-            className={classes.checkbox}
-            color='primary'
-            onChange={onChangeCheckbox}
-            onMouseLeave={_handleMouseLeave}
-          />
-        ) : changeCheckbox ?
-            <Checkbox
-              checked={checked}
-              className={classes.checkbox}
-              color='primary'
-              onChange={onChangeCheckbox}
-              onMouseLeave={_handleMouseLeave}
-            />
-            :
-            <Avatar
-              className={classes.avatar}
-              onMouseOver={_handleMouseOver}
-              src={imageAvatar}
-            >
-              {initials}
-            </Avatar>
-
-      }
+      <div className={`${classes.root} ${checked && classes.checked}`}>
+        <Checkbox
+          checked={checked}
+          className={`${classes.checkbox} checkbox-hover`}
+          color='primary'
+          onChange={onChangeCheckbox}
+        />
+        <Avatar
+          className={`${classes.avatar} avatar`}
+          src={imageAvatar}
+        >
+          {!imageAvatar ? initials : null}
+        </Avatar>
       </div>
       <div className={classes.labelCandidate}>
         <Typography className={classes.name} >
@@ -131,9 +126,8 @@ CardCandidate.propTypes = {
   firstName: PropTypes.string,
   id: PropTypes.number,
   imageAvatar: PropTypes.node,
-  initials: PropTypes.string,
   lastName: PropTypes.string,
-  onChangeCheckbox: PropTypes.any,
+  onChangeCheckbox: PropTypes.func,
 }
 
 CardCandidate.muiName = 'CardCandidate'

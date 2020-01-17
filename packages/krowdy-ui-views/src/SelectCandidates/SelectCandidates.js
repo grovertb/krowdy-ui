@@ -37,7 +37,7 @@ export const styles = theme => ({
 		overflow: 'hidden'
 	},
 	close: {
-		color: '#262626'
+		color: theme.palette.grey['800']
 	},
 	formGroup: {
 		display: ' flex',
@@ -49,7 +49,7 @@ export const styles = theme => ({
 	},
 	infiniteScroll: {
 		'&::-webkit-box-shadow': {
-			backgroundColor: '#F5F5F5',
+			backgroundColor: theme.palette.grey['100'],
 			borderRadius: 10,
 
 		},
@@ -58,7 +58,7 @@ export const styles = theme => ({
 			width: 5
 		},
 		'&::-webkit-scrollbar-thumb': {
-			backgroundColor: '#D8D8D8',
+			backgroundColor: theme.palette.grey['300'],
 			borderRadius: 2
 		},
 		'&::-webkit-scrollbar-track': {
@@ -86,15 +86,15 @@ export const styles = theme => ({
 	},
 	selectStage: {
 		'&:active': {
-			borderBottom: '1px solid #096DD9'
+			borderBottom: `1px solid ${theme.palette.primary['600']}`
 		},
 		'&:hover': {
-			borderBottom: '1px solid #40A9FF'
+			borderBottom: `1px solid ${theme.palette.primary['400']}`
 		},
 		'&:inactive': {
-			borderBottom: '1px solid #D9D9D9'
+			borderBottom: `1px solid ${theme.palette.grey['400']}`
 		},
-		borderBottom: '1px solid #D9D9D9',
+		borderBottom: `1px solid ${theme.palette.grey['400']}`,
 		color: theme.palette.grey['700'],
 		fontSize: 14,
 		fontWeight: 'normal',
@@ -157,12 +157,11 @@ const SelectCandidates = props => {
 					alignItems: 'center',
 					display: 'flex',
 					justifyContent: 'center',
-					paddingRight: 7
+					paddingRight: 23
 				}}>
 					<IconButton
 						size='small'
 						className={classes.close}>
-
 						{closeIcon}
 					</IconButton>
 				</div>
@@ -278,7 +277,7 @@ SelectCandidates.propTypes = {
 	onChangecandidatesToCome: PropTypes.func,
 	optionsSelect: PropTypes.array,
 	placeholderSearch: PropTypes.string,
-	searchIcon: PropTypes.any
+	searchIcon: PropTypes.node
 }
 
 SelectCandidates.muiName = 'SelectCandidates'

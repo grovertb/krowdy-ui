@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@krowdy-ui/styles'
-import { InputBase, Paper, InputAdornment } from '@krowdy-ui/core'
+import { InputBase, InputAdornment } from '@krowdy-ui/core'
 
 export const styles = theme => ({
   headerLeft: {
@@ -40,6 +40,23 @@ export const styles = theme => ({
     height: 40,
     width: 330
   },
+  paperBottom: {
+    '&:active': {
+      borderBottom: `1px solid ${theme.palette.grey['500']}`
+    },
+    '&:focus': {
+      borderBottom: `1px solid ${theme.palette.primary['600']}`
+    },
+    '&:hover': {
+      borderBottom: `1px solid ${theme.palette.primary['400']}`
+    },
+    alignItems: 'center',
+    background: theme.palette.primary['contrastText'],
+    borderBottom: `1px solid ${theme.palette.grey['400']}`,
+    display: 'flex',
+    height: 40,
+    width: 330
+  },
 })
 
 const Search = props => {
@@ -49,12 +66,14 @@ const Search = props => {
     searchIcon,
     value,
     onChange,
-    onKeyDown
+    onKeyDown,
+    type = ''
   } = props
 
   return (
-    <Paper className={classes.paper} >
+    <div className={type === 'border-bottom' ? classes.paperBottom : classes.paper} >
       <InputBase
+        disabledUnd
         placeholder={placeholder}
         value={value}
         onKeyDown={onKeyDown}
@@ -68,17 +87,18 @@ const Search = props => {
         }}
         className={classes.inputBase}
       />
-    </Paper>
+    </div >
 
   )
 }
 
 Search.propTypes = {
   classes: PropTypes.object,
-  onChange: PropTypes.any,
+  onChange: PropTypes.func,
   onKeyDown: PropTypes.any,
   placeholder: PropTypes.string,
-  searchIcon: PropTypes.any,
+  searchIcon: PropTypes.node,
+  type: PropTypes.string,
   value: PropTypes.any
 }
 
