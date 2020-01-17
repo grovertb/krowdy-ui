@@ -62,30 +62,24 @@ export const styles = theme => ({
 const Search = props => {
   const {
     classes,
-    placeholder,
     searchIcon,
-    value,
-    onChange,
-    onKeyDown,
-    type = ''
+    type = '',
+    ...rest
   } = props
 
   return (
     <div className={type === 'border-bottom' ? classes.paperBottom : classes.paper} >
       <InputBase
-        disabledUnd
-        placeholder={placeholder}
-        value={value}
-        onKeyDown={onKeyDown}
+        disabledUnderline
         endAdornment={
           <InputAdornment position='end' className={classes.icon} >
             {searchIcon}
           </InputAdornment>}
-        onChange={onChange}
         inputProps={{
           'aria-label': 'search'
         }}
         className={classes.inputBase}
+        {...rest}
       />
     </div >
 
@@ -94,12 +88,8 @@ const Search = props => {
 
 Search.propTypes = {
   classes: PropTypes.object,
-  onChange: PropTypes.func,
-  onKeyDown: PropTypes.any,
-  placeholder: PropTypes.string,
   searchIcon: PropTypes.node,
   type: PropTypes.string,
-  value: PropTypes.any
 }
 
 Search.muiName = 'Search'

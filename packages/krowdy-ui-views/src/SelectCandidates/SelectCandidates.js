@@ -150,7 +150,7 @@ const SelectCandidates = props => {
 			<div style={{ display: 'flex', justifyContent: 'space-between' }}>
 				<CardHeader
 					className={classes.cardHeader}
-					title={`Candidatos (${numberSelecteds} seleccionados)`}
+					title={<div>Candidatos ({numberSelecteds} seleccionados)</div>}
 					classes={{ title: classes.titleCardheader }}
 				/>
 				<div style={{
@@ -221,11 +221,13 @@ const SelectCandidates = props => {
 						label='Candidatos nuevos'
 					/>
 				</FormGroup>
-				<Search
-					onChange={onChangeSearchText}
-					placeholder={placeholderSearch}
-					searchIcon={searchIcon}
-				/>
+				{Search && (
+					<Search
+						onChange={onChangeSearchText}
+						placeholder={placeholderSearch}
+						searchIcon={searchIcon}
+					/>)
+				}
 				<InfiniteScroll
 					className={classes.infiniteScroll}
 					dataLength={dataSource.length}
@@ -239,17 +241,20 @@ const SelectCandidates = props => {
 					next={onNextCandidates}
 				>
 					{dataSource.map(({ _id, firstName, lastName, photo }) => (
-						<CardCandidate
-							_id={_id}
-							checked={candidatesSelectIds.includes(_id)}
-							firstName={firstName}
-							initials={`${firstName.charAt(0).toUpperCase()}${lastName.charAt(0).toUpperCase()}`}
-							key={_id}
-							lastName={lastName}
-							onChangeCheckbox={onChangeCheckboxItem}
-							photo={photo}
-							style={{ marginRight: '10px' }}
-						/>
+						<>
+							{CardCandidate ? (
+								<CardCandidate
+									_id={_id}
+									checked={candidatesSelectIds.includes(_id)}
+									firstName={firstName}
+									key={_id}
+									lastName={lastName}
+									onChangeCheckbox={onChangeCheckboxItem}
+									photo={photo}
+									style={{ marginRight: '10px' }}
+								/>
+							) : <div></div>}
+						</>
 					))}
 				</InfiniteScroll>
 

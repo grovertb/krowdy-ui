@@ -11,11 +11,7 @@ Props:
 | Name                               |      Type      |  Default | Description   |
 |:-----------------------------------|:---------------|:---------|:-------------| 
 |   classes        | object       |       |               |
-|   placeholder        |   string     |       |               |
 |    searchIcon       |    icon    |       |               |
-|   value        |   string     |       |               |
-|   onChange        |    function    |       |               |
-|    onKeyDown       |   function     |       |               |
 |     type      |   'border-bottom' o 'border'    |  'border'     |               |
 |           |        |       |               |
 	

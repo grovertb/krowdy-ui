@@ -57,7 +57,6 @@ export default function () {
     //     setCheckedCheckbox(event.target.value)
     // }
 
-
     return (
         <div style={{ alignItems: 'center', display: 'flex', justifyContent: 'center' }}>
             <SelectCandidates
