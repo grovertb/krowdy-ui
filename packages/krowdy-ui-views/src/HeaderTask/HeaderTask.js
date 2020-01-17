@@ -72,6 +72,7 @@ export const styles = theme => ({
 const HeaderTask = props => {
 
 	const {
+		isDraft,
 		classes,
 		onClickSelectCandidates,
 		onClickUpdateTask,
@@ -167,8 +168,8 @@ const HeaderTask = props => {
 								variant='outlined'
 								color='primary'
 								className={classes.textButton}>
-								Guardar Borrador
-              </Button>
+								{isDraft && id ? 'Guardar Borrador' : 'Guardar'}
+							</Button>
 							<Button
 								disabled={disableActiveTask}
 								onClick={onClickActiveTask}
@@ -201,6 +202,7 @@ HeaderTask.propTypes = {
 	disabledTitleTask: PropTypes.bool,
 	disabledUpdateTask: PropTypes.bool,
 	id: PropTypes.string,
+	isDraft: PropTypes.bool,
 	numberCandidates: PropTypes.number,
 	onChange: PropTypes.any,
 	onChangeTitleTask: PropTypes.any,

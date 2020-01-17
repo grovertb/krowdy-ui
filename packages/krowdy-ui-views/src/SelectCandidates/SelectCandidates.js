@@ -47,6 +47,10 @@ export const styles = theme => ({
 	headerLeft: {
 		flex: '1'
 	},
+	header: {
+		display: 'flex',
+		justifyContent: 'space-between'
+	},
 	infiniteScroll: {
 		'&::-webkit-box-shadow': {
 			backgroundColor: theme.palette.grey['100'],
@@ -147,7 +151,7 @@ const SelectCandidates = props => {
 
 	return (
 		<Card className={classes.card}>
-			<div style={{ display: 'flex', justifyContent: 'space-between' }}>
+			<div className={classes.header}>
 				<CardHeader
 					className={classes.cardHeader}
 					title={<div>Candidatos ({numberSelecteds} seleccionados)</div>}

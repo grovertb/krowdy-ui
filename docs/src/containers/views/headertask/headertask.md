@@ -23,6 +23,7 @@ Props:
 | disabledTitleTask          |  bool      |       |               |
 | disabledUpdateTask          | bool       |       |               |
 | id          |  string      |       |               |
+| isDraft          |  bool      |       |               |
 |  numberCandidates         |  number      |       |               |
 |   onChange        |  func      |       |               |
 |   onChangeTitleTask        | func       |       |               |

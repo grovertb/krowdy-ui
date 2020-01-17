@@ -12,35 +12,46 @@ export default function () {
   const showInputName = true
   const checkbox = false
   const showButtonsRight = true
+  const isDraft = true
 
   return (
-    <div style={{ alignItems: 'center', display: 'flex', justifyContent: 'center', margin: '50px', width: 'auto' }}>
-      <HeaderTask
-        checkbox={checkbox}
-        // disableActiveTask={}
-        // disabledSave={}
-        // disabledSelectCandidates={}
-        // disabledTitleTask={}
-        // disabledUpdateTask={}
-        // onClickSelectCandidates={}
-        // onClickUpdateTask={}
-        // onClickSave={}
-        // onClickActiveTask={}
-        // onChangeTitleTask={}
-        // onKeyUpTitleTask={}
-        // onClickArrowBackIcon={}
-        // valueTitleTask={}
-        // checkedSwitch={checkedSwitch}
-        // onChangeSwitch={onChangeSwitch}
-        showButtonsRight={showButtonsRight}
-        showInputName={showInputName}
-        arrowBackIcon={arrowBackIcon}
-        titleHeader={titleHeader}
-        titleTask={titleTask}
-        numberCandidates={numberCandidates}
-        stageIndex={stageIndex}
-        id={id}
-      />
-    </div>
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      height: 400,
+      justifyContent: 'space-evenly',
+      margin: '50px',
+      width: 'auto'
+    }}>
+      <div>
+        <HeaderTask
+          isDraft={true}
+          checkbox={checkbox}
+          showButtonsRight={showButtonsRight}
+          showInputName={showInputName}
+          arrowBackIcon={arrowBackIcon}
+          titleHeader={titleHeader}
+          titleTask={titleTask}
+          numberCandidates={numberCandidates}
+          stageIndex={stageIndex}
+          id={null}
+        />
+      </div>
+      <div>
+        <HeaderTask
+          isDraft={false}
+          checkbox={checkbox}
+          showButtonsRight={showButtonsRight}
+          showInputName={showInputName}
+          arrowBackIcon={arrowBackIcon}
+          titleHeader={titleHeader}
+          titleTask={titleTask}
+          numberCandidates={numberCandidates}
+          stageIndex={stageIndex}
+          id={1}
+        />
+      </div>
+    </div >
+
   )
 }
