@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { makeStyles } from '@krowdy-ui/styles'
+import { withStyles } from '@krowdy-ui/styles'
 import clsx from 'clsx'
 
 
-const useStyles = makeStyles(theme => ({
+export const styles = theme => ({
   'default': {
     '&.nothing': {
       background: theme.palette.grey[400],
@@ -24,14 +24,14 @@ const useStyles = makeStyles(theme => ({
     marginRight: '0.75rem',
     width: '48px'
   },
-}), { name: 'AvatarUsrer' })
+})
 
 function AvatarUsrer (props) {
   const {
-    user
+    user,
+    classes
+
   } = props
-  
-  const classes = useStyles()
 
   return (
     user ?
@@ -69,4 +69,4 @@ AvatarUsrer.propTypes = {
 
 AvatarUsrer.muiName = 'AvatarUsrer'
 
-export default AvatarUsrer
+export default withStyles(styles, { name: 'AvatarUsrer' })(AvatarUsrer)

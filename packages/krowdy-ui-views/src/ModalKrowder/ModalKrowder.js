@@ -15,63 +15,65 @@ import {
   ExpansionPanelDetails
 } from '@krowdy-ui/core'
 import { AvatarUser } from '@krowdy-ui/views'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import CloseIcon from '@material-ui/icons/Close'
-import DeleteIcon from '@material-ui/icons/Delete'
-import PauseCircleOutlineIcon from '@material-ui/icons/PauseCircleOutline'
+import {
+  ExpandMore as ExpandMoreIcon,
+  Close as CloseIcon,
+  Delete as DeleteIcon,
+  PauseCircleOutline as PauseCircleOutlineIcon
+} from '@material-ui/icons'
 
 export const styles = theme => ({
   expandHeader: {
-    '&.Mui-expanded': {
-      height: '40px',
-      minHeight: '40px',
-    },
-    background: '#F5F5F5',
-    border: '1px solid #EAEAEA',
-    height: '40px',
-    minHeight: '40px'
+    // '&$expanded': {
+    //   backgroundColor: 'red',
+    //   height: '40px',
+    //   minHeight: '40px',
+    // },
+    background: theme.palette.grey[50],
+    border: `1px solid ${theme.palette.grey[100]}`,
+    height: 40,
+    minHeight: 40
   },
   expandHeaderTitle: {
-    color: '#262626',
-    fontSize: '14px',
+    color: theme.palette.grey[900],
+    fontSize: '0.875rem',
     fontWeight: 'bold',
   },
   expandIcon: {
     color: theme.palette.primary.main
   },
   expandItem: {
-    '&.Mui-expanded': {
-      margin: '0'
+    '&$expandedItem': {
+      margin: 0
     },
     '&:before': {
       content: 'none'
     },
     boxShadow: 'none'
   },
+  expandedItem: {},
   headerProfile: {
     display: 'flex',
   },
   headerProfileContent: {
     display: 'flex',
     justifyContent: 'space-between',
-    padding: '20px 0'
+    padding: theme.spacing(2, 0)
   },
   headerProfileName: {
     alignItems: 'center',
     border: `solid 2px ${theme.palette.primary.main}`,
     borderRadius: '50%',
     display: 'flex',
-    height: '48px',
+    height: 48,
     justifyContent: 'center',
-    marginRight: '0.75rem',
-    width: '48px'
+    marginRight: 12,
+    width: 48
   },
   iconProfileActionDelete: {
     color: '#FF4053',
     cursor: 'pointer',
     fontSize: '1.125rem',
-    // marginLeft: '10px'
-
   },
   iconProfileActionPause: {
     color: theme.palette.primary.main,
@@ -80,23 +82,23 @@ export const styles = theme => ({
   },
   krowderAvatar:{
     border: `solid 2px ${theme.palette.primary.main}`,
-    height: '48px',
-    marginRight: '0.75rem',
-    width: '48px'
+    height: 48,
+    marginRight: 12,
+    width: 48
   },
   krowderEmail: {
-    color: '#595959',
+    color: theme.palette.grey[700],
     fontSize: '0.75rem',
-    marginBottom: '4px'
+    marginBottom: 4
   },
   krowderName: {
-    color: '#262626',
+    color: theme.palette.grey[800],
     fontSize: '1.125rem',
     fontWeight: 'bold',
-    marginBottom: '4px'
+    marginBottom: 4
   },
   krowderPhone: {
-    color: '#595959',
+    color: theme.palette.grey[700],
     /* Gray/700 */
     fontSize: '0.75rem'
   },
@@ -105,12 +107,6 @@ export const styles = theme => ({
     display: 'flex',
     justifyContent: 'center',
   },
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  }
 })
 
 function ModalKrowder (props) {
@@ -171,7 +167,11 @@ function ModalKrowder (props) {
              {
                collapses.length ?
                 collapses.map((item, n) => (
-                  <ExpansionPanel key={n} className={classes.expandItem}>
+                  <ExpansionPanel
+                    classes={{
+                      expanded: classes.expandedItem
+                    }}
+                    key={n} className={classes.expandItem}>
                       <ExpansionPanelSummary
                         className={classes.expandHeader}
                         expandIcon={<ExpandMoreIcon className={classes.expandIcon} />}>
