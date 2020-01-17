@@ -7,7 +7,7 @@ export const styles = theme => ({
   avatar: {
     backgroundColor: theme.palette.primary['contrastText'],
     border: `1px solid ${theme.palette.grey['300']}`,
-    color: theme.palette.grey['300'],
+    color: theme.palette.grey['600'],
     fontSize: 10,
     fontStyle: 'normal',
     fontWeight: 'normal',
