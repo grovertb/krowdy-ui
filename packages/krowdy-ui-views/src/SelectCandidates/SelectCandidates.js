@@ -14,7 +14,8 @@ import {
 	FormControlLabel,
 	CardHeader,
 	CircularProgress,
-	IconButton
+	IconButton,
+	Input
 } from '@krowdy-ui/core'
 
 export const styles = theme => ({
@@ -44,12 +45,12 @@ export const styles = theme => ({
 		flexDirection: 'row',
 		marginBottom: 14
 	},
-	headerLeft: {
-		flex: '1'
-	},
 	header: {
 		display: 'flex',
 		justifyContent: 'space-between'
+	},
+	headerLeft: {
+		flex: '1'
 	},
 	infiniteScroll: {
 		'&::-webkit-box-shadow': {
@@ -129,7 +130,7 @@ const SelectCandidates = props => {
 		candidatesSelectIds = [],
 		optionsSelect = [],
 		placeholderSearch,
-		onChangeSelectOptions,
+		onChangeSelectOptions = () => {},
 		itemSelect,
 		searchIcon,
 		dataSource = [],
@@ -139,13 +140,13 @@ const SelectCandidates = props => {
 		closeIcon,
 		checkboxIndeterminate,
 		classes,
-		onChangeSearchText,
+		onChangeSearchText = () => {},
 		checkedCurrentCandidates,
-		onChangeCurrentCandidates,
+		onChangeCurrentCandidates = () => {},
 		checkedcandidatesToCome,
-		onChangecandidatesToCome,
-		onChangeCheckboxItem,
-		onNextCandidates,
+		onChangecandidatesToCome = () => {},
+		onChangeCheckboxItem = () => {},
+		onNextCandidates = () => {},
 		hasMore
 	} = props
 

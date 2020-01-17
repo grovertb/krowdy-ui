@@ -10,32 +10,32 @@ import CloseIcon from '@material-ui/icons/Close'
 const candidatesSelectIds = [5]
 const dataSource = [
     {
+        _id: 1,
         firstName: 'Nombres',
-        id: 1,
         lastName: 'Apellidos',
         photo: 'foto1'
     },
     {
+        _id: 2,
         firstName: 'Nombres',
-        id: 2,
         lastName: 'Apellidos',
         photo: 'foto2'
     },
     {
+        _id: 3,
         firstName: 'Nombres',
-        id: 3,
         lastName: 'Apellidos',
         photo: 'foto2'
     },
     {
+        _id: 4,
         firstName: 'Nombres',
-        id: 4,
         lastName: 'Apellidos',
         photo: 'foto2'
     },
     {
+        _id: 5,
         firstName: 'Nombres',
-        id: 5,
         lastName: 'Apellidos',
         photo: 'foto2'
     }
@@ -66,7 +66,7 @@ export default function () {
                 // onChangeCurrentCandidates={_handleChangeCurrentCandidates}
                 // checkedcandidatesToCome={checkedcandidatesToCome}
                 // onChangecandidatesToCome={onChangecandidatesToCome}
-                // onChangeCheckboxItem={_handleClickCheckboxItem}
+                onChangeCheckboxItem={() => {}}
                 numberSelecteds={numberSelecteds}
                 // checkboxIndeterminate={checkboxIndeterminate}
                 // onChangeSearchText={onChangeSearchText}
