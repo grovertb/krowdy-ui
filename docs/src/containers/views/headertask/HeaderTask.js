@@ -8,11 +8,9 @@ export default function () {
   const titleTask = 'Titulo de video entrevista'
   const numberCandidates = 10
   const stageIndex = 0
-  const id = null
-  const showInputName = true
   const checkbox = false
   const showButtonsRight = true
-  const isDraft = true
+
 
   return (
     <div style={{
@@ -28,7 +26,7 @@ export default function () {
           isDraft={true}
           checkbox={checkbox}
           showButtonsRight={showButtonsRight}
-          showInputName={showInputName}
+          showInputName={true}
           arrowBackIcon={arrowBackIcon}
           titleHeader={titleHeader}
           titleTask={titleTask}
@@ -42,7 +40,21 @@ export default function () {
           isDraft={false}
           checkbox={checkbox}
           showButtonsRight={showButtonsRight}
-          showInputName={showInputName}
+          showInputName={true}
+          arrowBackIcon={arrowBackIcon}
+          titleHeader={titleHeader}
+          titleTask={titleTask}
+          numberCandidates={numberCandidates}
+          stageIndex={stageIndex}
+          id={1}
+        />
+      </div>
+      <div>
+        <HeaderTask
+          isDraft={false}
+          checkbox={checkbox}
+          showButtonsRight={false}
+          showInputName={false}
           arrowBackIcon={arrowBackIcon}
           titleHeader={titleHeader}
           titleTask={titleTask}
