@@ -11,6 +11,10 @@ import {
 } from '@krowdy-ui/core'
 import { Dropdown } from '@krowdy-ui/views'
 export const styles = theme => ({
+	arrowIcon: {
+		color: theme.palette.grey['500'],
+		margin: '0px 8px'
+	},
 	buttonsRight: {
 		alignItems: 'center',
 		display: 'flex'
@@ -47,7 +51,7 @@ export const styles = theme => ({
 		fontSize: 12,
 		fontStyle: 'normal',
 		fontWeight: 'normal',
-		lineHeight: '100 %',
+		lineHeight: '100%',
 		marginRight: 12,
 		textAlign: 'center'
 	},
@@ -83,8 +87,10 @@ const HeaderTask = props => {
 		arrowBackIcon,
 		contentButton,
 		onClickArrowBackIcon,
+		showButtonsRight,
 		disabledSelectCandidates,
 		id,
+		checkbox,
 		disabledTitleTask,
 		disabledUpdateTask,
 		disabledSave,
@@ -94,7 +100,7 @@ const HeaderTask = props => {
 	return (
 		<Paper className={classes.paper}>
 			<div className={classes.task}>
-				<IconButton onClick={onClickArrowBackIcon} >
+				<IconButton size='small' onClick={onClickArrowBackIcon} className={classes.arrowIcon}>
 					{arrowBackIcon}
 				</IconButton>
 				<Typography className={classes.nameTask}>
@@ -110,7 +116,7 @@ const HeaderTask = props => {
 						className={classes.textButton}
 						disabled={disabledSelectCandidates}
 					>
-						{numberCandidates} Candidatos - Etapa {stageIndex + 1}
+						{checkbox ? 'Todos' : ` ${numberCandidates} Candidatos`} - Etapa {stageIndex + 1}
 					</Button>
 				</Dropdown>
 				{
@@ -137,11 +143,9 @@ const HeaderTask = props => {
 						:
 						null
 				}
-
-
 			</div>
 			<div className={classes.buttonsRight}>
-				{
+				{showButtonsRight ?
 					id
 						?
 						<div>
@@ -174,7 +178,8 @@ const HeaderTask = props => {
 								Activar tarea
             </Button>
 						</div>
-
+					:
+					null
 				}
 			</div>
 
@@ -185,6 +190,7 @@ const HeaderTask = props => {
 
 HeaderTask.propTypes = {
 	arrowBackIcon: PropTypes.node,
+	checkbox: PropTypes.bool,
 	checked: PropTypes.any,
 	classes: PropTypes.object,
 	contentButton: PropTypes.any,
@@ -200,9 +206,10 @@ HeaderTask.propTypes = {
 	onClickActiveTask: PropTypes.any,
 	onClickArrowBackIcon: PropTypes.func,
 	onClickSave: PropTypes.any,
-	onClickSelectCandidates: PropTypes.any,
+	onClickSelectCandidates: PropTypes.func,
 	onClickUpdateTask: PropTypes.any,
 	onKeyUpTitleTask: PropTypes.any,
+	showButtonsRight: PropTypes.bool,
 	showInputName: PropTypes.bool,
 	stageIndex: PropTypes.number,
 	titleHeader: PropTypes.string,
