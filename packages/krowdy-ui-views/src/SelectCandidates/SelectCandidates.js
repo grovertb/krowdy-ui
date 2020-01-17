@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import { withStyles } from '@krowdy-ui/core/styles'
+import { withStyles } from '@krowdy-ui/styles'
 import {
     Card,
     CardContent,
@@ -72,8 +72,8 @@ export const styles = theme => ({
 
 
 const SelectCandidates = props => {
-    const [changeCheckbox, setChangeCheckbox] = useState(false)
-
+    /*     const [changeCheckbox, setChangeCheckbox] = useState(false)
+     */
     const {
         optionsSelect,
         placeholderSearch,

@@ -2,7 +2,7 @@ import React from 'react'
 import { Grid, Input } from '@krowdy-ui/core'
 import { Questionary } from '@krowdy-ui/views'
 import { RemoveCircleOutline, DragIndicator } from '@material-ui/icons'
-import { QuestionaryInput } from '@krowdy-ui/views/Inputs'
+import { Inputs } from '@krowdy-ui/views'
 
 const items = [{
   _id: 'item-1',
@@ -49,12 +49,7 @@ const items = [{
 
 
 export default () => {
-  const [questions, setItems] = React.useState(items)
 
-  const deleteItem = (id) => {
-    const newQuestions = [...questions.slice(0, id), ...questions.slice(id + 1)]
-    setItems(newQuestions)
-  }
   return (
     <Grid container justify='center'>
       <Grid item xs={10}>
@@ -63,9 +58,8 @@ export default () => {
           iconDrag={<DragIndicator />}
           iconRemove={<RemoveCircleOutline color='error' />}
           addInputComponent={<Input placeholder='Escriba una nueva pregunta' />}
-          onDeleteItem={deleteItem}
           showInstructions={true}
-          inputComponent={QuestionaryInput}
+          inputComponent={Inputs}
         />
       </Grid>
     </Grid>

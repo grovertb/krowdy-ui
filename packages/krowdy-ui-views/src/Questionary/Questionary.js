@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
-import { withStyles } from '@krowdy-ui/core/styles'
-import { Button, Grid } from '@krowdy-ui/core'
+import { withStyles } from '@krowdy-ui/styles'
+import { Grid } from '@krowdy-ui/core'
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
 // import InputComponent from './InputsTextField'
 
@@ -15,7 +15,8 @@ export const styles = theme => ({
     padding: 0
   },
   container: {
-    height: '100%',
+    maxHeight: '100%',
+    overflow: 'auto',
     width: '100%'
   },
   divQuestion: {
@@ -23,7 +24,6 @@ export const styles = theme => ({
   },
   gridContainer: {
     height: 'calc(100% - 40px)',
-    overflow: 'auto',
   },
   gridItem: {
     maxHeight: '100%'
@@ -59,10 +59,10 @@ const Questionary = props => {
   const {
     addInputComponent,
     classes,
-    iconRemove,
-    iconDrag,
     inputComponent: InputComponent,
     disabled,
+    iconDrag,
+    iconRemove,
     items = [],
     onSetItems = () => { },
     showInstructions = true,
@@ -105,24 +105,15 @@ const Questionary = props => {
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
                       tabIndex='-1'>
-                      <Grid className={clsx(classes.iconDragContainer)} item>
-                        {(iconDrag) ? iconDrag : null}
-                      </Grid>
-                      <Grid className={classes.inputsContent} item xs={11}>
-                        <InputComponent
-                          disabled={disabled}
-                          instructions={showInstructions}
-                          item={item}
-                          onUpdateItem={onUpdateItem}
-                          order={(index + 1 < 10) ? `0${index + 1}.` : `${index + 1}.`} />
-                      </Grid>
-                      <Grid item>
-                        <Button
-                          className={clsx(classes.button)}
-                          disabled={disabled}
-                          onClick={() => onDeleteItem(item._id)}>
-                          {(iconRemove) ? iconRemove : null}
-                        </Button></Grid>
+                      <InputComponent
+                        disabled={disabled}
+                        iconDrag={iconDrag}
+                        iconRemove={iconRemove}
+                        instructions={showInstructions}
+                        item={item}
+                        onUpdateItem={onUpdateItem}
+                        onDeleteItem={onDeleteItem}
+                        order={(index + 1 < 10) ? `0${index + 1}` : `${index + 1}`} />
                     </Grid>
                   )}
                 </Draggable>

@@ -26,7 +26,7 @@ function getDemoData(codeVariant, demo, githubLocation) {
       sourceLanguage: 'tsx',
     }
   }
-  
+
   return {
     Component: demo.js,
     codeVariant: CODE_VARIANTS.JS,
@@ -113,7 +113,7 @@ const useStyles = makeStyles(theme => ({
   tooltip: {
     zIndex: theme.zIndex.appBar - 1,
   },
-}), { name: 'Demo'})
+}), { name: 'Demo' })
 
 export default function Demo(props) {
   const { demo, demoOptions, githubLocation } = props
@@ -123,7 +123,7 @@ export default function Demo(props) {
   const [codeOpen, setCodeOpen] = React.useState(demoOptions.defaultCodeOpen || false)
   const [demoHovered, setDemoHovered] = React.useState(false)
   const [sourceHintSeen, setSourceHintSeen] = React.useState(false)
-  
+
   const classes = useStyles()
 
   const match = useMediaQuery(theme => theme.breakpoints.up('sm'))
@@ -236,7 +236,7 @@ export default function Demo(props) {
     }
   }
 
-  return(
+  return (
     <div className={classes.root}>
       <div
         className={clsx(classes.demo, {
@@ -307,7 +307,7 @@ export default function Demo(props) {
             </Tooltip>
             {
               demoOptions.hideEditButton ?
-                null : 
+                null :
                 (
                   <Tooltip
                     classes={{ popper: classes.tooltip }}
@@ -315,7 +315,7 @@ export default function Demo(props) {
                     placement='top'
                   >
                     <React.Fragment>
-                    <IconButton
+                      <IconButton
                         aria-label={t('codesandbox')}
                         data-ga-event-category={gaCategory}
                         data-ga-event-action='codesandbox'
@@ -385,8 +385,8 @@ export default function Demo(props) {
         </div>
       )}
 
-      <Collapse 
-        in={codeOpen || showPreview} 
+      <Collapse
+        in={codeOpen || showPreview}
         unmountOnExit>
         <MarkdownElement
           className={classes.code}

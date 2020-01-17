@@ -160,6 +160,14 @@ const pages: Array<Page> = [
         title: 'Search Tasks',
         path: '/views/searchtasks'
       },
+      {
+        title: 'Inputs',
+        path: '/views/inputs'
+      },
+      {
+        title: 'Drag',
+        path: '/views/dragcomponent'
+      },
     ]
   },
 

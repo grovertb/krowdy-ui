@@ -11,20 +11,24 @@ export const styles = theme => ({
     color: theme.palette.primary[400]
   },
   container: {
-    border: `${1} solid ${theme.palette.grey[200]}`,
+    border: `1px solid ${theme.palette.grey[200]}`,
     borderRadius: 8,
     height: 'auto',
-    minWidth: 312,
+    padding: 16
+  },
+  divider: {
+    margin: '1px 0'
   },
   list: {
     listStyle: 'none',
     margin: 'auto',
-    width: '88%'
   },
   listItem: {
     '&:hover': {
-      backgroundColor: theme.palette.primary[50],
-    }
+      backgroundColor: 'transparent',
+      color: theme.palette.primary[400],
+    },
+    padding: 14,
   },
   search: {
     '&:hover': {
@@ -32,8 +36,6 @@ export const styles = theme => ({
     },
     borderBottom: `1px solid ${theme.palette.grey[400]}`,
     color: theme.palette.grey[700],
-    margin: theme.spacing(2),
-    minWidth: '88%',
   },
 
 })
@@ -62,6 +64,7 @@ const SearchTasks = props => {
         placeholder='Buscar tarea'
         endAdornment={iconOnSeeker}
         disableUnderline
+        fullWidth
         {...propsInput}
       />
       <List className={classes.list} key='firtsList' {...propsLists}>
@@ -78,7 +81,7 @@ const SearchTasks = props => {
           })
         }
       </List>
-      <Divider variant='middle' />
+      <Divider className={classes.divider} />
       <List className={classes.list} key='secondList' {...propsLists}>
         {
           secondList.map((element, index) => {

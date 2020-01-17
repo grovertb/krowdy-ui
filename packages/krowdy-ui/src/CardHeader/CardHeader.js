@@ -49,9 +49,8 @@ const CardHeader = React.forwardRef(function CardHeader(props, ref) {
   } = props
 
   let title = titleProp
-  let rightElement = rightComponent
 
-  if (title != null && title.type !== Typography && !disableTypography) {
+  if (titleProp != null && titleProp.type !== Typography && !disableTypography) {
     title = (
       <Typography
         variant={avatar ? 'body2' : 'h5'}
@@ -59,22 +58,11 @@ const CardHeader = React.forwardRef(function CardHeader(props, ref) {
         component='span'
         {...titleTypographyProps}
       >
-        {title}
+        {titleProp}
       </Typography>
     )
   }
-  if (rightElement != null && !disableTypography) {
-    rightElement = (
-      <Typography
-        className={classes.title}
-        component='span'
-        {...titleTypographyProps}
-      >
-        {title}
-      </Typography>
 
-    )
-  }
   if (!subheader && !subheaderTypographyProps) {
     return (
       <Component className={clsx(classes.root, className)} ref={ref} {...other}>
@@ -82,9 +70,7 @@ const CardHeader = React.forwardRef(function CardHeader(props, ref) {
         <div className={classes.content}>
           {title}
         </div>
-        <div className={classes.rightElement}>
-          {rightComponent}
-        </div>
+        {rightComponent && <div className={classes.rightComponent}>{rightComponent}</div>}
         {action && <div className={classes.action}>{action}</div>}
       </Component>
     )

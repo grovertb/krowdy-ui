@@ -1,1 +1,1 @@
-export { default as QuestionaryInput } from './QuestionaryInput'
+export { default } from './InputsTextField'
