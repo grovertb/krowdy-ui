@@ -9,10 +9,16 @@ export default function () {
   const numberCandidates = 10
   const stageIndex = 0
   const id = null
+  const showInputName = true
 
   return (
     <div style={{ alignItems: 'center', display: 'flex', justifyContent: 'center', margin: '50px' }}>
       <HeaderTask
+        // disableActiveTask={}
+        // disabledSave={}
+        // disabledSelectCandidates={}
+        // disabledTitleTask={}
+        // disabledUpdateTask={}
         // onClickSelectCandidates={}
         // onClickUpdateTask={}
         // onClickSave={}
@@ -23,6 +29,7 @@ export default function () {
         // valueTitleTask={}
         // checkedSwitch={checkedSwitch}
         // onChangeSwitch={onChangeSwitch}
+        showInputName={showInputName}
         arrowBackIcon={arrowBackIcon}
         titleHeader={titleHeader}
         titleTask={titleTask}

@@ -5,6 +5,7 @@ import {
     Search
 } from '@krowdy-ui/views'
 import SearchIcon from '@material-ui/icons/Search'
+import CloseIcon from '@material-ui/icons/Close'
 
 const candidatesSelectIds = [5]
 const dataSource = [
@@ -41,6 +42,7 @@ const dataSource = [
 ]
 const placeholderSearch = 'Buscar candidatos'
 const searchIcon = <SearchIcon />
+const closeIcon = <CloseIcon style={{ height: 18, width: 18 }} />
 const labelsCheckbox = ['Candidatos actuales', 'Candidatos nuevos']
 const optionsSelect = ['option1', 'option2', 'option3']
 
@@ -50,6 +52,7 @@ export default function () {
     const _handleChangeItemSelect = event => {
         setItemSelect(event.target.value)
     }
+    const numberSelecteds = 5
     // const _handleChangeCurrentCandidates = event => {
     //     setCheckedCheckbox(event.target.value)
     // }
@@ -58,13 +61,14 @@ export default function () {
     return (
         <div style={{ alignItems: 'center', display: 'flex', justifyContent: 'center' }}>
             <SelectCandidates
+                closeIcon={closeIcon}
                 // onChangeIndeterminateCandidates={onChangeIndeterminateCandidates}
                 // checkedCurrentCandidates={checkedCurrentCandidates}
                 // onChangeCurrentCandidates={_handleChangeCurrentCandidates}
                 // checkedcandidatesToCome={checkedcandidatesToCome}
                 // onChangecandidatesToCome={onChangecandidatesToCome}
                 // onChangeCheckboxItem={_handleClickCheckboxItem}
-                // numberSelecteds={numberSelecteds}
+                numberSelecteds={numberSelecteds}
                 // checkboxIndeterminate={checkboxIndeterminate}
                 // onChangeSearchText={onChangeSearchText}
                 // onNextCandidates={onNextCandidates}

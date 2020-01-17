@@ -13,7 +13,8 @@ import {
 	FormGroup,
 	FormControlLabel,
 	CardHeader,
-	CircularProgress
+	CircularProgress,
+	IconButton
 } from '@krowdy-ui/core'
 
 export const styles = theme => ({
@@ -34,6 +35,9 @@ export const styles = theme => ({
 		display: 'flex',
 		justifyContent: 'center',
 		overflow: 'hidden'
+	},
+	close: {
+		color: '#262626'
 	},
 	formGroup: {
 		display: ' flex',
@@ -128,6 +132,7 @@ const SelectCandidates = props => {
 		CardCandidate,
 		numberSelecteds,
 		Search,
+		closeIcon,
 		checkboxIndeterminate,
 		classes,
 		onChangeSearchText,
@@ -142,11 +147,27 @@ const SelectCandidates = props => {
 
 	return (
 		<Card className={classes.card}>
-			<CardHeader
-				className={classes.cardHeader}
-				title={`Candidatos (${numberSelecteds} seleccionados)`}
-				classes={{ title: classes.titleCardheader }}
-			/>
+			<div style={{ display: 'flex', justifyContent: 'space-between' }}>
+				<CardHeader
+					className={classes.cardHeader}
+					title={`Candidatos (${numberSelecteds} seleccionados)`}
+					classes={{ title: classes.titleCardheader }}
+				/>
+				<div style={{
+					alignItems: 'center',
+					display: 'flex',
+					justifyContent: 'center',
+					paddingRight: 7
+				}}>
+					<IconButton
+						size='small'
+						className={classes.close}>
+
+						{closeIcon}
+					</IconButton>
+				</div>
+			</div>
+
 			<Divider />
 			<CardContent className={classes.cardContent} >
 				<Typography className={classes.text}>
@@ -247,6 +268,7 @@ SelectCandidates.propTypes = {
 	checkedCurrentCandidates: PropTypes.any,
 	checkedcandidatesToCome: PropTypes.any,
 	classes: PropTypes.object,
+	closeIcon: PropTypes.node,
 	dataSource: PropTypes.array,
 	itemSelect: PropTypes.any,
 	labelsCheckbox: PropTypes.array,

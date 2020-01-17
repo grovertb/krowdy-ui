@@ -6,9 +6,7 @@ import {
 	Typography,
 	Button,
 	TextField,
-	// Switch,
 	IconButton,
-	// FormControlLabel,
 
 } from '@krowdy-ui/core'
 import { Dropdown } from '@krowdy-ui/views'
@@ -24,12 +22,9 @@ export const styles = theme => ({
 		height: 18,
 		width: 18
 	},
-	// labelSwitch: {
-	// 	fontSize: '14px !important',
-	// 	fontStyle: 'normal',
-	// 	fontWeight: 'normal',
-	// 	lineHeight: '20px',
-	// },
+	inputTextfield: {
+		paddingTop: 0,
+	},
 	nameTask: {
 		fontSize: 18,
 		fontStyle: 'normal',
@@ -44,9 +39,6 @@ export const styles = theme => ({
 		justifyContent: 'space-between',
 		width: 'auto'
 	},
-	// 'switch': {
-	// 	marginRight: 6
-	// },
 	task: {
 		alignItems: 'center',
 		display: 'flex'
@@ -64,6 +56,7 @@ export const styles = theme => ({
 		fontStyle: 'normal',
 		fontWeight: 'normal',
 		lineHeight: '100%',
+
 	},
 	titleTask: {
 		marginBottom: 10
@@ -86,12 +79,16 @@ const HeaderTask = props => {
 		valueTitleTask,
 		numberCandidates,
 		stageIndex,
+		showInputName,
 		arrowBackIcon,
-		// checkedSwitch,
-		// onChangeSwitch,
 		contentButton,
 		onClickArrowBackIcon,
-		id
+		disabledSelectCandidates,
+		id,
+		disabledTitleTask,
+		disabledUpdateTask,
+		disabledSave,
+		disableActiveTask
 	} = props
 
 	return (
@@ -110,51 +107,46 @@ const HeaderTask = props => {
 						variant='outlined'
 						color='primary'
 						onClick={onClickSelectCandidates}
-						className={classes.textButton}>
+						className={classes.textButton}
+						disabled={disabledSelectCandidates}
+					>
 						{numberCandidates} Candidatos - Etapa {stageIndex + 1}
 					</Button>
 				</Dropdown>
-				<TextField
-					onChange={onChangeTitleTask}
-					onKeyUp={onKeyUpTitleTask}
-					value={valueTitleTask}
-					className={classes.titleTask}
-					label={titleTask}
-					InputLabelProps={{
-						classes: {
-							root: classes.textTextfield,
-						}
-					}}
-					InputProps={{
-						classes: {
-							root: classes.textTextfield
-						}
-					}}
-				>
-				</TextField>
+				{
+					showInputName ?
+						<TextField
+							disabled={disabledTitleTask}
+							onChange={onChangeTitleTask}
+							onKeyUp={onKeyUpTitleTask}
+							value={valueTitleTask}
+							className={classes.titleTask}
+							label={titleTask}
+							InputLabelProps={{
+								classes: {
+									root: classes.textTextfield,
+								}
+							}}
+							InputProps={{
+								classes: {
+									input: classes.inputTextfield,
+									root: classes.textTextfield
+								}
+							}}
+						/>
+						:
+						null
+				}
+
+
 			</div>
 			<div className={classes.buttonsRight}>
 				{
 					id
 						?
 						<div>
-							{/* <FormControlLabel
-								classes={{
-									label: classes.labelSwitch,
-								}}
-								className={classes.switch}
-								control={
-									<Switch
-										color='primary'
-										size='small'
-										checked={checkedSwitch}
-										onChange={onChangeSwitch}
-									/>
-								}
-								label='Tarea activada'
-								labelPlacement='start'
-							/> */}
 							<Button
+								disabled={disabledUpdateTask}
 								onClick={onClickUpdateTask}
 								variant='outlined'
 								color='primary'
@@ -165,6 +157,7 @@ const HeaderTask = props => {
 						:
 						<div>
 							<Button
+								disabled={disabledSave}
 								onClick={onClickSave}
 								variant='outlined'
 								color='primary'
@@ -172,6 +165,7 @@ const HeaderTask = props => {
 								Guardar Borrador
               </Button>
 							<Button
+								disabled={disableActiveTask}
 								onClick={onClickActiveTask}
 								variant='contained'
 								color='primary'
@@ -194,6 +188,11 @@ HeaderTask.propTypes = {
 	checked: PropTypes.any,
 	classes: PropTypes.object,
 	contentButton: PropTypes.any,
+	disableActiveTask: PropTypes.bool,
+	disabledSave: PropTypes.bool,
+	disabledSelectCandidates: PropTypes.bool,
+	disabledTitleTask: PropTypes.bool,
+	disabledUpdateTask: PropTypes.bool,
 	id: PropTypes.string,
 	numberCandidates: PropTypes.number,
 	onChange: PropTypes.any,
@@ -204,6 +203,7 @@ HeaderTask.propTypes = {
 	onClickSelectCandidates: PropTypes.any,
 	onClickUpdateTask: PropTypes.any,
 	onKeyUpTitleTask: PropTypes.any,
+	showInputName: PropTypes.bool,
 	stageIndex: PropTypes.number,
 	titleHeader: PropTypes.string,
 	titleTask: PropTypes.string,
