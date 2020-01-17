@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import { 
@@ -13,18 +13,22 @@ import {
 	Typography,
 	Menu,
 	MenuItem,
+	FormGroup,
 	FormControlLabel,
 	Box,
 	InputAdornment,
 	TextField,
 	Button,
-	makeStyles
+	Popover,
+	makeStyles,
+	Input
 } from '@krowdy-ui/core';
 import TableContainer from '@material-ui/core/TableContainer';
 import MuiTable from '@krowdy-ui/core/Table';
 import IconButton from '@krowdy-ui/core/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import SearchIcon from '@material-ui/icons/Search';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 
 const useStyles = makeStyles(theme => ({
 	container: {
@@ -36,6 +40,9 @@ const useStyles = makeStyles(theme => ({
 		justifyContent: 'space-between',
 		'&.flexEnd':{
 			justifyContent: 'flex-end'
+		},
+		'& * [class=*"-popperDisablePortal"]': {
+			backgroundColor: 'red'
 		}
 	},
 	containerTable: {
@@ -50,10 +57,12 @@ const useStyles = makeStyles(theme => ({
 	},
 	inputSearch: {
 		margin: '2px 0',
+		'& > div': {
+			padding: '0 14px 0 0 !important'
+		},
 		'& * input': {
-			padding: '12px 10px',
+			padding: '12px 10px !important',
 			fontSize: 14,
-			width: 400
 		}
 	},
 	customBottomAdd: {
@@ -87,6 +96,36 @@ const useStyles = makeStyles(theme => ({
 	buttonFooter: {
 		width: '100px',
 		fontSize: 12
+	},
+	titleTable: {
+		fontWeight: 'bold',
+		fontSize: 14
+	},
+	menuItem: {
+		fontSize: 14
+	},
+	customMenuHead: {
+		padding: 16
+	},
+	customMenuHeadTitle: {
+		color: '#262626',
+		fontSize: '0.875rem',
+		fontWeight: 'bold',
+		marginBottom: 12
+	},
+	customCheckbox: {
+		'& svg': {
+			height: 18,
+			width: 18
+		},
+		'&.Mui-checked': {
+			color: theme.palette.primary.main
+		}
+	},
+	addCell: {
+		color: theme.palette.primary.main,
+		textAlign: 'right',
+		cursor: 'pointer'
 	}
 }))
 
@@ -99,14 +138,16 @@ const Table = ({
 	iconButton,
 	columns = [], 
 	rows = [],
+	searchSuggestions = [],
 	withFooter = false,
 	withCheckbox = false,
 	withPagination = false,
 	withHeader = false,
-	withSelectColumns = false,
+	withMenuColumns = false,
 	withOrder = false,
 	withSearch = true,
 	withButton = false,
+	enableAddCell = false,
 	onHandleSortTable = () => false,
 	onHandleSearch = () => false,
 	onHandleBtnAction = () => false,
@@ -114,17 +155,30 @@ const Table = ({
 	onHandleChangeRowsPerPage = () => false,
 	onHandleSelectAll = () => false,
 	onHandleSelectItem = () => false,
-	onHandlePaymentButton = () => false
+	onHandlePaymentButton = () => false,
+	onHandleToggleColumnTable = () => false
 }) => {
 	const classes = useStyles()
 	const inputSearch = useRef(null)
+	const [openMenu, setOpenMenu] = useState(null)
+	const [addCell, setAddCell] = useState(false)
+	const columnsActives = columns.filter(({ active }) => active)
+
+	const _handleClickOpenMenu = event => {
+		setOpenMenu(event.currentTarget);
+	};
+
+	const _handleClickClose = () => {
+		setOpenMenu(null);
+	};
+
 
 	const _handleSearchValidate = (e) => {
 		const { value } = e.target
 		if (e.keyCode === 13) onHandleSearch(value)
 	}
 
-	const handleSortTable = (id, ref) => {
+	const _handleSortTable = (id, ref) => {
 		const { orderBy, sort } = ref
 		const invertSort = sort === 'asc' ? 'desc' : 'asc'
 		if(id !== orderBy){
@@ -133,29 +187,45 @@ const Table = ({
 		return onHandleSortTable(id, invertSort)
 	}
 
+	const _handleClickAddCell = () => {
+		setAddCell(!addCell)
+	}
+
+
 	return (
 		<Paper className={classes.containerTable}>
 			{
 				withHeader ? (
 					<div className={clsx(classes.containerHeaderTable, { spaceBetween: titleTable })}>
-						{titleTable && <Typography>{titleTable}</Typography>}
+						{titleTable && <Typography className={classes.titleTable}>{titleTable}</Typography>}
 						<div className={clsx(classes.containerSearch, { flexEnd: titleTable })}>
 							{withSearch ? (
-								<TextField
-									variant="outlined"
-									className={classes.inputSearch}
-									id="input-with-icon-textfield"
-									placeholder='Buscar'
-									inputRef={inputSearch}
-									onKeyUp={_handleSearchValidate}
-									InputLabelProps={{ shrink: false }}
-									InputProps={{
-										endAdornment: (
-											<InputAdornment position="end">
-												<SearchIcon onClick={() => onHandleSearch(inputSearch.current.value)} className={classes.searchIcon} />
-											</InputAdornment>
-										),
-									}}
+								<Autocomplete
+									style={{ width: 400 }}
+									noOptionsText='No hay coincidencias'
+									options={searchSuggestions.map(option => option.title)}
+									popupIcon={<SearchIcon />}
+									renderInput={params => (
+										<TextField
+											{...params}
+											variant="outlined"
+											fullWidth
+											className={classes.inputSearch}
+											id="input-with-icon-textfield"
+											placeholder='Buscar'
+											inputRef={inputSearch}
+											onKeyUp={_handleSearchValidate}
+											InputLabelProps={{ shrink: false }}
+											InputProps={{
+												...params.InputProps,
+												endAdornment: (
+													<InputAdornment position="end">
+														<SearchIcon onClick={() => onHandleSearch(inputSearch.current.value)} className={classes.searchIcon} />
+													</InputAdornment>
+												),
+											}}
+										/>
+									)}
 								/>
 							) : null}
 							{withButton ? (
@@ -185,7 +255,7 @@ const Table = ({
 									/>
 								</TableCell>
 							) : null}
-							{columns.filter(({ active }) =>  active).map(({ id, align, minWidth, label, ordering }) => (
+							{columnsActives.map(({ id, align, minWidth, label, ordering }) => (
 								<TableCell
 									key={id}
 									align={align}
@@ -196,7 +266,7 @@ const Table = ({
 										<TableSortLabel
 											active={sortTable.orderBy === id}
 											direction={sortTable.orderBy === id ? sortTable.sort : 'asc'}
-											onClick={() => handleSortTable(id, sortTable)}
+											onClick={() => _handleSortTable(id, sortTable)}
 										>
 											<Typography className={classes.headerTable}>{label}</Typography>
 										</TableSortLabel>
@@ -205,22 +275,73 @@ const Table = ({
 									) }
 								</TableCell>
 							))}
-							{withSelectColumns ? (
-								<TableCell>
-									<IconButton
-										aria-label="more"
-										aria-controls="long-menu"
-										aria-haspopup="true"
-									// onClick={_handleClickOpenMenu}
-									>
+							{withMenuColumns ? (
+								<TableCell padding='checkbox'>
+									<IconButton color='primary' onClick={_handleClickOpenMenu}>
 										<MoreVertIcon />
 									</IconButton>
+									<Popover
+										anchorEl={openMenu}
+										anchorOrigin={{
+											horizontal: 'left',
+											vertical: 'bottom'
+										}}
+										id='simple-popover'
+										onClose={_handleClickClose}
+										open={Boolean(openMenu)}
+										transformOrigin={{
+											horizontal: 'right',
+											vertical: 'top'
+										}}>
+										<div className={classes.customMenuHead}>
+											<Typography className={classes.customMenuHeadTitle}>Columnas</Typography>
+											<FormGroup>
+												{
+													columns.map(({ id, label, active }) => (
+														<FormControlLabel
+															control={
+																<Checkbox
+																	checked={active}
+																	disabled={columns.filter(({ active }) => active).length === 1 && active}
+																	className={classes.customCheckbox}
+																	onChange={() => onHandleToggleColumnTable(id)}
+																	value={id} />
+															}
+															key={id}
+															label={label} />
+													))
+												}
+											</FormGroup>
+										</div>
+									</Popover>
 								</TableCell>
 							) : null}
 								
 						</TableRow>
 					</TableHead>
 					<TableBody>
+						{enableAddCell ? (
+							 addCell ? (
+								columnsActives.map(({ type, editable }) => (
+									editable ? (
+										<TableCell>
+											<Input fullWidth type='text' />
+										</TableCell>
+									) : (
+										<TableCell>
+											<Typography>Prueba</Typography>
+										</TableCell>
+									)
+								))
+							) : (
+								<TableRow>
+									<TableCell colSpan = {columns.length} >
+										<Typography onClick={_handleClickAddCell} className={classes.addCell}>Agregar incidente</Typography>
+									</TableCell>
+								</TableRow>
+							)
+							
+						) : null}
 						{rows.map((row, index) => {
 
 							const { _id, selected } = row
@@ -235,16 +356,16 @@ const Table = ({
 											/>
 										</TableCell>
 									) : null}
-									{columns.filter(({ active }) => active).map(({ id }) => {
+									{columnsActives.map(({ id, align }) => {
 										return (
-											<TableCell align={typeof row[id] === 'number' ? 'right': 'left'}>
+											<TableCell key={id} align={align || 'left'}>
 												<Typography className={classes.bodyTable}>
 													{Array.isArray(row[id]) ? (row[id].join(', ')) : row[id] }
 												</Typography>
 											</TableCell>
 										)
 									})}
-									{withSelectColumns ? (<TableCell />) : null}
+									{withMenuColumns ? (<TableCell />) : null}
 								</TableRow>
 							);
 						})}
@@ -294,15 +415,6 @@ Table.propTypes = {
 	rows: PropTypes.arrayOf(
 		PropTypes.shape({
 			_id: PropTypes.string.isRequired,
-			amountPayable: PropTypes.number,
-			amountTasks: PropTypes.number,
-			currentTasks: PropTypes.number,
-			incharge: PropTypes.string,
-			incidents: PropTypes.number,
-			name: PropTypes.string.isRequired,
-			selected: PropTypes.bool,
-			status: PropTypes.string.isRequired,
-			type: PropTypes.array.isRequired
 		})
 	).isRequired,
 	titleTable: PropTypes.string,
@@ -311,12 +423,14 @@ Table.propTypes = {
 	withCheckbox: PropTypes.bool,
 	withPagination: PropTypes.bool,
 	withHeader: PropTypes.bool,
-	withSelectColumns: PropTypes.bool,
+	withMenuColumns: PropTypes.bool,
 	withOrder: PropTypes.bool,
 	withSearch: PropTypes.bool,
 	withButton: PropTypes.bool,
+	enableAddCell: PropTypes.bool,
 	iconButton: PropTypes.element,
 	paymentAmount: PropTypes.number,
+	searchSuggestions: PropTypes.array,
 	sortTable: PropTypes.shape({
 		orderBy: PropTypes.string,
 		sort: PropTypes.oneOf(['asc', 'desc'])
@@ -333,7 +447,8 @@ Table.propTypes = {
 	onHandleChangeRowsPerPage: PropTypes.func.isRequired,
 	onHandleSelectAll: PropTypes.func.isRequired,
 	onHandleSelectItem: PropTypes.func.isRequired,
-	onHandlePaymentButton: PropTypes.func
+	onHandlePaymentButton: PropTypes.func,
+	onHandleToggleColumnTable: PropTypes.func
 }
 
 export default Table

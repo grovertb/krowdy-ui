@@ -1,4 +1,3 @@
-type sortValue = 'asc' | 'desc'
 interface IColumnsTable {
 	id: string
 	label: string
@@ -14,29 +13,31 @@ interface IRowsTable {
 }
 interface ISortTable {
 	orderBy: string
-	sort: sortValue
+	sort: 'asc' | 'desc'
 }
 interface IPagination {
 	totalRows: number
-	rowsPage: number
+	rowsPerPage: number
 	currentPage: number
 }
 interface IFuncSortTable {
-	(id: string, sort: string): void
+	(orderBy: string, sort: string): void
 }
 interface IFuncSearch {
 	(search: string): void
 }
 interface IFuncBtnAction {
-	(onclick: (this: void, e: Event) => void): void
+	(e: Event): void
 }
 interface IFuncPagination {
 	(num: number): void
 }
 interface IFuncCheckbox {
-	(onchange: (this: void, e: Event) => void): void
+	(value: string, e?: Event): void
 }
-
+interface IFuncSelectAll {
+	(value: boolean, e?: Event): void
+}
 
 export type TableProps = {
 	columns: Array<IColumnsTable>,
@@ -49,20 +50,24 @@ export type TableProps = {
 	withCheckbox?: boolean
 	withPagination?: boolean
 	withHeader?: boolean
-	withSelectColumns?: boolean
+	withMenuColumns?: boolean
 	withOrder?: boolean
 	withSearch?: boolean
+	withFooter?: boolean
 	withButton?: boolean
+	enableAddCell?: boolean
 	paymentAmount?: number
-	iconButton?: React.ComponentType
-	onHandleBtnAction: IFuncBtnAction
+	iconButton?: React.ReactNode
+	searchSuggestions?: object[]
+	onHandleBtnAction?: IFuncBtnAction
 	onHandlePaymentButton?: IFuncBtnAction
-	onHandleSortTable: IFuncSortTable
-	onHandleSearch: IFuncSearch
+	onHandleSortTable?: IFuncSortTable
+	onHandleSearch?: IFuncSearch
 	onHandleChangeRowsPerPage?: IFuncPagination
 	onHandleChangePage?: IFuncPagination
-	onHandleSelectAll: IFuncCheckbox
-	onHandleSelectItem: IFuncCheckbox
+	onHandleSelectAll?: IFuncSelectAll
+	onHandleSelectItem?: IFuncCheckbox
+	onHandleToggleColumnTable?: IFuncCheckbox
 };
 
 declare const Table: React.ComponentType<TableProps>;
