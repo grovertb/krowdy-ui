@@ -5,7 +5,7 @@ import clsx from 'clsx'
 
 
 export const styles = theme => ({
-  'default': {
+  defaultAvatar: {
     '&.nothing': {
       background: theme.palette.grey[400],
     },
@@ -40,7 +40,7 @@ function AvatarUsrer (props) {
           alt={`${user.firstName} ${user.lastName}`}
           className={classes.image}
           src={user.photo} />
-      : <div className={classes.default}>
+      : <div className={classes.defaultAvatar}>
           {
             `${user.firstName ?
               typeof user.firstName === 'string'
@@ -54,7 +54,7 @@ function AvatarUsrer (props) {
                 : ''}`
           }
         </div> 
-    : <div className={clsx(classes.default, 'nothing' )} />
+    : <div className={clsx(classes.defaultAvatar, 'nothing' )} />
   )
 }
 
