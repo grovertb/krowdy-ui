@@ -67,7 +67,7 @@ const InputComponent = (props) => {
         {(iconDrag) ? iconDrag : null}
       </Grid>
       <span className={classes.order}>
-        {order}.
+        {(order<10)?`0${order}`:order}.
       </span>
       <Grid className={classes.inputsContent} item xs={11}>
         <Input
@@ -78,12 +78,12 @@ const InputComponent = (props) => {
           className={clsx(classes.textField, classes.focused)}
           defaultValue={item.question}
           disabled={disabled}
-          multiline
           onChange={event => {
             onUpdateItem(item._id, {
               question: event.target.value
             })
           }}
+          multiline
           disableUnderline
           placeholder='Escribe una pregunta' />
         {

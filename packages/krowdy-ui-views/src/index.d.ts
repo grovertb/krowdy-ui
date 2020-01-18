@@ -16,9 +16,6 @@ export * from './SelectCandidates';
 export { default as Cards } from './Cards';
 export * from './Cards';
 
-export { default as Questionary } from './Questionary';
-export * from './Questionary';
-
 export { default as SearchTask } from './SearchTask';
 export * from './SearchTask';
 
@@ -26,3 +23,4 @@ export { default as Inputs } from './Inputs'
 export * from './Inputs'
 
 export { default as DragComponent } from './DragComponent'
+export * from './DragComponent'
