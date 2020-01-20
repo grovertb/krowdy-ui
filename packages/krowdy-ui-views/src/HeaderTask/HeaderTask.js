@@ -154,7 +154,7 @@ const HeaderTask = props => {
 							<div>
 								<Button
 									disabled={disabledSave}
-									onClick={onClickSave}
+									onClick={onClickUpdateTask}
 									variant='outlined'
 									color='primary'
 									className={classes.textButton}>

@@ -21,21 +21,21 @@ const SwitchButton = props => {
   } = props
   const ChangeColor = name => {
     setColor({
-      name: color,
+      [name]: color,
     })
 
   }
   return (
-    <div  >
+    <div>
       <ButtonGroup
         color='primary'>
         <Button
-          variant={color ? 'contained' : 'outlined'}
-          onClick={ChangeColor('buttonOne')}
+          variant={color.buttonOne ? 'contained' : 'outlined'}
+          onClick={() => ChangeColor('buttonOne')}
         >Krowder</Button>
         <Button
           variant={color ? 'outlined' : 'contained'}
-          onClick={ChangeColor('buttonTwo')}
+          onClick={() => ChangeColor('buttonTwo')}
         >Responsable</Button>
       </ButtonGroup>
     </div >
