@@ -2,7 +2,7 @@
 
 <p class="description">View tasks cards </p>
 
-{{"demo": "containers/views/cardtask/CardTask.js", "hideHeader": false, "bg": true, "bgColor": "white", "iframe": true }}
+{{"demo": "containers/views/cards/Cards.js", "hideHeader": false, "bg": true, "bgColor": "white", "iframe": true }}
 
 
 | prop                       | type    | description                  |

@@ -55,11 +55,11 @@ const Questionary = props => {
       <Grid item xs={12} tabIndex='-1'>
         <DragDropContext onDragEnd={onDragEnd} >
           <Droppable direction='vertical' droppableId='droppable'>
-            {(provided) => (
+            {(dropProvided) => (
               <div
               className={classes.container}
-              {...provided.droppableProps}
-              ref={provided.innerRef}
+              {...dropProvided.droppableProps}
+              ref={dropProvided.innerRef}
               tabIndex='-1'>
               {
                 React.Children.map(children,(item, index) => {
@@ -67,19 +67,19 @@ const Questionary = props => {
                       draggableId={`drag-${item.props.order}`}
                       index={index}
                       key={`drag-${item.props.order}`}>
-                      {(provided) => (
+                      {(dragProvided) => (
                       <div
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
+                        ref={dragProvided.innerRef}
+                        {...dragProvided.draggableProps}
+                        {...dragProvided.dragHandleProps}
                         tabIndex='-1'>
                         {item}
                       </div>
                     )}
-                  </Draggable>)
+                  </Draggable>) 
                 })
               }
-              {provided.placeholder}
+              {dropProvided.placeholder}
               <div className={clsx(classes.lastInput)}>
                 {addInputComponent}
               </div>

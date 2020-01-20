@@ -24,3 +24,9 @@ export * from './Inputs'
 
 export { default as DragComponent } from './DragComponent'
 export * from './DragComponent'
+
+export { default as AudioRecorder } from './AudioRecorder'
+export * from './AudioRecorder'
+
+export { default as RadioForm } from './RadioForm'
+export * from './RadioForm'

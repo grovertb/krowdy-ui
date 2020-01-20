@@ -42,6 +42,7 @@ const CardHeader = React.forwardRef(function CardHeader(props, ref) {
     disableTypography = false,
     title: titleProp,
     titleTypographyProps,
+    onClickElementRight=()=>{},
     rightElement: rightComponent,
     subheader,
     subheaderTypographyProps,
@@ -70,7 +71,7 @@ const CardHeader = React.forwardRef(function CardHeader(props, ref) {
         <div className={classes.content}>
           {title}
         </div>
-        {rightComponent && <div className={classes.rightComponent}>{rightComponent}</div>}
+        {rightComponent && <div className={classes.rightComponent} onClick={onClickElementRight}>{rightComponent}</div>}
         {action && <div className={classes.action}>{action}</div>}
       </Component>
     )
@@ -86,6 +87,7 @@ CardHeader.propTypes = {
   classes: PropTypes.object.isRequired,
   component: PropTypes.elementType,
   disableTypography: PropTypes.bool,
+  onClickElementRight: PropTypes.func,
   rightElement: PropTypes.node,
   subheader: PropTypes.node,
   subheaderTypographyProps: PropTypes.object,

@@ -153,8 +153,8 @@ const pages: Array<Page> = [
         path: '/views/questionary'
       },
       {
-        title: 'Tasks',
-        path: '/views/cardtask'
+        title: 'Cards',
+        path: '/views/cards'
       },
       {
         title: 'Search Tasks',
