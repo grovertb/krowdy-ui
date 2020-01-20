@@ -1,9 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { SwitchButton } from '@krowdy-ui/views'
 
 export default function () {
-
-
 
   return (
     <div style={{
@@ -15,7 +13,7 @@ export default function () {
       margin: '50px',
       width: 'auto'
     }}>
-      ,
+      <SwitchButton></SwitchButton>
     </div>
   )
 }

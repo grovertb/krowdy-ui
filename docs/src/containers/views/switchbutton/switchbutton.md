@@ -2,7 +2,7 @@
 
 <p class="description">Component search candidates</p>
 
-{{"demo": "containers/views/search/Search.js", "hideHeader": false, "bg": true, "bgColor": "white", "iframe": true }}
+{{"demo": "containers/views/switchbutton/SwitchButton.js", "hideHeader": false, "bg": true, "bgColor": "white", "iframe": true }}
 
 <h1>
 Props:

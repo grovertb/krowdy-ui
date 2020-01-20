@@ -13,7 +13,7 @@ import { Dropdown } from '@krowdy-ui/views'
 export const styles = theme => ({
 	arrowIcon: {
 		color: theme.palette.grey['500'],
-		margin: '0px 8px'
+		margin: theme.spacing(0, 1)
 	},
 	buttonsRight: {
 		alignItems: 'center',

@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@krowdy-ui/styles'
 import { Button, ButtonGroup } from '@krowdy-ui/core'
+
 export const styles = theme => ({
   headerLeft: {
     flex: '1'
@@ -10,19 +11,32 @@ export const styles = theme => ({
 })
 
 const SwitchButton = props => {
+  const [color, setColor] = useState({
+    buttonOne: false,
+    buttonTwo: true
+  })
   const {
     classes,
 
   } = props
+  const ChangeColor = (name, color) => {
+    setColor({
+      [name]: color
+    })
 
+  }
   return (
     <div  >
       <ButtonGroup
-        variant='contained'
         color='primary'>
-        <Button>One</Button>
-        <Button>Two</Button>
-        <Button>Three</Button>
+        <Button
+          variant={color ? 'contained' : 'outlined'}
+          onClick={ChangeColor('buttonOne')}
+        >Krowder</Button>
+        <Button
+          variant={color ? 'outlined' : 'contained'}
+          onClick={ChangeColor('buttonTwo')}
+        >Responsable</Button>
       </ButtonGroup>
     </div >
 
