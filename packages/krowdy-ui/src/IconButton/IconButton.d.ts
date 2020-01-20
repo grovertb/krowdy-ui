@@ -6,6 +6,7 @@ import { PropTypes } from '..';
 
 type Props = {
   color?: PropTypes.Color;
+  tooltip?: String;
 }
 
 export type KrowdyButtonProps = Omit<IconButtonProps, keyof Props> & Props;

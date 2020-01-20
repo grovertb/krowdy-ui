@@ -136,6 +136,14 @@ const pages: Array<Page> = [
         title: 'Dashboard',
         path: '/views/dashboard'
       },
+      {
+        title: 'Avatar user',
+        path: '/views/avataruser'
+      },
+      {
+        title: 'Modal',
+        path: '/views/modalkrowder'
+      },
     ]
   }
   // {
