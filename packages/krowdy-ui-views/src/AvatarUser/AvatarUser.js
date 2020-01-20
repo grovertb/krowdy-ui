@@ -1,28 +1,28 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@krowdy-ui/styles'
-import clsx from 'clsx'
+// import clsx from 'clsx'
 
 
 export const styles = theme => ({
   defaultAvatar: {
-    '&.nothing': {
-      background: theme.palette.grey[400],
-    },
     alignItems: 'center',
     border: `solid 2px ${theme.palette.primary.main}`,
     borderRadius: '50%',
     display: 'flex',
-    height: '48px',
+    height: 48,
     justifyContent: 'center',
-    marginRight: '0.75rem',
-    width: '48px'
+    marginRight: theme.spacing(2),
+    width: 48
+  },
+  defaultAvatarNothing: {
+    background: theme.palette.grey[400]
   },
   image:{
     border: `solid 2px ${theme.palette.primary.main}`,
-    height: '48px',
-    marginRight: '0.75rem',
-    width: '48px'
+    height: 48,
+    marginRight: theme.spacing(2),
+    width: 48
   },
 })
 
@@ -54,7 +54,7 @@ function AvatarUsrer (props) {
                 : ''}`
           }
         </div> 
-    : <div className={clsx(classes.defaultAvatar, 'nothing' )} />
+    : null //<div className={clsx(classes.defaultAvatar, classes.defaultAvatarNothing )} />
   )
 }
 

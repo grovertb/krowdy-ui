@@ -71,12 +71,12 @@ export const styles = theme => ({
     width: 48
   },
   iconProfileActionDelete: {
-    color: '#FF4053',
+    // color: theme.palette.error.main,
     cursor: 'pointer',
     fontSize: '1.125rem',
   },
   iconProfileActionPause: {
-    color: theme.palette.primary.main,
+    // color: theme.palette.primary.main,
     cursor: 'pointer',
     fontSize: '1.125rem'
   },
@@ -153,11 +153,11 @@ function ModalKrowder (props) {
                   </div>
                </div>
                <div className={classes.headerProfileActions}>
-                 <IconButton tooltip='Suspender' onClick={onsuspend}>
+                 <IconButton color='primary' tooltip='Suspender' onClick={onsuspend}>
                   <PauseCircleOutlineIcon
                     className={classes.iconProfileActionPause} />
                  </IconButton>
-                 <IconButton tooltip='Eliminar' onClick={ondelete}>
+                 <IconButton color='error' tooltip='Eliminar' onClick={ondelete}>
                   <DeleteIcon
                   className={classes.iconProfileActionDelete} />
                  </IconButton>
