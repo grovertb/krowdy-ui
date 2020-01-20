@@ -52,6 +52,9 @@ export const styles = theme => ({
     boxShadow: 'none'
   },
   expandedItem: {},
+  headerAvatar: {
+    marginRight: theme.spacing(2)
+  },
   headerProfile: {
     display: 'flex',
   },
@@ -145,7 +148,9 @@ function ModalKrowder (props) {
               {/* profile */}
              <div className={classes.headerProfileContent}>
                <div className={classes.headerProfile}>
-                 <AvatarUser user={user} />
+                 <div className={classes.headerAvatar}>
+                   <AvatarUser user={user} />
+                 </div>
                   <div>
                     <Typography className={classes.krowderName}>{user.firstName} {user.lastName}</Typography>
                     <Typography className={classes.krowderEmail}>{user.email}</Typography>

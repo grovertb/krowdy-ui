@@ -1,116 +1,110 @@
 import React from 'react'
-import clsx from 'clsx'
-import {
-  Menu as MenuIcon,
-  ChevronLeft as ChevronLeftIcon
-} from '@material-ui/icons'
-import { 
-  AppBar,
-  Toolbar,
-  Typography,
-  Button,
-  Drawer,
-  Divider,
-  List,
-  ListItem
-} from '@krowdy-ui/core'
-import { makeStyles } from '@krowdy-ui/styles' 
+import { Dashboard } from '@krowdy-ui/views'
 
-const drawerWidth = 210
-
-const useStyles = makeStyles(theme => ({
-  drawerPaper: {
-    overflow  : 'hidden',
-    position  : 'relative',
-    transition: theme.transitions.create('width', {
-      duration: theme.transitions.duration.enteringScreen,
-      easing  : theme.transitions.easing.sharp
-    }),
-    whiteSpace: 'nowrap',
-    width     : drawerWidth,
-    zIndex    : 1
-  },
-  main: {
-    display: 'flex',
-    flexDirection: 'column',
-    minHeight: '100vh'
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  root: {
-    flexGrow: 1,
-  },
-  title: {
-    flexGrow: 1,
-  },
-  wrapper: {
-    backgroundColor: '#EFEFEF',
-    display        : 'flex',
-    flex           : 1
-  },
-  wrapperContent: {
-    backgroundColor: '#fff',
-    borderRadius   : 4,
-    display        : 'flex',
-    flex           : 1,
-    justifyContent : 'center',
-    margin         : 12
-    // width          : '100%'
-  }
-}))
-
-function Dashboard() {
-  const classes = useStyles()
-  const [ isOpenDrawer, setToggleDrawer ] = React.useState(false)
-
-  const _handleClickToggleDrawer = () => setToggleDrawer(!isOpenDrawer)
-
-  return (
-    <div className={classes.main}>
-      <AppBar elevation={1} position='sticky'>
-        <Toolbar>
-          <Typography variant='h4' className={classes.title}>
-            News
-          </Typography>
-          <Button color='inherit'>Login</Button>
-        </Toolbar>
-      </AppBar>
-      <div className={classes.wrapper}>
-        <div>
-        <Drawer
-          classes={{
-            paper: clsx(
-              classes.drawerPaper,
-              {
-                [classes.drawerPaperClose]: isOpenDrawer
-              }
-            )
-          }}
-          data-test='adminDrawer'
-          open={isOpenDrawer}
-          variant='permanent' />
-          <List
-            data-test='adminDrawerItemsList'
-            disablePadding>
-            <ListItem
-              button
-              className={classes.drawerContentIcon}
-              onClick={_handleClickToggleDrawer}>
-              {
-                !isOpenDrawer ? <ChevronLeftIcon /> : <MenuIcon />
-              }
-            </ListItem>
-            <Divider />
-          </List>
-        </div>
-        <div className={classes.wrapperContent}>
-          {/* {props.children} */}
-          Contenido
-        </div>
-      </div>
-    </div>
-  )
+export default function () {
+  const _handleClickLogout = () => console.log('close')
+  
+  return <Dashboard
+    user={{
+      firstName: 'Xavi',
+      lastName: 'Gonzalez',
+      photo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZFvVFIsVQw4gBlCOw45vcWAGoD75tkHP6dnIx6AYEHUNwLpUG&s',
+    }}
+    userMenu={[
+      {
+        target: '_self',
+        title: 'View card',
+        type: 'link',
+        url: '/views/carduser'
+      },
+      {
+        target: '_blank',
+        title: 'Google',
+        type: 'link',
+        url: 'https://google.com'
+      },
+      {
+        action: 'logout',
+        title: 'Cerrar sesiòn',
+        type: 'action',
+        url: '#'
+      }
+    ]}
+    actions={{
+      logout: _handleClickLogout
+    }}
+    logo={{
+      alt: 'Logo',
+      source: 'https://site.krowdy.com/wp-content/uploads/2019/01/14153940/logoKrowdymenu.png'
+    }}
+    menuTopLeft={[
+      {
+        color: 'primary',
+        target: '_self',
+        title: 'View card',
+        type: 'button',
+        url: '/views/carduser',
+        variant: 'contained'
+      },
+      {
+        target: '_blank',
+        title: 'Link Externo',
+        type: 'link',
+        url: 'https://google.com'
+      },
+      {
+        target: '_blank',
+        title: 'Icon',
+        type: 'icon',
+        url: '/views'
+      },
+    ]}
+    menuTopRight={[
+      {
+        target: '_self',
+        title: 'View card',
+        type: 'link',
+        url: '/views/carduser'
+      },
+      {
+        color: 'secondary',
+        target: '_blank',
+        title: 'Google',
+        type: 'button',
+        url: 'https://google.com',
+        variant: 'contained'
+      }
+    ]}
+    menus={[
+      {
+        icon: 'Home',
+        target: '_self',
+        title: 'Dashboard',
+        type: 'link',
+        url: '/views/dashboard'
+      },
+      {
+        icon: 'Group',
+        target: '_self',
+        title: 'Groups',
+        type: 'link',
+        url: '/view/groups'
+      },
+      {
+        icon: 'GroudpWork',
+        target: '_self',
+        title: 'Groups',
+        type: 'link',
+        url: '/'
+      },
+      {
+        icon: 'GroudpWork',
+        target: '_blank',
+        title: 'Google',
+        type: 'link',
+        url: 'https://google.com'
+      },
+    ]}>
+    <h1>Dashboard</h1>
+  </Dashboard>
 }
-
-export default Dashboard

@@ -10,9 +10,10 @@ export const styles = theme => ({
     border: `solid 2px ${theme.palette.primary.main}`,
     borderRadius: '50%',
     display: 'flex',
+    fontSize: 14,
     height: 48,
     justifyContent: 'center',
-    marginRight: theme.spacing(2),
+    // marginRight: theme.spacing(2),
     width: 48
   },
   defaultAvatarNothing: {
@@ -20,8 +21,9 @@ export const styles = theme => ({
   },
   image:{
     border: `solid 2px ${theme.palette.primary.main}`,
+    borderRadius: '50%',
     height: 48,
-    marginRight: theme.spacing(2),
+    // marginRight: theme.spacing(2),
     width: 48
   },
 })
@@ -30,9 +32,8 @@ function AvatarUsrer (props) {
   const {
     user,
     classes
-
   } = props
-
+  
   return (
     user ?
       user.photo ?
@@ -40,7 +41,8 @@ function AvatarUsrer (props) {
           alt={`${user.firstName} ${user.lastName}`}
           className={classes.image}
           src={user.photo} />
-      : <div className={classes.defaultAvatar}>
+      : <div
+          className={classes.defaultAvatar}>
           {
             `${user.firstName ?
               typeof user.firstName === 'string'

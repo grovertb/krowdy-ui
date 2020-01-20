@@ -9,7 +9,7 @@ export default function () {
         firstName: 'Xavi',
         lastName: 'Gonzalez',
         photo: ''
-      }} />
+      }}/>
     </div>
   )
 }
