@@ -73,18 +73,18 @@ export default () => {
   //const [order , setOrder] = React.useState(items.map[{`${}`:}] )
 
   const handleItemsOrdered = items => {
-    setItems(items)
+    setItems(items.map((children, index) => React.cloneElement(children, {
+      order: index + 1
+    })))
   }
+
 
   return (
     <Paper elevation={0} variant='outlined' className={classes.root} >
       <p>¿Qué deseas preguntar a tus candidatos?</p>
       <div >
         <DragComponent onItemsOrdered={handleItemsOrdered} addInputComponent={<Input placeholder='Escriba una nueva pregunta' disableUnderline />}>
-          {items.map(items => {
-            //console.log(items)
-            return items
-          })}
+          {items}
         </DragComponent>
       </div>
     </Paper>
