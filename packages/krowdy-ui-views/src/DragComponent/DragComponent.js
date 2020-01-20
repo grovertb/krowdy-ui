@@ -13,7 +13,7 @@ export const styles = theme => ({
     width: '100%'
   },
   gridContainer: {
-    height: 'calc(100% - 40px)',
+    height: 'calc(100% - 40px)'
   },
   lastInput: {
     fontSize: 14,
@@ -36,7 +36,7 @@ const Questionary = props => {
     addInputComponent,
     classes,
     children,
-    onSetItems = () => { },
+    onItemsOrdered = () => { },
   } = props
 
   const onDragEnd = (result) => {
@@ -47,7 +47,7 @@ const Questionary = props => {
       result.source.index,
       result.destination.index
     )
-    onSetItems(newItems)
+    onItemsOrdered(newItems)
   }
 
   return (
@@ -57,28 +57,28 @@ const Questionary = props => {
           <Droppable direction='vertical' droppableId='droppable'>
             {(dropProvided) => (
               <div
-              className={classes.container}
-              {...dropProvided.droppableProps}
-              ref={dropProvided.innerRef}
-              tabIndex='-1'>
-              {
-                React.Children.map(children,(item, index) => {
-                  return (<Draggable
-                      draggableId={`drag-${item.props.order}`}
+                className={classes.container}
+                {...dropProvided.droppableProps}
+                ref={dropProvided.innerRef}
+                tabIndex='-1'>
+                {
+                  React.Children.map(children,(item, index) => (
+                    <Draggable
+                      draggableId={`drag-${item.props.id}`}
                       index={index}
-                      key={`drag-${item.props.order}`}>
+                      key={`drag-${item.props.id}`}>
                       {(dragProvided) => (
-                      <div
-                        ref={dragProvided.innerRef}
-                        {...dragProvided.draggableProps}
-                        {...dragProvided.dragHandleProps}
-                        tabIndex='-1'>
-                        {item}
-                      </div>
-                    )}
-                  </Draggable>) 
-                })
-              }
+                        <div
+                          ref={dragProvided.innerRef}
+                          {...dragProvided.draggableProps}
+                          {...dragProvided.dragHandleProps}
+                          tabIndex='-1'>
+                          {item}
+                        </div>
+                      )}
+                    </Draggable>
+                  ))
+                }
               {dropProvided.placeholder}
               <div className={clsx(classes.lastInput)}>
                 {addInputComponent}
@@ -95,7 +95,7 @@ const Questionary = props => {
 Questionary.propTypes = {
   addInputComponent: PropTypes.node,
   classes: PropTypes.object,
-  onSetItems: PropTypes.func,
+  onItemsOrdered: PropTypes.func,
 }
 
 Questionary.muiName = 'Questionary'

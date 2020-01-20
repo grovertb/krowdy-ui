@@ -2,7 +2,7 @@
 
 <p class="description">Component to Questionary view.</p>
 
-{{"demo": "containers/views/questionary/Questionary.js", "hideHeader": false, "bg": true, "bgColor": "white", "iframe": true }}
+{{"demo": "containers/views/questionary/Questionary.js", "hideHeader": false, "bg": true, "bgColor": "white" }}
 
 | prop                       | type    |default| description                                               |
 | :------------------------- |:--------|------:|----------------------------------------------------------- |
