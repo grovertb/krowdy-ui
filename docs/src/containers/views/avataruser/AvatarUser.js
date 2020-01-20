@@ -9,8 +9,7 @@ export default function () {
         firstName: 'Xavi',
         lastName: 'Gonzalez',
         photo: ''
-      }}
-      margin='0 10px'/>
+      }}/>
     </div>
   )
 }

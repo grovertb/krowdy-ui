@@ -6,7 +6,6 @@ interface user {
 
 export type AvatarUserProps = {
   user: user
-  margin?: string
 };
 
 declare const AvatarUser: React.ComponentType<AvatarUserProps>;

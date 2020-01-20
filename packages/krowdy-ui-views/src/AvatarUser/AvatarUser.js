@@ -31,7 +31,6 @@ export const styles = theme => ({
 function AvatarUsrer (props) {
   const {
     user,
-    margin,
     classes
   } = props
   
@@ -41,14 +40,8 @@ function AvatarUsrer (props) {
         <img
           alt={`${user.firstName} ${user.lastName}`}
           className={classes.image}
-          style={{
-            margin: margin
-          }}
           src={user.photo} />
       : <div
-          style={{
-            margin: margin
-          }}
           className={classes.defaultAvatar}>
           {
             `${user.firstName ?
