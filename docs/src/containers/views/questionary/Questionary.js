@@ -2,7 +2,7 @@ import React from 'react'
 import { Input, Paper } from '@krowdy-ui/core'
 import { RemoveCircleOutline, DragIndicator } from '@material-ui/icons'
 import { Inputs, DragComponent } from '@krowdy-ui/views'
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@krowdy-ui/styles'
 
 const data = [{
   _id: 1,

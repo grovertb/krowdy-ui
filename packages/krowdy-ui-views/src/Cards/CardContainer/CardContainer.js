@@ -34,10 +34,10 @@ export const styles = theme => ({
     cursor: 'pointer',
     fontFamily: 'Roboto',
     fontSize: 14,
-    height:'auto',
+    height: 'auto',
   },
   title: {
-    color: theme.palette.grey['800'],
+    color: theme.palette.grey[800],
     fontSize: 14,
     fontWeight: 'bold',
     marginBottom: 0
@@ -85,7 +85,7 @@ const CardTask = props => {
 CardTask.propTypes = {
   avatar: PropTypes.node,
   cardContentProps: PropTypes.object,
-  cardHeaderProps : PropTypes.object,
+  cardHeaderProps: PropTypes.object,
   cardProps: PropTypes.object,
   classes: PropTypes.object,
   content: PropTypes.node,
