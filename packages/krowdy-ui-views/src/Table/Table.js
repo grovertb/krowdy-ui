@@ -26,8 +26,7 @@ import {
 	Input
 } from '@krowdy-ui/core';
 // import KeyboardDatePicker from '@material-ui/lab/'
-import { Table as MuiTable, IconButton } from '@krowdy-ui/core/';
-import { TableContainer } from '@material-ui/core'
+import { Table as MuiTable, TableContainer, IconButton } from '@krowdy-ui/core/';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import SearchIcon from '@material-ui/icons/Search';
 import CheckIcon from '@material-ui/icons/Check';
@@ -147,6 +146,9 @@ const useStyles = makeStyles(theme => ({
 	},
 	inputEditable: {
 		fontSize: 14
+	},
+	optionSelect: {
+		fontSize: 14
 	}
 }))
 
@@ -220,43 +222,12 @@ const Table = ({
 		setAddNewCell(!addNewCell)
 	}
 
-	const renderComponentType = (type, id) => {
-		{
-			switch (type) {
-				case ('text' || 'number'):
-					return (<Input fullWidth type={type} defaultValue={locaNewCellProps[id]} className={classes.inputSearch} />)
-				case 'select':
-					return (
-						<FormControl>
-							<Select displayEmpty>
-								{locaNewCellProps[id].map(({ value, label }) => {
-									return (<MenuItem value={value}>{label}</MenuItem>)
-								})}
-							</Select>
-						</FormControl>
-					)
-				// case 'date':
-				// 	return (
-				// 		<KeyboardDatePicker
-				// 			disableToolbar
-				// 			variant="inline"
-				// 			format="MM/dd/yyyy"
-				// 			margin="normal"
-				// 			id="date-picker-inline"
-				// 			label="Date picker inline"
-				// 			value={selectedDate}
-				// 			// onChange={handleDateChange}
-				// 			KeyboardButtonProps={{
-				// 				'aria-label': 'change date',
-				// 			}}
-				// 		/>
-				// 	)
-				default:
-					return null
-			}
-		}
+	const _handleChangeNewCell = (e, id) => {
+		const { value } = e.target
+    console.log("TCL: _handleChangeNewCell -> id", locaNewCellProps)
+		
+		//setLocalNewCellProps()
 	}
-
 
 	return (
 		<Paper className={classes.containerTable}>
@@ -391,11 +362,25 @@ const Table = ({
 								columnsActives.map(({ id, type, editable }, index) => {
 									const lastCell = index === columnsActives.length - 1
 									return (
-										<TableCell>
+										<TableCell key={id}>
 											<Box display='flex' alignItems='center' justifyContent={lastCell ? 'space-between' : 'flex-start'}>
-												{editable ? (
-													renderComponentType(type, id)
-												) : (
+												{editable ? 
+													type === 'select' ? (
+															<Select value='' className={classes.optionSelect} onChange={(e) => _handleChangeNewCell(e, id)}>
+																{locaNewCellProps[id].map(({ value, label }, index) => {
+																	return (<MenuItem key={index} className={classes.optionSelect} value={value}>{label}</MenuItem>)
+																})}
+															</Select>
+													) : (
+														<Input 
+															fullWidth 
+															type = { type } 
+															onChange = { (e) => _handleChangeNewCell(e, id) }
+															defaultValue = {locaNewCellProps[id]}
+															className={classes.inputSearch} 
+														/>
+													)
+												: (
 													<Typography>{locaNewCellProps[id]}</Typography>
 												)}
 												{lastCell && (

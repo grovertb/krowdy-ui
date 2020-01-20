@@ -16,7 +16,7 @@ const demoColumns = [
 	// { id: 'other', label: 'Otro valor', minWidth: 120, ordering: false, active: false, type: 'text', editable: true }
 ]
 
-const newCellProps = { 
+const newCellProps = {
 	name: '',
 	type: ['LL', 'VE'],
 	incharge: [

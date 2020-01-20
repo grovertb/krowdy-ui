@@ -295,6 +295,9 @@ export * from './Table'
 export { default as TableBody } from './TableBody'
 export * from './TableBody'
 
+export { default as TableContainer } from './TableContainer'
+export * from './TableContainer'
+
 export { default as TableCell } from './TableCell'
 export * from './TableCell'
 
