@@ -1,3 +1,6 @@
+interface IMultipleProps {
+	[extraProp: string]: any
+}
 interface IColumnsTable {
 	id: string
 	label: string
@@ -39,6 +42,10 @@ interface IFuncSelectAll {
 	(value: boolean, e?: Event): void
 }
 
+interface IFuncAddNewCell {
+	(e?: Event): void
+}
+
 export type TableProps = {
 	columns: Array<IColumnsTable>,
 	rows: Array<IRowsTable>
@@ -58,7 +65,8 @@ export type TableProps = {
 	enableAddCell?: boolean
 	paymentAmount?: number
 	iconButton?: React.ReactNode
-	searchSuggestions?: object[]
+	newCellProps?: IMultipleProps
+	searchSuggestions?: Array<IMultipleProps>
 	onHandleBtnAction?: IFuncBtnAction
 	onHandlePaymentButton?: IFuncBtnAction
 	onHandleSortTable?: IFuncSortTable
@@ -68,6 +76,7 @@ export type TableProps = {
 	onHandleSelectAll?: IFuncSelectAll
 	onHandleSelectItem?: IFuncCheckbox
 	onHandleToggleColumnTable?: IFuncCheckbox
+	onHandleAddNewCell?: IFuncAddNewCell
 };
 
 declare const Table: React.ComponentType<TableProps>;

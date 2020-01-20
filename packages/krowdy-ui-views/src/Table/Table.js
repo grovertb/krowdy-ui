@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import { 
@@ -14,20 +14,24 @@ import {
 	Menu,
 	MenuItem,
 	FormGroup,
+	FormControl,
 	FormControlLabel,
 	Box,
 	InputAdornment,
 	TextField,
 	Button,
+	Select,
 	Popover,
 	makeStyles,
 	Input
 } from '@krowdy-ui/core';
-import TableContainer from '@material-ui/core/TableContainer';
-import MuiTable from '@krowdy-ui/core/Table';
-import IconButton from '@krowdy-ui/core/IconButton';
+// import KeyboardDatePicker from '@material-ui/lab/'
+import { Table as MuiTable, IconButton } from '@krowdy-ui/core/';
+import { TableContainer } from '@material-ui/core'
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import SearchIcon from '@material-ui/icons/Search';
+import CheckIcon from '@material-ui/icons/Check';
+import CloseIcon from '@material-ui/icons/Close';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
 const useStyles = makeStyles(theme => ({
@@ -74,12 +78,7 @@ const useStyles = makeStyles(theme => ({
 		cursor: 'pointer'
 	},
 	containerHeaderTable: {
-		padding: '16px',
-		'&.spaceBetween':{
-			display: 'flex',
-			alignItems: 'center',
-			justifyContent: 'space-between'
-		}
+		padding: theme.spacing(2),
 	},
 	textAmount: {
 		color: theme.palette.primary.main,
@@ -113,6 +112,11 @@ const useStyles = makeStyles(theme => ({
 		fontWeight: 'bold',
 		marginBottom: 12
 	},
+	spaceBetween: {
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'space-between'
+	},
 	customCheckbox: {
 		'& svg': {
 			height: 18,
@@ -126,6 +130,23 @@ const useStyles = makeStyles(theme => ({
 		color: theme.palette.primary.main,
 		textAlign: 'right',
 		cursor: 'pointer'
+	},
+	iconAdd: {
+		fontSize: 18,
+		cursor: 'pointer',
+		'&.check': {
+			color: theme.palette.primary.main,
+			marginLeft: theme.spacing(1)
+		},
+		'&.close': {
+			color: theme.palette.error.main
+		}
+	},
+	editableCell: {
+		display: 'flex'
+	},
+	inputEditable: {
+		fontSize: 14
 	}
 }))
 
@@ -136,6 +157,7 @@ const Table = ({
 	pagination,
 	paymentAmount,
 	iconButton,
+	newCellProps,
 	columns = [], 
 	rows = [],
 	searchSuggestions = [],
@@ -156,13 +178,20 @@ const Table = ({
 	onHandleSelectAll = () => false,
 	onHandleSelectItem = () => false,
 	onHandlePaymentButton = () => false,
-	onHandleToggleColumnTable = () => false
+	onHandleToggleColumnTable = () => false,
+	onHandleAddNewCell = () => false
 }) => {
 	const classes = useStyles()
 	const inputSearch = useRef(null)
 	const [openMenu, setOpenMenu] = useState(null)
-	const [addCell, setAddCell] = useState(false)
+	const [addNewCell, setAddNewCell] = useState(false)
+	const [locaNewCellProps, setLocalNewCellProps] = useState({})
 	const columnsActives = columns.filter(({ active }) => active)
+
+	useEffect(() => {
+		if (newCellProps)
+			setLocalNewCellProps(newCellProps)
+	}, [])
 
 	const _handleClickOpenMenu = event => {
 		setOpenMenu(event.currentTarget);
@@ -187,8 +216,45 @@ const Table = ({
 		return onHandleSortTable(id, invertSort)
 	}
 
-	const _handleClickAddCell = () => {
-		setAddCell(!addCell)
+	const _handleClickToggleCell = () => {
+		setAddNewCell(!addNewCell)
+	}
+
+	const renderComponentType = (type, id) => {
+		{
+			switch (type) {
+				case ('text' || 'number'):
+					return (<Input fullWidth type={type} defaultValue={locaNewCellProps[id]} className={classes.inputSearch} />)
+				case 'select':
+					return (
+						<FormControl>
+							<Select displayEmpty>
+								{locaNewCellProps[id].map(({ value, label }) => {
+									return (<MenuItem value={value}>{label}</MenuItem>)
+								})}
+							</Select>
+						</FormControl>
+					)
+				// case 'date':
+				// 	return (
+				// 		<KeyboardDatePicker
+				// 			disableToolbar
+				// 			variant="inline"
+				// 			format="MM/dd/yyyy"
+				// 			margin="normal"
+				// 			id="date-picker-inline"
+				// 			label="Date picker inline"
+				// 			value={selectedDate}
+				// 			// onChange={handleDateChange}
+				// 			KeyboardButtonProps={{
+				// 				'aria-label': 'change date',
+				// 			}}
+				// 		/>
+				// 	)
+				default:
+					return null
+			}
+		}
 	}
 
 
@@ -196,7 +262,7 @@ const Table = ({
 		<Paper className={classes.containerTable}>
 			{
 				withHeader ? (
-					<div className={clsx(classes.containerHeaderTable, { spaceBetween: titleTable })}>
+					<div className={clsx(classes.containerHeaderTable, { [classes.spaceBetween]: titleTable })}>
 						{titleTable && <Typography className={classes.titleTable}>{titleTable}</Typography>}
 						<div className={clsx(classes.containerSearch, { flexEnd: titleTable })}>
 							{withSearch ? (
@@ -321,22 +387,31 @@ const Table = ({
 					</TableHead>
 					<TableBody>
 						{enableAddCell ? (
-							 addCell ? (
-								columnsActives.map(({ type, editable }) => (
-									editable ? (
+							 addNewCell ? (
+								columnsActives.map(({ id, type, editable }, index) => {
+									const lastCell = index === columnsActives.length - 1
+									return (
 										<TableCell>
-											<Input fullWidth type='text' />
-										</TableCell>
-									) : (
-										<TableCell>
-											<Typography>Prueba</Typography>
+											<Box display='flex' alignItems='center' justifyContent={lastCell ? 'space-between' : 'flex-start'}>
+												{editable ? (
+													renderComponentType(type, id)
+												) : (
+													<Typography>{locaNewCellProps[id]}</Typography>
+												)}
+												{lastCell && (
+													<Box display='flex' marginLeft={2}>
+														<CloseIcon onClick={_handleClickToggleCell} className={clsx(classes.iconAdd, 'close')} />
+														<CheckIcon onClick={onHandleAddNewCell} className={clsx(classes.iconAdd, 'check')} />
+													</Box>
+												)}
+											</Box>
 										</TableCell>
 									)
-								))
+								})
 							) : (
 								<TableRow>
 									<TableCell colSpan = {columns.length} >
-										<Typography onClick={_handleClickAddCell} className={classes.addCell}>Agregar incidente</Typography>
+										<Typography onClick={_handleClickToggleCell} className={classes.addCell}>Agregar incidente</Typography>
 									</TableCell>
 								</TableRow>
 							)
@@ -430,6 +505,7 @@ Table.propTypes = {
 	enableAddCell: PropTypes.bool,
 	iconButton: PropTypes.element,
 	paymentAmount: PropTypes.number,
+	newCellProps: PropTypes.object,
 	searchSuggestions: PropTypes.array,
 	sortTable: PropTypes.shape({
 		orderBy: PropTypes.string,
@@ -448,7 +524,8 @@ Table.propTypes = {
 	onHandleSelectAll: PropTypes.func.isRequired,
 	onHandleSelectItem: PropTypes.func.isRequired,
 	onHandlePaymentButton: PropTypes.func,
-	onHandleToggleColumnTable: PropTypes.func
+	onHandleToggleColumnTable: PropTypes.func,
+	onHandleAddNewCell: PropTypes.func
 }
 
 export default Table

@@ -8,13 +8,38 @@ const demoColumns = [
 	{ id: 'name', label: 'Nombre', minWidth: 150, ordering: true, active: true, type: 'text', editable: true },
 	// { id: 'status', label: 'Estado', minWidth: 120, ordering: true, active: true, type: 'text', editable: false },
 	{ id: 'type', label: 'Tipo de actividad', minWidth: 170, ordering: false, active: true, type: 'text', editable: false },
-	{ id: 'incharge', label: 'Encargado', minWidth: 100, ordering: false, active: true, type: 'text', editable: true },
-	 { id: 'currentTasks', label: 'Tareas actuales', minWidth: 150, align: 'right', ordering: true, active: true, type: 'date', editable: true },
-	 { id: 'amountPayable', label: 'Monto por pagar', minWidth: 160, align: 'right', ordering: true, active: true, type: 'number', editable: true },
+	{ id: 'incharge', label: 'Encargado', minWidth: 100, ordering: false, active: true, type: 'select', editable: true },
+	{ id: 'currentTasks', label: 'Tareas actuales', minWidth: 150, align: 'right', ordering: true, active: true, type: 'date', editable: true },
+	{ id: 'amountPayable', label: 'Monto por pagar', minWidth: 160, align: 'right', ordering: true, active: true, type: 'number', editable: true },
 	// { id: 'amountTasks', label: 'Tareas por pagar', minWidth: 160, align: 'right', ordering: true, active: true, type: 'text', editable: true },
 	// { id: 'incidents', label: 'Incidentes', minWidth: 90, align: 'right', ordering: true, active: true, type: 'text', editable: true },
 	// { id: 'other', label: 'Otro valor', minWidth: 120, ordering: false, active: false, type: 'text', editable: true }
 ]
+
+const newCellProps = { 
+	name: '',
+	type: ['LL', 'VE'],
+	incharge: [
+		{ 
+			label:'Edward Sanchez',
+			value: 0 
+		}, 
+		{ 
+			label:'Jose Perez',
+			value: 1
+		},
+		{ 
+			label: 'Manuel Perez',
+			value: 2 
+		},
+		{ 
+			label: 'Pedro Perez', 
+			value: 3
+		}
+	],
+	currentTasks: '',
+	amountPayable: ''
+}
 
 export default function () {
 	const [sort, setSort] = useState({ orderBy: null, sort: 'asc'})
@@ -230,7 +255,7 @@ export default function () {
 				withOrder={false}
 				withSearch={true}
 				withButton={false}
-				enableAddCell={false}
+				enableAddCell={true}
 				iconButton={<AddIcon />}
 				// titleTable='Tabla de Krowders'
 				searchSuggestions={searchSuggestions}
@@ -241,6 +266,7 @@ export default function () {
 					rowsPerPage: 25,
 					currentPage: 2
 				}}
+				newCellProps={newCellProps}
 				titleButton='Agregar Krowder'
 				onHandleSortTable={_handleSortTable}
 				onHandleSearch={_handleSearch}
