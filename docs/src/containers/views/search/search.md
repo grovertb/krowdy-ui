@@ -2,7 +2,7 @@
 
 <p class="description">Component search candidates</p>
 
-{{"demo": "containers/views/search/Search.js", "hideHeader": false, "bg": true, "bgColor": "white", "iframe": true }}
+{{"demo": "containers/views/search/Search.js"}}
 
 <h1>
 Props:
@@ -10,7 +10,7 @@ Props:
 
 | Name                               |      Type      |  Default | Description   |
 |:-----------------------------------|:---------------|:---------|:-------------| 
-|   classes        | object       |       |               |
+|   classes        |   object       |       |               |
 |    searchIcon       |    icon    |       |               |
 |     type      |   'border-bottom' o 'border'    |  'border'     |               |
 |           |        |       |               |

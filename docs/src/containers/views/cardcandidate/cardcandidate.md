@@ -15,10 +15,8 @@
 | lastName             |    string        |          | The last name of a candidate.                            |
 | onChangeCheckbox     |    function      |          | Callback fired when the state is changed.                |
 | src                  |    string        |          | The src attribute for the img element.                   |
-        
+| restPropsCheckbox    |    object        |          | Props of checkbox                                        |
+| restPropsAvatar      |    object        |          | Props of avatar                                          |
+
+          
  
-
-
-
-
-

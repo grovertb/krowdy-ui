@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Counter } from '@krowdy-ui/views'
 import AddIcon from '@material-ui/icons/Add'
 import RemoveIcon from '@material-ui/icons/Remove'
@@ -9,10 +9,10 @@ export default function () {
   const disabled = false
   const min = 5
   const max = 15
-  const [number, setNumber] = useState(initialCounterValue)
+  const [number, setNumber] = React.useState(initialCounterValue)
 
-  const onChange = () => {
-    setNumber(true)
+  const onChange = (event) => {
+    setNumber(event)
   }
   return (
     <div style={{
@@ -30,7 +30,7 @@ export default function () {
         onChange={onChange}
         addIcon={<AddIcon style={{ height: 18, width: 18 }} />}
         removeIcon={<RemoveIcon style={{ height: 18, width: 18 }} />}
-        value={number}
+        number={number}
         disabled={disabled}
       />
     </div>

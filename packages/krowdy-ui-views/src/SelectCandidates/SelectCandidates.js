@@ -14,8 +14,7 @@ import {
 	FormControlLabel,
 	CardHeader,
 	CircularProgress,
-	IconButton,
-	Input
+	IconButton
 } from '@krowdy-ui/core'
 
 export const styles = theme => ({
@@ -24,13 +23,16 @@ export const styles = theme => ({
 		height: 'auto',
 		width: 420
 	},
+	cardCandidate: {
+		marginRight: '10px'
+	},
 	cardContent: {
 		margin: '20px 38px 35px 42px',
-		padding: 0
+		padding: theme.spacing(0)
 	},
 	cardHeader: {
 		margin: '16px 38px 16px 20px',
-		padding: 0
+		padding: theme.spacing(0)
 	},
 	circularProgress: {
 		display: 'flex',
@@ -43,7 +45,7 @@ export const styles = theme => ({
 	formGroup: {
 		display: ' flex',
 		flexDirection: 'row',
-		marginBottom: 14
+		marginBottom: theme.spacing(1.75)
 	},
 	header: {
 		display: 'flex',
@@ -51,6 +53,13 @@ export const styles = theme => ({
 	},
 	headerLeft: {
 		flex: '1'
+	},
+	iconButton: {
+		alignItems: 'center',
+		display: 'flex',
+		justifyContent: 'center',
+		paddingRight: 23
+
 	},
 	infiniteScroll: {
 		'&::-webkit-box-shadow': {
@@ -74,7 +83,7 @@ export const styles = theme => ({
 		maxHeight: 220,
 		minHeight: 218,
 		overflow: 'hidden auto',
-		paddingRight: 5
+		paddingRight: theme.spacing(1.6)
 	},
 	labelCheckbox: {
 		color: theme.palette.grey['700'],
@@ -130,7 +139,7 @@ const SelectCandidates = props => {
 		candidatesSelectIds = [],
 		optionsSelect = [],
 		placeholderSearch,
-		onChangeSelectOptions = () => {},
+		onChangeSelectOptions = () => { },
 		itemSelect,
 		searchIcon,
 		dataSource = [],
@@ -140,13 +149,13 @@ const SelectCandidates = props => {
 		closeIcon,
 		checkboxIndeterminate,
 		classes,
-		onChangeSearchText = () => {},
+		onChangeSearchText = () => { },
 		checkedCurrentCandidates,
-		onChangeCurrentCandidates = () => {},
+		onChangeCurrentCandidates = () => { },
 		checkedcandidatesToCome,
-		onChangecandidatesToCome = () => {},
-		onChangeCheckboxItem = () => {},
-		onNextCandidates = () => {},
+		onChangecandidatesToCome = () => { },
+		onChangeCheckboxItem = () => { },
+		onNextCandidates = () => { },
 		hasMore
 	} = props
 
@@ -158,12 +167,7 @@ const SelectCandidates = props => {
 					title={<div>Candidatos ({numberSelecteds} seleccionados)</div>}
 					classes={{ title: classes.titleCardheader }}
 				/>
-				<div style={{
-					alignItems: 'center',
-					display: 'flex',
-					justifyContent: 'center',
-					paddingRight: 23
-				}}>
+				<div className={classes.iconButton}>
 					<IconButton
 						size='small'
 						className={classes.close}>
@@ -256,7 +260,7 @@ const SelectCandidates = props => {
 									lastName={lastName}
 									onChangeCheckbox={onChangeCheckboxItem}
 									photo={photo}
-									style={{ marginRight: '10px' }}
+									className={classes.cardCandidate}
 								/>
 							) : <div></div>}
 						</>

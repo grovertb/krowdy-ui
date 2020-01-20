@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
     SelectCandidates,
     CardCandidate,
@@ -48,7 +48,7 @@ const optionsSelect = ['option1', 'option2', 'option3']
 
 export default function () {
     // const [checkedCheckbox, setCheckedCheckbox] = useState('')
-    const [itemSelect, setItemSelect] = useState('')
+    const [itemSelect, setItemSelect] = React.useState('')
     const _handleChangeItemSelect = event => {
         setItemSelect(event.target.value)
     }

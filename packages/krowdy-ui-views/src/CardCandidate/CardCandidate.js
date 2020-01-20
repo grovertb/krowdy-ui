@@ -33,11 +33,8 @@ export const styles = theme => ({
       display: 'inline-flex'
     }
   },
-  headerLeft: {
-    flex: '1'
-  },
   labelCandidate: {
-    marginLeft: 8,
+    marginLeft: theme.spacing(1),
     width: 300
   },
   name: {
@@ -63,7 +60,7 @@ export const styles = theme => ({
     boxSizing: 'border-box',
     display: 'flex',
     height: 40,
-    marginBottom: 8,
+    marginBottom: theme.spacing(1),
     width: '100%'
   },
   root: {
@@ -78,7 +75,7 @@ export const styles = theme => ({
         display: 'inline-flex'
       }
     },
-    marginLeft: 8
+    marginLeft: theme.spacing(1)
   }
 })
 
@@ -93,7 +90,6 @@ const CardCandidate = props => {
     classes,
     restPropsCheckbox,
     restPropsAvatar,
-    restPropsPaper
   } = props
 
   const initials = `${firstName.charAt(0).toUpperCase()}${lastName.charAt(0).toUpperCase()}`
@@ -102,7 +98,6 @@ const CardCandidate = props => {
     <Paper
       className={classes.paper}
       key={_id}
-      {...restPropsPaper}
     >
       <div className={`${classes.root} ${checked && classes.checked}`}>
         <Checkbox

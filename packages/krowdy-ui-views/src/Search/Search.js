@@ -4,13 +4,10 @@ import { withStyles } from '@krowdy-ui/styles'
 import { InputBase, InputAdornment } from '@krowdy-ui/core'
 
 export const styles = theme => ({
-  headerLeft: {
-    flex: '1'
-  },
   icon: {
     color: theme.palette.grey['600'],
     fontSize: 18,
-    marginRight: 8
+    marginRight: theme.spacing(1)
   },
   inputBase: {
     flex: 1,
@@ -18,7 +15,7 @@ export const styles = theme => ({
     fontStyle: 'normal',
     fontWeight: 'normal',
     lineHeight: 16,
-    marginLeft: 11,
+    marginLeft: theme.spacing(1.375),
   },
   paper: {
     '&:active': {

@@ -1,17 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@krowdy-ui/styles'
-import { IconButton, Input } from '@krowdy-ui/core'
+import {
+  IconButton,
+  Input
+} from '@krowdy-ui/core'
 
 export const styles = theme => ({
-  headerLeft: {
-    flex: '1'
-  },
   input: {
     textAlign: 'center'
   },
   root: {
-    borderBottom: '1px solid #BFBFBF',
+    borderBottom: `1px solid ${theme.palette.grey['500']}`,
     fontSize: 14,
     fontStyle: 'normal',
     fontWeight: 'normal',
@@ -34,21 +34,24 @@ const Counter = props => {
     min,
     max,
     disabled,
-    value,
+    number,
     onChange = () => { },
+    restPropsIconButton,
+    restPropsInput
   } = props
 
-
   return (
-    <div style={{ alignItems: 'center', display: 'flex' }}>
+    <div >
       <IconButton
         color='primary'
         disabled={disabled}
         onClick={() => {
-          value > min &&
-            onChange(value - 1)
+          number > min &&
+            onChange(number - 1)
         }}
-        size='small'>
+        size='small'
+        {...restPropsIconButton}
+      >
         {removeIcon}
       </IconButton>
       <Input
@@ -58,16 +61,19 @@ const Counter = props => {
           input: classes.input,
           root: classes.root
         }}
-        value={addLeadingZero(value)}
+        value={addLeadingZero(number)}
+        {...restPropsInput}
       />
       <IconButton
         color='primary'
         disabled={disabled}
         onClick={() => {
-          value < max &&
-            onChange(value + 1)
+          number < max &&
+            onChange(number + 1)
         }}
-        size='small'>
+        size='small'
+        {...restPropsIconButton}
+      >
         {addIcon}
       </IconButton>
 
@@ -81,9 +87,9 @@ Counter.propTypes = {
   disabled: PropTypes.bool,
   max: PropTypes.number,
   min: PropTypes.number,
+  number: PropTypes.number,
   onChange: PropTypes.func,
-  removeIcon: PropTypes.node,
-  value: PropTypes.number
+  removeIcon: PropTypes.node
 }
 
 Counter.muiName = 'Search'

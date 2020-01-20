@@ -10,6 +10,7 @@ import {
 
 } from '@krowdy-ui/core'
 import { Dropdown } from '@krowdy-ui/views'
+
 export const styles = theme => ({
 	arrowIcon: {
 		color: theme.palette.grey['500'],
@@ -19,22 +20,19 @@ export const styles = theme => ({
 		alignItems: 'center',
 		display: 'flex'
 	},
-	headerLeft: {
-		flex: '1'
-	},
 	iconArrow: {
 		height: 18,
 		width: 18
 	},
 	inputTextfield: {
-		paddingTop: 0,
+		paddingTop: theme.spacing(0),
 	},
 	nameTask: {
 		fontSize: 18,
 		fontStyle: 'normal',
 		fontWeight: 'bold',
 		lineHeight: '24px',
-		marginRight: 12,
+		marginRight: theme.spacing(1.5),
 	},
 	paper: {
 		alignItems: 'center',
@@ -53,7 +51,7 @@ export const styles = theme => ({
 		fontWeight: 'normal',
 		height: 35,
 		lineHeight: '100%',
-		marginRight: 12,
+		marginRight: theme.spacing(1.5),
 		textAlign: 'center'
 	},
 	textTextfield: {
@@ -64,7 +62,7 @@ export const styles = theme => ({
 
 	},
 	titleTask: {
-		marginBottom: 10
+		marginBottom: theme.spacing(1.25)
 	}
 
 })
@@ -91,18 +89,22 @@ const HeaderTask = props => {
 		onClickArrowBackIcon,
 		showButtonsRight,
 		disabledSelectCandidates,
-		id,
+		_id,
 		checkbox,
 		disabledTitleTask,
 		disabledUpdateTask,
 		disabledSave,
-		disableActiveTask
+		disableActiveTask,
+		restPropsButton
 	} = props
 
 	return (
 		<Paper className={classes.paper}>
 			<div className={classes.task}>
-				<IconButton size='small' onClick={onClickArrowBackIcon} className={classes.arrowIcon}>
+				<IconButton
+					size='small'
+					onClick={onClickArrowBackIcon}
+					className={classes.arrowIcon}>
 					{arrowBackIcon}
 				</IconButton>
 				<Typography className={classes.nameTask}>
@@ -117,6 +119,7 @@ const HeaderTask = props => {
 						onClick={onClickSelectCandidates}
 						className={classes.textButton}
 						disabled={disabledSelectCandidates}
+						{...restPropsButton}
 					>
 						{checkbox ? 'Todos' : ` ${numberCandidates} Candidatos`} - Etapa {stageIndex + 1}
 					</Button>
@@ -148,7 +151,7 @@ const HeaderTask = props => {
 			</div>
 			<div className={classes.buttonsRight}>
 				{showButtonsRight ?
-					id
+					_id
 						?
 						isDraft ?
 							<div>
@@ -157,7 +160,9 @@ const HeaderTask = props => {
 									onClick={onClickSave}
 									variant='outlined'
 									color='primary'
-									className={classes.textButton}>
+									className={classes.textButton}
+									{...restPropsButton}
+								>
 									Guardar
 								</Button>
 								<Button
@@ -166,6 +171,7 @@ const HeaderTask = props => {
 									variant='contained'
 									color='primary'
 									className={classes.textButton}
+									{...restPropsButton}
 								>
 									Activar tarea
 								</Button>
@@ -177,7 +183,9 @@ const HeaderTask = props => {
 									onClick={onClickUpdateTask}
 									variant='outlined'
 									color='primary'
-									className={classes.textButton} >
+									className={classes.textButton}
+									{...restPropsButton}
+								>
 									Actualizar tarea
 						    </Button>
 							</div>
@@ -188,7 +196,9 @@ const HeaderTask = props => {
 								onClick={onClickSave}
 								variant='outlined'
 								color='primary'
-								className={classes.textButton}>
+								className={classes.textButton}
+								{...restPropsButton}
+							>
 								Guardar Borrador
 							</Button>
 							<Button
@@ -196,7 +206,9 @@ const HeaderTask = props => {
 								onClick={onClickActiveTask}
 								variant='contained'
 								color='primary'
-								className={classes.textButton}>
+								className={classes.textButton}
+								{...restPropsButton}
+							>
 								Activar tarea
 						</Button>
 						</div>
@@ -211,9 +223,10 @@ const HeaderTask = props => {
 }
 
 HeaderTask.propTypes = {
+	_id: PropTypes.string,
 	arrowBackIcon: PropTypes.node,
 	checkbox: PropTypes.bool,
-	checked: PropTypes.any,
+	checked: PropTypes.bool,
 	classes: PropTypes.object,
 	contentButton: PropTypes.any,
 	disableActiveTask: PropTypes.bool,
@@ -221,24 +234,22 @@ HeaderTask.propTypes = {
 	disabledSelectCandidates: PropTypes.bool,
 	disabledTitleTask: PropTypes.bool,
 	disabledUpdateTask: PropTypes.bool,
-	id: PropTypes.string,
 	isDraft: PropTypes.bool,
 	numberCandidates: PropTypes.number,
-	onChange: PropTypes.any,
-	onChangeTitleTask: PropTypes.any,
-	onClickActiveTask: PropTypes.any,
+	onChange: PropTypes.func,
+	onChangeTitleTask: PropTypes.func,
+	onClickActiveTask: PropTypes.func,
 	onClickArrowBackIcon: PropTypes.func,
-	onClickSave: PropTypes.any,
+	onClickSave: PropTypes.func,
 	onClickSelectCandidates: PropTypes.func,
-	onClickUpdateTask: PropTypes.any,
-	onKeyUpTitleTask: PropTypes.any,
+	onClickUpdateTask: PropTypes.func,
+	onKeyUpTitleTask: PropTypes.func,
 	showButtonsRight: PropTypes.bool,
 	showInputName: PropTypes.bool,
 	stageIndex: PropTypes.number,
 	titleHeader: PropTypes.string,
 	titleTask: PropTypes.string,
 	valueTitleTask: PropTypes.any
-
 }
 
 HeaderTask.muiName = 'HeaderTask'
