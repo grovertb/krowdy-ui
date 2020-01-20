@@ -1,11 +1,10 @@
 import React from 'react'
-import { Input,Paper } from '@krowdy-ui/core'
-import { DragComponent } from '@krowdy-ui/views'
+import { Input, Paper } from '@krowdy-ui/core'
 import { RemoveCircleOutline, DragIndicator } from '@material-ui/icons'
-import { Inputs } from '@krowdy-ui/views'
+import { Inputs, DragComponent } from '@krowdy-ui/views'
 import { makeStyles } from '@material-ui/core/styles'
 
-const items = [{
+const data = [{
   _id: 'item-1',
   instruction: () => { },
   question: 'Cuentame alguna vez que hayas tenido quetoamr una decision que no te gusto en el trabajo? Que hiciste? Usa un ejemplo',
@@ -20,23 +19,23 @@ const items = [{
   instruction: () => { },
   question: 'question 3',
 }, {
-  _id: 'item-1',
+  _id: 'item-4',
   instruction: () => { },
   question: 'Cuentame alguna vez que hayas tenido quetoamr una decision que no te gusto en el trabajo? Que hiciste? Usa un ejemplo',
 },
 {
-  _id: 'item-2',
+  _id: 'item-5',
   instruction: () => { },
-  question: 'question 2',
+  question: 'question 5',
 }, {
-  _id: 'item-1',
+  _id: 'item-6',
   instruction: () => { },
   question: 'Cuentame alguna vez que hayas tenido quetoamr una decision que no te gusto en el trabajo? Que hiciste? Usa un ejemplo',
 },
 {
-  _id: 'item-2',
+  _id: 'item-7',
   instruction: () => { },
-  question: 'question 2',
+  question: 'question 7',
 }]
 
 
@@ -52,34 +51,40 @@ const useStyles = makeStyles({
   root: {
     border: '1px solid gray',
     margin: '3% 5%',
-    padding: '3%'
+    padding: '3%',
+    width: '100%'
   },
 })
 
 export default () => {
   const classes = useStyles()
+  const [items, setItems] = React.useState(data.map((element,index) => (
+      <Inputs
+        key={element._id}
+        id={element._id}
+        item={element}
+        iconDrag={<DragIndicator fontSize='small' />}
+        iconRemove={<RemoveCircleOutline color='error' />}
+        order = {index+1}
+        showInstructions
+        tabIndex='-1'
+      />
+   )))
+
+   const handleItemsOrdered = items => {
+    setItems(items)
+  }
+
   return (
     <Paper elevation={0} variant='outlined' className={classes.root} >
     <p>¿Qué deseas preguntar a tus candidatos?</p>
     <div >
-      <DragComponent> 
-        {
-          items.map((element,index)=>(           
-            <Inputs
-            item={element}
-            iconDrag={<DragIndicator fontSize='small' />}
-            iconRemove={<RemoveCircleOutline color='error' />}
-            key={index}
-            order = {index+1}
-            showInstructions
-            tabIndex='-1'
-            />
-           ))
-        }
-        <div className={classes.lastInput}>
-          <Input placeholder='Escriba una nueva pregunta' disableUnderline />
-        </div>
-        </DragComponent>
+      <DragComponent onItemsOrdered={handleItemsOrdered}> 
+        { items }
+      </DragComponent>
+      <div className={classes.lastInput}>
+        <Input placeholder='Escriba una nueva pregunta' disableUnderline />
+      </div>
     </div>
   </Paper>
 
