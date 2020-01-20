@@ -1,6 +1,6 @@
-# Search
+# Switch Button
 
-<p class="description">Component search candidates</p>
+<p class="description">Component </p>
 
 {{"demo": "containers/views/switchbutton/SwitchButton.js" }}
 
@@ -13,5 +13,7 @@ Props:
 |   classes        | object       |       |               |
 |    onChange       |    function    |       |               |
 |     value      |   bool    |      |               |
-|           |        |       |               |
-	
+|    titleLeft       |  string      |       |               |
+|   titleRight        | string       |       |               |
+
+
