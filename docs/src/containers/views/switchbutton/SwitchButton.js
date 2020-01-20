@@ -15,7 +15,7 @@ export default function () {
       margin: '50px',
       width: 'auto'
     }}>
-
+      ,
     </div>
   )
 }

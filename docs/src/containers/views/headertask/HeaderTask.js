@@ -8,8 +8,6 @@ export default function () {
   const numberCandidates = 10
   const stageIndex = 0
   const checkbox = false
-  const showButtonsRight = true
-
 
   return (
     <div style={{
@@ -21,11 +19,12 @@ export default function () {
       width: 'auto'
     }}>
       <div>
+        <h3>ShowButtonRight: false </h3>
         <HeaderTask
-          isDraft={true}
+          isDraft={false}
           checkbox={checkbox}
-          showButtonsRight={showButtonsRight}
-          showInputName={true}
+          showButtonsRight={false}
+          showInputName={false}
           arrowBackIcon={arrowBackIcon}
           titleHeader={'Video Cuestionario'}
           titleTask={titleTask}
@@ -35,45 +34,49 @@ export default function () {
         />
       </div>
       <div>
+        <h3>ShowButtonRight: true </h3>
+        <h3>id:null -- showInputName:true</h3>
         <HeaderTask
           isDraft={true}
           checkbox={checkbox}
-          showButtonsRight={showButtonsRight}
+          showButtonsRight={true}
           showInputName={true}
           arrowBackIcon={arrowBackIcon}
           titleHeader={'Videos'}
           titleTask={titleTask}
           numberCandidates={numberCandidates}
           stageIndex={stageIndex}
-          id={1}
-        />
-      </div>
-      <div>
-        <HeaderTask
-          checkbox={true}
-          isDraft={false}
-          showButtonsRight={false}
-          showInputName={false}
-          arrowBackIcon={arrowBackIcon}
-          titleHeader={'Tareas'}
-          titleTask={titleTask}
-          numberCandidates={numberCandidates}
-          stageIndex={stageIndex}
-          id={1}
-        />
-      </div>
-      <div>
-        <HeaderTask
-          checkbox={true}
-          isDraft={false}
-          showButtonsRight={false}
-          showInputName={false}
-          arrowBackIcon={arrowBackIcon}
-          titleHeader={'Tareas'}
-          titleTask={titleTask}
-          numberCandidates={numberCandidates}
-          stageIndex={stageIndex}
           id={null}
+        />
+      </div>
+      <div>
+        <h3>id:number, isDraft: false </h3>
+        <HeaderTask
+          checkbox={true}
+          isDraft={false}
+          showButtonsRight={true}
+          showInputName={false}
+          arrowBackIcon={arrowBackIcon}
+          titleHeader={'Tareas'}
+          titleTask={titleTask}
+          numberCandidates={numberCandidates}
+          stageIndex={stageIndex}
+          id={1}
+        />
+      </div>
+      <div>
+        <h3>id:number , isDraft: true </h3>
+        <HeaderTask
+          checkbox={true}
+          isDraft={true}
+          showButtonsRight={true}
+          showInputName={false}
+          arrowBackIcon={arrowBackIcon}
+          titleHeader={'Tareas'}
+          titleTask={titleTask}
+          numberCandidates={numberCandidates}
+          stageIndex={stageIndex}
+          id={1}
         />
       </div>
     </div >

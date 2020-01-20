@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@krowdy-ui/styles'
 import { IconButton, Input } from '@krowdy-ui/core'
@@ -31,25 +31,23 @@ const Counter = props => {
     classes,
     addIcon,
     removeIcon,
+    min,
+    max,
     disabled,
-    number,
+    value,
     onChange = () => { },
   } = props
 
-
-
-
-  useEffect(() => {
-    onChange(number)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [number])
 
   return (
     <div style={{ alignItems: 'center', display: 'flex' }}>
       <IconButton
         color='primary'
         disabled={disabled}
-        onClick={onChange(number - 1)}
+        onClick={() => {
+          value > min &&
+            onChange(value - 1)
+        }}
         size='small'>
         {removeIcon}
       </IconButton>
@@ -60,12 +58,15 @@ const Counter = props => {
           input: classes.input,
           root: classes.root
         }}
-        value={addLeadingZero(number)}
+        value={addLeadingZero(value)}
       />
       <IconButton
         color='primary'
         disabled={disabled}
-        onClick={onChange(number + 1)}
+        onClick={() => {
+          value < max &&
+            onChange(value + 1)
+        }}
         size='small'>
         {addIcon}
       </IconButton>
@@ -78,10 +79,11 @@ Counter.propTypes = {
   addIcon: PropTypes.node,
   classes: PropTypes.object,
   disabled: PropTypes.bool,
-  maxLimit: PropTypes.number,
-  minLimit: PropTypes.number,
+  max: PropTypes.number,
+  min: PropTypes.number,
   onChange: PropTypes.func,
-  removeIcon: PropTypes.node
+  removeIcon: PropTypes.node,
+  value: PropTypes.number
 }
 
 Counter.muiName = 'Search'

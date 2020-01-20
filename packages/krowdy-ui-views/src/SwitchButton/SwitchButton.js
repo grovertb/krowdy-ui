@@ -17,7 +17,13 @@ const SwitchButton = props => {
 
   return (
     <div  >
-
+      <ButtonGroup
+        variant='contained'
+        color='primary'>
+        <Button>One</Button>
+        <Button>Two</Button>
+        <Button>Three</Button>
+      </ButtonGroup>
     </div >
 
   )

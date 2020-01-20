@@ -5,13 +5,15 @@ import RemoveIcon from '@material-ui/icons/Remove'
 
 export default function () {
 
-  const initialCounterValue = 1
-  const minLimit = 1
-  const maxLimit = 300
+  const initialCounterValue = 10
   const disabled = false
+  const min = 5
+  const max = 15
   const [number, setNumber] = useState(initialCounterValue)
 
-  // const onChange
+  const onChange = (event) => {
+    setNumber(event)
+  }
   return (
     <div style={{
       alignItems: 'center',
@@ -23,10 +25,12 @@ export default function () {
       width: 'auto'
     }}>
       <Counter
-        // onChange={onChange}
+        min={min}
+        max={max}
+        onChange={onChange}
         addIcon={<AddIcon style={{ height: 18, width: 18 }} />}
         removeIcon={<RemoveIcon style={{ height: 18, width: 18 }} />}
-        number={number}
+        value={number}
         disabled={disabled}
       />
     </div>
