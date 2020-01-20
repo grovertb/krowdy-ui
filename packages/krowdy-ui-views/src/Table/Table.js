@@ -41,22 +41,12 @@ const useStyles = makeStyles(theme => ({
 	containerSearch: {
 		display: 'flex',
 		justifyContent: 'space-between',
-		'&.flexEnd':{
-			justifyContent: 'flex-end'
-		},
-		'& * [class=*"-popperDisablePortal"]': {
-			backgroundColor: 'red'
-		}
 	},
 	containerTable: {
 		overflow: 'hidden'
 	},
 	headerTable: {
 		fontWeight: 'bold',
-		fontSize: 12
-	},
-	bodyTable: {
-		fontSize: 12
 	},
 	inputSearch: {
 		margin: '2px 0',
@@ -81,13 +71,10 @@ const useStyles = makeStyles(theme => ({
 	},
 	textAmount: {
 		color: theme.palette.primary.main,
-		fontSize: 18,
-		lineHeight: '24px',
 		fontWeight: 'bold'
 	},
 	textTotal: {
 		marginRight: 5,
-		fontSize: 14,
 		lineHeight: '20px',
 		fontWeight: 'bold'
 	},
@@ -97,17 +84,15 @@ const useStyles = makeStyles(theme => ({
 	},
 	titleTable: {
 		fontWeight: 'bold',
-		fontSize: 14
 	},
 	menuItem: {
 		fontSize: 14
 	},
 	customMenuHead: {
-		padding: 16
+		padding: theme.spacing(2)
 	},
 	customMenuHeadTitle: {
-		color: '#262626',
-		fontSize: '0.875rem',
+		color: theme.palette.grey[800],
 		fontWeight: 'bold',
 		marginBottom: 12
 	},
@@ -115,6 +100,9 @@ const useStyles = makeStyles(theme => ({
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'space-between'
+	},
+	flexEnd: {
+		justifyContent: 'flex-end'
 	},
 	customCheckbox: {
 		'& svg': {
@@ -143,9 +131,6 @@ const useStyles = makeStyles(theme => ({
 	},
 	editableCell: {
 		display: 'flex'
-	},
-	inputEditable: {
-		fontSize: 14
 	},
 	optionSelect: {
 		fontSize: 14
@@ -187,12 +172,13 @@ const Table = ({
 	const inputSearch = useRef(null)
 	const [openMenu, setOpenMenu] = useState(null)
 	const [addNewCell, setAddNewCell] = useState(false)
-	const [locaNewCellProps, setLocalNewCellProps] = useState({})
+	const [localNewCellProps, setLocalNewCellProps] = useState({})
 	const columnsActives = columns.filter(({ active }) => active)
 
 	useEffect(() => {
-		if (newCellProps)
+		if (Object.keys(newCellProps).length){
 			setLocalNewCellProps(newCellProps)
+		}
 	}, [])
 
 	const _handleClickOpenMenu = event => {
@@ -222,11 +208,23 @@ const Table = ({
 		setAddNewCell(!addNewCell)
 	}
 
+	const _handleRemoveCell = () => {
+		setAddNewCell(!addNewCell)
+		setLocalNewCellProps({})
+	}
+
 	const _handleChangeNewCell = (e, id) => {
 		const { value } = e.target
-    console.log("TCL: _handleChangeNewCell -> id", locaNewCellProps)
-		
-		//setLocalNewCellProps()
+		setLocalNewCellProps((prevState) => {
+			return {
+				...prevState,
+				[id]: value
+			}
+		})
+	}
+
+	const _handleAddNewCell = () => {
+		onHandleAddNewCell(localNewCellProps)
 	}
 
 	return (
@@ -234,8 +232,8 @@ const Table = ({
 			{
 				withHeader ? (
 					<div className={clsx(classes.containerHeaderTable, { [classes.spaceBetween]: titleTable })}>
-						{titleTable && <Typography className={classes.titleTable}>{titleTable}</Typography>}
-						<div className={clsx(classes.containerSearch, { flexEnd: titleTable })}>
+						{titleTable && <Typography variant='body2' className={classes.titleTable}>{titleTable}</Typography>}
+						<div className={clsx(classes.containerSearch, { [classes.flexEnd]: titleTable })}>
 							{withSearch ? (
 								<Autocomplete
 									style={{ width: 400 }}
@@ -305,10 +303,10 @@ const Table = ({
 											direction={sortTable.orderBy === id ? sortTable.sort : 'asc'}
 											onClick={() => _handleSortTable(id, sortTable)}
 										>
-											<Typography className={classes.headerTable}>{label}</Typography>
+											<Typography variant="body1" className={classes.headerTable}>{label}</Typography>
 										</TableSortLabel>
 									) : (
-											<Typography className={classes.headerTable}>{label}</Typography>
+											<Typography variant="body1" className={classes.headerTable}>{label}</Typography>
 									) }
 								</TableCell>
 							))}
@@ -331,7 +329,7 @@ const Table = ({
 											vertical: 'top'
 										}}>
 										<div className={classes.customMenuHead}>
-											<Typography className={classes.customMenuHeadTitle}>Columnas</Typography>
+											<Typography variant='body2' className={classes.customMenuHeadTitle}>Columnas</Typography>
 											<FormGroup>
 												{
 													columns.map(({ id, label, active }) => (
@@ -359,40 +357,42 @@ const Table = ({
 					<TableBody>
 						{enableAddCell ? (
 							 addNewCell ? (
-								columnsActives.map(({ id, type, editable }, index) => {
-									const lastCell = index === columnsActives.length - 1
-									return (
-										<TableCell key={id}>
-											<Box display='flex' alignItems='center' justifyContent={lastCell ? 'space-between' : 'flex-start'}>
-												{editable ? 
-													type === 'select' ? (
-															<Select value='' className={classes.optionSelect} onChange={(e) => _handleChangeNewCell(e, id)}>
-																{locaNewCellProps[id].map(({ value, label }, index) => {
-																	return (<MenuItem key={index} className={classes.optionSelect} value={value}>{label}</MenuItem>)
-																})}
+								 <TableRow>
+									{columnsActives.map(({ id, type, editable }, index) => {
+										const lastCell = index === columnsActives.length - 1
+										return (
+											<TableCell key={id}>
+												<Box display='flex' alignItems='center' justifyContent={lastCell ? 'space-between' : 'flex-start'}>
+													{editable ?
+														type === 'select' ? (
+															<Select value={Array.isArray(localNewCellProps[id]) ? '' : localNewCellProps[id] } className={classes.optionSelect} onChange={(e) => _handleChangeNewCell(e, id)}>
+																{newCellProps[id].map(({ value, label }, index) =>
+																	(<MenuItem key={index} className={classes.optionSelect} value={value}>{label}</MenuItem>))
+																}
 															</Select>
-													) : (
-														<Input 
-															fullWidth 
-															type = { type } 
-															onChange = { (e) => _handleChangeNewCell(e, id) }
-															defaultValue = {locaNewCellProps[id]}
-															className={classes.inputSearch} 
-														/>
-													)
-												: (
-													<Typography>{locaNewCellProps[id]}</Typography>
-												)}
-												{lastCell && (
-													<Box display='flex' marginLeft={2}>
-														<CloseIcon onClick={_handleClickToggleCell} className={clsx(classes.iconAdd, 'close')} />
-														<CheckIcon onClick={onHandleAddNewCell} className={clsx(classes.iconAdd, 'check')} />
-													</Box>
-												)}
-											</Box>
-										</TableCell>
-									)
-								})
+														) : (
+																<Input
+																	fullWidth
+																	type={type}
+																	onChange={(e) => _handleChangeNewCell(e, id)}
+																	defaultValue={newCellProps[id]}
+																	className={classes.inputSearch}
+																/>
+															)
+														: (
+															<Typography>{Array.isArray(newCellProps[id]) ? (newCellProps[id].join(', ')) : newCellProps[id]}</Typography>
+														)}
+													{lastCell && (
+														<Box display='flex' marginLeft={2}>
+															<CloseIcon onClick={_handleRemoveCell} className={clsx(classes.iconAdd, 'close')} />
+															<CheckIcon onClick={_handleAddNewCell} className={clsx(classes.iconAdd, 'check')} />
+														</Box>
+													)}
+												</Box>
+											</TableCell>
+										)
+									})}
+								 </TableRow>
 							) : (
 								<TableRow>
 									<TableCell colSpan = {columns.length} >
@@ -419,7 +419,7 @@ const Table = ({
 									{columnsActives.map(({ id, align }) => {
 										return (
 											<TableCell key={id} align={align || 'left'}>
-												<Typography className={classes.bodyTable}>
+												<Typography variant='body1' className={classes.bodyTable}>
 													{Array.isArray(row[id]) ? (row[id].join(', ')) : row[id] }
 												</Typography>
 											</TableCell>
@@ -450,8 +450,8 @@ const Table = ({
 					<Box display='flex' justifyContent='flex-end' padding={2} className={classes.footerTable}>
 						<Box display='flex' className={classes.containerPayment}>
 							<Box display='flex' marginRight={3} alignItems='center' className={classes.paymentText}>
-								<Typography className={classes.textTotal}>Total</Typography>
-								<Typography className={classes.textAmount}>s/ {paymentAmount.toFixed(2)}</Typography>
+								<Typography variant='h6' className={classes.textTotal}>Total</Typography>
+								<Typography variant='h5' className={classes.textAmount}>s/ {paymentAmount.toFixed(2)}</Typography>
 							</Box>
 							<Button onClick={onHandlePaymentButton} className={classes.buttonFooter} color='primary' variant='contained'>Pagar</Button>
 						</Box>

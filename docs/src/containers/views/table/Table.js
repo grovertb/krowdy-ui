@@ -6,19 +6,20 @@ import AddIcon from '@material-ui/icons/Add'
 
 const demoColumns = [
 	{ id: 'name', label: 'Nombre', minWidth: 150, ordering: true, active: true, type: 'text', editable: true },
-	// { id: 'status', label: 'Estado', minWidth: 120, ordering: true, active: true, type: 'text', editable: false },
+	{ id: 'status', label: 'Estado', minWidth: 120, ordering: true, active: true, type: 'text', editable: false },
 	{ id: 'type', label: 'Tipo de actividad', minWidth: 170, ordering: false, active: true, type: 'text', editable: false },
 	{ id: 'incharge', label: 'Encargado', minWidth: 100, ordering: false, active: true, type: 'select', editable: true },
 	{ id: 'currentTasks', label: 'Tareas actuales', minWidth: 150, align: 'right', ordering: true, active: true, type: 'date', editable: true },
 	{ id: 'amountPayable', label: 'Monto por pagar', minWidth: 160, align: 'right', ordering: true, active: true, type: 'number', editable: true },
-	// { id: 'amountTasks', label: 'Tareas por pagar', minWidth: 160, align: 'right', ordering: true, active: true, type: 'text', editable: true },
-	// { id: 'incidents', label: 'Incidentes', minWidth: 90, align: 'right', ordering: true, active: true, type: 'text', editable: true },
-	// { id: 'other', label: 'Otro valor', minWidth: 120, ordering: false, active: false, type: 'text', editable: true }
+	{ id: 'amountTasks', label: 'Tareas por pagar', minWidth: 160, align: 'right', ordering: true, active: false, type: 'text', editable: true },
+	{ id: 'incidents', label: 'Incidentes', minWidth: 90, align: 'right', ordering: true, active: false, type: 'text', editable: true },
+	{ id: 'other', label: 'Otro valor', minWidth: 120, ordering: false, active: false, type: 'text', editable: true }
 ]
 
 const newCellProps = {
 	name: '',
 	type: ['LL', 'VE'],
+	status: 'Pendiente',
 	incharge: [
 		{ 
 			label:'Edward Sanchez',
@@ -109,95 +110,7 @@ export default function () {
 			amountTasks: 4,
 			incidents: 2,
 			extra: 'Status'
-		},
-		// {
-		// 	_id: '4',
-		// 	name: 'Juan Perez',
-		// 	status: 'En linea',
-		// 	type: ['LL', 'Ln', 'VoD', 'VE'],
-		// 	incharge: 'Jimena',
-		// 	currentTasks: 5,
-		// 	amountPayable: 45,
-		// 	amountTasks: 2,
-		// 	incidents: 5
-		// },
-		// {
-		// 	_id: '5',
-		// 	name: 'Juana de Arco',
-		// 	status: 'Hace 2 dias',
-		// 	type: ['LL', 'Ln'],
-		// 	incharge: 'Jimena',
-		// 	currentTasks: 2,
-		// 	amountPayable: 15,
-		// 	amountTasks: 0,
-		// 	incidents: 0
-		// },
-		// {
-		// 	_id: '6',
-		// 	name: 'Pedro de Arco',
-		// 	status: 'Hace 7 dias',
-		// 	type: ['LL', 'Ln'],
-		// 	incharge: 'Jimena',
-		// 	currentTasks: 2,
-		// 	amountPayable: 15,
-		// 	amountTasks: 0,
-		// 	incidents: 1
-		// },
-		// {
-		// 	_id: '7',
-		// 	name: 'Pedro Colmenarez',
-		// 	status: 'Invitado',
-		// 	type: ['LL', 'Ln'],
-		// 	incharge: 'Jimena',
-		// 	currentTasks: 2,
-		// 	amountPayable: 123,
-		// 	amountTasks: 4,
-		// 	incidents: 2
-		// },
-		// {
-		// 	_id: '8',
-		// 	name: 'Juan Perez',
-		// 	status: 'En linea',
-		// 	type: ['LL', 'Ln', 'VoD', 'VE'],
-		// 	incharge: 'Jimena',
-		// 	currentTasks: 5,
-		// 	amountPayable: 45,
-		// 	amountTasks: 2,
-		// 	incidents: 5
-		// },
-		// {
-		// 	_id: '9',
-		// 	name: 'Juana de Arco',
-		// 	status: 'Hace 2 dias',
-		// 	type: ['LL', 'Ln'],
-		// 	incharge: 'Jimena',
-		// 	currentTasks: 2,
-		// 	amountPayable: 15,
-		// 	amountTasks: 0,
-		// 	incidents: 0
-		// },
-		// {
-		// 	_id: '10',
-		// 	name: 'Pedro de Arco',
-		// 	status: 'Hace 7 dias',
-		// 	type: ['LL', 'Ln'],
-		// 	incharge: 'Jimena',
-		// 	currentTasks: 2,
-		// 	amountPayable: 15,
-		// 	amountTasks: 0,
-		// 	incidents: 1
-		// },
-		// {
-		// 	_id: '11',
-		// 	name: 'Pedro Colmenarez',
-		// 	status: 'Invitado',
-		// 	type: ['LL', 'Ln'],
-		// 	incharge: 'Jimena',
-		// 	currentTasks: 2,
-		// 	amountPayable: 123,
-		// 	amountTasks: 4,
-		// 	incidents: 2
-		// },
+		}
 	]
 
 	const _handleSortTable = (orderBy, sort) => {
@@ -244,6 +157,10 @@ export default function () {
 			setColumns(newCols)
 	}
 
+	const _handleAddNewCell = (newCell) => {
+    console.log("TCL: _handleAddNewCell -> newCell", newCell)
+	}
+
 	return (
 		<Grid container>
 			<Table
@@ -277,6 +194,7 @@ export default function () {
 				onHandleSelectItem={_handleSelectItem}
 				onHandlePaymentButton={_handlePaymentButton}
 				onHandleToggleColumnTable={_handleToggleColumnTable}
+				onHandleAddNewCell={_handleAddNewCell}
 				columns={columns}
 				rows={rows}
 			/>

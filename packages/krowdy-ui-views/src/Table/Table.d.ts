@@ -43,7 +43,7 @@ interface IFuncSelectAll {
 }
 
 interface IFuncAddNewCell {
-	(e?: Event): void
+	(newCell: IMultipleProps): void
 }
 
 export type TableProps = {

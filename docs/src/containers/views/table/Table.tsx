@@ -84,96 +84,36 @@ export default function () {
 			amountTasks: 4,
 			incidents: 2,
 			extra: 'Status'
-		},
-		// {
-		// 	_id: '4',
-		// 	name: 'Juan Perez',
-		// 	status: 'En linea',
-		// 	type: ['LL', 'Ln', 'VoD', 'VE'],
-		// 	incharge: 'Jimena',
-		// 	currentTasks: 5,
-		// 	amountPayable: 45,
-		// 	amountTasks: 2,
-		// 	incidents: 5
-		// },
-		// {
-		// 	_id: '5',
-		// 	name: 'Juana de Arco',
-		// 	status: 'Hace 2 dias',
-		// 	type: ['LL', 'Ln'],
-		// 	incharge: 'Jimena',
-		// 	currentTasks: 2,
-		// 	amountPayable: 15,
-		// 	amountTasks: 0,
-		// 	incidents: 0
-		// },
-		// {
-		// 	_id: '6',
-		// 	name: 'Pedro de Arco',
-		// 	status: 'Hace 7 dias',
-		// 	type: ['LL', 'Ln'],
-		// 	incharge: 'Jimena',
-		// 	currentTasks: 2,
-		// 	amountPayable: 15,
-		// 	amountTasks: 0,
-		// 	incidents: 1
-		// },
-		// {
-		// 	_id: '7',
-		// 	name: 'Pedro Colmenarez',
-		// 	status: 'Invitado',
-		// 	type: ['LL', 'Ln'],
-		// 	incharge: 'Jimena',
-		// 	currentTasks: 2,
-		// 	amountPayable: 123,
-		// 	amountTasks: 4,
-		// 	incidents: 2
-		// },
-		// {
-		// 	_id: '8',
-		// 	name: 'Juan Perez',
-		// 	status: 'En linea',
-		// 	type: ['LL', 'Ln', 'VoD', 'VE'],
-		// 	incharge: 'Jimena',
-		// 	currentTasks: 5,
-		// 	amountPayable: 45,
-		// 	amountTasks: 2,
-		// 	incidents: 5
-		// },
-		// {
-		// 	_id: '9',
-		// 	name: 'Juana de Arco',
-		// 	status: 'Hace 2 dias',
-		// 	type: ['LL', 'Ln'],
-		// 	incharge: 'Jimena',
-		// 	currentTasks: 2,
-		// 	amountPayable: 15,
-		// 	amountTasks: 0,
-		// 	incidents: 0
-		// },
-		// {
-		// 	_id: '10',
-		// 	name: 'Pedro de Arco',
-		// 	status: 'Hace 7 dias',
-		// 	type: ['LL', 'Ln'],
-		// 	incharge: 'Jimena',
-		// 	currentTasks: 2,
-		// 	amountPayable: 15,
-		// 	amountTasks: 0,
-		// 	incidents: 1
-		// },
-		// {
-		// 	_id: '11',
-		// 	name: 'Pedro Colmenarez',
-		// 	status: 'Invitado',
-		// 	type: ['LL', 'Ln'],
-		// 	incharge: 'Jimena',
-		// 	currentTasks: 2,
-		// 	amountPayable: 123,
-		// 	amountTasks: 4,
-		// 	incidents: 2
-		// },
+		}
 	]
+
+
+	const newCellProps = {
+		name: '',
+		type: ['LL', 'VE'],
+		status: 'Pendiente',
+		incharge: [
+			{
+				label: 'Edward Sanchez',
+				value: 0
+			},
+			{
+				label: 'Jose Perez',
+				value: 1
+			},
+			{
+				label: 'Manuel Perez',
+				value: 2
+			},
+			{
+				label: 'Pedro Perez',
+				value: 3
+			}
+		],
+		currentTasks: '',
+		amountPayable: ''
+	}
+
 
 	const _handleSortTable = (orderBy: string, sort: string): void  => {
 		// setSort({ orderBy, sort })
@@ -219,6 +159,10 @@ export default function () {
 		setColumns(newCols)
 	}
 
+	const _handleAddNewCell = (newCell: {[extraProp: string]: string}): void => {
+		console.log("TCL: _handleAddNewCell -> newCell", newCell)
+	}
+
 	return (
 		<Grid container>
 			<Table
@@ -237,13 +181,14 @@ export default function () {
 				paymentAmount={350.20}
 				sortTable={{
 					orderBy: '',
-					sort: 'asc'
+					sort:"asc"
 				}}
 				pagination={{
 					totalRows: 275,
 					rowsPerPage: 25,
 					currentPage: 2
 				}}
+				newCellProps={newCellProps}
 				titleButton='Agregar Krowder'
 				onHandleSortTable={_handleSortTable}
 				onHandleSearch={_handleSearch}
@@ -254,6 +199,7 @@ export default function () {
 				onHandleSelectItem={_handleSelectItem}
 				onHandlePaymentButton={_handlePaymentButton}
 				onHandleToggleColumnTable={_handleToggleColumnTable}
+				onHandleAddNewCell={_handleAddNewCell}
 				columns={columns}
 				rows={rows}
 			/>
