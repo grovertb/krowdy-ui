@@ -7,19 +7,16 @@ import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
 // import InputComponent from './InputsTextField'
 
 export const styles = theme => ({
-  container: {
-    maxHeight: '100%',
+  gridContainer: {
+    height: 'calc(100% - 40px)',
     overflow: 'auto',
     width: '100%'
-  },
-  gridContainer: {
-    height: 'calc(100% - 40px)'
   },
   lastInput: {
     fontSize: 14,
     margin: 'auto',
-    paddingLeft: theme.spacing(6),
-    width: '100%',
+    paddingLeft: theme.spacing(3),
+    width: '100%'
   }
 })
 
@@ -50,10 +47,11 @@ const Questionary = props => {
     onItemsOrdered(newItems)
   }
 
+
   return (
     <Grid className={classes.gridContainer} container>
       <Grid item xs={12} tabIndex='-1'>
-        <DragDropContext onDragEnd={onDragEnd} >
+        <DragDropContext onDragEnd={onDragEnd}>
           <Droppable direction='vertical' droppableId='droppable'>
             {(dropProvided) => (
               <div
@@ -62,7 +60,7 @@ const Questionary = props => {
                 ref={dropProvided.innerRef}
                 tabIndex='-1'>
                 {
-                  React.Children.map(children,(item, index) => (
+                  React.Children.map(children, (item, index) => (
                     <Draggable
                       draggableId={`drag-${item.props.id}`}
                       index={index}
@@ -79,11 +77,11 @@ const Questionary = props => {
                     </Draggable>
                   ))
                 }
-              {dropProvided.placeholder}
-              <div className={clsx(classes.lastInput)}>
-                {addInputComponent}
-              </div>
-            </div>)
+                {dropProvided.placeholder}
+                <div className={clsx(classes.lastInput)}>
+                  {addInputComponent}
+                </div>
+              </div>)
             }
           </Droppable>
         </DragDropContext>

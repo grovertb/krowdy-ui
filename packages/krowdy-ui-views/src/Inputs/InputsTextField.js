@@ -67,7 +67,7 @@ const InputComponent = (props) => {
         {(iconDrag) ? iconDrag : null}
       </Grid>
       <span className={classes.order}>
-        {(order<10)?`0${order}`:order}.
+        {(order < 10) ? `0${order}` : order}.
       </span>
       <Grid className={classes.inputsContent} item xs={11}>
         <Input
