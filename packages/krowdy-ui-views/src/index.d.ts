@@ -10,6 +10,9 @@ export * from './Header';
 export { default as CardUser } from './CardUser';
 export * from './CardUser';
 
+export { default as CardException } from './CardException';
+export * from './CardException';
+
 export { default as ModalKrowder } from './ModalKrowder';
 export * from './ModalKrowder';
 

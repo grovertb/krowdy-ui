@@ -133,6 +133,10 @@ const pages: Array<Page> = [
         path: '/views/carduser'
       },
       {
+        title: 'Card Exception',
+        path: '/views/cardexception'
+      },
+      {
         title: 'Dashboard',
         path: '/views/dashboard'
       },
