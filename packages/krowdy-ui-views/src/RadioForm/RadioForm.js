@@ -9,16 +9,17 @@ import {
 } from '@krowdy-ui/core'
 
 export const styles = theme => ({
-  colorButton:{
-    color:theme.palette.primary[500]
+  colorButton: {
+    color: theme.palette.primary[500]
   }
 })
 
 const InputsRadiosForm = props => {
   const {
-   //classes,
+    //classes,
+    isRow,
     inputs,
-    onChange=()=>{},
+    onChange = () => { },
     valueDefault,
     name
   } = props
@@ -30,29 +31,30 @@ const InputsRadiosForm = props => {
     onChange(event)
   }
 
-  return (  
-    <RadioGroup name={name} value={value} onChange={handleChange} row>
+  return (
+    <RadioGroup name={name} value={value} onChange={handleChange} row={isRow}>
       {
-        inputs.map((element, index)=>{
+        inputs.map((element, index) => {
           return (
-            <FormControlLabel 
-              key={index} 
-              value= {element.value} 
-              label={element.label} 
-              control={<Radio color='primary' size='small' disableRipple/>} />
+            <FormControlLabel
+              key={index}
+              value={element.value}
+              label={element.label}
+              control={<Radio color='primary' size='small' disableRipple />} />
           )
         })
       }
     </RadioGroup>
-)
+  )
 }
 
 InputsRadiosForm.propTypes = {
   classes: PropTypes.object,
   inputs: PropTypes.array,
-  name : PropTypes.string,
+  isRow: PropTypes.bool,
+  name: PropTypes.string,
   onChange: PropTypes.func,
-  valueDefault: PropTypes.string
+  valueDefault: PropTypes.string,
 }
 
 InputsRadiosForm.muiName = 'InputsRadiosForm'

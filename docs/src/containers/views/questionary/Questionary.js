@@ -70,14 +70,12 @@ export default () => {
       tabIndex='-1'
     />
   )))
-  //const [order , setOrder] = React.useState(items.map[{`${}`:}] )
 
   const handleItemsOrdered = items => {
     setItems(items.map((children, index) => React.cloneElement(children, {
       order: index + 1
     })))
   }
-
 
   return (
     <Paper elevation={0} variant='outlined' className={classes.root} >
