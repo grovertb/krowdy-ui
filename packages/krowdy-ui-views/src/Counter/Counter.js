@@ -21,21 +21,23 @@ export const styles = theme => ({
   }
 })
 
+function addLeadingZero(number) {
+  return ('0' + number).slice(-2)
+}
+
 const Counter = props => {
 
   const {
     classes,
     addIcon,
     removeIcon,
-    minLimit,
     disabled,
-    maxLimit,
-    initialCounterValue,
+    number,
     onChange = () => { },
   } = props
 
 
-  const [number, setNumber] = useState(initialCounterValue)
+
 
   useEffect(() => {
     onChange(number)
@@ -47,7 +49,7 @@ const Counter = props => {
       <IconButton
         color='primary'
         disabled={disabled}
-        onClick={() => number > minLimit && setNumber(number - 1)}
+        onClick={onChange(number - 1)}
         size='small'>
         {removeIcon}
       </IconButton>
@@ -58,12 +60,12 @@ const Counter = props => {
           input: classes.input,
           root: classes.root
         }}
-        value={number}
+        value={addLeadingZero(number)}
       />
       <IconButton
         color='primary'
         disabled={disabled}
-        onClick={() => number < maxLimit && setNumber(number + 1)}
+        onClick={onChange(number + 1)}
         size='small'>
         {addIcon}
       </IconButton>
@@ -76,7 +78,6 @@ Counter.propTypes = {
   addIcon: PropTypes.node,
   classes: PropTypes.object,
   disabled: PropTypes.bool,
-  initialCounterValue: PropTypes.number,
   maxLimit: PropTypes.number,
   minLimit: PropTypes.number,
   onChange: PropTypes.func,

@@ -148,8 +148,28 @@ const HeaderTask = props => {
 			</div>
 			<div className={classes.buttonsRight}>
 				{showButtonsRight ?
-					id
+					(id && isDraft)
 						?
+						<div>
+							<Button
+								disabled={disabledSave}
+								onClick={onClickSave}
+								variant='outlined'
+								color='primary'
+								className={classes.textButton}>
+								{isDraft && id ? 'Guardar ' : 'Guardar Borrador'}
+							</Button>
+							<Button
+								disabled={disableActiveTask}
+								onClick={onClickActiveTask}
+								variant='contained'
+								color='primary'
+								className={classes.textButton}
+							>
+								Activar tarea
+					</Button>
+						</div>
+						:
 						<div>
 							<Button
 								disabled={disabledUpdateTask}
@@ -160,26 +180,7 @@ const HeaderTask = props => {
 								Actualizar tarea
                 </Button>
 						</div>
-						:
-						<div>
-							<Button
-								disabled={disabledSave}
-								onClick={onClickSave}
-								variant='outlined'
-								color='primary'
-								className={classes.textButton}>
-								{isDraft && id ? 'Guardar Borrador' : 'Guardar'}
-							</Button>
-							<Button
-								disabled={disableActiveTask}
-								onClick={onClickActiveTask}
-								variant='contained'
-								color='primary'
-								className={classes.textButton}
-							>
-								Activar tarea
-            </Button>
-						</div>
+
 					:
 					null
 				}

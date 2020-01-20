@@ -36,7 +36,7 @@ export default function () {
       </div>
       <div>
         <HeaderTask
-          isDraft={false}
+          isDraft={true}
           checkbox={checkbox}
           showButtonsRight={showButtonsRight}
           showInputName={true}
@@ -60,6 +60,20 @@ export default function () {
           numberCandidates={numberCandidates}
           stageIndex={stageIndex}
           id={1}
+        />
+      </div>
+      <div>
+        <HeaderTask
+          checkbox={true}
+          isDraft={false}
+          showButtonsRight={false}
+          showInputName={false}
+          arrowBackIcon={arrowBackIcon}
+          titleHeader={'Tareas'}
+          titleTask={titleTask}
+          numberCandidates={numberCandidates}
+          stageIndex={stageIndex}
+          id={null}
         />
       </div>
     </div >

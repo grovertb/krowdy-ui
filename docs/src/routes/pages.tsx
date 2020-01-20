@@ -164,6 +164,10 @@ const pages: Array<Page> = [
         title: 'Counter',
         path: '/views/counter'
       },
+      {
+        title: 'SwitchButton',
+        path: '/views/switchbutton'
+      },
     ]
   },
 

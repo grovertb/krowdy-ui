@@ -26,3 +26,6 @@ export * from './Questionary';
 export { default as Counter } from './Counter';
 export * from './Counter';
 
+
+export { default as Counter } from './SwitchButton';
+export * from './SwitchButton';

@@ -21,8 +21,11 @@ export default function () {
     <div style={{
       alignItems: 'center',
       display: 'flex',
-      justifyContent: 'center',
-      margin: '50px'
+      flexDirection: 'column',
+      height: 400,
+      justifyContent: 'space-evenly',
+      margin: '50px',
+      width: 'auto'
     }}>
       <Search
         type={type}
@@ -31,8 +34,6 @@ export default function () {
         onKeyDown={onKeyDown}
         placeholder={placeholder}
         searchIcon={searchIcon} />
-
-      <div style={{ heigh: 50, width: 50 }} />
 
       <Search
         type={typeDefault}

@@ -72,7 +72,7 @@ const Search = props => {
       <InputBase
         disabledUnderline
         endAdornment={
-          <InputAdornment position='end' className={classes.icon} >
+          <InputAdornment className={classes.icon} >
             {searchIcon}
           </InputAdornment>}
         inputProps={{
