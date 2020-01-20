@@ -1,14 +1,14 @@
 export type CardTask = {
-
-  avatar?: object[],
-  avatarProps?: object,
-  borderColor?: string,
+  avatar?: object,
+  cardContentProps?: object,
+  cardHeaderProps?: object,
+  cardProps?: boolean,
   classes?: object,
-  content?: object[],
-  iconRight?: object[],
-  lessShadow?: boolean,
-  raised?: boolean,
-  title?: string,
+  content?: string | object,
+  disabledHover?: boolean,
+  onClick?: Function,
+  rightElement?: object[],
+  title?: string | object,
 };
 
 declare const CardTask: React.ComponentType<CardTask>;
