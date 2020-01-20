@@ -109,9 +109,6 @@ const useStyles = makeStyles(theme => ({
 			height: 18,
 			width: 18
 		},
-		'&.Mui-checked': {
-			color: theme.palette.primary.main
-		}
 	},
 	addCell: {
 		color: theme.palette.primary.main,
@@ -121,12 +118,8 @@ const useStyles = makeStyles(theme => ({
 	iconAdd: {
 		fontSize: 18,
 		cursor: 'pointer',
-		'&.check': {
-			color: theme.palette.primary.main,
+		'&:nth-last-child(1)':{
 			marginLeft: theme.spacing(1)
-		},
-		'&.close': {
-			color: theme.palette.error.main
 		}
 	},
 	editableCell: {
@@ -336,6 +329,7 @@ const Table = ({
 														<FormControlLabel
 															control={
 																<Checkbox
+																	color='primary'
 																	checked={active}
 																	disabled={columns.filter(({ active }) => active).length === 1 && active}
 																	className={classes.customCheckbox}
@@ -384,8 +378,8 @@ const Table = ({
 														)}
 													{lastCell && (
 														<Box display='flex' marginLeft={2}>
-															<CloseIcon onClick={_handleRemoveCell} className={clsx(classes.iconAdd, 'close')} />
-															<CheckIcon onClick={_handleAddNewCell} className={clsx(classes.iconAdd, 'check')} />
+															<CloseIcon onClick={_handleRemoveCell} color='error' className={clsx(classes.iconAdd)} />
+															<CheckIcon onClick={_handleAddNewCell} color='primary' className={clsx(classes.iconAdd)} />
 														</Box>
 													)}
 												</Box>

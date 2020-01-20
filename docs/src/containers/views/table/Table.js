@@ -168,7 +168,7 @@ export default function () {
 				withCheckbox={false}
 				withPagination={false}
 				withHeader={true}
-				withMenuColumns={false}
+				withMenuColumns={true}
 				withOrder={false}
 				withSearch={true}
 				withButton={false}
