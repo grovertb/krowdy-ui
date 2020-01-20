@@ -24,6 +24,7 @@ import {
   ListItemText,
   // Icon
 } from '@krowdy-ui/core'
+import { AvatarUser } from '@krowdy-ui/views'
 
 const drawerWidth = 210
 
@@ -364,7 +365,8 @@ function Dashboard(props) {
               className={classes.notificationIcon}
               onClick={ev => _handleOpenMenu(ev)}
               color='inherit'>
-                {
+                <AvatarUser user={user} />
+                {/* {
                   user.photo ?
                     <img className={classes.profileName} src={user.photo} /> :
                     <div className={classes.profileName}>
@@ -373,7 +375,7 @@ function Dashboard(props) {
                       ${user.lastName ? user.lastName.charAt().toUpperCase() : ''}`
                     }
                     </div>
-                }
+                } */}
             </IconButton>
             <Menu
               anchorEl={anchorEl}
