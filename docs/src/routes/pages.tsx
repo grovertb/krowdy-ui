@@ -141,6 +141,10 @@ const pages: Array<Page> = [
         path: '/views/cardcandidate'
       },
       {
+        title: 'Table',
+        path: '/views/table'
+      },
+      {
         title: 'Dashboard',
         path: '/views/dashboard'
       },
@@ -167,6 +171,14 @@ const pages: Array<Page> = [
       {
         title: 'SwitchButton',
         path: '/views/switchbutton'
+      },
+      {
+        title: 'Avatar user',
+        path: '/views/avataruser'
+      },
+      {
+        title: 'Modal',
+        path: '/views/modalkrowder'
       },
     ]
   },

@@ -1,3 +1,6 @@
+export { default as Dashboard } from './Dashboard';
+export * from './Dashboard';
+
 export { default as JobDetail } from './JobDetail';
 export * from './JobDetail';
 
@@ -29,3 +32,11 @@ export * from './Counter';
 
 export { default as Counter } from './SwitchButton';
 export * from './SwitchButton';
+export { default as Table } from './Table';
+export * from './Table';
+
+export { default as ModalKrowder } from './ModalKrowder';
+export * from './ModalKrowder';
+
+export { default as AvatarUser } from './AvatarUser';
+export * from './AvatarUser';
