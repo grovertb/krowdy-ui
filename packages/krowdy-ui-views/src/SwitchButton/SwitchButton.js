@@ -34,7 +34,7 @@ const SwitchButton = props => {
           onClick={() => ChangeColor('buttonOne')}
         >Krowder</Button>
         <Button
-          variant={color ? 'outlined' : 'contained'}
+          variant={color.buttonTwo ? 'contained' : 'outlined'}
           onClick={() => ChangeColor('buttonTwo')}
         >Responsable</Button>
       </ButtonGroup>
