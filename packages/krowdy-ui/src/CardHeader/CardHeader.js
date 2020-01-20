@@ -42,34 +42,27 @@ const CardHeader = React.forwardRef(function CardHeader(props, ref) {
     disableTypography = false,
     title: titleProp,
     titleTypographyProps,
-    onClickElementRight=()=>{},
+    onClickElementRight = () => { },
     rightElement: rightComponent,
     subheader,
     subheaderTypographyProps,
     ...other
   } = props
 
-  let title = titleProp
-
-  if (titleProp != null && titleProp.type !== Typography && !disableTypography) {
-    title = (
-      <Typography
-        variant={avatar ? 'body2' : 'h5'}
-        className={classes.title}
-        component='span'
-        {...titleTypographyProps}
-      >
-        {titleProp}
-      </Typography>
-    )
-  }
-
   if (!subheader && !subheaderTypographyProps) {
     return (
       <Component className={clsx(classes.root, className)} ref={ref} {...other}>
         {avatar && <div className={classes.avatar}>{avatar}</div>}
         <div className={classes.content}>
-          {title}
+          {(titleProp && titleProp.type !== Typography && !disableTypography)
+            ? <Typography
+              variant={avatar ? 'body2' : 'h5'}
+              className={classes.title}
+              component='span'
+              {...titleTypographyProps} >
+              {titleProp}
+            </Typography>
+            : null}
         </div>
         {rightComponent && <div className={classes.rightComponent} onClick={onClickElementRight}>{rightComponent}</div>}
         {action && <div className={classes.action}>{action}</div>}
