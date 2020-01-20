@@ -11,8 +11,8 @@ export default function () {
   const max = 15
   const [number, setNumber] = useState(initialCounterValue)
 
-  const onChange = (event) => {
-    setNumber(event)
+  const onChange = () => {
+    setNumber(true)
   }
   return (
     <div style={{

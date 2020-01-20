@@ -1,24 +1,29 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@krowdy-ui/styles'
-import { Avatar, Typography, Checkbox, Paper } from '@krowdy-ui/core'
+import {
+  Avatar,
+  Typography,
+  Checkbox,
+  Paper
+} from '@krowdy-ui/core'
 
 export const styles = theme => ({
   avatar: {
-    backgroundColor: '#FFFFFF',
-    border         : '1px solid #E8E8E8',
-    color          : '#8C8C8C',
-    fontSize       : 10,
-    fontStyle      : 'normal',
-    fontWeight     : 'normal',
-    height         : 28,
-    lineHeight     : '100%',
-    textAlign      : 'center',
-    width          : 28
+    backgroundColor: theme.palette.primary['contrastText'],
+    border: `1px solid ${theme.palette.grey['300']}`,
+    color: theme.palette.grey['600'],
+    fontSize: 10,
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+    height: 28,
+    lineHeight: '100%',
+    textAlign: 'center',
+    width: 28
   },
   checkbox: {
     height: 28,
-    width : 28
+    width: 28
   },
   checked: {
     '& .avatar': {
@@ -33,12 +38,12 @@ export const styles = theme => ({
   },
   labelCandidate: {
     marginLeft: 8,
-    width     : 300
+    width: 300
   },
   name: {
-    color     : theme.palette.grey['700'],
-    fontSize  : 12,
-    fontStyle : 'normal',
+    color: theme.palette.grey['700'],
+    fontSize: 12,
+    fontStyle: 'normal',
     fontWeight: 'normal'
   },
   paper: {
@@ -51,16 +56,15 @@ export const styles = theme => ({
     '&:hover': {
       border: `1px solid ${theme.palette.primary['400']}`
     },
-    alignItems    : 'center',
-    border        : `1px solid ${theme.palette.grey['400']}`,
-    borderRadius  : 8,
-    boxShadow     : 'none',
-    boxSizing     : 'border-box',
-    display       : 'flex',
-    height        : 40,
-    justifyContent: 'space-between',
-    marginBottom  : 8,
-    width         : '100%'
+    alignItems: 'center',
+    border: `1px solid ${theme.palette.grey['400']}`,
+    borderRadius: 8,
+    boxShadow: 'none',
+    boxSizing: 'border-box',
+    display: 'flex',
+    height: 40,
+    marginBottom: 8,
+    width: '100%'
   },
   root: {
     '& .checkbox-hover': {
@@ -74,7 +78,7 @@ export const styles = theme => ({
         display: 'inline-flex'
       }
     },
-    marginLeft         : 8
+    marginLeft: 8
   }
 })
 
@@ -84,25 +88,35 @@ const CardCandidate = props => {
     _id,
     firstName,
     lastName,
-    onChangeCheckbox = () => {},
-    imageAvatar,
-    classes
+    onChangeCheckbox = () => { },
+    src,
+    classes,
+    restPropsCheckbox,
+    restPropsAvatar,
+    restPropsPaper
   } = props
+
   const initials = `${firstName.charAt(0).toUpperCase()}${lastName.charAt(0).toUpperCase()}`
 
   return (
     <Paper
       className={classes.paper}
-      key={_id}>
+      key={_id}
+      {...restPropsPaper}
+    >
       <div className={`${classes.root} ${checked && classes.checked}`}>
         <Checkbox
           checked={checked}
           className={`${classes.checkbox} checkbox-hover`}
           color='primary'
-          onChange={({ target: { checked } }) => onChangeCheckbox(_id,checked)} />
+          onChange={({ target: { checked } }) => onChangeCheckbox(_id, checked)}
+          {...restPropsCheckbox}
+        />
         <Avatar
           className={`${classes.avatar} avatar`}
-          src={imageAvatar}>
+          src={src}
+          {...restPropsAvatar}
+        >
           {initials}
         </Avatar>
       </div>
@@ -117,13 +131,13 @@ const CardCandidate = props => {
 }
 
 CardCandidate.propTypes = {
-  _id             : PropTypes.number,
-  checked         : PropTypes.any,
-  classes         : PropTypes.object,
-  firstName       : PropTypes.string,
-  imageAvatar     : PropTypes.node,
-  lastName        : PropTypes.string,
-  onChangeCheckbox: PropTypes.any
+  _id: PropTypes.number,
+  checked: PropTypes.bool,
+  classes: PropTypes.object,
+  firstName: PropTypes.string,
+  lastName: PropTypes.string,
+  onChangeCheckbox: PropTypes.func,
+  src: PropTypes.string
 }
 
 CardCandidate.muiName = 'CardCandidate'
