@@ -65,14 +65,16 @@ export default () => {
         item={element}
         iconDrag={<DragIndicator fontSize='small' />}
         iconRemove={<RemoveCircleOutline color='error' />}
-        order = {index+1}
+        order={index+1}
         showInstructions
         tabIndex='-1'
       />
    )))
 
    const handleItemsOrdered = items => {
-    setItems(items)
+    setItems(items.map((children, index) => React.cloneElement(children, {
+      order: index+1
+    })))
   }
 
   return (
