@@ -79,7 +79,7 @@ const Questionary = props => {
                 }
                 {dropProvided.placeholder}
                 <div className={clsx(classes.lastInput)}>
-                  {addInputComponent}
+                  {(addInputComponent) ? addInputComponent : null}
                 </div>
               </div>)
             }
