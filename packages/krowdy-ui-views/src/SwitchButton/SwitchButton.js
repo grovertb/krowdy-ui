@@ -19,9 +19,9 @@ const SwitchButton = props => {
     classes,
 
   } = props
-  const ChangeColor = (name, color) => {
+  const ChangeColor = name => {
     setColor({
-      [name]: color
+      name: color,
     })
 
   }
