@@ -25,13 +25,13 @@ export default function () {
 		}}>
 			<CardCandidate
 				checked={checked}
-				// onChangeCheckbox={_handleChange}
+				onChangeCheckbox={_handleChange}
 				firstName={firstName}
 				lastName={lastName}
 				src={src} />
 			<CardCandidate
 				checked={checked}
-				// onChangeCheckbox={_handleChange}
+				onChangeCheckbox={_handleChange}
 				firstName={firstName}
 				lastName={lastName}
 				src={src2} />

@@ -81,7 +81,7 @@ const HeaderTask = props => {
 		stageIndex,
 		showInputName,
 		arrowBackIcon,
-		contentButton,
+		contentButton = <div> </div>,
 		onClickArrowBackIcon,
 		showButtonsRight,
 		disabledSelectCandidates,
