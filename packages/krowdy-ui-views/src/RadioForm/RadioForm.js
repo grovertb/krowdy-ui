@@ -9,14 +9,14 @@ import {
 } from '@krowdy-ui/core'
 
 export const styles = theme => ({
-  colorButton: {
-    color: theme.palette.primary[500]
+  size: {
+    fontSize: 14
   }
 })
 
 const InputsRadiosForm = props => {
   const {
-    //classes,
+    classes,
     isRow,
     inputs,
     onChange = () => { },
@@ -38,8 +38,10 @@ const InputsRadiosForm = props => {
           return (
             <FormControlLabel
               key={index}
+              // className={classes.size}
               value={element.value}
               label={element.label}
+              classes={{ label: classes.size }}
               control={<Radio color='primary' size='small' disableRipple />} />
           )
         })

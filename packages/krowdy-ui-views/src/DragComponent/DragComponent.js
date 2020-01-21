@@ -28,7 +28,7 @@ const reorder = (list, startIndex, endIndex) => {
   return result
 }
 
-const Questionary = props => {
+const DragComponent = props => {
   const {
     addInputComponent,
     classes,
@@ -94,12 +94,12 @@ const Questionary = props => {
   )
 }
 
-Questionary.propTypes = {
+DragComponent.propTypes = {
   addInputComponent: PropTypes.node,
   classes: PropTypes.object,
   onItemsOrdered: PropTypes.func,
 }
 
-Questionary.muiName = 'Questionary'
+DragComponent.muiName = 'DragComponent'
 
-export default withStyles(styles, { name: 'KrowdyQuestionary' })(Questionary)
+export default withStyles(styles, { name: 'KrowdyDragComponent' })(DragComponent)
