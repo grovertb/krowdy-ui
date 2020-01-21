@@ -51,7 +51,7 @@ export const styles = theme => ({
 		fontWeight: 'normal',
 		height: 35,
 		lineHeight: '100%',
-		marginRight: theme.spacing(1.5),
+		marginRight: 12,
 		textAlign: 'center'
 	},
 	textTextfield: {
@@ -61,10 +61,6 @@ export const styles = theme => ({
 		lineHeight: '100%',
 
 	},
-	titleTask: {
-		marginBottom: theme.spacing(1.25)
-	}
-
 })
 
 const HeaderTask = props => {
@@ -89,7 +85,7 @@ const HeaderTask = props => {
 		onClickArrowBackIcon,
 		showButtonsRight,
 		disabledSelectCandidates,
-		_id,
+		_id = '',
 		checkbox,
 		disabledTitleTask,
 		disabledUpdateTask,
@@ -132,7 +128,7 @@ const HeaderTask = props => {
 							onKeyUp={onKeyUpTitleTask}
 							value={valueTitleTask}
 							className={classes.titleTask}
-							label={titleTask}
+							placeholder={titleTask}
 							InputLabelProps={{
 								classes: {
 									root: classes.textTextfield,

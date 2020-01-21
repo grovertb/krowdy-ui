@@ -4,6 +4,7 @@ import { SwitchButton } from '@krowdy-ui/views'
 export default function () {
   const [color, setColor] = React.useState(false)
   const onChange = (event) => {
+    // if (event === false)
     setColor(!event)
   }
   const titleLeft = 'titleLeft'
