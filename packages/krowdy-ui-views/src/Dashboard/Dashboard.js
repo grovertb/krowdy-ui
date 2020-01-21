@@ -30,31 +30,31 @@ const drawerWidth = 210
 
 const useStyles = makeStyles(theme => ({
   buttonLink: {
-    '& > .MuiButton-label': {
-      '&:after': {
-        backgroundColor: theme.palette.primary.main,
-        bottom         : '-2px',
-        content        : '""',
-        height         : '1px',
-        left           : 0,
-        position       : 'absolute',
-        right          : 0,
-        transform      : 'scaleX(0)',
-        transition     : 'all .2s ease 0s'
-      },
-      cursor  : 'pointer',
-      position: 'relative'
-    },
     '&:hover': {
-      '& > .MuiButton-label': {
-        '&:after': {
-          transform: 'scaleX(1)'
-        }
-      },
       backgroundColor: 'transparent',
       color          : theme.palette.primary.main
     },
     backgroundColor: 'transparent'
+  },
+  buttonLinkLabel: {
+    '&:after': {
+      backgroundColor: theme.palette.primary.main,
+      bottom         : '-2px',
+      content        : '""',
+      height         : '1px',
+      left           : 0,
+      position       : 'absolute',
+      right          : 0,
+      transform      : 'scaleX(0)',
+      transition     : 'all .2s ease 0s'
+    },
+    '&:hover': {
+      '&:after': {
+        transform: 'scaleX(1)'
+      }
+    },
+    cursor  : 'pointer',
+    position: 'relative'
   },
   drawerContentIcon: {
     color         : theme.palette.common.white,
@@ -253,18 +253,18 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const validURL = str => new RegExp('^(https?:\\/\\/)?' +
-'((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' +
-'((\\d{1,3}\\.){3}\\d{1,3}))' +
-'(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' +
-'(\\?[;&a-z\\d%_.~+=-]*)?' +
-'(\\#[-a-z\\d_]*)?$', 'i').test(str)
+  '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' +
+  '((\\d{1,3}\\.){3}\\d{1,3}))' +
+  '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' +
+  '(\\?[;&a-z\\d%_.~+=-]*)?' +
+  '(\\#[-a-z\\d_]*)?$', 'i').test(str)
 
 function Dashboard(props) {
   const {
-    user,
+    user = {},
     userMenu = [],
-    actions,
-    logo,
+    actions = {},
+    logo = {},
     menus = [],
     menuTopLeft = [],
     menuTopRight = [],
@@ -309,6 +309,9 @@ function Dashboard(props) {
                   menuTopLeft.map((item, n) => (
                     validURL(item.url) ?
                       <Button
+                        classes={{
+                          text: item.type === 'link' ? classes.buttonLinkLabel : ''
+                        }}
                         className={item.type === 'link' ? classes.buttonLink : ''}
                         color={item.color ? item.color : 'default'}
                         href={item.url}
@@ -316,8 +319,11 @@ function Dashboard(props) {
                         target={item.target ? item.target : '_blank'}
                         variant={item.variant ? item.variant : 'text'}>
                         {item.title}
-                      </Button>                      :
+                      </Button> :
                       <Button
+                        classes={{
+                          text: item.type === 'link' ? classes.buttonLinkLabel : ''
+                        }}
                         className={item.type === 'link' ? classes.buttonLink : ''}
                         color={item.color ? item.color : 'default'}
                         component={RouterLink}
@@ -335,6 +341,9 @@ function Dashboard(props) {
                   menuTopRight.map((item, n) => (
                     validURL(item.url) ?
                       <Button
+                        classes={{
+                          text: item.type === 'link' ? classes.buttonLinkLabel : ''
+                        }}
                         className={item.type === 'link' ? classes.buttonLink : ''}
                         color={item.color ? item.color : 'default'}
                         href={item.url}
@@ -342,8 +351,11 @@ function Dashboard(props) {
                         target={item.target ? item.target : '_blank'}
                         variant={item.variant ? item.variant : 'text'}>
                         {item.title}
-                      </Button>                      :
+                      </Button> :
                       <Button
+                        classes={{
+                          text: item.type === 'link' ? classes.buttonLinkLabel : ''
+                        }}
                         className={item.type === 'link' ? classes.buttonLink : ''}
                         color={item.color ? item.color : 'default'}
                         component={RouterLink}
@@ -364,16 +376,6 @@ function Dashboard(props) {
               color='inherit'
               onClick={ev => _handleOpenMenu(ev)}>
               <AvatarUser user={user} />
-              {/* {
-                  user.photo ?
-                    <img className={classes.profileName} src={user.photo} /> :
-                    <div className={classes.profileName}>
-                    {
-                      `${user.firstName ? user.firstName.charAt().toUpperCase() : ''}
-                      ${user.lastName ? user.lastName.charAt().toUpperCase() : ''}`
-                    }
-                    </div>
-                } */}
             </IconButton>
             <Menu
               anchorEl={anchorEl}

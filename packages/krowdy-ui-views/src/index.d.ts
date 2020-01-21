@@ -10,11 +10,14 @@ export * from './Header';
 export { default as CardUser } from './CardUser';
 export * from './CardUser';
 
+export { default as CardException } from './CardException';
+export * from './CardException';
+
 export { default as Table } from './Table';
 export * from './Table';
 
 export { default as ModalKrowder } from './ModalKrowder';
 export * from './ModalKrowder';
 
-export {default as AvatarUser } from './AvatarUser';
+export { default as AvatarUser } from './AvatarUser';
 export * from './AvatarUser';
