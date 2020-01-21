@@ -18,7 +18,7 @@ const CardUser = props => {
     <div style={{ margin: 10 }}>
       <Card>
         <CardContent>
-            Hola: {title}
+          Hola: {title}
         </CardContent>
       </Card>
     </div>
