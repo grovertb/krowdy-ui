@@ -4,8 +4,8 @@ export default {
   overrides: {
     MuiButton: {
       root: {
-        fontWeight: 400,
-        textTransform : 'initial'
+        fontWeight   : 400,
+        textTransform: 'initial'
       }
     },
     MuiTypography: {
@@ -13,27 +13,27 @@ export default {
         fontSize: '0.75rem'
       },
       h1: {
-        fontSize: '2.75rem',
+        fontSize  : '2.75rem',
         fontWeight: 'bold'
       },
       h2: {
-        fontSize: '2.25rem',
+        fontSize  : '2.25rem',
         fontWeight: 'bold'
       },
       h3: {
-        fontSize: '1.8125rem',
+        fontSize  : '1.8125rem',
         fontWeight: 'bold'
       },
       h4: {
-        fontSize: '1.4375rem',
+        fontSize  : '1.4375rem',
         fontWeight: 'bold'
       },
       h5: {
-        fontSize: '1.125rem',
+        fontSize  : '1.125rem',
         fontWeight: 'bold'
       },
       h6: {
-        fontSize: '0.875rem',
+        fontSize  : '0.875rem',
         fontWeight: 'bold'
       }
     }
@@ -41,7 +41,7 @@ export default {
   palette: {
     grey,
     krowdy,
-    primary: bluePrimary,
+    primary  : bluePrimary,
     secondary: blueSecondary
   }
 }

@@ -6,17 +6,19 @@ import ButtonGroup from '@krowdy-ui/core/ButtonGroup'
 export default () =>  (
   <section>
     <Grid container spacing={3}>
-      <Grid item xs={12} md={6}>
-        <Grid container spacing={1} direction='column' alignItems='center'>
+      <Grid item md={6} xs={12}>
+        <Grid
+          alignItems='center' container direction='column'
+          spacing={1}>
           <Grid item>
-            <ButtonGroup size='small' aria-label='small outlined button group'>
+            <ButtonGroup aria-label='small outlined button group' size='small'>
               <Button>One</Button>
               <Button>Two</Button>
               <Button>Three</Button>
             </ButtonGroup>
           </Grid>
           <Grid item>
-            <ButtonGroup color='primary' aria-label='outlined primary button group'>
+            <ButtonGroup aria-label='outlined primary button group' color='primary'>
               <Button>One</Button>
               <Button>Two</Button>
               <Button>Three</Button>
@@ -24,10 +26,9 @@ export default () =>  (
           </Grid>
           <Grid item>
             <ButtonGroup
-              color='secondary'
-              size='large'
               aria-label='large outlined secondary button group'
-            >
+              color='secondary'
+              size='large'>
               <Button>One</Button>
               <Button>Two</Button>
               <Button>Three</Button>
@@ -35,9 +36,8 @@ export default () =>  (
           </Grid>
           <Grid item>
             <ButtonGroup
-              color='krowdy'
               aria-label='outlined secondary button group'
-            >
+              color='krowdy'>
               <Button>One</Button>
               <Button>Two</Button>
               <Button>Three</Button>
@@ -45,10 +45,9 @@ export default () =>  (
           </Grid>
           <Grid item>
             <ButtonGroup
-              color='error'
-              size='small'
               aria-label='small outlined secondary button group'
-            >
+              color='error'
+              size='small'>
               <Button>One</Button>
               <Button>Two</Button>
               <Button>Three</Button>
@@ -56,10 +55,12 @@ export default () =>  (
           </Grid>
         </Grid>
       </Grid>
-      <Grid item xs={12} md={6}>
-        <Grid container spacing={1} direction='column' alignItems='center'>
+      <Grid item md={6} xs={12}>
+        <Grid
+          alignItems='center' container direction='column'
+          spacing={1}>
           <Grid item>
-            <ButtonGroup variant='contained' size='small' aria-label='small contained button group'>
+            <ButtonGroup aria-label='small contained button group' size='small' variant='contained'>
               <Button>One</Button>
               <Button>Two</Button>
               <Button>Three</Button>
@@ -67,10 +68,9 @@ export default () =>  (
           </Grid>
           <Grid item>
             <ButtonGroup
-              variant='contained'
-              color='primary'
               aria-label='full-width contained primary button group'
-            >
+              color='primary'
+              variant='contained'>
               <Button>One</Button>
               <Button>Two</Button>
               <Button>Three</Button>
@@ -78,11 +78,10 @@ export default () =>  (
           </Grid>
           <Grid item>
             <ButtonGroup
-              variant='contained'
+              aria-label='large contained secondary button group'
               color='secondary'
               size='large'
-              aria-label='large contained secondary button group'
-            >
+              variant='contained'>
               <Button>One</Button>
               <Button>Two</Button>
               <Button>Three</Button>
@@ -90,10 +89,9 @@ export default () =>  (
           </Grid>
           <Grid item>
             <ButtonGroup
-              variant='contained'
-              color='krowdy'
               aria-label='contained krowdy button group'
-            >
+              color='krowdy'
+              variant='contained'>
               <Button>One</Button>
               <Button>Two</Button>
               <Button>Three</Button>
@@ -101,11 +99,10 @@ export default () =>  (
           </Grid>
           <Grid item>
             <ButtonGroup
-              variant='contained'
+              aria-label='small contained error button group'
               color='error'
               size='small'
-              aria-label='small contained error button group'
-            >
+              variant='contained'>
               <Button>One</Button>
               <Button>Two</Button>
               <Button>Three</Button>
@@ -113,10 +110,12 @@ export default () =>  (
           </Grid>
         </Grid>
       </Grid>
-      <Grid item xs={12} md={6}>
-        <Grid container spacing={1} direction='column' alignItems='center'>
+      <Grid item md={6} xs={12}>
+        <Grid
+          alignItems='center' container direction='column'
+          spacing={1}>
           <Grid item>
-            <ButtonGroup variant='text' size='small' aria-label='small contained button group'>
+            <ButtonGroup aria-label='small contained button group' size='small' variant='text'>
               <Button>One</Button>
               <Button>Two</Button>
               <Button>Three</Button>
@@ -124,10 +123,9 @@ export default () =>  (
           </Grid>
           <Grid item>
             <ButtonGroup
-              variant='text'
-              color='primary'
               aria-label='full-width contained primary button group'
-            >
+              color='primary'
+              variant='text'>
               <Button>One</Button>
               <Button>Two</Button>
               <Button>Three</Button>
@@ -135,11 +133,10 @@ export default () =>  (
           </Grid>
           <Grid item>
             <ButtonGroup
-              variant='text'
+              aria-label='large contained secondary button group'
               color='secondary'
               size='large'
-              aria-label='large contained secondary button group'
-            >
+              variant='text'>
               <Button>One</Button>
               <Button>Two</Button>
               <Button>Three</Button>
@@ -147,10 +144,9 @@ export default () =>  (
           </Grid>
           <Grid item>
             <ButtonGroup
-              variant='text'
-              color='krowdy'
               aria-label='contained krowdy button group'
-            >
+              color='krowdy'
+              variant='text'>
               <Button>One</Button>
               <Button>Two</Button>
               <Button>Three</Button>
@@ -158,11 +154,10 @@ export default () =>  (
           </Grid>
           <Grid item>
             <ButtonGroup
-              variant='text'
+              aria-label='small contained error button group'
               color='error'
               size='small'
-              aria-label='small contained error button group'
-            >
+              variant='text'>
               <Button>One</Button>
               <Button>Two</Button>
               <Button>Three</Button>
@@ -170,8 +165,8 @@ export default () =>  (
           </Grid>
         </Grid>
       </Grid>
-      <Grid item xs={12} md={6}>
-        <ButtonGroup fullWidth aria-label='full width outlined button group'>
+      <Grid item md={6} xs={12}>
+        <ButtonGroup aria-label='full width outlined button group' fullWidth>
           <Button>Full</Button>
           <Button>width</Button>
           <Button>Group</Button>

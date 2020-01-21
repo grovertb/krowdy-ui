@@ -11,7 +11,7 @@ const theme = createMuiTheme()
 // Get all the tests specifically written for preventing regressions.
 const requireRegression = require.context('./tests', true, /js$/)
 const regressions = requireRegression.keys().reduce((res, path) => {
-  const [suite, name] = path
+  const [ suite, name ] = path
     .replace('./', '')
     .replace('.js', '')
     .split('/')
@@ -19,8 +19,9 @@ const regressions = requireRegression.keys().reduce((res, path) => {
     'case': requireRegression(path).default,
     name,
     path,
-    suite: `regression-${suite}`,
+    suite : `regression-${suite}`
   })
+
   return res
 }, [])
 
@@ -55,7 +56,7 @@ const blacklistSuite = [
   'docs-guides',
   'docs-versions',
   'docs-layouts',
-  'docs-customization-color',
+  'docs-customization-color'
 ]
 
 const blacklistFilename = [
@@ -86,36 +87,33 @@ const blacklistFilename = [
   'docs-components-popover/AnchorPlayground.png',
   'docs-components-popper/ScrollPlayground.png',
   'docs-components-grid/InteractiveGrid.png',
-  'docs-customization-density/DensityTool.png',
+  'docs-customization-density/DensityTool.png'
 ]
 
 // Also use some of the demos to avoid code duplication.
 const requireDemos = require.context('docs/src/pages', true, /js$/)
 const demos = requireDemos.keys().reduce((res, path) => {
-  const [name, ...suiteArray] = path
+  const [ name, ...suiteArray ] = path
     .replace('./', '')
     .replace('.js', '')
     .split('/')
     .reverse()
   const suite = `docs-${suiteArray.reverse().join('-')}`
 
-  if (blacklistSuite.includes(suite)) {
+  if(blacklistSuite.includes(suite))
     return res
-  }
 
-  if (blacklistFilename.includes(`${suite}/${name}.png`)) {
+  if(blacklistFilename.includes(`${suite}/${name}.png`))
     return res
-  }
 
-  if (/^docs-premium-themes(.*)/.test(suite)) {
+  if(/^docs-premium-themes(.*)/.test(suite))
     return res
-  }
 
   res.push({
     'case': requireDemos(path).default,
     name,
     path,
-    suite,
+    suite
   })
 
   return res
@@ -159,9 +157,8 @@ tests.forEach(test => {
 
   const TestCase = test.case
 
-  if (!TestCase) {
+  if(!TestCase)
     return
-  }
 
   suite.createTest(test.name, () => {
     ReactDOM.render(

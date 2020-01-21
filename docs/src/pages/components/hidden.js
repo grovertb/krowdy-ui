@@ -12,5 +12,5 @@ const reqSource = require.context(
 const reqPrefix = 'containers/components/hidden'
 
 export default function Hidden() {
-  return <MarkdownDocs req={req} reqSource={reqSource} reqPrefix={reqPrefix} />
+  return <MarkdownDocs req={req} reqPrefix={reqPrefix} reqSource={reqSource} />
 }

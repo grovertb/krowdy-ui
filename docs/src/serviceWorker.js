@@ -21,20 +21,19 @@ const isLocalhost = Boolean(
 )
 
 export function register(config) {
-  if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
+  if(process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
     const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href)
-    if (publicUrl.origin !== window.location.origin) {
+    if(publicUrl.origin !== window.location.origin)
       // Our service worker won't work if PUBLIC_URL is on a different origin
       // from what our page is served on. This might happen if a CDN is used to
       // serve assets; see https://github.com/facebook/create-react-app/issues/2374
       return
-    }
 
     window.addEventListener('load', () => {
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`
 
-      if (isLocalhost) {
+      if(isLocalhost) {
         // This is running on localhost. Let's check if a service worker still exists or not.
         checkValidServiceWorker(swUrl, config)
 
@@ -60,12 +59,12 @@ function registerValidSW(swUrl, config) {
     .then(registration => {
       registration.onupdatefound = () => {
         const installingWorker = registration.installing
-        if (installingWorker == null) {
+        if(installingWorker == null)
           return
-        }
+
         installingWorker.onstatechange = () => {
-          if (installingWorker.state === 'installed') {
-            if (navigator.serviceWorker.controller) {
+          if(installingWorker.state === 'installed')
+            if(navigator.serviceWorker.controller) {
               // At this point, the updated precached content has been fetched,
               // but the previous service worker will still serve the older
               // content until all client tabs are closed.
@@ -75,9 +74,8 @@ function registerValidSW(swUrl, config) {
               )
 
               // Execute callback
-              if (config && config.onUpdate) {
+              if(config && config.onUpdate)
                 config.onUpdate(registration)
-              }
             } else {
               // At this point, everything has been precached.
               // It's the perfect time to display a
@@ -85,11 +83,9 @@ function registerValidSW(swUrl, config) {
               console.log('Content is cached for offline use.')
 
               // Execute callback
-              if (config && config.onSuccess) {
+              if(config && config.onSuccess)
                 config.onSuccess(registration)
-              }
             }
-          }
         }
       }
     })
@@ -104,20 +100,19 @@ function checkValidServiceWorker(swUrl, config) {
     .then(response => {
       // Ensure service worker exists, and that we really are getting a JS file.
       const contentType = response.headers.get('content-type')
-      if (
+      if(
         response.status === 404 ||
         (contentType != null && contentType.indexOf('javascript') === -1)
-      ) {
+      )
         // No service worker found. Probably a different app. Reload the page.
         navigator.serviceWorker.ready.then(registration => {
           registration.unregister().then(() => {
             window.location.reload()
           })
         })
-      } else {
+      else
         // Service worker found. Proceed as normal.
         registerValidSW(swUrl, config)
-      }
     })
     .catch(() => {
       console.log(
@@ -127,9 +122,8 @@ function checkValidServiceWorker(swUrl, config) {
 }
 
 export function unregister() {
-  if ('serviceWorker' in navigator) {
+  if('serviceWorker' in navigator)
     navigator.serviceWorker.ready.then(registration => {
       registration.unregister()
     })
-  }
 }

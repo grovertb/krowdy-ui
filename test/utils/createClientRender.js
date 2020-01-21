@@ -8,11 +8,11 @@ import {
   createEvent,
   fireEvent as rtlFireEvent,
   queries,
-  render as testingLibraryRender,
+  render as testingLibraryRender
 } from '@testing-library/react/pure'
 
 // holes are *All* selectors which aren't necessary for id selectors
-const [queryDescriptionOf, , getDescriptionOf, , findDescriptionOf] = buildQueries(
+const [ queryDescriptionOf, , getDescriptionOf, , findDescriptionOf ] = buildQueries(
   function queryAllDescriptionsOf(container, element) {
     return container.querySelectorAll(`#${element.getAttribute('aria-describedby')}`)
   },
@@ -52,7 +52,7 @@ function clientRender(element, options = {}) {
   const result = testingLibraryRender(element, {
     baseElement,
     queries: { ...queries, ...customQueries },
-    wrapper: Wrapper,
+    wrapper: Wrapper
   })
 
   /**
@@ -60,6 +60,7 @@ function clientRender(element, options = {}) {
    */
   result.setProps = function setProps(props) {
     result.rerender(React.cloneElement(element, props))
+
     return result
   }
 
@@ -91,7 +92,7 @@ const fireEvent = Object.assign(rtlFireEvent, {
     Object.defineProperty(event, 'key', {
       get() {
         return options.key || ''
-      },
+      }
     })
 
     rtlFireEvent(element, event)
@@ -101,11 +102,11 @@ const fireEvent = Object.assign(rtlFireEvent, {
     Object.defineProperty(event, 'key', {
       get() {
         return options.key || ''
-      },
+      }
     })
 
     rtlFireEvent(element, event)
-  },
+  }
 })
 
 export * from '@testing-library/react/pure'

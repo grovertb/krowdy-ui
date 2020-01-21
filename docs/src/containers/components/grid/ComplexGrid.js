@@ -5,22 +5,22 @@ import { ButtonBase, Typography, Paper, Grid } from '@krowdy-ui/core'
 const useStyles = makeStyles(theme => ({
   image: {
     height: 128,
-    width: 128,
+    width : 128
   },
   img: {
-    display: 'block',
-    margin: 'auto',
+    display  : 'block',
+    margin   : 'auto',
     maxHeight: '100%',
-    maxWidth: '100%',
+    maxWidth : '100%'
   },
   paper: {
-    margin: 'auto',
+    margin  : 'auto',
     maxWidth: 500,
-    padding: theme.spacing(2),
+    padding : theme.spacing(2)
   },
   root: {
-    flexGrow: 1,
-  },
+    flexGrow: 1
+  }
 }))
 
 export default function ComplexGrid() {
@@ -32,24 +32,28 @@ export default function ComplexGrid() {
         <Grid container spacing={2}>
           <Grid item>
             <ButtonBase className={classes.image}>
-              <img className={classes.img} alt='complex' src='https://material-ui.com/static/images/grid/complex.jpg' />
+              <img alt='complex' className={classes.img} src='https://material-ui.com/static/images/grid/complex.jpg' />
             </ButtonBase>
           </Grid>
-          <Grid item xs={12} sm container>
-            <Grid item xs container direction='column' spacing={2}>
+          <Grid
+            container item sm
+            xs={12}>
+            <Grid
+              container direction='column' item
+              spacing={2} xs>
               <Grid item xs>
                 <Typography gutterBottom variant='subtitle1'>
                   Standard license
                 </Typography>
-                <Typography variant='body2' gutterBottom>
+                <Typography gutterBottom variant='body2'>
                   Full resolution 1920x1080 • JPEG
                 </Typography>
-                <Typography variant='body2' color='textSecondary'>
+                <Typography color='textSecondary' variant='body2'>
                   ID: 1030114
                 </Typography>
               </Grid>
               <Grid item>
-                <Typography variant='body2' style={{ cursor: 'pointer' }}>
+                <Typography style={{ cursor: 'pointer' }} variant='body2'>
                   Remove
                 </Typography>
               </Grid>

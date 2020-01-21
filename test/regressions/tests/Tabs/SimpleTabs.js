@@ -11,11 +11,11 @@ const noop = () => {}
 const styles = theme => ({
   appBar: {
     backgroundColor: theme.palette.primary.main,
-    color: theme.palette.primary.contrastText,
+    color          : theme.palette.primary.contrastText
   },
   root: {
-    width: 600,
-  },
+    width: 600
+  }
 })
 
 function SimpleTabs(props) {
@@ -27,35 +27,43 @@ function SimpleTabs(props) {
         <Tabs onChange={noop} value={0}>
           <Tab label='Item One' />
           <Tab label='Item Two' />
-          <Tab label='Item Three' disabled />
+          <Tab disabled label='Item Three' />
         </Tabs>
       </Paper>
       <Paper className={classes.root}>
-        <Tabs onChange={noop} value={1} textColor='secondary' centered>
+        <Tabs
+          centered onChange={noop} textColor='secondary'
+          value={1}>
           <Tab label='Item One' />
           <Tab label='Item Two' />
-          <Tab label='Item Three' disabled />
+          <Tab disabled label='Item Three' />
         </Tabs>
       </Paper>
       <Paper>
-        <Tabs onChange={noop} value={2} textColor='secondary' variant='fullWidth'>
+        <Tabs
+          onChange={noop} textColor='secondary' value={2}
+          variant='fullWidth'>
           <Tab label='Item One' />
           <Tab label='Item Two' />
           <Tab label='Item Three' />
         </Tabs>
       </Paper>
       <Paper>
-        <Tabs onChange={noop} value={0} textColor='secondary' variant='fullWidth'>
+        <Tabs
+          onChange={noop} textColor='secondary' value={0}
+          variant='fullWidth'>
           <Tab icon={<Icon>phone</Icon>} />
           <Tab icon={<Icon>favorite</Icon>} />
-          <Tab icon={<Icon>person_pin</Icon>} disabled />
+          <Tab disabled icon={<Icon>person_pin</Icon>} />
         </Tabs>
       </Paper>
       <Paper>
-        <Tabs onChange={noop} value={1} variant='fullWidth' textColor='secondary'>
+        <Tabs
+          onChange={noop} textColor='secondary' value={1}
+          variant='fullWidth'>
           <Tab icon={<Icon>phone</Icon>} label='RECENTS' />
           <Tab icon={<Icon>favorite</Icon>} label='FAVORITES' />
-          <Tab icon={<Icon>person_pin</Icon>} label='NEARBY' disabled />
+          <Tab disabled icon={<Icon>person_pin</Icon>} label='NEARBY' />
         </Tabs>
       </Paper>
     </div>
@@ -63,7 +71,7 @@ function SimpleTabs(props) {
 }
 
 SimpleTabs.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 }
 
 export default withStyles(styles)(SimpleTabs)

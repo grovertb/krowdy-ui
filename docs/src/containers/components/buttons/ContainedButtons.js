@@ -5,9 +5,9 @@ import Button from '@krowdy-ui/core/Button'
 const useStyles = makeStyles(theme => ({
   root: {
     '& > *': {
-      margin: theme.spacing(1),
-    },
-  },
+      margin: theme.spacing(1)
+    }
+  }
 }))
 
 export default function ContainedButtons() {
@@ -16,22 +16,22 @@ export default function ContainedButtons() {
   return (
     <div className={classes.root}>
       <Button variant='contained'>Default</Button>
-      <Button variant='contained' color='primary'>
+      <Button color='primary' variant='contained'>
         Primary
       </Button>
-      <Button variant='contained' color='secondary'>
+      <Button color='secondary' variant='contained'>
         Secondary
       </Button>
-      <Button variant='contained' color='krowdy'>
+      <Button color='krowdy' variant='contained'>
         Krowdy
       </Button>
-      <Button variant='contained' color='error'>
+      <Button color='error' variant='contained'>
         Error
       </Button>
-      <Button variant='contained' disabled>
+      <Button disabled variant='contained'>
         Disabled
       </Button>
-      <Button variant='contained' color='primary' href='#contained-buttons'>
+      <Button color='primary' href='#contained-buttons' variant='contained'>
         Link
       </Button>
     </div>

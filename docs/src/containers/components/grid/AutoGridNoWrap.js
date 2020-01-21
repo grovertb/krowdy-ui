@@ -4,15 +4,15 @@ import { Paper, Grid, Avatar, Typography } from '@krowdy-ui/core'
 
 const useStyles = makeStyles(theme => ({
   paper: {
-    margin: `${theme.spacing(1)}px auto`,
+    margin  : `${theme.spacing(1)}px auto`,
     maxWidth: 400,
-    padding: theme.spacing(2),
+    padding : theme.spacing(2)
   },
   root: {
     flexGrow: 1,
     overflow: 'hidden',
-    padding: theme.spacing(0, 3),
-  },
+    padding : theme.spacing(0, 3)
+  }
 }))
 
 const message = `Truncation should be conditionally applicable on this long line of text
@@ -24,7 +24,7 @@ export default function AutoGridNoWrap() {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <Grid container wrap='nowrap' spacing={2}>
+        <Grid container spacing={2} wrap='nowrap'>
           <Grid item>
             <Avatar>AL</Avatar>
           </Grid>
@@ -34,7 +34,7 @@ export default function AutoGridNoWrap() {
         </Grid>
       </Paper>
       <Paper className={classes.paper}>
-        <Grid container wrap='nowrap' spacing={2}>
+        <Grid container spacing={2} wrap='nowrap'>
           <Grid item>
             <Avatar>AL</Avatar>
           </Grid>
@@ -44,7 +44,7 @@ export default function AutoGridNoWrap() {
         </Grid>
       </Paper>
       <Paper className={classes.paper}>
-        <Grid container wrap='nowrap' spacing={2}>
+        <Grid container spacing={2} wrap='nowrap'>
           <Grid item>
             <Avatar>AL</Avatar>
           </Grid>

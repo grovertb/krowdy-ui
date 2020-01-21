@@ -6,62 +6,62 @@ import Steps from 'components/Home/Steps'
 
 const useStyles = makeStyles(theme => ({
   button: {
-    marginTop: theme.spacing(4),
+    marginTop: theme.spacing(4)
   },
   content: {
-    alignItems: 'center',
-    display: 'flex',
-    flexDirection: 'column',
-    paddingBottom: theme.spacing(8),
-    paddingTop: theme.spacing(4),
-    textAlign: 'center',
+    alignItems                  : 'center',
+    display                     : 'flex',
+    flexDirection               : 'column',
+    paddingBottom               : theme.spacing(8),
+    paddingTop                  : theme.spacing(4),
+    textAlign                   : 'center',
     [theme.breakpoints.up('md')]: {
-      alignItems: 'flex-start',
+      alignItems   : 'flex-start',
       flexDirection: 'row',
       paddingBottom: theme.spacing(16),
-      paddingTop: theme.spacing(16),
-      textAlign: 'left',
-    },
+      paddingTop   : theme.spacing(16),
+      textAlign    : 'left'
+    }
   },
   hero: {
     // paddingTop: 64,
-    color: theme.palette.grey[600],
+    color: theme.palette.grey[600]
   },
   logo: {
-    flexShrink: 0,
-    height: 120,
-    marginBottom: theme.spacing(2),
-    width: 120,
+    flexShrink                  : 0,
+    height                      : 120,
+    marginBottom                : theme.spacing(2),
+    width                       : 120,
     [theme.breakpoints.up('md')]: {
-      height: 200,
+      height     : 200,
       marginRight: theme.spacing(8),
-      width: 220,
-    },
+      width      : 220
+    }
   },
   social: {
     '& a': {
-      color: theme.palette.background.paper,
+      color: theme.palette.background.paper
     },
     '& span': {
-      display: 'flex',
-      marginRight: theme.spacing(1),
+      display    : 'flex',
+      marginRight: theme.spacing(1)
     },
-    alignItems: 'center',
-    boxSizing: 'content-box',
-    display: 'flex',
+    alignItems    : 'center',
+    boxSizing     : 'content-box',
+    display       : 'flex',
     justifyContent: 'center',
-    minHeight: 21,
-    padding: theme.spacing(2, 0),
+    minHeight     : 21,
+    padding       : theme.spacing(2, 0)
   },
   title: {
-    fontWeight: theme.typography.fontWeightLight,
-    letterSpacing: '.7rem',
-    marginLeft: -12,
-    textIndent: '.7rem',
-    whiteSpace: 'nowrap',
+    fontWeight                    : theme.typography.fontWeightLight,
+    letterSpacing                 : '.7rem',
+    marginLeft                    : -12,
+    textIndent                    : '.7rem',
+    whiteSpace                    : 'nowrap',
     [theme.breakpoints.only('xs')]: {
-      fontSize: 28,
-    },
+      fontSize: 28
+    }
   }
 }), { name: 'Home' })
 
@@ -71,21 +71,22 @@ function Home() {
   return (
     <div>
       <div className={classes.hero}>
-        <Container maxWidth='md' className={classes.content}>
-          <img 
+        <Container className={classes.content} maxWidth='md'>
+          <img
+            alt='Krowdy UI'
             className={classes.logo}
-            alt='Krowdy UI' 
             src='https://s3.amazonaws.com/cdn.krowdy.com/media/images/krowdy-home.svg' />
           <div>
             <Typography
-              variant='display2'
+              className={classes.title}
               component='h1'
               gutterBottom
-              className={classes.title}
-              >
+              variant='display2'>
               KROWDY-UI
             </Typography>
-            <Typography variant='h4' style={{ fontWeight: 400 }} component='h2' color='inherit'>
+            <Typography
+              color='inherit' component='h2' style={{ fontWeight: 400 }}
+              variant='h4'>
               {t('strapline')}
             </Typography>
             <Button
@@ -93,20 +94,19 @@ function Home() {
               //   <Link href="/getting-started/installation" naked prefetch/>
               // }
               className={classes.button}
-              variant='outlined'
               color='primary'
-            >
+              variant='outlined'>
               {t('getStarted')}
             </Button>
           </div>
         </Container>
       </div>
       <div className={classes.social}>
-        <GitHubButton 
-          href='https://github.com/grovertb/krowdy-ui' 
-          data-icon='octicon-star' 
+        <GitHubButton
+          aria-label='Star grovertb/krowdy-ui on GitHub'
+          data-icon='octicon-star'
           data-show-count='true'
-          aria-label='Star grovertb/krowdy-ui on GitHub'>
+          href='https://github.com/grovertb/krowdy-ui'>
           Star
         </GitHubButton>
       </div>

@@ -9,7 +9,7 @@ describe('findOutermostIntrinsic', () => {
     const wrapper = mount(node)
     const outermostIntrinsic = findOutermostIntrinsic(wrapper)
 
-    if (expect === null) {
+    if(expect === null) {
       assert.strictEqual(outermostIntrinsic.exists(), false)
     } else {
       assert.strictEqual(outermostIntrinsic.type(), expect)
