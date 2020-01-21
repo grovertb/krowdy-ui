@@ -43,6 +43,8 @@
     "eslint-plugin-react-hooks": "^2.2.0",
     "eslint-plugin-sort-keys-fix": "^1.1.0",
     "fs-extra": "^8.1.0",
+    "husky": "^4.1.0",
+    "lint-staged": "^10.0.1",
     "nyc": "^14.1.1",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
@@ -89,7 +91,7 @@
     }
   },
   "lint-staged": {
-    "{scripts,test}/**/*.js": [
+    "{src,server,docs,packages}/**/*.js": [
       "eslint . --ext .js --fix",
       "git add"
     ]
