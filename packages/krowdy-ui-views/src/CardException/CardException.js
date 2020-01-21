@@ -18,7 +18,6 @@ import {
   EmojiPeople as EmojiPeopleIcon
 } from '@material-ui/icons'
 
-
 export const styles = theme => ({
   cardContent: {
     minWidth: 760
@@ -27,60 +26,45 @@ export const styles = theme => ({
     marginRight: theme.spacing(2)
   },
   gridContent: {
-    '& > div': {
-      // height: 20,
-      width: '100%'
-    },
-    '& > div:first-child': {
-      background: 'pink'
-    },
-    '& > div:last-child': {
-      background: 'orange'
-    },
-    background: 'gray',
-    display: 'grid',
-    gridGap: 20,
+    // background         : 'gray',
+    display            : 'grid',
+    gridGap            : 20,
     gridTemplateColumns: '1fr 1fr'
   },
   list: {
-    // background: 'pink',
-    display: 'flex',
+    display      : 'flex',
     flexDirection: 'column',
-    // flexWrap: 'wrap',
-    listStyle: 'none',
-    // maxHeight: 100,
-    padding: 0
+    listStyle    : 'none',
+    padding      : 0
   },
   listItem: {
     '& > svg': {
       marginRight: theme.spacing(2)
     },
-    alignItems: 'center',
-    display: 'flex',
+    alignItems   : 'center',
+    display      : 'flex',
     flexDirection: 'row',
-    marginBottom: theme.spacing(1)
+    marginBottom : theme.spacing(1)
   },
   statusPoint: {
-    background: 'red',
+    background  : 'red',
     borderRadius: '50%',
-    display: 'inline-block',
-    height: 8,
-    marginRight: theme.spacing(1),
-    width: 8
+    display     : 'inline-block',
+    height      : 8,
+    marginRight : theme.spacing(1),
+    width       : 8
   },
   title: {
     margin: theme.spacing(1, 0)
   },
   topBarStatus: {
-    alignItems: 'center',
-    display: 'flex',
-    flexDirection: 'row',
+    alignItems    : 'center',
+    display       : 'flex',
+    flexDirection : 'row',
     justifyContent: 'space-between',
-    marginBottom: theme.spacing(2)
+    marginBottom  : theme.spacing(2)
   }
 })
-
-
 
 function CardException(props) {
   const {
@@ -103,7 +87,7 @@ function CardException(props) {
         <div className={classes.cardContent}>
           <div className={classes.topBarStatus}>
             <div className={classes.topBarStatusLeft}>
-              <Chip className={classes.customChip} label='Video EnTrevista' color='primary' />
+              <Chip className={classes.customChip} color='primary' label='Video EnTrevista' />
               <span><small className={classes.statusPoint} /> {statusException}</span>
             </div>
             <div className={classes.topBarStatusRight}>

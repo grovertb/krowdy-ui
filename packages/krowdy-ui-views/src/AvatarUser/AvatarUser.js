@@ -27,7 +27,7 @@ export const styles = theme => ({
   }
 })
 
-function AvatarUsrer(props) {
+function AvatarUser(props) {
   const {
     user,
     classes
@@ -59,7 +59,7 @@ function AvatarUsrer(props) {
   )
 }
 
-AvatarUsrer.propTypes = {
+AvatarUser.propTypes = {
   classes: PropTypes.object,
   user   : PropTypes.shape({
     firstName: PropTypes.string,
@@ -68,6 +68,6 @@ AvatarUsrer.propTypes = {
   })
 }
 
-AvatarUsrer.muiName = 'AvatarUsrer'
+AvatarUser.muiName = 'AvatarUser'
 
-export default withStyles(styles, { name: 'AvatarUsrer' })(AvatarUsrer)
+export default withStyles(styles, { name: 'AvatarUser' })(AvatarUser)

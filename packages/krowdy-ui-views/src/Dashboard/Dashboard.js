@@ -32,47 +32,47 @@ const useStyles = makeStyles(theme => ({
   buttonLink: {
     '&:hover': {
       backgroundColor: 'transparent',
-      color: theme.palette.primary.main
+      color          : theme.palette.primary.main
     },
     backgroundColor: 'transparent'
   },
   buttonLinkLabel: {
     '&:after': {
       backgroundColor: theme.palette.primary.main,
-      bottom: '-2px',
-      content: '""',
-      height: '1px',
-      left: 0,
-      position: 'absolute',
-      right: 0,
-      transform: 'scaleX(0)',
-      transition: 'all .2s ease 0s'
+      bottom         : '-2px',
+      content        : '""',
+      height         : '1px',
+      left           : 0,
+      position       : 'absolute',
+      right          : 0,
+      transform      : 'scaleX(0)',
+      transition     : 'all .2s ease 0s'
     },
     '&:hover': {
       '&:after': {
         transform: 'scaleX(1)'
       }
     },
-    cursor: 'pointer',
+    cursor  : 'pointer',
     position: 'relative'
   },
   drawerContentIcon: {
-    color: theme.palette.common.white,
-    height: 50,
+    color         : theme.palette.common.white,
+    height        : 50,
     justifyContent: 'flex-end'
   },
   drawerPaper: {
-    background: theme.palette.primary.main,
+    background : theme.palette.primary.main,
     borderRight: '0',
-    overflow: 'hidden',
-    position: 'relative',
-    transition: theme.transitions.create('width', {
+    overflow   : 'hidden',
+    position   : 'relative',
+    transition : theme.transitions.create('width', {
       duration: theme.transitions.duration.enteringScreen,
-      easing: theme.transitions.easing.sharp
+      easing  : theme.transitions.easing.sharp
     }),
     whiteSpace: 'nowrap',
-    width: drawerWidth,
-    zIndex: 1
+    width     : drawerWidth,
+    zIndex    : 1
   },
   drawerPaperClose: {
     width: 56
@@ -88,23 +88,23 @@ const useStyles = makeStyles(theme => ({
   logoCompany: {
     '& > img': {
       maxHeight: 50,
-      maxWidth: 115
+      maxWidth : 115
     },
-    alignItems: 'center',
-    cursor: 'pointer',
-    display: 'flex',
-    height: 64,
+    alignItems    : 'center',
+    cursor        : 'pointer',
+    display       : 'flex',
+    height        : 64,
     justifyContent: 'center',
-    marginLeft: theme.spacing(3),
-    marginRight: 10,
-    position: 'relative'
+    marginLeft    : theme.spacing(3),
+    marginRight   : 10,
+    position      : 'relative'
     // width         : '13.78%'
   },
   main: {
-    display: 'flex',
+    display      : 'flex',
     flexDirection: 'column',
-    minHeight: '100vh',
-    width: '100%'
+    minHeight    : '100vh',
+    width        : '100%'
   },
   menuButton: {
     marginRight: theme.spacing(2)
@@ -116,14 +116,14 @@ const useStyles = makeStyles(theme => ({
       },
       backgroundColor: theme.palette.primary.main
     },
-    alignItems: 'center',
-    color: theme.palette.common.white,
-    display: 'flex',
+    alignItems   : 'center',
+    color        : theme.palette.common.white,
+    display      : 'flex',
     paddingBottom: 10,
-    paddingLeft: 16,
-    paddingRight: 16,
-    paddingTop: 10,
-    width: '100%'
+    paddingLeft  : 16,
+    paddingRight : 16,
+    paddingTop   : 10,
+    width        : '100%'
   },
   menuDashboardItemActive: {
     '& > div': {
@@ -134,34 +134,34 @@ const useStyles = makeStyles(theme => ({
     //   color          : 'white'
     // },
     backgroundColor: theme.palette.common.white,
-    color: theme.palette.primary.main
+    color          : theme.palette.primary.main
   },
   menuDashboardItemLink: {
     display: 'flex'
   },
   menuDashboardListItem: {
     paddingBottom: 0,
-    paddingTop: 0
+    paddingTop   : 0
   },
   menuItemContentName: {
     '&:focus': {
       outline: 'none'
     },
-    display: 'flex',
+    display      : 'flex',
     flexDirection: 'column'
   },
   menuItemName: {
-    fontSize: '1rem',
+    fontSize  : '1rem',
     fontWeight: 600,
     lineHeight: '1.5',
-    minHeight: 'auto',
-    padding: '8px 16px'
+    minHeight : 'auto',
+    padding   : '8px 16px'
   },
   menuLink: {
     '& > a': {
-      color: '#273142',
+      color  : '#273142',
       display: 'block',
-      width: '100%'
+      width  : '100%'
     },
     '& > a:hover': {
       textDecoration: 'none'
@@ -169,9 +169,9 @@ const useStyles = makeStyles(theme => ({
     '&:hover': {
       textDecoration: 'none'
     },
-    padding: '8px 16px',
+    padding       : '8px 16px',
     textDecoration: 'none',
-    width: '100%'
+    width         : '100%'
   },
   notificationIcon: {
     '& svg': {
@@ -179,40 +179,40 @@ const useStyles = makeStyles(theme => ({
     },
     '&:hover': {
       backgroundColor: 'transparent',
-      color: '#262626'
+      color          : '#262626'
     },
     color: '#8C8C8C'
   },
   profileName: {
-    alignItems: 'center',
+    alignItems     : 'center',
     backgroundColor: theme.palette.grey[200],
-    border: `2px solid ${theme.palette.primary.main}`,
-    borderRadius: '50%',
-    color: theme.palette.grey[500],
-    display: 'flex',
-    fontSize: '0.75rem',
-    height: 34,
-    justifyContent: 'center',
-    position: 'relative',
-    width: 34
+    border         : `2px solid ${theme.palette.primary.main}`,
+    borderRadius   : '50%',
+    color          : theme.palette.grey[500],
+    display        : 'flex',
+    fontSize       : '0.75rem',
+    height         : 34,
+    justifyContent : 'center',
+    position       : 'relative',
+    width          : 34
   },
   root: {
     flexGrow: 1
   },
   title: {
-    color: theme.palette.primary.main,
+    color   : theme.palette.primary.main,
     flexGrow: 1
   },
   toolbar: {
-    display: 'flex',
+    display       : 'flex',
     justifyContent: 'space-between',
-    paddingRight: 24 // keep right padding when drawer closed
+    paddingRight  : 24 // keep right padding when drawer closed
   },
   toolbarCenter: {
-    display: 'flex',
-    flex: 1,
+    display       : 'flex',
+    flex          : 1,
     justifyContent: 'space-between',
-    padding: '0 10px'
+    padding       : '0 10px'
   },
   toolbarCenterLeft: {
     '& > a': {
@@ -238,16 +238,16 @@ const useStyles = makeStyles(theme => ({
   },
   wrapper: {
     backgroundColor: '#EFEFEF',
-    display: 'flex',
-    flex: 1
+    display        : 'flex',
+    flex           : 1
   },
   wrapperContent: {
     backgroundColor: '#fff',
-    borderRadius: 4,
-    display: 'flex',
-    flex: 1,
-    justifyContent: 'center',
-    margin: 12
+    borderRadius   : 4,
+    display        : 'flex',
+    flex           : 1,
+    justifyContent : 'center',
+    margin         : 12
     // width          : '100%'
   }
 }))
@@ -261,10 +261,10 @@ const validURL = str => new RegExp('^(https?:\\/\\/)?' +
 
 function Dashboard(props) {
   const {
-    user,
+    user = {},
     userMenu = [],
-    actions,
-    logo,
+    actions = {},
+    logo = {},
     menus = [],
     menuTopLeft = [],
     menuTopRight = [],
@@ -282,8 +282,8 @@ function Dashboard(props) {
   } = history
 
   const classes = useStyles()
-  const [isOpenDrawer, setToggleDrawer] = useState(false)
-  const [anchorEl, setAnchorEl] = useState(null)
+  const [ isOpenDrawer, setToggleDrawer ] = useState(false)
+  const [ anchorEl, setAnchorEl ] = useState(null)
 
   const _handleClickToggleDrawer = () => setToggleDrawer(!isOpenDrawer)
   const _handleOpenMenu = ev => setAnchorEl(ev.currentTarget)
@@ -321,10 +321,10 @@ function Dashboard(props) {
                         {item.title}
                       </Button> :
                       <Button
-                        className={item.type === 'link' ? classes.buttonLink : ''}
                         classes={{
                           text: item.type === 'link' ? classes.buttonLinkLabel : ''
                         }}
+                        className={item.type === 'link' ? classes.buttonLink : ''}
                         color={item.color ? item.color : 'default'}
                         component={RouterLink}
                         key={n}
@@ -376,22 +376,12 @@ function Dashboard(props) {
               color='inherit'
               onClick={ev => _handleOpenMenu(ev)}>
               <AvatarUser user={user} />
-              {/* {
-                  user.photo ?
-                    <img className={classes.profileName} src={user.photo} /> :
-                    <div className={classes.profileName}>
-                    {
-                      `${user.firstName ? user.firstName.charAt().toUpperCase() : ''}
-                      ${user.lastName ? user.lastName.charAt().toUpperCase() : ''}`
-                    }
-                    </div>
-                } */}
             </IconButton>
             <Menu
               anchorEl={anchorEl}
               anchorOrigin={{
                 horizontal: 'right',
-                vertical: 'bottom'
+                vertical  : 'bottom'
               }}
               getContentAnchorEl={null}
               MenuListProps={{
@@ -403,7 +393,7 @@ function Dashboard(props) {
               open={Boolean(anchorEl)}
               transformOrigin={{
                 horizontal: 'right',
-                vertical: 'top'
+                vertical  : 'top'
               }}>
               <li
                 className={classes.menuItemContentName}
@@ -553,51 +543,51 @@ Dashboard.propTypes = {
     logout: PropTypes.func
   }),
   classes: PropTypes.object,
-  logo: PropTypes.shape({
-    alt: PropTypes.string,
+  logo   : PropTypes.shape({
+    alt   : PropTypes.string,
     source: PropTypes.string
   }),
   menuTopLeft: PropTypes.arrayOf(
     PropTypes.shape({
-      color: PropTypes.string,
-      target: PropTypes.string,
-      title: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
-      url: PropTypes.string.isRequired,
+      color  : PropTypes.string,
+      target : PropTypes.string,
+      title  : PropTypes.string.isRequired,
+      type   : PropTypes.string.isRequired,
+      url    : PropTypes.string.isRequired,
       variant: PropTypes.string
     })
   ),
   menuTopRight: PropTypes.arrayOf(
     PropTypes.shape({
-      color: PropTypes.string,
-      target: PropTypes.string,
-      title: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
-      url: PropTypes.string.isRequired,
+      color  : PropTypes.string,
+      target : PropTypes.string,
+      title  : PropTypes.string.isRequired,
+      type   : PropTypes.string.isRequired,
+      url    : PropTypes.string.isRequired,
       variant: PropTypes.string
     })
   ),
   menus: PropTypes.arrayOf(
     PropTypes.shape({
-      icon: PropTypes.string,
+      icon  : PropTypes.string,
       target: PropTypes.string,
-      title: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
-      url: PropTypes.string.isRequired
+      title : PropTypes.string.isRequired,
+      type  : PropTypes.string.isRequired,
+      url   : PropTypes.string.isRequired
     })
   ),
   user: PropTypes.shape({
     firstName: PropTypes.string,
-    lastName: PropTypes.string,
-    photo: PropTypes.string
+    lastName : PropTypes.string,
+    photo    : PropTypes.string
   }),
   userMenu: PropTypes.arrayOf(
     PropTypes.shape({
       action: PropTypes.string,
       target: PropTypes.string,
-      title: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
-      url: PropTypes.string.isRequired
+      title : PropTypes.string.isRequired,
+      type  : PropTypes.string.isRequired,
+      url   : PropTypes.string.isRequired
     })
   )
 }
