@@ -11,10 +11,8 @@ import {
 	TableRow, 
 	Checkbox, 
 	Typography,
-	Menu,
 	MenuItem,
 	FormGroup,
-	FormControl,
 	FormControlLabel,
 	Box,
 	InputAdornment,
@@ -24,19 +22,31 @@ import {
 	Popover,
 	makeStyles,
 	Input
-} from '@krowdy-ui/core';
+} from '@krowdy-ui/core'
 // import KeyboardDatePicker from '@material-ui/lab/'
-import { Table as MuiTable, TableContainer, IconButton } from '@krowdy-ui/core/';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import SearchIcon from '@material-ui/icons/Search';
-import CheckIcon from '@material-ui/icons/Check';
-import CloseIcon from '@material-ui/icons/Close';
-import Autocomplete from '@material-ui/lab/Autocomplete';
+import { Table as MuiTable, TableContainer, IconButton } from '@krowdy-ui/core/'
+import MoreVertIcon from '@material-ui/icons/MoreVert'
+import SearchIcon from '@material-ui/icons/Search'
+import CheckIcon from '@material-ui/icons/Check'
+import CloseIcon from '@material-ui/icons/Close'
+import Autocomplete from '@material-ui/lab/Autocomplete'
 
 const useStyles = makeStyles(theme => ({
+	addCell: {
+		color: theme.palette.primary.main,
+		cursor: 'pointer',
+		textAlign: 'right'
+	},
+	buttonFooter: {
+		fontSize: 12,
+		width: '100px'
+	},
 	container: {
 		// maxHeight: 400,
 		// overflow: 'auto'
+	},
+	containerHeaderTable: {
+		padding: theme.spacing(2),
 	},
 	containerSearch: {
 		display: 'flex',
@@ -45,48 +55,16 @@ const useStyles = makeStyles(theme => ({
 	containerTable: {
 		overflow: 'hidden'
 	},
-	headerTable: {
-		fontWeight: 'bold',
-	},
-	inputSearch: {
-		margin: '2px 0',
-		'& > div': {
-			padding: '0 14px 0 0 !important'
-		},
-		'& * input': {
-			padding: '12px 10px !important',
-			fontSize: 14,
-		}
-	},
 	customBottomAdd: {
 		border: 'dashed 1px',
 		margin: '2px 10px',
 		textTransform: 'initial'
 	},
-	searchIcon: {
-		cursor: 'pointer'
-	},
-	containerHeaderTable: {
-		padding: theme.spacing(2),
-	},
-	textAmount: {
-		color: theme.palette.primary.main,
-		fontWeight: 'bold'
-	},
-	textTotal: {
-		marginRight: 5,
-		lineHeight: '20px',
-		fontWeight: 'bold'
-	},
-	buttonFooter: {
-		width: '100px',
-		fontSize: 12
-	},
-	titleTable: {
-		fontWeight: 'bold',
-	},
-	menuItem: {
-		fontSize: 14
+	customCheckbox: {
+		'& svg': {
+			height: 18,
+			width: 18
+		},
 	},
 	customMenuHead: {
 		padding: theme.spacing(2)
@@ -96,37 +74,57 @@ const useStyles = makeStyles(theme => ({
 		fontWeight: 'bold',
 		marginBottom: 12
 	},
-	spaceBetween: {
-		display: 'flex',
-		alignItems: 'center',
-		justifyContent: 'space-between'
+	editableCell: {
+		display: 'flex'
 	},
 	flexEnd: {
 		justifyContent: 'flex-end'
 	},
-	customCheckbox: {
-		'& svg': {
-			height: 18,
-			width: 18
-		},
-	},
-	addCell: {
-		color: theme.palette.primary.main,
-		textAlign: 'right',
-		cursor: 'pointer'
+	headerTable: {
+		fontWeight: 'bold',
 	},
 	iconAdd: {
-		fontSize: 18,
-		cursor: 'pointer',
 		'&:nth-last-child(1)':{
 			marginLeft: theme.spacing(1)
-		}
+		},
+		cursor: 'pointer',
+		fontSize: 18
 	},
-	editableCell: {
-		display: 'flex'
+	inputSearch: {
+		'& * input': {
+			fontSize: 14,
+			padding: '12px 10px !important',
+		},
+		'& > div': {
+			padding: '0 14px 0 0 !important'
+		},
+		margin: '2px 0'
+	},
+	menuItem: {
+		fontSize: 14
 	},
 	optionSelect: {
 		fontSize: 14
+	},
+	searchIcon: {
+		cursor: 'pointer'
+	},
+	spaceBetween: {
+		alignItems: 'center',
+		display: 'flex',
+		justifyContent: 'space-between'
+	},
+	textAmount: {
+		color: theme.palette.primary.main,
+		fontWeight: 'bold'
+	},
+	textTotal: {
+		fontWeight: 'bold',
+		lineHeight: '20px',
+		marginRight: 5
+	},
+	titleTable: {
+		fontWeight: 'bold',
 	}
 }))
 
@@ -172,15 +170,15 @@ const Table = ({
 		if (Object.keys(newCellProps).length){
 			setLocalNewCellProps(newCellProps)
 		}
-	}, [])
+	}, [newCellProps])
 
 	const _handleClickOpenMenu = event => {
-		setOpenMenu(event.currentTarget);
-	};
+		setOpenMenu(event.currentTarget)
+	}
 
 	const _handleClickClose = () => {
-		setOpenMenu(null);
-	};
+		setOpenMenu(null)
+	}
 
 
 	const _handleSearchValidate = (e) => {
@@ -236,10 +234,10 @@ const Table = ({
 									renderInput={params => (
 										<TextField
 											{...params}
-											variant="outlined"
+											variant='outlined'
 											fullWidth
 											className={classes.inputSearch}
-											id="input-with-icon-textfield"
+											id='input-with-icon-textfield'
 											placeholder='Buscar'
 											inputRef={inputSearch}
 											onKeyUp={_handleSearchValidate}
@@ -247,7 +245,7 @@ const Table = ({
 											InputProps={{
 												...params.InputProps,
 												endAdornment: (
-													<InputAdornment position="end">
+													<InputAdornment position='end'>
 														<SearchIcon onClick={() => onHandleSearch(inputSearch.current.value)} className={classes.searchIcon} />
 													</InputAdornment>
 												),
@@ -272,11 +270,11 @@ const Table = ({
 				) : null
 			}
 			<TableContainer className={classes.container}>
-				<MuiTable stickyHeader aria-label="sticky table">
+				<MuiTable stickyHeader aria-label='sticky table'>
 					<TableHead>
 						<TableRow>
 							{withCheckbox ? (
-								<TableCell padding="checkbox">
+								<TableCell padding='checkbox'>
 									<Checkbox
 										onChange={(e) => onHandleSelectAll(e.target.checked)}
 										inputProps={{ 'aria-label': 'select all desserts' }}
@@ -296,10 +294,10 @@ const Table = ({
 											direction={sortTable.orderBy === id ? sortTable.sort : 'asc'}
 											onClick={() => _handleSortTable(id, sortTable)}
 										>
-											<Typography variant="body1" className={classes.headerTable}>{label}</Typography>
+											<Typography variant='body1' className={classes.headerTable}>{label}</Typography>
 										</TableSortLabel>
 									) : (
-											<Typography variant="body1" className={classes.headerTable}>{label}</Typography>
+											<Typography variant='body1' className={classes.headerTable}>{label}</Typography>
 									) }
 								</TableCell>
 							))}
@@ -400,9 +398,9 @@ const Table = ({
 
 							const { _id, selected } = row
 							return (
-								<TableRow hover key={index} role="checkbox">
+								<TableRow hover key={index} role='checkbox'>
 									{withCheckbox ? (
-										<TableCell padding="checkbox">
+										<TableCell padding='checkbox'>
 											<Checkbox
 												checked={selected}
 												onChange={() => onHandleSelectItem(_id)}
@@ -421,7 +419,7 @@ const Table = ({
 									})}
 									{withMenuColumns ? (<TableCell />) : null}
 								</TableRow>
-							);
+							)
 						})}
 					</TableBody>
 				</MuiTable>
@@ -430,7 +428,7 @@ const Table = ({
 				withPagination ? (
 					<TablePagination
 						rowsPerPageOptions={[10, 25, 100]}
-						component="div"
+						component='div'
 						count={pagination.totalRows}
 						rowsPerPage={pagination.rowsPerPage}
 						page={pagination.currentPage}
@@ -466,45 +464,45 @@ Table.propTypes = {
 			ordering: PropTypes.bool.isRequired,
 		})
 	).isRequired,
+	enableAddCell: PropTypes.bool,
+	iconButton: PropTypes.element,
+	newCellProps: PropTypes.object,
+	onHandleAddNewCell: PropTypes.func,
+	onHandleBtnAction: PropTypes.func.isRequired,
+	onHandleChangePage: PropTypes.func.isRequired,
+	onHandleChangeRowsPerPage: PropTypes.func.isRequired,
+	onHandlePaymentButton: PropTypes.func,
+	onHandleSearch: PropTypes.func.isRequired,
+	onHandleSelectAll: PropTypes.func.isRequired,
+	onHandleSelectItem: PropTypes.func.isRequired,
+	onHandleSortTable: PropTypes.func.isRequired,
+	onHandleToggleColumnTable: PropTypes.func,
+	pagination: PropTypes.shape({
+		currentPage: PropTypes.number.isRequired,
+		rowsPerPage: PropTypes.number.isRequired,
+		totalRows: PropTypes.number.isRequired
+	}),
+	paymentAmount: PropTypes.number,
 	rows: PropTypes.arrayOf(
 		PropTypes.shape({
 			_id: PropTypes.string.isRequired,
 		})
 	).isRequired,
-	titleTable: PropTypes.string,
-	titleButton: PropTypes.string,
-	withFooter: PropTypes.bool,
-	withCheckbox: PropTypes.bool,
-	withPagination: PropTypes.bool,
-	withHeader: PropTypes.bool,
-	withMenuColumns: PropTypes.bool,
-	withOrder: PropTypes.bool,
-	withSearch: PropTypes.bool,
-	withButton: PropTypes.bool,
-	enableAddCell: PropTypes.bool,
-	iconButton: PropTypes.element,
-	paymentAmount: PropTypes.number,
-	newCellProps: PropTypes.object,
 	searchSuggestions: PropTypes.array,
 	sortTable: PropTypes.shape({
 		orderBy: PropTypes.string,
 		sort: PropTypes.oneOf(['asc', 'desc'])
 	}),
-	pagination: PropTypes.shape({
-		totalRows: PropTypes.number.isRequired,
-		rowsPerPage: PropTypes.number.isRequired,
-		currentPage: PropTypes.number.isRequired
-	}),
-	onHandleSortTable: PropTypes.func.isRequired,
-	onHandleSearch: PropTypes.func.isRequired,
-	onHandleBtnAction: PropTypes.func.isRequired,
-	onHandleChangePage: PropTypes.func.isRequired,
-	onHandleChangeRowsPerPage: PropTypes.func.isRequired,
-	onHandleSelectAll: PropTypes.func.isRequired,
-	onHandleSelectItem: PropTypes.func.isRequired,
-	onHandlePaymentButton: PropTypes.func,
-	onHandleToggleColumnTable: PropTypes.func,
-	onHandleAddNewCell: PropTypes.func
+	titleButton: PropTypes.string,
+	titleTable: PropTypes.string,
+	withButton: PropTypes.bool,
+	withCheckbox: PropTypes.bool,
+	withFooter: PropTypes.bool,
+	withHeader: PropTypes.bool,
+	withMenuColumns: PropTypes.bool,
+	withOrder: PropTypes.bool,
+	withPagination: PropTypes.bool,
+	withSearch: PropTypes.bool
 }
 
 export default Table
