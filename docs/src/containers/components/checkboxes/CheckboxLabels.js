@@ -2,35 +2,35 @@ import React from 'react'
 import { withStyles } from '@krowdy-ui/styles'
 import { green } from '@krowdy-ui/core/colors'
 import {
-	Checkbox,
-	FormGroup,
-	FormControlLabel
+  Checkbox,
+  FormGroup,
+  FormControlLabel
 } from '@krowdy-ui/core'
-import { 
-	CheckBoxOutlineBlank as CheckBoxOutlineBlankIcon,
-	CheckBox as CheckBoxIcon,
-	Favorite as FavoriteIcon,
-	FavoriteBorder as FavoriteBorderIcon
+import {
+  CheckBoxOutlineBlank as CheckBoxOutlineBlankIcon,
+  CheckBox as CheckBoxIcon,
+  Favorite as FavoriteIcon,
+  FavoriteBorder as FavoriteBorderIcon
 }  from '@material-ui/icons'
 
 const GreenCheckbox = withStyles({
   checked: {},
-  root: {
+  root   : {
     '&$checked': {
-      color: green[600],
+      color: green[600]
     },
-    color: green[400],
-  },
+    color: green[400]
+  }
 })(props => <Checkbox color='default' {...props} />)
 
 export default function CheckboxLabels() {
-  const [state, setState] = React.useState({
-    checkedA: true,
-    checkedB: true,
-    checkedError: true,
-    checkedF: true,
-    checkedG: true,
-    checkedKrowdy: true,
+  const [ state, setState ] = React.useState({
+    checkedA     : true,
+    checkedB     : true,
+    checkedError : true,
+    checkedF     : true,
+    checkedG     : true,
+    checkedKrowdy: true
   })
 
   const _handleChange = name => event => {
@@ -43,80 +43,70 @@ export default function CheckboxLabels() {
         control={
           <Checkbox checked={state.checkedA} onChange={_handleChange('checkedA')} value='checkedA' />
         }
-        label='Secondary'
-      />
+        label='Secondary' />
       <FormControlLabel
         control={
           <Checkbox
             checked={state.checkedB}
-            onChange={_handleChange('checkedB')}
-            value='checkedB'
             color='primary'
-          />
+            onChange={_handleChange('checkedB')}
+            value='checkedB' />
         }
-        label='Primary'
-      />
-      <FormControlLabel 
+        label='Primary' />
+      <FormControlLabel
         control={
-          <Checkbox 
+          <Checkbox
             checked={state.checkedKrowdy}
+            color='krowdy'
             onChange={_handleChange('checkedKrowdy')}
-            value='checkedKrowdy'
-            color='krowdy' />
-        } 
+            value='checkedKrowdy' />
+        }
         label='Krowdy' />
-      <FormControlLabel 
+      <FormControlLabel
         control={
           <Checkbox
             checked={state.checkedError}
+            color='error'
             onChange={_handleChange('checkedError')}
-            value='checkedError'
-            color='error' />
-        } 
+            value='checkedError' />
+        }
         label='Error' />
       <FormControlLabel control={<Checkbox value='checkedC' />} label='Uncontrolled' />
-      <FormControlLabel disabled control={<Checkbox value='checkedD' />} label='Disabled' />
-      <FormControlLabel disabled control={<Checkbox checked value='checkedE' />} label='Disabled' />
+      <FormControlLabel control={<Checkbox value='checkedD' />} disabled label='Disabled' />
+      <FormControlLabel control={<Checkbox checked value='checkedE' />} disabled label='Disabled' />
       <FormControlLabel
         control={
           <Checkbox
             checked={state.checkedF}
-            onChange={_handleChange('checkedF')}
-            value='checkedF'
             indeterminate
-          />
+            onChange={_handleChange('checkedF')}
+            value='checkedF' />
         }
-        label='Indeterminate'
-      />
+        label='Indeterminate' />
       <FormControlLabel
         control={
           <GreenCheckbox
             checked={state.checkedG}
             onChange={_handleChange('checkedG')}
-            value='checkedG'
-          />
+            value='checkedG' />
         }
-        label='Custom color'
-      />
-      <FormControlLabel
-        control={
-          <Checkbox 
-            icon={<FavoriteBorderIcon />} 
-            checkedIcon={<FavoriteIcon />} 
-            value='checkedH' />
-				}
-        label='Custom icon'
-      />
+        label='Custom color' />
       <FormControlLabel
         control={
           <Checkbox
-            icon={<CheckBoxOutlineBlankIcon fontSize='small' />}
-            checkedIcon={<CheckBoxIcon fontSize='small' />}
-            value='checkedI'
-          />
+            checkedIcon={<FavoriteIcon />}
+            icon={<FavoriteBorderIcon />}
+            value='checkedH' />
         }
-        label='Custom size'
-      />
+        label='Custom icon' />
+      <FormControlLabel
+        control={
+          <Checkbox
+            checkedIcon={<CheckBoxIcon fontSize='small' />}
+            icon={<CheckBoxOutlineBlankIcon fontSize='small' />}
+            value='checkedI' />
+        }
+        label='Custom size' />
     </FormGroup>
   )
 }

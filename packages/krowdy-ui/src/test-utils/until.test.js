@@ -86,7 +86,7 @@ describe('until', () => {
   }
 
   Foo.contextTypes = {
-    quux: PropTypes.bool.isRequired,
+    quux: PropTypes.bool.isRequired
   }
 
   it('context propagation passes down context from the root component', () => {

@@ -19,7 +19,7 @@ class Mode extends React.Component {
      * would be the root.
      */
     __element: PropTypes.element.isRequired,
-    __strict: PropTypes.bool.isRequired,
+    __strict : PropTypes.bool.isRequired
   };
 
   render() {
@@ -43,16 +43,15 @@ export default function createMount(options = {}) {
   const mountWithContext = function mountWithContext(node, localOptions = {}) {
     const { disableUnnmount = false, strict = globalStrict, ...localEnzymeOptions } = localOptions
 
-    if (!disableUnnmount) {
+    if(!disableUnnmount)
       ReactDOM.unmountComponentAtNode(attachTo)
-    }
 
     // some tests require that no other components are in the tree
     // e.g. when doing .instance(), .state() etc.
     return mount(strict == null ? node : <Mode __element={node} __strict={Boolean(strict)} />, {
       attachTo,
       ...globalEnzymeOptions,
-      ...localEnzymeOptions,
+      ...localEnzymeOptions
     })
   }
 

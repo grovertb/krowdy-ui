@@ -4,20 +4,20 @@ import { Divider, Grid, Paper, Typography } from '@krowdy-ui/core'
 
 const useStyles = makeStyles(theme => ({
   container: {
-    display: 'grid',
-    gridGap: theme.spacing(3),
-    gridTemplateColumns: 'repeat(12, 1fr)',
+    display            : 'grid',
+    gridGap            : theme.spacing(3),
+    gridTemplateColumns: 'repeat(12, 1fr)'
   },
   divider: {
-    margin: theme.spacing(2, 0),
+    margin: theme.spacing(2, 0)
   },
   paper: {
-    color: theme.palette.text.secondary,
+    color       : theme.palette.text.secondary,
     marginBottom: theme.spacing(1),
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    whiteSpace: 'nowrap',
-  },
+    padding     : theme.spacing(1),
+    textAlign   : 'center',
+    whiteSpace  : 'nowrap'
+  }
 }))
 
 export default function CSSGrid() {
@@ -25,7 +25,7 @@ export default function CSSGrid() {
 
   return (
     <div>
-      <Typography variant='subtitle1' gutterBottom>
+      <Typography gutterBottom variant='subtitle1'>
         Krowdy-UI Grid:
       </Typography>
       <Grid container spacing={3}>
@@ -49,7 +49,7 @@ export default function CSSGrid() {
         </Grid>
       </Grid>
       <Divider className={classes.divider} />
-      <Typography variant='subtitle1' gutterBottom>
+      <Typography gutterBottom variant='subtitle1'>
         CSS Grid Layout:
       </Typography>
       <div className={classes.container}>

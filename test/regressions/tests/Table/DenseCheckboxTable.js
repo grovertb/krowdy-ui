@@ -12,21 +12,22 @@ import Paper from '@material-ui/core/Paper'
 const styles = theme => ({
   paper: {
     marginBottom: theme.spacing(2),
-    marginTop: theme.spacing(3),
-    overflowX: 'auto',
-    width: '100%',
+    marginTop   : theme.spacing(3),
+    overflowX   : 'auto',
+    width       : '100%'
   },
   root: {
-    width: '100%',
+    width: '100%'
   },
   table: {
-    minWidth: 650,
-  },
+    minWidth: 650
+  }
 })
 
 let id = 0
 function createData(name, calories, fat, carbs, protein) {
   id += 1
+
   return { calories, carbs, fat, id, name, protein }
 }
 
@@ -35,7 +36,7 @@ const rows = [
   createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
   createData('Eclair', 262, 16.0, 24, 6.0),
   createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
+  createData('Gingerbread', 356, 16.0, 49, 3.9)
 ]
 
 function DenseCheckboxTable(props) {
@@ -63,7 +64,7 @@ function DenseCheckboxTable(props) {
                 <TableCell padding='checkbox'>
                   <Checkbox />
                 </TableCell>
-                <TableCell padding='none' component='th' scope='row'>
+                <TableCell component='th' padding='none' scope='row'>
                   {row.name}
                 </TableCell>
                 <TableCell align='right'>{row.calories}</TableCell>
@@ -80,7 +81,7 @@ function DenseCheckboxTable(props) {
 }
 
 DenseCheckboxTable.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 }
 
 export default withStyles(styles)(DenseCheckboxTable)

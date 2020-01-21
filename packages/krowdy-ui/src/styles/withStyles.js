@@ -7,7 +7,7 @@ const defaultTheme = createMuiTheme(krowdyTheme)
 function withStyles(stylesOrCreator, options) {
   return withStylesWithoutDefault(stylesOrCreator, {
     defaultTheme,
-    ...options,
+    ...options
   })
 }
 

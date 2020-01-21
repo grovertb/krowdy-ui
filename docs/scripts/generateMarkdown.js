@@ -15,19 +15,19 @@ function normalizePath(path) {
 }
 
 function generateHeader(reactAPI) {
-  return ['---', `filename: ${normalizePath(reactAPI.filename)}`, '---'].join('\n')
+  return [ '---', `filename: ${normalizePath(reactAPI.filename)}`, '---' ].join('\n')
 }
 
 function getDeprecatedInfo(type) {
   const marker = /deprecatedPropType\((\r*\n)*\s*PropTypes\./g
   const match = type.raw.match(marker)
   const startIndex = type.raw.search(marker)
-  if (match) {
+  if(match) {
     const offset = match[0].length
 
     return {
       explanation: recast.parse(type.raw).program.body[0].expression.arguments[1].value,
-      propTypes: type.raw.substring(startIndex + offset, type.raw.indexOf(',')),
+      propTypes  : type.raw.substring(startIndex + offset, type.raw.indexOf(','))
     }
   }
 
@@ -35,11 +35,11 @@ function getDeprecatedInfo(type) {
 }
 
 function getChained(type) {
-  if (type.raw) {
+  if(type.raw) {
     const marker = 'chainPropTypes'
     const indexStart = type.raw.indexOf(marker)
 
-    if (indexStart !== -1) {
+    if(indexStart !== -1) {
       const parsed = docgenParse(
         `
         import PropTypes from 'prop-types';
@@ -54,9 +54,10 @@ function getChained(type) {
         // helps react-docgen pickup babel.config.js
         { filename: './' },
       )
+
       return {
         required: parsed.props.bar.required,
-        type: parsed.props.bar.type,
+        type    : parsed.props.bar.type
       }
     }
   }
@@ -89,15 +90,14 @@ function generatePropDescription(prop) {
   const type = prop.flowType || prop.type
   let deprecated = ''
 
-  if (type.name === 'custom') {
+  if(type.name === 'custom') {
     const deprecatedInfo = getDeprecatedInfo(type)
-    if (deprecatedInfo) {
+    if(deprecatedInfo)
       deprecated = `*Deprecated*. ${deprecatedInfo.explanation}<br><br>`
-    }
   }
 
   const parsed = parseDoctrine(description, {
-    sloppy: true,
+    sloppy: true
   })
 
   // Two new lines result in a newline in the table.
@@ -106,18 +106,16 @@ function generatePropDescription(prop) {
     .replace(/(\r?\n){2}/g, '<br>')
     .replace(/\r?\n/g, ' ')
 
-  if (parsed.tags.some(tag => tag.title === 'ignore')) {
+  if(parsed.tags.some(tag => tag.title === 'ignore'))
     return null
-  }
 
   let signature = ''
 
-  if (type.name === 'func' && parsed.tags.length > 0) {
+  if(type.name === 'func' && parsed.tags.length > 0) {
     // Remove new lines from tag descriptions to avoid markdown errors.
     parsed.tags.forEach(tag => {
-      if (tag.description) {
+      if(tag.description)
         tag.description = tag.description.replace(/\r*\n/g, ' ')
-      }
     })
 
     // Split up the parsed tags into 'arguments' and 'returns' parsed objects. If there's no
@@ -126,7 +124,7 @@ function generatePropDescription(prop) {
     let parsedArgs = []
     let parsedReturns
 
-    if (parsed.tags[parsedLength - 1].title === 'returns') {
+    if(parsed.tags[parsedLength - 1].title === 'returns') {
       parsedArgs = parsed.tags.slice(0, parsedLength - 1)
       parsedReturns = parsed.tags[parsedLength - 1]
     } else {
@@ -137,28 +135,24 @@ function generatePropDescription(prop) {
     signature += '<br><br>**Signature:**<br>`function('
     signature += parsedArgs
       .map(tag => {
-        if (tag.type.type === 'AllLiteral') {
+        if(tag.type.type === 'AllLiteral')
           return `${tag.name}: any`
-        }
 
-        if (tag.type.type === 'OptionalType') {
+        if(tag.type.type === 'OptionalType')
           return `${tag.name}?: ${tag.type.expression.name}`
-        }
 
         return `${tag.name}: ${tag.type.name}`
       })
       .join(', ')
     signature += `) => ${parsedReturns.type.name}\`<br>`
     signature += parsedArgs.map(tag => `*${tag.name}:* ${tag.description}`).join('<br>')
-    if (parsedReturns.description) {
+    if(parsedReturns.description)
       signature += `<br> *returns* (${parsedReturns.type.name}): ${parsedReturns.description}`
-    }
   }
 
   let notes = ''
-  if (isElementAcceptingRefProp(type) || isElementTypeAcceptingRefProp(type)) {
+  if(isElementAcceptingRefProp(type) || isElementTypeAcceptingRefProp(type))
     notes += '<br>⚠️ [Needs to be able to hold a ref](/guides/composition/#caveat-with-refs).'
-  }
 
   return `${deprecated}${jsDocText}${signature}${notes}`
 }
@@ -166,28 +160,25 @@ function generatePropDescription(prop) {
 function generatePropType(type) {
   switch (type.name) {
     case 'custom': {
-      if (isElementTypeAcceptingRefProp(type)) {
+      if(isElementTypeAcceptingRefProp(type))
         return 'element type'
-      }
-      if (isElementAcceptingRefProp(type)) {
+
+      if(isElementAcceptingRefProp(type))
         return 'element'
-      }
-      if (isRefType(type)) {
+
+      if(isRefType(type))
         return 'ref'
-      }
 
       const deprecatedInfo = getDeprecatedInfo(type)
-      if (deprecatedInfo !== false) {
+      if(deprecatedInfo !== false)
         return generatePropType({
           // eslint-disable-next-line react/forbid-foreign-prop-types
-          name: deprecatedInfo.propTypes,
+          name: deprecatedInfo.propTypes
         })
-      }
 
       const chained = getChained(type)
-      if (chained !== false) {
+      if(chained !== false)
         return generatePropType(chained.type)
-      }
 
       return type.raw
     }
@@ -196,6 +187,7 @@ function generatePropType(type) {
       return `{ ${Object.keys(type.value)
         .map(subValue => {
           const subType = type.value[subValue]
+
           return `${subValue}${subType.required ? '' : '?'}: ${generatePropType(subType)}`
         })
         .join(', ')} }`
@@ -205,9 +197,8 @@ function generatePropType(type) {
       return (
         type.value
           .map(type2 => {
-            if (type.name === 'enum') {
+            if(type.name === 'enum')
               return escapeCell(type2.value)
-            }
 
             return generatePropType(type2)
           })
@@ -221,9 +212,9 @@ function generatePropType(type) {
     }
 
     case 'instanceOf': {
-      if (type.value.startsWith('typeof')) {
+      if(type.value.startsWith('typeof'))
         return /typeof (.*) ===/.exec(type.value)[1]
-      }
+
       return type.value
     }
 
@@ -237,7 +228,7 @@ function getProp(props, key) {
     case 'classes':
       return {
         ...props[key],
-        required: false,
+        required: false
       }
     default:
       return props[key]
@@ -255,41 +246,36 @@ function generateProps(reactAPI) {
   text = Object.keys(reactAPI.props).reduce((textProps, propRaw) => {
     const prop = getProp(reactAPI.props, propRaw)
 
-    if (typeof prop.description === 'undefined') {
+    if(typeof prop.description === 'undefined')
       throw new Error(`The "${propRaw}" prop is missing a description`)
-    }
 
     const description = generatePropDescription(prop)
 
-    if (description === null) {
+    if(description === null)
       return textProps
-    }
 
     let defaultValue = ''
 
-    if (prop.defaultValue) {
+    if(prop.defaultValue)
       defaultValue = `<span class="prop-default">${escapeCell(
         prop.defaultValue.value.replace(/\r*\n/g, ''),
       )}</span>`
-    }
 
     const chainedPropType = getChained(prop.type)
 
-    if (
+    if(
       prop.required ||
       /\.isRequired/.test(prop.type.raw) ||
       (chainedPropType !== false && chainedPropType.required)
-    ) {
+    )
       propRaw = `<span class="prop-name required">${propRaw}&nbsp;*</span>`
-    } else {
+    else
       propRaw = `<span class="prop-name">${propRaw}</span>`
-    }
 
-    if (prop.type.name === 'custom') {
-      if (getDeprecatedInfo(prop.type)) {
+    if(prop.type.name === 'custom')
+      if(getDeprecatedInfo(prop.type)) {
         propRaw = `~~${propRaw}~~`
       }
-    }
 
     textProps += `| ${propRaw} | <span class="prop-type">${generatePropType(
       prop.type,
@@ -299,40 +285,37 @@ function generateProps(reactAPI) {
   }, text)
 
   let refHint = 'The `ref` is forwarded to the root element.'
-  if (reactAPI.forwardsRefTo == null) {
+  if(reactAPI.forwardsRefTo == null)
     refHint = 'The component cannot hold a ref.'
-  } else if (reactAPI.forwardsRefTo === 'React.Component') {
+  else if(reactAPI.forwardsRefTo === 'React.Component')
     refHint = 'The `ref` is attached to a component class.'
-  } else if (reactAPI.forwardsRefTo === 'Object') {
+  else if(reactAPI.forwardsRefTo === 'Object')
     refHint = `The \`ref\` is attached to an Imperative Handle. Have a look at the [implementation of the component](${SOURCE_CODE_ROOT_URL}${normalizePath(
       reactAPI.filename,
     )}) for more detail.`
-  }
+
   text = `${text}\n${refHint}\n`
 
-  if (reactAPI.spread) {
+  if(reactAPI.spread)
     text = `${text}
 Any other props supplied will be provided to the root element (${
-      reactAPI.inheritance
-        ? `[${reactAPI.inheritance.component}](${reactAPI.inheritance.pathname})`
-        : 'native element'
-    }).`
-  }
+  reactAPI.inheritance ?
+    `[${reactAPI.inheritance.component}](${reactAPI.inheritance.pathname})` :
+    'native element'
+}).`
 
   return text
 }
 
 function generateClasses(reactAPI) {
-  if (!reactAPI.styles.classes.length) {
+  if(!reactAPI.styles.classes.length)
     return ''
-  }
 
-  if (!reactAPI.styles.name) {
+  if(!reactAPI.styles.name)
     throw new Error(`Missing styles name on ${reactAPI.name} component`)
-  }
 
   let text = ''
-  if (Object.keys(reactAPI.styles.descriptions).length) {
+  if(Object.keys(reactAPI.styles.descriptions).length) {
     text = `| Rule name | Global class | Description |
 |:-----|:-------------|:------------|\n`
     text += reactAPI.styles.classes
@@ -341,9 +324,9 @@ function generateClasses(reactAPI) {
           `| <span class="prop-name">${styleRule}</span> | <span class="prop-name">.${
             reactAPI.styles.globalClasses[styleRule]
           }</span> | ${
-            reactAPI.styles.descriptions[styleRule]
-              ? escapeCell(reactAPI.styles.descriptions[styleRule])
-              : ''
+            reactAPI.styles.descriptions[styleRule] ?
+              escapeCell(reactAPI.styles.descriptions[styleRule]) :
+              ''
           }`,
       )
       .join('\n')
@@ -365,8 +348,8 @@ You can override the style of the component thanks to one of these customization
 - With a theme and an [\`overrides\` property](/customization/globals/#css).
 
 If that's not sufficient, you can check the [implementation of the component](${SOURCE_CODE_ROOT_URL}${normalizePath(
-    reactAPI.filename,
-  )}) for more detail.
+  reactAPI.filename,
+)}) for more detail.
 
 `
 }
@@ -430,6 +413,7 @@ function generateImportStatement(reactAPI) {
     )
     // convert things like `/Table/Table.js` to ``
     .replace(/\/([^/]+)\/\1\.js$/, '')
+
   return `## Import
 
 \`\`\`js
@@ -458,7 +442,7 @@ export default function generateMarkdown(reactAPI) {
     '',
     generateProps(reactAPI),
     '',
-    `${generateClasses(reactAPI)}`,
+    `${generateClasses(reactAPI)}`
     // `${generateClasses(reactAPI)}${generateInheritance(reactAPI)}${generateDemos(reactAPI)}`,
   ].join('\n')
 }

@@ -4,8 +4,8 @@ import TextField from '@material-ui/core/TextField'
 export default function TextFieldRequired() {
   return (
     <div>
-      <TextField required label='Foo' />
-      <TextField required label='Foo' value='Hello world' />
+      <TextField label='Foo' required />
+      <TextField label='Foo' required value='Hello world' />
     </div>
   )
 }

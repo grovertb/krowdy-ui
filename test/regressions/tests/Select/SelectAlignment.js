@@ -11,7 +11,7 @@ export default function SelectAlignment() {
     <div>
       <FormControl>
         <InputLabel htmlFor='age1'>Age</InputLabel>
-        <Select value='' input={<Input name='age1' id='age1' />}>
+        <Select input={<Input id='age1' name='age1' />} value=''>
           <MenuItem value=''>
             <em>None</em>
           </MenuItem>
@@ -20,7 +20,7 @@ export default function SelectAlignment() {
       </FormControl>
       <FormControl>
         <InputLabel htmlFor='age2'>year</InputLabel>
-        <Select value={10} input={<Input name='year' id='age2' />}>
+        <Select input={<Input id='age2' name='year' />} value={10}>
           <MenuItem value=''>
             <em>None</em>
           </MenuItem>

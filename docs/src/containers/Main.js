@@ -32,15 +32,15 @@ export default function Main({ children }) {
   const location = useLocation()
 
   const isRootPath = location.pathname === '/'
-  
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <div className={classes.root}>
-        <Header isRootPath={isRootPath} className={classes.drawer} />
-        <Container 
-          className={classes.spaceDefault} 
-          component='main' 
+        <Header className={classes.drawer} isRootPath={isRootPath} />
+        <Container
+          className={classes.spaceDefault}
+          component='main'
           maxWidth={isRootPath ? false : 'lg'} >
           {children}
         </Container>

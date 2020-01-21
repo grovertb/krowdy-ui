@@ -24,9 +24,7 @@ import testRef from './testRef'
 function findRootComponent(wrapper, { component }) {
   const outermostHostElement = findOutermostIntrinsic(wrapper).getElement()
 
-  return wrapper.find(component).filterWhere(componentWrapper => {
-    return componentWrapper.contains(outermostHostElement)
-  })
+  return wrapper.find(component).filterWhere(componentWrapper => componentWrapper.contains(outermostHostElement))
 }
 
 function randomStringValue() {
@@ -115,7 +113,7 @@ function describeRef(element, getOptions) {
       testRef(element, mount, (instance, wrapper) => {
         assert.instanceOf(instance, refInstanceof)
 
-        if (inheritComponent && instance instanceof window.Element) {
+        if(inheritComponent && instance instanceof window.Element) {
           const rootHost = findOutermostIntrinsic(wrapper)
           assert.strictEqual(instance, rootHost.instance())
         }
@@ -133,9 +131,8 @@ function describeRef(element, getOptions) {
 function testRootClass(element, getOptions) {
   it('applies to root class to the root component if it has this class', () => {
     const { classes, mount } = getOptions()
-    if (classes.root == null) {
+    if(classes.root == null)
       return
-    }
 
     const className = randomStringValue()
     const wrapper = mount(React.cloneElement(element, { className }))
@@ -159,21 +156,19 @@ function testReactTestRenderer(element) {
   it('should render without errors in ReactTestRenderer', () => {
     ReactTestRenderer.act(() => {
       ReactTestRenderer.create(element, {
-        createNodeMock: node => {
-          return document.createElement(node.type)
-        },
+        createNodeMock: node => document.createElement(node.type)
       })
     })
   })
 }
 
 const fullSuite = {
-  componentProp: testComponentProp,
-  mergeClassName: testClassName,
-  propsSpread: testPropsSpread,
+  componentProp    : testComponentProp,
+  mergeClassName   : testClassName,
+  propsSpread      : testPropsSpread,
   reactTestRenderer: testReactTestRenderer,
-  refForwarding: describeRef,
-  rootClass: testRootClass,
+  refForwarding    : describeRef,
+  rootClass        : testRootClass
 }
 
 /**

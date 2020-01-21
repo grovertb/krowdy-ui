@@ -14,14 +14,14 @@ function findPagesMarkdown(
   items.forEach(item => {
     const itemPath = path.resolve(directory, item)
 
-    if (fs.statSync(itemPath).isDirectory()) {
+    if(fs.statSync(itemPath).isDirectory()) {
       findPagesMarkdown(itemPath, pagesMarkdown)
+
       return
     }
 
-    if (!markdownRegex.test(item)) {
+    if(!markdownRegex.test(item))
       return
-    }
 
     let pathname = itemPath
       .replace(new RegExp(`\\${path.sep}`, 'g'), '/')
@@ -38,7 +38,7 @@ function findPagesMarkdown(
       // Relative location in the path (URL) system.
       filename: itemPath,
       // Relative location in the file system.
-      pathname,
+      pathname
     })
   })
 
@@ -52,17 +52,17 @@ function findComponents(directory, components = []) {
   items.forEach(item => {
     const itemPath = path.resolve(directory, item)
 
-    if (fs.statSync(itemPath).isDirectory()) {
+    if(fs.statSync(itemPath).isDirectory()) {
       findComponents(itemPath, components)
+
       return
     }
 
-    if (!componentRegex.test(item)) {
+    if(!componentRegex.test(item))
       return
-    }
 
     components.push({
-      filename: itemPath,
+      filename: itemPath
     })
   })
 
@@ -71,12 +71,13 @@ function findComponents(directory, components = []) {
 
 function getLineFeed(source) {
   const match = source.match(/\r?\n/)
+
   return match === null ? os.EOL : match[0]
 }
 
 function kebabCase(cadena) {
   return cadena.toLowerCase().replace(/ /,'-')
-} 
+}
 
 module.exports = {
   findComponents,
