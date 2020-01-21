@@ -7,9 +7,6 @@ export * from './JobDetail';
 export { default as Header } from './Header';
 export * from './Header';
 
-export { default as CardUser } from './CardUser';
-export * from './CardUser';
-
 export { default as CardCandidate } from './CardCandidate';
 export * from './CardCandidate';
 
@@ -32,6 +29,10 @@ export * from './Counter';
 
 export { default as Counter } from './SwitchButton';
 export * from './SwitchButton';
+
+export { default as CardException } from './CardException';
+export * from './CardException';
+
 export { default as Table } from './Table';
 export * from './Table';
 

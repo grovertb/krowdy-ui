@@ -12,8 +12,8 @@ import 'prismjs/components/prism-tsx'
 // let darkTheme;
 
 // if (process.browser) {
-  // darkTheme = require('./prism-okaidia.css');
-  // styleNode = document.querySelector('#prismjs');
+// darkTheme = require('./prism-okaidia.css');
+// styleNode = document.querySelector('#prismjs');
 // }
 
 // export { darkTheme };

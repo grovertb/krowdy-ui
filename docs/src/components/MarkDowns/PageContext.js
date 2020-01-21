@@ -4,13 +4,12 @@ import React from 'react'
 // It's here to improve DX by enabling autocompletion for editors supporting TypeScript.
 const PageContext = React.createContext({
   activePage: {
-    pathname: '',
+    pathname: ''
   },
-  pages: [],
+  pages: []
 })
 
-if (process.env.NODE_ENV !== 'production') {
+if(process.env.NODE_ENV !== 'production')
   PageContext.displayName = 'PageContext'
-}
 
 export default PageContext

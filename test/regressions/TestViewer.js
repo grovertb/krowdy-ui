@@ -5,26 +5,26 @@ import { withStyles } from '@material-ui/core/styles'
 const styles = theme => ({
   '@global': {
     '*, *::before, *::after': {
-      animation: 'none !important',
+      animation : 'none !important',
       // Disable transitions to avoid flaky screenshots
-      boxSizing: 'inherit',
-      transition: 'none !important',
+      boxSizing : 'inherit',
+      transition: 'none !important'
     },
     body: {
-      margin: 0,
-      overflowX: 'hidden',
+      margin   : 0,
+      overflowX: 'hidden'
     },
     html: {
       MozOsxFontSmoothing: 'grayscale', // Antialiasing.
       WebkitFontSmoothing: 'antialiased', // Antialiasing.
       // Do the opposite of the docs in order to help catching issues.
-      boxSizing: 'content-box',
-    },
+      boxSizing          : 'content-box'
+    }
   },
   root: {
     backgroundColor: theme.palette.background.default,
-    padding: theme.spacing(1),
-  },
+    padding        : theme.spacing(1)
+  }
 })
 
 function TestViewer(props) {
@@ -35,7 +35,7 @@ function TestViewer(props) {
 
 TestViewer.propTypes = {
   children: PropTypes.node.isRequired,
-  classes: PropTypes.object.isRequired,
+  classes : PropTypes.object.isRequired
 }
 
 export default withStyles(styles)(TestViewer)

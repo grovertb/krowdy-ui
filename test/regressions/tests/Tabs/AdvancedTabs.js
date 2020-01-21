@@ -11,11 +11,11 @@ const noop = () => {}
 const styles = theme => ({
   appBar: {
     backgroundColor: theme.palette.primary.main,
-    color: theme.palette.primary.contrastText,
+    color          : theme.palette.primary.contrastText
   },
   root: {
-    width: 600,
-  },
+    width: 600
+  }
 })
 
 function AdvancedTabs(props) {
@@ -31,9 +31,11 @@ function AdvancedTabs(props) {
         </Tabs>
       </Paper>
       <Paper className={classes.appBar}>
-        <Tabs onChange={noop} value='two' variant='scrollable' scrollButtons='auto'>
+        <Tabs
+          onChange={noop} scrollButtons='auto' value='two'
+          variant='scrollable'>
           <Tab label='Item One' />
-          <Tab value='two' label='Item Two' />
+          <Tab label='Item Two' value='two' />
           <Tab label='Item Three' />
           <Tab label='Item Four' />
           <Tab label='Item Five' />
@@ -44,22 +46,23 @@ function AdvancedTabs(props) {
       <Paper className={classes.root}>
         <Tabs
           onChange={noop}
-          value={0}
-          variant='scrollable'
           scrollButtons='on'
           textColor='secondary'
-        >
-          <Tab label='Item One' icon={<Icon>phone</Icon>} />
-          <Tab label='Item Two' icon={<Icon>favorite</Icon>} />
-          <Tab label='Item Three' icon={<Icon>person_pin</Icon>} />
-          <Tab label='Item Four' icon={<Icon>help</Icon>} />
-          <Tab label='Item Five' icon={<Icon>shopping_basket</Icon>} />
-          <Tab label='Item Six' icon={<Icon>thumb_down</Icon>} />
-          <Tab label='Item Seven' icon={<Icon>thumb_up</Icon>} />
+          value={0}
+          variant='scrollable'>
+          <Tab icon={<Icon>phone</Icon>} label='Item One' />
+          <Tab icon={<Icon>favorite</Icon>} label='Item Two' />
+          <Tab icon={<Icon>person_pin</Icon>} label='Item Three' />
+          <Tab icon={<Icon>help</Icon>} label='Item Four' />
+          <Tab icon={<Icon>shopping_basket</Icon>} label='Item Five' />
+          <Tab icon={<Icon>thumb_down</Icon>} label='Item Six' />
+          <Tab icon={<Icon>thumb_up</Icon>} label='Item Seven' />
         </Tabs>
       </Paper>
       <Paper className={classes.appBar}>
-        <Tabs onChange={noop} value={0} variant='scrollable' scrollButtons='off'>
+        <Tabs
+          onChange={noop} scrollButtons='off' value={0}
+          variant='scrollable'>
           <Tab icon={<Icon>phone</Icon>} />
           <Tab icon={<Icon>favorite</Icon>} />
           <Tab icon={<Icon>person_pin</Icon>} />
@@ -74,7 +77,7 @@ function AdvancedTabs(props) {
 }
 
 AdvancedTabs.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 }
 
 export default withStyles(styles)(AdvancedTabs)

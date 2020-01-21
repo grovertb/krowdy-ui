@@ -19,12 +19,12 @@ describe('<Button />', () => {
   })
 
   describeConformance(<Button>Conformance?</Button>, () => ({
-    after: () => mount.cleanUp(),
+    after           : () => mount.cleanUp(),
     classes,
     inheritComponent: ButtonBase,
     mount,
-    refInstanceof: window.HTMLButtonElement,
-    skip: ['componentProp'],
+    refInstanceof   : window.HTMLButtonElement,
+    skip            : [ 'componentProp' ]
   }))
 
   it('should render with the root & text classes but no others', () => {
@@ -81,7 +81,7 @@ describe('<Button />', () => {
 
   it('should render a primary outlined button', () => {
     const { getByRole } = render(
-      <Button variant='outlined' color='primary'>
+      <Button color='primary' variant='outlined'>
         Hello World
       </Button>,
     )
@@ -97,7 +97,7 @@ describe('<Button />', () => {
 
   it('should render a secondary outlined button', () => {
     const { getByRole } = render(
-      <Button variant='outlined' color='secondary'>
+      <Button color='secondary' variant='outlined'>
         Hello World
       </Button>,
     )
@@ -113,7 +113,7 @@ describe('<Button />', () => {
 
   it('should render an inherit outlined button', () => {
     const { getByRole } = render(
-      <Button variant='outlined' color='inherit'>
+      <Button color='inherit' variant='outlined'>
         Hello World
       </Button>,
     )
@@ -140,7 +140,7 @@ describe('<Button />', () => {
 
   it('should render a contained primary button', () => {
     const { getByRole } = render(
-      <Button variant='contained' color='primary'>
+      <Button color='primary' variant='contained'>
         Hello World
       </Button>,
     )
@@ -155,7 +155,7 @@ describe('<Button />', () => {
 
   it('should render a contained secondary button', () => {
     const { getByRole } = render(
-      <Button variant='contained' color='secondary'>
+      <Button color='secondary' variant='contained'>
         Hello World
       </Button>,
     )
@@ -198,7 +198,7 @@ describe('<Button />', () => {
 
   it('should render a small outlined button', () => {
     const { getByRole } = render(
-      <Button variant='outlined' size='small'>
+      <Button size='small' variant='outlined'>
         Hello World
       </Button>,
     )
@@ -216,7 +216,7 @@ describe('<Button />', () => {
 
   it('should render a large outlined button', () => {
     const { getByRole } = render(
-      <Button variant='outlined' size='large'>
+      <Button size='large' variant='outlined'>
         Hello World
       </Button>,
     )
@@ -234,7 +234,7 @@ describe('<Button />', () => {
 
   it('should render a small contained button', () => {
     const { getByRole } = render(
-      <Button variant='contained' size='small'>
+      <Button size='small' variant='contained'>
         Hello World
       </Button>,
     )
@@ -252,7 +252,7 @@ describe('<Button />', () => {
 
   it('should render a large contained button', () => {
     const { getByRole } = render(
-      <Button variant='contained' size='large'>
+      <Button size='large' variant='contained'>
         Hello World
       </Button>,
     )
@@ -330,8 +330,7 @@ describe('<Button />', () => {
     const { getByRole } = render(
       <Button
         disableFocusRipple
-        TouchRippleProps={{ classes: { ripplePulsate: 'pulsate-focus-visible' } }}
-      >
+        TouchRippleProps={{ classes: { ripplePulsate: 'pulsate-focus-visible' } }}>
         Hello World
       </Button>,
     )
@@ -347,9 +346,8 @@ describe('<Button />', () => {
 
   describe('server-side', () => {
     // Only run the test on node.
-    if (!/jsdom/.test(window.navigator.userAgent)) {
+    if(!/jsdom/.test(window.navigator.userAgent))
       return
-    }
 
     const serverRender = createServerRender({ expectUseLayoutEffectWarning: true })
 

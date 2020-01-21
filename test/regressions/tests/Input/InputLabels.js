@@ -5,11 +5,11 @@ import InputLabel from '@material-ui/core/InputLabel'
 
 const styles = {
   container: {
-    alignItems: 'flex-start',
-    display: 'flex',
+    alignItems   : 'flex-start',
+    display      : 'flex',
     flexDirection: 'column',
-    padding: 20, // so transform doesn't let things get cut off
-  },
+    padding      : 20 // so transform doesn't let things get cut off
+  }
 }
 
 function InputLabels(props) {
@@ -25,7 +25,7 @@ function InputLabels(props) {
       </InputLabel>
       <InputLabel required>Required</InputLabel>
       <InputLabel error>Error</InputLabel>
-      <InputLabel required error>
+      <InputLabel error required>
         Required Error
       </InputLabel>
     </div>
@@ -33,7 +33,7 @@ function InputLabels(props) {
 }
 
 InputLabels.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 }
 
 export default withStyles(styles)(InputLabels)

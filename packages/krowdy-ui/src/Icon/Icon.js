@@ -2,13 +2,13 @@
 import React from 'react'
 import * as Icons from '@material-ui/icons'
 
-const Icon = ({icon}) => {
+const Icon = ({ icon }) => {
   const Resolved = Icons[icon]
+
   return Resolved ? <Resolved /> : <span>{icon}</span>
 }
 
 export default Icon
-
 
 // const Icon = ({icon}) => {
 //   try{

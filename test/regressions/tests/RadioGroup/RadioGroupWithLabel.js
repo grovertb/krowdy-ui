@@ -10,8 +10,8 @@ export default function RadioGroupWithLabel() {
     <FormControl style={{ width: 100 }}>
       <FormLabel>Location</FormLabel>
       <RadioGroup value='home'>
-        <FormControlLabel value='home' control={<Radio />} label='Home' />
-        <FormControlLabel value='work' control={<Radio />} label='Work' />
+        <FormControlLabel control={<Radio />} label='Home' value='home' />
+        <FormControlLabel control={<Radio />} label='Work' value='work' />
       </RadioGroup>
     </FormControl>
   )

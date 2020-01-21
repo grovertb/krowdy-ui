@@ -8,12 +8,12 @@ import { CODE_VARIANTS, t } from './utils'
 
 const useStyles = makeStyles({
   toggleButton: {
-    height: 32,
+    height: 32
   },
   toggleButtonGroup: {
-    margin: '8px 0',
-  },
-}, { name: 'DemoLanguages'})
+    margin: '8px 0'
+  }
+}, { name: 'DemoLanguages' })
 
 function DemoLanguages(props) {
   const { codeOpen, codeVariant, demo, gaEventCategory, onLanguageClick } = props
@@ -21,9 +21,9 @@ function DemoLanguages(props) {
   const hasTSVariant = demo.rawTS
 
   function renderedCodeVariant() {
-    if (codeVariant === CODE_VARIANTS.TS && hasTSVariant) {
+    if(codeVariant === CODE_VARIANTS.TS && hasTSVariant)
       return CODE_VARIANTS.TS
-    }
+
     return CODE_VARIANTS.JS
   }
 
@@ -32,26 +32,23 @@ function DemoLanguages(props) {
       <ToggleButtonGroup
         className={classes.toggleButtonGroup}
         exclusive
-        value={renderedCodeVariant()}
         onChange={onLanguageClick}
-      >
+        value={renderedCodeVariant()}>
         <ToggleButton
-          className={classes.toggleButton}
-          value={CODE_VARIANTS.JS}
           aria-label={t('showJSSource')}
-          data-ga-event-category={gaEventCategory}
+          className={classes.toggleButton}
           data-ga-event-action='source-js'
-        >
+          data-ga-event-category={gaEventCategory}
+          value={CODE_VARIANTS.JS}>
           <JavaScriptIcon />
         </ToggleButton>
         <ToggleButton
-          className={classes.toggleButton}
-          value={CODE_VARIANTS.TS}
-          disabled={!hasTSVariant}
           aria-label={t('showTSSource')}
-          data-ga-event-category={gaEventCategory}
+          className={classes.toggleButton}
           data-ga-event-action='source-ts'
-        >
+          data-ga-event-category={gaEventCategory}
+          disabled={!hasTSVariant}
+          value={CODE_VARIANTS.TS}>
           <TypeScriptIcon />
         </ToggleButton>
       </ToggleButtonGroup>

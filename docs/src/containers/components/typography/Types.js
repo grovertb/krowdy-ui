@@ -4,67 +4,67 @@ import { makeStyles } from '@krowdy-ui/styles'
 
 const useStyles = makeStyles({
   root: {
-    width: '100%',
-  },
-}, { name: 'Types'})
+    width: '100%'
+  }
+}, { name: 'Types' })
 
 export default function Types() {
   const classes = useStyles()
 
   return (
     <div className={classes.root}>
-      <Typography variant='display1' gutterBottom>
+      <Typography gutterBottom variant='display1'>
         Display1 / Regular Roboto 53px
       </Typography>
-      <Typography variant='display2' gutterBottom>
+      <Typography gutterBottom variant='display2'>
         Display2 / Regular Roboto 53px
       </Typography>
-      <Typography variant='h1' component='h1' gutterBottom>
+      <Typography component='h1' gutterBottom variant='h1'>
         h1 / Regular Roboto 44px
       </Typography>
-      <Typography variant='h2' gutterBottom>
+      <Typography gutterBottom variant='h2'>
         h2 / Regular Roboto 36px
       </Typography>
-      <Typography variant='h3' gutterBottom>
+      <Typography gutterBottom variant='h3'>
         h3 / Regular Roboto 29px
       </Typography>
-      <Typography variant='h4' gutterBottom>
+      <Typography gutterBottom variant='h4'>
         h4 / Regular Roboto 23px
       </Typography>
-      <Typography variant='h5' gutterBottom>
+      <Typography gutterBottom variant='h5'>
         h5 / Regular Roboto 18px
       </Typography>
-      <Typography variant='h6' gutterBottom>
+      <Typography gutterBottom variant='h6'>
         h6 / Regular Roboto 14px
       </Typography>
-      <Typography variant='body1' color='body' gutterBottom>
+      <Typography color='body' gutterBottom variant='body1'>
         Body1 / Paragraph • Size: 12px • Line height: 18px • Color: #595959
       </Typography>
-      <Typography variant='body2' color='body' gutterBottom>
+      <Typography color='body' gutterBottom variant='body2'>
         Body2 / Paragraph • Size: 14px • Line height: 18 • Color: #595959
       </Typography>
-      <Typography variant='body3' color='body' gutterBottom>
+      <Typography color='body' gutterBottom variant='body3'>
         Body3 / Paragraph • Size: 16px • Line height: 22px • Color: #595959
       </Typography>
-      <Typography variant='info1' color='info' gutterBottom>
-        Info1 / Help • Size: 12px • Line height: 18px • Color: #8C8C8C 
+      <Typography color='info' gutterBottom variant='info1'>
+        Info1 / Help • Size: 12px • Line height: 18px • Color: #8C8C8C
       </Typography>
-      <Typography variant='info2' color='info' gutterBottom>
+      <Typography color='info' gutterBottom variant='info2'>
         Info2 / Help • Size: 14px • Line height: 20px • Color: #8C8C8C
       </Typography>
-      <Typography variant='subtitle1' gutterBottom>
+      <Typography gutterBottom variant='subtitle1'>
         subtitle1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur
       </Typography>
-      <Typography variant='subtitle2' gutterBottom>
+      <Typography gutterBottom variant='subtitle2'>
         subtitle2. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur
       </Typography>
-      <Typography variant='button' display='block' gutterBottom>
+      <Typography display='block' gutterBottom variant='button'>
         button text
       </Typography>
-      <Typography variant='caption' display='block' gutterBottom>
+      <Typography display='block' gutterBottom variant='caption'>
         caption text
       </Typography>
-      <Typography variant='overline' display='block' gutterBottom>
+      <Typography display='block' gutterBottom variant='overline'>
         overline text
       </Typography>
     </div>

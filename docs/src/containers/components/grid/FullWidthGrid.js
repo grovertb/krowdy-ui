@@ -4,13 +4,13 @@ import { Paper, Grid } from '@krowdy-ui/core'
 
 const useStyles = makeStyles(theme => ({
   paper: {
-    color: theme.palette.text.secondary,
-    padding: theme.spacing(2),
-    textAlign: 'center',
+    color    : theme.palette.text.secondary,
+    padding  : theme.spacing(2),
+    textAlign: 'center'
   },
   root: {
-    flexGrow: 1,
-  },
+    flexGrow: 1
+  }
 }))
 
 export default function FullWidthGrid() {
@@ -22,22 +22,22 @@ export default function FullWidthGrid() {
         <Grid item xs={12}>
           <Paper className={classes.paper}>xs=12</Paper>
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item sm={6} xs={12}>
           <Paper className={classes.paper}>xs=12 sm=6</Paper>
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item sm={6} xs={12}>
           <Paper className={classes.paper}>xs=12 sm=6</Paper>
         </Grid>
-        <Grid item xs={6} sm={3}>
+        <Grid item sm={3} xs={6}>
           <Paper className={classes.paper}>xs=6 sm=3</Paper>
         </Grid>
-        <Grid item xs={6} sm={3}>
+        <Grid item sm={3} xs={6}>
           <Paper className={classes.paper}>xs=6 sm=3</Paper>
         </Grid>
-        <Grid item xs={6} sm={3}>
+        <Grid item sm={3} xs={6}>
           <Paper className={classes.paper}>xs=6 sm=3</Paper>
         </Grid>
-        <Grid item xs={6} sm={3}>
+        <Grid item sm={3} xs={6}>
           <Paper className={classes.paper}>xs=6 sm=3</Paper>
         </Grid>
       </Grid>

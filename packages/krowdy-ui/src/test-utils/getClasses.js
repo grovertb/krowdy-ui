@@ -10,6 +10,7 @@ export default function getClasses(element) {
   let classes
   function Listener() {
     classes = useStyles(element.props)
+
     return null
   }
   shallow(<Listener />)

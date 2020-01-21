@@ -13,9 +13,9 @@ import {
 const useStyles = makeStyles(theme => ({
   root: {
     '& > *': {
-      margin: theme.spacing(1),
-    },
-  },
+      margin: theme.spacing(1)
+    }
+  }
 }))
 
 export default () => {
@@ -23,23 +23,23 @@ export default () => {
 
   return (
     <div className={classes.root}>
-      <Fab color='primary' aria-label='add'>
+      <Fab aria-label='add' color='primary'>
         <AddIcon />
       </Fab>
-      <Fab color='secondary' aria-label='edit'>
+      <Fab aria-label='edit' color='secondary'>
         <EditIcon />
       </Fab>
-      <Fab color='krowdy' aria-label='edit'>
+      <Fab aria-label='edit' color='krowdy'>
         <AppleIcon />
       </Fab>
-      <Fab color='error' aria-label='edit'>
+      <Fab aria-label='edit' color='error'>
         <DeleteIcon />
       </Fab>
-      <Fab variant='extended' aria-label='like'>
+      <Fab aria-label='like' variant='extended'>
         <NavigationIcon />
         Extended
       </Fab>
-      <Fab disabled aria-label='like'>
+      <Fab aria-label='like' disabled>
         <FavoriteIcon />
       </Fab>
     </div>

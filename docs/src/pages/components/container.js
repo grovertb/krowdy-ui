@@ -12,5 +12,5 @@ const reqSource = require.context(
 const reqPrefix = 'containers/components/container'
 
 export default function Container() {
-  return <MarkdownDocs req={req} reqSource={reqSource} reqPrefix={reqPrefix} />
+  return <MarkdownDocs req={req} reqPrefix={reqPrefix} reqSource={reqSource} />
 }

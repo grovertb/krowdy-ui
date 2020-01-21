@@ -1,8 +1,8 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { Link as RouterLink, useHistory } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
-import { makeStyles } from '@krowdy-ui/styles' 
+import { makeStyles } from '@krowdy-ui/styles'
 import {
   Menu as MenuIcon,
   ChevronLeft as ChevronLeftIcon
@@ -21,7 +21,7 @@ import {
   Link,
   Button,
   // ListItemIcon,
-  ListItemText,
+  ListItemText
   // Icon
 } from '@krowdy-ui/core'
 import { AvatarUser } from '@krowdy-ui/views'
@@ -30,31 +30,31 @@ const drawerWidth = 210
 
 const useStyles = makeStyles(theme => ({
   buttonLink: {
-    '& > .MuiButton-label': {
-      '&:after': {
-        backgroundColor: theme.palette.primary.main,
-        bottom: '-2px',
-        content: '""',
-        height: '1px',
-        left: 0,
-        position: 'absolute',
-        right: 0,
-        transform: 'scaleX(0)',
-        transition: 'all .2s ease 0s',
-      },
-      cursor      : 'pointer',
-      position    : 'relative'
+    '&:hover': {
+      backgroundColor: 'transparent',
+      color          : theme.palette.primary.main
+    },
+    backgroundColor: 'transparent'
+  },
+  buttonLinkLabel: {
+    '&:after': {
+      backgroundColor: theme.palette.primary.main,
+      bottom         : '-2px',
+      content        : '""',
+      height         : '1px',
+      left           : 0,
+      position       : 'absolute',
+      right          : 0,
+      transform      : 'scaleX(0)',
+      transition     : 'all .2s ease 0s'
     },
     '&:hover': {
-      '& > .MuiButton-label': {
-        '&:after': {
+      '&:after': {
         transform: 'scaleX(1)'
-        }
-      },
-      backgroundColor: 'transparent',
-      color: theme.palette.primary.main
+      }
     },
-    backgroundColor: 'transparent',
+    cursor  : 'pointer',
+    position: 'relative'
   },
   drawerContentIcon: {
     color         : theme.palette.common.white,
@@ -62,11 +62,11 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'flex-end'
   },
   drawerPaper: {
-    background: theme.palette.primary.main,
+    background : theme.palette.primary.main,
     borderRight: '0',
-    overflow  : 'hidden',
-    position  : 'relative',
-    transition: theme.transitions.create('width', {
+    overflow   : 'hidden',
+    position   : 'relative',
+    transition : theme.transitions.create('width', {
       duration: theme.transitions.duration.enteringScreen,
       easing  : theme.transitions.easing.sharp
     }),
@@ -78,7 +78,7 @@ const useStyles = makeStyles(theme => ({
     width: 56
   },
   drawerRoot: {
-    height: '100%',
+    height: '100%'
   },
   labelDrawer: {
     '& > span': {
@@ -101,23 +101,23 @@ const useStyles = makeStyles(theme => ({
     // width         : '13.78%'
   },
   main: {
-    display: 'flex',
+    display      : 'flex',
     flexDirection: 'column',
-    minHeight: '100vh',
-    width: '100%'
+    minHeight    : '100vh',
+    width        : '100%'
   },
   menuButton: {
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(2)
   },
   menuDashboardItem: {
     '&:active': {
       '& > div': {
         color: 'inherit'
       },
-      backgroundColor: theme.palette.primary.main,
+      backgroundColor: theme.palette.primary.main
     },
     alignItems   : 'center',
-    color          : theme.palette.common.white,
+    color        : theme.palette.common.white,
     display      : 'flex',
     paddingBottom: 10,
     paddingLeft  : 16,
@@ -159,12 +159,12 @@ const useStyles = makeStyles(theme => ({
   },
   menuLink: {
     '& > a': {
-      color         : '#273142',
+      color  : '#273142',
       display: 'block',
-      width: '100%',
+      width  : '100%'
     },
     '& > a:hover': {
-      textDecoration: 'none',
+      textDecoration: 'none'
     },
     '&:hover': {
       textDecoration: 'none'
@@ -197,11 +197,11 @@ const useStyles = makeStyles(theme => ({
     width          : 34
   },
   root: {
-    flexGrow: 1,
+    flexGrow: 1
   },
   title: {
-    color: theme.palette.primary.main,
-    flexGrow: 1,
+    color   : theme.palette.primary.main,
+    flexGrow: 1
   },
   toolbar: {
     display       : 'flex',
@@ -209,16 +209,16 @@ const useStyles = makeStyles(theme => ({
     paddingRight  : 24 // keep right padding when drawer closed
   },
   toolbarCenter: {
-    display: 'flex',
-    flex: 1,
+    display       : 'flex',
+    flex          : 1,
     justifyContent: 'space-between',
-    padding: '0 10px',
+    padding       : '0 10px'
   },
   toolbarCenterLeft: {
     '& > a': {
       marginLeft: '10px'
     },
-      '& > a:first-child': {
+    '& > a:first-child': {
       marginLeft: '0'
     },
     display: 'flex',
@@ -228,7 +228,7 @@ const useStyles = makeStyles(theme => ({
     '& > a': {
       marginRight: '10px'
     },
-      '& > a:last-child': {
+    '& > a:last-child': {
       marginRight: '0'
     },
     display: 'flex'
@@ -253,37 +253,37 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const validURL = str => new RegExp('^(https?:\\/\\/)?' +
-'((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' +
-'((\\d{1,3}\\.){3}\\d{1,3}))' +
-'(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' +
-'(\\?[;&a-z\\d%_.~+=-]*)?' +
-'(\\#[-a-z\\d_]*)?$', 'i').test(str)
+  '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' +
+  '((\\d{1,3}\\.){3}\\d{1,3}))' +
+  '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' +
+  '(\\?[;&a-z\\d%_.~+=-]*)?' +
+  '(\\#[-a-z\\d_]*)?$', 'i').test(str)
 
 function Dashboard(props) {
   const {
-    user,
+    user = {},
     userMenu = [],
-    actions,
-    logo,
+    actions = {},
+    logo = {},
     menus = [],
     menuTopLeft = [],
     menuTopRight = [],
     children
   } = props
-  
+
   const {
     logout
   } = actions
 
   const history = useHistory()
-  
+
   const {
     location
   } = history
 
   const classes = useStyles()
   const [ isOpenDrawer, setToggleDrawer ] = useState(false)
-  const [anchorEl, setAnchorEl] = useState(null)
+  const [ anchorEl, setAnchorEl ] = useState(null)
 
   const _handleClickToggleDrawer = () => setToggleDrawer(!isOpenDrawer)
   const _handleOpenMenu = ev => setAnchorEl(ev.currentTarget)
@@ -304,58 +304,68 @@ function Dashboard(props) {
           </Link>
           <div className={classes.toolbarCenter}>
             <div className={classes.toolbarCenterLeft}>
-            {
-              menuTopLeft.length ?
-                menuTopLeft.map((item, n) => (
-                  validURL(item.url) ?
-                    <Button
-                      key={n}
-                      className={item.type === 'link' ? classes.buttonLink : ''}
-                      color={item.color ? item.color : 'default'}
-                      variant={item.variant ? item.variant : 'text'}
-                      href={item.url}
-                      target={item.target ? item.target : '_blank'}>
+              {
+                menuTopLeft.length ?
+                  menuTopLeft.map((item, n) => (
+                    validURL(item.url) ?
+                      <Button
+                        classes={{
+                          text: item.type === 'link' ? classes.buttonLinkLabel : ''
+                        }}
+                        className={item.type === 'link' ? classes.buttonLink : ''}
+                        color={item.color ? item.color : 'default'}
+                        href={item.url}
+                        key={n}
+                        target={item.target ? item.target : '_blank'}
+                        variant={item.variant ? item.variant : 'text'}>
                         {item.title}
-                    </Button>
-                  :
-                    <Button
-                      key={n}
-                      className={item.type === 'link' ? classes.buttonLink : ''}
-                      color={item.color ? item.color : 'default'}
-                      variant={item.variant ? item.variant : 'text'}
-                      component={RouterLink}
-                      to={item.url}>
+                      </Button> :
+                      <Button
+                        classes={{
+                          text: item.type === 'link' ? classes.buttonLinkLabel : ''
+                        }}
+                        className={item.type === 'link' ? classes.buttonLink : ''}
+                        color={item.color ? item.color : 'default'}
+                        component={RouterLink}
+                        key={n}
+                        to={item.url}
+                        variant={item.variant ? item.variant : 'text'}>
                         {item.title}
-                    </Button>
-                )) : null
-            }
+                      </Button>
+                  )) : null
+              }
             </div>
             <div className={classes.toolbarCenterRight}>
-            {
-              menuTopRight.length ?
-              menuTopRight.map((item, n) => (
-                validURL(item.url) ?
-                  <Button
-                    key={n}
-                    className={item.type === 'link' ? classes.buttonLink : ''}
-                    color={item.color ? item.color : 'default'}
-                    variant={item.variant ? item.variant : 'text'}
-                    href={item.url}
-                    target={item.target ? item.target : '_blank'}>
-                      {item.title}
-                  </Button>
-                :
-                  <Button
-                    key={n}
-                    className={item.type === 'link' ? classes.buttonLink : ''}
-                    color={item.color ? item.color : 'default'}
-                    variant={item.variant ? item.variant : 'text'}
-                    component={RouterLink}
-                    to={item.url}>
-                      {item.title}
-                  </Button>
-              )) : null
-            }
+              {
+                menuTopRight.length ?
+                  menuTopRight.map((item, n) => (
+                    validURL(item.url) ?
+                      <Button
+                        classes={{
+                          text: item.type === 'link' ? classes.buttonLinkLabel : ''
+                        }}
+                        className={item.type === 'link' ? classes.buttonLink : ''}
+                        color={item.color ? item.color : 'default'}
+                        href={item.url}
+                        key={n}
+                        target={item.target ? item.target : '_blank'}
+                        variant={item.variant ? item.variant : 'text'}>
+                        {item.title}
+                      </Button> :
+                      <Button
+                        classes={{
+                          text: item.type === 'link' ? classes.buttonLinkLabel : ''
+                        }}
+                        className={item.type === 'link' ? classes.buttonLink : ''}
+                        color={item.color ? item.color : 'default'}
+                        component={RouterLink}
+                        key={n}
+                        to={item.url}
+                        variant={item.variant ? item.variant : 'text'}>
+                        {item.title}
+                      </Button>
+                  )) : null
+              }
             </div>
           </div>
           <div>
@@ -363,19 +373,9 @@ function Dashboard(props) {
               aria-controls='simple-menu'
               aria-haspopup='true'
               className={classes.notificationIcon}
-              onClick={ev => _handleOpenMenu(ev)}
-              color='inherit'>
-                <AvatarUser user={user} />
-                {/* {
-                  user.photo ?
-                    <img className={classes.profileName} src={user.photo} /> :
-                    <div className={classes.profileName}>
-                    {
-                      `${user.firstName ? user.firstName.charAt().toUpperCase() : ''}
-                      ${user.lastName ? user.lastName.charAt().toUpperCase() : ''}`
-                    }
-                    </div>
-                } */}
+              color='inherit'
+              onClick={ev => _handleOpenMenu(ev)}>
+              <AvatarUser user={user} />
             </IconButton>
             <Menu
               anchorEl={anchorEl}
@@ -395,139 +395,139 @@ function Dashboard(props) {
                 horizontal: 'right',
                 vertical  : 'top'
               }}>
-                <li
-                  className={classes.menuItemContentName}
-                  tabIndex={-1}>
-                  <Typography
-                    className={classes.menuItemName}
-                    variant='inherit'>
-                    {user.firstName} {user.lastName}
-                  </Typography>
-                  <Divider />
-                </li>
-                {
-                  userMenu.length ?
+              <li
+                className={classes.menuItemContentName}
+                tabIndex={-1}>
+                <Typography
+                  className={classes.menuItemName}
+                  variant='inherit'>
+                  {user.firstName} {user.lastName}
+                </Typography>
+                <Divider />
+              </li>
+              {
+                userMenu.length ?
                   userMenu.map((item, n) => (
                     item.type === 'action' ?
                       <MenuItem
-                        key={n}
                         className={classes.menuLink}
+                        key={n}
                         onClick={logout}>
-                          {item.title}
+                        {item.title}
+                      </MenuItem> :
+                      validURL(item.url) ?
+                        <MenuItem
+                          className={classes.menuLink}
+                          key={n}>
+                          <Link
+                            component='a'
+                            href={item.url}
+                            target={item.target ? item.target : '_blank'}>{item.title}</Link>
                         </MenuItem> :
-                        validURL(item.url) ?
-                          <MenuItem
-                            className={classes.menuLink}
-                            key={n}>
-                            <Link
-                              component='a'
-                              href={item.url}
-                              target={item.target ? item.target : '_blank'}>{item.title}</Link>
-                          </MenuItem> :
-                          <MenuItem
-                            className={classes.menuLink}
-                            key={n}>
-                            <Link
-                              component={RouterLink}
-                              to={item.url}>
-                              {item.title}
-                            </Link>
-                          </MenuItem>
+                        <MenuItem
+                          className={classes.menuLink}
+                          key={n}>
+                          <Link
+                            component={RouterLink}
+                            to={item.url}>
+                            {item.title}
+                          </Link>
+                        </MenuItem>
                   )) : null
-                }
+              }
             </Menu>
           </div>
         </Toolbar>
       </AppBar>
       <div className={classes.wrapper}>
         <div>
-        <Drawer
-          classes={{
-            paper: clsx(
-              classes.drawerPaper,
+          <Drawer
+            classes={{
+              paper: clsx(
+                classes.drawerPaper,
+                {
+                  [classes.drawerPaperClose]: isOpenDrawer
+                }
+              ),
+              root: classes.drawerRoot
+            }}
+            data-test='adminDrawer'
+            open={isOpenDrawer}
+            variant='permanent'>
+            <List
+              data-test='adminDrawerItemsList'
+              disablePadding>
+              <ListItem
+                button
+                className={classes.drawerContentIcon}
+                onClick={_handleClickToggleDrawer}>
+                {
+                  !isOpenDrawer ? <ChevronLeftIcon /> : <MenuIcon />
+                }
+              </ListItem>
+              <Divider />
               {
-                [classes.drawerPaperClose]: isOpenDrawer
-              }
-            ),
-            root: classes.drawerRoot
-          }}
-          data-test='adminDrawer'
-          open={isOpenDrawer}
-          variant='permanent'>
-          <List
-            data-test='adminDrawerItemsList'
-            disablePadding>
-            <ListItem
-              button
-              className={classes.drawerContentIcon}
-              onClick={_handleClickToggleDrawer}>
-              {
-                !isOpenDrawer ? <ChevronLeftIcon /> : <MenuIcon />
-              }
-            </ListItem>
-            <Divider />
-            {
-              menus.length ?
-              menus.map((item, n) => (
-                validURL(item.url) ?
-                  <ListItem
-                    button
-                    key={n}
-                    disableGutters
-                    className={classes.menuDashboardListItem}>
-                    <Link
-                        className={clsx(
-                          classes.menuDashboardItem,
-                          {
-                            [classes.menuDashboardItemActive]: location.pathname === item.path
-                          }
-                        )}
-                        color='inherit'
-                        component='a'
-                        href={item.url}
-                        target={item.target ? item.target : '_blank'}
-                        underline='none'>
+                menus.length ?
+                  menus.map((item, n) => (
+                    validURL(item.url) ?
+                      <ListItem
+                        button
+                        className={classes.menuDashboardListItem}
+                        disableGutters
+                        key={n}>
+                        <Link
+                          className={clsx(
+                            classes.menuDashboardItem,
+                            {
+                              [classes.menuDashboardItemActive]: location.pathname === item.path
+                            }
+                          )}
+                          color='inherit'
+                          component='a'
+                          href={item.url}
+                          target={item.target ? item.target : '_blank'}
+                          underline='none'>
                           {/* {
                             item.icon ?
                             <ListItemIcon>
                               <Icon icon={item.icon} />
                             </ListItemIcon> : null
                           } */}
-                        <ListItemText
-                          className={classes.labelDrawer}
-                          primary={item.title} />
-                      </Link>
-                </ListItem> :
-                <ListItem
-                  button
-                  key={n}
-                  disableGutters
-                  className={classes.menuDashboardListItem}>
-                    <Link
-                        className={clsx(
-                          classes.menuDashboardItem,
-                          {
-                            [classes.menuDashboardItemActive]: location.pathname === item.url
-                          }
-                        )}
-                        color='inherit'
-                        component={RouterLink}
-                        to={item.url}
-                        underline='none'>
+                          <ListItemText
+                            className={classes.labelDrawer}
+                            primary={item.title} />
+                        </Link>
+                      </ListItem> :
+                      <ListItem
+                        button
+                        className={classes.menuDashboardListItem}
+                        disableGutters
+                        key={n}>
+                        <Link
+                          className={clsx(
+                            classes.menuDashboardItem,
+                            {
+                              [classes.menuDashboardItemActive]: location.pathname === item.url
+                            }
+                          )}
+                          color='inherit'
+                          component={RouterLink}
+                          to={item.url}
+                          underline='none'>
                           {/* {
                             item.icon ?
                             <ListItemIcon>
                               <Icon icon={item.icon} />
                             </ListItemIcon> : null
                           } */}
-                        <ListItemText
-                          className={classes.labelDrawer}
-                          primary={item.title} />
-                      </Link>
-                </ListItem>
-              )) : null
-            }
-          </List>
+                          <ListItemText
+                            className={classes.labelDrawer}
+                            primary={item.title} />
+                        </Link>
+                      </ListItem>
+                  )) : null
+              }
+            </List>
           </Drawer>
         </div>
         <div className={classes.wrapperContent}>
@@ -543,53 +543,53 @@ Dashboard.propTypes = {
     logout: PropTypes.func
   }),
   classes: PropTypes.object,
-  logo: PropTypes.shape({
-    alt: PropTypes.string,
+  logo   : PropTypes.shape({
+    alt   : PropTypes.string,
     source: PropTypes.string
   }),
   menuTopLeft: PropTypes.arrayOf(
     PropTypes.shape({
-      color: PropTypes.string,
-        target: PropTypes.string,
-        title: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-        url: PropTypes.string.isRequired,
-        variant: PropTypes.string
+      color  : PropTypes.string,
+      target : PropTypes.string,
+      title  : PropTypes.string.isRequired,
+      type   : PropTypes.string.isRequired,
+      url    : PropTypes.string.isRequired,
+      variant: PropTypes.string
     })
   ),
   menuTopRight: PropTypes.arrayOf(
     PropTypes.shape({
-      color: PropTypes.string,
-        target: PropTypes.string,
-        title: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-        url: PropTypes.string.isRequired,
-        variant: PropTypes.string
+      color  : PropTypes.string,
+      target : PropTypes.string,
+      title  : PropTypes.string.isRequired,
+      type   : PropTypes.string.isRequired,
+      url    : PropTypes.string.isRequired,
+      variant: PropTypes.string
     })
   ),
   menus: PropTypes.arrayOf(
     PropTypes.shape({
-      icon: PropTypes.string,
-        target: PropTypes.string,
-        title: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-        url: PropTypes.string.isRequired,
+      icon  : PropTypes.string,
+      target: PropTypes.string,
+      title : PropTypes.string.isRequired,
+      type  : PropTypes.string.isRequired,
+      url   : PropTypes.string.isRequired
     })
   ),
   user: PropTypes.shape({
     firstName: PropTypes.string,
-    lastName: PropTypes.string,
-    photo: PropTypes.string
+    lastName : PropTypes.string,
+    photo    : PropTypes.string
   }),
   userMenu: PropTypes.arrayOf(
     PropTypes.shape({
       action: PropTypes.string,
       target: PropTypes.string,
-      title: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
-      url: PropTypes.string.isRequired
+      title : PropTypes.string.isRequired,
+      type  : PropTypes.string.isRequired,
+      url   : PropTypes.string.isRequired
     })
-  ),
+  )
 }
 
 Dashboard.muiName = 'Dashboard'
