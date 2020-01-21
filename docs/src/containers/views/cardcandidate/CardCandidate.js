@@ -8,11 +8,11 @@ export default function () {
 	let firstName = 'Nombres'
 	let lastName = 'Apellido'
 
-	//const [checked, setChecked] = React.useState(false)
+	const [checked, setChecked] = React.useState(false)
 
-	/* 	const _handleChange = (event) => {
-			setChecked(event.target.checked)
-		} */
+	const _handleChange = (_id, checked) => {
+		setChecked(checked)
+	}
 
 	return (
 		<div style={{
@@ -24,14 +24,16 @@ export default function () {
 			width: 'auto'
 		}}>
 			<CardCandidate
-				//	checked={checked}
-				// onChangeCheckbox={_handleChange}
+				_id={1}
+				checked={checked}
+				onChangeCheckbox={_handleChange}
 				firstName={firstName}
 				lastName={lastName}
 				src={src} />
 			<CardCandidate
-				//checked={checked}
-				// onChangeCheckbox={_handleChange}
+				_id={2}
+				checked={checked}
+				onChangeCheckbox={_handleChange}
 				firstName={firstName}
 				lastName={lastName}
 				src={src2} />

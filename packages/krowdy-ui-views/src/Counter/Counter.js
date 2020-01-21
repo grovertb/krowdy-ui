@@ -55,6 +55,7 @@ const Counter = props => {
   return (
     <div >
       <IconButton
+        onDoubleClick={() => { }}
         className={classes.icon}
         color='primary'
         disabled={disabled}
