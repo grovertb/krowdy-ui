@@ -1,23 +1,42 @@
+export { default as Dashboard } from './Dashboard';
+export * from './Dashboard';
+
 export { default as JobDetail } from './JobDetail';
 export * from './JobDetail';
 
 export { default as Header } from './Header';
 export * from './Header';
 
+export { default as CardUser } from './CardUser';
+export * from './CardUser';
+
+export { default as CardCandidate } from './CardCandidate';
+export * from './CardCandidate';
+
+export { default as Search } from './Search';
+export * from './Search';
+
+export { default as SelectCandidates } from './SelectCandidates';
+export * from './SelectCandidates';
+
 export { default as Cards } from './Cards';
 export * from './Cards';
 
-export { default as SearchTask } from './SearchTask';
-export * from './SearchTask';
+export { default as Questionary } from './Questionary';
+export * from './Questionary';
 
-export { default as Inputs } from './Inputs'
-export * from './Inputs'
 
-export { default as DragComponent } from './DragComponent'
-export * from './DragComponent'
+export { default as Counter } from './Counter';
+export * from './Counter';
 
-export { default as AudioRecorder } from './AudioRecorder'
-export * from './AudioRecorder'
 
-export { default as RadioForm } from './RadioForm'
-export * from './RadioForm'
+export { default as Counter } from './SwitchButton';
+export * from './SwitchButton';
+export { default as Table } from './Table';
+export * from './Table';
+
+export { default as ModalKrowder } from './ModalKrowder';
+export * from './ModalKrowder';
+
+export { default as AvatarUser } from './AvatarUser';
+export * from './AvatarUser';

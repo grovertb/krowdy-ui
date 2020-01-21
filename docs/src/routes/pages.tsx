@@ -133,8 +133,24 @@ const pages: Array<Page> = [
         path: '/views/carduser'
       },
       {
+        title: 'Select Candidates',
+        path: '/views/selectcandidates'
+      },
+      {
+        title: 'Card Candidate',
+        path: '/views/cardcandidate'
+      },
+      {
+        title: 'Table',
+        path: '/views/table'
+      },
+      {
         title: 'Dashboard',
         path: '/views/dashboard'
+      },
+      {
+        title: 'Search',
+        path: '/views/search'
       },
       {
         title: 'Questionary',
@@ -143,6 +159,10 @@ const pages: Array<Page> = [
       {
         title: 'Cards',
         path: '/views/cards'
+      },
+      {
+        title: 'Dashboard',
+        path: '/views/dashboard'
       },
       {
         title: 'Search Tasks',
@@ -155,6 +175,26 @@ const pages: Array<Page> = [
       {
         title: 'Drag',
         path: '/views/dragcomponent'
+      },
+      {
+        title: 'Header Task',
+        path: '/views/headertask'
+      },
+      {
+        title: 'Counter',
+        path: '/views/counter'
+      },
+      {
+        title: 'SwitchButton',
+        path: '/views/switchbutton'
+      },
+      {
+        title: 'Avatar user',
+        path: '/views/avataruser'
+      },
+      {
+        title: 'Modal',
+        path: '/views/modalkrowder'
       },
     ]
   },
