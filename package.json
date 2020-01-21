@@ -65,7 +65,8 @@
     "**/@babel/plugin-transform-runtime": "^7.7.4",
     "**/@babel/preset-env": "^7.7.4",
     "**/@babel/preset-react": "^7.7.4",
-    "**/@babel/runtime": "^7.7.4"
+    "**/@babel/runtime": "^7.7.4",
+    "**/@babel/parser": "7.7.5"
   },
   "nyc": {
     "include": [
