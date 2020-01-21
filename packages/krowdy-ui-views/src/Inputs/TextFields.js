@@ -6,6 +6,9 @@ import clsx from 'clsx'
 import { Input, Grid, Button } from '@krowdy-ui/core'
 
 export const styles = theme => ({
+  alignSelf: {
+    alignSelf: 'flex-start',
+  },
   button: {
     '&:hover': {
       backgroundColor: 'transparent'
@@ -20,12 +23,13 @@ export const styles = theme => ({
     borderBottom: `1px solid ${theme.palette.primary[600]}`
   },
   iconDragContainer: {
-    color: theme.palette.grey[500]
+    color: theme.palette.grey[500],
   },
   inputsContent: {
+    alignItems: 'center',
     display: 'flex',
     flex: 1,
-    flexDirection: 'column',
+    flexDirection: 'column'
   },
   multiline: {
     paddingTop: 2
@@ -33,6 +37,7 @@ export const styles = theme => ({
   order: {
     fontSize: 14,
     fontWeight: 'bold'
+
   },
   textField: {
     '&:hover': {
@@ -41,8 +46,9 @@ export const styles = theme => ({
     borderBottom: `1px solid ${theme.palette.grey[400]}`,
     color: theme.palette.grey[700],
     fontSize: 14,
-    margin: theme.spacing(0, 1, 2, 1)
-  }
+    margin: theme.spacing(0, 1, 2, 1),
+    width: 'fill-available'
+  },
 })
 
 const InputComponent = (props) => {
@@ -62,11 +68,13 @@ const InputComponent = (props) => {
       className={classes.divQuestion}
       tabIndex='-1'
       container
+      justify='space-around'
+      alignItems='center'
     >
       <Grid className={clsx(classes.iconDragContainer)} item>
         {(iconDrag) ? iconDrag : null}
       </Grid>
-      <span className={classes.order}>
+      <span className={clsx(classes.order, classes.alignSelf)}>
         {(order > 0 && order < 10) ? `0${order}` : order}.
       </span>
       <Grid className={classes.inputsContent} item xs={11}>
@@ -92,8 +100,7 @@ const InputComponent = (props) => {
             classes={{
               multiline: classes.multiline
             }}
-            className={clsx(classes.textField)}
-            defaultValue={item.instructions}
+            className={clsx(classes.textField, classes.focused)}
             disabled={disabled}
             disableUnderline
             multiline
@@ -105,7 +112,7 @@ const InputComponent = (props) => {
             placeholder='Agrega instrucciones para Krowder' />
         }
       </Grid>
-      <Grid item>
+      <Grid item className={classes.alignSelf} >
         <Button
           className={clsx(classes.button)}
           disabled={disabled}

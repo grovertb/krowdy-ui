@@ -1,6 +1,6 @@
 import React from 'react'
 import { Grid, Avatar } from '@krowdy-ui/core'
-import { CardContainer, SkillsCard } from '@krowdy-ui/views/Cards'
+import { CardContainer, SkillCard } from '@krowdy-ui/views/Cards'
 import { /* AudioRecorder, */ RadioForm } from '@krowdy-ui/views'
 import { Close, Info } from '@material-ui/icons'
 import { makeStyles } from '@krowdy-ui/styles'
@@ -84,7 +84,7 @@ export default function () {
       </Grid >
       <Grid item xs={9} className={classes.item} >
 
-        <SkillsCard
+        <SkillCard
           title={<div><span className={classes.title}>Creativity</span> <Info classes={{ root: classes.informationIcon }} size='small' color='primary' /></div>}
           expandIcon={<ExpandMoreIcon />}
           content={
@@ -101,15 +101,6 @@ export default function () {
           }
           colorCard='gray'
         />
-        {/*    content={          
-            <AudioRecorder />
-          </div>}
-          cardHeaderProps={{
-            onClickElementRight: () => {
-              setExpand(!expand)
-            }
-          }}
-        */}
       </Grid >
     </Grid >
   )
