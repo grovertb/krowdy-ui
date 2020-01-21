@@ -59,7 +59,6 @@ export const styles = theme => ({
 		display: 'flex',
 		justifyContent: 'center',
 		paddingRight: 23
-
 	},
 	infiniteScroll: {
 		'&::-webkit-box-shadow': {

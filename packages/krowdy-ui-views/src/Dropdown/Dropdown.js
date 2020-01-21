@@ -36,7 +36,7 @@ const Dropdown = props => {
 }
 
 Dropdown.propTypes = {
-  children: PropTypes.any,
+  children: PropTypes.any.isRequired,
   content: PropTypes.any
 }
 

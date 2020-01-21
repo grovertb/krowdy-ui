@@ -67,7 +67,6 @@ const Search = props => {
   return (
     <div className={type === 'border-bottom' ? classes.paperBottom : classes.paper} >
       <InputBase
-        disabledUnderline
         endAdornment={
           <InputAdornment className={classes.icon} >
             {searchIcon}
