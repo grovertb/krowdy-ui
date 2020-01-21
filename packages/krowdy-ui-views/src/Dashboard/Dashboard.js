@@ -41,7 +41,7 @@ const useStyles = makeStyles(theme => ({
       backgroundColor: theme.palette.primary.main,
       bottom         : '-2px',
       content        : '""',
-      height         : '1px',
+      height         : 1,
       left           : 0,
       position       : 'absolute',
       right          : 0,
@@ -98,7 +98,6 @@ const useStyles = makeStyles(theme => ({
     marginLeft    : theme.spacing(3),
     marginRight   : 10,
     position      : 'relative'
-    // width         : '13.78%'
   },
   main: {
     display      : 'flex',
@@ -129,10 +128,6 @@ const useStyles = makeStyles(theme => ({
     '& > div': {
       color: 'inherit'
     },
-    // '&:hover': {
-    //   backgroundColor: theme.palette.primary.main, // '#1890FF',
-    //   color          : 'white'
-    // },
     backgroundColor: theme.palette.common.white,
     color          : theme.palette.primary.main
   },
@@ -159,7 +154,7 @@ const useStyles = makeStyles(theme => ({
   },
   menuLink: {
     '& > a': {
-      color  : '#273142',
+      color  : theme.palette.grey[800],
       display: 'block',
       width  : '100%'
     },
@@ -179,9 +174,9 @@ const useStyles = makeStyles(theme => ({
     },
     '&:hover': {
       backgroundColor: 'transparent',
-      color          : '#262626'
+      color          : theme.palette.grey[500]
     },
-    color: '#8C8C8C'
+    color: theme.palette.grey[600]
   },
   profileName: {
     alignItems     : 'center',
@@ -212,43 +207,42 @@ const useStyles = makeStyles(theme => ({
     display       : 'flex',
     flex          : 1,
     justifyContent: 'space-between',
-    padding       : '0 10px'
+    padding       : theme.spacing(0, 1)
   },
   toolbarCenterLeft: {
     '& > a': {
-      marginLeft: '10px'
+      marginLeft: theme.spacing(1)
     },
     '& > a:first-child': {
-      marginLeft: '0'
+      marginLeft: 0
     },
     display: 'flex',
-    padding: '0 10px'
+    padding: theme.spacing(0, 1)
   },
   toolbarCenterRight: {
     '& > a': {
-      marginRight: '10px'
+      marginRight: theme.spacing(1)
     },
     '& > a:last-child': {
-      marginRight: '0'
+      marginRight: 0
     },
     display: 'flex'
   },
   topBar: {
-    backgroundColor: '#fff'
+    backgroundColor: theme.palette.common.white
   },
   wrapper: {
-    backgroundColor: '#EFEFEF',
+    backgroundColor: theme.palette.grey[200],
     display        : 'flex',
     flex           : 1
   },
   wrapperContent: {
-    backgroundColor: '#fff',
+    backgroundColor: theme.palette.common.white,
     borderRadius   : 4,
     display        : 'flex',
     flex           : 1,
     justifyContent : 'center',
-    margin         : 12
-    // width          : '100%'
+    margin         : theme.spacing(1)
   }
 }))
 
