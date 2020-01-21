@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { SwitchButton } from '@krowdy-ui/views'
 
 export default function () {
-  const [color, setColor] = useState(false)
+  const [color, setColor] = React.useState(false)
   const onChange = (event) => {
     setColor(!event)
   }
@@ -20,7 +20,7 @@ export default function () {
     }}>
 
       <SwitchButton
-        value={color}
+        active={color}
         titleLeft={titleLeft}
         titleRight={titleRight}
         onChange={onChange}

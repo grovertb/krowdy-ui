@@ -10,9 +10,9 @@ Props:
 
 | Name                               |      Type      |  Default | Description   |
 |:-----------------------------------|:---------------|:---------|:-------------| 
+|     active      |   bool    |      |               |
 |   classes        | object       |       |               |
 |    onChange       |    function    |       |               |
-|     value      |   bool    |      |               |
 |    titleLeft       |  string      |       |               |
 |   titleRight        | string       |       |               |
 

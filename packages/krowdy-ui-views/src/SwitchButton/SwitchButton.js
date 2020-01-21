@@ -14,7 +14,7 @@ const SwitchButton = props => {
 
   const {
     classes,
-    value,
+    active,
     titleLeft = '',
     titleRight = '',
     onChange = () => { },
@@ -28,14 +28,14 @@ const SwitchButton = props => {
       >
         <Button
           className={classes.btn}
-          variant={value ? 'contained' : 'outlined'}
-          onClick={() => onChange(value)
+          variant={active ? 'contained' : 'outlined'}
+          onClick={() => onChange(active)
           }
         >{titleLeft}</Button>
         <Button
           className={classes.btn}
-          variant={!value ? 'contained' : 'outlined'}
-          onClick={() => onChange(value)}
+          variant={!active ? 'contained' : 'outlined'}
+          onClick={() => onChange(active)}
         >{titleRight}</Button>
       </ButtonGroup>
     </div >
@@ -43,11 +43,11 @@ const SwitchButton = props => {
 }
 
 SwitchButton.propTypes = {
+  active: PropTypes.bool,
   classes: PropTypes.object,
   onChange: PropTypes.func,
   titleLeft: PropTypes.string,
-  titleRight: PropTypes.string,
-  value: PropTypes.bool
+  titleRight: PropTypes.string
 }
 
 SwitchButton.muiName = 'Search'
