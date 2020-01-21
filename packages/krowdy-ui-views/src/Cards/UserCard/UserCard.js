@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { withStyles } from '@krowdy-ui/core/styles'
+import { withStyles } from '@krowdy-ui/styles'
 import clsx from 'clsx'
 import {
   Card,
@@ -23,7 +23,7 @@ export const styles = theme => ({
     margin: theme.spacing(1, 1, 0, 1),
   },
   icon: {
-    margin: theme.spacing(0, 1, 0, 5)
+    margin: theme.spacing(0, 1, 0, 4)
   },
   moreButton: {
     'float': 'right'
@@ -37,15 +37,13 @@ export const styles = theme => ({
   },
 })
 
-function generate(items, classes) {
+function generate(items, classes, nextIcon) {
   return items.map((value, index) => {
     return (<ListItem key={index} className={classes.item} >
-      {
-/*         (value.type === 'video') ? {/* <Videocam className={classes.icon} /> } : <Assignment className={classes.icon} />
- */      }
+      <div className={classes.icon}>{(value.icon) ? value.icon : null}</div>
       <ListItemText primary={value.text} />
-      {/*       <Rating name={`rating-${index}`} value={value.rating} size='small' precision={0.5} />
- */}      <div className={classes.next}>{/* <NavigateNext /> */}</div>
+      <div>{(value.rating) ? value.rating : null}</div>
+      <div className={classes.next}>{(nextIcon) ? nextIcon : null}</div>
     </ListItem>
     )
   })
@@ -54,10 +52,12 @@ function generate(items, classes) {
 const CardUser = props => {
   const {
     classes,
+    iconRight,
     items,
+    nextIcon,
     title,
-    withAvatar = false,
-    withDivider = false,
+    withAvatar = true,
+    withDivider = true,
   } = props
 
   return (
@@ -76,14 +76,14 @@ const CardUser = props => {
             {title}
           </div>
         }
-/*         rightElement={(iconRight) ? <div className={classes.moreButton} >{iconRight}</div> : null}
- */      />
+        rightElement={(iconRight) ? <div className={classes.moreButton} >{iconRight}</div> : null}
+      />
       {
         (withDivider)
           ? <div className={classes.divider}><Divider variant='middle' /></div>
           : null
       }
-      <CardContent variant='narrow'>{(items && items.length > 0) ? <List> {generate(items, classes)}</List> : []}</CardContent>
+      <CardContent variant='narrow'>{(items && items.length > 0) ? <List> {generate(items, classes, nextIcon)}</List> : []}</CardContent>
     </Card>
   )
 }
@@ -92,6 +92,7 @@ CardUser.propTypes = {
   classes: PropTypes.object,
   iconRight: PropTypes.node,
   items: PropTypes.array,
+  nextIcon: PropTypes.node,
   title: PropTypes.string.isRequired,
   withAvatar: PropTypes.bool,
   withDivider: PropTypes.bool,

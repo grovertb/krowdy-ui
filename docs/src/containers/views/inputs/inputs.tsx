@@ -1,11 +1,11 @@
 import React from 'react'
 import { Grid } from '@krowdy-ui/core'
-import { UserCard } from '@krowdy-ui/views/Cards'
+import { DragComponent } from '@krowdy-ui/views'
 
 export default function () {
   return (
     <Grid container>
-      <UserCard />
+      <DragComponent />
     </Grid>
   )
 }

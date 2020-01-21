@@ -1,5 +1,15 @@
 export type FilterTasks = {
-  content?: string;
+  classes?: object,
+  content?: string,
+  firtsList?: object[],
+  iconOnSeeker?: object,
+  onClickInItem?: Function,
+  propsInput?: object,
+  propsListItemsToFirstList?: object,
+  propsListItemsToSecondList?: object,
+  propsLists?: object,
+  secondList?: object[],
+  selected?: string
 };
 
 declare const Header: React.ComponentType<FilterTasks>;

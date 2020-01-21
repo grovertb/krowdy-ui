@@ -157,8 +157,24 @@ const pages: Array<Page> = [
         path: '/views/questionary'
       },
       {
-        title: 'Tasks',
-        path: '/views/cardtask'
+        title: 'Cards',
+        path: '/views/cards'
+      },
+      {
+        title: 'Dashboard',
+        path: '/views/dashboard'
+      },
+      {
+        title: 'Search Tasks',
+        path: '/views/searchtasks'
+      },
+      {
+        title: 'Inputs',
+        path: '/views/inputs'
+      },
+      {
+        title: 'Drag',
+        path: '/views/dragcomponent'
       },
       {
         title: 'Header Task',
