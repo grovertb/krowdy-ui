@@ -27,16 +27,7 @@ const data = [{
   _id: 5,
   instruction: () => { },
   question: 'question 5',
-}, {
-  _id: 6,
-  instruction: () => { },
-  question: 'pregunta',
-},
-{
-  _id: 7,
-  instruction: () => { },
-  question: 'question 7',
-}]
+},]
 
 
 const useStyles = makeStyles({
@@ -49,11 +40,14 @@ const useStyles = makeStyles({
     fontSize: 14,
   },
   root: {
-    border: '1px solid gray',
     margin: '3% 5%',
     padding: '3%',
     width: '100%'
   },
+  title: {
+    fontSize: 14,
+    margin: '2rem 0'
+  }
 })
 
 export default () => {
@@ -79,7 +73,7 @@ export default () => {
 
   return (
     <Paper elevation={0} variant='outlined' className={classes.root} >
-      <p>¿Qué deseas preguntar a tus candidatos?</p>
+      <p className={classes.title}>¿Qué deseas preguntar a tus candidatos?</p>
       <div >
         <DragComponent onItemsOrdered={handleItemsOrdered} addInputComponent={<Input placeholder='Escriba una nueva pregunta' disableUnderline />}>
           {items}
