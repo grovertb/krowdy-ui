@@ -6,7 +6,6 @@ export default function () {
   const [search, setSearch] = useState('')
 
   const type = 'border-bottom'
-  const typeDefault = 'border'
   const placeholder = 'Buscar candidatos'
   const searchIcon = <SearchIcon />
   const onChange = event => {
@@ -36,10 +35,6 @@ export default function () {
         searchIcon={searchIcon} />
 
       <Search
-        type={typeDefault}
-        value={search}
-        onChange={onChange}
-        onKeyDown={onKeyDown}
         placeholder={placeholder}
         searchIcon={searchIcon} />
     </div>

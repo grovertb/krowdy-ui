@@ -54,6 +54,24 @@ export const styles = theme => ({
 		marginRight: 12,
 		textAlign: 'center'
 	},
+	textButtonActive: {
+		'&:active': {
+			background: theme.palette.primary['500'],
+		},
+		'&:focus': {
+			background: theme.palette.primary['600'],
+		},
+		'&:hover': {
+			background: theme.palette.primary['400'],
+		},
+		fontSize: 12,
+		fontStyle: 'normal',
+		fontWeight: 'normal',
+		height: 35,
+		lineHeight: '100%',
+		marginRight: 12,
+		textAlign: 'center'
+	},
 	textTextfield: {
 		fontSize: 14,
 		fontStyle: 'normal',
@@ -97,28 +115,32 @@ const HeaderTask = props => {
 	return (
 		<Paper className={classes.paper}>
 			<div className={classes.task}>
-				<IconButton
+				{IconButton && (<IconButton
 					size='small'
 					onClick={onClickArrowBackIcon}
 					className={classes.arrowIcon}>
 					{arrowBackIcon}
-				</IconButton>
+				</IconButton>)}
 				<Typography className={classes.nameTask}>
 					{titleHeader}
 				</Typography>
 				<Dropdown
 					content={contentButton}
 				>
-					<Button
-						variant='outlined'
-						color='primary'
-						onClick={onClickSelectCandidates}
-						className={classes.textButton}
-						disabled={disabledSelectCandidates}
-						{...restPropsButton}
-					>
-						{checkbox ? 'Todos' : ` ${numberCandidates} Candidatos`} - Etapa {stageIndex + 1}
-					</Button>
+					{
+						(checkbox || numberCandidates) && stageIndex ?
+							< Button
+								color='primary'
+								onClick={onClickSelectCandidates}
+								className={classes.textButton}
+								disabled={disabledSelectCandidates}
+								{...restPropsButton}
+							>
+								{checkbox ? 'Todos' : ` ${numberCandidates} Candidatos`} - Etapa {stageIndex + 1}
+							</Button>
+							: null
+					}
+
 				</Dropdown>
 				{
 					showInputName ?
@@ -202,7 +224,7 @@ const HeaderTask = props => {
 								onClick={onClickActiveTask}
 								variant='contained'
 								color='primary'
-								className={classes.textButton}
+								className={classes.textButtonActive}
 								{...restPropsButton}
 							>
 								Activar tarea
