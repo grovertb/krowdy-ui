@@ -64,13 +64,17 @@ const Questionary = props => {
                     <Draggable
                       draggableId={`drag-${item.props.id}`}
                       index={index}
-                      key={`drag-${item.props.id}`}>
+                      key={`drag-${item.props.id}`}
+                    >
                       {(dragProvided) => (
                         <div
+
                           ref={dragProvided.innerRef}
                           {...dragProvided.draggableProps}
                           {...dragProvided.dragHandleProps}
-                          tabIndex='-1'>
+                          tabIndex='-1'
+                          style={dragProvided.draggableProps.style}
+                        >
                           {item}
                         </div>
                       )}
