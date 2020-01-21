@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@krowdy-ui/styles'
+import clsx from 'clsx'
 
 export const styles = theme => ({
   audioContainer: {
@@ -10,55 +11,72 @@ export const styles = theme => ({
     padding: '5px',
     width: '60%'
   },
-  canvas: {
-  }
+  bar:{
+    animation:'bar 0ms -1000ms linear infinite alternate running',     
+    backgroundColor:'white',
+    display:'block',
+    textIndent:'-9999px',
+    top:'13px',
+    width:'3px'
+    },
+  bar0:{
+    animationDuration: '337ms',
+    height: '25%',
+    left:'7px',
+    },
+  bar1:{
+    animationDuration: '321ms',
+    height: '50%',
+    left:'16px',
+    },
+  bar2:{
+    animationDuration: '353ms',
+    height: '75%',
+    left:'25px',
+    },
+  bar3:{
+    animationDuration: '341ms',
+    height: '100%',
+    left:'34px',
+    },
+  bar4:{
+    animationDuration: '327ms',
+    height: '125%',
+    left:'42px',
+    },
+  musicBar: {
+    alignItems:' center',
+    backgroundColor:'ffffff', 
+    borderRadius:'10px',
+    display:'flex',
+    height:' 40px',
+    justifyContent: 'space-between',
+    margin:'50px auto',
+    position:'relative',
+},
 })
-const HOOK_SVG = 'M7 18h2V6H7v12zm4 4h2V2h-2v20zm-8-8h2v-4H3v4zm12 4h2V6h-2v12zm4-8v4h2v-4h-2z'
-const HOOK_PATH = new Path2D(HOOK_SVG)
-const SCALE = 1.5
-
-function draw(ctx, location, n = 10) {
-
-  ctx.fillStyle = 'white'
-  ctx.shadowColor = 'white'
-  ctx.save()
-  ctx.scale(SCALE, SCALE)
-
-  //fillRect( x, y, width, height ) // Explanation of the parameters below
-  //ctx.fillRect(bar_x, canvas.height, bar_width, bar_height)
-  ctx.fill(HOOK_PATH)
-  ctx.restore()
-
-}
-
 
 const AudioRecorder = props => {
-
   const {
     classes
   } = props
 
-  const canvasRef = React.useRef(null)
+ // const [bars, setBars] = React.useState([])
   return (
     <div className={classes.audioContainer}>
-      <canvas
-        ref={canvasRef}
-        width={window.innerWidth}
-        height={window.innerHeight}
-        onClick={e => {
-          const canvas = canvasRef.current
-          const ctx = canvas.getContext('2d')
-          draw(ctx, canvas)
-        }}
-      />
+      <div className={classes.musicBar}>
+        <span key={'1'} className={clsx(classes.bar,classes['bar0'])} style={{left:'0px'}}/>
+        <span key={'2'} className={clsx(classes.bar,classes['bar1'])} style={{left:'7px'}}/>
+        <span key={'3'} className={clsx(classes.bar,classes['bar2'])} style={{left:'14px'}}/>
+        <span key={'4'} className={clsx(classes.bar,classes['bar3'])} style={{left:'21px'}}/>
+        <span key={'5'} className={clsx(classes.bar,classes['bar4'])} style={{left:'28px'}}/>
+    </div>
     </div>
   )
 }
 
 AudioRecorder.propTypes = {
   classes: PropTypes.object,
-  fullName: PropTypes.string,
-  imageAvatar: PropTypes.node,
 }
 
 AudioRecorder.muiName = 'AudioRecorder'

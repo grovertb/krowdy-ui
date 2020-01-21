@@ -1,14 +1,13 @@
 import React from 'react'
 import { Grid, Avatar } from '@krowdy-ui/core'
-import { CardContainer } from '@krowdy-ui/views/Cards'
-import { AudioRecorder, RadioForm } from '@krowdy-ui/views'
-import { Close, Info, ExpandMore, ExpandLess } from '@material-ui/icons'
+import { CardContainer , SkillsCard} from '@krowdy-ui/views/Cards'
+import { /* AudioRecorder, */ RadioForm } from '@krowdy-ui/views'
+import { Close, Info } from '@material-ui/icons'
 import { makeStyles } from '@krowdy-ui/styles'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+
 
 const useStyles = makeStyles({
-  colorCard: {
-    backgroundColor: '#F2F4F7'
-  },
   cursive: {
     fontStyle: 'italic'
   },
@@ -57,7 +56,6 @@ const inputsRadios = [
 
 export default function () {
 
-  const [expand, setExpand] = React.useState(true)
 
   const classes = useStyles()
 
@@ -82,20 +80,25 @@ export default function () {
         />
       </Grid >
       <Grid item xs={9} className={classes.item} >
-        <CardContainer
-          classes={{ root: classes.colorCard }}
-          title={<div><span className={classes.title}>Creativity</span> <Info classes={{ root: classes.informationIcon }} size='small' color='primary' /></div>}
-          rightElement={(!expand) ? <ExpandMore /> : <ExpandLess />}
-          content={<div className={{ [classes.expand]: !expand }}><span className={classes.cursive}>Selecciona el nivel que necesitas de esta competencia</span>
+
+      <SkillsCard 
+        title={<div><span className={classes.title}>Creativity</span> <Info classes={{ root: classes.informationIcon }} size='small' color='primary' /></div>}
+        expandIcon ={<ExpandMoreIcon/>}
+        content = {
+            <div>
+            <span className={classes.cursive}>Selecciona el nivel que necesitas de esta competencia</span>
             <RadioForm
-              inputs={inputsRadios}
-              valueDefault='value2'
-              isRow
-              /* onChange={(e)=> console.log(e.target)} */ />
+            inputs={inputsRadios}
+            valueDefault='value2'
+            isRow/>
             <span>Capacidad para fijar politicas organizacionales y comunicarlas de manera clara y precisa en todos los niveles
-              de la orgniazacion asi como tambien comunicar fracasos o acontecimientos negativos sin dobleces ni enganios, decir siempre
-              la verdad y lo que siente.
-            </span>
+            de la orgniazacion asi como tambien comunicar fracasos o acontecimientos negativos sin dobleces ni enganios, decir siempre
+            la verdad y lo que siente.
+          </span></div>
+          }
+          colorCard = 'gray' 
+      />
+      {/*    content={          
             <AudioRecorder />
           </div>}
           cardHeaderProps={{
@@ -103,8 +106,7 @@ export default function () {
               setExpand(!expand)
             }
           }}
-          disabledHover
-        />
+        */}
       </Grid >
     </Grid >
   )
