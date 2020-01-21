@@ -6,12 +6,12 @@ import Grid from '@material-ui/core/Grid'
 
 const styles = {
   paper: {
-    padding: 16,
-    textAlign: 'center',
+    padding  : 16,
+    textAlign: 'center'
   },
   root: {
-    width: 400,
-  },
+    width: 400
+  }
 }
 
 function SimpleGrid(props) {
@@ -47,7 +47,7 @@ function SimpleGrid(props) {
 }
 
 SimpleGrid.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 }
 
 export default withStyles(styles)(SimpleGrid)

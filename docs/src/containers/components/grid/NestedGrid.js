@@ -4,13 +4,13 @@ import { Paper, Grid } from '@krowdy-ui/core'
 
 const useStyles = makeStyles(theme => ({
   paper: {
-    color: theme.palette.text.secondary,
-    padding: theme.spacing(1),
-    textAlign: 'center',
+    color    : theme.palette.text.secondary,
+    padding  : theme.spacing(1),
+    textAlign: 'center'
   },
   root: {
-    flexGrow: 1,
-  },
+    flexGrow: 1
+  }
 }))
 
 export default function NestedGrid() {
@@ -35,13 +35,19 @@ export default function NestedGrid() {
   return (
     <div className={classes.root}>
       <Grid container spacing={1}>
-        <Grid container item xs={12} spacing={3}>
+        <Grid
+          container item spacing={3}
+          xs={12}>
           <FormRow />
         </Grid>
-        <Grid container item xs={12} spacing={3}>
+        <Grid
+          container item spacing={3}
+          xs={12}>
           <FormRow />
         </Grid>
-        <Grid container item xs={12} spacing={3}>
+        <Grid
+          container item spacing={3}
+          xs={12}>
           <FormRow />
         </Grid>
       </Grid>

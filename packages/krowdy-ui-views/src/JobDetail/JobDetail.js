@@ -9,38 +9,38 @@ export const styles = theme => ({
   btnPostular: {
     [theme.breakpoints.down('xs')]: {
       backgroundColor: 'white',
-      bottom: 0,
-      flex: '1 1 0',
-      left: 0,
-      padding: theme.spacing(2),
-      position: 'fixed',
-      right: 0,
-      width: '100%',
-      zIndex: 1
+      bottom         : 0,
+      flex           : '1 1 0',
+      left           : 0,
+      padding        : theme.spacing(2),
+      position       : 'fixed',
+      right          : 0,
+      width          : '100%',
+      zIndex         : 1
     },
     '& button': {
       [theme.breakpoints.down('xs')]: {
         width: '100%'
       }
     },
-    alignItems: 'flex-end',
-    display: 'flex',
-    flex: '1 0 1',
+    alignItems   : 'flex-end',
+    display      : 'flex',
+    flex         : '1 0 1',
     flexDirection: 'column'
   },
   chips: {
     '&:nth-last-child(1)': {
       marginRight: 0
     },
-    margin: '5px 5px 5px 0',
+    margin  : '5px 5px 5px 0',
     maxWidth: '100%'
   },
   contentCompany: {
     '& > a': {
       marginLeft: theme.spacing(1)
     },
-    alignItems: 'flex-end',
-    display: 'flex',
+    alignItems                    : 'flex-end',
+    display                       : 'flex',
     [theme.breakpoints.down('xs')]: {
       alignItems: 'center'
     }
@@ -48,24 +48,24 @@ export const styles = theme => ({
   contentCompanyLogo: {
     '& > img': {
       display: 'block',
-      width: '100%'
+      width  : '100%'
     },
-    alignItems: 'center',
+    alignItems     : 'center',
     backgroundColor: '#EFEFEF',
-    border: '1px solid rgb(234, 234, 234)',
-    borderRadius: 6,
-    display: 'flex',
-    height: 47,
-    justifyContent: 'center',
-    width: 47
+    border         : '1px solid rgb(234, 234, 234)',
+    borderRadius   : 6,
+    display        : 'flex',
+    height         : 47,
+    justifyContent : 'center',
+    width          : 47
   },
   contentJobDetail: {
     '& > *': {
       margin: theme.spacing(2, 0)
     },
     [theme.breakpoints.down('xs')]: {
-      marginLeft: '15px',
-      marginRight: '15px',
+      marginLeft   : '15px',
+      marginRight  : '15px',
       paddingBottom: theme.spacing(5)
     },
     margin: theme.spacing(0, 5)
@@ -73,10 +73,10 @@ export const styles = theme => ({
   contentOptions: {
     '& > div': {
       alignItems: 'center',
-      color: theme.palette.primary.main,
-      display: 'flex'
+      color     : theme.palette.primary.main,
+      display   : 'flex'
     },
-    display: 'flex',
+    display : 'flex',
     flexWrap: 'wrap'
   },
   contentTitle: {
@@ -86,15 +86,15 @@ export const styles = theme => ({
     '& > img': {
       maxWidth: '100%'
     },
-    alignItems: 'center',
-    display: 'flex',
+    alignItems   : 'center',
+    display      : 'flex',
     flexDirection: 'column'
   },
   headerJob: {
-    display: 'flex',
-    flexDirection: 'column',
+    display                     : 'flex',
+    flexDirection               : 'column',
     [theme.breakpoints.up('sm')]: {
-      flexDirection: 'row',
+      flexDirection: 'row'
     }
   },
   headerLeft: {
@@ -109,58 +109,58 @@ export const styles = theme => ({
   itemList: {
     '& > div': {
       fontWeight: 'normal',
-      wordBreak: 'break-word'
+      wordBreak : 'break-word'
     },
-    display: 'list-item',
-    fontSize: '.8rem',
+    display   : 'list-item',
+    fontSize  : '.8rem',
     fontWeight: 'bold',
-    padding: 6,
-    wordBreak: 'break-word'
+    padding   : 6,
+    wordBreak : 'break-word'
   },
   itemOptions: {
     marginRight: 20,
-    marginTop: 8
+    marginTop  : 8
   },
   list: {
-    display: 'block',
+    display      : 'block',
     listStyleType: 'disc',
-    margin: 0,
-    paddingLeft: 40
+    margin       : 0,
+    paddingLeft  : 40
   },
   listCompetitions: {
-    display: 'list-item',
-    fontSize: '.8rem',
+    display   : 'list-item',
+    fontSize  : '.8rem',
     fontWeight: 'normal',
-    padding: 6,
-    wordBreak: 'break-word'
+    padding   : 6,
+    wordBreak : 'break-word'
   },
   sectionInformation: {
     margin: theme.spacing(5, 0)
   },
   seeMoreCompany: {
-    color: theme.palette.primary.main,
-    cursor: 'pointer',
-    fontSize: '.8rem',
+    color     : theme.palette.primary.main,
+    cursor    : 'pointer',
+    fontSize  : '.8rem',
     marginLeft: 10
   },
   textDescription: {
-    fontSize: '.8rem',
+    fontSize : '.8rem',
     marginTop: theme.spacing(4),
-    wordBreak: 'break-word',
+    wordBreak: 'break-word'
   },
   textDetail: {
     fontSize: '.8rem'
   },
   textEndJob: {
-    fontSize: '12px',
-    marginTop: '5px',
+    fontSize    : '12px',
+    marginTop   : '5px',
     paddingRight: '5px'
   },
   titleCompany: {
     '&.no-visible': {
       fontSize: '1rem'
     },
-    fontSize: '1.4rem',
+    fontSize  : '1.4rem',
     fontWeight: 'bold',
     lineHeight: 1,
     marginLeft: theme.spacing(1)
@@ -169,12 +169,12 @@ export const styles = theme => ({
     '&:first-letter': {
       textTransform: 'uppercase'
     },
-    fontSize: '2.5rem',
-    textTransform: 'lowercase',
+    fontSize                      : '2.5rem',
+    textTransform                 : 'lowercase',
     [theme.breakpoints.down('xs')]: {
-      fontSize: '1.75rem',
+      fontSize: '1.75rem'
     },
-    wordBreak: 'break-word',
+    wordBreak: 'break-word'
   },
   titleSection: {
     fontSize: '1.2rem'
@@ -204,11 +204,11 @@ const JobDetail = props => {
     visibleInformation = false
   } = props
 
-  const [imageFailed, setImageFailed] = React.useState(false)
+  const [ imageFailed, setImageFailed ] = React.useState(false)
 
   React.useEffect(() => {
     setImageFailed(false)
-  }, [jobId])
+  }, [ jobId ])
 
   const expDate = new XDate(expirationDate) // DEVUELVE 2019-12-29 10:38:20
   const expDateFormat = new XDate(expDate.getFullYear(), expDate.getMonth(), expDate.getDate()) // DEVUELVE 2019-12-29
@@ -222,11 +222,11 @@ const JobDetail = props => {
         return requirement.value.map((career, indexCareer) => (
           <Chip
             // className={classes.requirementsChip}
+            className={classes.chips}
             color='primary'
             key={`career-${indexCareer}`}
             label={career}
             size='small'
-            className={classes.chips}
             variant='outlined' />)
         )
       case 'idioma':
@@ -243,7 +243,6 @@ const JobDetail = props => {
     }
   }
 
-
   const handleErrorImage = () => {
     setImageFailed(true)
   }
@@ -257,7 +256,9 @@ const JobDetail = props => {
               <Typography className={classes.titleJob} variant='h1'>{title}</Typography>
             </div>
             <div className={classes.btnPostular}>
-              <Button onClick={onClickPostulation} disabled={timeToDown < 0} size='large' variant='contained' color='primary'>{userInJob ? 'Ver postulación' : 'Postular'}</Button>
+              <Button
+                color='primary' disabled={timeToDown < 0} onClick={onClickPostulation}
+                size='large' variant='contained'>{userInJob ? 'Ver postulación' : 'Postular'}</Button>
               {
                 (timeToDown >= 0 && timeToDown <= 14) ?
                   <Typography className={classes.textEndJob} component='span'>
@@ -273,7 +274,7 @@ const JobDetail = props => {
           <div className={classes.contentCompanyLogo}>
             {
               (company.company_logo && visibleInformation && !imageFailed) ?
-                <img alt='company logo' src={company.company_logo} onError={handleErrorImage} /> :
+                <img alt='company logo' onError={handleErrorImage} src={company.company_logo} /> :
                 <BusinessIcon className={classes.iconCompany} />
             }
           </div>
@@ -281,11 +282,11 @@ const JobDetail = props => {
             !visibleInformation ? (
               <Typography className={`${classes.titleCompany} no-visible`}>Confidencial</Typography>
             ) : (
-                <>
-                  <Typography className={classes.titleCompany}>{company.company_name}</Typography>
-                  <Typography onClick={onViewCompany} className={classes.seeMoreCompany}>Ver más</Typography>
-                </>
-              )
+              <>
+                <Typography className={classes.titleCompany}>{company.company_name}</Typography>
+                <Typography className={classes.seeMoreCompany} onClick={onViewCompany}>Ver más</Typography>
+              </>
+            )
           }
         </div>
       </Grid>
@@ -297,8 +298,8 @@ const JobDetail = props => {
               typeof description === 'object' ?
                 description :
                 <Typography
-                  variant='body3'
-                  className={classes.textDescription} >
+                  className={classes.textDescription}
+                  variant='body3' >
                   {description}
                 </Typography>
             }
@@ -306,37 +307,37 @@ const JobDetail = props => {
         ) : null
       }
 
-      <Grid item xs={12} className={classes.contentOptions}>
+      <Grid className={classes.contentOptions} item xs={12}>
         {
           detailJob.map(({ icon, text }, index) => (
-            <div key={`option-${index}`} className={classes.itemOptions}>
+            <div className={classes.itemOptions} key={`option-${index}`}>
               <Typography className={classes.iconDetail}>{icon}</Typography>
-              <Typography color='body' className={classes.textDetail} variant='h6'>{text}</Typography>
+              <Typography className={classes.textDetail} color='body' variant='h6'>{text}</Typography>
             </div>
           ))
         }
       </Grid>
       {
         basicEdition.filter(({ visible }) => visible).map((item, key) => (
-          <section key={`information-${key}`} className={classes.sectionInformation}>
-            <Typography variant='h4' className={classes.titleSection}>{item.title}</Typography>
+          <section className={classes.sectionInformation} key={`information-${key}`}>
+            <Typography className={classes.titleSection} variant='h4'>{item.title}</Typography>
             {
               item.description ? (
                 <Typography
-                  component='div'
                   className={classes.textDescription}
+                  component='div'
                   dangerouslySetInnerHTML={{ __html: item.description }}
                   variant='body2' />
               ) : (
-                  <div className={classes.descriptionEmpty}>
-                    <img
-                      alt='without-description'
-                      src='https://s3.amazonaws.com/cdn.krowdy.com/media/images/empty-job.png' />
-                    <Typography color='info' variant='body3' align='center'>
+                <div className={classes.descriptionEmpty}>
+                  <img
+                    alt='without-description'
+                    src='https://s3.amazonaws.com/cdn.krowdy.com/media/images/empty-job.png' />
+                  <Typography align='center' color='info' variant='body3'>
                       Sin descripción
                   </Typography>
-                  </div>
-                )
+                </div>
+              )
             }
 
           </section>
@@ -407,7 +408,7 @@ const JobDetail = props => {
                   visibleDisabled ? (
                     <ListItem className={classes.itemList}>
                       Apto para discapacitados
-                    <div>{acceptedDisabled ? 'Si' : 'No'}</div>
+                      <div>{acceptedDisabled ? 'Si' : 'No'}</div>
                     </ListItem>
                   ) : null
                 }
@@ -423,29 +424,29 @@ const JobDetail = props => {
 
 JobDetail.propTypes = {
   basicEdition: PropTypes.array,
-  benefits: PropTypes.array,
+  benefits    : PropTypes.array,
   /**
    * Override or extend the styles applied to the component.
    * See [CSS API](#css) below for more details.
    */
-  classes: PropTypes.object,
-  company: PropTypes.object,
+  classes     : PropTypes.object,
+  company     : PropTypes.object,
   competencies: PropTypes.array,
-  description: PropTypes.oneOfType([
+  description : PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.object
   ]),
   // _id
-  detailJob: PropTypes.array,
-  disabledPerson: PropTypes.object,
-  expirationDate: PropTypes.string,
-  jobId: PropTypes.string,
+  detailJob         : PropTypes.array,
+  disabledPerson    : PropTypes.object,
+  expirationDate    : PropTypes.string,
+  jobId             : PropTypes.string,
   onClickPostulation: PropTypes.func,
   // status: PropTypes.string
-  onViewCompany: PropTypes.func,
-  requirements: PropTypes.array,
-  title: PropTypes.string,
-  userInJob: PropTypes.bool,
+  onViewCompany     : PropTypes.func,
+  requirements      : PropTypes.array,
+  title             : PropTypes.string,
+  userInJob         : PropTypes.bool,
   visibleInformation: PropTypes.bool
 }
 

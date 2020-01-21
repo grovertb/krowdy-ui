@@ -20,8 +20,9 @@ async function parseWithConfig(filename, configFilePath) {
   const source = await readFile(filename, { encoding: 'utf8' })
   const partialConfig = babel.loadPartialConfig({
     configFile: configFilePath,
-    filename,
+    filename
   })
+
   return babel.parseAsync(source, partialConfig.options)
 }
 
@@ -33,16 +34,14 @@ function findConformanceDescriptor(program) {
     CallExpression(babelPath) {
       const { node: callExpression } = babelPath
       const { callee } = callExpression
-      if (t.isIdentifier(callee) && callee.name === 'describeConformance') {
+      if(t.isIdentifier(callee) && callee.name === 'describeConformance')
         // describeConformance(element, () => options);
         descriptor = callExpression.arguments[1].body
-      }
-    },
+    }
   })
 
-  if (descriptor.type != null && !t.isObjectExpression(descriptor)) {
+  if(descriptor.type != null && !t.isObjectExpression(descriptor))
     throw new Error(`Expected an object expression as a descriptor but found ${descriptor.type}`)
-  }
 
   return descriptor
 }
@@ -52,13 +51,11 @@ function findConformanceDescriptor(program) {
  * @param {import('@babel/core').Node} valueNode
  */
 function getRefInstance(valueNode) {
-  if (!babel.types.isMemberExpression(valueNode) && valueNode.name !== 'Object') {
+  if(!babel.types.isMemberExpression(valueNode) && valueNode.name !== 'Object')
     throw new Error('Expected a member expression in refInstanceof')
-  }
 
-  if (!valueNode.object && valueNode.name === 'Object') {
+  if(!valueNode.object && valueNode.name === 'Object')
     return valueNode.name
-  }
 
   switch (valueNode.object.name) {
     case 'window':
@@ -89,8 +86,8 @@ export default async function parseTest(componentFilename) {
   const descriptor = findConformanceDescriptor(babelParseResult.program)
 
   const result = {
-    forwardsRefTo: undefined,
-    inheritComponent: undefined,
+    forwardsRefTo   : undefined,
+    inheritComponent: undefined
   }
 
   const { properties = [] } = descriptor

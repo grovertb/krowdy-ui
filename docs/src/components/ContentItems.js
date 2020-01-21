@@ -8,10 +8,10 @@ const useStyles = makeStyles({
         margin: 4
       },
       backgroundColor: '#f5f5f5',
-      borderRadius: 4,
-      display: 'flex',
-      marginTop: 4,
-      padding: 16
+      borderRadius   : 4,
+      display        : 'flex',
+      marginTop      : 4,
+      padding        : 16
     },
     padding: 16
   }

@@ -137,6 +137,10 @@ const pages: Array<Page> = [
         path: '/views/cardexception'
       },
       {
+        title: 'Table',
+        path: '/views/table'
+      },
+      {
         title: 'Dashboard',
         path: '/views/dashboard'
       },

@@ -11,19 +11,17 @@ export default function createShallow(options1 = {}) {
       ...options2,
       context: {
         ...other1.context,
-        ...options2.context,
-      },
+        ...options2.context
+      }
     }
 
     const wrapper = shallow(node, options)
 
-    if (dive) {
+    if(dive)
       return wrapper.dive()
-    }
 
-    if (untilSelector) {
+    if(untilSelector)
       return until.call(wrapper, untilSelector, options)
-    }
 
     return wrapper
   }

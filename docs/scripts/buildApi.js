@@ -15,15 +15,14 @@ const generateClassName = createGenerateClassName()
 
 function ensureExists(pat, mask, cb) {
   mkdir(pat, mask, err => {
-    if (err) {
-      if (err.code === 'EEXIST') {
+    if(err)
+      if(err.code === 'EEXIST') {
         cb(null) // ignore the error if the folder already exists
       } else {
         cb(err) // something else went wrong
       }
-    } else {
+    else
       cb(null) // successfully created folder
-    }
   })
 }
 
@@ -36,9 +35,8 @@ function exit(error) {
   process.exit()
 }
 
-if (args.length < 4) {
+if(args.length < 4)
   exit('\nERROR: syntax: buildApi source target')
-}
 
 const rootDirectory = path.resolve(__dirname, '../../')
 const docsApiDirectory = path.resolve(rootDirectory, args[3])
@@ -49,16 +47,14 @@ const inheritedComponentRegexp = /\/\/ @inheritedComponent (.*)/
 function getInheritance(testInfo, src) {
   let inheritedComponentName = testInfo.inheritComponent
 
-  if (inheritedComponentName == null) {
+  if(inheritedComponentName == null) {
     const match = src.match(inheritedComponentRegexp)
-    if (match !== null) {
+    if(match !== null)
       inheritedComponentName = match[1]
-    }
   }
 
-  if (inheritedComponentName == null) {
+  if(inheritedComponentName == null)
     return null
-  }
 
   let pathname
 
@@ -74,7 +70,7 @@ function getInheritance(testInfo, src) {
 
   return {
     component: inheritedComponentName,
-    pathname,
+    pathname
   }
 }
 
@@ -82,9 +78,8 @@ async function buildDocs(options) {
   const { component: componentObject, pagesMarkdown } = options
   const src = readFileSync(componentObject.filename, 'utf8')
 
-  if (src.match(/@ignore - internal component\./) || src.match(/@ignore - do not document\./)) {
+  if(src.match(/@ignore - internal component\./) || src.match(/@ignore - do not document\./))
     return
-  }
 
   const spread = !src.match(/ = exactProp\(/)
 
@@ -92,12 +87,12 @@ async function buildDocs(options) {
   const component = require(componentObject.filename)
   const name = path.parse(componentObject.filename).name
   const styles = {
-    classes: [],
+    classes     : [],
     descriptions: {},
-    name: null,
+    name        : null
   }
 
-  if (component.styles && component.default.options) {
+  if(component.styles && component.default.options) {
     // Collect the customization points of the `classes` property.
     styles.classes = Object.keys(getStylesCreator(component.styles).create(theme)).filter(
       className => !className.match(/^(@media|@keyframes)/),
@@ -106,21 +101,22 @@ async function buildDocs(options) {
     styles.globalClasses = styles.classes.reduce((acc, key) => {
       acc[key] = generateClassName(
         {
-          key,
+          key
         },
         {
           options: {
-            name: styles.name,
-            theme: {},
-          },
+            name : styles.name,
+            theme: {}
+          }
         },
       )
+
       return acc
     }, {})
 
     let styleSrc = src
     // Exception for Select where the classes are imported from NativeSelect
-    if (name === 'Select') {
+    if(name === 'Select')
       styleSrc = readFileSync(
         componentObject.filename.replace(
           `Select${path.sep}Select`,
@@ -128,7 +124,6 @@ async function buildDocs(options) {
         ),
         'utf8',
       )
-    }
 
     /**
      * Collect classes comments from the source
@@ -138,18 +133,17 @@ async function buildDocs(options) {
     // Extract the styles section from the source
     const stylesSrc = stylesRegexp.exec(styleSrc)
 
-    if (stylesSrc) {
+    if(stylesSrc)
       // Extract individual classes and descriptions
       stylesSrc[0].replace(styleRegexp, (match, desc, key) => {
         styles.descriptions[key] = desc
       })
-    }
   }
 
   let reactAPI
   try {
     reactAPI = docgenParse(src, null, defaultHandlers.concat(muiDefaultPropsHandler), {
-      filename: componentObject.filename,
+      filename: componentObject.filename
     })
   } catch (err) {
     console.log('Error parsing src for', componentObject.filename)
@@ -184,8 +178,9 @@ async function buildDocs(options) {
   }
 
   ensureExists(docsApiDirectory, 0o744, err => {
-    if (err) {
+    if(err) {
       console.log('Error creating directory', docsApiDirectory)
+
       return
     }
 
@@ -213,14 +208,15 @@ function run() {
   const pagesMarkdown = findPagesMarkdown()
     .map(markdown => {
       const markdownSource = readFileSync(markdown.filename, 'utf8')
+
       return {
         ...markdown,
-        components: getHeaders(markdownSource).components,
+        components: getHeaders(markdownSource).components
       }
     })
     .filter(markdown => markdown.components.length > 0)
 
-    const components = findComponents(path.resolve(rootDirectory, args[2]))
+  const components = findComponents(path.resolve(rootDirectory, args[2]))
 
   buildDocs({ component: components[8], pagesMarkdown }).catch(error => {
     console.warn(`error building docs for ${components[8].filename}`)

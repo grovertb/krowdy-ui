@@ -14,24 +14,24 @@ export const styles = theme => ({
   colorError: {
     '&:hover': {
       '@media (hover: none)': {
-        backgroundColor: 'transparent',
+        backgroundColor: 'transparent'
       },
       // Reset on touch devices, it doesn't add specificity
-      backgroundColor: fade(theme.palette.error.main, theme.palette.action.hoverOpacity),
+      backgroundColor: fade(theme.palette.error.main, theme.palette.action.hoverOpacity)
     },
-    color: theme.palette.error.main,
+    color: theme.palette.error.main
   },
   /* Styles applied to the root element if `color="error"`. */
   colorKrowdy: {
     '&:hover': {
       '@media (hover: none)': {
-        backgroundColor: 'transparent',
+        backgroundColor: 'transparent'
       },
       // Reset on touch devices, it doesn't add specificity
-      backgroundColor: fade(theme.palette.krowdy.main, theme.palette.action.hoverOpacity),
+      backgroundColor: fade(theme.palette.krowdy.main, theme.palette.action.hoverOpacity)
     },
-    color: theme.palette.krowdy.main,
-  },
+    color: theme.palette.krowdy.main
+  }
 })
 
 const IconButton = React.forwardRef(function IconButton({ color = 'default', ...props }, ref) {
@@ -41,22 +41,26 @@ const IconButton = React.forwardRef(function IconButton({ color = 'default', ...
     tooltip,
     ...otherProps
   } = props
-  
+
   const className = clsx(
     classNameProps,
     {
-      [classes[`color${capitalize(color)}`]]: color !== 'default',
+      [classes[`color${capitalize(color)}`]]: color !== 'default'
     }
   )
 
   if(color === 'krowdy' || color === 'error') color = 'default'
- 
+
   return (
     tooltip ?
       <Tooltip title={tooltip}>
-        <MuiIconButton ref={ref} className={className} color={color} {...otherProps} />
+        <MuiIconButton
+          className={className} color={color} ref={ref}
+          {...otherProps} />
       </Tooltip> :
-    <MuiIconButton ref={ref} className={className} color={color} {...otherProps} />
+      <MuiIconButton
+        className={className} color={color} ref={ref}
+        {...otherProps} />
 
   )
 })
@@ -70,12 +74,12 @@ IconButton.propTypes = {
   /**
    * @ignore
    */
-  classes: PropTypes.object.isRequired,
+  classes  : PropTypes.object.isRequired,
   /**
    * The color of the component. It supports those theme colors that make sense for this component.
    */
-  color: PropTypes.oneOf(['default', 'inherit', 'primary', 'secondary', 'krowdy', 'error']),
-  tooltip: PropTypes.string
+  color    : PropTypes.oneOf([ 'default', 'inherit', 'primary', 'secondary', 'krowdy', 'error' ]),
+  tooltip  : PropTypes.string
 }
 
 export default withStyles(styles, { name: 'KrowdyIconButton' })(IconButton)

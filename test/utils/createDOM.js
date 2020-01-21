@@ -2,8 +2,8 @@ const { JSDOM } = require('jsdom')
 const Node = require('jsdom/lib/jsdom/living/node-document-position')
 
 // We can use jsdom-global at some point if maintaining these lists is a burden.
-const whitelist = ['Element', 'HTMLElement', 'HTMLInputElement', 'Performance']
-const blacklist = ['sessionStorage', 'localStorage']
+const whitelist = [ 'Element', 'HTMLElement', 'HTMLInputElement', 'Performance' ]
+const blacklist = [ 'sessionStorage', 'localStorage' ]
 
 function createDOM() {
   const dom = new JSDOM('', { pretendToBeVisual: true })
@@ -13,11 +13,11 @@ function createDOM() {
   // Not yet supported: https://github.com/jsdom/jsdom/issues/317
   global.document.createRange = () => ({
     commonAncestorContainer: {
-      nodeName: 'BODY',
-      ownerDocument: document,
+      nodeName     : 'BODY',
+      ownerDocument: document
     },
-    setEnd: () => {},
-    setStart: () => {},
+    setEnd  : () => {},
+    setStart: () => {}
   })
   // Not yet supported: https://github.com/jsdom/jsdom/issues/2152
   class Touch {
@@ -48,16 +48,15 @@ function createDOM() {
   global.window.Touch = Touch
 
   global.navigator = {
-    userAgent: 'node.js',
+    userAgent: 'node.js'
   }
 
   Object.keys(dom.window)
     .filter(key => !blacklist.includes(key))
     .concat(whitelist)
     .forEach(key => {
-      if (typeof global[key] === 'undefined') {
+      if(typeof global[key] === 'undefined')
         global[key] = dom.window[key]
-      }
     })
 
   // required for wait-for-expect

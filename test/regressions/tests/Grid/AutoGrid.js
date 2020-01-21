@@ -6,12 +6,12 @@ import Grid from '@material-ui/core/Grid'
 
 const styles = {
   paper: {
-    padding: 16,
-    textAlign: 'center',
+    padding  : 16,
+    textAlign: 'center'
   },
   root: {
-    width: 400,
-  },
+    width: 400
+  }
 }
 
 function AutoGrid(props) {
@@ -46,7 +46,7 @@ function AutoGrid(props) {
 }
 
 AutoGrid.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 }
 
 export default withStyles(styles)(AutoGrid)

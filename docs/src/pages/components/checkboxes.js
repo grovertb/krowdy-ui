@@ -12,5 +12,5 @@ const reqSource = require.context(
 const reqPrefix = 'containers/components/checkboxes'
 
 export default function Checkboxes() {
-  return <MarkdownDocs req={req} reqSource={reqSource} reqPrefix={reqPrefix} />
+  return <MarkdownDocs req={req} reqPrefix={reqPrefix} reqSource={reqSource} />
 }

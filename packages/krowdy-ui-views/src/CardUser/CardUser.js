@@ -11,7 +11,7 @@ export const styles = () => ({
 
 const CardUser = props => {
   const {
-    title,
+    title
   } = props
 
   return (
@@ -26,7 +26,7 @@ const CardUser = props => {
 }
 
 CardUser.propTypes = {
-  title: PropTypes.string,
+  title: PropTypes.string
 }
 
 CardUser.muiName = 'CardUser'
