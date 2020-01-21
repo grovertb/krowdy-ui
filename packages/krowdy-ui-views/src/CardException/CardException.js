@@ -26,13 +26,29 @@ export const styles = theme => ({
   customChip: {
     marginRight: theme.spacing(2)
   },
+  gridContent: {
+    '& > div': {
+      // height: 20,
+      width: '100%'
+    },
+    '& > div:first-child': {
+      background: 'pink'
+    },
+    '& > div:last-child': {
+      background: 'orange'
+    },
+    background: 'gray',
+    display: 'grid',
+    gridGap: 20,
+    gridTemplateColumns: '1fr 1fr'
+  },
   list: {
     // background: 'pink',
     display: 'flex',
     flexDirection: 'column',
-    flexWrap: 'wrap',
+    // flexWrap: 'wrap',
     listStyle: 'none',
-    maxHeight: 100,
+    // maxHeight: 100,
     padding: 0
   },
   listItem: {
@@ -52,6 +68,9 @@ export const styles = theme => ({
     marginRight: theme.spacing(1),
     width: 8
   },
+  title: {
+    margin: theme.spacing(1, 0)
+  },
   topBarStatus: {
     alignItems: 'center',
     display: 'flex',
@@ -59,84 +78,92 @@ export const styles = theme => ({
     justifyContent: 'space-between',
     marginBottom: theme.spacing(2)
   }
-  // defaultAvatar: {
-  //   alignItems: 'center',
-  //   border: `solid 2px ${theme.palette.primary.main}`,
-  //   borderRadius: '50%',
-  //   display: 'flex',
-  //   fontSize: 14,
-  //   height: 48,
-  //   justifyContent: 'center',
-  //   // marginRight: theme.spacing(2),
-  //   width: 48
-  // },
-  // defaultAvatarNothing: {
-  //   background: theme.palette.grey[400]
-  // },
-  // image:{
-  //   border: `solid 2px ${theme.palette.primary.main}`,
-  //   borderRadius: '50%',
-  //   height: 48,
-  //   // marginRight: theme.spacing(2),
-  //   width: 48
-  // },
 })
 
-function CardException (props) {
+
+
+function CardException(props) {
   const {
-    classes
+    classes,
+    area = {},
+    candidate = {},
+    company = {},
+    dateTime = '',
+    group = {},
+    recruiter = {},
+    krowder = {},
+    statusException = '',
+    title = '',
+    type = null
   } = props
-  
+
   return (
     <Card className={classes.card}>
       <CardContent>
         <div className={classes.cardContent}>
           <div className={classes.topBarStatus}>
             <div className={classes.topBarStatusLeft}>
-              <Chip className={classes.customChip} label='Video EnTrevista' color='primary'/>
-              <span><small className={classes.statusPoint} /> Pendiente</span>
+              <Chip className={classes.customChip} label='Video EnTrevista' color='primary' />
+              <span><small className={classes.statusPoint} /> {statusException}</span>
             </div>
             <div className={classes.topBarStatusRight}>
               <Typography color='secondary' variant='h6'>
-                Ene, 12, 2019 - 2:00 PM
+                {dateTime}
               </Typography>
             </div>
           </div>
+
           <div className={classes.description}>
-            <Typography color='secondary' variant='h6'>Excepciòn 1</Typography>
-            <Typography color='secondary' variant='h5'>Tarea sin asignar, ejecución en 1 hora</Typography>
-            <ul className={classes.list}>
-              <li className={classes.listItem}>
-                <EmojiPeopleIcon color='primary' /> Krowder: Piero Rodriguez
-              </li>
-              <li className={classes.listItem}>
-                <PersonIcon color='primary' /> Jheyson Pedro Portocarrero Alfaro
-              </li>
-              <li className={classes.listItem}>
-                <WorkIcon color='primary' /> Administrador de Contratos Legales
-              </li>
-              <li className={classes.listItem}>
-                <BusinessIcon color='primary' /> Nestle Corp.
-              </li>
-              <li className={classes.listItem}>
-                <GroupIcon color='primary' /> Grupo en Carta
-              </li>
-            </ul>
+            <Typography color='secondary' variant='h6'>Excepciòn {type}</Typography>
+            <Typography className={classes.title} variant='h5'>{title}</Typography>
+            <div className={classes.gridContent}>
+              <div>
+                <ul className={classes.list}>
+                  {
+                    recruiter.hasOwnProperty('name') ?
+                      <li className={classes.listItem}>
+                        <EmojiPeopleIcon color='primary' /> {recruiter.name}
+                      </li> : null
+                  }
+                  {
+                    krowder.hasOwnProperty('name') ?
+                      <li className={classes.listItem}>
+                        <EmojiPeopleIcon color='primary' /> {krowder.name}
+                      </li> : null
+                  }
+                  {
+                    candidate.hasOwnProperty('name') ?
+                      <li className={classes.listItem}>
+                        <PersonIcon color='primary' /> {candidate.name}
+                      </li> : null
+                  }
+                  {
+                    area.hasOwnProperty('name') ?
+                      <li className={classes.listItem}>
+                        <WorkIcon color='primary' /> {area.name}
+                      </li> : null
+                  }
+                </ul>
+              </div>
+              <div>
+                <ul className={classes.list}>
+                  {
+                    company.hasOwnProperty('name') ?
+                      <li className={classes.listItem}>
+                        <BusinessIcon color='primary' /> {company.name}
+                      </li> : null
+                  }
+                  {
+                    group.hasOwnProperty('name') ?
+                      <li className={classes.listItem}>
+                        <GroupIcon color='primary' /> {group.name}
+                      </li> : null
+                  }
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
-        {/* <Typography className={classes.title} color='textSecondary' gutterBottom>
-          Word of the Day
-        </Typography>
-        <Typography variant='h5' component='h2'>
-        </Typography>
-        <Typography className={classes.pos} color='textSecondary'>
-          adjective
-        </Typography>
-        <Typography variant='body2' component='p'>
-          well meaning and kindly.
-          <br />
-          {'"a benevolent smile"'}
-        </Typography> */}
       </CardContent>
       <CardActions>
         <Button size='small'>Learn More</Button>
