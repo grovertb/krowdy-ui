@@ -23,15 +23,19 @@ import {
 	Select,
 	Popover,
 	makeStyles,
+	TableContainer,
+	IconButton,
+	Table as MuiTable,
 	Input
 } from '@krowdy-ui/core';
 // import KeyboardDatePicker from '@material-ui/lab/'
-import { Table as MuiTable, TableContainer, IconButton } from '@krowdy-ui/core/';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import SearchIcon from '@material-ui/icons/Search';
-import CheckIcon from '@material-ui/icons/Check';
-import CloseIcon from '@material-ui/icons/Close';
-import Autocomplete from '@material-ui/lab/Autocomplete';
+import {
+	MoreVert as MoreVertIcon,
+	Search as SearchIcon,
+	Check as CheckIcon,
+	Close as CloseIcon
+}  from '@material-ui/icons/';
+import Autocomplete from '@material-ui/lab/Autocomplete'
 
 const useStyles = makeStyles(theme => ({
 	container: {

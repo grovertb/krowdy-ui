@@ -35,6 +35,7 @@
     "@krowdy-ui/core": "0.0.28",
     "@loadable/component": "5.12.0",
     "@material-ui/icons": "4.5.1",
+    "@material-ui/lab": "^4.0.0-alpha.39",
     "xdate": "0.8.2"
   },
   "sideEffects": false,
