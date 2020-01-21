@@ -7,6 +7,18 @@ import {
 } from '@krowdy-ui/core'
 
 export const styles = theme => ({
+  icon: {
+    '&:focus': {
+      background: theme.palette.primary['50'],
+      borderRadius: 4,
+      color: theme.palette.primary['600']
+    },
+    '&:hover': {
+      background: theme.palette.primary['50'],
+      borderRadius: 4,
+      color: theme.palette.primary['400']
+    }
+  },
   input: {
     textAlign: 'center'
   },
@@ -43,6 +55,8 @@ const Counter = props => {
   return (
     <div >
       <IconButton
+        onDoubleClick={() => { }}
+        className={classes.icon}
         color='primary'
         disabled={disabled}
         onClick={() => {
@@ -65,6 +79,7 @@ const Counter = props => {
         {...restPropsInput}
       />
       <IconButton
+        className={classes.icon}
         color='primary'
         disabled={disabled}
         onClick={() => {

@@ -10,8 +10,8 @@ export default function () {
 
 	const [checked, setChecked] = React.useState(false)
 
-	const _handleChange = (event) => {
-		setChecked(event.target.checked)
+	const _handleChange = (_id, checked) => {
+		setChecked(checked)
 	}
 
 	return (
@@ -24,14 +24,16 @@ export default function () {
 			width: 'auto'
 		}}>
 			<CardCandidate
+				_id={1}
 				checked={checked}
-				// onChangeCheckbox={_handleChange}
+				onChangeCheckbox={_handleChange}
 				firstName={firstName}
 				lastName={lastName}
 				src={src} />
 			<CardCandidate
+				_id={2}
 				checked={checked}
-				// onChangeCheckbox={_handleChange}
+				onChangeCheckbox={_handleChange}
 				firstName={firstName}
 				lastName={lastName}
 				src={src2} />

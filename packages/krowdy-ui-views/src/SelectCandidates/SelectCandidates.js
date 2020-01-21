@@ -59,7 +59,6 @@ export const styles = theme => ({
 		display: 'flex',
 		justifyContent: 'center',
 		paddingRight: 23
-
 	},
 	infiniteScroll: {
 		'&::-webkit-box-shadow': {
@@ -249,21 +248,17 @@ const SelectCandidates = props => {
 					}
 					next={onNextCandidates}
 				>
-					{dataSource.map(({ _id, firstName, lastName, photo }) => (
-						<>
-							{CardCandidate ? (
-								<CardCandidate
-									_id={_id}
-									checked={candidatesSelectIds.includes(_id)}
-									firstName={firstName}
-									key={_id}
-									lastName={lastName}
-									onChangeCheckbox={onChangeCheckboxItem}
-									photo={photo}
-									className={classes.cardCandidate}
-								/>
-							) : <div></div>}
-						</>
+					{CardCandidate && dataSource.map(({ _id, firstName, lastName, photo }) => (
+						< CardCandidate
+							_id={_id}
+							checked={candidatesSelectIds.includes(_id)}
+							firstName={firstName}
+							key={_id}
+							lastName={lastName}
+							onChangeCheckbox={onChangeCheckboxItem}
+							photo={photo}
+							className={classes.cardCandidate}
+						/>
 					))}
 				</InfiniteScroll>
 

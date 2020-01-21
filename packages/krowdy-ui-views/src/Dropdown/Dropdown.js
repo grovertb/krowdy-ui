@@ -36,8 +36,8 @@ const Dropdown = props => {
 }
 
 Dropdown.propTypes = {
-  children: PropTypes.any,
-  content: PropTypes.any
+  children: PropTypes.any.isRequired,
+  content: PropTypes.any.isRequired
 }
 
 Dropdown.muiName = 'CardCandidate'

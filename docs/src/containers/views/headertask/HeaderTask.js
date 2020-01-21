@@ -61,7 +61,7 @@ export default function () {
           titleTask={titleTask}
           numberCandidates={numberCandidates}
           stageIndex={stageIndex}
-          _id={1}
+          _id={'1'}
         />
       </div>
       <div>
@@ -76,7 +76,7 @@ export default function () {
           titleTask={titleTask}
           numberCandidates={numberCandidates}
           stageIndex={stageIndex}
-          _id={1}
+          _id={'1'}
         />
       </div>
     </div >
