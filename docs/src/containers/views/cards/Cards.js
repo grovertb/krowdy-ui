@@ -67,8 +67,8 @@ export default function () {
       <Grid item xs={4} className={classes.item}>
         <CardContainer
           title='Tasks'
-          content={<div>Define cuáles de los campos del perfil del candidato deben ser
-             obligatorios y cuáles no deberían aparecer. cuáles no deberían aparecer</div>}
+          content='Define cuáles de los campos del perfil del candidato deben ser
+             obligatorios y cuáles no deberían aparecer. cuáles no deberían aparecer'
           disabledHover
           rightElement={<Close />
           }
@@ -77,8 +77,8 @@ export default function () {
       <Grid item xs={4} className={classes.item} >
         <CardContainer
           title='Tasks'
-          content={<div>Define cuáles de los campos del perfil del candidato deben ser
-             obligatorios y cuáles no deberían aparecer. cuáles no deberían aparecer</div>}
+          content='Define cuáles de los campos del perfil del candidato deben ser
+          obligatorios y cuáles no deberían aparecer.cuáles no deberían aparecer'
           avatar={<Avatar src='https://instaperfil.com/images/instaperfilseguidores.png' variant='square' />}
         />
       </Grid >

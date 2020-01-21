@@ -10,13 +10,11 @@ import {
 
 export const styles = theme => ({
   cardContent: {
+    '&:last-child': {
+      paddingBottom: 0
+    },
     align: 'left',
     color: theme.palette.grey['700'],
-    padding: theme.spacing(0, 3),
-  },
-  cardHeader: {
-    paddingBottom: theme.spacing(1),
-    paddingLeft: theme.spacing(2),
   },
   displayHover: {
     '&:hover': {
@@ -27,6 +25,10 @@ export const styles = theme => ({
   icon: {
     margin: theme.spacing(0, 1, 0, 5)
   },
+  lessStyle: {
+    margin: 0,
+    padding: 0,
+  },
   root: {
     border: `1px solid ${theme.palette.grey[300]}`,
     borderRadius: 8,
@@ -36,15 +38,18 @@ export const styles = theme => ({
     fontSize: 14,
     height: 'auto',
   },
+  sizePaddingmiddle: {
+    padding: 20
+  },
+  sizePaddingsmall: {
+    padding: 12
+  },
   title: {
     color: theme.palette.grey[800],
     fontSize: 14,
     fontWeight: 'bold',
     marginBottom: 0
   },
-  whitoutAvatar: {
-    paddingLeft: theme.spacing(3)
-  }
 })
 
 const CardTask = props => {
@@ -58,18 +63,19 @@ const CardTask = props => {
     cardHeaderProps,
     disabledHover,
     rightElement,
+    sizePadding = 'middle',
     onClick = () => { }
   } = props
 
 
   return (
-    <Card className={clsx(classes.root, { [classes.displayHover]: !disabledHover })}
+    <Card className={clsx(classes.root, classes.lessStyle, { [classes.displayHover]: !disabledHover }, classes[`sizePadding${sizePadding}`])}
       raised
       onClick={onClick}
       {...cardProps}
     >
       <CardHeader
-        className={clsx(classes.cardHeader, { [classes.whitoutAvatar]: !avatar })}
+        className={clsx(classes.lessStyle)}
         avatar={avatar}
         title={(title || typeof title === 'string')
           ? <div className={classes.title}>{title}</div>
@@ -77,7 +83,10 @@ const CardTask = props => {
         rightElement={rightElement}
         {...cardHeaderProps}
       />
-      <CardContent className={classes.cardContent} {...cardContentProps}>{content}</CardContent>
+      <CardContent
+        classes={{ root: classes.lessStyle }}
+        className={classes.cardContent}
+        {...cardContentProps}>{content}</CardContent>
     </Card>
   )
 }
@@ -88,7 +97,7 @@ CardTask.propTypes = {
   cardHeaderProps: PropTypes.object,
   cardProps: PropTypes.object,
   classes: PropTypes.object,
-  content: PropTypes.node,
+  content: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
   disabledHover: PropTypes.bool,
   onClick: PropTypes.func,
   rightElement: PropTypes.node,
