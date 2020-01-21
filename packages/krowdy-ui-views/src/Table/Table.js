@@ -131,11 +131,11 @@ const useStyles = makeStyles(theme => ({
 const Table = ({ 
 	titleTable,
 	titleButton,
-	sortTable,
 	pagination,
 	paymentAmount,
 	iconButton,
-	newCellProps,
+	newCellProps = {},
+	sortTable = {},
 	columns = [], 
 	rows = [],
 	searchSuggestions = [],
@@ -159,6 +159,8 @@ const Table = ({
 	onHandleToggleColumnTable = () => false,
 	onHandleAddNewCell = () => false
 }) => {
+	const { orderBy = '', sort = 'asc' } = sortTable
+	const validateNewCellProps = Object.keys(newCellProps).length
 	const classes = useStyles()
 	const inputSearch = useRef(null)
 	const [openMenu, setOpenMenu] = useState(null)
@@ -167,10 +169,10 @@ const Table = ({
 	const columnsActives = columns.filter(({ active }) => active)
 
 	useEffect(() => {
-		if (Object.keys(newCellProps).length){
+		if (validateNewCellProps){
 			setLocalNewCellProps(newCellProps)
 		}
-	}, [newCellProps])
+	}, [newCellProps, validateNewCellProps])
 
 	const _handleClickOpenMenu = event => {
 		setOpenMenu(event.currentTarget)
@@ -286,12 +288,12 @@ const Table = ({
 									key={id}
 									align={align}
 									style={{ minWidth }}
-									sortDirection={sortTable.orderBy === id ? sortTable.sort : false}
+									sortDirection={orderBy === id ? sort : false}
 								>
 									{withOrder && ordering ? (
 										<TableSortLabel
-											active={sortTable.orderBy === id}
-											direction={sortTable.orderBy === id ? sortTable.sort : 'asc'}
+											active={orderBy === id}
+											direction={orderBy === id ? sort : 'asc'}
 											onClick={() => _handleSortTable(id, sortTable)}
 										>
 											<Typography variant='body1' className={classes.headerTable}>{label}</Typography>
@@ -347,7 +349,7 @@ const Table = ({
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{enableAddCell ? (
+						{(enableAddCell && validateNewCellProps) ? (
 							 addNewCell ? (
 								 <TableRow>
 									{columnsActives.map(({ id, type, editable }, index) => {
@@ -468,14 +470,14 @@ Table.propTypes = {
 	iconButton: PropTypes.element,
 	newCellProps: PropTypes.object,
 	onHandleAddNewCell: PropTypes.func,
-	onHandleBtnAction: PropTypes.func.isRequired,
-	onHandleChangePage: PropTypes.func.isRequired,
-	onHandleChangeRowsPerPage: PropTypes.func.isRequired,
+	onHandleBtnAction: PropTypes.func,
+	onHandleChangePage: PropTypes.func,
+	onHandleChangeRowsPerPage: PropTypes.func,
 	onHandlePaymentButton: PropTypes.func,
-	onHandleSearch: PropTypes.func.isRequired,
-	onHandleSelectAll: PropTypes.func.isRequired,
-	onHandleSelectItem: PropTypes.func.isRequired,
-	onHandleSortTable: PropTypes.func.isRequired,
+	onHandleSearch: PropTypes.func,
+	onHandleSelectAll: PropTypes.func,
+	onHandleSelectItem: PropTypes.func,
+	onHandleSortTable: PropTypes.func,
 	onHandleToggleColumnTable: PropTypes.func,
 	pagination: PropTypes.shape({
 		currentPage: PropTypes.number.isRequired,
