@@ -92,6 +92,7 @@ CardTask.propTypes = {
   disabledHover: PropTypes.bool,
   onClick: PropTypes.func,
   rightElement: PropTypes.node,
+  sizePadding: PropTypes.oneOf(['small', 'middle']),
   title: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
 }
 

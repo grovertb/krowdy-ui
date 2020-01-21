@@ -14,7 +14,8 @@ export const styles = theme => ({
       backgroundColor: 'transparent'
     },
     margin: 0,
-    padding: 0
+    minWidth: 0,
+    padding: 0,
   },
   defaultColor: {
     backgroundColor: '#F2F4F7'
@@ -28,6 +29,7 @@ export const styles = theme => ({
   inputContent: {
     display: 'flex',
     flex: 1,
+    margin: '0 8px'
   },
   marginBottomStandar: {
     margin: '0 0 12px 0'
@@ -69,13 +71,13 @@ const CardUser = props => {
       <Grid
         tabIndex='-1'
         container
-        justify='space-around'
+        justify='space-between'
         alignItems='center'
       >
         <Grid className={clsx(classes.iconDragContainer, classes.top)} key='drag-icon' item>
           {(iconDrag) ? iconDrag : null}
         </Grid>
-        <Grid className={classes.inputContent} key='expand-section' item xs={10}>
+        <Grid className={classes.inputContent} key='expand-section' item >
           <ExpansionPanel classes={{ root: clsx(classes[color], classes.margins) }} onChange={onChange}>
             <ExpansionPanelSummary
               classes={{ root: classes.paddingLess }}
@@ -91,7 +93,7 @@ const CardUser = props => {
             </ExpansionPanelDetails>
           </ExpansionPanel>
         </Grid>
-        <Grid item className={classes.alignSelf}>
+        <Grid item className={clsx(classes.alignSelf, classes.paddingLess)}>
           {(iconRemove) ? <Button
             key='btn-delete'
             className={classes.button}

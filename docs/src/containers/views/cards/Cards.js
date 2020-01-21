@@ -92,7 +92,7 @@ export default function () {
               <span className={classes.cursive}>Selecciona el nivel que necesitas de esta competencia</span>
               <RadioForm
                 inputs={inputsRadios}
-                valueDefault='value2'
+                value='value2'
                 isRow />
               <span className={classes.text}>Capacidad para fijar politicas organizacionales y comunicarlas de manera clara y precisa en todos los niveles
               de la orgniazacion asi como tambien comunicar fracasos o acontecimientos negativos sin dobleces ni enganios, decir siempre

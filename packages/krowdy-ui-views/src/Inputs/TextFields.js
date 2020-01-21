@@ -29,7 +29,9 @@ export const styles = theme => ({
     alignItems: 'center',
     display: 'flex',
     flex: 1,
-    flexDirection: 'column'
+    flexDirection: 'column',
+    margin: '0 8px'
+
   },
   multiline: {
     paddingTop: 2
@@ -68,7 +70,7 @@ const InputComponent = (props) => {
       className={classes.divQuestion}
       tabIndex='-1'
       container
-      justify='space-around'
+      justify='space-between'
       alignItems='center'
     >
       <Grid className={clsx(classes.iconDragContainer)} item>
@@ -77,7 +79,7 @@ const InputComponent = (props) => {
       <span className={clsx(classes.order, classes.alignSelf)}>
         {(order > 0 && order < 10) ? `0${order}` : order}.
       </span>
-      <Grid className={classes.inputsContent} item xs={11}>
+      <Grid className={classes.inputsContent} item>
         <Input
           autoFocus
           classes={{

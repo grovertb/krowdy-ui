@@ -20,11 +20,11 @@ const InputsRadiosForm = props => {
     isRow,
     inputs,
     onChange = () => { },
-    valueDefault,
+    value,
     name
   } = props
 
-  const [value, setValue] = React.useState(valueDefault)
+  const [currentValue, setValue] = React.useState(value)
 
   const handleChange = event => {
     setValue(event.target.value)
@@ -32,7 +32,7 @@ const InputsRadiosForm = props => {
   }
 
   return (
-    <RadioGroup name={name} value={value} onChange={handleChange} row={isRow}>
+    <RadioGroup name={name} value={currentValue} onChange={handleChange} row={isRow}>
       {
         inputs.map((element, index) => {
           return (
@@ -56,7 +56,7 @@ InputsRadiosForm.propTypes = {
   isRow: PropTypes.bool,
   name: PropTypes.string,
   onChange: PropTypes.func,
-  valueDefault: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 }
 
 InputsRadiosForm.muiName = 'InputsRadiosForm'
