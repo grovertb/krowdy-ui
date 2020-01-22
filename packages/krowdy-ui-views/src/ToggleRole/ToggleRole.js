@@ -10,6 +10,7 @@ export const styles = theme => ({
   toggleContainer: {
     display       : 'flex',
     justifyContent: 'space-between',
+    marginBottom  : theme.spacing(2),
     width         : '100%'
   },
   toggleLeft: {
@@ -33,7 +34,7 @@ function ToggleRole(props) {
     <div className={classes.toggleContainer}>
       <div className={classes.toggleLeft}>
         <Typography color='body' gutterBottom variant='h6'>{title}</Typography>
-        <Typography color='body' variant='body1'>{subtitle}</Typography>
+        <Typography color='body' gutterBottom variant='body1'>{subtitle}</Typography>
       </div>
       <div className={classes.toggleRight}>
         <Switch
