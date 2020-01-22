@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@krowdy-ui/styles'
 import clsx from 'clsx'
@@ -6,7 +6,6 @@ import {
   Input,
   Card,
   Chip,
-  // CardActions,
   InputAdornment,
   TextField,
   CardContent,
@@ -23,11 +22,18 @@ import {
   Work as WorkIcon,
   Business as BusinessIcon,
   Group as GroupIcon,
-  EmojiPeople as EmojiPeopleIcon
+  EmojiPeople as EmojiPeopleIcon,
+  CheckCircle as CheckCircleIcon
 } from '@material-ui/icons'
 
 export const styles = theme => ({
   actions: {
+    '& > button': {
+      marginRight: theme.spacing(2)
+    },
+    '& > button:last-child': {
+      marginRight: 0
+    },
     display       : 'flex',
     justifyContent: 'flex-end',
     marginTop     : theme.spacing(2)
@@ -54,22 +60,36 @@ export const styles = theme => ({
   customChip: {
     marginRight: theme.spacing(2)
   },
+  iconAdornment: {
+    height  : 20,
+    position: 'absolute',
+    right   : 0,
+    width   : 20
+  },
   iconInput: {
+    cursor  : 'pointer',
     fontSize: '1rem'
   },
   inputSearch: {
     '& * input': {
       fontSize: 14,
-      padding : '12px 10px !important'
+      padding : '6px 0 7px !important'
     },
     '& > div': {
-      padding: '0 14px 0 0 !important'
+      height : 32,
+      padding: '0 2px 0 0 !important'
     },
     '& fieldset': {
       border      : 'none',
-      borderBottom: '1px solid'
+      borderBottom: `1px solid ${theme.palette.grey[600]}`,
+      borderRadius: 0
     },
-    margin: '2px 0'
+    '&:hover': {
+      '& fieldset': {
+        borderWidth: 2
+      }
+    },
+    margin: '0'
   },
   list: {
     display            : 'grid',
@@ -78,6 +98,10 @@ export const styles = theme => ({
     gridTemplateColumns: '1fr 1fr',
     listStyle          : 'none',
     padding            : 0
+  },
+  listColumn: {
+    gridGap            : 0,
+    gridTemplateColumns: '1fr'
   },
   listItem: {
     '& > svg': {
@@ -89,10 +113,13 @@ export const styles = theme => ({
     marginBottom : theme.spacing(1)
   },
   notShow: {
+    height    : 0,
     opacity   : 0,
+    overflow  : 'hidden',
     transition: 'all .2s ease-in'
   },
   show: {
+    height : 'auto',
     opacity: 1
   },
   statusPoint: {
@@ -125,21 +152,31 @@ export const styles = theme => ({
 function CardException(props) {
   const {
     classes,
-    area = {},
-    candidate = {},
-    company = {},
+    area = '',
+    candidate = '',
+    company = '',
     dateTime = '',
-    group = {},
-    recruiter = {},
-    krowder = {},
+    group = '',
+    recruiter = '',
+    krowder = '',
+    actions = true,
     statusException = '',
+    resolved = '',
     title = '',
     type = null,
     listStyle = 'row',
-    suggestion = []
+    krowderSelected = '',
+    suggestion = [],
+    onArchived,
+    onResolved,
+    onSendPull,
+    onUnlockTask
   } = props
 
   const [ open, setOpen ] = useState(true)
+  const [ krowderSelectedState, setKrowderSelectedState ] = useState(krowderSelected)
+  const inputRef = useRef(null)
+  const autoCompleteRef = useRef(null)
 
   const renderStatusException = (statusException) => {
     switch (statusException) {
@@ -168,6 +205,167 @@ function CardException(props) {
             classes.statusPointPending
           )
         } /> Pendiente</span>
+    }
+  }
+
+  const renderBottons = (type) => {
+    switch (type) {
+      case 1:
+      case 2:
+        return <div className={classes.actions}>
+          <Button color='primary' onClick={() => onArchived(props)} variant='text'>Archivar</Button>
+          <Button
+            color='primary' disabled={krowderSelected === krowderSelectedState ? true : false} onClick={() => onResolved({
+              ...props,
+              krowderSelected: inputRef.current.value
+            })}
+            variant='contained'>Resolver</Button>
+        </div>
+
+      case 3:
+      case 4:
+      case 8:
+      case 9:
+      case 10:
+        return <div className={classes.actions}>
+          <Button color='primary' onClick={() => onArchived(props)} variant='text'>Archivar</Button>
+          <Button color='primary' onClick={onSendPull} variant='outlined'>Enviar al Pool</Button>
+          <Button
+            color='primary' disabled={krowderSelected === krowderSelectedState ? true : false} onClick={() => onResolved({
+              ...props,
+              krowderSelected: inputRef.current.value
+            })}
+            variant='contained'>Resolver</Button>
+        </div>
+
+      case 5:
+      case 6:
+        return <div className={classes.actions}>
+          <Button color='primary' onClick={() => onArchived(props)} variant='text'>Archivar</Button>
+          <Button color='primary' onClick={() => onUnlockTask(props)} variant='outlined'>Desbloquear tarea</Button>
+          <Button
+            color='primary' disabled={krowderSelected === krowderSelectedState ? true : false} onClick={() => onResolved({
+              ...props,
+              krowderSelected: inputRef.current.value
+            })}
+            variant='contained'>Resolver</Button>
+        </div>
+
+      case 7:
+      case 11:
+        return <div className={classes.actions}>
+          <Button color='primary' onClick={() => onArchived(props)} variant='text'>Archivar</Button>
+          <Button color='primary' onClick={() => onUnlockTask(props)} variant='contained'>Desbloquear tarea</Button>
+        </div>
+
+      default:
+        return null
+    }
+  }
+
+  const renderInputs = type => {
+    switch (type) {
+      case 1:
+      case 2:
+      case 5:
+      case 6:
+
+        return <>
+          <FormControl className={clsx(classes.margin, classes.withoutLabel, classes.textField)}>
+            <Input
+              endAdornment={<EditIcon className={classes.iconInput} />} />
+            <FormHelperText>Horario agendado</FormHelperText>
+          </FormControl>
+
+          <FormControl>
+
+            <Autocomplete
+              noOptionsText='No hay coincidencias'
+              onInputChange={(ev, value) => {
+                inputRef.current.blur()
+                setKrowderSelectedState(value)
+              }}
+              options={suggestion.map(option => option.name)}
+              ref={autoCompleteRef}
+              renderInput={params =>
+                (
+                  <TextField
+                    {...params}
+                    className={classes.inputSearch}
+                    fullWidth
+                    InputLabelProps={{ shrink: false }}
+                    InputProps={{
+                      ...params.InputProps,
+                      endAdornment: (
+                        <InputAdornment className={classes.iconAdornment} position='end'>
+                          {
+                            params.inputProps.value ?
+                              <EditIcon className={classes.iconInput} onClick={() => autoCompleteRef.current.click()} /> :
+                              <SearchIcon className={classes.iconInput} onClick={() => autoCompleteRef.current.click()} />
+                          }
+                        </InputAdornment>
+                      )
+                    }}
+                    inputRef={inputRef}
+                    placeholder='Buscar'
+                    variant='outlined' />
+                )
+              }
+              value={krowderSelectedState} />
+
+            <FormHelperText>Buscar un Krowder o agrega un responsable</FormHelperText>
+          </FormControl>
+        </>
+
+      case 3:
+      case 4:
+      case 8:
+      case 9:
+      case 10:
+
+        return <>
+          <FormControl>
+
+            <Autocomplete
+              noOptionsText='No hay coincidencias'
+              onInputChange={(ev, value) => {
+                inputRef.current.blur()
+                setKrowderSelectedState(value)
+              }}
+              options={suggestion.map(option => option.name)}
+              ref={autoCompleteRef}
+              renderInput={params =>
+                (
+                  <TextField
+                    {...params}
+                    className={classes.inputSearch}
+                    fullWidth
+                    InputLabelProps={{ shrink: false }}
+                    InputProps={{
+                      ...params.InputProps,
+                      endAdornment: (
+                        <InputAdornment className={classes.iconAdornment} position='end'>
+                          {
+                            params.inputProps.value ?
+                              <EditIcon className={classes.iconInput} onClick={() => autoCompleteRef.current.click()} /> :
+                              <SearchIcon className={classes.iconInput} onClick={() => autoCompleteRef.current.click()} />
+                          }
+                        </InputAdornment>
+                      )
+                    }}
+                    inputRef={inputRef}
+                    placeholder='Buscar'
+                    variant='outlined' />
+                )
+              }
+              value={krowderSelectedState} />
+
+            <FormHelperText>Buscar un Krowder o agrega un responsable</FormHelperText>
+          </FormControl>
+        </>
+
+      default:
+        return null
     }
   }
 
@@ -201,27 +399,27 @@ function CardException(props) {
                   <ul className={classes.list}>
                     <div>
                       {
-                        recruiter.hasOwnProperty('name') ?
+                        recruiter ?
                           <li className={classes.listItem}>
-                            <EmojiPeopleIcon color='primary' /> {recruiter.name}
+                            <EmojiPeopleIcon color='primary' /> {recruiter}
                           </li> : null
                       }
                       {
-                        krowder.hasOwnProperty('name') ?
+                        krowder ?
                           <li className={classes.listItem}>
-                            <EmojiPeopleIcon color='primary' /> {krowder.name}
+                            <EmojiPeopleIcon color='primary' /> {krowder}
                           </li> : null
                       }
                       {
-                        candidate.hasOwnProperty('name') ?
+                        candidate ?
                           <li className={classes.listItem}>
-                            <PersonIcon color='primary' /> {candidate.name}
+                            <PersonIcon color='primary' /> {candidate}
                           </li> : null
                       }
                       {
-                        area.hasOwnProperty('name') ?
+                        area ?
                           <li className={classes.listItem}>
-                            <WorkIcon color='primary' /> {area.name}
+                            <WorkIcon color='primary' /> {area}
                           </li> : null
                       }
                     </div>
@@ -232,23 +430,27 @@ function CardException(props) {
                       )
                     }>
                       {
-                        company.hasOwnProperty('name') ?
+                        company ?
                           <li className={classes.listItem}>
-                            <BusinessIcon color='primary' /> {company.name}
+                            <BusinessIcon color='primary' /> {company}
                           </li> : null
                       }
                       {
-                        group.hasOwnProperty('name') ?
+                        group ?
                           <li className={classes.listItem}>
-                            <GroupIcon color='primary' /> {group.name}
+                            <GroupIcon color='primary' /> {group}
                           </li> : null
                       }
                     </div>
                   </ul> :
-
-                  <ul className={classes.list}>
+                  <ul className={clsx(
+                    classes.list,
+                    {
+                      [classes.listColumn]: listStyle === 'column'
+                    }
+                  )}>
                     <li className={classes.listItem}>
-                      <EmojiPeopleIcon color='primary' /> {recruiter.name}
+                      <CheckCircleIcon color='primary' />Resuelto por: {resolved}
                     </li>
                     <div className={
                       clsx(
@@ -257,39 +459,39 @@ function CardException(props) {
                       )
                     }>
                       {
-                        recruiter.hasOwnProperty('name') ?
+                        recruiter ?
                           <li className={classes.listItem}>
-                            <EmojiPeopleIcon color='primary' /> {recruiter.name}
+                            <EmojiPeopleIcon color='primary' /> {recruiter}
                           </li> : null
                       }
                       {
-                        krowder.hasOwnProperty('name') ?
+                        krowder ?
                           <li className={classes.listItem}>
-                            <EmojiPeopleIcon color='primary' /> {krowder.name}
+                            <EmojiPeopleIcon color='primary' /> {krowder}
                           </li> : null
                       }
                       {
-                        candidate.hasOwnProperty('name') ?
+                        candidate ?
                           <li className={classes.listItem}>
-                            <PersonIcon color='primary' /> {candidate.name}
+                            <PersonIcon color='primary' /> {candidate}
                           </li> : null
                       }
                       {
-                        area.hasOwnProperty('name') ?
+                        area ?
                           <li className={classes.listItem}>
-                            <WorkIcon color='primary' /> {area.name}
+                            <WorkIcon color='primary' /> {area}
                           </li> : null
                       }
                       {
-                        company.hasOwnProperty('name') ?
+                        company ?
                           <li className={classes.listItem}>
-                            <BusinessIcon color='primary' /> {company.name}
+                            <BusinessIcon color='primary' /> {company}
                           </li> : null
                       }
                       {
-                        group.hasOwnProperty('name') ?
+                        group ?
                           <li className={classes.listItem}>
-                            <GroupIcon color='primary' /> {group.name}
+                            <GroupIcon color='primary' /> {group}
                           </li> : null
                       }
                     </div>
@@ -298,60 +500,21 @@ function CardException(props) {
             </div>
           </div>
 
-          <div className={clsx(
-            classes.contentShow,
-            {
-              [classes.contentShowActive]: open
-            }
-          )}>
-            <div className={classes.contentInputs}>
-              <FormControl className={clsx(classes.margin, classes.withoutLabel, classes.textField)}>
-                <Input
-                  endAdornment={<EditIcon className={classes.iconInput} />} />
-                <FormHelperText>Horario agendado</FormHelperText>
-              </FormControl>
+          {
+            actions ?
+              <div className={clsx(
+                classes.contentShow,
+                {
+                  [classes.contentShowActive]: open
+                }
+              )}>
+                <div className={classes.contentInputs}>
+                  {renderInputs(type)}
+                </div>
+                {renderBottons(type)}
+              </div> : null
+          }
 
-              <FormControl>
-
-                <Autocomplete
-                  noOptionsText='No hay coincidencias'
-                  options={suggestion.map(option => option.name)}
-                  popupIcon={<SearchIcon />}
-                  renderInput={params => {
-                    console.log('Xavi :) ===> :(: CardException -> params', params)
-
-                    return (
-                      <TextField
-                        {...params}
-                        className={classes.inputSearch}
-                        fullWidth
-                        id='input-with-icon-textfield'
-                        InputLabelProps={{ shrink: false }}
-                        InputProps={{
-                          ...params.InputProps,
-                          endAdornment: (
-                            <InputAdornment position='end'>
-                              {
-                                params.inputProps.value ?
-                                  <EditIcon className={classes.iconInput} onClick={() => {}} /> :
-                                  <SearchIcon className={classes.iconInput} onClick={() => {}} />
-                              }
-                            </InputAdornment>
-                          )
-                        }}
-                        placeholder='Buscar'
-                        variant='outlined' />
-                    )
-                  }}
-                  style={{ width: 400 }} />
-
-                <FormHelperText>Buscar un Krowder o agrega un responsable</FormHelperText>
-              </FormControl>
-            </div>
-            <div className={classes.actions}>
-              <Button color='primary' variant='contained'>Resolver</Button>
-            </div>
-          </div>
         </div>
       </CardContent>
     </Card>
