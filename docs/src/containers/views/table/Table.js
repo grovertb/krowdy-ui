@@ -239,14 +239,15 @@ export default function () {
         columns={columns}
         enableAddCell={true}
         iconButton={<AddIcon />}
+        // maxHeight={400}
         newCellProps={newCellProps}
         onHandleAddNewCell={_handleAddNewCell}
         onHandleBtnAction={_handleBtnAction}
         onHandleChangePage={_handleChangePage}
         onHandleChangeRowsPerPage={_handleChangeRowsPerPage}
         onHandlePaymentButton={_handlePaymentButton}
-        onHandleSearch={_handleSearch}
         // titleTable='Tabla de Krowders'
+        onHandleSearch={_handleSearch}
         onHandleSelectAll={_handleSelectAll}
         onHandleSelectItem={_handleSelectItem}
         onHandleSortTable={_handleSortTable}

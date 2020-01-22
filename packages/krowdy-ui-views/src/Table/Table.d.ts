@@ -65,6 +65,7 @@ export type TableProps = {
 	enableAddCell?: boolean
 	stickyHeader?: boolean
 	paymentAmount?: number
+	maxHeight?: number | string
 	iconButton?: React.ReactNode
 	newCellProps?: IMultipleProps
 	searchSuggestions?: Array<IMultipleProps>

@@ -42,8 +42,8 @@ const useStyles = makeStyles(theme => ({
     width   : '100px'
   },
   container: {
-    maxHeight: 200,
-    overflow : 'auto'
+    // maxHeight: 200,
+    // overflow : 'auto'
   },
   containerHeaderTable: {
     padding: theme.spacing(2)
@@ -139,6 +139,7 @@ const Table = ({
   titleButton,
   paymentAmount,
   iconButton,
+  maxHeight = 'auto',
   pagination = {},
   newCellProps = {},
   sortTable = {},
@@ -273,7 +274,7 @@ const Table = ({
           </div>
         ) : null
       }
-      <TableContainer className={classes.container}>
+      <TableContainer className={classes.container} style={{ maxHeight }} >
         <MuiTable aria-label='sticky table' stickyHeader={stickyHeader}>
           <TableHead className={classes.tableHead}>
             <TableRow>
@@ -471,6 +472,7 @@ Table.propTypes = {
   ).isRequired,
   enableAddCell            : PropTypes.bool,
   iconButton               : PropTypes.element,
+  maxHeight                : PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]),
   newCellProps             : PropTypes.object,
   onHandleAddNewCell       : PropTypes.func,
   onHandleBtnAction        : PropTypes.func,
