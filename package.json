@@ -92,8 +92,7 @@
   },
   "lint-staged": {
     "{src,server,docs,packages}/**/*.js": [
-      "eslint . --ext .js --fix",
-      "git add"
+      "eslint . --ext .js --fix"
     ]
   }
 }
