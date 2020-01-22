@@ -30,20 +30,19 @@ async function createModulePackages({ from, to }) {
   await Promise.all(
     directoryPackages.map(async directoryPackage => {
       const packageJson = {
-        module: path.join('../esm', directoryPackage, 'index.js'),
+        module     : path.join('../esm', directoryPackage, 'index.js'),
         sideEffects: false,
-        typings: './index.d.ts',
+        typings    : './index.d.ts'
       }
       const packageJsonPath = path.join(to, directoryPackage, 'package.json')
 
-      const [typingsExist] = await Promise.all([
+      const [ typingsExist ] = await Promise.all([
         fse.exists(path.join(to, directoryPackage, 'index.d.ts')),
-        fse.writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2)),
+        fse.writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2))
       ])
 
-      if (!typingsExist) {
+      if(!typingsExist)
         throw new Error(`index.d.ts for ${directoryPackage} is missing`)
-      }
 
       return packageJsonPath
     }),
@@ -51,13 +50,15 @@ async function createModulePackages({ from, to }) {
 }
 
 async function typescriptCopy({ from, to }) {
-  if (!(await fse.exists(to))) {
+  if(!(await fse.exists(to))) {
     console.warn(`path ${to} does not exists`)
+
     return []
   }
 
   const files = glob.sync('**/*.d.ts', { cwd: from })
   const cmds = files.map(file => fse.copy(path.resolve(from, file), path.resolve(to, file)))
+
   return Promise.all(cmds)
 }
 
@@ -68,10 +69,10 @@ async function createPackageFile() {
   )
   const newPackageData = {
     ...packageDataOther,
-    main: './index.js',
-    module: './esm/index.js',
+    main     : './index.js',
+    module   : './esm/index.js',
     'private': false,
-    typings: './index.d.ts',
+    typings  : './index.d.ts'
   }
   const targetPath = path.resolve(buildPath, './package.json')
 
@@ -98,16 +99,15 @@ async function addLicense(packageData) {
       './index.js',
       './esm/index.js',
       './umd/krowdy-ui.development.js',
-      './umd/krowdy-ui.production.min.js',
+      './umd/krowdy-ui.production.min.js'
     ].map(async file => {
       try {
         await prepend(path.resolve(buildPath, file), license)
       } catch (err) {
-        if (err.code === 'ENOENT') {
+        if(err.code === 'ENOENT')
           console.log(`Skipped license for ${file}`)
-        } else {
+        else
           throw err
-        }
       }
     }),
   )
@@ -122,7 +122,7 @@ async function run() {
         // use enhanced readme from workspace root for `@krowdy-ui/core`
         packageData.name === '@krowdy-ui/core' ? '../../README.md' : './README.md',
         '../../CHANGELOG.md',
-        '../../LICENSE',
+        '../../LICENSE'
       ].map(file => includeFileInBuild(file)),
     )
 

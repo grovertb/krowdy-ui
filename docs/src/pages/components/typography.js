@@ -12,5 +12,5 @@ const reqSource = require.context(
 const reqPrefix = 'containers/components/typography'
 
 export default function Typography() {
-  return <MarkdownDocs req={req} reqSource={reqSource} reqPrefix={reqPrefix} />
+  return <MarkdownDocs req={req} reqPrefix={reqPrefix} reqSource={reqSource} />
 }

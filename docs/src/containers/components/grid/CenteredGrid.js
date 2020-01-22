@@ -4,13 +4,13 @@ import { Paper, Grid } from '@krowdy-ui/core'
 
 const useStyles = makeStyles(theme => ({
   paper: {
-    color: theme.palette.text.secondary,
-    padding: theme.spacing(2),
-    textAlign: 'center',
+    color    : theme.palette.text.secondary,
+    padding  : theme.spacing(2),
+    textAlign: 'center'
   },
   root: {
-    flexGrow: 1,
-  },
+    flexGrow: 1
+  }
 }))
 
 export default function CenteredGrid() {

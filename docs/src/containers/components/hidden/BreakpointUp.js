@@ -5,18 +5,18 @@ import { Paper, Hidden, withWidth, Typography } from '@krowdy-ui/core'
 
 const useStyles = makeStyles(theme => ({
   container: {
-    display: 'flex',
+    display: 'flex'
   },
   paper: {
-    color: theme.palette.text.secondary,
-    flex: '1 0 auto',
-    margin: theme.spacing(1),
-    padding: theme.spacing(2),
-    textAlign: 'center',
+    color    : theme.palette.text.secondary,
+    flex     : '1 0 auto',
+    margin   : theme.spacing(1),
+    padding  : theme.spacing(2),
+    textAlign: 'center'
   },
   root: {
-    flexGrow: 1,
-  },
+    flexGrow: 1
+  }
 }))
 
 function BreakpointUp(props) {
@@ -48,7 +48,7 @@ function BreakpointUp(props) {
 }
 
 BreakpointUp.propTypes = {
-  width: PropTypes.oneOf(['lg', 'md', 'sm', 'xl', 'xs']).isRequired,
+  width: PropTypes.oneOf([ 'lg', 'md', 'sm', 'xl', 'xs' ]).isRequired
 }
 
 export default withWidth()(BreakpointUp)

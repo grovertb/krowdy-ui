@@ -14,31 +14,31 @@ const useStyles = makeStyles(theme => ({
     '&$checked': {
       '&:hover': {
         '@media (hover: none)': {
-          backgroundColor: 'transparent',
+          backgroundColor: 'transparent'
         },
         // Reset on touch devices, it doesn't add specificity
-        backgroundColor: fade(theme.palette.error.main, theme.palette.action.hoverOpacity),
+        backgroundColor: fade(theme.palette.error.main, theme.palette.action.hoverOpacity)
       },
-      color: theme.palette.error.main,
+      color: theme.palette.error.main
     },
     '&$disabled': {
-      color: theme.palette.action.disabled,
-    },
+      color: theme.palette.action.disabled
+    }
   },
   colorKrowdy: {
     '&$checked': {
       '&:hover': {
         '@media (hover: none)': {
-          backgroundColor: 'transparent',
+          backgroundColor: 'transparent'
         },
         // Reset on touch devices, it doesn't add specificity
-        backgroundColor: fade(theme.palette.krowdy.main, theme.palette.action.hoverOpacity),
+        backgroundColor: fade(theme.palette.krowdy.main, theme.palette.action.hoverOpacity)
       },
-      color: theme.palette.krowdy.main,
+      color: theme.palette.krowdy.main
     },
     '&$disabled': {
-      color: theme.palette.action.disabled,
-    },
+      color: theme.palette.action.disabled
+    }
   },
   disabled: {
   }
@@ -47,9 +47,9 @@ const useStyles = makeStyles(theme => ({
 })
 
 function Checkbox({
-  color = 'secondary', 
-  classes: classesProps = {}, 
-  className: classNameProps = {}, 
+  color = 'secondary',
+  classes: classesProps = {},
+  className: classNameProps = {},
   ...props
 }) {
   const classes = useStyles()
@@ -63,20 +63,20 @@ function Checkbox({
 
   return (
     <MuiCheckbox
-    className={className}
-    color={color}
-    classes={{
-      ...classesProps,
-      checked: clsx(
-        classesProps.checked,
-        classes.checked
-      ),
-      disabled: clsx(
-        classesProps.disabled,
-        classes.disabled
-      )
-    }}
-    {...props} />
+      classes={{
+        ...classesProps,
+        checked: clsx(
+          classesProps.checked,
+          classes.checked
+        ),
+        disabled: clsx(
+          classesProps.disabled,
+          classes.disabled
+        )
+      }}
+      className={className}
+      color={color}
+      {...props} />
   )
 }
 
@@ -88,11 +88,11 @@ Checkbox.propTypes = {
   /**
    * @ignore
    */
-  classes: PropTypes.object,
+  classes  : PropTypes.object,
   /**
    * The color of the component. It supports those theme colors that make sense for this component.
    */
-  color: PropTypes.oneOf(['primary', 'secondary', 'default', 'krowdy', 'error']),
+  color    : PropTypes.oneOf([ 'primary', 'secondary', 'default', 'krowdy', 'error' ])
 }
 
 export default Checkbox

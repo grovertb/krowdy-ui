@@ -9,18 +9,17 @@
  * @returns {number} A number in the range [min, max]
  */
 function clamp(value, min = 0, max = 1) {
-  if (process.env.NODE_ENV !== 'production') {
-    if (value < min || value > max) {
+  if(process.env.NODE_ENV !== 'production')
+    if(value < min || value > max) {
       console.error(`Material-UI: the value provided ${value} is out of range [${min}, ${max}].`)
     }
-  }
 
-  if (value < min) {
+  if(value < min)
     return min
-  }
-  if (value > max) {
+
+  if(value > max)
     return max
-  }
+
   return value
 }
 
@@ -36,15 +35,15 @@ export function hexToRgb(color) {
   const re = new RegExp(`.{1,${color.length / 3}}`, 'g')
   let colors = color.match(re)
 
-  if (colors && colors[0].length === 1) {
+  if(colors && colors[0].length === 1)
     colors = colors.map(n => n + n)
-  }
 
   return colors ? `rgb(${colors.map(n => parseInt(n, 16)).join(', ')})` : ''
 }
 
 function intToHex(int) {
   const hex = int.toString(16)
+
   return hex.length === 1 ? `0${hex}` : hex
 }
 
@@ -56,11 +55,11 @@ function intToHex(int) {
  */
 export function rgbToHex(color) {
   // Idempotent
-  if (color.indexOf('#') === 0) {
+  if(color.indexOf('#') === 0)
     return color
-  }
 
   const { values } = decomposeColor(color)
+
   return `#${values.map(n => intToHex(n)).join('')}`
 }
 
@@ -80,9 +79,9 @@ export function hslToRgb(color) {
   const f = (n, k = (n + h / 30) % 12) => l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1)
 
   let type = 'rgb'
-  const rgb = [Math.round(f(0) * 255), Math.round(f(8) * 255), Math.round(f(4) * 255)]
+  const rgb = [ Math.round(f(0) * 255), Math.round(f(8) * 255), Math.round(f(4) * 255) ]
 
-  if (color.type === 'hsla') {
+  if(color.type === 'hsla') {
     type += 'a'
     rgb.push(values[3])
   }
@@ -100,25 +99,22 @@ export function hslToRgb(color) {
  */
 export function decomposeColor(color) {
   // Idempotent
-  if (color.type) {
+  if(color.type)
     return color
-  }
 
-  if (color.charAt(0) === '#') {
+  if(color.charAt(0) === '#')
     return decomposeColor(hexToRgb(color))
-  }
 
   const marker = color.indexOf('(')
   const type = color.substring(0, marker)
 
-  if (['rgb', 'rgba', 'hsl', 'hsla'].indexOf(type) === -1) {
+  if([ 'rgb', 'rgba', 'hsl', 'hsla' ].indexOf(type) === -1)
     throw new Error(
       [
         `Material-UI: unsupported \`${color}\` color.`,
-        'We support the following formats: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla().',
+        'We support the following formats: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla().'
       ].join('\n'),
     )
-  }
 
   let values = color.substring(marker + 1, color.length - 1).split(',')
   values = values.map(value => parseFloat(value))
@@ -138,10 +134,10 @@ export function recomposeColor(color) {
   const { type } = color
   let { values } = color
 
-  if (type.indexOf('rgb') !== -1) {
+  if(type.indexOf('rgb') !== -1) {
     // Only convert the first 3 values to int (i.e. not alpha)
     values = values.map((n, i) => (i < 3 ? parseInt(n, 10) : n))
-  } else if (type.indexOf('hsl') !== -1) {
+  } else if(type.indexOf('hsl') !== -1) {
     values[1] = `${values[1]}%`
     values[2] = `${values[2]}%`
   }
@@ -161,6 +157,7 @@ export function recomposeColor(color) {
 export function getContrastRatio(foreground, background) {
   const lumA = getLuminance(foreground)
   const lumB = getLuminance(background)
+
   return (Math.max(lumA, lumB) + 0.05) / (Math.min(lumA, lumB) + 0.05)
 }
 
@@ -179,6 +176,7 @@ export function getLuminance(color) {
   let rgb = color.type === 'hsl' ? decomposeColor(hslToRgb(color)).values : color.values
   rgb = rgb.map(val => {
     val /= 255 // normalized
+
     return val <= 0.03928 ? val / 12.92 : ((val + 0.055) / 1.055) ** 2.4
   })
 
@@ -210,9 +208,9 @@ export function fade(color, value) {
   color = decomposeColor(color)
   value = clamp(value)
 
-  if (color.type === 'rgb' || color.type === 'hsl') {
+  if(color.type === 'rgb' || color.type === 'hsl')
     color.type += 'a'
-  }
+
   color.values[3] = value
 
   return recomposeColor(color)
@@ -229,13 +227,12 @@ export function darken(color, coefficient) {
   color = decomposeColor(color)
   coefficient = clamp(coefficient)
 
-  if (color.type.indexOf('hsl') !== -1) {
+  if(color.type.indexOf('hsl') !== -1)
     color.values[2] *= 1 - coefficient
-  } else if (color.type.indexOf('rgb') !== -1) {
-    for (let i = 0; i < 3; i += 1) {
+  else if(color.type.indexOf('rgb') !== -1)
+    for (let i = 0; i < 3; i += 1)
       color.values[i] *= 1 - coefficient
-    }
-  }
+
   return recomposeColor(color)
 }
 
@@ -250,13 +247,11 @@ export function lighten(color, coefficient) {
   color = decomposeColor(color)
   coefficient = clamp(coefficient)
 
-  if (color.type.indexOf('hsl') !== -1) {
+  if(color.type.indexOf('hsl') !== -1)
     color.values[2] += (100 - color.values[2]) * coefficient
-  } else if (color.type.indexOf('rgb') !== -1) {
-    for (let i = 0; i < 3; i += 1) {
+  else if(color.type.indexOf('rgb') !== -1)
+    for (let i = 0; i < 3; i += 1)
       color.values[i] += (255 - color.values[i]) * coefficient
-    }
-  }
 
   return recomposeColor(color)
 }

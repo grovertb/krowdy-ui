@@ -4,12 +4,11 @@ import LinearProgress from '@material-ui/core/LinearProgress'
 export default function DeterminateLinearProgress() {
   return (
     <LinearProgress
-      variant='buffer'
+      style={{
+        width: 150
+      }}
       value={60}
       valueBuffer={80}
-      style={{
-        width: 150,
-      }}
-    />
+      variant='buffer' />
   )
 }

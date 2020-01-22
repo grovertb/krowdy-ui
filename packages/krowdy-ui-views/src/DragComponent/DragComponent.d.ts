@@ -1,9 +1,9 @@
-export type QuestionaryProps = {
+export type DragComponentProps = {
   addInputComponent: any;
   classes: Object;
   onItemsOrdered: (items: any[]) => void;
 };
 
-declare const Questionary: React.ComponentType<QuestionaryProps>;
+declare const DragComponent: React.ComponentType<DragComponentProps>;
 
-export default Questionary;
+export default DragComponent;

@@ -9,9 +9,9 @@ import MoreVertIcon from '@material-ui/icons/MoreVert'
 const styles = {
   root: {
     background: 'papayawhip',
-    margin: '200px 0 200px',
-    padding: '0 100px',
-  },
+    margin    : '200px 0 200px',
+    padding   : '0 100px'
+  }
 }
 
 const options = [
@@ -28,7 +28,7 @@ const options = [
   'Sedna',
   'Titania',
   'Triton',
-  'Umbriel',
+  'Umbriel'
 ]
 
 const ITEM_HEIGHT = 48
@@ -37,7 +37,7 @@ class LongMenu extends React.Component {
   buttonRef = React.createRef();
 
   state = {
-    anchorEl: null,
+    anchorEl: null
   };
 
   componentDidMount() {
@@ -52,25 +52,23 @@ class LongMenu extends React.Component {
     return (
       <div className={classes.root}>
         <IconButton
-          ref={this.buttonRef}
+          aria-haspopup='true'
           aria-label='more'
           aria-owns={open ? 'long-menu' : undefined}
-          aria-haspopup='true'
           onClick={this.handleClick}
-        >
+          ref={this.buttonRef}>
           <MoreVertIcon />
         </IconButton>
         <Menu
-          id='long-menu'
           anchorEl={anchorEl}
+          id='long-menu'
           open={open}
           PaperProps={{
             style: {
               maxHeight: ITEM_HEIGHT * 4.5,
-              width: 200,
-            },
-          }}
-        >
+              width    : 200
+            }
+          }}>
           {options.map(option => (
             <MenuItem key={option} selected={option === 'Pyxis'}>
               {option}
@@ -83,7 +81,7 @@ class LongMenu extends React.Component {
 }
 
 LongMenu.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 }
 
 export default withStyles(styles)(LongMenu)

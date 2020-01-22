@@ -11,9 +11,8 @@ export default function AlertDialog() {
     <Paper
       elevation={8}
       style={{
-        width: 300,
-      }}
-    >
+        width: 300
+      }}>
       <DialogTitle>{"Use Google's location service?"}</DialogTitle>
       <DialogContent>
         <DialogContentText>
