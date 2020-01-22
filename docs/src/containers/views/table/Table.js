@@ -196,9 +196,9 @@ export default function () {
       type         : [ 'LL', 'Ln' ]
     }
   ]
-  const _handleSortTable = (orderBy, sort) => {
-    setSort({ orderBy, sort })
-    console.log('TCL: _handleSortTable -> orderby', orderBy, sort)
+  const _handleSortTable = (sort) => {
+    setSort(sort)
+    console.log('TCL: _handleSortTable -> orderby', sort)
   }
   const _handleSearch = (search) => {
     console.log('TCL: _handleSearch -> search', search)
@@ -239,14 +239,15 @@ export default function () {
         columns={columns}
         enableAddCell={true}
         iconButton={<AddIcon />}
+        // maxHeight={400}
         newCellProps={newCellProps}
         onHandleAddNewCell={_handleAddNewCell}
         onHandleBtnAction={_handleBtnAction}
         onHandleChangePage={_handleChangePage}
         onHandleChangeRowsPerPage={_handleChangeRowsPerPage}
         onHandlePaymentButton={_handlePaymentButton}
-        onHandleSearch={_handleSearch}
         // titleTable='Tabla de Krowders'
+        onHandleSearch={_handleSearch}
         onHandleSelectAll={_handleSelectAll}
         onHandleSelectItem={_handleSelectItem}
         onHandleSortTable={_handleSortTable}
@@ -268,7 +269,7 @@ export default function () {
         withFooter={false}
         withHeader={true}
         withMenuColumns={true}
-        withOrder={false}
+        withOrder={true}
         withPagination={false}
         withSearch={true} />
     </Grid>

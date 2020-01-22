@@ -24,7 +24,7 @@ interface IPagination {
 	currentPage: number
 }
 interface IFuncSortTable {
-	(orderBy: string, sort: string): void
+	(sort: ISortTable): void
 }
 interface IFuncSearch {
 	(search: string): void
@@ -63,7 +63,9 @@ export type TableProps = {
 	withFooter?: boolean
 	withButton?: boolean
 	enableAddCell?: boolean
+	stickyHeader?: boolean
 	paymentAmount?: number
+	maxHeight?: number | string
 	iconButton?: React.ReactNode
 	newCellProps?: IMultipleProps
 	searchSuggestions?: Array<IMultipleProps>
