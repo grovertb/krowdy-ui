@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ModalKrowder, Table } from '@krowdy-ui/views'
+import { ModalKrowder, Table, ToggleRole } from '@krowdy-ui/views'
 
 const demoColumns = [
   {
@@ -154,6 +154,11 @@ const newCellProps = {
 
 export default function () {
   const [ open, setOpen ] = useState(false)
+  const [ state, setState ] = useState({
+    role1: false,
+    role2: true,
+    role3: true
+  })
 
   const _handleClickOpen = () => {
     setOpen(true)
@@ -169,6 +174,10 @@ export default function () {
 
   const _handleClickDelete = () => {
     console.log('DELETE')
+  }
+
+  const _handleChangeRole = name => event => {
+    setState({ ...state, [name]: event.target.checked })
   }
 
   const Tasks = () => <Table
@@ -192,11 +201,41 @@ export default function () {
     newCellProps={newCellProps}
     rows={rows} />
 
+  const Roles = () => <div style={{ width: '100%' }}>
+    <ToggleRole
+      checked={state.role1}
+      name='role1'
+      onchange={_handleChangeRole}
+      subtitle='El Krowder puede hacer seguimiento de los procesos.'
+      title='Seguimiento'
+      value='traking' />
+
+    <ToggleRole
+      checked={state.role2}
+      name='role2'
+      onchange={_handleChangeRole}
+      subtitle='El Krowder es capaz de leer, prepararse, editar y entregar.'
+      title='Video Cuestionario'
+      value='traking' />
+
+    <ToggleRole
+      checked={state.role3}
+      name='role3'
+      onchange={_handleChangeRole}
+      subtitle='El Krowder es capaz de leer, prepararse, entrevistar, editar y entregar.'
+      title='Video Entrevista'
+      value='traking' />
+  </div>
+
   return (
     <div>
       <button onClick={_handleClickOpen}>open</button>
       <ModalKrowder
         collapses={[
+          {
+            component: <Roles />,
+            title    : 'Roles'
+          },
           {
             component: <Tasks />,
             title    : 'Tareas'
