@@ -198,9 +198,9 @@ const Table = ({
     const { orderBy, sort } = ref
     const invertSort = sort === 'asc' ? 'desc' : 'asc'
     if(id !== orderBy)
-      return onHandleSortTable(id, 'asc')
+      return onHandleSortTable({ orderBy: id, sort: 'asc' })
 
-    return onHandleSortTable(id, invertSort)
+    return onHandleSortTable({ orderBy: id, sort: invertSort })
   }
 
   const _handleClickToggleCell = () => {

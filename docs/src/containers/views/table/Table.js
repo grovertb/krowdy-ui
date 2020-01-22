@@ -196,9 +196,9 @@ export default function () {
       type         : [ 'LL', 'Ln' ]
     }
   ]
-  const _handleSortTable = (orderBy, sort) => {
-    setSort({ orderBy, sort })
-    console.log('TCL: _handleSortTable -> orderby', orderBy, sort)
+  const _handleSortTable = (sort) => {
+    setSort(sort)
+    console.log('TCL: _handleSortTable -> orderby', sort)
   }
   const _handleSearch = (search) => {
     console.log('TCL: _handleSearch -> search', search)
@@ -268,7 +268,7 @@ export default function () {
         withFooter={false}
         withHeader={true}
         withMenuColumns={true}
-        withOrder={false}
+        withOrder={true}
         withPagination={false}
         withSearch={true} />
     </Grid>

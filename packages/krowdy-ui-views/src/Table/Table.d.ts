@@ -24,7 +24,7 @@ interface IPagination {
 	currentPage: number
 }
 interface IFuncSortTable {
-	(orderBy: string, sort: string): void
+	(sort: ISortTable): void
 }
 interface IFuncSearch {
 	(search: string): void
