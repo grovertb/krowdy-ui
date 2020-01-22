@@ -42,8 +42,8 @@ const useStyles = makeStyles(theme => ({
     width   : '100px'
   },
   container: {
-    // maxHeight: 400,
-    // overflow: 'auto'
+    maxHeight: 200,
+    overflow : 'auto'
   },
   containerHeaderTable: {
     padding: theme.spacing(2)
@@ -114,6 +114,12 @@ const useStyles = makeStyles(theme => ({
     display       : 'flex',
     justifyContent: 'space-between'
   },
+  stickyHeader: {
+    left: 'inherit'
+  },
+  tableHead: {
+    backgroundColor: theme.palette.grey[100]
+  },
   textAmount: {
     color     : theme.palette.primary.main,
     fontWeight: 'bold'
@@ -131,14 +137,15 @@ const useStyles = makeStyles(theme => ({
 const Table = ({
   titleTable,
   titleButton,
-  pagination,
   paymentAmount,
   iconButton,
+  pagination = {},
   newCellProps = {},
   sortTable = {},
   columns = [],
   rows = [],
   searchSuggestions = [],
+  stickyHeader = false,
   withFooter = false,
   withCheckbox = false,
   withPagination = false,
@@ -160,6 +167,7 @@ const Table = ({
   onHandleAddNewCell = () => false
 }) => {
   const { orderBy = '', sort = 'asc' } = sortTable
+  const { totalRows, currentPage, rowsPerPage } = pagination
   const validateNewCellProps = Object.keys(newCellProps).length
   const classes = useStyles()
   const inputSearch = useRef(null)
@@ -266,8 +274,8 @@ const Table = ({
         ) : null
       }
       <TableContainer className={classes.container}>
-        <MuiTable aria-label='sticky table' stickyHeader>
-          <TableHead>
+        <MuiTable aria-label='sticky table' stickyHeader={stickyHeader}>
+          <TableHead className={classes.tableHead}>
             <TableRow>
               {withCheckbox ? (
                 <TableCell padding='checkbox'>
@@ -279,6 +287,9 @@ const Table = ({
               {columnsActives.map(({ id, align, minWidth, label, ordering }) => (
                 <TableCell
                   align={align}
+                  classes={{
+                    stickyHeader: classes.stickyHeader
+                  }}
                   key={id}
                   sortDirection={orderBy === id ? sort : false}
                   style={{ minWidth }}>
@@ -417,11 +428,11 @@ const Table = ({
         withPagination ? (
           <TablePagination
             component='div'
-            count={pagination.totalRows}
+            count={totalRows}
             onChangePage={onHandleChangePage}
             onChangeRowsPerPage={onHandleChangeRowsPerPage}
-            page={pagination.currentPage}
-            rowsPerPage={pagination.rowsPerPage}
+            page={currentPage}
+            rowsPerPage={rowsPerPage}
             rowsPerPageOptions={[ 10, 25, 100 ]} />
         ) : null
       }
@@ -487,6 +498,7 @@ Table.propTypes = {
     orderBy: PropTypes.string,
     sort   : PropTypes.oneOf([ 'asc', 'desc' ])
   }),
+  stickyHeader   : PropTypes.bool,
   titleButton    : PropTypes.string,
   titleTable     : PropTypes.string,
   withButton     : PropTypes.bool,

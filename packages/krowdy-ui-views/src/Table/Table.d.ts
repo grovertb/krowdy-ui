@@ -63,6 +63,7 @@ export type TableProps = {
 	withFooter?: boolean
 	withButton?: boolean
 	enableAddCell?: boolean
+	stickyHeader?: boolean
 	paymentAmount?: number
 	iconButton?: React.ReactNode
 	newCellProps?: IMultipleProps
