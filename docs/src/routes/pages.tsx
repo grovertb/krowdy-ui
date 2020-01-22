@@ -152,6 +152,10 @@ const pages: Array<Page> = [
         title: 'Modal',
         path: '/views/modalkrowder'
       },
+      {
+        title: 'Toggle Role',
+        path: '/views/togglerole'
+      },
     ]
   }
   // {
