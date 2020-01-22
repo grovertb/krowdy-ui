@@ -7,6 +7,7 @@ import {
   Checkbox,
   Paper
 } from '@krowdy-ui/core'
+import clsx from 'clsx'
 
 export const styles = theme => ({
   avatar: {
@@ -21,15 +22,15 @@ export const styles = theme => ({
     textAlign: 'center',
     width: 28
   },
-  checkbox: {
+  checkboxHover: {
     height: 28,
     width: 28
   },
   checked: {
-    '& .avatar': {
+    '& $avatar': {
       display: 'none'
     },
-    '& .checkbox-hover': {
+    '& $checkboxHover': {
       display: 'inline-flex'
     }
   },
@@ -64,14 +65,14 @@ export const styles = theme => ({
     width: '100%'
   },
   root: {
-    '& .checkbox-hover': {
+    '& $checkboxHover': {
       display: 'none'
     },
     '&:hover': {
-      '& .avatar': {
+      '& $avatar': {
         display: 'none'
       },
-      '& .checkbox-hover': {
+      '& $checkboxHover': {
         display: 'inline-flex'
       }
     },
@@ -92,27 +93,26 @@ const CardCandidate = props => {
     restPropsAvatar,
   } = props
 
-  const initials = `${firstName.charAt(0).toUpperCase()}${lastName.charAt(0).toUpperCase()}`
 
   return (
     <Paper
       className={classes.paper}
       key={_id}
     >
-      <div className={`${classes.root} ${checked && classes.checked}`}>
+      <div className={clsx(classes.root, { [classes.checked]: checked })}>
         <Checkbox
           checked={checked}
-          className={`${classes.checkbox} checkbox-hover`}
+          className={classes.checkboxHover}
           color='primary'
           onChange={({ target: { checked } }) => onChangeCheckbox(_id, checked)}
           {...restPropsCheckbox}
         />
         <Avatar
-          className={`${classes.avatar} avatar`}
+          className={classes.avatar}
           src={src}
           {...restPropsAvatar}
         >
-          {initials}
+          {firstName && lastName ? `${firstName.charAt(0).toUpperCase()}${lastName.charAt(0).toUpperCase()}` : null}
         </Avatar>
       </div>
       <div className={classes.labelCandidate}>
