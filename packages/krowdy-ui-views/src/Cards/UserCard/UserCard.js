@@ -16,7 +16,7 @@ import {
 
 export const styles = theme => ({
   card: {
-    borderRadius: '8px',
+    borderRadius: 8,
     width: theme.spacing(50),
   },
   header: {
@@ -33,7 +33,7 @@ export const styles = theme => ({
     marginLeft: theme.spacing(2),
   },
   title: {
-    fontSize: '25px',
+    fontSize: 25,
   },
 })
 

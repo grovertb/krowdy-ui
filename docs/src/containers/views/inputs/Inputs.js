@@ -1,16 +1,25 @@
 import React from 'react'
-import { Grid } from '@krowdy-ui/core'
+import { Button } from '@krowdy-ui/core'
 import { Inputs, RadioForm } from '@krowdy-ui/views'
 import { SkillCard } from '@krowdy-ui/views/Cards'
 import { RemoveCircleOutline, DragIndicator, Info, ExpandMore } from '@material-ui/icons'
 import { makeStyles } from '@krowdy-ui/styles'
+import clsx from 'clsx'
 
 const useStyle = makeStyles({
   align: {
     verticalAlign: 'bottom'
   },
+  alignSelf: {
+    alignSelf: 'flex-start',
+  },
   button: {
-    paddingTop: '1rem'
+    '&:hover': {
+      backgroundColor: 'transparent'
+    },
+    margin: 0,
+    minWidth: 0,
+    padding: 0,
   },
   container: {
     margin: '30px 20px',
@@ -18,13 +27,25 @@ const useStyle = makeStyles({
   iconDragContainer: {
     paddingTop: '1rem'
   },
+  root: {
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'row',
+    justify: 'space-between',
+    margin: '5%'
+  },
   skillsContainer: {
     margin: 'auto',
     width: '100%'
   },
+  styleLess: {
+    margin: 0,
+    padding: 0,
+  },
   text: {
     fontSize: 12
   },
+
 
 })
 const inputsRadios = [
@@ -60,18 +81,11 @@ export default function () {
 
   return (
     <>
-      <Grid container className={classes.container}  >
-        <Grid xs={11} item tabIndex='-1'>
-          <Inputs
-            order={1}
-            item={{ _id: '123', instruction: () => { } }}
-            iconDrag={<DragIndicator />}
-            iconRemove={<RemoveCircleOutline color='error' />}
-            showInstructions
-          />
-        </Grid>
-      </Grid>
-      <div className={classes.skillsContainer}>
+      <div tabIndex='-1' className={classes.root} >
+        <div className={clsx(classes.iconDragContainer, classes.styleLess)} key='drag-icon' tabIndex='-1' >
+          <DragIndicator />
+        </div>
+
         <SkillCard
           title={<div><span className={classes.align}>Creativity</span> <Info classes={{ root: classes.align }} size='small' color='primary' /></div>}
           expandIcon={<ExpandMore />}
@@ -89,10 +103,34 @@ export default function () {
             </div>
           }
           colorCard='gray'
-          iconDrag={<DragIndicator className={classes.align} />}
-          iconRemove={<RemoveCircleOutline color='error' />}
         />
+        <div className={clsx(classes.styleLess)}>
+          <Button
+            key='btn-delete'
+            className={classes.button}
+          ><RemoveCircleOutline color='error' /></Button>
+        </div>
       </div>
+
+      <div className={classes.root} tabIndex='-1' >
+        <div className={clsx(classes.iconDragContainer, classes.styleLess)} key='drag-icon' tabIndex='-1' >
+          <DragIndicator />
+        </div>
+
+        <Inputs
+          order={1}
+          item={{ _id: '123', instructions: '', questions: '' }}
+          showInstructions
+        />
+
+        <div className={clsx(classes.alignSelf, classes.styleLess)}>
+          <Button
+            key='btn-delete'
+            className={classes.button}
+          ><RemoveCircleOutline color='error' /></Button>
+        </div>
+      </div>
+
     </>
   )
 }

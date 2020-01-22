@@ -1,42 +1,36 @@
-export { default as Dashboard } from './Dashboard';
-export * from './Dashboard';
+export { default as Dashboard } from './Dashboard'
+export * from './Dashboard'
 
-export { default as JobDetail } from './JobDetail';
-export * from './JobDetail';
+export { default as JobDetail } from './JobDetail'
+export * from './JobDetail'
 
-export { default as Header } from './Header';
-export * from './Header';
+export { default as Header } from './Header'
+export * from './Header'
 
-export { default as CardUser } from './CardUser';
-export * from './CardUser';
+export { default as CardCandidate } from './CardCandidate'
+export * from './CardCandidate'
 
-export { default as CardCandidate } from './CardCandidate';
-export * from './CardCandidate';
+export { default as Search } from './Search'
+export * from './Search'
 
-export { default as Search } from './Search';
-export * from './Search';
+export { default as SelectCandidates } from './SelectCandidates'
+export * from './SelectCandidates'
 
-export { default as SelectCandidates } from './SelectCandidates';
-export * from './SelectCandidates';
-
-export { default as Cards } from './Cards';
-export * from './Cards';
-
-export { default as Questionary } from './Questionary';
-export * from './Questionary';
+export { default as Cards } from './Cards'
+export * from './Cards'
 
 
-export { default as Counter } from './Counter';
-export * from './Counter';
+export { default as Counter } from './Counter'
+export * from './Counter'
 
+export { default as SwitchButton } from './SwitchButton'
+export * from './SwitchButton'
 
-export { default as Counter } from './SwitchButton';
-export * from './SwitchButton';
-export { default as Table } from './Table';
-export * from './Table';
+export { default as Table } from './Table'
+export * from './Table'
 
-export { default as ModalKrowder } from './ModalKrowder';
-export * from './ModalKrowder';
+export { default as ModalKrowder } from './ModalKrowder'
+export * from './ModalKrowder'
 
-export { default as AvatarUser } from './AvatarUser';
-export * from './AvatarUser';
+export { default as AvatarUser } from './AvatarUser'
+export * from './AvatarUser'

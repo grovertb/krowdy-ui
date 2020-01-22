@@ -2,26 +2,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@krowdy-ui/styles'
 import clsx from 'clsx'
-import { Button, ExpansionPanel, ExpansionPanelSummary, Grid, ExpansionPanelDetails, Typography } from '@material-ui/core'
+import { ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Typography } from '@material-ui/core'
 
 
 export const styles = theme => ({
-  alignSelf: {
-    alignSelf: 'flex-start',
-  },
-  button: {
-    '&:hover': {
-      backgroundColor: 'transparent'
-    },
-    margin: 0,
-    minWidth: 0,
-    padding: 0,
-  },
   content: {
     padding: theme.spacing(0, 1.5, 1.5, 1.5)
   },
   defaultColor: {
-    backgroundColor: '#F2F4F7'
+    backgroundColor: theme.palette.grey[300]
   },
   expanded: {
     margin: theme.spacing(0.8, 0),
@@ -29,9 +18,6 @@ export const styles = theme => ({
   },
   heading: {
     fontWeight: 'bold',
-  },
-  iconDragContainer: {
-    color: theme.palette.grey[500]
   },
   inputContent: {
     display: 'flex',
@@ -55,76 +41,49 @@ export const styles = theme => ({
 })
 
 
-const CardUser = props => {
+const SkillCard = props => {
   const {
     classes,
     content,
     color = 'defaultColor',
-    iconRemove,
-    iconDrag,
-    id,
     expandIcon,
     onChange = () => { },
-    onDeleteItem = () => { },
     title,
   } = props
 
 
   return (
-    <div className={classes.root} id={id}>
-      <Grid
-        tabIndex='-1'
-        container
-        justify='space-between'
-        alignItems='center'
-      >
-        <Grid className={clsx(classes.iconDragContainer, classes.styleLess)} key='drag-icon' item>
-          {(iconDrag) ? iconDrag : null}
-        </Grid>
-        <Grid className={classes.inputContent} key='expand-section' item >
-          <ExpansionPanel classes={{ root: clsx(classes[color], classes.styleLess) }} onChange={onChange}>
 
-            <ExpansionPanelSummary
-              classes={{ content: classes.styleLess, expanded: classes.expanded, root: classes.paddingSide }}
-              expandIcon={expandIcon ? expandIcon : null}
-              id='panel1a-header'
-            >
-              <Typography component='div' className={clsx(classes.heading, classes.size)}>{(title) ? title : null}</Typography>
-            </ExpansionPanelSummary>
+    <div className={classes.inputContent} >
+      <ExpansionPanel classes={{ root: clsx(classes[color], classes.styleLess) }} onChange={onChange}>
 
-            <ExpansionPanelDetails classes={{ root: clsx(classes.styleLess) }} className={classes.content}>
-              <Typography component='div' className={clsx(classes.content, classes.size)}>
-                {(content) ? content : null}
-              </Typography>
-            </ExpansionPanelDetails>
+        <ExpansionPanelSummary
+          classes={{ content: classes.styleLess, expanded: classes.expanded, root: classes.paddingSide }}
+          expandIcon={expandIcon ? expandIcon : null}
+        >
+          <Typography component='div' className={clsx(classes.heading, classes.size)}>{(title) ? title : null}</Typography>
+        </ExpansionPanelSummary>
 
-          </ExpansionPanel>
-        </Grid>
-        <Grid item className={clsx(classes.alignSelf, classes.styleLess)}>
-          {(iconRemove) ? <Button
-            key='btn-delete'
-            className={classes.button}
-            onClick={onDeleteItem}>{iconRemove}</Button> : null}
-        </Grid>
-      </Grid>
-
-    </div >)
+        <ExpansionPanelDetails classes={{ root: clsx(classes.styleLess) }} className={classes.content}>
+          <Typography component='div' className={clsx(classes.content, classes.size)}>
+            {(content) ? content : null}
+          </Typography>
+        </ExpansionPanelDetails>
+      </ExpansionPanel>
+    </div>
+  )
 
 }
 
-CardUser.propTypes = {
-  classes: PropTypes.object,
+SkillCard.propTypes = {
+  classes: PropTypes.shape({
+  }),
   color: PropTypes.oneOf(['defaultColor']),
   content: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
   expandIcon: PropTypes.node,
-  iconDrag: PropTypes.node,
-  iconRemove: PropTypes.node,
-  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  onChange: PropTypes.func,
-  onDeleteItem: PropTypes.func,
   title: PropTypes.oneOfType([PropTypes.node, PropTypes.string]).isRequired,
 }
 
-CardUser.muiName = 'CardUser'
+SkillCard.muiName = 'SkillCard'
 
-export default withStyles(styles, { name: 'KrowdyCardUser' })(CardUser)
+export default withStyles(styles, { name: 'KrowdySkillCard' })(SkillCard)

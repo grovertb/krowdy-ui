@@ -16,9 +16,6 @@ export const styles = theme => ({
     height: 'auto',
     padding: 16
   },
-  divider: {
-    margin: '1px 0'
-  },
   list: {
     listStyle: 'none',
     margin: 'auto',

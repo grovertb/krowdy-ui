@@ -6,9 +6,9 @@ import { withStyles } from '@krowdy-ui/styles'
 export const styles = theme => ({
   audioContainer: {
     background: theme.palette.primary[500],
-    borderRadius: '60px',
-    height: '50px',
-    padding: '5px',
+    borderRadius: 60,
+    height: 50,
+    padding: 5,
     width: '60%'
   },
 

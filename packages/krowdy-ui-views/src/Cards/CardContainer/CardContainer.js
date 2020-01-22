@@ -60,8 +60,6 @@ const CardContainer = props => {
     classes,
     content = '',
     title = '',
-    cardProps,
-    cardContentProps,
     cardHeaderProps,
     disabledHover = false,
     action,
@@ -72,11 +70,14 @@ const CardContainer = props => {
 
   return (
     <Card classes={{
-      root: clsx(classes.lessStyle, { [classes.displayHover]: !disabledHover }, classes[`sizePadding${sizePadding}`], classes.root)
+      root: clsx(classes.lessStyle,
+        { [classes.displayHover]: !disabledHover },
+        classes[`sizePadding${sizePadding}`],
+        classes.root)
     }}
       raised
-      onClick={onClick}
-      {...cardProps} >
+      onClick={onClick}>
+
       <CardHeader
         avatar={avatar}
         title={title}
@@ -84,10 +85,7 @@ const CardContainer = props => {
         classes={{ action: classes.action, root: clsx(classes.lessStyle, classes.header), title: classes.title }}
         {...cardHeaderProps}
       />
-      <CardContent
-        classes={{ root: classes.cardContent }}
-        {...cardContentProps}
-      >
+      <CardContent classes={{ root: classes.cardContent }}>
         {content}
       </CardContent>
     </Card>
@@ -97,10 +95,9 @@ const CardContainer = props => {
 CardContainer.propTypes = {
   action: PropTypes.node,
   avatar: PropTypes.node,
-  cardContentProps: PropTypes.object,
   cardHeaderProps: PropTypes.object,
-  cardProps: PropTypes.object,
   classes: PropTypes.shape({
+    action: PropTypes.string,
     cardContent: PropTypes.string,
     header: PropTypes.string,
     root: PropTypes.string,

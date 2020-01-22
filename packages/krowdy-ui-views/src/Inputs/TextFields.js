@@ -3,17 +3,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@krowdy-ui/styles'
 import clsx from 'clsx'
-import { Input, Button } from '@krowdy-ui/core'
+import { Input } from '@krowdy-ui/core'
 export const styles = theme => ({
   alignSelf: {
     alignSelf: 'flex-start',
-  },
-  button: {
-    '&:hover': {
-      backgroundColor: 'transparent'
-    },
-    minWidth: 0,
-    padding: 0
   },
   container: {
     alignItems: 'center',
@@ -24,9 +17,6 @@ export const styles = theme => ({
   },
   focused: {
     borderBottom: `1px solid ${theme.palette.primary[600]}`
-  },
-  iconDragContainer: {
-    color: theme.palette.grey[500],
   },
   inputsContent: {
     alignItems: 'center',
@@ -65,20 +55,14 @@ const InputComponent = (props) => {
     order,
     placeholderAnswer = 'Answer',
     placeholderQuestion = 'Question',
-    iconDrag,
-    iconRemove,
-    onDeleteItem = () => { },
   } = props
 
   return (
     <div className={classes.container} tabIndex='-1'>
-      <div className={clsx(classes.iconDragContainer)}>
-        {(iconDrag) ? iconDrag : null}
-      </div>
       <span className={clsx(classes.order, classes.alignSelf, classes.textSize)}>
         {order}.
       </span>
-      <div className={classes.inputsContent}>
+      <div className={classes.inputsContent} tabIndex='-1'>
         <Input
           autoFocus
           classes={{
@@ -113,23 +97,13 @@ const InputComponent = (props) => {
             placeholder={placeholderAnswer} />
         }
       </div>
-      <div className={classes.alignSelf} >
-        <Button
-          className={clsx(classes.button)}
-          disabled={disabled}
-          onClick={() => onDeleteItem(item._id)}>
-          {(iconRemove) ? iconRemove : null}
-        </Button>
-      </div>
     </div>
   )
 }
 
 InputComponent.propTypes = {
   classes: PropTypes.shape({
-    button: PropTypes.string,
     container: PropTypes.string,
-    iconDragContainer: PropTypes.string,
     multiline: PropTypes.string,
     order: PropTypes.string,
     textField: PropTypes.string,
@@ -139,10 +113,9 @@ InputComponent.propTypes = {
   instructions: PropTypes.bool,
   item: PropTypes.shape({
     _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    instruction: PropTypes.string,
+    instructions: PropTypes.string,
     question: PropTypes.string,
   }).isRequired,
-  onDeleteItem: PropTypes.func,
   onUpdateItem: PropTypes.func,
   order: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   placeholderAnswer: PropTypes.string,
