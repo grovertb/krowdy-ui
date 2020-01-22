@@ -59,7 +59,6 @@ const inputsRadios = [
 
 export default function () {
 
-
   const classes = useStyles()
 
   return (
@@ -70,8 +69,8 @@ export default function () {
           content='Define cuáles de los campos del perfil del candidato deben ser
              obligatorios y cuáles no deberían aparecer. cuáles no deberían aparecer'
           disabledHover
-          rightElement={<Close />
-          }
+          action={<Close />}
+          sizePadding='small'
         />
       </Grid >
       <Grid item xs={4} className={classes.item} >
@@ -79,13 +78,13 @@ export default function () {
           title='Tasks'
           content='Define cuáles de los campos del perfil del candidato deben ser
           obligatorios y cuáles no deberían aparecer.cuáles no deberían aparecer'
-          avatar={<Avatar src='https://instaperfil.com/images/instaperfilseguidores.png' variant='square' />}
+          avatar={<Avatar src='https://s3.amazonaws.com/cdn.krowdy.com/media/images/icon_VideoCuestionario.png' variant='square' />}
         />
       </Grid >
       <Grid item xs={9} className={classes.item} >
 
         <SkillCard
-          title={<div><span className={classes.title}>Creativity</span> <Info classes={{ root: classes.informationIcon }} size='small' color='primary' /></div>}
+          title={<div><span className={classes.title}>Creatividad</span> <Info classes={{ root: classes.informationIcon }} size='small' color='primary' /></div>}
           expandIcon={<ExpandMoreIcon />}
           content={
             <div>

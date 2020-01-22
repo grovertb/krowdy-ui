@@ -17,8 +17,15 @@ export const styles = theme => ({
     minWidth: 0,
     padding: 0,
   },
+  content: {
+    padding: theme.spacing(0, 1.5, 1.5, 1.5)
+  },
   defaultColor: {
     backgroundColor: '#F2F4F7'
+  },
+  expanded: {
+    margin: theme.spacing(0.8, 0),
+    minHeight: 32,
   },
   heading: {
     fontWeight: 'bold',
@@ -29,25 +36,22 @@ export const styles = theme => ({
   inputContent: {
     display: 'flex',
     flex: 1,
-    margin: '0 8px'
+    margin: theme.spacing(0, 1)
   },
   marginBottomStandar: {
-    margin: '0 0 12px 0'
+    margin: theme.spacing(0, 0, 1, 0)
   },
-  margins: {
-    padding: '0 12px',
-    verticalAlign: 'center'
-  },
-  paddingLess: {
-    padding: 0
-  },
-  root: {
-    fontFamily: 'Roboto',
+  paddingSide: {
+    minHeight: 32,
+    padding: theme.spacing(0, 1)
   },
   size: {
     fontSize: 14,
-    minHeight: 32
-  }
+  },
+  styleLess: {
+    margin: 0,
+    padding: 0,
+  },
 })
 
 
@@ -74,26 +78,29 @@ const CardUser = props => {
         justify='space-between'
         alignItems='center'
       >
-        <Grid className={clsx(classes.iconDragContainer, classes.top)} key='drag-icon' item>
+        <Grid className={clsx(classes.iconDragContainer, classes.styleLess)} key='drag-icon' item>
           {(iconDrag) ? iconDrag : null}
         </Grid>
         <Grid className={classes.inputContent} key='expand-section' item >
-          <ExpansionPanel classes={{ root: clsx(classes[color], classes.margins) }} onChange={onChange}>
+          <ExpansionPanel classes={{ root: clsx(classes[color], classes.styleLess) }} onChange={onChange}>
+
             <ExpansionPanelSummary
-              classes={{ root: classes.paddingLess }}
+              classes={{ content: classes.styleLess, expanded: classes.expanded, root: classes.paddingSide }}
               expandIcon={expandIcon ? expandIcon : null}
               id='panel1a-header'
             >
               <Typography component='div' className={clsx(classes.heading, classes.size)}>{(title) ? title : null}</Typography>
             </ExpansionPanelSummary>
-            <ExpansionPanelDetails classes={{ root: clsx(classes.paddingLess, classes.marginBottomStandar) }}>
+
+            <ExpansionPanelDetails classes={{ root: clsx(classes.styleLess) }} className={classes.content}>
               <Typography component='div' className={clsx(classes.content, classes.size)}>
                 {(content) ? content : null}
               </Typography>
             </ExpansionPanelDetails>
+
           </ExpansionPanel>
         </Grid>
-        <Grid item className={clsx(classes.alignSelf, classes.paddingLess)}>
+        <Grid item className={clsx(classes.alignSelf, classes.styleLess)}>
           {(iconRemove) ? <Button
             key='btn-delete'
             className={classes.button}

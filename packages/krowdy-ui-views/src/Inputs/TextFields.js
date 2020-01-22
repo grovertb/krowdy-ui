@@ -30,8 +30,7 @@ export const styles = theme => ({
     display: 'flex',
     flex: 1,
     flexDirection: 'column',
-    margin: '0 8px'
-
+    margin: theme.spacing(0, 1)
   },
   multiline: {
     paddingTop: 2
@@ -54,7 +53,8 @@ export const styles = theme => ({
 })
 
 const InputComponent = (props) => {
-  const { classes,
+  const {
+    classes,
     showInstructions,
     disabled,
     item,
