@@ -1,23 +1,25 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import clsx from 'clsx'
 import { withStyles } from '@krowdy-ui/styles'
-import { Grid } from '@krowdy-ui/core'
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
 // import InputComponent from './InputsTextField'
 
 export const styles = theme => ({
-  gridContainer: {
+  aditionalInput: {
+    '&:hover': {
+      borderBottom: `1px solid ${theme.palette.primary[400]}`
+    },
+    borderBottom: `1px solid ${theme.palette.grey[400]}`,
+    color: theme.palette.grey[700],
+    fontSize: 14,
+    margin: theme.spacing(1.5),
+    width: 'fill-available',
+  },
+  container: {
     height: 'calc(100% - 40px)',
     overflow: 'auto',
     width: '100%'
   },
-  lastInput: {
-    fontSize: 14,
-    margin: 'auto',
-    paddingLeft: theme.spacing(3),
-    width: '100%'
-  }
 })
 
 const reorder = (list, startIndex, endIndex) => {
@@ -49,54 +51,54 @@ const DragComponent = props => {
 
 
   return (
-    <Grid className={classes.gridContainer} container>
-      <Grid item xs={12} tabIndex='-1'>
-        <DragDropContext onDragEnd={onDragEnd}>
-          <Droppable direction='vertical' droppableId='droppable'>
-            {(dropProvided) => (
-              <div
-                className={classes.container}
-                {...dropProvided.droppableProps}
-                ref={dropProvided.innerRef}
-                tabIndex='-1'>
-                {
-                  React.Children.map(children, (item, index) => (
-                    <Draggable
-                      draggableId={`drag-${item.props.id}`}
-                      index={index}
-                      key={`drag-${item.props.id}`}
-                    >
-                      {(dragProvided) => (
-                        <div
-
-                          ref={dragProvided.innerRef}
-                          {...dragProvided.draggableProps}
-                          {...dragProvided.dragHandleProps}
-                          tabIndex='-1'
-                          style={dragProvided.draggableProps.style}
-                        >
-                          {item}
-                        </div>
-                      )}
-                    </Draggable>
-                  ))
-                }
-                {dropProvided.placeholder}
-                <div className={clsx(classes.lastInput)}>
-                  {(addInputComponent) ? addInputComponent : null}
-                </div>
-              </div>)
-            }
-          </Droppable>
-        </DragDropContext>
-      </Grid>
-    </Grid>
+    <div className={classes.container}>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Droppable direction='vertical' droppableId='droppable'>
+          {(dropProvided) => (
+            <div
+              className={classes.container}
+              {...dropProvided.droppableProps}
+              ref={dropProvided.innerRef}
+              tabIndex='-1'>
+              {
+                React.Children.map(children, (item, index) => (
+                  <Draggable
+                    draggableId={`drag-${item.props.id}`}
+                    index={index}
+                    key={`drag-${item.props.id}`}
+                  >
+                    {(dragProvided) => (
+                      <div
+                        ref={dragProvided.innerRef}
+                        {...dragProvided.draggableProps}
+                        {...dragProvided.dragHandleProps}
+                        tabIndex='-1'
+                        style={dragProvided.draggableProps.style}
+                      >
+                        {item}
+                      </div>
+                    )}
+                  </Draggable>
+                ))
+              }
+              {dropProvided.placeholder}
+              <div className={classes.aditionalInput}>
+                {(addInputComponent) ? addInputComponent : null}
+              </div>
+            </div>)
+          }
+        </Droppable>
+      </DragDropContext>
+    </div>
   )
 }
 
 DragComponent.propTypes = {
   addInputComponent: PropTypes.node,
-  classes: PropTypes.object,
+  classes: PropTypes.shape({
+    aditionalInput: PropTypes.string,
+    container: PropTypes.string
+  }),
   onItemsOrdered: PropTypes.func,
 }
 

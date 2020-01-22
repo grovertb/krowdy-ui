@@ -6,26 +6,39 @@ import { makeStyles } from '@krowdy-ui/styles'
 
 const data = [{
   _id: 1,
-  instruction: () => { },
+  instruction: 'answer',
   question: 'pregunta 1',
 },
 {
   _id: 2,
-  instruction: () => { },
+  instruction: 'answer',
   question: 'question 2',
 },
 {
   _id: 3,
-  instruction: () => { },
+  instruction: 'answer',
   question: 'question 3',
 }, {
   _id: 4,
-  instruction: () => { },
+  instruction: 'answer',
   question: 'pregunta6',
 },
 {
   _id: 5,
-  instruction: () => { },
+  instruction: 'answer',
+  question: 'question 5',
+}, {
+  _id: 6,
+  instruction: 'answer',
+  question: 'question 3',
+}, {
+  _id: 7,
+  instruction: 'answer',
+  question: 'pregunta6',
+},
+{
+  _id: 8,
+  instruction: 'answer',
   question: 'question 5',
 },]
 
@@ -39,9 +52,14 @@ const useStyles = makeStyles({
     color: '#0050B3',
     fontSize: 14,
   },
+  overflow: {
+    height: 600,
+    overflow: 'auto',
+  },
   root: {
+    height: 'calc(100% - 30px)',
     margin: '3% 5%',
-    padding: '3%',
+    padding: '4%',
     width: '100%'
   },
   title: {
@@ -59,8 +77,9 @@ export default () => {
       item={element}
       iconDrag={<DragIndicator fontSize='small' />}
       iconRemove={<RemoveCircleOutline color='error' />}
-      order={index + 1}
+      order={(index + 1 > 0 && index + 1 < 10) ? `0${index + 1}` : index + 1}
       showInstructions
+      placeholderAnswer='Agrega instrucciones para Krowder'
       tabIndex='-1'
     />
   )))
@@ -74,7 +93,7 @@ export default () => {
   return (
     <Paper elevation={0} variant='outlined' className={classes.root} >
       <p className={classes.title}>¿Qué deseas preguntar a tus candidatos?</p>
-      <div >
+      <div className={classes.overflow}>
         <DragComponent onItemsOrdered={handleItemsOrdered} addInputComponent={<Input placeholder='Escriba una nueva pregunta' disableUnderline />}>
           {items}
         </DragComponent>

@@ -2,7 +2,7 @@
 
 <p class="description">View All Cards </p>
 
-{{"demo": "containers/views/cards/Cards.js", "hideHeader": false, "bg": true, "bgColor": "white", "iframe": false }}
+{{"demo": "containers/views/cards/Cards.js", "hideHeader": false, "bg": false, "bgColor": "white", "iframe": true }}
 
 
 | prop             | type    | description                 |
@@ -17,4 +17,4 @@
 | disabledHover | bool  |  If is true,  gover disabled |
 | onClick | func  | Card Function |
 | sizePadding   | string  |  two values : 'small' or 'middle'   |  
-| title   | node o string  |  If is string title     |  
+| title   | node o string  |  If is string title     | 
