@@ -123,27 +123,35 @@ const data = [
 
 const krowders = [
   {
+    id  : 1,
     name: 'kroder 1'
   },
   {
+    id  : 2,
     name: 'kroder 2'
   },
   {
+    id  : 3,
     name: 'kroder 3'
   },
   {
+    id  : 4,
     name: 'kroder 4'
   },
   {
+    id  : 5,
     name: 'kroder 5'
   },
   {
+    id  : 6,
     name: 'kroder 6'
   },
   {
+    id  : 7,
     name: 'kroder 7'
   },
   {
+    id  : 8,
     name: 'kroder 8'
   }
 ]

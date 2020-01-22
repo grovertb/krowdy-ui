@@ -173,7 +173,7 @@ function CardException(props) {
     onUnlockTask
   } = props
 
-  const [ open, setOpen ] = useState(true)
+  const [ open, setOpen ] = useState(false)
   const [ krowderSelectedState, setKrowderSelectedState ] = useState(krowderSelected)
   const inputRef = useRef(null)
   const autoCompleteRef = useRef(null)
@@ -213,13 +213,19 @@ function CardException(props) {
       case 1:
       case 2:
         return <div className={classes.actions}>
-          <Button color='primary' onClick={() => onArchived(props)} variant='text'>Archivar</Button>
-          <Button
-            color='primary' disabled={krowderSelected === krowderSelectedState ? true : false} onClick={() => onResolved({
-              ...props,
-              krowderSelected: inputRef.current.value
-            })}
-            variant='contained'>Resolver</Button>
+          {
+            onArchived ?
+              <Button color='primary' onClick={() => onArchived(props)} variant='text'>Archivar</Button> : null
+          }
+          {
+            onResolved ?
+              <Button
+                color='primary' disabled={krowderSelected === krowderSelectedState ? true : false} onClick={() => onResolved({
+                  ...props,
+                  krowderSelected: inputRef.current.value
+                })}
+                variant='contained'>Resolver</Button> : null
+          }
         </div>
 
       case 3:
@@ -228,34 +234,58 @@ function CardException(props) {
       case 9:
       case 10:
         return <div className={classes.actions}>
-          <Button color='primary' onClick={() => onArchived(props)} variant='text'>Archivar</Button>
-          <Button color='primary' onClick={onSendPull} variant='outlined'>Enviar al Pool</Button>
-          <Button
-            color='primary' disabled={krowderSelected === krowderSelectedState ? true : false} onClick={() => onResolved({
-              ...props,
-              krowderSelected: inputRef.current.value
-            })}
-            variant='contained'>Resolver</Button>
+          {
+            onArchived ?
+              <Button color='primary' onClick={() => onArchived(props)} variant='text'>Archivar</Button> : null
+          }
+          {
+            onSendPull ?
+              <Button color='primary' onClick={onSendPull} variant='outlined'>Enviar al Pool</Button> : null
+          }
+          {
+            onResolved ?
+              <Button
+                color='primary' disabled={krowderSelected === krowderSelectedState ? true : false} onClick={() => onResolved({
+                  ...props,
+                  krowderSelected: inputRef.current.value
+                })}
+                variant='contained'>Resolver</Button> : null
+          }
         </div>
 
       case 5:
       case 6:
         return <div className={classes.actions}>
-          <Button color='primary' onClick={() => onArchived(props)} variant='text'>Archivar</Button>
-          <Button color='primary' onClick={() => onUnlockTask(props)} variant='outlined'>Desbloquear tarea</Button>
-          <Button
-            color='primary' disabled={krowderSelected === krowderSelectedState ? true : false} onClick={() => onResolved({
-              ...props,
-              krowderSelected: inputRef.current.value
-            })}
-            variant='contained'>Resolver</Button>
+          {
+            onArchived ?
+              <Button color='primary' onClick={() => onArchived(props)} variant='text'>Archivar</Button> : null
+          }
+          {
+            onUnlockTask ?
+              <Button color='primary' onClick={() => onUnlockTask(props)} variant='outlined'>Desbloquear tarea</Button> : null
+          }
+          {
+            onResolved ?
+              <Button
+                color='primary' disabled={krowderSelected === krowderSelectedState ? true : false} onClick={() => onResolved({
+                  ...props,
+                  krowderSelected: inputRef.current.value
+                })}
+                variant='contained'>Resolver</Button> : null
+          }
         </div>
 
       case 7:
       case 11:
         return <div className={classes.actions}>
-          <Button color='primary' onClick={() => onArchived(props)} variant='text'>Archivar</Button>
-          <Button color='primary' onClick={() => onUnlockTask(props)} variant='contained'>Desbloquear tarea</Button>
+          {
+            onArchived ?
+              <Button color='primary' onClick={() => onArchived(props)} variant='text'>Archivar</Button> : null
+          }
+          {
+            onUnlockTask ?
+              <Button color='primary' onClick={() => onUnlockTask(props)} variant='contained'>Desbloquear tarea</Button> : null
+          }
         </div>
 
       default:
@@ -522,7 +552,31 @@ function CardException(props) {
 }
 
 CardException.propTypes = {
-  classes: PropTypes.object
+  actions        : PropTypes.bool,
+  area           : PropTypes.string,
+  candidate      : PropTypes.string,
+  classes        : PropTypes.object,
+  company        : PropTypes.string,
+  dateTime       : PropTypes.string,
+  group          : PropTypes.string,
+  krowder        : PropTypes.string,
+  krowderSelected: PropTypes.string,
+  listStyle      : PropTypes.string,
+  recruiter      : PropTypes.string,
+  resolved       : PropTypes.string,
+  statusException: PropTypes.string,
+  title          : PropTypes.string,
+  type: PropTypes.number,
+  suggestion: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired
+    })
+  ),
+  onArchived: PropTypes.func,
+  onResolved: PropTypes.func,
+  onSendPull: PropTypes.func,
+  onUnlockTask: PropTypes.func
 }
 
 CardException.muiName = 'CardException'
