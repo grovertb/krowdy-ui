@@ -1,6 +1,6 @@
 {
   "name": "@krowdy-ui/styles",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "private": false,
   "author": "Krowdy Team",
   "description": "React components that implement Google's Material Design.",
@@ -32,7 +32,7 @@
   },
   "peerDependencies": {},
   "dependencies": {
-    "@material-ui/styles": "4.8.2"
+    "@material-ui/styles": "4.9.0"
   },
   "sideEffects": false,
   "publishConfig": {
