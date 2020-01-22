@@ -21,18 +21,14 @@ import {
   Select,
   Popover,
   makeStyles,
-  TableContainer,
-  IconButton,
-  Table as MuiTable,
   Input
 } from '@krowdy-ui/core'
 // import KeyboardDatePicker from '@material-ui/lab/'
-import {
-  MoreVert as MoreVertIcon,
-  Search as SearchIcon,
-  Check as CheckIcon,
-  Close as CloseIcon
-}  from '@material-ui/icons/'
+import { Table as MuiTable, TableContainer, IconButton } from '@krowdy-ui/core/'
+import MoreVertIcon from '@material-ui/icons/MoreVert'
+import SearchIcon from '@material-ui/icons/Search'
+import CheckIcon from '@material-ui/icons/Check'
+import CloseIcon from '@material-ui/icons/Close'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 
 const useStyles = makeStyles(theme => ({
@@ -135,11 +131,11 @@ const useStyles = makeStyles(theme => ({
 const Table = ({
   titleTable,
   titleButton,
-  sortTable,
   pagination,
   paymentAmount,
   iconButton,
-  newCellProps,
+  newCellProps = {},
+  sortTable = {},
   columns = [],
   rows = [],
   searchSuggestions = [],
@@ -163,6 +159,8 @@ const Table = ({
   onHandleToggleColumnTable = () => false,
   onHandleAddNewCell = () => false
 }) => {
+  const { orderBy = '', sort = 'asc' } = sortTable
+  const validateNewCellProps = Object.keys(newCellProps).length
   const classes = useStyles()
   const inputSearch = useRef(null)
   const [ openMenu, setOpenMenu ] = useState(null)
@@ -171,9 +169,9 @@ const Table = ({
   const columnsActives = columns.filter(({ active }) => active)
 
   useEffect(() => {
-    if(Object.keys(newCellProps).length)
+    if(validateNewCellProps)
       setLocalNewCellProps(newCellProps)
-  }, [ newCellProps ])
+  }, [ newCellProps, validateNewCellProps ])
 
   const _handleClickOpenMenu = event => {
     setOpenMenu(event.currentTarget)
@@ -282,12 +280,12 @@ const Table = ({
                 <TableCell
                   align={align}
                   key={id}
-                  sortDirection={sortTable.orderBy === id ? sortTable.sort : false}
+                  sortDirection={orderBy === id ? sort : false}
                   style={{ minWidth }}>
                   {withOrder && ordering ? (
                     <TableSortLabel
-                      active={sortTable.orderBy === id}
-                      direction={sortTable.orderBy === id ? sortTable.sort : 'asc'}
+                      active={orderBy === id}
+                      direction={orderBy === id ? sort : 'asc'}
                       onClick={() => _handleSortTable(id, sortTable)}>
                       <Typography className={classes.headerTable} variant='body1'>{label}</Typography>
                     </TableSortLabel>
@@ -342,7 +340,7 @@ const Table = ({
             </TableRow>
           </TableHead>
           <TableBody>
-            {enableAddCell ? (
+            {(enableAddCell && validateNewCellProps) ? (
               addNewCell ? (
                 <TableRow>
                   {columnsActives.map(({ id, type, editable }, index) => {
@@ -464,14 +462,14 @@ Table.propTypes = {
   iconButton               : PropTypes.element,
   newCellProps             : PropTypes.object,
   onHandleAddNewCell       : PropTypes.func,
-  onHandleBtnAction        : PropTypes.func.isRequired,
-  onHandleChangePage       : PropTypes.func.isRequired,
-  onHandleChangeRowsPerPage: PropTypes.func.isRequired,
+  onHandleBtnAction        : PropTypes.func,
+  onHandleChangePage       : PropTypes.func,
+  onHandleChangeRowsPerPage: PropTypes.func,
   onHandlePaymentButton    : PropTypes.func,
-  onHandleSearch           : PropTypes.func.isRequired,
-  onHandleSelectAll        : PropTypes.func.isRequired,
-  onHandleSelectItem       : PropTypes.func.isRequired,
-  onHandleSortTable        : PropTypes.func.isRequired,
+  onHandleSearch           : PropTypes.func,
+  onHandleSelectAll        : PropTypes.func,
+  onHandleSelectItem       : PropTypes.func,
+  onHandleSortTable        : PropTypes.func,
   onHandleToggleColumnTable: PropTypes.func,
   pagination               : PropTypes.shape({
     currentPage: PropTypes.number.isRequired,

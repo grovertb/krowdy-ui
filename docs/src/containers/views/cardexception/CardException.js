@@ -201,5 +201,3 @@ export default function () {
     </div>
   )
 }
-
-// listStyle='row | column'

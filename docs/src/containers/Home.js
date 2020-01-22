@@ -90,9 +90,6 @@ function Home() {
               {t('strapline')}
             </Typography>
             <Button
-              // component={
-              //   <Link href="/getting-started/installation" naked prefetch/>
-              // }
               className={classes.button}
               color='primary'
               variant='outlined'>
