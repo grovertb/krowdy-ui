@@ -190,22 +190,34 @@ const AudioRecorder = props => {
   return (
     <div>
       <div id='audio-box'></div>
-      <canvas className={classes.audioContainer} ref={canvas}></canvas>
-      <audio
-        controls='controls' ref={audio} src={blobURL}
-        style={{
-          height    : 0,
-          visibility: 'hidden',
-          width     : 0
-        }} />
-      <div>
-        <Timer.Minutes />
-        <span>:</span>
-        <Timer.Seconds />
-        <span>
+      <div style={{
+        alignItems   : 'center',
+        display      : 'flex',
+        flexDirection: 'row',
+        position     : 'relative'
+      }}>
+        <canvas className={classes.audioContainer} ref={canvas}></canvas>
+        <audio
+          controls='controls' ref={audio} src={blobURL}
+          style={{
+            height    : 0,
+            visibility: 'hidden',
+            width     : 0
+          }} />
+        <div style={{
+          color     : 'white',
+          fontWeight: 'bold',
+          left      : '62.5%',
+          position  : 'absolute'
+        }}>
+          <Timer.Minutes />
+          <span>:</span>
+          <Timer.Seconds />
+          <span>
               /
-        </span>
-        <span>{getLimitDate(time ? time : 120)}</span>
+          </span>
+          <span>{getLimitDate(time ? time : 120)}</span>
+        </div>
       </div>
       <button onClick={_handleStart}>Grabar</button>
       <button onClick={_handleStop}>Parar</button>

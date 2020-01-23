@@ -19,15 +19,10 @@ export * from './SelectCandidates';
 export { default as Cards } from './Cards';
 export * from './Cards';
 
-export { default as Questionary } from './Questionary';
-export * from './Questionary';
-
-
 export { default as Counter } from './Counter';
 export * from './Counter';
 
-
-export { default as Counter } from './SwitchButton';
+export { default as SwitchButton } from './SwitchButton';
 export * from './SwitchButton';
 
 export { default as CardException } from './CardException';
