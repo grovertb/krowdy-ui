@@ -80,7 +80,7 @@ const CardContainer = props => {
       }}
       onClick={onClick}
       raised>
-      {(title || action) &&
+      {(title || action || avatar) &&
         <CardHeader
           action={action}
           avatar={avatar}
