@@ -53,7 +53,8 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'space-between'
   },
   containerTable: {
-    overflow: 'hidden'
+    overflow: 'hidden',
+    width   : '100%'
   },
   customBottomAdd: {
     border       : 'dashed 1px',
