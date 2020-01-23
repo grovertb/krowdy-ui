@@ -17,14 +17,14 @@ export const styles = theme => ({
     '&:last-child': {
       paddingBottom: 0
     },
-    align: 'left',
-    color: theme.palette.grey['700'],
-    margin: theme.spacing(1, 0, 0, 0),
+    align  : 'left',
+    color  : theme.palette.grey['700'],
+    margin : theme.spacing(1, 0, 0, 0),
     padding: 0
   },
   displayHover: {
     '&:hover': {
-      border: `1px solid ${theme.palette.primary[500]}`,
+      border   : `1px solid ${theme.palette.primary[500]}`,
       boxShadow: '0px 4px 5px rgba(0, 39, 102, 0.08), 0px 3px 14px rgba(0, 39, 102, 0.04), 0px 8px 10px rgba(0, 39, 102, 0.05)'
     }
   },
@@ -32,16 +32,16 @@ export const styles = theme => ({
     margin: theme.spacing(0, 1, 0, 5)
   },
   lessStyle: {
-    margin: 0,
-    padding: 0,
+    margin : 0,
+    padding: 0
   },
   root: {
-    border: `1px solid ${theme.palette.grey[300]}`,
+    border      : `1px solid ${theme.palette.grey[300]}`,
     borderRadius: 8,
-    boxShadow: 'none',
-    cursor: 'pointer',
-    fontSize: 14,
-    height: 'auto',
+    boxShadow   : 'none',
+    cursor      : 'pointer',
+    fontSize    : 14,
+    height      : 'auto'
   },
   sizePaddingmiddle: {
     padding: 20
@@ -50,9 +50,9 @@ export const styles = theme => ({
     padding: 12
   },
   title: {
-    fontSize: 14,
-    fontWeight: 'bold',
-  },
+    fontSize  : 14,
+    fontWeight: 'bold'
+  }
 })
 
 const CardContainer = props => {
@@ -70,24 +70,23 @@ const CardContainer = props => {
     withDivider
   } = props
 
-
   return (
-    <Card classes={{
-      root: clsx(classes.lessStyle,
-        { [classes.displayHover]: !disabledHover },
-        classes[`sizePadding${sizePadding}`],
-        classes.root)
-    }}
-      raised
-      onClick={onClick}>
+    <Card
+      classes={{
+        root: clsx(classes.lessStyle,
+          { [classes.displayHover]: !disabledHover },
+          classes[`sizePadding${sizePadding}`],
+          classes.root)
+      }}
+      onClick={onClick}
+      raised>
       {(title || action) &&
         <CardHeader
-          avatar={avatar}
-          title={title}
           action={action}
+          avatar={avatar}
           classes={{ action: classes.action, root: clsx(classes.lessStyle, classes.header), title: classes.title }}
-          {...cardHeaderProps}
-        />}
+          title={title}
+          {...cardHeaderProps} />}
 
       {withDivider && <Divider {...propsDivider} />}
 
@@ -99,22 +98,22 @@ const CardContainer = props => {
 }
 
 CardContainer.propTypes = {
-  action: PropTypes.node,
-  avatar: PropTypes.node,
+  action         : PropTypes.node,
+  avatar         : PropTypes.node,
   cardHeaderProps: PropTypes.object,
-  classes: PropTypes.shape({
-    action: PropTypes.string,
+  classes        : PropTypes.shape({
+    action     : PropTypes.string,
     cardContent: PropTypes.string,
-    header: PropTypes.string,
-    root: PropTypes.string,
-    title: PropTypes.string,
+    header     : PropTypes.string,
+    root       : PropTypes.string,
+    title      : PropTypes.string
   }),
-  content: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
+  content      : PropTypes.oneOfType([ PropTypes.node, PropTypes.string ]),
   disabledHover: PropTypes.bool,
-  onClick: PropTypes.func,
-  sizePadding: PropTypes.oneOf(['small', 'middle']),
-  title: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
-  withDivider: PropTypes.object
+  onClick      : PropTypes.func,
+  sizePadding  : PropTypes.oneOf([ 'small', 'middle' ]),
+  title        : PropTypes.oneOfType([ PropTypes.node, PropTypes.string ]),
+  withDivider  : PropTypes.object
 }
 
 CardContainer.muiName = 'CardContainer'

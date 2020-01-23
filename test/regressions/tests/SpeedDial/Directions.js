@@ -9,61 +9,60 @@ import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon'
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction'
 
 const styles = {
-  directionDown: {},
-  directionLeft: {},
+  directionDown : {},
+  directionLeft : {},
   directionRight: {},
-  directionUp: {},
-  root: {
-    height: 360,
+  directionUp   : {},
+  root          : {
+    height  : 360,
     position: 'relative',
-    width: 400,
+    width   : 400
   },
   speedDial: {
     '&$directionDown': {
       left: 0,
-      top: 0,
+      top : 0
     },
     '&$directionLeft': {
       right: 0,
-      top: 0,
+      top  : 0
     },
     '&$directionRight': {
       bottom: 0,
-      left: 0,
+      left  : 0
     },
     '&$directionUp': {
       bottom: 0,
-      right: 0,
+      right : 0
     },
-    position: 'absolute',
-  },
+    position: 'absolute'
+  }
 }
 
 function SimpleSpeedDial(props) {
   const tooltipPlacement = {
-    down: 'right',
-    left: 'bottom',
+    down : 'right',
+    left : 'bottom',
     right: 'top',
-    up: 'left',
+    up   : 'left'
   }
 
   return (
     <SpeedDial icon={<SpeedDialIcon />} open {...props}>
-      {['A', 'B', 'C'].map(name => (
+      {[ 'A', 'B', 'C' ].map(name => (
         <SpeedDialAction
-          key={name}
           icon={<Avatar>{name}</Avatar>}
+          key={name}
           tooltipOpen
           tooltipPlacement={tooltipPlacement[props.direction]}
-          tooltipTitle={'Tooltip'}
-        />
+          tooltipTitle={'Tooltip'} />
       ))}
     </SpeedDial>
   )
 }
 
 SimpleSpeedDial.propTypes = {
-  direction: PropTypes.string.isRequired,
+  direction: PropTypes.string.isRequired
 }
 
 function Directions({ classes }) {
@@ -72,20 +71,19 @@ function Directions({ classes }) {
 
   return (
     <div className={classes.root}>
-      {['up', 'down'].map(direction => (
+      {[ 'up', 'down' ].map(direction => (
         <SimpleSpeedDial
-          key={direction}
           ariaLabel={direction}
           className={speedDialClassName(direction)}
           direction={direction}
-        />
+          key={direction} />
       ))}
     </div>
   )
 }
 
 Directions.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 }
 
 export default withStyles(styles)(Directions)

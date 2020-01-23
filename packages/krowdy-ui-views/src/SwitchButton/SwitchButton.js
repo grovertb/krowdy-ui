@@ -3,15 +3,14 @@ import PropTypes from 'prop-types'
 import { withStyles } from '@krowdy-ui/styles'
 import { Button, ButtonGroup } from '@krowdy-ui/core'
 
-export const styles = theme => ({
+export const styles = (/* theme */) => ({
   btn: {
     height: 40,
-    width: 136
+    width : 136
   }
 })
 
 const SwitchButton = props => {
-
   const {
     classes,
     active,
@@ -24,29 +23,26 @@ const SwitchButton = props => {
   return (
     <div>
       <ButtonGroup
-        {...restProps}
-      >
+        {...restProps}>
         <Button
           className={classes.btn}
-          variant={active ? 'contained' : 'outlined'}
           onClick={() => onChange(active)
           }
-        >{titleLeft}</Button>
+          variant={active ? 'contained' : 'outlined'}>{titleLeft}</Button>
         <Button
           className={classes.btn}
-          variant={!active ? 'contained' : 'outlined'}
           onClick={() => onChange(active)}
-        >{titleRight}</Button>
+          variant={!active ? 'contained' : 'outlined'}>{titleRight}</Button>
       </ButtonGroup>
     </div >
   )
 }
 
 SwitchButton.propTypes = {
-  active: PropTypes.bool,
-  classes: PropTypes.object,
-  onChange: PropTypes.func,
-  titleLeft: PropTypes.string,
+  active    : PropTypes.bool,
+  classes   : PropTypes.object,
+  onChange  : PropTypes.func,
+  titleLeft : PropTypes.string,
   titleRight: PropTypes.string
 }
 

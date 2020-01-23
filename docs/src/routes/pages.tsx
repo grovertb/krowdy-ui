@@ -133,6 +133,10 @@ const pages: Array<Page> = [
         path: '/views/carduser'
       },
       {
+        title: 'Card Exception',
+        path: '/views/cardexception'
+      },
+      {
         title: 'Select Candidates',
         path: '/views/selectcandidates'
       },
@@ -195,6 +199,10 @@ const pages: Array<Page> = [
       {
         title: 'Modal',
         path: '/views/modalkrowder'
+      },
+      {
+        title: 'Card  message',
+        path: '/views/cardmessage'
       },
     ]
   },

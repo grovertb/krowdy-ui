@@ -5,9 +5,9 @@ import Button from '@krowdy-ui/core/Button'
 const useStyles = makeStyles(theme => ({
   root: {
     '& > *': {
-      margin: theme.spacing(1),
-    },
-  },
+      margin: theme.spacing(1)
+    }
+  }
 }))
 
 export default function TextButtons() {

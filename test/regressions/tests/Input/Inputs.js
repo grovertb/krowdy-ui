@@ -6,16 +6,16 @@ import Input from '@material-ui/core/Input'
 
 const styles = {
   container: {
-    display: 'flex',
+    display      : 'flex',
     flexDirection: 'column',
-    width: 200,
+    width        : 200
   },
   input: {
-    margin: 10,
+    margin: 10
   },
   large: {
-    width: 300,
-  },
+    width: 300
+  }
 }
 
 function Inputs(props) {
@@ -29,19 +29,19 @@ function Inputs(props) {
   return (
     <div>
       <div className={classes.container}>
-        <Input value='Hello world' className={classes.input} />
-        <Input placeholder='Placeholder' className={classes.input} />
-        <Input value='Disabled' className={classes.input} disabled />
-        <Input error value='Error' className={classes.input} />
-        <Input value='Focused' inputRef={inputRef} className={classes.input} />
+        <Input className={classes.input} value='Hello world' />
+        <Input className={classes.input} placeholder='Placeholder' />
+        <Input className={classes.input} disabled value='Disabled' />
+        <Input className={classes.input} error value='Error' />
+        <Input className={classes.input} inputRef={inputRef} value='Focused' />
       </div>
-      <Input value='Large input' className={clsx(classes.input, classes.large)} />
+      <Input className={clsx(classes.input, classes.large)} value='Large input' />
     </div>
   )
 }
 
 Inputs.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 }
 
 export default withStyles(styles)(Inputs)

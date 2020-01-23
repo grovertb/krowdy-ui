@@ -3,24 +3,24 @@ import { CODE_VARIANTS, getDependencies } from './utils'
 function jsDemo(demoData) {
   return {
     dependencies: getDependencies(demoData.raw),
-    files: {
-      'demo.js': demoData.raw,
+    files       : {
+      'demo.js' : demoData.raw,
       'index.js': `
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Demo from './demo';
 
 ReactDOM.render(<Demo />, document.querySelector('#root'));
-    `,
-    },
+    `
+    }
   }
 }
 
 function tsDemo(demoData) {
   return {
     dependencies: getDependencies(demoData.raw, { codeLanguage: CODE_VARIANTS.TS }),
-    files: {
-      'demo.tsx': demoData.raw,
+    files       : {
+      'demo.tsx' : demoData.raw,
       'index.tsx': `
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -53,12 +53,12 @@ ReactDOM.render(<Demo />, document.querySelector('#root'));
     "src"
   ]
 }
-      `,
+      `
     },
-    main: 'index.tsx',
+    main   : 'index.tsx',
     scripts: {
-      start: 'react-scripts start',
-    },
+      start: 'react-scripts start'
+    }
   }
 }
 
@@ -76,7 +76,7 @@ function getLanguageConfig(demoData) {
 export default function getDemoConfig(demoData) {
   const baseConfig = {
     description: demoData.githubLocation,
-    files: {
+    files      : {
       'index.html': `
 <body>
   <!-- Fonts to support Material Design -->
@@ -85,9 +85,9 @@ export default function getDemoConfig(demoData) {
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
   <div id="root"></div>
 </body>
-      `,
+      `
     },
-    title: 'Material demo',
+    title: 'Material demo'
   }
   const languageConfig = getLanguageConfig(demoData)
 
@@ -96,7 +96,7 @@ export default function getDemoConfig(demoData) {
     ...languageConfig,
     files: {
       ...baseConfig.files,
-      ...languageConfig.files,
-    },
+      ...languageConfig.files
+    }
   }
 }

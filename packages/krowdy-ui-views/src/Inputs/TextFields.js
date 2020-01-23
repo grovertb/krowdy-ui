@@ -6,24 +6,24 @@ import clsx from 'clsx'
 import { Input } from '@krowdy-ui/core'
 export const styles = theme => ({
   alignSelf: {
-    alignSelf: 'flex-start',
+    alignSelf: 'flex-start'
   },
   container: {
-    alignItems: 'center',
-    display: 'flex',
-    flexDirection: 'row',
+    alignItems    : 'center',
+    display       : 'flex',
+    flexDirection : 'row',
     justifyContent: 'space-between',
-    width: '100%'
+    width         : '100%'
   },
   focused: {
     borderBottom: `1px solid ${theme.palette.primary[600]}`
   },
   inputsContent: {
-    alignItems: 'center',
-    display: 'flex',
-    flex: 1,
+    alignItems   : 'center',
+    display      : 'flex',
+    flex         : 1,
     flexDirection: 'column',
-    margin: theme.spacing(0, 1)
+    margin       : theme.spacing(0, 1)
   },
   multiline: {
     paddingTop: 2
@@ -36,12 +36,12 @@ export const styles = theme => ({
       borderBottom: `1px solid ${theme.palette.primary[400]}`
     },
     borderBottom: `1px solid ${theme.palette.grey[400]}`,
-    color: theme.palette.grey[700],
-    margin: theme.spacing(0, 1, 2, 1),
-    width: 'fill-available'
+    color       : theme.palette.grey[700],
+    margin      : theme.spacing(0, 1, 2, 1),
+    width       : 'fill-available'
   },
   textSize: {
-    fontSize: 14,
+    fontSize: 14
   }
 })
 
@@ -54,7 +54,7 @@ const InputComponent = (props) => {
     onUpdateItem = () => { },
     order,
     placeholderAnswer = 'Answer',
-    placeholderQuestion = 'Question',
+    placeholderQuestion = 'Question'
   } = props
 
   return (
@@ -69,16 +69,16 @@ const InputComponent = (props) => {
             multiline: classes.multiline
           }}
           className={clsx(classes.textField, classes.focused, classes.textSize)}
-          value={item.question}
           disabled={disabled}
+          disableUnderline
+          multiline
           onChange={event => {
             onUpdateItem(item._id, {
               question: event.target.value
             })
           }}
-          multiline
-          disableUnderline
-          placeholder={placeholderQuestion} />
+          placeholder={placeholderQuestion}
+          value={item.question} />
         {
           showInstructions &&
           <Input
@@ -105,22 +105,22 @@ InputComponent.propTypes = {
   classes: PropTypes.shape({
     container: PropTypes.string,
     multiline: PropTypes.string,
-    order: PropTypes.string,
+    order    : PropTypes.string,
     textField: PropTypes.string,
-    textSize: PropTypes.string,
+    textSize : PropTypes.string
   }),
-  disabled: PropTypes.bool,
+  disabled    : PropTypes.bool,
   instructions: PropTypes.bool,
-  item: PropTypes.shape({
-    _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  item        : PropTypes.shape({
+    _id         : PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]),
     instructions: PropTypes.string,
-    question: PropTypes.string,
+    question    : PropTypes.string
   }).isRequired,
-  onUpdateItem: PropTypes.func,
-  order: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  placeholderAnswer: PropTypes.string,
+  onUpdateItem       : PropTypes.func,
+  order              : PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]),
+  placeholderAnswer  : PropTypes.string,
   placeholderQuestion: PropTypes.string,
-  showInstructions: PropTypes.bool
+  showInstructions   : PropTypes.bool
 }
 
 InputComponent.muiName = 'InputComponent'

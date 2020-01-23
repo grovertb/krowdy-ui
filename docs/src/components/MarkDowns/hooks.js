@@ -9,28 +9,27 @@ export default function useMarkdownDocsContents(options) {
   const { activePage } = React.useContext(PageContext)
   let markdownLocation = markdownLocationProp || activePage.pathname
 
-  if (!markdownLocationProp) {
+  if(!markdownLocationProp) {
     const token = markdownLocation.split('/')
     token.push(token[token.length - 1])
     markdownLocation = token.join('/')
 
-    if (headers.filename) {
+    if(headers.filename)
       markdownLocation = headers.filename
-    } else {
+    else
       markdownLocation = `/docs/src/pages${markdownLocation}.md`
-    }
   }
 
-  if (headers.components.length > 0) {
+  if(headers.components.length > 0) {
     const section = markdownLocation.split('/')[4]
     const pats = headers.components
-    .map(
-      component =>
-        `- [&lt;${component} /&gt;](${
-          section === 'lab' ? '/lab/api' : '/api'
-        }/${component.toLowerCase()})`,
-    )
-    .join('\n')
+      .map(
+        component =>
+          `- [&lt;${component} /&gt;](${
+            section === 'lab' ? '/lab/api' : '/api'
+          }/${component.toLowerCase()})`,
+      )
+      .join('\n')
 
     contents.push(`
 ## API

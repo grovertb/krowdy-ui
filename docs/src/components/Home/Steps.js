@@ -10,84 +10,86 @@ import MarkdownElement from '../MarkDowns/MarkdownElement'
 const useStyles = makeStyles(theme => ({
   divider: {
     marginBottom: theme.spacing(2),
-    marginTop: theme.spacing(4),
+    marginTop   : theme.spacing(4)
   },
   img: {
-    height: 'auto',
+    height  : 'auto',
     maxWidth: 500,
-    width: '100%',
+    width   : '100%'
   },
   leftStep: {
-    borderBottomWidth: 0,
+    borderBottomWidth           : 0,
     [theme.breakpoints.up('md')]: {
       borderBottomWidth: 12,
-      borderRightWidth: 0,
-    },
+      borderRightWidth : 0
+    }
   },
   link: {
-    display: 'block',
-    marginTop: theme.spacing(1),
+    display  : 'block',
+    marginTop: theme.spacing(1)
   },
   markdownElement: {
     '& pre, & pre[class*="language-"]': {
-      margin: theme.spacing(1, 0),
-      padding: theme.spacing(1, 0),
+      margin : theme.spacing(1, 0),
+      padding: theme.spacing(1, 0)
     },
     '& pre, & pre[class*="language-"], & code': {
       // backgroundColor: 'transparent',
     },
-    maxWidth: `calc(100vw - ${(theme.spacing(5) + 1) * 2}px)`,
+    maxWidth: `calc(100vw - ${(theme.spacing(5) + 1) * 2}px)`
   },
   rightStep: {
-    borderTopWidth: 0,
+    borderTopWidth              : 0,
     [theme.breakpoints.up('md')]: {
       borderLeftWidth: 0,
-      borderTopWidth: 12,
-    },
+      borderTopWidth : 12
+    }
   },
   step: {
-    backgroundColor: theme.palette.background.level2,
-    border: `12px solid ${theme.palette.grey[50]}`,
-    borderLeftWidth: 0,
-    borderRightWidth: 0,
-    padding: theme.spacing(3, 2),
+    backgroundColor             : theme.palette.background.level2,
+    border                      : `12px solid ${theme.palette.grey[50]}`,
+    borderLeftWidth             : 0,
+    borderRightWidth            : 0,
+    padding                     : theme.spacing(3, 2),
     [theme.breakpoints.up('sm')]: {
-      padding: theme.spacing(5, 4),
+      padding: theme.spacing(5, 4)
     },
     [theme.breakpoints.up('md')]: {
-      borderLeftWidth: 12,
-      borderRightWidth: 12,
-    },
+      borderLeftWidth : 12,
+      borderRightWidth: 12
+    }
   },
   stepBody: {
-    minHeight: 290,
+    minHeight: 290
   },
   stepIcon: {
-    color: theme.palette.primary.main,
-    fontSize: 30,
-    marginRight: theme.spacing(2),
+    color      : theme.palette.primary.main,
+    fontSize   : 30,
+    marginRight: theme.spacing(2)
   },
   stepTitle: {
-    alignItems: 'center',
-    display: 'flex',
-    marginBottom: theme.spacing(3),
-  },
+    alignItems  : 'center',
+    display     : 'flex',
+    marginBottom: theme.spacing(3)
+  }
 }), { name: 'Steps' })
 
-export default function Steps () {
+export default function Steps() {
   const classes = useStyles()
 
   return (
     <Grid container>
-      <Grid item xs={12} md={6} className={clsx(classes.step, classes.leftStep)}>
+      <Grid
+        className={clsx(classes.step, classes.leftStep)} item md={6}
+        xs={12}>
         <div className={classes.stepTitle}>
           <FileDownloadIcon className={classes.stepIcon} />
-          <Typography variant='h6' component='h3'>
+          <Typography component='h3' variant='h6'>
             {t('installation')}
           </Typography>
         </div>
         <div className={classes.stepBody}>
-          <Typography variant='subtitle1' component='div' gutterBottom>
+          <Typography component='div' gutterBottom variant='subtitle1'>
             {t('installDescr')}
           </Typography>
           <MarkdownElement
@@ -96,19 +98,17 @@ export default function Steps () {
   \`\`\`sh
   $ npm install @krowdy-ui/core
   \`\`\`
-                `}
-          />
+                `} />
           <Link
-            variant='subtitle1'
             color='inherit'
+            gutterBottom
             // href="https://github.com/grovertb/krowdy-ui/tree/master/examples/cdn"
             href='https://github.com/grovertb/krowdy-ui'
             target='_blank'
-            gutterBottom
-          >
+            variant='subtitle1'>
             {t('cdn')}
           </Link>
-          <Typography variant='subtitle1' component='div' gutterBottom>
+          <Typography component='div' gutterBottom variant='subtitle1'>
             {t('loadFont')}
           </Typography>
           <MarkdownElement
@@ -117,21 +117,22 @@ export default function Steps () {
   \`\`\`html
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
   \`\`\`
-                `}
-          />
+                `} />
         </div>
         {/* <Divider className={classes.divider} /> */}
         {/* <Button component={InstallationLink}>{t('installButton')}</Button> */}
       </Grid>
-      <Grid item xs={12} md={6} className={classes.step}>
+      <Grid
+        className={classes.step} item md={6}
+        xs={12}>
         <div className={classes.stepTitle}>
           <BuildIcon className={classes.stepIcon} />
-          <Typography variant='h6' component='h3'>
+          <Typography component='h3' variant='h6'>
             {t('usage')}
           </Typography>
         </div>
         <div className={classes.stepBody}>
-          <Typography variant='subtitle1' component='div' gutterBottom>
+          <Typography component='div' gutterBottom variant='subtitle1'>
             {t('usageDescr')}
           </Typography>
           <MarkdownElement
@@ -150,8 +151,7 @@ export default function Steps () {
     </ThemeProvider>
   );
   \`\`\`
-                `}
-          />
+                `} />
         </div>
         {/* <Divider className={classes.divider} />
         <Button component={UsageLink}>{t('usageButton')}</Button> */}

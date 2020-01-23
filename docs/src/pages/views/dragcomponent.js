@@ -10,7 +10,9 @@ const reqSource = require.context(
 const reqPrefix = 'containers/views/dragcomponent'
 
 function Page() {
-  return <MarkdownDocs disableAd req={req} reqSource={reqSource} reqPrefix={reqPrefix} />
+  return <MarkdownDocs
+    disableAd req={req} reqPrefix={reqPrefix}
+    reqSource={reqSource} />
 }
 
 export default Page

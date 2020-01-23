@@ -5,13 +5,13 @@ import { Paper, Hidden, withWidth, Typography, Grid } from '@krowdy-ui/core'
 
 const useStyles = makeStyles(theme => ({
   paper: {
-    color: theme.palette.text.secondary,
-    padding: theme.spacing(2),
-    textAlign: 'center',
+    color    : theme.palette.text.secondary,
+    padding  : theme.spacing(2),
+    textAlign: 'center'
   },
   root: {
-    flexGrow: 1,
-  },
+    flexGrow: 1
+  }
 }))
 
 function GridIntegration(props) {
@@ -20,7 +20,7 @@ function GridIntegration(props) {
 
   return (
     <div className={classes.root}>
-      <Typography variant='subtitle1' gutterBottom>
+      <Typography gutterBottom variant='subtitle1'>
         Current width: {width}
       </Typography>
       <Grid container spacing={3}>
@@ -55,7 +55,7 @@ function GridIntegration(props) {
 }
 
 GridIntegration.propTypes = {
-  width: PropTypes.oneOf(['lg', 'md', 'sm', 'xl', 'xs']).isRequired,
+  width: PropTypes.oneOf([ 'lg', 'md', 'sm', 'xl', 'xs' ]).isRequired
 }
 
 export default withWidth()(GridIntegration)

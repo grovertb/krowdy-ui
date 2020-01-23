@@ -5,9 +5,9 @@ import Button from '@krowdy-ui/core/Button'
 const useStyles = makeStyles(theme => ({
   root: {
     '& > *': {
-      margin: theme.spacing(1),
-    },
-  },
+      margin: theme.spacing(1)
+    }
+  }
 }))
 
 export default function OutlinedButtons() {
@@ -16,22 +16,22 @@ export default function OutlinedButtons() {
   return (
     <div className={classes.root}>
       <Button variant='outlined'>Default</Button>
-      <Button variant='outlined' color='primary'>
+      <Button color='primary' variant='outlined'>
         Primary
       </Button>
-      <Button variant='outlined' color='secondary'>
+      <Button color='secondary' variant='outlined'>
         Secondary
       </Button>
-      <Button variant='outlined' color='krowdy'>
+      <Button color='krowdy' variant='outlined'>
         Krowdy
       </Button>
-      <Button variant='outlined' color='error'>
+      <Button color='error' variant='outlined'>
         Error
       </Button>
-      <Button variant='outlined' disabled>
+      <Button disabled variant='outlined'>
         Disabled
       </Button>
-      <Button variant='outlined' color='primary' href='#outlined-buttons'>
+      <Button color='primary' href='#outlined-buttons' variant='outlined'>
         Link
       </Button>
     </div>

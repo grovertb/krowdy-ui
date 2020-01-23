@@ -5,36 +5,39 @@ import { Videocam, Assignment, NavigateNext } from '@material-ui/icons'
 import { Rating } from '@material-ui/lab'
 
 export default function () {
-
   return (
     <>
       <Grid container justify='center'>
         <UserCard
-          title='Card User'
+          borderColor='error'
           items={[
             {
-              icon: <Assignment />,
-              rating: <Rating value={1.5} name='rating1' size='small' precision={0.5} />,
-              text: 'Formulario',
+              icon  : <Assignment />,
+              rating: <Rating
+                name='rating1' precision={0.5} size='small'
+                value={1.5} />,
+              text: 'Formulario'
             },
             {
-              icon: <Videocam />,
-              rating: <Rating value={1.5} name='rating2' size='small' precision={0.5} />,
-              text: 'Video Cuestionario',
+              icon  : <Videocam />,
+              rating: <Rating
+                name='rating2' precision={0.5} size='small'
+                value={1.5} />,
+              text: 'Video Cuestionario'
             },
             {
-              icon: <Videocam />,
-              rating: <Rating value={1.5} name='rating3' size='small' precision={0.5} />,
-              text: 'Video Entrevista',
-            },
+              icon  : <Videocam />,
+              rating: <Rating
+                name='rating3' precision={0.5} size='small'
+                value={1.5} />,
+              text: 'Video Entrevista'
+            }
           ]}
-          borderColor='error'
-/*           iconRight={<MoreVert />}
- */          nextIcon={<NavigateNext />}
-        />
+          nextIcon={<NavigateNext />}
+          /*           iconRight={<MoreVert />}
+ */          title='Card User' />
 
       </Grid >
     </>
   )
 }
-

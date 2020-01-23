@@ -7,38 +7,38 @@ import {
   Favorite as FavoriteIcon,
   Navigation as NavigationIcon,
   Apple as AppleIcon,
-  Delete as DeleteIcon,
+  Delete as DeleteIcon
 } from '@material-ui/icons'
 
 const useStyles = makeStyles(theme => ({
   root: {
     '& > *': {
-      margin: theme.spacing(1),
-    },
-  },
+      margin: theme.spacing(1)
+    }
+  }
 }))
 
 export default () => {
   const classes = useStyles()
-  
+
   return (
     <div className={classes.root}>
       <IconButton>
         <AddIcon />
       </IconButton>
-      <IconButton variant='contained' color='primary'>
+      <IconButton color='primary' square variant='contained'>
         <EditIcon />
       </IconButton>
-      <IconButton variant='contained' color='secondary'>
+      <IconButton color='secondary' variant='contained'>
         <FavoriteIcon />
       </IconButton>
-      <IconButton variant='contained' color='krowdy'>
+      <IconButton color='krowdy' variant='contained'>
         <AppleIcon />
       </IconButton>
-      <IconButton variant='contained' color='error'>
+      <IconButton color='error' variant='contained'>
         <DeleteIcon />
       </IconButton>
-      <IconButton variant='contained' disabled>
+      <IconButton disabled variant='contained'>
         <NavigationIcon />
       </IconButton>
     </div>

@@ -9,21 +9,21 @@ export const styles = theme => ({
       borderBottom: `1px solid ${theme.palette.primary[400]}`
     },
     borderBottom: `1px solid ${theme.palette.grey[400]}`,
-    color: theme.palette.grey[700],
-    fontSize: 14,
-    margin: theme.spacing(1.5),
-    width: 'fill-available'
+    color       : theme.palette.grey[700],
+    fontSize    : 14,
+    margin      : theme.spacing(1.5),
+    width       : 'fill-available'
   },
   container: {
     height: 'calc(100% - 40px)',
     // overflow: 'auto',
-    width: '100%'
+    width : '100%'
   }
 })
 
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list)
-  const [removed] = result.splice(startIndex, 1)
+  const [ removed ] = result.splice(startIndex, 1)
   result.splice(endIndex, 0, removed)
 
   return result
@@ -38,7 +38,7 @@ const DragComponent = props => {
   } = props
 
   const onDragEnd = (result) => {
-    if (!result.destination) return
+    if(!result.destination) return
 
     const newItems = reorder(
       children,
@@ -75,8 +75,8 @@ const DragComponent = props => {
                           {item}
                         </div>
                       )}
-                    </Draggable>
-                    : null
+                    </Draggable> :
+                    null
                 )
                 )
               }
@@ -96,9 +96,9 @@ const DragComponent = props => {
 
 DragComponent.propTypes = {
   addInputComponent: PropTypes.node,
-  classes: PropTypes.shape({
+  classes          : PropTypes.shape({
     aditionalInput: PropTypes.string,
-    container: PropTypes.string
+    container     : PropTypes.string
   }),
   onItemsOrdered: PropTypes.func
 }

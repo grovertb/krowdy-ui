@@ -1,24 +1,21 @@
 function shallowRecursively(wrapper, selector, { context, ...other }) {
-  if (wrapper.isEmptyRender() || typeof wrapper.getElement().type === 'string') {
+  if(wrapper.isEmptyRender() || typeof wrapper.getElement().type === 'string')
     return wrapper
-  }
 
   let newContext = context
 
   const instance = wrapper.root().instance()
   // The instance can be null with a stateless functional component and react >= 16.
-  if (instance && instance.getChildContext) {
+  if(instance && instance.getChildContext)
     newContext = {
       ...context,
-      ...instance.getChildContext(),
+      ...instance.getChildContext()
     }
-  }
 
   const nextWrapper = wrapper.shallow({ context: newContext, ...other })
 
-  if (selector && wrapper.is(selector)) {
+  if(selector && wrapper.is(selector))
     return nextWrapper
-  }
 
   return shallowRecursively(nextWrapper, selector, { context: newContext })
 }

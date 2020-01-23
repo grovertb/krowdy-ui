@@ -16,7 +16,7 @@ export default function createServerRender(options = {}) {
         message,
       )
 
-      if (!expectUseLayoutEffectWarning || !isUseLayoutEffectWarning) {
+      if(!expectUseLayoutEffectWarning || !isUseLayoutEffectWarning) {
         // callThrough
         // eslint-disable-next-line no-console
         console.info(message, ...args)
