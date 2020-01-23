@@ -3,7 +3,7 @@ import { Search } from '@krowdy-ui/views'
 import SearchIcon from '@material-ui/icons/Search'
 
 export default function () {
-  const [search, setSearch] = useState('')
+  const [ search, setSearch ] = useState('')
 
   const type = 'border-bottom'
   const placeholder = 'Buscar candidatos'
@@ -12,27 +12,27 @@ export default function () {
     setSearch(event.target.value)
   }
   const onKeyDown = e => {
-    if (e.key === 'Enter')
+    if(e.key === 'Enter')
       e.preventDefault()
   }
 
   return (
     <div style={{
-      alignItems: 'center',
-      display: 'flex',
-      flexDirection: 'column',
-      height: 400,
+      alignItems    : 'center',
+      display       : 'flex',
+      flexDirection : 'column',
+      height        : 400,
       justifyContent: 'space-evenly',
-      margin: '50px',
-      width: 'auto'
+      margin        : '50px',
+      width         : 'auto'
     }}>
       <Search
-        type={type}
-        value={search}
         onChange={onChange}
         onKeyDown={onKeyDown}
         placeholder={placeholder}
-        searchIcon={searchIcon} />
+        searchIcon={searchIcon}
+        type={type}
+        value={search} />
 
       <Search
         placeholder={placeholder}

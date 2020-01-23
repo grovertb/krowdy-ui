@@ -7,7 +7,7 @@ const Dropdown = props => {
     children,
     content
   } = props
-  const [anchorEl, setAnchorEl] = React.useState(null)
+  const [ anchorEl, setAnchorEl ] = React.useState(null)
 
   const _handleClick = event => {
     setAnchorEl(event.currentTarget)
@@ -25,10 +25,9 @@ const Dropdown = props => {
       </div>
       <Modal
         anchorEl={anchorEl}
-        style={{ alignItems: 'center', display: 'flex', justifyContent: 'center' }}
         onClose={handleClose}
         open={open}
-      >
+        style={{ alignItems: 'center', display: 'flex', justifyContent: 'center' }}>
         {content}
       </Modal>
     </div>
@@ -37,7 +36,7 @@ const Dropdown = props => {
 
 Dropdown.propTypes = {
   children: PropTypes.any.isRequired,
-  content: PropTypes.any.isRequired
+  content : PropTypes.any.isRequired
 }
 
 Dropdown.muiName = 'CardCandidate'

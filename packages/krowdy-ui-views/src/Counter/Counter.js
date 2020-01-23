@@ -9,14 +9,14 @@ import {
 export const styles = theme => ({
   icon: {
     '&:focus': {
-      background: theme.palette.primary['50'],
+      background  : theme.palette.primary['50'],
       borderRadius: 4,
-      color: theme.palette.primary['600']
+      color       : theme.palette.primary['600']
     },
     '&:hover': {
-      background: theme.palette.primary['50'],
+      background  : theme.palette.primary['50'],
       borderRadius: 4,
-      color: theme.palette.primary['400']
+      color       : theme.palette.primary['400']
     }
   },
   input: {
@@ -24,12 +24,12 @@ export const styles = theme => ({
   },
   root: {
     borderBottom: `1px solid ${theme.palette.grey['500']}`,
-    fontSize: 14,
-    fontStyle: 'normal',
-    fontWeight: 'normal',
-    lineHeight: '100%',
-    textAlign: 'center',
-    width: 23
+    fontSize    : 14,
+    fontStyle   : 'normal',
+    fontWeight  : 'normal',
+    lineHeight  : '100%',
+    textAlign   : 'center',
+    width       : 23
   }
 })
 
@@ -38,7 +38,6 @@ function addLeadingZero(number) {
 }
 
 const Counter = props => {
-
   const {
     classes,
     addIcon,
@@ -63,20 +62,18 @@ const Counter = props => {
             onChange(number - 1)
         }}
         size='small'
-        {...restPropsIconButton}
-      >
+        {...restPropsIconButton}>
         {removeIcon}
       </IconButton>
       <Input
-        disabled={disabled}
-        disableUnderline
         classes={{
           input: classes.input,
-          root: classes.root
+          root : classes.root
         }}
+        disabled={disabled}
+        disableUnderline
         value={addLeadingZero(number)}
-        {...restPropsInput}
-      />
+        {...restPropsInput} />
       <IconButton
         className={classes.icon}
         color='primary'
@@ -86,8 +83,7 @@ const Counter = props => {
             onChange(number + 1)
         }}
         size='small'
-        {...restPropsIconButton}
-      >
+        {...restPropsIconButton}>
         {addIcon}
       </IconButton>
 
@@ -96,13 +92,13 @@ const Counter = props => {
 }
 
 Counter.propTypes = {
-  addIcon: PropTypes.node,
-  classes: PropTypes.object,
-  disabled: PropTypes.bool,
-  max: PropTypes.number,
-  min: PropTypes.number,
-  number: PropTypes.number,
-  onChange: PropTypes.func,
+  addIcon   : PropTypes.node,
+  classes   : PropTypes.object,
+  disabled  : PropTypes.bool,
+  max       : PropTypes.number,
+  min       : PropTypes.number,
+  number    : PropTypes.number,
+  onChange  : PropTypes.func,
   removeIcon: PropTypes.node
 }
 

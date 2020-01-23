@@ -7,42 +7,40 @@ import clsx from 'clsx'
 export const styles = theme => ({
   buttonSelected: {
     backgroundColor: `${theme.palette.primary[50]} !important`,
-    borderRadius: 4,
-    color: theme.palette.primary[400]
+    borderRadius   : 4,
+    color          : theme.palette.primary[400]
   },
   container: {
-    border: `1px solid ${theme.palette.grey[200]}`,
+    border      : `1px solid ${theme.palette.grey[200]}`,
     borderRadius: 8,
-    height: 'auto',
-    padding: 16
+    height      : 'auto',
+    padding     : 16
   },
   divider: {
     margin: '1px 0'
   },
   list: {
     listStyle: 'none',
-    margin: 'auto',
+    margin   : 'auto'
   },
   listItem: {
     '&:hover': {
       backgroundColor: 'transparent',
-      color: theme.palette.primary[400],
+      color          : theme.palette.primary[400]
     },
-    padding: 14,
+    padding: 14
   },
   search: {
     '&:hover': {
-      borderBottom: `1px solid ${theme.palette.primary[400]}`,
+      borderBottom: `1px solid ${theme.palette.primary[400]}`
     },
     borderBottom: `1px solid ${theme.palette.grey[400]}`,
-    color: theme.palette.grey[700],
-  },
+    color       : theme.palette.grey[700]
+  }
 
 })
 
-
 const SearchTasks = props => {
-
   const {
     classes,
     firtsList = [],
@@ -61,23 +59,23 @@ const SearchTasks = props => {
       <Input
         className={classes.search}
         color='secondary'
-        placeholder='Buscar tarea'
-        endAdornment={iconOnSeeker}
         disableUnderline
+        endAdornment={iconOnSeeker}
         fullWidth
-        {...propsInput}
-      />
+        placeholder='Buscar tarea'
+        {...propsInput} />
       <List className={classes.list} key='firtsList' {...propsLists}>
         {
           firtsList.map((element, index) => {
             const value = (selected === element._id)
-            return <ListItem button
-              selected={value}
-              key={`firts-${index}`}
+
+            return <ListItem
+              button
               className={clsx(classes.listItem, { [classes.buttonSelected]: value })}
+              key={`firts-${index}`}
               onClick={() => onClickInItem(element._id)}
-              {...propsListItemsToFirstList}
-            >{element.taskName}</ListItem>
+              selected={value}
+              {...propsListItemsToFirstList}>{element.taskName}</ListItem>
           })
         }
       </List>
@@ -86,13 +84,14 @@ const SearchTasks = props => {
         {
           secondList.map((element, index) => {
             const value = (selected === element._id)
-            return <ListItem button
-              key={`second-${index}`}
+
+            return <ListItem
+              button
               className={clsx(classes.listItem, { [classes.buttonSelected]: value })}
-              selected={(selected === element._id)}
+              key={`second-${index}`}
               onClick={() => onClickInItem(element._id)}
-              {...propsListItemsToSecondList}
-            >{element.taskName}</ListItem>
+              selected={(selected === element._id)}
+              {...propsListItemsToSecondList}>{element.taskName}</ListItem>
           })
         }
       </List>
@@ -101,16 +100,16 @@ const SearchTasks = props => {
 }
 
 SearchTasks.propTypes = {
-  classes: PropTypes.object,
-  firtsList: PropTypes.array,
-  iconOnSeeker: PropTypes.node,
-  onClickInItem: PropTypes.func,
-  propsInput: PropTypes.object,
-  propsListItemsToFirstList: PropTypes.object,
+  classes                   : PropTypes.object,
+  firtsList                 : PropTypes.array,
+  iconOnSeeker              : PropTypes.node,
+  onClickInItem             : PropTypes.func,
+  propsInput                : PropTypes.object,
+  propsListItemsToFirstList : PropTypes.object,
   propsListItemsToSecondList: PropTypes.object,
-  propsLists: PropTypes.object,
-  secondList: PropTypes.array,
-  selected: PropTypes.string,
+  propsLists                : PropTypes.object,
+  secondList                : PropTypes.array,
+  selected                  : PropTypes.string
 }
 
 SearchTasks.muiName = 'SearchTasks'

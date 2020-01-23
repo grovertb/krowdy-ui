@@ -8,21 +8,21 @@ import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
 
 export const styles = theme => ({
   gridContainer: {
-    height: 'calc(100% - 40px)',
+    height  : 'calc(100% - 40px)',
     overflow: 'auto',
-    width: '100%'
+    width   : '100%'
   },
   lastInput: {
-    fontSize: 14,
-    margin: 'auto',
+    fontSize   : 14,
+    margin     : 'auto',
     paddingLeft: theme.spacing(3),
-    width: '100%'
+    width      : '100%'
   }
 })
 
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list)
-  const [removed] = result.splice(startIndex, 1)
+  const [ removed ] = result.splice(startIndex, 1)
   result.splice(endIndex, 0, removed)
 
   return result
@@ -33,11 +33,11 @@ const DragComponent = props => {
     addInputComponent,
     classes,
     children,
-    onItemsOrdered = () => { },
+    onItemsOrdered = () => { }
   } = props
 
   const onDragEnd = (result) => {
-    if (!result.destination) return
+    if(!result.destination) return
 
     const newItems = reorder(
       children,
@@ -47,10 +47,9 @@ const DragComponent = props => {
     onItemsOrdered(newItems)
   }
 
-
   return (
     <Grid className={classes.gridContainer} container>
-      <Grid item xs={12} tabIndex='-1'>
+      <Grid item tabIndex='-1' xs={12}>
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable direction='vertical' droppableId='droppable'>
             {(dropProvided) => (
@@ -64,17 +63,15 @@ const DragComponent = props => {
                     <Draggable
                       draggableId={`drag-${item.props.id}`}
                       index={index}
-                      key={`drag-${item.props.id}`}
-                    >
+                      key={`drag-${item.props.id}`}>
                       {(dragProvided) => (
                         <div
 
                           ref={dragProvided.innerRef}
                           {...dragProvided.draggableProps}
                           {...dragProvided.dragHandleProps}
-                          tabIndex='-1'
                           style={dragProvided.draggableProps.style}
-                        >
+                          tabIndex='-1'>
                           {item}
                         </div>
                       )}
@@ -96,8 +93,8 @@ const DragComponent = props => {
 
 DragComponent.propTypes = {
   addInputComponent: PropTypes.node,
-  classes: PropTypes.object,
-  onItemsOrdered: PropTypes.func,
+  classes          : PropTypes.object,
+  onItemsOrdered   : PropTypes.func
 }
 
 DragComponent.muiName = 'DragComponent'

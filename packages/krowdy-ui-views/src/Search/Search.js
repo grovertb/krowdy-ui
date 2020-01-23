@@ -5,17 +5,17 @@ import { InputBase, InputAdornment } from '@krowdy-ui/core'
 
 export const styles = theme => ({
   icon: {
-    color: theme.palette.grey['600'],
-    fontSize: 18,
+    color      : theme.palette.grey['600'],
+    fontSize   : 18,
     marginRight: theme.spacing(1)
   },
   inputBase: {
-    flex: 1,
-    fontSize: 14,
-    fontStyle: 'normal',
+    flex      : 1,
+    fontSize  : 14,
+    fontStyle : 'normal',
     fontWeight: 'normal',
     lineHeight: 16,
-    marginLeft: theme.spacing(1.375),
+    marginLeft: theme.spacing(1.375)
   },
   paper: {
     '&:active': {
@@ -27,15 +27,15 @@ export const styles = theme => ({
     '&:hover': {
       border: `1px solid ${theme.palette.primary['400']}`
     },
-    alignItems: 'center',
-    background: theme.palette.primary['contrastText'],
-    border: `1px solid ${theme.palette.grey['400']}`,
+    alignItems  : 'center',
+    background  : theme.palette.primary['contrastText'],
+    border      : `1px solid ${theme.palette.grey['400']}`,
     borderRadius: 4,
-    boxShadow: 'none',
-    boxSizing: 'border-box',
-    display: 'flex',
-    height: 40,
-    width: 330
+    boxShadow   : 'none',
+    boxSizing   : 'border-box',
+    display     : 'flex',
+    height      : 40,
+    width       : 330
   },
   paperBottom: {
     '&:active': {
@@ -47,13 +47,13 @@ export const styles = theme => ({
     '&:hover': {
       borderBottom: `1px solid ${theme.palette.primary['400']}`
     },
-    alignItems: 'center',
-    background: theme.palette.primary['contrastText'],
+    alignItems  : 'center',
+    background  : theme.palette.primary['contrastText'],
     borderBottom: `1px solid ${theme.palette.grey['400']}`,
-    display: 'flex',
-    height: 40,
-    width: 330
-  },
+    display     : 'flex',
+    height      : 40,
+    width       : 330
+  }
 })
 
 const Search = props => {
@@ -67,6 +67,7 @@ const Search = props => {
   return (
     <div className={type === 'border-bottom' ? classes.paperBottom : classes.paper} >
       <InputBase
+        className={classes.inputBase}
         endAdornment={
           <InputAdornment className={classes.icon} >
             {searchIcon}
@@ -74,18 +75,16 @@ const Search = props => {
         inputProps={{
           'aria-label': 'search'
         }}
-        className={classes.inputBase}
-        {...rest}
-      />
+        {...rest} />
     </div >
 
   )
 }
 
 Search.propTypes = {
-  classes: PropTypes.object,
+  classes   : PropTypes.object,
   searchIcon: PropTypes.node,
-  type: PropTypes.string,
+  type      : PropTypes.string
 }
 
 Search.muiName = 'Search'

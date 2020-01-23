@@ -4,31 +4,30 @@ import { RemoveCircleOutline, DragIndicator } from '@material-ui/icons'
 import { Inputs, DragComponent } from '@krowdy-ui/views'
 import { makeStyles } from '@krowdy-ui/styles'
 
-const data = [{
-  _id: 1,
+const data = [ {
+  _id        : 1,
   instruction: () => { },
-  question: 'pregunta 1',
+  question   : 'pregunta 1'
 },
 {
-  _id: 2,
+  _id        : 2,
   instruction: () => { },
-  question: 'question 2',
+  question   : 'question 2'
 },
 {
-  _id: 3,
+  _id        : 3,
   instruction: () => { },
-  question: 'question 3',
+  question   : 'question 3'
 }, {
-  _id: 4,
+  _id        : 4,
   instruction: () => { },
-  question: 'pregunta6',
+  question   : 'pregunta6'
 },
 {
-  _id: 5,
+  _id        : 5,
   instruction: () => { },
-  question: 'question 5',
-},]
-
+  question   : 'question 5'
+} ]
 
 const useStyles = makeStyles({
   lastInput: {
@@ -36,33 +35,32 @@ const useStyles = makeStyles({
       borderBottom: '1px solid #335285'
     },
     borderBottom: '1px solid #D9D9D9',
-    color: '#0050B3',
-    fontSize: 14,
+    color       : '#0050B3',
+    fontSize    : 14
   },
   root: {
-    margin: '3% 5%',
+    margin : '3% 5%',
     padding: '3%',
-    width: '100%'
+    width  : '100%'
   },
   title: {
     fontSize: 14,
-    margin: '2rem 0'
+    margin  : '2rem 0'
   }
 })
 
 export default () => {
   const classes = useStyles()
-  const [items, setItems] = React.useState(data.map((element, index) => (
+  const [ items, setItems ] = React.useState(data.map((element, index) => (
     <Inputs
-      key={element._id}
-      id={element._id}
-      item={element}
       iconDrag={<DragIndicator fontSize='small' />}
       iconRemove={<RemoveCircleOutline color='error' />}
+      id={element._id}
+      item={element}
+      key={element._id}
       order={index + 1}
       showInstructions
-      tabIndex='-1'
-    />
+      tabIndex='-1' />
   )))
 
   const handleItemsOrdered = items => {
@@ -72,10 +70,10 @@ export default () => {
   }
 
   return (
-    <Paper elevation={0} variant='outlined' className={classes.root} >
+    <Paper className={classes.root} elevation={0} variant='outlined' >
       <p className={classes.title}>¿Qué deseas preguntar a tus candidatos?</p>
       <div >
-        <DragComponent onItemsOrdered={handleItemsOrdered} addInputComponent={<Input placeholder='Escriba una nueva pregunta' disableUnderline />}>
+        <DragComponent addInputComponent={<Input disableUnderline placeholder='Escriba una nueva pregunta' />} onItemsOrdered={handleItemsOrdered}>
           {items}
         </DragComponent>
       </div>

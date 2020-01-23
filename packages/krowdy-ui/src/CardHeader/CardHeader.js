@@ -7,29 +7,29 @@ import Typography from '../Typography'
 
 export const styles = {
   action: {
-    alignSelf: 'flex-start',
-    flex: '0 0 auto',
+    alignSelf  : 'flex-start',
+    flex       : '0 0 auto',
     marginRight: -8,
-    marginTop: -8,
+    marginTop  : -8
   },
   avatar: {
-    flex: '0 0 auto',
-    marginRight: 17,
+    flex       : '0 0 auto',
+    marginRight: 17
   },
   content: {
-    flex: '1 1 auto',
+    flex: '1 1 auto'
   },
   root: {
     alignItems: 'center',
-    display: 'flex',
-    padding: 10,
+    display   : 'flex',
+    padding   : 10
   },
   title: {
-    color: '#595959',
-    fontStyle: 'normal',
+    color     : '#595959',
+    fontStyle : 'normal',
     fontWeight: 'normal',
-    lineHeight: '100%',
-  },
+    lineHeight: '100%'
+  }
 }
 
 const CardHeader = React.forwardRef(function CardHeader(props, ref) {
@@ -49,42 +49,41 @@ const CardHeader = React.forwardRef(function CardHeader(props, ref) {
     ...other
   } = props
 
-  if (!subheader && !subheaderTypographyProps) {
+  if(!subheader && !subheaderTypographyProps)
     return (
       <Component className={clsx(classes.root, className)} ref={ref} {...other}>
         {avatar && <div className={classes.avatar}>{avatar}</div>}
         <div className={classes.content}>
-          {(titleProp && titleProp.type !== Typography && !disableTypography)
-            ? <Typography
-              variant={avatar ? 'body2' : 'h5'}
+          {(titleProp && titleProp.type !== Typography && !disableTypography) ?
+            <Typography
               className={classes.title}
               component='span'
+              variant={avatar ? 'body2' : 'h5'}
               {...titleTypographyProps} >
               {titleProp}
-            </Typography>
-            : null}
+            </Typography> :
+            null}
         </div>
         {rightComponent && <div className={classes.rightComponent} onClick={onClickElementRight}>{rightComponent}</div>}
         {action && <div className={classes.action}>{action}</div>}
       </Component>
     )
-  }
-  return <MuiCardHeader ref={ref} {...props} />
 
+  return <MuiCardHeader ref={ref} {...props} />
 })
 
 CardHeader.propTypes = {
-  action: PropTypes.node,
-  avatar: PropTypes.node,
-  className: PropTypes.string,
-  classes: PropTypes.object.isRequired,
-  component: PropTypes.elementType,
-  disableTypography: PropTypes.bool,
-  onClickElementRight: PropTypes.func,
-  rightElement: PropTypes.node,
-  subheader: PropTypes.node,
+  action                  : PropTypes.node,
+  avatar                  : PropTypes.node,
+  className               : PropTypes.string,
+  classes                 : PropTypes.object.isRequired,
+  component               : PropTypes.elementType,
+  disableTypography       : PropTypes.bool,
+  onClickElementRight     : PropTypes.func,
+  rightElement            : PropTypes.node,
+  subheader               : PropTypes.node,
   subheaderTypographyProps: PropTypes.object,
-  title: PropTypes.node,
-  titleTypographyProps: PropTypes.object,
+  title                   : PropTypes.node,
+  titleTypographyProps    : PropTypes.object
 }
 export default withStyles(styles, { name: 'KrowdyHeader' })(CardHeader)

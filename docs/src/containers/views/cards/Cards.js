@@ -6,7 +6,6 @@ import { Close, Info } from '@material-ui/icons'
 import { makeStyles } from '@krowdy-ui/styles'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
-
 const useStyles = makeStyles({
   cursive: {
     fontStyle: 'italic'
@@ -15,92 +14,87 @@ const useStyles = makeStyles({
     display: 'none'
   },
   informationIcon: {
-    fontSize: '1rem',
+    fontSize     : '1rem',
     verticalAlign: 'middle'
   },
   item: {
-    margin: '3% 3% 0 3%',
+    margin: '3% 3% 0 3%'
   },
   text: {
     fontSize: 12
   },
   title: {
-    lineHeight: '20px',
+    lineHeight   : '20px',
     verticalAlign: 'middle'
-  },
+  }
 })
 
 const inputsRadios = [
   {
-    _id: '1',
+    _id  : '1',
     label: 'label1',
-    value: '1',
+    value: '1'
   },
   {
-    _id: '2',
+    _id  : '2',
     label: 'label2',
-    value: 'value2',
+    value: 'value2'
   },
   {
-    _id: '3',
+    _id  : '3',
     label: 'label3',
-    value: 'value3',
+    value: 'value3'
   },
   {
-    _id: '4',
+    _id  : '4',
     label: 'label4',
-    value: 'value4',
+    value: 'value4'
   },
   {
-    _id: '5',
+    _id  : '5',
     label: 'label5',
-    value: 'value5',
-  },]
+    value: 'value5'
+  } ]
 
 export default function () {
-
-
   const classes = useStyles()
 
   return (
-    <Grid container justify='center' className={classes.root}>
-      <Grid item xs={4} className={classes.item}>
+    <Grid className={classes.root} container justify='center'>
+      <Grid className={classes.item} item xs={4}>
         <CardContainer
-          title='Tasks'
           content='Define cuáles de los campos del perfil del candidato deben ser
              obligatorios y cuáles no deberían aparecer. cuáles no deberían aparecer'
           disabledHover
           rightElement={<Close />
           }
-        />
+          title='Tasks' />
       </Grid >
-      <Grid item xs={4} className={classes.item} >
+      <Grid className={classes.item} item xs={4} >
         <CardContainer
-          title='Tasks'
+          avatar={<Avatar src='https://instaperfil.com/images/instaperfilseguidores.png' variant='square' />}
           content='Define cuáles de los campos del perfil del candidato deben ser
           obligatorios y cuáles no deberían aparecer.cuáles no deberían aparecer'
-          avatar={<Avatar src='https://instaperfil.com/images/instaperfilseguidores.png' variant='square' />}
-        />
+          title='Tasks' />
       </Grid >
-      <Grid item xs={9} className={classes.item} >
+      <Grid className={classes.item} item xs={9} >
 
         <SkillCard
-          title={<div><span className={classes.title}>Creativity</span> <Info classes={{ root: classes.informationIcon }} size='small' color='primary' /></div>}
-          expandIcon={<ExpandMoreIcon />}
+          colorCard='gray'
           content={
             <div>
               <span className={classes.cursive}>Selecciona el nivel que necesitas de esta competencia</span>
               <RadioForm
                 inputs={inputsRadios}
-                value='value2'
-                isRow />
+                isRow
+                value='value2' />
               <span className={classes.text}>Capacidad para fijar politicas organizacionales y comunicarlas de manera clara y precisa en todos los niveles
               de la orgniazacion asi como tambien comunicar fracasos o acontecimientos negativos sin dobleces ni enganios, decir siempre
               la verdad y lo que siente.
-          </span></div>
+              </span></div>
           }
-          colorCard='gray'
-        />
+          expandIcon={<ExpandMoreIcon />}
+          title={<div><span className={classes.title}>Creativity</span> <Info classes={{ root: classes.informationIcon }} color='primary' size='small' /></div>} />
       </Grid >
     </Grid >
   )

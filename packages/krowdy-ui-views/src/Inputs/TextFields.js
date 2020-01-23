@@ -7,14 +7,14 @@ import { Input, Grid, Button } from '@krowdy-ui/core'
 
 export const styles = theme => ({
   alignSelf: {
-    alignSelf: 'flex-start',
+    alignSelf: 'flex-start'
   },
   button: {
     '&:hover': {
       backgroundColor: 'transparent'
     },
     minWidth: 0,
-    padding: 0
+    padding : 0
   },
   divQuestion: {
     width: '100%'
@@ -23,21 +23,21 @@ export const styles = theme => ({
     borderBottom: `1px solid ${theme.palette.primary[600]}`
   },
   iconDragContainer: {
-    color: theme.palette.grey[500],
+    color: theme.palette.grey[500]
   },
   inputsContent: {
-    alignItems: 'center',
-    display: 'flex',
-    flex: 1,
+    alignItems   : 'center',
+    display      : 'flex',
+    flex         : 1,
     flexDirection: 'column',
-    margin: '0 8px'
+    margin       : '0 8px'
 
   },
   multiline: {
     paddingTop: 2
   },
   order: {
-    fontSize: 14,
+    fontSize  : 14,
     fontWeight: 'bold'
 
   },
@@ -46,11 +46,11 @@ export const styles = theme => ({
       borderBottom: `1px solid ${theme.palette.primary[400]}`
     },
     borderBottom: `1px solid ${theme.palette.grey[400]}`,
-    color: theme.palette.grey[700],
-    fontSize: 14,
-    margin: theme.spacing(0, 1, 2, 1),
-    width: 'fill-available'
-  },
+    color       : theme.palette.grey[700],
+    fontSize    : 14,
+    margin      : theme.spacing(0, 1, 2, 1),
+    width       : 'fill-available'
+  }
 })
 
 const InputComponent = (props) => {
@@ -62,17 +62,16 @@ const InputComponent = (props) => {
     order,
     iconDrag,
     iconRemove,
-    onDeleteItem = () => { },
+    onDeleteItem = () => { }
   } = props
 
   return (
     <Grid
+      alignItems='center'
       className={classes.divQuestion}
-      tabIndex='-1'
       container
       justify='space-between'
-      alignItems='center'
-    >
+      tabIndex='-1'>
       <Grid className={clsx(classes.iconDragContainer)} item>
         {(iconDrag) ? iconDrag : null}
       </Grid>
@@ -88,13 +87,13 @@ const InputComponent = (props) => {
           className={clsx(classes.textField, classes.focused)}
           defaultValue={item.question}
           disabled={disabled}
+          disableUnderline
+          multiline
           onChange={event => {
             onUpdateItem(item._id, {
               question: event.target.value
             })
           }}
-          multiline
-          disableUnderline
           placeholder='Escribe una pregunta' />
         {
           showInstructions &&
@@ -114,7 +113,7 @@ const InputComponent = (props) => {
             placeholder='Agrega instrucciones para Krowder' />
         }
       </Grid>
-      <Grid item className={classes.alignSelf} >
+      <Grid className={classes.alignSelf} item >
         <Button
           className={clsx(classes.button)}
           disabled={disabled}
@@ -127,13 +126,13 @@ const InputComponent = (props) => {
 }
 
 InputComponent.propTypes = {
-  classes: PropTypes.object,
-  disabled: PropTypes.bool,
-  instructions: PropTypes.bool,
-  item: PropTypes.object.isRequired,
-  onDeleteItem: PropTypes.func,
-  onUpdateItem: PropTypes.func,
-  order: PropTypes.number.isRequired,
+  classes         : PropTypes.object,
+  disabled        : PropTypes.bool,
+  instructions    : PropTypes.bool,
+  item            : PropTypes.object.isRequired,
+  onDeleteItem    : PropTypes.func,
+  onUpdateItem    : PropTypes.func,
+  order           : PropTypes.number.isRequired,
   showInstructions: PropTypes.bool
 }
 
