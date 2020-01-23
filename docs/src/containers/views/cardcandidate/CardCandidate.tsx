@@ -4,7 +4,9 @@ import { CardCandidate } from '@krowdy-ui/views'
 export default function () {
     return (
         <div>
-            <CardCandidate title='Prueba 2' />
+            <CardCandidate
+                firstName={'firstanme'}
+                lastName={'lastname'} />
         </div>
     )
 }
