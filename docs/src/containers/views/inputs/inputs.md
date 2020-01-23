@@ -3,7 +3,7 @@
 
 <p class="description">Text fields to config tasks</p>
 
-{{"demo": "containers/views/inputs/Inputs.js", "hideHeader": false, "bg": true, "bgColor": "white", "iframe": true }}
+{{"demo": "containers/views/inputs/Inputs.js", "hideHeader": false, "bg": true, "bgColor": "gray", "iframe": true }}
 
 
 

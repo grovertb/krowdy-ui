@@ -5,16 +5,22 @@ import clsx from 'clsx'
 import {
   Card,
   CardHeader,
-  CardContent
+  CardContent,
+  Divider
 } from '@krowdy-ui/core'
 
 export const styles = theme => ({
+  action: {
+    margin: 0
+  },
   cardContent: {
     '&:last-child': {
       paddingBottom: 0
     },
-    align: 'left',
-    color: theme.palette.grey['700']
+    align  : 'left',
+    color  : theme.palette.grey['700'],
+    margin : theme.spacing(1, 0, 0, 0),
+    padding: 0
   },
   displayHover: {
     '&:hover': {
@@ -34,7 +40,6 @@ export const styles = theme => ({
     borderRadius: 8,
     boxShadow   : 'none',
     cursor      : 'pointer',
-    fontFamily  : 'Roboto',
     fontSize    : 14,
     height      : 'auto'
   },
@@ -45,64 +50,72 @@ export const styles = theme => ({
     padding: 12
   },
   title: {
-    color       : theme.palette.grey[800],
-    fontSize    : 14,
-    fontWeight  : 'bold',
-    marginBottom: 0
+    fontSize  : 14,
+    fontWeight: 'bold'
   }
 })
 
-const CardTask = props => {
+const CardContainer = props => {
   const {
     avatar,
     classes,
-    content,
-    title,
-    cardProps,
-    cardContentProps,
+    content = '',
+    title = '',
     cardHeaderProps,
-    disabledHover,
-    rightElement,
+    disabledHover = false,
+    action,
     sizePadding = 'middle',
-    onClick = () => { }
+    onClick = () => { },
+    propsDivider,
+    withDivider
   } = props
 
   return (
     <Card
-      className={clsx(classes.root, classes.lessStyle, { [classes.displayHover]: !disabledHover }, classes[`sizePadding${sizePadding}`])}
+      classes={{
+        root: clsx(classes.lessStyle,
+          { [classes.displayHover]: !disabledHover },
+          classes[`sizePadding${sizePadding}`],
+          classes.root)
+      }}
       onClick={onClick}
-      raised
-      {...cardProps}>
-      <CardHeader
-        avatar={avatar}
-        className={clsx(classes.lessStyle)}
-        rightElement={rightElement}
-        title={(title || typeof title === 'string') ?
-          <div className={classes.title}>{title}</div> :
-          title}
-        {...cardHeaderProps} />
-      <CardContent
-        classes={{ root: classes.lessStyle }}
-        className={classes.cardContent}
-        {...cardContentProps}>{content}</CardContent>
+      raised>
+      {(title || action) &&
+        <CardHeader
+          action={action}
+          avatar={avatar}
+          classes={{ action: classes.action, root: clsx(classes.lessStyle, classes.header), title: classes.title }}
+          title={title}
+          {...cardHeaderProps} />}
+
+      {withDivider && <Divider {...propsDivider} />}
+
+      <CardContent classes={{ root: classes.cardContent }}>
+        {content}
+      </CardContent>
     </Card>
   )
 }
 
-CardTask.propTypes = {
-  avatar          : PropTypes.node,
-  cardContentProps: PropTypes.object,
-  cardHeaderProps : PropTypes.object,
-  cardProps       : PropTypes.object,
-  classes         : PropTypes.object,
-  content         : PropTypes.oneOfType([ PropTypes.node, PropTypes.string ]),
-  disabledHover   : PropTypes.bool,
-  onClick         : PropTypes.func,
-  rightElement    : PropTypes.node,
-  sizePadding     : PropTypes.oneOf([ 'small', 'middle' ]),
-  title           : PropTypes.oneOfType([ PropTypes.node, PropTypes.string ])
+CardContainer.propTypes = {
+  action         : PropTypes.node,
+  avatar         : PropTypes.node,
+  cardHeaderProps: PropTypes.object,
+  classes        : PropTypes.shape({
+    action     : PropTypes.string,
+    cardContent: PropTypes.string,
+    header     : PropTypes.string,
+    root       : PropTypes.string,
+    title      : PropTypes.string
+  }),
+  content      : PropTypes.oneOfType([ PropTypes.node, PropTypes.string ]),
+  disabledHover: PropTypes.bool,
+  onClick      : PropTypes.func,
+  sizePadding  : PropTypes.oneOf([ 'small', 'middle' ]),
+  title        : PropTypes.oneOfType([ PropTypes.node, PropTypes.string ]),
+  withDivider  : PropTypes.object
 }
 
-CardTask.muiName = 'CardTask'
+CardContainer.muiName = 'CardContainer'
 
-export default withStyles(styles, { name: 'KrowdyCardTask' })(CardTask)
+export default withStyles(styles, { name: 'KrowdyCardContainer' })(CardContainer)

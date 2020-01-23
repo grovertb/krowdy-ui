@@ -15,7 +15,7 @@ interface IFuncOnClick {
   (e: Event): void
 }
 
-export type CardContainer = {
+export type HeaderCard = {
   action?: React.ReactNode,
   avatar?: React.ReactNode,
   cardHeaderProps?: ICardHeaderProps,
@@ -27,6 +27,6 @@ export type CardContainer = {
   title?: string | React.ReactNode,
 };
 
-declare const CardContainer: React.ComponentType<CardContainer>;
+declare const HeaderCard: React.ComponentType<HeaderCard>;
 
-export default CardContainer;
+export default HeaderCard;
