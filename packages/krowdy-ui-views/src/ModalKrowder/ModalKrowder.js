@@ -22,6 +22,10 @@ import {
 } from '@material-ui/icons'
 
 export const styles = theme => ({
+  collapsesContent: {
+    height  : 'calc(100% - 160px)',
+    overflow: 'auto'
+  },
   expandHeader: {
     // '&$expanded': {
     //   backgroundColor: 'red',
@@ -115,10 +119,10 @@ function ModalKrowder(props) {
   const {
     open,
     onclose,
-    user,
+    user = {},
     onsuspend,
     ondelete,
-    collapses,
+    collapses = [],
     classes
   } = props
 
@@ -156,39 +160,47 @@ function ModalKrowder(props) {
                 </div>
               </div>
               <div className={classes.headerProfileActions}>
-                <IconButton color='primary' onClick={onsuspend} tooltip='Suspender'>
-                  <PauseCircleOutlineIcon
-                    className={classes.iconProfileActionPause} />
-                </IconButton>
-                <IconButton color='error' onClick={ondelete} tooltip='Eliminar'>
-                  <DeleteIcon
-                    className={classes.iconProfileActionDelete} />
-                </IconButton>
+                {
+                  onsuspend ?
+                    <IconButton color='primary' onClick={onsuspend} tooltip='Suspender'>
+                      <PauseCircleOutlineIcon
+                        className={classes.iconProfileActionPause} />
+                    </IconButton> : null
+                }
+                {
+                  ondelete ?
+                    <IconButton color='error' onClick={ondelete} tooltip='Eliminar'>
+                      <DeleteIcon
+                        className={classes.iconProfileActionDelete} />
+                    </IconButton> : null
+                }
               </div>
             </div>
             {/* collapses */}
-            {
-              collapses.length ?
-                collapses.map((item, n) => (
-                  <ExpansionPanel
-                    classes={{
-                      expanded: classes.expandedItem
-                    }}
-                    className={classes.expandItem} key={n}>
-                    <ExpansionPanelSummary
-                      className={classes.expandHeader}
-                      expandIcon={<ExpandMoreIcon className={classes.expandIcon} />}>
-                      <Typography className={classes.expandHeaderTitle}>{item.title}</Typography>
-                    </ExpansionPanelSummary>
-                    <ExpansionPanelDetails>
-                      {
-                        item.component ?
-                          item.component : null
-                      }
-                    </ExpansionPanelDetails>
-                  </ExpansionPanel>
-                )) : null
-            }
+            <div className={classes.collapsesContent}>
+              {
+                collapses.length ?
+                  collapses.map((item, n) => (
+                    <ExpansionPanel
+                      classes={{
+                        expanded: classes.expandedItem
+                      }}
+                      className={classes.expandItem} key={n}>
+                      <ExpansionPanelSummary
+                        className={classes.expandHeader}
+                        expandIcon={<ExpandMoreIcon className={classes.expandIcon} />}>
+                        <Typography className={classes.expandHeaderTitle}>{item.title}</Typography>
+                      </ExpansionPanelSummary>
+                      <ExpansionPanelDetails>
+                        {
+                          item.component ?
+                            item.component : null
+                        }
+                      </ExpansionPanelDetails>
+                    </ExpansionPanel>
+                  )) : null
+              }
+            </div>
           </CardContent>
         </Card>
       </>
