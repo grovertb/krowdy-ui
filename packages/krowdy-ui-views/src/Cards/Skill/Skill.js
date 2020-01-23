@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { withStyles } from '@krowdy-ui/styles'
 import clsx from 'clsx'
 import { ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Typography } from '@material-ui/core'
+import { AudioRecorder } from '../../index'
 
 export const styles = theme => ({
   alignSelf: {
@@ -83,6 +84,7 @@ const SkillCard = props => {
           <Typography className={clsx(classes.content, classes.size)} component='div'>
             {(content) ? content : null}
           </Typography>
+          <AudioRecorder />
         </ExpansionPanelDetails>
 
       </ExpansionPanel>

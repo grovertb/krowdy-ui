@@ -10,12 +10,12 @@ export const styles = theme => ({
   },
   borderDefault: {
     borderRadius: '8px 8px 0px 0px',
-    minHeight: 40,
-    outline: `1px solid ${theme.palette.grey[300]}`,
-    padding: theme.spacing(1.25, 2.5)
+    minHeight   : 40,
+    outline     : `1px solid ${theme.palette.grey[300]}`,
+    padding     : theme.spacing(1.25, 2.5)
   },
   lessStyle: {
-    margin: 0,
+    margin : 0,
     padding: 0
   },
   shadow: {
@@ -28,7 +28,7 @@ export const styles = theme => ({
     padding: theme.spacing(1, 1.5)
   },
   title: {
-    fontSize: 14,
+    fontSize  : 14,
     fontWeight: 'bold'
   }
 })
@@ -56,19 +56,19 @@ const HeaderCard = props => {
 }
 
 HeaderCard.propTypes = {
-  action: PropTypes.node,
-  avatar: PropTypes.node,
+  action         : PropTypes.node,
+  avatar         : PropTypes.node,
   cardHeaderProps: PropTypes.object,
-  classes: PropTypes.shape({
+  classes        : PropTypes.shape({
     action: PropTypes.string,
     header: PropTypes.string,
-    title: PropTypes.string
+    title : PropTypes.string
   }),
-  content: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
+  content      : PropTypes.oneOfType([ PropTypes.node, PropTypes.string ]),
   disabledHover: PropTypes.bool,
-  onClick: PropTypes.func,
-  sizePadding: PropTypes.oneOf(['small', 'middle']),
-  title: PropTypes.oneOfType([PropTypes.node, PropTypes.string])
+  onClick      : PropTypes.func,
+  sizePadding  : PropTypes.oneOf([ 'small', 'middle' ]),
+  title        : PropTypes.oneOfType([ PropTypes.node, PropTypes.string ])
 }
 
 HeaderCard.muiName = 'HeaderCard'
