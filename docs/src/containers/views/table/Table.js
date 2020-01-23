@@ -5,81 +5,81 @@ import AddIcon from '@material-ui/icons/Add'
 
 const demoColumns = [
   {
-    active  : true,
     editable: true,
-    id      : 'name',
+    key     : 'name',
     label   : 'Nombre',
     minWidth: 150,
     ordering: true,
-    type    : 'text'
+    type    : 'text',
+    visible : true
   }, {
-    active  : true,
     editable: false,
-    id      : 'status',
+    key     : 'status',
     label   : 'Estado',
     minWidth: 120,
     ordering: true,
-    type    : 'text'
+    type    : 'text',
+    visible : true
   }, {
-    active  : true,
     editable: false,
-    id      : 'type',
+    key     : 'type',
     label   : 'Tipo de actividad',
     minWidth: 170,
     ordering: false,
-    type    : 'text'
+    type    : 'text',
+    visible : true
   }, {
-    active  : true,
     editable: true,
-    id      : 'incharge',
+    key     : 'incharge',
     label   : 'Encargado',
     minWidth: 100,
     ordering: false,
-    type    : 'select'
+    type    : 'select',
+    visible : true
   }, {
-    active  : true,
     align   : 'right',
     editable: true,
-    id      : 'currentTasks',
+    key     : 'currentTasks',
     label   : 'Tareas actuales',
     minWidth: 150,
     ordering: true,
-    type    : 'date'
+    type    : 'date',
+    visible : true
   }, {
-    active  : true,
     align   : 'right',
     editable: true,
-    id      : 'amountPayable',
+    key     : 'amountPayable',
     label   : 'Monto por pagar',
     minWidth: 160,
     ordering: true,
-    type    : 'number'
+    type    : 'number',
+    visible : true
   }, {
-    active  : false,
     align   : 'right',
     editable: true,
-    id      : 'amountTasks',
+    key     : 'amountTasks',
     label   : 'Tareas por pagar',
     minWidth: 160,
     ordering: true,
-    type    : 'text'
+    type    : 'text',
+    visible : false
   }, {
-    active  : false,
     align   : 'right',
     editable: true,
-    id      : 'incidents',
+    key     : 'incidents',
     label   : 'Incidentes',
     minWidth: 90,
     ordering: true,
-    type    : 'text'
+    type    : 'text',
+    visible : false
   }, {
-    active  : false,
     editable: true,
-    id      : 'other',
+    key     : 'other',
     label   : 'Otro valor',
     minWidth: 120,
     ordering: false,
-    type    : 'text'
+    type    : 'text',
+    visible : false
   }
 ]
 const newCellProps = {
@@ -264,8 +264,9 @@ export default function () {
         searchSuggestions={searchSuggestions}
         sortTable={sort}
         titleButton='Agregar Krowder'
+        withAutocomplete={false}
         withButton={false}
-        withCheckbox={false}
+        withCheckbox={true}
         withFooter={false}
         withHeader={true}
         withMenuColumns={true}

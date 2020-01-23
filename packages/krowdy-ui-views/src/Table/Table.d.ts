@@ -2,12 +2,12 @@ interface IMultipleProps {
 	[extraProp: string]: any
 }
 interface IColumnsTable {
-	id: string
+	key: string
 	label: string
 	ordering: boolean
 	minWidth?: number
 	align?: string
-	active: boolean
+	visible: boolean
 }
 
 interface IRowsTable {
@@ -62,6 +62,7 @@ export type TableProps = {
 	withSearch?: boolean
 	withFooter?: boolean
 	withButton?: boolean
+	withAutocomplete?: boolean
 	enableAddCell?: boolean
 	stickyHeader?: boolean
 	paymentAmount?: number
