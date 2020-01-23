@@ -461,15 +461,21 @@ const Table = ({
 }
 
 Table.propTypes = {
+  /**
+   * Columns sirve para pasar la cabecera de la tabla
+   */
   columns: PropTypes.arrayOf(
     PropTypes.shape({
       align   : PropTypes.string,
       id      : PropTypes.string.isRequired,
       label   : PropTypes.string.isRequired,
       minWidth: PropTypes.number,
-      ordering: PropTypes.bool.isRequired
+      ordering: PropTypes.bool
     })
   ).isRequired,
+  /**
+   * eneableAddCell muetra un boton para agregar una nueva celda
+   */
   enableAddCell            : PropTypes.bool,
   iconButton               : PropTypes.element,
   maxHeight                : PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]),
