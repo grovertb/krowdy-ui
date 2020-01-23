@@ -4,7 +4,7 @@ import { CardCandidate } from '@krowdy-ui/views'
 export default function () {
   let src = 'https://img.icons8.com/material/4ac144/256/camera.png'
   let firstName = 'Nombres'
-  let lastName = 'dfsdfbdfbsdj'
+  let lastName = 'Apellidos'
 
   const [ checked, setChecked ] = React.useState(false)
 

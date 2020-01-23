@@ -11,46 +11,60 @@ import RemoveIcon from '@material-ui/icons/Remove'
 export const styles = theme => ({
   card: {
     height: 'auto',
-    width: 420
+    width : 420
   },
   containerColumn: {
-    display: 'flex',
+    display      : 'flex',
     flexDirection: 'column',
-    marginBottom: 32
+    marginBottom : 32
   },
   containerRow: {
-    alignItems: 'center',
-    display: 'flex',
+    alignItems   : 'center',
+    display      : 'flex',
     flexDirection: 'row'
   },
   input: {
     '&::-webkit-outer-spin-button, &::-webkit-inner-spin-button': {
       '-webkit-appearance': 'none',
-      margin: 0
+      margin              : 0
     },
-    textAlign: 'center'
+    marginBottom: - 2,
+    textAlign   : 'center'
   },
   root: {
     borderBottom: `1px solid ${theme.palette.grey['500']}`,
-    fontSize: 14,
-    fontStyle: 'normal',
-    fontWeight: 'normal',
-    lineHeight: '100%',
-    marginLeft: theme.spacing(1),
-    textAlign: 'center',
-    width: 36
+    color       : theme.palette.grey['700'],
+    fontSize    : 14,
+    fontStyle   : 'normal',
+    fontWeight  : 'normal',
+    lineHeight  : '100%',
+    marginLeft  : theme.spacing(1),
+    textAlign   : 'center',
+    width       : 36
   },
   selectDate: {
-    margin: theme.spacing(0, 1)
+    borderBottom : `1px solid ${theme.palette.grey['500']}`,
+    color        : '#595959',
+    fontSize     : 14,
+    fontWeight   : 'normal',
+    margin       : theme.spacing(0, 1),
+    paddingBottom: 3,
+    width        : 73
+  },
+  sender: {
+    color     : '#595959',
+    fontSize  : 14,
+    fontWeight: 'normal',
+    paddingTop: 0
   },
   text: {
-    color: '#262626',
-    fontSize: 14,
+    color     : '#262626',
+    fontSize  : 14,
     fontWeight: 'normal'
   },
   title: {
-    color: '#262626',
-    fontSize: 14,
+    color     : '#262626',
+    fontSize  : 14,
     fontWeight: 'bold'
   }
 })
@@ -60,13 +74,16 @@ const CardMessage = props => {
     classes
   } = props
 
-  const initialCounterValue = 10
-  const min = 5
-  const max = 15
-  const [number, setNumber] = React.useState(initialCounterValue)
-
+  const initialCounterValue = 1
+  const min = 1
+  const max = 99
+  const [ number, setNumber ] = React.useState(initialCounterValue)
+  const [ countTime, setCountTime ] = React.useState(1)
   const onChange = (event) => {
     setNumber(event)
+  }
+  function addLeadingZero(number) {
+    return ('0' + number).slice(-2)
   }
 
   return (
@@ -84,20 +101,27 @@ const CardMessage = props => {
             <Input
               classes={{
                 input: classes.input,
-                root: classes.root
+                root : classes.root
               }}
               defaultValue='1'
               disableUnderline
-              inputProps={{ max: '99', maxLength: 0, min: '1', step: '1' }}
-              max='99'
-              min='1'
+              // error={countTime === '' ? true : false}
+              inputProps={{ max: '99', min: '1', step: '1' }}
+              onChange={(e) => {
+                setCountTime(e.target.value)
+              }}
               onInput={(e) => {
                 e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0, 2)
               }}
-              type='number' />
-            <Select className={classes.selectDate}>
-              <MenuItem value={10} >Horas</MenuItem>
-              <MenuItem value={20}>Dias</MenuItem>
+              type='number'
+              value={addLeadingZero(countTime)} />
+            <Select
+              classes={{
+                root: classes.selectDate
+              }}
+              disableUnderline>
+              <MenuItem defaultValue value={10} >{countTime > 1 ? 'Horas' : 'Hora'}</MenuItem>
+              <MenuItem value={20}>{countTime > 1 ? 'Dias' : 'Dia'}</MenuItem>
             </Select>
 
           </div>
@@ -129,18 +153,39 @@ const CardMessage = props => {
           </div>
           <div>
             <Typography>
-              De
+              De ______________ a __________________
             </Typography>
           </div>
         </div>
-        <div className={classes.containerColumn} >
+        <div className={classes.containerColumn}>
           <span className={classes.title}>
             Selecciona el canal de comunicacion
           </span>
-          <></>
-          <TextField label='Remitente' placeholder='Remitente'></TextField>
-          <TextField label='Asunto' placeholder='Asunto'></TextField>
-          <TextField label='Mensaje' placeholder='Mensaje'></TextField>
+          <div style={{ background: 'gray', height: 5 }}>
+          </div>
+        </div>
+        <div className={classes.containerColumn}>
+          <TextField
+            inputProps={{
+              className: classes.sender
+            }}
+            label='Remitente'
+            placeholder='Carola Diaz - carola@krowdy.com'></TextField>
+
+        </div>
+        <div className={classes.containerColumn} >
+          <TextField
+            inputProps={{
+              className: classes.sender
+            }}
+            label='Asunto'
+            placeholder='Asunto'></TextField>
+          <TextField
+            inputProps={{
+              className: classes.sender
+            }}
+            label='Mensaje'
+            placeholder='Mensaje'></TextField>
           <Typography>Insertar token</Typography>
         </div>
       </CardContent >
