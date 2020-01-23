@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@krowdy-ui/styles'
 import {
-  Card, CardHeader, CardContent, TextField, Switch, Divider, Select, MenuItem, Typography, Input
+  Card, CardHeader, CardContent, TextField, Switch, Divider, Select, MenuItem, Typography, Input, Box
 } from '@krowdy-ui/core'
 import { Counter } from '@krowdy-ui/views'
 import AddIcon from '@material-ui/icons/Add'
@@ -66,6 +66,11 @@ export const styles = theme => ({
     color     : '#262626',
     fontSize  : 14,
     fontWeight: 'bold'
+  },
+  underline: {
+    '&::before': {
+      borderBottom: '1px solid #D9D9D9'
+    }
   }
 })
 
@@ -79,6 +84,24 @@ const CardMessage = props => {
   const max = 99
   const [ number, setNumber ] = React.useState(initialCounterValue)
   const [ countTime, setCountTime ] = React.useState(1)
+
+  const data = Array(number).fill(
+    <div className={classes.containerColumn}>
+      <TextField
+        inputProps={{
+          className: classes.sender
+        }}
+        label='Asunto'
+        placeholder='Asunto'></TextField>
+      <TextField
+        inputProps={{
+          className: classes.sender
+        }}
+        label='Mensaje'
+        placeholder='Mensaje'></TextField>
+      <Typography>Insertar token</Typography>
+    </div>
+  )
   const onChange = (event) => {
     setNumber(event)
   }
@@ -92,12 +115,12 @@ const CardMessage = props => {
         title='1. Mensajeria' />
       <Divider />
       <CardContent>
-        <div className={classes.containerColumn}>
-          <span className={classes.title}>
+        <Box className={classes.containerColumn}>
+          <Typography className={classes.title}>
             Selecciona la frecuencia del mensaje
-          </span>
-          <div className={classes.text}>
-            <span>Seguimiento cada</span>
+          </Typography>
+          <Box className={classes.containerRow} >
+            <Typography className={classes.text}>Seguimiento cada</Typography>
             <Input
               classes={{
                 input: classes.input,
@@ -123,13 +146,12 @@ const CardMessage = props => {
               <MenuItem defaultValue value={10} >{countTime > 1 ? 'Horas' : 'Hora'}</MenuItem>
               <MenuItem value={20}>{countTime > 1 ? 'Dias' : 'Dia'}</MenuItem>
             </Select>
-
-          </div>
-          <span style={{ margin: '10px 0px' }}>de inactividad después de ingresar a la etapa</span>
-          <div className={classes.containerRow}>
-            <span>
+          </Box>
+          <Typography className={classes.text} style={{ margin: '10px 0px' }}>de inactividad después de ingresar a la etapa</Typography>
+          <Box className={classes.containerRow}>
+            <Typography className={classes.text}>
               Termina en
-            </span>
+            </Typography>
             <Counter
               addIcon={<AddIcon style={{ height: 18, width: 18 }} />}
               max={max}
@@ -138,33 +160,37 @@ const CardMessage = props => {
               onChange={onChange}
               removeIcon={<RemoveIcon style={{ height: 18, width: 18 }} />}
               size='small' />
-            <span>
+            <Typography className={classes.text}>
               repeticiones
-            </span>
-          </div>
-        </div>
-        <div className={classes.containerColumn}>
-          <div className={classes.containerRow}>
+            </Typography>
+          </Box>
+        </Box>
+        <Box className={classes.containerColumn}>
+          <Box className={classes.containerRow}>
             <Typography className={classes.title}>
               Bloqueo de horarios
             </Typography >
             <Switch color='primary' size='small'>
             </Switch>
-          </div>
-          <div>
-            <Typography>
+          </Box>
+          <Box>
+            <Typography className={classes.text}>
               De ______________ a __________________
             </Typography>
-          </div>
-        </div>
-        <div className={classes.containerColumn}>
-          <span className={classes.title}>
+          </Box>
+        </Box>
+        <Box className={classes.containerColumn}>
+          <Typography className={classes.title}>
             Selecciona el canal de comunicacion
-          </span>
-          <div style={{ background: 'gray', height: 5 }}>
-          </div>
-        </div>
-        <div className={classes.containerColumn}>
+          </Typography>
+          <Box>
+            {/* <RadioForm
+              inputs={inputsRadios}
+              isRow
+              value='value2' /> */}
+          </Box>
+        </Box>
+        <Box className={classes.containerColumn}>
           <TextField
             inputProps={{
               className: classes.sender
@@ -172,22 +198,10 @@ const CardMessage = props => {
             label='Remitente'
             placeholder='Carola Diaz - carola@krowdy.com'></TextField>
 
-        </div>
-        <div className={classes.containerColumn} >
-          <TextField
-            inputProps={{
-              className: classes.sender
-            }}
-            label='Asunto'
-            placeholder='Asunto'></TextField>
-          <TextField
-            inputProps={{
-              className: classes.sender
-            }}
-            label='Mensaje'
-            placeholder='Mensaje'></TextField>
-          <Typography>Insertar token</Typography>
-        </div>
+        </Box>
+        <Box className={classes.containerColumn} >
+          {data.map((value) => value)}
+        </Box>
       </CardContent >
     </Card >
   )

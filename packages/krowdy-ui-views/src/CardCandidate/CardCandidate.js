@@ -103,7 +103,7 @@ const CardCandidate = ({
         checked={checked}
         className={classes.checkbox}
         color='primary'
-        onChange={({ target: { checked } }) => onChangeCheckbox(id, checked)}/>
+        onChange={({ target: { checked } }) => onChangeCheckbox(id, checked)} />
       <Avatar
         className={classes.avatar}
         src={src}>
