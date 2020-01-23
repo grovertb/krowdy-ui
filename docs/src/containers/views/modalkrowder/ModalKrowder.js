@@ -154,11 +154,6 @@ const newCellProps = {
 
 export default function () {
   const [ open, setOpen ] = useState(false)
-  const [ state, setState ] = useState({
-    role1: false,
-    role2: true,
-    role3: true
-  })
 
   const _handleClickOpen = () => {
     setOpen(true)
@@ -176,8 +171,8 @@ export default function () {
     console.log('DELETE')
   }
 
-  const _handleChangeRole = name => event => {
-    setState({ ...state, [name]: event.target.checked })
+  const _handleChangeRole = name  => {
+    console.log('Xavi :) ===> :(: name', name)
   }
 
   const Tasks = () => <Table
@@ -203,7 +198,7 @@ export default function () {
 
   const Roles = () => <div style={{ width: '100%' }}>
     <ToggleRole
-      checked={state.role1}
+      checked={false}
       name='role1'
       onchange={_handleChangeRole}
       subtitle='El Krowder puede hacer seguimiento de los procesos.'
@@ -211,7 +206,7 @@ export default function () {
       value='traking' />
 
     <ToggleRole
-      checked={state.role2}
+      checked={true}
       name='role2'
       onchange={_handleChangeRole}
       subtitle='El Krowder es capaz de leer, prepararse, editar y entregar.'
@@ -219,7 +214,7 @@ export default function () {
       value='traking' />
 
     <ToggleRole
-      checked={state.role3}
+      checked={true}
       name='role3'
       onchange={_handleChangeRole}
       subtitle='El Krowder es capaz de leer, prepararse, entrevistar, editar y entregar.'

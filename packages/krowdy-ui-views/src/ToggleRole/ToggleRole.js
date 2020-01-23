@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@krowdy-ui/styles'
 import {
@@ -30,6 +30,13 @@ function ToggleRole(props) {
     classes
   } = props
 
+  const [ active, setActive ] = useState(checked)
+
+  const _handleChange = () => {
+    setActive(prevState => !prevState)
+    onchange(name)
+  }
+
   return (
     <div className={classes.toggleContainer}>
       <div className={classes.toggleLeft}>
@@ -38,9 +45,9 @@ function ToggleRole(props) {
       </div>
       <div className={classes.toggleRight}>
         <Switch
-          checked={checked}
+          checked={active}
           color='primary'
-          onChange={onchange(name)}
+          onChange={_handleChange}
           value={value} />
       </div>
 
