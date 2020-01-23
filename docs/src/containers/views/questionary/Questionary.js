@@ -1,35 +1,53 @@
 import React from 'react'
-import { Input, Paper } from '@krowdy-ui/core'
+import { Input, Paper, Button } from '@krowdy-ui/core'
 import { RemoveCircleOutline, DragIndicator } from '@material-ui/icons'
 import { Inputs, DragComponent } from '@krowdy-ui/views'
 import { makeStyles } from '@krowdy-ui/styles'
+import clsx from 'clsx'
 
 const data = [ {
   _id        : 1,
-  instruction: () => { },
+  instruction: 'answer',
   question   : 'pregunta 1'
 },
 {
   _id        : 2,
-  instruction: () => { },
+  instruction: 'answer',
   question   : 'question 2'
 },
 {
   _id        : 3,
-  instruction: () => { },
+  instruction: 'answer',
   question   : 'question 3'
 }, {
   _id        : 4,
-  instruction: () => { },
+  instruction: 'answer',
   question   : 'pregunta6'
 },
 {
   _id        : 5,
-  instruction: () => { },
+  instruction: 'answer',
+  question   : 'question 5'
+}, {
+  _id        : 6,
+  instruction: 'answer',
+  question   : 'question 3'
+}, {
+  _id        : 7,
+  instruction: 'answer',
+  question   : 'pregunta6'
+},
+{
+  _id        : 8,
+  instruction: 'answer',
   question   : 'question 5'
 } ]
 
 const useStyles = makeStyles({
+  container: {
+    padding: '4%',
+    width  : '100%'
+  },
   lastInput: {
     '&:hover': {
       borderBottom: '1px solid #335285'
@@ -38,29 +56,43 @@ const useStyles = makeStyles({
     color       : '#0050B3',
     fontSize    : 14
   },
+  overflow: {
+    height  : 600,
+    overflow: 'auto'
+  },
   root: {
-    margin : '3% 5%',
-    padding: '3%',
-    width  : '100%'
+    display      : 'flex',
+    flexDirection: 'row',
+    height       : 'calc(100% - 30px)'
   },
   title: {
-    fontSize: 14,
-    margin  : '2rem 0'
+    fontSize: 14
   }
 })
 
 export default () => {
   const classes = useStyles()
   const [ items, setItems ] = React.useState(data.map((element, index) => (
-    <Inputs
-      iconDrag={<DragIndicator fontSize='small' />}
-      iconRemove={<RemoveCircleOutline color='error' />}
+    <div
+      className={classes.root}
       id={element._id}
-      item={element}
       key={element._id}
-      order={index + 1}
-      showInstructions
-      tabIndex='-1' />
+      tabIndex='-1' >
+      <div className={clsx(classes.iconDragContainer, classes.styleLess)} key='drag-icon' tabIndex='-1' >
+        <DragIndicator />
+      </div>
+      <Inputs
+        item={element}
+        order={(index + 1 > 0 && index + 1 < 10) ? `0${index + 1}` : index + 1}
+        placeholderAnswer='Agrega instrucciones para Krowder'
+        showInstructions
+        tabIndex='-1' />
+      <div className={clsx(classes.alignSelf, classes.styleLess)}>
+        <Button
+          className={classes.button}
+          key='btn-delete'><RemoveCircleOutline color='error' /></Button>
+      </div>
+    </div>
   )))
 
   const handleItemsOrdered = items => {
@@ -70,10 +102,12 @@ export default () => {
   }
 
   return (
-    <Paper className={classes.root} elevation={0} variant='outlined' >
+    <Paper className={classes.container} elevation={0} variant='outlined'>
       <p className={classes.title}>¿Qué deseas preguntar a tus candidatos?</p>
-      <div >
-        <DragComponent addInputComponent={<Input disableUnderline placeholder='Escriba una nueva pregunta' />} onItemsOrdered={handleItemsOrdered}>
+      <div className={classes.overflow}>
+        <DragComponent
+          addInputComponent={<Input disableUnderline placeholder='Escriba una nueva pregunta' />}
+          onItemsOrdered={handleItemsOrdered}>
           {items}
         </DragComponent>
       </div>

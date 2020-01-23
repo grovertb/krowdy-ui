@@ -44,7 +44,7 @@ const getLimitDate = (secs) => {
   let rawDate = new Date(null)
   rawDate.setSeconds(secs)
 
-  return rawDate.toISOString().substr(14,5)
+  return rawDate.toISOString().substr(14, 5)
 }
 
 const AudioRecorder = props => {
@@ -203,7 +203,7 @@ const AudioRecorder = props => {
         <span>:</span>
         <Timer.Seconds />
         <span>
-              /
+          /
         </span>
         <span>{getLimitDate(time ? time : 120)}</span>
       </div>
