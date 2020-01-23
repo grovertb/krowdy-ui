@@ -62,14 +62,15 @@ const CardMessage = props => {
           <span className={classes.title}>
             Selecciona la frecuencia del mensaje
           </span>
-          <span>
-            Seguimiento cada
+          <div className={classes.text}>
+            <span>Seguimiento cada</span>
             <TextField className={classes.hours}>
             </TextField>
             <Select>
-              <MenuItem>Horas</MenuItem>
+              <MenuItem value={10}>Horas</MenuItem>
+              <MenuItem value={20}>Dias</MenuItem>
             </Select>
-          </span>
+          </div>
           <div className={classes.containerRow}>
             <span>
               Termina en
@@ -111,8 +112,8 @@ const CardMessage = props => {
           <TextField label='Mensaje' placeholder='Mensaje'></TextField>
           <Typography>Insertar token</Typography>
         </div>
-      </CardContent>
-    </Card>
+      </CardContent >
+    </Card >
   )
 }
 
