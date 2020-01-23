@@ -244,7 +244,6 @@ const Table = ({
                       {...params}
                       className={classes.inputSearch}
                       fullWidth
-                      id='input-with-icon-textfield'
                       InputLabelProps={{ shrink: false }}
                       InputProps={{
                         ...params.InputProps,
@@ -263,7 +262,6 @@ const Table = ({
               ): (
                 <TextField
                   className={classes.inputSearch}
-                  id='input-with-icon-textfield'
                   InputLabelProps={{ shrink: false }}
                   InputProps={{
                     endAdornment: (
@@ -336,7 +334,6 @@ const Table = ({
                       horizontal: 'left',
                       vertical  : 'bottom'
                     }}
-                    id='simple-popover'
                     onClose={_handleClickClose}
                     open={Boolean(openMenu)}
                     transformOrigin={{
