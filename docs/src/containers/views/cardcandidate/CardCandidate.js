@@ -21,14 +21,15 @@ export default function () {
       margin        : '50px',
       width         : 'auto'
     }}>
-      <CardCandidate />
       <CardCandidate
-        _id={1}
         checked={checked}
         firstName={firstName}
+        id={1}
         lastName={lastName}
         onChangeCheckbox={_handleChange}
-        src={src} />
+        src={src}
+        style={{ height: 40, width: 300 }} />
+      <CardCandidate />
     </div>
   )
 }

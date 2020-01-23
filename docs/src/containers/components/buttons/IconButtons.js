@@ -26,7 +26,7 @@ export default () => {
       <IconButton>
         <AddIcon />
       </IconButton>
-      <IconButton color='primary' variant='contained'>
+      <IconButton color='primary' square variant='contained'>
         <EditIcon />
       </IconButton>
       <IconButton color='secondary' variant='contained'>

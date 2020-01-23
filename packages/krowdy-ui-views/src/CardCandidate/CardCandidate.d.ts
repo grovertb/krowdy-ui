@@ -1,11 +1,12 @@
-export type CardCandidateProps = {
-    _id: number,
-    checked: boolean,
-    classes: object,
-    firstName: string,
-    src: string,
-    lastName: string,
-    onChangeCheckbox: Function
+type IFunCheckbox = (id: number, checked?: boolean) => void
+
+export interface CardCandidateProps {
+    id?: number;
+    checked?: boolean;
+    firstName: string;
+    src?: string;
+    lastName: string;
+    onChangeCheckbox?: IFunCheckbox;
 };
 
 declare const CardCandidate: React.ComponentType<CardCandidateProps>;
