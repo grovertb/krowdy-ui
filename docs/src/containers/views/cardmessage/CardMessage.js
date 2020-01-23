@@ -8,7 +8,7 @@ import { Counter } from '@krowdy-ui/views'
 import AddIcon from '@material-ui/icons/Add'
 import RemoveIcon from '@material-ui/icons/Remove'
 
-export const styles = theme => ({
+export const styles = () => ({
   card: {
     height: 'auto',
     width : 420

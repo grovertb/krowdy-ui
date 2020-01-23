@@ -12,15 +12,15 @@ import clsx from 'clsx'
 export const styles = theme => ({
   avatar: {
     backgroundColor: theme.palette.primary['contrastText'],
-    border: `1px solid ${theme.palette.grey['300']}`,
-    color: theme.palette.grey['600'],
-    fontSize: 10,
-    fontStyle: 'normal',
-    fontWeight: 'normal',
-    height: 28,
-    lineHeight: '100%',
-    textAlign: 'center',
-    width: 28
+    border         : `1px solid ${theme.palette.grey['300']}`,
+    color          : theme.palette.grey['600'],
+    fontSize       : 10,
+    fontStyle      : 'normal',
+    fontWeight     : 'normal',
+    height         : 28,
+    lineHeight     : '100%',
+    textAlign      : 'center',
+    width          : 28
   },
   card: {
     '&:active': {
@@ -32,23 +32,23 @@ export const styles = theme => ({
     '&:hover': {
       border: `1px solid ${theme.palette.primary['400']}`
     },
-    alignItems: 'center',
-    border: `1px solid ${theme.palette.grey['400']}`,
+    alignItems  : 'center',
+    border      : `1px solid ${theme.palette.grey['400']}`,
     borderRadius: 8,
-    boxShadow: 'none',
-    boxSizing: 'border-box',
-    display: 'flex',
-    height: 40,
+    boxShadow   : 'none',
+    boxSizing   : 'border-box',
+    display     : 'flex',
+    height      : 40,
     marginBottom: theme.spacing(1),
-    width: '100%'
+    width       : '100%'
   },
   checkbox: {
     '&:hover': {
       backgroundColor: 'transparent',
-      boxShadow: 'none',
+      boxShadow      : 'none'
     },
     height: 28,
-    width: 28
+    width : 28
   },
   checked: {
     '& $avatar': {
@@ -56,16 +56,16 @@ export const styles = theme => ({
     },
     '& $checkbox': {
       boxShadow: 'none',
-      display: 'inline-flex'
+      display  : 'inline-flex'
     }
   },
   labelCandidate: {
-    marginLeft: theme.spacing(1),
+    marginLeft: theme.spacing(1)
   },
   name: {
-    color: theme.palette.grey['700'],
-    fontSize: 12,
-    fontStyle: 'normal',
+    color     : theme.palette.grey['700'],
+    fontSize  : 12,
+    fontStyle : 'normal',
     fontWeight: 'normal'
   },
   root: {
@@ -93,47 +93,40 @@ const CardCandidate = ({
   src,
   classes,
   ...restPropCard
-}) => {
+}) => (
+  <Card
+    className={classes.card}
+    key={id}
+    {...restPropCard}>
+    <div className={clsx(classes.root, { [classes.checked]: checked })}>
+      <Checkbox
+        checked={checked}
+        className={classes.checkbox}
+        color='primary'
+        onChange={({ target: { checked } }) => onChangeCheckbox(id, checked)} />
+      <Avatar
+        className={classes.avatar}
+        src={src}>
+        {firstName && lastName ? `${firstName.charAt(0).toUpperCase()}${lastName.charAt(0).toUpperCase()}` : null}
+      </Avatar>
+    </div>
+    <div className={classes.labelCandidate}>
+      <Typography className={classes.name} >
+        {firstName} {lastName}
+      </Typography>
+    </div>
+  </Card>
 
-  return (
-    <Card
-      className={classes.card}
-      key={id}
-      {...restPropCard}
-    >
-      <div className={clsx(classes.root, { [classes.checked]: checked })}>
-        <Checkbox
-          checked={checked}
-          className={classes.checkbox}
-          color='primary'
-          onChange={({ target: { checked } }) => onChangeCheckbox(id, checked)}
-        />
-        <Avatar
-          className={classes.avatar}
-          src={src}
-          {...restPropsAvatar}
-        >
-          {firstName && lastName ? `${firstName.charAt(0).toUpperCase()}${lastName.charAt(0).toUpperCase()}` : null}
-        </Avatar>
-      </div>
-      <div className={classes.labelCandidate}>
-        <Typography className={classes.name} >
-          {firstName} {lastName}
-        </Typography>
-      </div>
-    </Card>
-
-  )
-}
+)
 
 CardCandidate.propTypes = {
-  checked: PropTypes.bool,
-  classes: PropTypes.object,
-  firstName: PropTypes.string,
-  id: PropTypes.number,
-  lastName: PropTypes.string,
+  checked         : PropTypes.bool,
+  classes         : PropTypes.object,
+  firstName       : PropTypes.string,
+  id              : PropTypes.number,
+  lastName        : PropTypes.string,
   onChangeCheckbox: PropTypes.func,
-  src: PropTypes.string
+  src             : PropTypes.string
 }
 
 CardCandidate.muiName = 'CardCandidate'

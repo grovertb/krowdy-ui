@@ -198,7 +198,7 @@ const AudioRecorder = props => {
           visibility: 'hidden',
           width     : 0
         }} />
-      <React.Fragment>
+      <div>
         <Timer.Minutes />
         <span>:</span>
         <Timer.Seconds />
@@ -206,10 +206,10 @@ const AudioRecorder = props => {
               /
         </span>
         <span>{getLimitDate(time ? time : 120)}</span>
-        <button onClick={_handleStart}>Grabar</button>
-        <button onClick={_handleStop}>Parar</button>
-        <button onClick={_handlePlay}>Reproducir</button>
-      </React.Fragment>
+      </div>
+      <button onClick={_handleStart}>Grabar</button>
+      <button onClick={_handleStop}>Parar</button>
+      <button onClick={_handlePlay}>Reproducir</button>
       {/* <audio controls='controls'>
       <source src='track.ogg' type='audio/ogg' />
       <source src='track.mp3' type='audio/mpeg' />
