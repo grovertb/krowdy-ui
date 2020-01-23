@@ -83,8 +83,8 @@ const SkillCard = props => {
         <ExpansionPanelDetails classes={{ root: classes.styleLess }} className={classes.expandDetails} >
           <Typography className={clsx(classes.content, classes.size)} component='div'>
             {(content) ? content : null}
+            <AudioRecorder />
           </Typography>
-          <AudioRecorder />
         </ExpansionPanelDetails>
 
       </ExpansionPanel>

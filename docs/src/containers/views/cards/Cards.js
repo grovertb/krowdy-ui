@@ -92,13 +92,15 @@ export default function () {
           content='Define cuáles de los campos del perfil del candidato deben ser
              obligatorios y cuáles no deberían aparecer. cuáles no deberían aparecer'
           disabledHover
-          sizePadding='small' />
+          sizePadding='small'
+          title='Card' />
       </Grid >
       <Grid className={classes.item} item xs={4} >
         <CardContainer
           avatar={<Avatar src='https://s3.amazonaws.com/cdn.krowdy.com/media/images/icon_VideoCuestionario.png' variant='square' />}
           content='Define cuáles de los campos del perfil del candidato deben ser
-          obligatorios y cuáles no deberían aparecer.cuáles no deberían aparecer' />
+          obligatorios y cuáles no deberían aparecer.cuáles no deberían aparecer'
+          title='Card' />
       </Grid >
       <Grid className={classes.item} item xs={9} >
 
