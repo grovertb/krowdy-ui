@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@krowdy-ui/styles'
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
-// import InputComponent from './InputsTextField'
 
 export const styles = theme => ({
   aditionalInput: {
@@ -13,13 +12,13 @@ export const styles = theme => ({
     color: theme.palette.grey[700],
     fontSize: 14,
     margin: theme.spacing(1.5),
-    width: 'fill-available',
+    width: 'fill-available'
   },
   container: {
     height: 'calc(100% - 40px)',
-    overflow: 'auto',
+    // overflow: 'auto',
     width: '100%'
-  },
+  }
 })
 
 const reorder = (list, startIndex, endIndex) => {
@@ -35,7 +34,7 @@ const DragComponent = props => {
     addInputComponent,
     classes,
     children,
-    onItemsOrdered = () => { },
+    onItemsOrdered = () => { }
   } = props
 
   const onDragEnd = (result) => {
@@ -49,7 +48,6 @@ const DragComponent = props => {
     onItemsOrdered(newItems)
   }
 
-
   return (
     <div className={classes.container}>
       <DragDropContext onDragEnd={onDragEnd}>
@@ -62,29 +60,32 @@ const DragComponent = props => {
               tabIndex='-1'>
               {
                 React.Children.map(children, (item, index) => (
-                  <Draggable
-                    draggableId={`drag-${item.props.id}`}
-                    index={index}
-                    key={`drag-${item.props.id}`}
-                  >
-                    {(dragProvided) => (
-                      <div
-                        ref={dragProvided.innerRef}
-                        {...dragProvided.draggableProps}
-                        {...dragProvided.dragHandleProps}
-                        tabIndex='-1'
-                        style={dragProvided.draggableProps.style}
-                      >
-                        {item}
-                      </div>
-                    )}
-                  </Draggable>
-                ))
+                  (item && item.props) ?
+                    <Draggable
+                      draggableId={`drag-${item.props.id}`}
+                      index={index}
+                      key={`drag-${item.props.id}`}>
+                      {(dragProvided) => (
+                        <div
+                          ref={dragProvided.innerRef}
+                          {...dragProvided.draggableProps}
+                          {...dragProvided.dragHandleProps}
+                          style={dragProvided.draggableProps.style}
+                          tabIndex='-1'>
+                          {item}
+                        </div>
+                      )}
+                    </Draggable>
+                    : null
+                )
+                )
               }
               {dropProvided.placeholder}
-              <div className={classes.aditionalInput}>
-                {(addInputComponent) ? addInputComponent : null}
-              </div>
+              {addInputComponent && (
+                <div className={classes.aditionalInput}>
+                  {addInputComponent}
+                </div>
+              )}
             </div>)
           }
         </Droppable>
@@ -99,7 +100,7 @@ DragComponent.propTypes = {
     aditionalInput: PropTypes.string,
     container: PropTypes.string
   }),
-  onItemsOrdered: PropTypes.func,
+  onItemsOrdered: PropTypes.func
 }
 
 DragComponent.muiName = 'DragComponent'

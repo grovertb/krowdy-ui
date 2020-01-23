@@ -6,6 +6,7 @@ import {
   Card,
   CardHeader,
   CardContent,
+  Divider
 } from '@krowdy-ui/core'
 
 export const styles = theme => ({
@@ -64,7 +65,9 @@ const CardContainer = props => {
     disabledHover = false,
     action,
     sizePadding = 'middle',
-    onClick = () => { }
+    onClick = () => { },
+    propsDivider,
+    withDivider
   } = props
 
 
@@ -77,14 +80,17 @@ const CardContainer = props => {
     }}
       raised
       onClick={onClick}>
+      {(title || action) &&
+        <CardHeader
+          avatar={avatar}
+          title={title}
+          action={action}
+          classes={{ action: classes.action, root: clsx(classes.lessStyle, classes.header), title: classes.title }}
+          {...cardHeaderProps}
+        />}
 
-      <CardHeader
-        avatar={avatar}
-        title={title}
-        action={action}
-        classes={{ action: classes.action, root: clsx(classes.lessStyle, classes.header), title: classes.title }}
-        {...cardHeaderProps}
-      />
+      {withDivider && <Divider {...propsDivider} />}
+
       <CardContent classes={{ root: classes.cardContent }}>
         {content}
       </CardContent>
@@ -108,6 +114,7 @@ CardContainer.propTypes = {
   onClick: PropTypes.func,
   sizePadding: PropTypes.oneOf(['small', 'middle']),
   title: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
+  withDivider: PropTypes.object
 }
 
 CardContainer.muiName = 'CardContainer'
