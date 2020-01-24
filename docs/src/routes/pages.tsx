@@ -200,10 +200,6 @@ const pages: Array<Page> = [
         title: 'Modal',
         path: '/views/modalkrowder'
       },
-      {
-        title: 'Card  message',
-        path: '/views/cardmessage'
-      },
     ]
   },
 
