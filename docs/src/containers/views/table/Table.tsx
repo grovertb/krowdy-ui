@@ -3,7 +3,10 @@ import { Grid } from '@krowdy-ui/core'
 import { Table } from '@krowdy-ui/views'
 import AddIcon from '@material-ui/icons/Add'
 
-
+interface ISortTable {
+	orderBy: string
+	sort: 'asc' | 'desc'
+}
 const demoColumns = [
 	{ id: 'name', label: 'Nombre', minWidth: 150, ordering: true, active: true },
 	{ id: 'status', label: 'Estado', minWidth: 120, ordering: true, active: true },
@@ -115,9 +118,9 @@ export default function () {
 	}
 
 
-	const _handleSortTable = (orderBy: string, sort: string): void  => {
+	const _handleSortTable = (sort: ISortTable): void  => {
 		// setSort({ orderBy, sort })
-		console.log("TCL: _handleSortTable -> orderby", orderBy, sort)
+		console.log("TCL: _handleSortTable -> orderby", sort)
 	}
 
 	const _handleSearch = (search: string): void => {
