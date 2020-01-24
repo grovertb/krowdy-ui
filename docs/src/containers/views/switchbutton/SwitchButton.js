@@ -20,17 +20,17 @@ export default function () {
       <SwitchButton
         onChange={setIndex}
         selected={index}>
-        <Button color='primary' onClick={(e) => console.log(e)} >click me 2</Button>
-        <Button color='primary' onClick={(e) => console.log(e)}>click me 2</Button>
+        <Button color='primary' onClick={() => console.log('hola')} >click me 2</Button>
+        <Button color='primary' onClick={() => console.log('hola')}>click me 2</Button>
       </SwitchButton>
 
       <SwitchButton
         onChange={setIndex2}
         selected={index2}>
-        <Button color='krowdy' onClick={(e) => console.log(e)} >click me 2</Button>
-        <Button color='krowdy' onClick={(e) => console.log(e)}>click me 2</Button>
-        <Button color='krowdy' onClick={(e) => console.log(e)}>click me 2</Button>
-        <Button color='krowdy' onClick={(e) => console.log(e)}>click me 2</Button>
+        <Button color='krowdy' onClick={() => console.log('hola')} >click me 2</Button>
+        <Button color='krowdy' onClick={() => console.log('hola')}>click me 2</Button>
+        <Button color='krowdy' onClick={() => console.log('hola')}>click me 2</Button>
+        <Button color='krowdy' onClick={() => console.log('hola')}>click me 2</Button>
       </SwitchButton>
     </div>
   )
