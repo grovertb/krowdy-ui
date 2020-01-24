@@ -37,10 +37,6 @@ export * from './ModalKrowder';
 export { default as AvatarUser } from './AvatarUser';
 export * from './AvatarUser';
 
-
-export { default as CardMessage } from './CardMessage';
-export * from './CardMessage';
-
 export { default as ToggleRole } from './ToggleRole';
 export * from './ToggleRole';
 
