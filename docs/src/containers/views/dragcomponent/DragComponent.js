@@ -6,13 +6,12 @@ import { makeStyles } from '@krowdy-ui/styles'
 const useStyle = makeStyles({
   container: {
     fontSize: 14,
-    height  : 300,
     outline : '1px solid black'
   },
   dragComponent: {
     height   : 40,
-    margin   : 10,
     outline  : '1px solid black',
+    padding  : 10,
     textAlign: 'center',
     width    : 200
   }

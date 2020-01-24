@@ -1,82 +1,86 @@
 import React from 'react'
-import { Grid } from '@krowdy-ui/core'
+import { Button } from '@krowdy-ui/core'
+import clsx from 'clsx'
+import { makeStyles } from '@krowdy-ui/styles'
 import { Inputs, RadioForm } from '@krowdy-ui/views'
 import { SkillCard } from '@krowdy-ui/views/Cards'
-import { RemoveCircleOutline, DragIndicator, Info, ExpandMore } from '@material-ui/icons'
-import { makeStyles } from '@krowdy-ui/styles'
+import { RemoveCircleOutline, DragIndicator/* , Info, ExpandMore */ } from '@material-ui/icons'
 
 const useStyle = makeStyles({
   align: {
     verticalAlign: 'bottom'
   },
+  alignSelf: {
+    alignSelf: 'flex-start'
+  },
   button: {
-    paddingTop: '1rem'
+    '&:hover': {
+      backgroundColor: 'transparent'
+    },
+    margin  : 0,
+    minWidth: 0,
+    padding : 0
   },
   container: {
     margin: '30px 20px'
   },
-  iconDragContainer: {
-    paddingTop: '1rem'
+  root: {
+    alignItems   : 'center',
+    display      : 'flex',
+    flexDirection: 'row',
+    justify      : 'space-between',
+    margin       : '4%'
   },
   skillsContainer: {
     margin: 'auto',
     width : '100%'
   },
+  styleLess: {
+    '&:last-child': {
+      paddingBottom: 0
+    },
+    margin : 0,
+    padding: 0
+  },
   text: {
     fontSize: 12
   }
-
 })
-const inputsRadios = [
+const inputsInDrag = [
   {
-    _id  : '1',
+    _id  : 1,
     label: 'label1',
     value: '1'
   },
   {
-    _id  : '2',
+    _id  : 2,
     label: 'label2',
     value: 'value2'
   },
   {
-    _id  : '3',
+    _id  : 3,
     label: 'label3',
     value: 'value3'
-  },
-  {
-    _id  : '4',
-    label: 'label4',
-    value: 'value4'
-  },
-  {
-    _id  : '5',
-    label: 'label5',
-    value: 'value5'
-  } ]
+  }
+]
 
 export default function () {
   const classes = useStyle()
 
   return (
     <>
-      <Grid className={classes.container} container  >
-        <Grid item tabIndex='-1' xs={11}>
-          <Inputs
-            iconDrag={<DragIndicator />}
-            iconRemove={<RemoveCircleOutline color='error' />}
-            item={{ _id: '123', instruction: () => { } }}
-            order={1}
-            showInstructions />
-        </Grid>
-      </Grid>
-      <div className={classes.skillsContainer}>
+      <div className={classes.root} tabIndex='-1' >
+        <div key='drag-icon' tabIndex='-1' >
+          <DragIndicator color='disabled' />
+        </div>
+
         <SkillCard
           colorCard='gray'
           content={
             <div>
               <span className={classes.cursive}>Selecciona el nivel que necesitas de esta competencia</span>
               <RadioForm
-                inputs={inputsRadios}
+                inputs={inputsInDrag}
                 isRow
                 valueDefault='value2' />
               <span className={classes.text}>Capacidad para fijar politicas organizacionales y comunicarlas de manera clara y precisa en todos los niveles
@@ -84,11 +88,29 @@ export default function () {
               la verdad y lo que siente.
               </span>
             </div>
-          }
-          expandIcon={<ExpandMore />}
-          iconDrag={<DragIndicator className={classes.align} />}
-          iconRemove={<RemoveCircleOutline color='error' />}
-          title={<div><span className={classes.align}>Creativity</span> <Info classes={{ root: classes.align }} color='primary' size='small' /></div>} />
+          } />
+        <div className={clsx(classes.styleLess)}>
+          <Button
+            className={classes.button}
+            key='btn-delete'><RemoveCircleOutline color='error' /></Button>
+        </div>
+      </div>
+
+      <div className={classes.root} tabIndex='-1' >
+        <div className={clsx(classes.iconDragContainer, classes.styleLess)} key='drag-icon' tabIndex='-1' >
+          <DragIndicator color='disabled' />
+        </div>
+
+        <Inputs
+          item={{ _id: '123', instructions: '', questions: '' }}
+          order={1}
+          showInstructions />
+
+        <div className={clsx(classes.alignSelf, classes.styleLess)}>
+          <Button
+            className={classes.button}
+            key='btn-delete'><RemoveCircleOutline color='error' /></Button>
+        </div>
       </div>
     </>
   )

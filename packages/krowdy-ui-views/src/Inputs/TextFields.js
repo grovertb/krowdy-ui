@@ -3,43 +3,33 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@krowdy-ui/styles'
 import clsx from 'clsx'
-import { Input, Grid, Button } from '@krowdy-ui/core'
-
+import { Input } from '@krowdy-ui/core'
 export const styles = theme => ({
   alignSelf: {
     alignSelf: 'flex-start'
   },
-  button: {
-    '&:hover': {
-      backgroundColor: 'transparent'
-    },
-    minWidth: 0,
-    padding : 0
-  },
-  divQuestion: {
-    width: '100%'
+  container: {
+    alignItems    : 'center',
+    display       : 'flex',
+    flexDirection : 'row',
+    justifyContent: 'space-between',
+    width         : '100%'
   },
   focused: {
     borderBottom: `1px solid ${theme.palette.primary[600]}`
-  },
-  iconDragContainer: {
-    color: theme.palette.grey[500]
   },
   inputsContent: {
     alignItems   : 'center',
     display      : 'flex',
     flex         : 1,
     flexDirection: 'column',
-    margin       : '0 8px'
-
+    margin       : theme.spacing(0, 1)
   },
   multiline: {
     paddingTop: 2
   },
   order: {
-    fontSize  : 14,
     fontWeight: 'bold'
-
   },
   textField: {
     '&:hover': {
@@ -47,45 +37,38 @@ export const styles = theme => ({
     },
     borderBottom: `1px solid ${theme.palette.grey[400]}`,
     color       : theme.palette.grey[700],
-    fontSize    : 14,
     margin      : theme.spacing(0, 1, 2, 1),
     width       : 'fill-available'
+  },
+  textSize: {
+    fontSize: 14
   }
 })
 
 const InputComponent = (props) => {
-  const { classes,
+  const {
+    classes,
     showInstructions,
     disabled,
     item,
     onUpdateItem = () => { },
     order,
-    iconDrag,
-    iconRemove,
-    onDeleteItem = () => { }
+    placeholderAnswer = 'Answer',
+    placeholderQuestion = 'Question'
   } = props
 
   return (
-    <Grid
-      alignItems='center'
-      className={classes.divQuestion}
-      container
-      justify='space-between'
-      tabIndex='-1'>
-      <Grid className={clsx(classes.iconDragContainer)} item>
-        {(iconDrag) ? iconDrag : null}
-      </Grid>
-      <span className={clsx(classes.order, classes.alignSelf)}>
-        {(order > 0 && order < 10) ? `0${order}` : order}.
+    <div className={classes.container} tabIndex='-1'>
+      <span className={clsx(classes.order, classes.alignSelf, classes.textSize)}>
+        {order}.
       </span>
-      <Grid className={classes.inputsContent} item>
+      <div className={classes.inputsContent} tabIndex='-1'>
         <Input
           autoFocus
           classes={{
             multiline: classes.multiline
           }}
-          className={clsx(classes.textField, classes.focused)}
-          defaultValue={item.question}
+          className={clsx(classes.textField, classes.focused, classes.textSize)}
           disabled={disabled}
           disableUnderline
           multiline
@@ -94,14 +77,15 @@ const InputComponent = (props) => {
               question: event.target.value
             })
           }}
-          placeholder='Escribe una pregunta' />
+          placeholder={placeholderQuestion}
+          value={item.question} />
         {
           showInstructions &&
           <Input
             classes={{
               multiline: classes.multiline
             }}
-            className={clsx(classes.textField, classes.focused)}
+            className={clsx(classes.textField, classes.focused, classes.textSize)}
             disabled={disabled}
             disableUnderline
             multiline
@@ -110,30 +94,33 @@ const InputComponent = (props) => {
                 instructions: event.target.value
               })
             }}
-            placeholder='Agrega instrucciones para Krowder' />
+            placeholder={placeholderAnswer} />
         }
-      </Grid>
-      <Grid className={classes.alignSelf} item >
-        <Button
-          className={clsx(classes.button)}
-          disabled={disabled}
-          onClick={() => onDeleteItem(item._id)}>
-          {(iconRemove) ? iconRemove : null}
-        </Button>
-      </Grid>
-    </Grid>
+      </div>
+    </div>
   )
 }
 
 InputComponent.propTypes = {
-  classes         : PropTypes.object,
-  disabled        : PropTypes.bool,
-  instructions    : PropTypes.bool,
-  item            : PropTypes.object.isRequired,
-  onDeleteItem    : PropTypes.func,
-  onUpdateItem    : PropTypes.func,
-  order           : PropTypes.number.isRequired,
-  showInstructions: PropTypes.bool
+  classes: PropTypes.shape({
+    container: PropTypes.string,
+    multiline: PropTypes.string,
+    order    : PropTypes.string,
+    textField: PropTypes.string,
+    textSize : PropTypes.string
+  }),
+  disabled    : PropTypes.bool,
+  instructions: PropTypes.bool,
+  item        : PropTypes.shape({
+    _id         : PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]),
+    instructions: PropTypes.string,
+    question    : PropTypes.string
+  }).isRequired,
+  onUpdateItem       : PropTypes.func,
+  order              : PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]),
+  placeholderAnswer  : PropTypes.string,
+  placeholderQuestion: PropTypes.string,
+  showInstructions   : PropTypes.bool
 }
 
 InputComponent.muiName = 'InputComponent'
