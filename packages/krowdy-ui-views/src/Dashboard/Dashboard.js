@@ -293,7 +293,7 @@ function Dashboard(props) {
       <AppBar
         className={classes.topBar}
         elevation={1}
-        position='sticky'>
+        position='relative'>
         <Toolbar className={classes.toolbar}>
           <Link className={classes.logoCompany} component={RouterLink} to='/'>
             <img
