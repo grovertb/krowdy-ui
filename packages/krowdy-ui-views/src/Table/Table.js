@@ -524,12 +524,12 @@ Table.propTypes = {
   onHandleBtnAction        : PropTypes.func,
   onHandleChangePage       : PropTypes.func,
   onHandleChangeRowsPerPage: PropTypes.func,
+  onHandleClickRow         : PropTypes.func,
   onHandlePaymentButton    : PropTypes.func,
   onHandleSearch           : PropTypes.func,
   onHandleSelectAll        : PropTypes.func,
   onHandleSelectItem       : PropTypes.func,
   onHandleSortTable        : PropTypes.func,
-  onHandleClickRow: PropTypes.func,
   onHandleToggleColumnTable: PropTypes.func,
   /**
    * pagination objeto para paginar, requiere  de `withPagination`
