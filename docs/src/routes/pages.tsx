@@ -204,6 +204,10 @@ const pages: Array<Page> = [
         title: 'Card  message',
         path: '/views/cardmessage'
       },
+      {
+        title: 'Toggle Role',
+        path: '/views/togglerole'
+      },
     ]
   },
 

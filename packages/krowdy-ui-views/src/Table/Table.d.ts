@@ -2,12 +2,12 @@ interface IMultipleProps {
 	[extraProp: string]: any
 }
 interface IColumnsTable {
-	id: string
+	key: string
 	label: string
 	ordering: boolean
 	minWidth?: number
 	align?: string
-	active: boolean
+	visible: boolean
 }
 
 interface IRowsTable {
@@ -24,7 +24,7 @@ interface IPagination {
 	currentPage: number
 }
 interface IFuncSortTable {
-	(orderBy: string, sort: string): void
+	(sort: ISortTable): void
 }
 interface IFuncSearch {
 	(search: string): void
@@ -35,7 +35,7 @@ interface IFuncBtnAction {
 interface IFuncPagination {
 	(num: number): void
 }
-interface IFuncCheckbox {
+interface IFuncId {
 	(value: string, e?: Event): void
 }
 interface IFuncSelectAll {
@@ -62,8 +62,11 @@ export type TableProps = {
 	withSearch?: boolean
 	withFooter?: boolean
 	withButton?: boolean
+	withAutocomplete?: boolean
 	enableAddCell?: boolean
+	stickyHeader?: boolean
 	paymentAmount?: number
+	maxHeight?: number | string
 	iconButton?: React.ReactNode
 	newCellProps?: IMultipleProps
 	searchSuggestions?: Array<IMultipleProps>
@@ -74,8 +77,9 @@ export type TableProps = {
 	onHandleChangeRowsPerPage?: IFuncPagination
 	onHandleChangePage?: IFuncPagination
 	onHandleSelectAll?: IFuncSelectAll
-	onHandleSelectItem?: IFuncCheckbox
-	onHandleToggleColumnTable?: IFuncCheckbox
+	onHandleSelectItem?: IFuncId
+	onHandleClickRow?: IFuncId
+	onHandleToggleColumnTable?: IFuncId
 	onHandleAddNewCell?: IFuncAddNewCell
 };
 

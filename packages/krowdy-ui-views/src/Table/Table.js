@@ -42,8 +42,8 @@ const useStyles = makeStyles(theme => ({
     width   : '100px'
   },
   container: {
-    // maxHeight: 400,
-    // overflow: 'auto'
+    // maxHeight: 200,
+    // overflow : 'auto'
   },
   containerHeaderTable: {
     padding: theme.spacing(2)
@@ -53,7 +53,8 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'space-between'
   },
   containerTable: {
-    overflow: 'hidden'
+    overflow: 'hidden',
+    width   : '100%'
   },
   customBottomAdd: {
     border       : 'dashed 1px',
@@ -114,6 +115,12 @@ const useStyles = makeStyles(theme => ({
     display       : 'flex',
     justifyContent: 'space-between'
   },
+  stickyHeader: {
+    left: 'inherit'
+  },
+  tableHead: {
+    backgroundColor: theme.palette.grey[100]
+  },
   textAmount: {
     color     : theme.palette.primary.main,
     fontWeight: 'bold'
@@ -131,14 +138,16 @@ const useStyles = makeStyles(theme => ({
 const Table = ({
   titleTable,
   titleButton,
-  pagination,
   paymentAmount,
   iconButton,
+  maxHeight = 'auto',
+  pagination = {},
   newCellProps = {},
   sortTable = {},
   columns = [],
   rows = [],
   searchSuggestions = [],
+  stickyHeader = false,
   withFooter = false,
   withCheckbox = false,
   withPagination = false,
@@ -146,6 +155,7 @@ const Table = ({
   withMenuColumns = false,
   withOrder = false,
   withSearch = true,
+  withAutocomplete = false,
   withButton = false,
   enableAddCell = false,
   onHandleSortTable = () => false,
@@ -157,16 +167,18 @@ const Table = ({
   onHandleSelectItem = () => false,
   onHandlePaymentButton = () => false,
   onHandleToggleColumnTable = () => false,
-  onHandleAddNewCell = () => false
+  onHandleAddNewCell = () => false,
+  onHandleClickRow = () => false
 }) => {
   const { orderBy = '', sort = 'asc' } = sortTable
+  const { totalRows, currentPage, rowsPerPage } = pagination
   const validateNewCellProps = Object.keys(newCellProps).length
   const classes = useStyles()
   const inputSearch = useRef(null)
   const [ openMenu, setOpenMenu ] = useState(null)
   const [ addNewCell, setAddNewCell ] = useState(false)
   const [ localNewCellProps, setLocalNewCellProps ] = useState({})
-  const columnsActives = columns.filter(({ active }) => active)
+  const visibleColumns = columns.filter(({ visible }) => visible)
 
   useEffect(() => {
     if(validateNewCellProps)
@@ -190,9 +202,9 @@ const Table = ({
     const { orderBy, sort } = ref
     const invertSort = sort === 'asc' ? 'desc' : 'asc'
     if(id !== orderBy)
-      return onHandleSortTable(id, 'asc')
+      return onHandleSortTable({ orderBy: id, sort: 'asc' })
 
-    return onHandleSortTable(id, invertSort)
+    return onHandleSortTable({ orderBy: id, sort: invertSort })
   }
 
   const _handleClickToggleCell = () => {
@@ -204,8 +216,8 @@ const Table = ({
     setLocalNewCellProps({})
   }
 
-  const _handleChangeNewCell = (e, id) => {
-    const { value } = e.target
+  const _handleChangeNewCell = (e) => {
+    const { value, id } = e.target
     setLocalNewCellProps((prevState) => ({
       ...prevState,
       [id]: value
@@ -216,6 +228,15 @@ const Table = ({
     onHandleAddNewCell(localNewCellProps)
   }
 
+  const _handleClickTableRow = (id) => {
+    onHandleClickRow(id)
+  }
+
+  const _handleClickSelectItem = (e, id) => {
+    e.stopPropagation()
+    onHandleSelectItem(id)
+  }
+
   return (
     <Paper className={classes.containerTable}>
       {
@@ -223,7 +244,7 @@ const Table = ({
           <div className={clsx(classes.containerHeaderTable, { [classes.spaceBetween]: titleTable })}>
             {titleTable && <Typography className={classes.titleTable} variant='body2'>{titleTable}</Typography>}
             <div className={clsx(classes.containerSearch, { [classes.flexEnd]: titleTable })}>
-              {withSearch ? (
+              {withSearch ? withAutocomplete ? (
                 <Autocomplete
                   noOptionsText='No hay coincidencias'
                   options={searchSuggestions.map(option => option.title)}
@@ -233,7 +254,6 @@ const Table = ({
                       {...params}
                       className={classes.inputSearch}
                       fullWidth
-                      id='input-with-icon-textfield'
                       InputLabelProps={{ shrink: false }}
                       InputProps={{
                         ...params.InputProps,
@@ -249,6 +269,22 @@ const Table = ({
                       variant='outlined' />
                   )}
                   style={{ width: 400 }} />
+              ): (
+                <TextField
+                  className={classes.inputSearch}
+                  InputLabelProps={{ shrink: false }}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position='end'>
+                        <SearchIcon className={classes.searchIcon} onClick={() => onHandleSearch(inputSearch.current.value)} />
+                      </InputAdornment>
+                    )
+                  }}
+                  inputRef={inputSearch}
+                  onKeyUp={_handleSearchValidate}
+                  placeholder='Buscar'
+                  style={{ width: 400 }}
+                  variant='outlined' />
               ) : null}
               {withButton ? (
                 <Button
@@ -265,9 +301,9 @@ const Table = ({
           </div>
         ) : null
       }
-      <TableContainer className={classes.container}>
-        <MuiTable aria-label='sticky table' stickyHeader>
-          <TableHead>
+      <TableContainer className={classes.container} style={{ maxHeight }} >
+        <MuiTable aria-label='sticky table' stickyHeader={stickyHeader}>
+          <TableHead className={classes.tableHead}>
             <TableRow>
               {withCheckbox ? (
                 <TableCell padding='checkbox'>
@@ -276,17 +312,20 @@ const Table = ({
                     onChange={(e) => onHandleSelectAll(e.target.checked)} />
                 </TableCell>
               ) : null}
-              {columnsActives.map(({ id, align, minWidth, label, ordering }) => (
+              {visibleColumns.map(({ key, align, minWidth, label, ordering }) => (
                 <TableCell
                   align={align}
-                  key={id}
-                  sortDirection={orderBy === id ? sort : false}
+                  classes={{
+                    stickyHeader: classes.stickyHeader
+                  }}
+                  key={key}
+                  sortDirection={orderBy === key ? sort : false}
                   style={{ minWidth }}>
                   {withOrder && ordering ? (
                     <TableSortLabel
-                      active={orderBy === id}
-                      direction={orderBy === id ? sort : 'asc'}
-                      onClick={() => _handleSortTable(id, sortTable)}>
+                      active={orderBy === key}
+                      direction={orderBy === key ? sort : 'asc'}
+                      onClick={() => _handleSortTable(key, sortTable)}>
                       <Typography className={classes.headerTable} variant='body1'>{label}</Typography>
                     </TableSortLabel>
                   ) : (
@@ -305,7 +344,6 @@ const Table = ({
                       horizontal: 'left',
                       vertical  : 'bottom'
                     }}
-                    id='simple-popover'
                     onClose={_handleClickClose}
                     open={Boolean(openMenu)}
                     transformOrigin={{
@@ -316,18 +354,18 @@ const Table = ({
                       <Typography className={classes.customMenuHeadTitle} variant='body2'>Columnas</Typography>
                       <FormGroup>
                         {
-                          columns.map(({ id, label, active }) => (
+                          columns.map(({ key, label, visible = true }) => (
                             <FormControlLabel
                               control={
                                 <Checkbox
-                                  checked={active}
+                                  checked={visible}
                                   className={classes.customCheckbox}
                                   color='primary'
-                                  disabled={columns.filter(({ active }) => active).length === 1 && active}
-                                  onChange={() => onHandleToggleColumnTable(id)}
-                                  value={id} />
+                                  disabled={columns.filter(({ visible }) => visible).length === 1 && visible}
+                                  onChange={() => onHandleToggleColumnTable(key)}
+                                  value={key} />
                               }
-                              key={id}
+                              key={key}
                               label={label} />
                           ))
                         }
@@ -343,29 +381,32 @@ const Table = ({
             {(enableAddCell && validateNewCellProps) ? (
               addNewCell ? (
                 <TableRow>
-                  {columnsActives.map(({ id, type, editable }, index) => {
-                    const lastCell = index === columnsActives.length - 1
+                  {visibleColumns.map(({ key, type, editable }, index) => {
+                    const lastCell = index === visibleColumns.length - 1
 
                     return (
-                      <TableCell key={id}>
+                      <TableCell key={key}>
                         <Box alignItems='center' display='flex' justifyContent={lastCell ? 'space-between' : 'flex-start'}>
                           {editable ?
                             type === 'select' ? (
-                              <Select className={classes.optionSelect} onChange={(e) => _handleChangeNewCell(e, id)} value={Array.isArray(localNewCellProps[id]) ? '' : localNewCellProps[id]}>
-                                {newCellProps[id].map(({ value, label }, index) =>
+                              <Select
+                                className={classes.optionSelect} id={key} onChange={_handleChangeNewCell}
+                                value={Array.isArray(localNewCellProps[key]) ? '' : localNewCellProps[key]}>
+                                {newCellProps[key].map(({ value, label }, index) =>
                                   (<MenuItem className={classes.optionSelect} key={index} value={value}>{label}</MenuItem>))
                                 }
                               </Select>
                             ) : (
                               <Input
                                 className={classes.inputSearch}
-                                defaultValue={newCellProps[id]}
+                                defaultValue={newCellProps[key]}
                                 fullWidth
-                                onChange={(e) => _handleChangeNewCell(e, id)}
+                                id={key}
+                                onChange={_handleChangeNewCell}
                                 type={type} />
                             ) :
                             (
-                              <Typography>{Array.isArray(newCellProps[id]) ? (newCellProps[id].join(', ')) : newCellProps[id]}</Typography>
+                              <Typography>{Array.isArray(newCellProps[key]) ? (newCellProps[key].join(', ')) : newCellProps[key]}</Typography>
                             )}
                           {lastCell && (
                             <Box display='flex' marginLeft={2}>
@@ -388,21 +429,23 @@ const Table = ({
 
             ) : null}
             {rows.map((row, index) => {
-              const { _id, selected } = row
+              const { _id, selected = false } = row
 
               return (
-                <TableRow hover key={index} role='checkbox'>
+                <TableRow
+                  hover key={index}
+                  onClick={() => _handleClickTableRow(_id)}>
                   {withCheckbox ? (
                     <TableCell padding='checkbox'>
                       <Checkbox
                         checked={selected}
-                        onChange={() => onHandleSelectItem(_id)} />
+                        onClick={(e) => _handleClickSelectItem(e, _id)} />
                     </TableCell>
                   ) : null}
-                  {columnsActives.map(({ id, align }) => (
-                    <TableCell align={align || 'left'} key={id}>
+                  {visibleColumns.map(({ key, align }) => (
+                    <TableCell align={align || 'left'} key={key}>
                       <Typography className={classes.bodyTable} variant='body1'>
-                        {Array.isArray(row[id]) ? (row[id].join(', ')) : row[id] }
+                        {Array.isArray(row[key]) ? (row[key].join(', ')) : row[key] }
                       </Typography>
                     </TableCell>
                   ))}
@@ -417,11 +460,11 @@ const Table = ({
         withPagination ? (
           <TablePagination
             component='div'
-            count={pagination.totalRows}
+            count={totalRows}
             onChangePage={onHandleChangePage}
             onChangeRowsPerPage={onHandleChangeRowsPerPage}
-            page={pagination.currentPage}
-            rowsPerPage={pagination.rowsPerPage}
+            page={currentPage}
+            rowsPerPage={rowsPerPage}
             rowsPerPageOptions={[ 10, 25, 100 ]} />
         ) : null
       }
@@ -449,17 +492,33 @@ const Table = ({
 }
 
 Table.propTypes = {
+  /**
+   * Columns sirve para pasar la cabecera de la tabla
+   */
   columns: PropTypes.arrayOf(
     PropTypes.shape({
       align   : PropTypes.string,
-      id      : PropTypes.string.isRequired,
+      key     : PropTypes.string.isRequired,
       label   : PropTypes.string.isRequired,
       minWidth: PropTypes.number,
-      ordering: PropTypes.bool.isRequired
+      ordering: PropTypes.bool
     })
   ).isRequired,
+  /**
+   * eneableAddCell muetra un boton para agregar una nueva celda
+   */
   enableAddCell            : PropTypes.bool,
+  /**
+   * iconBotton recibe un nodo para pinterlo al boton del header
+   */
   iconButton               : PropTypes.element,
+  /**
+   * maxHeigth string | number para la altura de la tabla
+   */
+  maxHeight                : PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]),
+  /**
+   * newCellProps un array de objetos con las keys a editar cuando se agregue una nueva celda, requiere de `enableAddCell`
+   */
   newCellProps             : PropTypes.object,
   onHandleAddNewCell       : PropTypes.func,
   onHandleBtnAction        : PropTypes.func,
@@ -470,13 +529,23 @@ Table.propTypes = {
   onHandleSelectAll        : PropTypes.func,
   onHandleSelectItem       : PropTypes.func,
   onHandleSortTable        : PropTypes.func,
+  onHandleClickRow: PropTypes.func,
   onHandleToggleColumnTable: PropTypes.func,
+  /**
+   * pagination objeto para paginar, requiere  de `withPagination`
+   */
   pagination               : PropTypes.shape({
     currentPage: PropTypes.number.isRequired,
     rowsPerPage: PropTypes.number.isRequired,
     totalRows  : PropTypes.number.isRequired
   }),
+  /**
+   * paymentAmount number para mostrar total a pagar
+   */
   paymentAmount: PropTypes.number,
+  /**
+   * rows son las filas de la tabla
+   */
   rows         : PropTypes.arrayOf(
     PropTypes.shape({
       _id: PropTypes.string.isRequired
@@ -487,16 +556,21 @@ Table.propTypes = {
     orderBy: PropTypes.string,
     sort   : PropTypes.oneOf([ 'asc', 'desc' ])
   }),
-  titleButton    : PropTypes.string,
-  titleTable     : PropTypes.string,
-  withButton     : PropTypes.bool,
-  withCheckbox   : PropTypes.bool,
-  withFooter     : PropTypes.bool,
-  withHeader     : PropTypes.bool,
-  withMenuColumns: PropTypes.bool,
-  withOrder      : PropTypes.bool,
-  withPagination : PropTypes.bool,
-  withSearch     : PropTypes.bool
+  stickyHeader    : PropTypes.bool,
+  titleButton     : PropTypes.string,
+  titleTable      : PropTypes.string,
+  /**
+   * withAutocomplete muestra el search con autocompletado, requiere de `searchSuggestions`
+   */
+  withAutocomplete: PropTypes.bool,
+  withButton      : PropTypes.bool,
+  withCheckbox    : PropTypes.bool,
+  withFooter      : PropTypes.bool,
+  withHeader      : PropTypes.bool,
+  withMenuColumns : PropTypes.bool,
+  withOrder       : PropTypes.bool,
+  withPagination  : PropTypes.bool,
+  withSearch      : PropTypes.bool
 }
 
 export default Table

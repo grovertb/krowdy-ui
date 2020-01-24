@@ -20,7 +20,7 @@ import {
   Menu,
   Link,
   Button,
-  // ListItemIcon,
+  ListItemIcon,
   ListItemText
   // Icon
 } from '@krowdy-ui/core'
@@ -41,7 +41,7 @@ const useStyles = makeStyles(theme => ({
       backgroundColor: theme.palette.primary.main,
       bottom         : '-2px',
       content        : '""',
-      height         : '1px',
+      height         : 1,
       left           : 0,
       position       : 'absolute',
       right          : 0,
@@ -80,6 +80,9 @@ const useStyles = makeStyles(theme => ({
   drawerRoot: {
     height: '100%'
   },
+  iconMenu: {
+    color: theme.palette.common.white
+  },
   labelDrawer: {
     '& > span': {
       fontSize: '1rem'
@@ -98,7 +101,6 @@ const useStyles = makeStyles(theme => ({
     marginLeft    : theme.spacing(3),
     marginRight   : 10,
     position      : 'relative'
-    // width         : '13.78%'
   },
   main: {
     display      : 'flex',
@@ -129,10 +131,6 @@ const useStyles = makeStyles(theme => ({
     '& > div': {
       color: 'inherit'
     },
-    // '&:hover': {
-    //   backgroundColor: theme.palette.primary.main, // '#1890FF',
-    //   color          : 'white'
-    // },
     backgroundColor: theme.palette.common.white,
     color          : theme.palette.primary.main
   },
@@ -159,7 +157,7 @@ const useStyles = makeStyles(theme => ({
   },
   menuLink: {
     '& > a': {
-      color  : '#273142',
+      color  : theme.palette.grey[800],
       display: 'block',
       width  : '100%'
     },
@@ -179,9 +177,9 @@ const useStyles = makeStyles(theme => ({
     },
     '&:hover': {
       backgroundColor: 'transparent',
-      color          : '#262626'
+      color          : theme.palette.grey[500]
     },
-    color: '#8C8C8C'
+    color: theme.palette.grey[600]
   },
   profileName: {
     alignItems     : 'center',
@@ -212,43 +210,42 @@ const useStyles = makeStyles(theme => ({
     display       : 'flex',
     flex          : 1,
     justifyContent: 'space-between',
-    padding       : '0 10px'
+    padding       : theme.spacing(0, 1)
   },
   toolbarCenterLeft: {
     '& > a': {
-      marginLeft: '10px'
+      marginLeft: theme.spacing(1)
     },
     '& > a:first-child': {
-      marginLeft: '0'
+      marginLeft: 0
     },
     display: 'flex',
-    padding: '0 10px'
+    padding: theme.spacing(0, 1)
   },
   toolbarCenterRight: {
     '& > a': {
-      marginRight: '10px'
+      marginRight: theme.spacing(1)
     },
     '& > a:last-child': {
-      marginRight: '0'
+      marginRight: 0
     },
     display: 'flex'
   },
   topBar: {
-    backgroundColor: '#fff'
+    backgroundColor: theme.palette.common.white
   },
   wrapper: {
-    backgroundColor: '#EFEFEF',
+    backgroundColor: theme.palette.grey[200],
     display        : 'flex',
     flex           : 1
   },
   wrapperContent: {
-    backgroundColor: '#fff',
-    borderRadius   : 4,
-    display        : 'flex',
-    flex           : 1,
-    justifyContent : 'center',
-    margin         : 12
-    // width          : '100%'
+    // backgroundColor: theme.palette.common.white,
+    borderRadius  : 4,
+    display       : 'flex',
+    flex          : 1,
+    justifyContent: 'center',
+    margin        : theme.spacing(1)
   }
 }))
 
@@ -489,7 +486,7 @@ function Dashboard(props) {
                           underline='none'>
                           {/* {
                             item.icon ?
-                            <ListItemIcon>
+                            // <ListItemIcon>
                               <Icon icon={item.icon} />
                             </ListItemIcon> : null
                           } */}
@@ -514,12 +511,12 @@ function Dashboard(props) {
                           component={RouterLink}
                           to={item.url}
                           underline='none'>
-                          {/* {
+                          {
                             item.icon ?
-                            <ListItemIcon>
-                              <Icon icon={item.icon} />
-                            </ListItemIcon> : null
-                          } */}
+                              <ListItemIcon className={classes.iconMenu}>
+                                {item.icon}
+                              </ListItemIcon> : null
+                          }
                           <ListItemText
                             className={classes.labelDrawer}
                             primary={item.title} />
@@ -569,7 +566,7 @@ Dashboard.propTypes = {
   ),
   menus: PropTypes.arrayOf(
     PropTypes.shape({
-      icon  : PropTypes.string,
+      icon  : PropTypes.element,
       target: PropTypes.string,
       title : PropTypes.string.isRequired,
       type  : PropTypes.string.isRequired,

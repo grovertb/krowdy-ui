@@ -41,3 +41,6 @@ export * from './AvatarUser';
 export { default as CardMessage } from './CardMessage';
 export * from './CardMessage';
 
+export { default as ToggleRole } from './ToggleRole';
+export * from './ToggleRole';
+

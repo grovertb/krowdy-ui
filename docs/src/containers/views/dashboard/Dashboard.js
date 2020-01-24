@@ -1,5 +1,9 @@
 import React from 'react'
 import { Dashboard } from '@krowdy-ui/views'
+import {
+  AttachMoney as AttachMoneyIcon,
+  Dashboard as DashboardIcon
+} from '@material-ui/icons'
 
 export default function () {
   const _handleClickLogout = () => console.log('close')
@@ -14,14 +18,14 @@ export default function () {
     }}
     menus={[
       {
-        icon  : 'Home',
+        icon  : <DashboardIcon />,
         target: '_self',
         title : 'Dashboard',
         type  : 'link',
         url   : '/views/dashboard'
       },
       {
-        icon  : 'Group',
+        icon  : <AttachMoneyIcon />,
         target: '_self',
         title : 'Groups',
         type  : 'link',
@@ -82,8 +86,8 @@ export default function () {
     ]}
     user={{
       firstName: 'Xavi',
-      lastName : 'Gonzalez',
-      photo    : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZFvVFIsVQw4gBlCOw45vcWAGoD75tkHP6dnIx6AYEHUNwLpUG&s'
+      lastName : 'Gonzalez'
+      // photo    : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZFvVFIsVQw4gBlCOw45vcWAGoD75tkHP6dnIx6AYEHUNwLpUG&s'
     }}
     userMenu={[
       {
