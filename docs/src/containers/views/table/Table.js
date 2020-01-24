@@ -233,6 +233,10 @@ export default function () {
     console.log('TCL: _handleAddNewCell -> newCell', newCell)
   }
 
+  const _handleClickRow = (id) => {
+    console.log('TCL: _handleClickRow -> id', id)
+  }
+
   return (
     <Grid container>
       <Table
@@ -245,8 +249,9 @@ export default function () {
         onHandleBtnAction={_handleBtnAction}
         onHandleChangePage={_handleChangePage}
         onHandleChangeRowsPerPage={_handleChangeRowsPerPage}
-        onHandlePaymentButton={_handlePaymentButton}
+        onHandleClickRow={_handleClickRow}
         // titleTable='Tabla de Krowders'
+        onHandlePaymentButton={_handlePaymentButton}
         onHandleSearch={_handleSearch}
         onHandleSelectAll={_handleSelectAll}
         onHandleSelectItem={_handleSelectItem}
