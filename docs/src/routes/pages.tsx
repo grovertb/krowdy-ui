@@ -181,10 +181,6 @@ const pages: Array<Page> = [
         path: '/views/dragcomponent'
       },
       {
-        title: 'Header Task',
-        path: '/views/headertask'
-      },
-      {
         title: 'Counter',
         path: '/views/counter'
       },
