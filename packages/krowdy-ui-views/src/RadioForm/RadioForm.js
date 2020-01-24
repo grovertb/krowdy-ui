@@ -1,14 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@krowdy-ui/styles'
-//import clsx from 'clsx'
 import {
   FormControlLabel,
   Radio,
-  RadioGroup,
+  RadioGroup
 } from '@krowdy-ui/core'
 
-export const styles = theme => ({
+export const styles = () => ({
   size: {
     fontSize: 14
   }
@@ -24,7 +23,7 @@ const InputsRadiosForm = props => {
     name
   } = props
 
-  const [currentValue, setValue] = React.useState(value)
+  const [ currentValue, setValue ] = React.useState(value)
 
   const handleChange = event => {
     setValue(event.target.value)
@@ -32,31 +31,31 @@ const InputsRadiosForm = props => {
   }
 
   return (
-    <RadioGroup name={name} value={currentValue} onChange={handleChange} row={isRow}>
+    <RadioGroup
+      name={name} onChange={handleChange} row={isRow}
+      value={currentValue}>
       {
-        inputs.map((element, index) => {
-          return (
-            <FormControlLabel
-              key={index}
-              // className={classes.size}
-              value={element.value}
-              label={element.label}
-              classes={{ label: classes.size }}
-              control={<Radio color='primary' size='small' disableRipple />} />
-          )
-        })
+        inputs.map((element, index) => (
+          <FormControlLabel
+            classes={{ label: classes.size }}
+            // className={classes.size}
+            control={<Radio color='primary' disableRipple size='small' />}
+            key={index}
+            label={element.label}
+            value={element.value} />
+        ))
       }
     </RadioGroup>
   )
 }
 
 InputsRadiosForm.propTypes = {
-  classes: PropTypes.object,
-  inputs: PropTypes.array,
-  isRow: PropTypes.bool,
-  name: PropTypes.string,
+  classes : PropTypes.object,
+  inputs  : PropTypes.array,
+  isRow   : PropTypes.bool,
+  name    : PropTypes.string,
   onChange: PropTypes.func,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  value   : PropTypes.oneOfType([ PropTypes.string, PropTypes.number ])
 }
 
 InputsRadiosForm.muiName = 'InputsRadiosForm'

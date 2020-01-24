@@ -1,55 +1,41 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@krowdy-ui/styles'
-import { Button, ButtonGroup } from '@krowdy-ui/core'
+import { ButtonGroup } from '@krowdy-ui/core'
 
-export const styles = theme => ({
-  btn: {
-    height: 40,
-    width: 136
-  }
+export const styles = () => ({
 })
 
 const SwitchButton = props => {
-
   const {
-    classes,
-    active,
-    titleLeft = '',
-    titleRight = '',
-    onChange = () => { },
-    ...restProps
+    selected,
+    children,
+    onChange = () => { }
   } = props
 
   return (
     <div>
-      <ButtonGroup
-        {...restProps}
-      >
-        <Button
-          className={classes.btn}
-          variant={active ? 'contained' : 'outlined'}
-          onClick={() => onChange(active)
-          }
-        >{titleLeft}</Button>
-        <Button
-          className={classes.btn}
-          variant={!active ? 'contained' : 'outlined'}
-          onClick={() => onChange(active)}
-        >{titleRight}</Button>
+      <ButtonGroup>
+        {children.map((child, index) => React.cloneElement(child, {
+          onClick: (e) => {
+            onChange(index)
+            if(index !== selected)
+              child.props.onClick(e)
+          },
+          variant: index === selected ? 'contained' : 'outlined'
+        }
+        ))}
       </ButtonGroup>
     </div >
   )
 }
 
 SwitchButton.propTypes = {
-  active: PropTypes.bool,
-  classes: PropTypes.object,
+  index   : PropTypes.number,
   onChange: PropTypes.func,
-  titleLeft: PropTypes.string,
-  titleRight: PropTypes.string
+  selected: PropTypes.number
 }
 
-SwitchButton.muiName = 'Search'
+SwitchButton.muiName = 'SwitchButton'
 
 export default withStyles(styles, { name: 'KrowdySwitchButton' })(SwitchButton)

@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@krowdy-ui/styles'
 import {
-  Card, CardHeader, CardContent, Typography, TextField, Switch, Divider, Select, MenuItem
+  Card, CardHeader, CardContent, TextField, Switch, Divider, Select, MenuItem
 } from '@krowdy-ui/core'
 
-export const styles = theme => ({
+export const styles = () => ({
   card: {
     height: 'auto',
     width : 420
