@@ -301,22 +301,15 @@ const AudioRecorder = props => {
 AudioRecorder.propTypes = {
   classNameCanvas    : PropTypes.string,
   classes            : PropTypes.object,
-  'delete'           : PropTypes.node.isRequired,
+  'delete'           : PropTypes.func.isRequired,
   onBlobUrl          : PropTypes.func,
   onStatus           : PropTypes.func,
-  pause              : PropTypes.node.isRequired,
-  play               : PropTypes.node.isRequired,
-  record             : PropTypes.node.isRequired,
+  pause              : PropTypes.func.isRequired,
+  play               : PropTypes.func.isRequired,
+  record             : PropTypes.func.isRequired,
   spectroActiveColor : PropTypes.string,
   spectroPassiveColor: PropTypes.string,
-  stop               : PropTypes.node.isRequired,
-  timer              : {
-    getTime: PropTypes.func.isRequired,
-    pause  : PropTypes.func.isRequired,
-    reset  : PropTypes.func.isRequired,
-    start  : PropTypes.func.isRequired,
-    stop   : PropTypes.func.isRequired
-  }
+  stop               : PropTypes.func.isRequired
 }
 
 AudioRecorder.muiName = 'AudioRecorder'
