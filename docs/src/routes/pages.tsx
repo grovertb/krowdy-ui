@@ -125,6 +125,10 @@ const pages: Array<Page> = [
     title: 'Views',
     routes: [
       {
+        title: 'Audio Recorder',
+        path: '/views/audioRecorder'
+      },
+      {
         title: 'Job Detail',
         path: '/views/jobdetail'
       },
