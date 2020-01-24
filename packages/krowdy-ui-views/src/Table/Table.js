@@ -442,7 +442,11 @@ const Table = ({
                         onClick={(e) => _handleClickSelectItem(e, _id)} />
                     </TableCell>
                   ) : null}
-                  {visibleColumns.map(({ key, align }) => (
+                  {visibleColumns.map(({ key, align, component: Componente }) => Componente ? (
+                    <TableCell align={align || 'left'} key={key}>
+                      <Componente value={row[key]} />
+                    </TableCell>
+                  ) : (
                     <TableCell align={align || 'left'} key={key}>
                       <Typography className={classes.bodyTable} variant='body1'>
                         {Array.isArray(row[key]) ? (row[key].join(', ')) : row[key] }

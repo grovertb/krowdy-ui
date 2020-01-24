@@ -3,15 +3,28 @@ import { Grid } from '@krowdy-ui/core'
 import { Table } from '@krowdy-ui/views'
 import AddIcon from '@material-ui/icons/Add'
 
+const Componente = ({ value: [ name, apellido ] }) => (
+  <div style={{
+    display      : 'flex',
+    flexDirection: 'column'
+  }}>
+    <span>{name} </span>
+    <span style={{
+      color: 'red'
+    }}>{apellido}</span>
+  </div>
+)
+
 const demoColumns = [
   {
-    editable: true,
-    key     : 'name',
-    label   : 'Nombre',
-    minWidth: 150,
-    ordering: true,
-    type    : 'text',
-    visible : true
+    component: Componente,
+    editable : true,
+    key      : 'name',
+    label    : 'Nombre',
+    minWidth : 150,
+    ordering : true,
+    type     : 'text',
+    visible  : true
   }, {
     editable: false,
     key     : 'status',
@@ -158,7 +171,7 @@ export default function () {
       extra        : 'Status',
       incharge     : 'Jimena',
       incidents    : 5,
-      name         : 'Juan Perez',
+      name         : [ 'Juan Perez', 'Otro dato' ],
       status       : 'En linea',
       type         : [ 'LL', 'Ln', 'VoD', 'VE' ]
     }, {
@@ -169,7 +182,7 @@ export default function () {
       extra        : 'Status',
       incharge     : 'Jimena',
       incidents    : 0,
-      name         : 'Juana de Arco',
+      name         : [ 'Juana de Arco', 'Otro dato' ],
       status       : 'Hace 2 dias',
       type         : [ 'LL', 'Ln' ]
     }, {
@@ -180,7 +193,7 @@ export default function () {
       extra        : 'Status',
       incharge     : 'Jimena',
       incidents    : 1,
-      name         : 'Pedro de Arco',
+      name         : [ 'Pedro de Arco', 'Otro dato' ],
       status       : 'Hace 7 dias',
       type         : [ 'LL', 'Ln' ]
     }, {
@@ -191,7 +204,7 @@ export default function () {
       extra        : 'Status',
       incharge     : 'Jimena',
       incidents    : 2,
-      name         : 'Pedro Colmenarez',
+      name         : [ 'Pedro Colmenarez', 'Otro dato' ],
       status       : 'Invitado',
       type         : [ 'LL', 'Ln' ]
     }
