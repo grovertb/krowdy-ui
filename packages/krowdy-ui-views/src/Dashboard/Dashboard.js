@@ -244,8 +244,10 @@ const useStyles = makeStyles(theme => ({
     borderRadius  : 4,
     display       : 'flex',
     flex          : 1,
+    height        : 'calc(100vh - 88px)',
     justifyContent: 'center',
-    margin        : theme.spacing(1)
+    margin        : theme.spacing(1),
+    overflow      : 'auto'
   }
 }))
 
@@ -291,7 +293,7 @@ function Dashboard(props) {
       <AppBar
         className={classes.topBar}
         elevation={1}
-        position='sticky'>
+        position='relative'>
         <Toolbar className={classes.toolbar}>
           <Link className={classes.logoCompany} component={RouterLink} to='/'>
             <img

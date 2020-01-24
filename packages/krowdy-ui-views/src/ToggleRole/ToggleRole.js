@@ -33,8 +33,11 @@ function ToggleRole(props) {
   const [ active, setActive ] = useState(checked)
 
   const _handleChange = () => {
-    setActive(prevState => !prevState)
-    onchange(name)
+    setActive(prevState => {
+      onchange(!prevState)
+
+      return !prevState
+    })
   }
 
   return (
@@ -47,6 +50,7 @@ function ToggleRole(props) {
         <Switch
           checked={active}
           color='primary'
+          name={name}
           onChange={_handleChange}
           value={value} />
       </div>
