@@ -107,7 +107,7 @@ const CardCandidate = ({
       <Avatar
         className={classes.avatar}
         src={src}>
-        {firstName && lastName ? `${firstName.charAt(0).toUpperCase()}${lastName.charAt(0).toUpperCase()}` : null}
+        {`${firstName.charAt(0).toUpperCase()}${lastName.charAt(0).toUpperCase()}`}
       </Avatar>
     </div>
     <div className={classes.labelCandidate}>

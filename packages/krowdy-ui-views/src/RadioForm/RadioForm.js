@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@krowdy-ui/styles'
-// import clsx from 'clsx'
 import {
   FormControlLabel,
   Radio,

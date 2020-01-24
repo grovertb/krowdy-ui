@@ -158,13 +158,13 @@ const HeaderTask = props => {
               onChange={onChangeTitleTask}
               onKeyUp={onKeyUpTitleTask}
               placeholder={titleTask}
-              value={valueTitleTask} />            :
+              value={valueTitleTask} /> :
             null
         }
       </div>
       <div className={classes.buttonsRight}>
         {showButtonsRight ?
-          _id						?
+          _id ?
             isDraft ?
               <div>
                 <Button
@@ -174,7 +174,7 @@ const HeaderTask = props => {
                   onClick={onClickSave}
                   variant='outlined'
                   {...restPropsButton}>
-									Guardar
+                  Guardar
                 </Button>
                 <Button
                   className={classes.textButton}
@@ -183,9 +183,9 @@ const HeaderTask = props => {
                   onClick={onClickActiveTask}
                   variant='contained'
                   {...restPropsButton}>
-									Activar tarea
+                  Activar tarea
                 </Button>
-              </div>							:
+              </div> :
               <div>
                 <Button
                   className={classes.textButton}
@@ -194,9 +194,9 @@ const HeaderTask = props => {
                   onClick={onClickUpdateTask}
                   variant='outlined'
                   {...restPropsButton}>
-									Actualizar tarea
+                  Actualizar tarea
                 </Button>
-              </div>						:
+              </div > :
             <div>
               <Button
                 className={classes.textButton}
@@ -205,7 +205,7 @@ const HeaderTask = props => {
                 onClick={onClickSave}
                 variant='outlined'
                 {...restPropsButton}>
-								Guardar Borrador
+                Guardar Borrador
               </Button>
               <Button
                 className={classes.textButtonActive}
@@ -214,12 +214,12 @@ const HeaderTask = props => {
                 onClick={onClickActiveTask}
                 variant='contained'
                 {...restPropsButton}>
-								Activar tarea
+                Activar tarea
               </Button>
-            </div>					:
+            </div> :
           null
         }
-      </div>
+      </div >
 
     </Paper >
 

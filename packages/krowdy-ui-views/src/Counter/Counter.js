@@ -12,6 +12,7 @@ export const styles = theme => ({
   },
   root: {
     borderBottom: `1px solid ${theme.palette.grey['500']}`,
+    color       : theme.palette.grey['700'],
     fontSize    : 14,
     fontStyle   : 'normal',
     fontWeight  : 'normal',
