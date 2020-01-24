@@ -33,7 +33,6 @@ export default function () {
         searchIcon={searchIcon}
         type={type}
         value={search} />
-
       <Search
         placeholder={placeholder}
         searchIcon={searchIcon} />

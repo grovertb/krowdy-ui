@@ -1,7 +1,11 @@
+import KrowdyIcon from '@material-ui/icons'
+interface searchIcon {
+
+}
 
 export type SearchProps = {
   classes: object,
-  searchIcon: node,
+  // searchIcon: React.ComponentType<KrowdyIconProps/>,
   type: string,
 };
 
