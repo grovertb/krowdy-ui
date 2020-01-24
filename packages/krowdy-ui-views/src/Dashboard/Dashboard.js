@@ -20,7 +20,7 @@ import {
   Menu,
   Link,
   Button,
-  // ListItemIcon,
+  ListItemIcon,
   ListItemText
   // Icon
 } from '@krowdy-ui/core'
@@ -79,6 +79,9 @@ const useStyles = makeStyles(theme => ({
   },
   drawerRoot: {
     height: '100%'
+  },
+  iconMenu: {
+    color: theme.palette.common.white
   },
   labelDrawer: {
     '& > span': {
@@ -483,7 +486,7 @@ function Dashboard(props) {
                           underline='none'>
                           {/* {
                             item.icon ?
-                            <ListItemIcon>
+                            // <ListItemIcon>
                               <Icon icon={item.icon} />
                             </ListItemIcon> : null
                           } */}
@@ -508,12 +511,12 @@ function Dashboard(props) {
                           component={RouterLink}
                           to={item.url}
                           underline='none'>
-                          {/* {
+                          {
                             item.icon ?
-                            <ListItemIcon>
-                              <Icon icon={item.icon} />
-                            </ListItemIcon> : null
-                          } */}
+                              <ListItemIcon className={classes.iconMenu}>
+                                {item.icon}
+                              </ListItemIcon> : null
+                          }
                           <ListItemText
                             className={classes.labelDrawer}
                             primary={item.title} />
@@ -563,7 +566,7 @@ Dashboard.propTypes = {
   ),
   menus: PropTypes.arrayOf(
     PropTypes.shape({
-      icon  : PropTypes.string,
+      icon  : PropTypes.element,
       target: PropTypes.string,
       title : PropTypes.string.isRequired,
       type  : PropTypes.string.isRequired,
