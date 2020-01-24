@@ -174,7 +174,7 @@ const HeaderTask = props => {
                   onClick={onClickSave}
                   variant='outlined'
                   {...restPropsButton}>
-									Guardar
+                  Guardar
                 </Button>
                 <Button
                   className={classes.textButton}
@@ -183,7 +183,7 @@ const HeaderTask = props => {
                   onClick={onClickActiveTask}
                   variant='contained'
                   {...restPropsButton}>
-									Activar tarea
+                  Activar tarea
                 </Button>
               </div> :
               <div>
@@ -194,8 +194,9 @@ const HeaderTask = props => {
                   onClick={onClickUpdateTask}
                   variant='outlined'
                   {...restPropsButton}>
-									Actualizar tarea  </Button>
-              </div> :
+                  Actualizar tarea
+                </Button>
+              </div > :
             <div>
               <Button
                 className={classes.textButton}
@@ -204,7 +205,7 @@ const HeaderTask = props => {
                 onClick={onClickSave}
                 variant='outlined'
                 {...restPropsButton}>
-								Guardar Borrador
+                Guardar Borrador
               </Button>
               <Button
                 className={classes.textButtonActive}
@@ -213,12 +214,12 @@ const HeaderTask = props => {
                 onClick={onClickActiveTask}
                 variant='contained'
                 {...restPropsButton}>
-								Activar tarea
+                Activar tarea
               </Button>
             </div> :
           null
         }
-      </div>
+      </div >
 
     </Paper >
 

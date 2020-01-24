@@ -141,10 +141,6 @@ const pages: Array<Page> = [
         path: '/views/cardexception'
       },
       {
-        title: 'Select Candidates',
-        path: '/views/selectcandidates'
-      },
-      {
         title: 'Card Candidate',
         path: '/views/cardcandidate'
       },
