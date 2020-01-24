@@ -35,7 +35,7 @@ interface IFuncBtnAction {
 interface IFuncPagination {
 	(num: number): void
 }
-interface IFuncCheckbox {
+interface IFuncId {
 	(value: string, e?: Event): void
 }
 interface IFuncSelectAll {
@@ -77,8 +77,9 @@ export type TableProps = {
 	onHandleChangeRowsPerPage?: IFuncPagination
 	onHandleChangePage?: IFuncPagination
 	onHandleSelectAll?: IFuncSelectAll
-	onHandleSelectItem?: IFuncCheckbox
-	onHandleToggleColumnTable?: IFuncCheckbox
+	onHandleSelectItem?: IFuncId
+	onHandleClickRow?: IFuncId
+	onHandleToggleColumnTable?: IFuncId
 	onHandleAddNewCell?: IFuncAddNewCell
 };
 

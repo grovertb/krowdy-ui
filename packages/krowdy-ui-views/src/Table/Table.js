@@ -167,7 +167,8 @@ const Table = ({
   onHandleSelectItem = () => false,
   onHandlePaymentButton = () => false,
   onHandleToggleColumnTable = () => false,
-  onHandleAddNewCell = () => false
+  onHandleAddNewCell = () => false,
+  onHandleClickRow = () => false
 }) => {
   const { orderBy = '', sort = 'asc' } = sortTable
   const { totalRows, currentPage, rowsPerPage } = pagination
@@ -225,6 +226,15 @@ const Table = ({
 
   const _handleAddNewCell = () => {
     onHandleAddNewCell(localNewCellProps)
+  }
+
+  const _handleClickTableRow = (id) => {
+    onHandleClickRow(id)
+  }
+
+  const _handleClickSelectItem = (e, id) => {
+    e.stopPropagation()
+    onHandleSelectItem(id)
   }
 
   return (
@@ -422,12 +432,14 @@ const Table = ({
               const { _id, selected = false } = row
 
               return (
-                <TableRow hover key={index} role='checkbox'>
+                <TableRow
+                  hover key={index}
+                  onClick={() => _handleClickTableRow(_id)}>
                   {withCheckbox ? (
                     <TableCell padding='checkbox'>
                       <Checkbox
                         checked={selected}
-                        onChange={() => onHandleSelectItem(_id)} />
+                        onClick={(e) => _handleClickSelectItem(e, _id)} />
                     </TableCell>
                   ) : null}
                   {visibleColumns.map(({ key, align }) => (
@@ -517,6 +529,7 @@ Table.propTypes = {
   onHandleSelectAll        : PropTypes.func,
   onHandleSelectItem       : PropTypes.func,
   onHandleSortTable        : PropTypes.func,
+  onHandleClickRow: PropTypes.func,
   onHandleToggleColumnTable: PropTypes.func,
   /**
    * pagination objeto para paginar, requiere  de `withPagination`
