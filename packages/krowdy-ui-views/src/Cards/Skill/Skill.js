@@ -1,9 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { withStyles } from '@krowdy-ui/styles'
 import clsx from 'clsx'
+import { withStyles } from '@krowdy-ui/styles'
 import { ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Typography } from '@material-ui/core'
-import { AudioRecorder } from '../../index'
 
 export const styles = theme => ({
   alignSelf: {
@@ -83,10 +82,8 @@ const SkillCard = props => {
         <ExpansionPanelDetails classes={{ root: classes.styleLess }} className={classes.expandDetails} >
           <Typography className={clsx(classes.content, classes.size)} component='div'>
             {(content) ? content : null}
-            <AudioRecorder />
           </Typography>
         </ExpansionPanelDetails>
-
       </ExpansionPanel>
     </div >
   )
