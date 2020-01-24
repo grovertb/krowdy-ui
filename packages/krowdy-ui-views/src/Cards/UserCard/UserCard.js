@@ -25,13 +25,6 @@ export const styles = theme => ({
   icon: {
     margin: theme.spacing(0, 1, 0, 4)
   },
-  moreButton: {
-    'float': 'right'
-  },
-  next: {
-    'float'   : 'right',
-    marginLeft: theme.spacing(2)
-  },
   title: {
     fontSize: 25
   }
@@ -42,7 +35,7 @@ function generate(items, classes, nextIcon) {
     <div className={classes.icon}>{(value.icon) ? value.icon : null}</div>
     <ListItemText primary={value.text} />
     <div>{(value.rating) ? value.rating : null}</div>
-    <div className={classes.next}>{(nextIcon) ? nextIcon : null}</div>
+    <div>{(nextIcon) ? nextIcon : null}</div>
   </ListItem>
   ))
 }
@@ -68,7 +61,7 @@ const CardUser = props => {
             null
         }
         className={classes.header}
-        rightElement={(iconRight) ? <div className={classes.moreButton} >{iconRight}</div> : null}
+        rightElement={(iconRight) ? <div>{iconRight}</div> : null}
         title={
           <div className={classes.title}>
             {title}
