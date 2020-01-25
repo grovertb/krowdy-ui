@@ -10,32 +10,28 @@ const demoColumns = [
     label   : 'Nombre',
     minWidth: 150,
     ordering: true,
-    type    : 'text',
-    visible : true
+    type    : 'text'
   }, {
     editable: false,
     key     : 'status',
     label   : 'Estado',
     minWidth: 120,
     ordering: true,
-    type    : 'text',
-    visible : true
+    type    : 'text'
   }, {
     editable: false,
     key     : 'type',
     label   : 'Tipo de actividad',
     minWidth: 170,
     ordering: false,
-    type    : 'text',
-    visible : true
+    type    : 'text'
   }, {
     editable: true,
     key     : 'incharge',
     label   : 'Encargado',
     minWidth: 100,
     ordering: false,
-    type    : 'select',
-    visible : true
+    type    : 'select'
   }, {
     align   : 'right',
     editable: true,
@@ -43,8 +39,7 @@ const demoColumns = [
     label   : 'Tareas actuales',
     minWidth: 150,
     ordering: true,
-    type    : 'date',
-    visible : true
+    type    : 'date'
   }, {
     align   : 'right',
     editable: true,
@@ -52,8 +47,7 @@ const demoColumns = [
     label   : 'Monto por pagar',
     minWidth: 160,
     ordering: true,
-    type    : 'number',
-    visible : true
+    type    : 'number'
   }, {
     align   : 'right',
     editable: true,
@@ -61,8 +55,7 @@ const demoColumns = [
     label   : 'Tareas por pagar',
     minWidth: 160,
     ordering: true,
-    type    : 'text',
-    visible : false
+    type    : 'text'
   }, {
     align   : 'right',
     editable: true,
@@ -70,8 +63,7 @@ const demoColumns = [
     label   : 'Incidentes',
     minWidth: 90,
     ordering: true,
-    type    : 'text',
-    visible : false
+    type    : 'text'
   }, {
     editable: true,
     key     : 'other',
