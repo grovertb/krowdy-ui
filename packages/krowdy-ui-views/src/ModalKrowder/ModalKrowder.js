@@ -23,8 +23,7 @@ import {
 
 export const styles = theme => ({
   collapsesContent: {
-    height  : 'calc(100% - 160px)',
-    overflow: 'auto'
+    height: 'calc(100% - 160px)'
   },
   expandHeader: {
     // '&$expanded': {

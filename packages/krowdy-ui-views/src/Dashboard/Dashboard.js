@@ -20,7 +20,7 @@ import {
   Menu,
   Link,
   Button,
-  // ListItemIcon,
+  ListItemIcon,
   ListItemText
   // Icon
 } from '@krowdy-ui/core'
@@ -79,6 +79,9 @@ const useStyles = makeStyles(theme => ({
   },
   drawerRoot: {
     height: '100%'
+  },
+  iconMenu: {
+    color: theme.palette.common.white
   },
   labelDrawer: {
     '& > span': {
@@ -241,8 +244,10 @@ const useStyles = makeStyles(theme => ({
     borderRadius  : 4,
     display       : 'flex',
     flex          : 1,
+    height        : 'calc(100vh - 88px)',
     justifyContent: 'center',
-    margin        : theme.spacing(1)
+    margin        : theme.spacing(1),
+    overflow      : 'auto'
   }
 }))
 
@@ -288,7 +293,7 @@ function Dashboard(props) {
       <AppBar
         className={classes.topBar}
         elevation={1}
-        position='sticky'>
+        position='relative'>
         <Toolbar className={classes.toolbar}>
           <Link className={classes.logoCompany} component={RouterLink} to='/'>
             <img
@@ -483,7 +488,7 @@ function Dashboard(props) {
                           underline='none'>
                           {/* {
                             item.icon ?
-                            <ListItemIcon>
+                            // <ListItemIcon>
                               <Icon icon={item.icon} />
                             </ListItemIcon> : null
                           } */}
@@ -508,12 +513,12 @@ function Dashboard(props) {
                           component={RouterLink}
                           to={item.url}
                           underline='none'>
-                          {/* {
+                          {
                             item.icon ?
-                            <ListItemIcon>
-                              <Icon icon={item.icon} />
-                            </ListItemIcon> : null
-                          } */}
+                              <ListItemIcon className={classes.iconMenu}>
+                                {item.icon}
+                              </ListItemIcon> : null
+                          }
                           <ListItemText
                             className={classes.labelDrawer}
                             primary={item.title} />
@@ -563,7 +568,7 @@ Dashboard.propTypes = {
   ),
   menus: PropTypes.arrayOf(
     PropTypes.shape({
-      icon  : PropTypes.string,
+      icon  : PropTypes.element,
       target: PropTypes.string,
       title : PropTypes.string.isRequired,
       type  : PropTypes.string.isRequired,
