@@ -1,24 +1,63 @@
 import React, { useState } from 'react'
-import { Grid } from '@krowdy-ui/core'
+import { Grid, TextField } from '@krowdy-ui/core'
 import { Table } from '@krowdy-ui/views'
 import AddIcon from '@material-ui/icons/Add'
+import { makeStyles } from '@krowdy-ui/styles'
 
+const useStyles = makeStyles(() => ({
+  root: {
+    color     : '#595959',
+    fontSize  : 12,
+    fontWeight: 'normal',
+    maxWidth  : 249,
+    minWidth  : 247
+  }
+}))
 const Componente = ({ value: [ name, apellido ] }) => (
   <div style={{
     display      : 'flex',
     flexDirection: 'column'
   }}>
-    <span>{name} </span>
     <span style={{
-      color: 'red'
+      color     : '#595959',
+      fontSize  : 12,
+      fontWeight: 'normal'
+    }} >{name} </span>
+    <span style={{
+      color     : '#8C8C8C',
+      fontSize  : 12,
+      fontWeight: 'normal'
     }}>{apellido}</span>
   </div>
 )
-
+const scheduleComponent = () => (
+  <div>
+    <TextField
+      InputProps={{
+        classes: {
+          root: classes.root
+        }
+      }}
+      placeholder='Selecciona fecha y hora'></TextField>
+  </div>
+)
+// eslint-disable-next-line react-hooks/rules-of-hooks
+const classes = useStyles()
+const responsibleComponent = () => (
+  <div >
+    <TextField
+      InputProps={{
+        classes: {
+          root: classes.root
+        }
+      }}
+      placeholder='Ingrese correo electrónico'></TextField>
+  </div >
+)
 const demoColumns = [
   {
     component: Componente,
-    editable : true,
+    editable : false,
     key      : 'name',
     label    : 'Nombre',
     minWidth : 150,
@@ -26,65 +65,23 @@ const demoColumns = [
     type     : 'text',
     visible  : true
   }, {
-    editable: false,
-    key     : 'status',
-    label   : 'Estado',
-    minWidth: 120,
-    ordering: true,
-    type    : 'text',
-    visible : true
+    component: scheduleComponent,
+    editable : true,
+    key      : 'schedule',
+    label    : 'Horario',
+    minWidth : 247,
+    ordering : true,
+    type     : 'text',
+    visible  : true
   }, {
-    editable: false,
-    key     : 'type',
-    label   : 'Tipo de actividad',
-    minWidth: 170,
-    ordering: false,
-    type    : 'text',
-    visible : true
-  }, {
-    editable: true,
-    key     : 'incharge',
-    label   : 'Encargado',
-    minWidth: 100,
-    ordering: false,
-    type    : 'select',
-    visible : true
-  }, {
-    align   : 'right',
-    editable: true,
-    key     : 'currentTasks',
-    label   : 'Tareas actuales',
-    minWidth: 150,
-    ordering: true,
-    type    : 'date',
-    visible : true
-  }, {
-    align   : 'right',
-    editable: true,
-    key     : 'amountPayable',
-    label   : 'Monto por pagar',
-    minWidth: 160,
-    ordering: true,
-    type    : 'number',
-    visible : true
-  }, {
-    align   : 'right',
-    editable: true,
-    key     : 'amountTasks',
-    label   : 'Tareas por pagar',
-    minWidth: 160,
-    ordering: true,
-    type    : 'text',
-    visible : false
-  }, {
-    align   : 'right',
-    editable: true,
-    key     : 'incidents',
-    label   : 'Incidentes',
-    minWidth: 90,
-    ordering: true,
-    type    : 'text',
-    visible : false
+    component: responsibleComponent,
+    editable : true,
+    key      : 'responsible',
+    label    : 'Responsible',
+    minWidth : 170,
+    ordering : false,
+    type     : 'text',
+    visible  : true
   }, {
     editable: true,
     key     : 'other',
@@ -117,6 +114,7 @@ const newCellProps = {
   status: 'Pendiente',
   type  : [ 'LL', 'VE' ]
 }
+
 export default function () {
   const [ sort, setSort ] = useState({ orderBy: null, sort: 'asc' })
   const [ columns, setColumns ] = useState(demoColumns)
@@ -172,7 +170,8 @@ export default function () {
       incharge     : 'Jimena',
       incidents    : 5,
       name         : [ 'Juan Perez', 'Otro dato' ],
-      status       : 'En linea',
+      responsible  : 'Carla',
+      schedule     : 'En linea',
       type         : [ 'LL', 'Ln', 'VoD', 'VE' ]
     }, {
       _id          : '1',
@@ -180,10 +179,10 @@ export default function () {
       amountTasks  : 0,
       currentTasks : 2,
       extra        : 'Status',
-      incharge     : 'Jimena',
       incidents    : 0,
       name         : [ 'Juana de Arco', 'Otro dato' ],
-      status       : 'Hace 2 dias',
+      responsible  : 'Jimena',
+      schedule     : 'Hace 2 dias',
       type         : [ 'LL', 'Ln' ]
     }, {
       _id          : '2',
@@ -191,10 +190,10 @@ export default function () {
       amountTasks  : 0,
       currentTasks : 2,
       extra        : 'Status',
-      incharge     : 'Jimena',
       incidents    : 1,
       name         : [ 'Pedro de Arco', 'Otro dato' ],
-      status       : 'Hace 7 dias',
+      responsible  : 'Jimena',
+      schedule     : 'Hace 7 dias',
       type         : [ 'LL', 'Ln' ]
     }, {
       _id          : '3',
@@ -202,10 +201,10 @@ export default function () {
       amountTasks  : 4,
       currentTasks : 2,
       extra        : 'Status',
-      incharge     : 'Jimena',
       incidents    : 2,
       name         : [ 'Pedro Colmenarez', 'Otro dato' ],
-      status       : 'Invitado',
+      responsible  : 'Jimena',
+      schedule     : 'Invitado',
       type         : [ 'LL', 'Ln' ]
     }
   ]
@@ -289,8 +288,9 @@ export default function () {
         withHeader={true}
         withMenuColumns={true}
         withOrder={true}
-        withPagination={false}
+        withPagination
         withSearch={true} />
+
     </Grid>
   )
 }
