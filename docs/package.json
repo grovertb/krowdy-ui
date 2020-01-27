@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@hot-loader/react-dom": "^16.11.0",
-    "@krowdy-ui/core": "^0.0.28",
+    "@krowdy-ui/core": "^0.0.31",
     "@krowdy-ui/views": "^0.0.22",
     "@loadable/component": "^5.11.0",
     "@material-ui/icons": "^4.5.1",
