@@ -8,13 +8,21 @@ import { makeStyles } from '@krowdy-ui/styles'
 const useStyles = makeStyles({
   boxContainer: {
     '&:hover': {
+      '& $deleteIcon': {
+        display: 'block'
+      },
       border: '1px solid #40A9FF'
     },
-    border      : '1px solid #E8E8E8',
-    borderRadius: 8,
-    flex        : 1,
-    minHeight   : 36,
-    padding     : '10px 20px'
+    alignItems    : 'center',
+    border        : '1px solid #E8E8E8',
+    borderRadius  : 8,
+    display       : 'flex',
+    flex          : 1,
+    flexDirection : 'row',
+    justifyContent: 'space-between',
+    minHeight     : 36,
+    padding       : '10px 20px',
+    position      : 'relative'
   },
   content: {
     '&:last-child': {
@@ -25,11 +33,15 @@ const useStyles = makeStyles({
   cursive: {
     fontStyle: 'italic'
   },
+  deleteIcon: {
+    display : 'none',
+    position: 'absolute',
+    right   : 10
+  },
   flexRow: {
     alignItems   : 'center',
     display      : 'flex',
     flexDirection: 'row',
-    // justifyContent: 'space-aro  und',
     marginBottom : 10
   },
   headerCard: {
@@ -49,13 +61,13 @@ const useStyles = makeStyles({
     margin : 0,
     padding: 0
   },
-  tacing: {
-    alignItems: 'center',
-    margin    : 'auto',
-    maxWidth  : 315
-  },
   text: {
     fontSize: 12
+  },
+  tracking: {
+    alignItems: 'center',
+    margin    : 'auto',
+    maxWidth  : 312
   }
 })
 
@@ -76,10 +88,6 @@ const inputsRadios = [
     value: 'value3'
   }
 ]
-
-/* const InputWithIcons = () =>{
-
-} */
 
 export default function () {
   const classes = useStyles()
@@ -139,7 +147,7 @@ export default function () {
       </Grid>
 
       <Grid item xs={5}>
-        <Card className={classes.tacing}>
+        <Card className={classes.tracking}>
           <HeaderCard action={<Info color='primary' />}shadow title='Mensajeria' />
           <CardContent className={classes.content}>
             <div >{inputsRadios.map((element) => (<div
@@ -149,7 +157,7 @@ export default function () {
               <DragIndicator color='disabled' />
               <div className={classes.boxContainer}>
                 <Typography> {element.label} </Typography>
-                <div> <DeleteIcon color='error' /> </div>
+                <div className={classes.deleteIcon}> <DeleteIcon color='error' /> </div>
               </div>
             </div>
             ))}</div>
