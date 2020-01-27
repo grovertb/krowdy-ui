@@ -562,21 +562,21 @@ CardException.propTypes = {
   krowder        : PropTypes.string,
   krowderSelected: PropTypes.string,
   listStyle      : PropTypes.string,
+  onArchived     : PropTypes.func,
+  onResolved     : PropTypes.func,
+  onSendPull     : PropTypes.func,
+  onUnlockTask   : PropTypes.func,
   recruiter      : PropTypes.string,
   resolved       : PropTypes.string,
   statusException: PropTypes.string,
-  title          : PropTypes.string,
-  type: PropTypes.number,
-  suggestion: PropTypes.arrayOf(
+  suggestion     : PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number.isRequired,
+      id  : PropTypes.number.isRequired,
       name: PropTypes.string.isRequired
     })
   ),
-  onArchived: PropTypes.func,
-  onResolved: PropTypes.func,
-  onSendPull: PropTypes.func,
-  onUnlockTask: PropTypes.func
+  title: PropTypes.string,
+  type : PropTypes.number
 }
 
 CardException.muiName = 'CardException'
