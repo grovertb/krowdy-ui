@@ -178,7 +178,7 @@ const Table = ({
   const [ openMenu, setOpenMenu ] = useState(null)
   const [ addNewCell, setAddNewCell ] = useState(false)
   const [ localNewCellProps, setLocalNewCellProps ] = useState({})
-  const visibleColumns = columns.filter(({ visible }) => visible)
+  const visibleColumns = columns.filter(({ visible = true }) => visible)
 
   useEffect(() => {
     if(validateNewCellProps)
@@ -524,12 +524,12 @@ Table.propTypes = {
   onHandleBtnAction        : PropTypes.func,
   onHandleChangePage       : PropTypes.func,
   onHandleChangeRowsPerPage: PropTypes.func,
+  onHandleClickRow         : PropTypes.func,
   onHandlePaymentButton    : PropTypes.func,
   onHandleSearch           : PropTypes.func,
   onHandleSelectAll        : PropTypes.func,
   onHandleSelectItem       : PropTypes.func,
   onHandleSortTable        : PropTypes.func,
-  onHandleClickRow: PropTypes.func,
   onHandleToggleColumnTable: PropTypes.func,
   /**
    * pagination objeto para paginar, requiere  de `withPagination`
