@@ -67,7 +67,7 @@ const CardContainer = props => {
     sizePadding = 'middle',
     onClick = () => { },
     propsDivider,
-    withDivider
+    divider
   } = props
 
   return (
@@ -88,7 +88,7 @@ const CardContainer = props => {
           title={title}
           {...cardHeaderProps} />}
 
-      {withDivider && <Divider {...propsDivider} />}
+      {divider && <Divider {...propsDivider} />}
 
       <CardContent classes={{ root: classes.cardContent }}>
         {content}
@@ -110,10 +110,10 @@ CardContainer.propTypes = {
   }),
   content      : PropTypes.oneOfType([ PropTypes.node, PropTypes.string ]),
   disabledHover: PropTypes.bool,
+  divider      : PropTypes.bool,
   onClick      : PropTypes.func,
   sizePadding  : PropTypes.oneOf([ 'small', 'middle' ]),
-  title        : PropTypes.oneOfType([ PropTypes.node, PropTypes.string ]),
-  withDivider  : PropTypes.object
+  title        : PropTypes.oneOfType([ PropTypes.node, PropTypes.string ])
 }
 
 CardContainer.muiName = 'CardContainer'

@@ -92,6 +92,7 @@ export default function () {
           content='Define cuáles de los campos del perfil del candidato deben ser
              obligatorios y cuáles no deberían aparecer. cuáles no deberían aparecer'
           disabledHover
+          divider
           sizePadding='small'
           title='Card' />
       </Grid >
