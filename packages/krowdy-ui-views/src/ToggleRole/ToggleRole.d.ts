@@ -4,7 +4,7 @@ interface IFuncVoid {
 
 export type ToggleRoleProps = {
   checked: boolean
-  disabled: boolean
+  disabled?: boolean
   onchange: IFuncVoid
   title?: string
   name: string
