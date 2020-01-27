@@ -19,9 +19,9 @@ interface ISortTable {
 	sort: 'asc' | 'desc'
 }
 interface IPagination {
-	totalRows: number
-	rowsPerPage: number
-	currentPage: number
+	total: number
+	perPage: number
+	page: number
 }
 interface IFuncSortTable {
 	(sort: ISortTable): void
@@ -81,6 +81,7 @@ export type TableProps = {
 	onHandleClickRow?: IFuncId
 	onHandleToggleColumnTable?: IFuncId
 	onHandleAddNewCell?: IFuncAddNewCell
+	onHandleSelectAutocomplete?: IFuncId
 };
 
 declare const Table: React.ComponentType<TableProps>;
