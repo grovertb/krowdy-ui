@@ -43,16 +43,7 @@ function AvatarUser(props) {
         <div
           className={classes.defaultAvatar}>
           {
-            `${user.firstName ?
-              typeof user.firstName === 'string' ?
-                user.firstName.charAt().toUpperCase() :
-                '' :
-              ''}
-              ${user.lastName ?
-      typeof user.lastName === 'string' ?
-        user.lastName.charAt().toUpperCase() :
-        '' :
-      ''}`
+            `${user.firstName && typeof user.firstName === 'string' ? user.firstName.charAt() : ''}${user.lastName && typeof user.lastName === 'string' ? user.lastName.charAt() : ''}`
           }
         </div> :
       null // <div className={clsx(classes.defaultAvatar, classes.defaultAvatarNothing )} />
