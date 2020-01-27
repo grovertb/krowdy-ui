@@ -131,6 +131,10 @@ const useStyles = makeStyles(theme => ({
     '& > div': {
       color: 'inherit'
     },
+    '&:active': {
+      backgroundColor: theme.palette.common.white,
+      color          : theme.palette.primary.main
+    },
     backgroundColor: theme.palette.common.white,
     color          : theme.palette.primary.main
   },
