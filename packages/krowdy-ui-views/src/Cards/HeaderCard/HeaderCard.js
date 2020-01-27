@@ -53,9 +53,9 @@ const HeaderCard = props => {
 
   return (
     <CardHeader
-      action={<div className={classes.icon}>{action}</div>}
+      action={action}
       avatar={avatar}
-      classes={{ action: classes.action, root: classes.header, title: classes.title }}
+      classes={{ action: clsx(classes.action, classes.icon), root: classes.header, title: classes.title }}
       className={clsx(classes.borderDefault, classes[`sizePadding${sizePadding}`], { [classes.shadow]: shadow })}
       title={title}
       {...cardHeaderProps} />

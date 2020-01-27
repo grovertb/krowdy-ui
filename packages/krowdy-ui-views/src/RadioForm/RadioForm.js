@@ -40,9 +40,6 @@ export const styles = theme => ({
   },
   size: {
     fontSize: 14
-  },
-  sizeBox: {
-    minWidth: 121
   }
 })
 
@@ -72,7 +69,7 @@ const InputsRadiosForm = props => {
         inputs.map((element) => (
           <FormControlLabel
             classes={{ label: classes.size }}
-            className={(!outlined) ? clsx(classes.noLine) : (!isRow) ? clsx(classes.outlined, classes[`${outlined}Border`], classes.outlinedVert) : clsx(classes.outlined, classes[`${outlined}Border`], classes.outlineRow)}
+            className={clsx({ [classes.noLine]: !outlined }, { [classes.outlined && classes[`${outlined}Border`]]: outlined }, { [classes.outlinedVert]: !isRow }, { [classes.outlineRow]: isRow })}
             control={<Radio color='primary' disableRipple size='small' />}
             key={element._id}
             label={element.label}
