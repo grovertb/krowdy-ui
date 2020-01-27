@@ -25,41 +25,19 @@ import {
   // Icon
 } from '@krowdy-ui/core'
 import { AvatarUser } from '@krowdy-ui/views'
+import capitalize from '../utils/capitalize'
 
 const drawerWidth = 210
 
 const useStyles = makeStyles(theme => ({
-  buttonLink: {
-    '&:hover': {
-      backgroundColor: 'transparent',
-      color          : theme.palette.primary.main
-    },
-    backgroundColor: 'transparent'
-  },
-  buttonLinkLabel: {
-    '&:after': {
-      backgroundColor: theme.palette.primary.main,
-      bottom         : '-2px',
-      content        : '""',
-      height         : 1,
-      left           : 0,
-      position       : 'absolute',
-      right          : 0,
-      transform      : 'scaleX(0)',
-      transition     : 'all .2s ease 0s'
-    },
-    '&:hover': {
-      '&:after': {
-        transform: 'scaleX(1)'
-      }
-    },
-    cursor  : 'pointer',
-    position: 'relative'
-  },
   drawerContentIcon: {
-    color         : theme.palette.common.white,
-    height        : 50,
-    justifyContent: 'flex-end'
+    '&:hover': {
+      backgroundColor: theme.palette.primary[600]
+    },
+    backgroundColor: theme.palette.primary[600],
+    color          : theme.palette.common.white,
+    height         : 50,
+    justifyContent : 'flex-end'
   },
   drawerPaper: {
     background : theme.palette.primary.main,
@@ -86,6 +64,31 @@ const useStyles = makeStyles(theme => ({
   labelDrawer: {
     '& > span': {
       fontSize: '1rem'
+    }
+  },
+  linkLabel: {
+    '&:after': {
+      backgroundColor: theme.palette.primary.main,
+      bottom         : '-2px',
+      content        : '""',
+      height         : 1,
+      left           : 0,
+      position       : 'absolute',
+      right          : 0,
+      transform      : 'scaleX(0)',
+      transition     : 'all .2s ease 0s'
+    },
+    '&:hover': {
+      '&:after': {
+        transform: 'scaleX(1)'
+      }
+    },
+    cursor  : 'pointer',
+    position: 'relative'
+  },
+  linkLabelSecondary: {
+    '&:after': {
+      backgroundColor: theme.palette.secondary.main
     }
   },
   logoCompany: {
@@ -213,27 +216,26 @@ const useStyles = makeStyles(theme => ({
   toolbarCenter: {
     display       : 'flex',
     flex          : 1,
-    justifyContent: 'space-between',
-    padding       : theme.spacing(0, 1)
+    justifyContent: 'space-between'
+    // padding       : theme.spacing(0, 1)
   },
   toolbarCenterLeft: {
     '& > a': {
+      '&:first-child': {
+        marginLeft: 0
+      },
       marginLeft: theme.spacing(1)
     },
-    '& > a:first-child': {
-      marginLeft: 0
-    },
-    display: 'flex',
     padding: theme.spacing(0, 1)
   },
   toolbarCenterRight: {
     '& > a': {
+      '&:last-child': {
+        marginRight: 0
+      },
       marginRight: theme.spacing(1)
     },
-    '& > a:last-child': {
-      marginRight: 0
-    },
-    display: 'flex'
+    padding: theme.spacing(0, 1)
   },
   topBar: {
     backgroundColor: theme.palette.common.white
@@ -255,7 +257,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const validURL = str => new RegExp('^(https?:\\/\\/)?' +
+const isExternalURL = str => new RegExp('^(https?:\\/\\/)?' +
   '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' +
   '((\\d{1,3}\\.){3}\\d{1,3}))' +
   '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' +
@@ -302,72 +304,95 @@ function Dashboard(props) {
           <Link className={classes.logoCompany} component={RouterLink} to='/'>
             <img
               alt='Logo Main'
-              data-test='logo'
               src={logo.source} />
           </Link>
           <div className={classes.toolbarCenter}>
             <div className={classes.toolbarCenterLeft}>
               {
-                menuTopLeft.length ?
-                  menuTopLeft.map((item, n) => (
-                    validURL(item.url) ?
+                menuTopLeft.map((item, index) => {
+                  const auxProps = isExternalURL(item.url) ?
+                    {
+                      href: item.url
+                    } :
+                    {
+                      component: RouterLink,
+                      to       : item.url
+                    }
+
+                  return (
+                    item.type  === 'button' ?
                       <Button
-                        classes={{
-                          text: item.type === 'link' ? classes.buttonLinkLabel : ''
-                        }}
-                        className={item.type === 'link' ? classes.buttonLink : ''}
                         color={item.color ? item.color : 'default'}
-                        href={item.url}
-                        key={n}
+                        key={`menu-top-left-${index}`}
                         target={item.target ? item.target : '_blank'}
-                        variant={item.variant ? item.variant : 'text'}>
+                        variant={item.variant ? item.variant : 'text'}
+                        {...auxProps}>
                         {item.title}
                       </Button> :
-                      <Button
-                        classes={{
-                          text: item.type === 'link' ? classes.buttonLinkLabel : ''
-                        }}
-                        className={item.type === 'link' ? classes.buttonLink : ''}
-                        color={item.color ? item.color : 'default'}
-                        component={RouterLink}
-                        key={n}
-                        to={item.url}
-                        variant={item.variant ? item.variant : 'text'}>
-                        {item.title}
-                      </Button>
-                  )) : null
+                      item.type === 'link' ?
+                        <Link
+                          className={
+                            clsx(
+                              classes.linkLabel,
+                              {
+                                [ classes[`linkLabel${capitalize(item.color || '')}`] ]: Boolean(item.color)
+                              }
+                            )
+                          }
+                          color={item.color ? item.color : undefined}
+                          key={`menu-top-left-${index}`}
+                          target={item.target}
+                          underline='none'
+                          {...auxProps}>
+                          {item.title}
+                        </Link> :
+                        <div key={`menu-top-left-${index}`}>{item.title}</div>
+                  )
+                })
               }
             </div>
             <div className={classes.toolbarCenterRight}>
               {
-                menuTopRight.length ?
-                  menuTopRight.map((item, n) => (
-                    validURL(item.url) ?
+                menuTopRight.map((item, index) => {
+                  const auxProps = isExternalURL(item.url) ?
+                    {
+                      href: item.url
+                    } :
+                    {
+                      component: RouterLink,
+                      to       : item.url
+                    }
+
+                  return (
+                    item.type  === 'button' ?
                       <Button
-                        classes={{
-                          text: item.type === 'link' ? classes.buttonLinkLabel : ''
-                        }}
-                        className={item.type === 'link' ? classes.buttonLink : ''}
                         color={item.color ? item.color : 'default'}
-                        href={item.url}
-                        key={n}
-                        target={item.target ? item.target : '_blank'}
-                        variant={item.variant ? item.variant : 'text'}>
+                        key={`menu-top-right-${index}`}
+                        variant={item.variant ? item.variant : 'text'}
+                        {...auxProps}>
                         {item.title}
                       </Button> :
-                      <Button
-                        classes={{
-                          text: item.type === 'link' ? classes.buttonLinkLabel : ''
-                        }}
-                        className={item.type === 'link' ? classes.buttonLink : ''}
-                        color={item.color ? item.color : 'default'}
-                        component={RouterLink}
-                        key={n}
-                        to={item.url}
-                        variant={item.variant ? item.variant : 'text'}>
-                        {item.title}
-                      </Button>
-                  )) : null
+                      item.type === 'link' ?
+                        <Link
+                          className={
+                            clsx(
+                              classes.linkLabel,
+                              {
+                                [ classes[`linkLabel${capitalize(item.color || '')}`] ]: Boolean(item.color)
+                              }
+                            )
+                          }
+                          color={item.color ? item.color : undefined}
+                          key={`menu-top-right-${index}`}
+                          rel={item.target === '_blank' ? 'noopener' : undefined}
+                          target={item.target}
+                          underline='none'
+                          {...auxProps}>
+                          {item.title}
+                        </Link> :
+                        <div key={`menu-top-right-${index}`}>{item.title}</div>
+                  )
+                })
               }
             </div>
           </div>
@@ -377,7 +402,7 @@ function Dashboard(props) {
               aria-haspopup='true'
               className={classes.notificationIcon}
               color='inherit'
-              onClick={ev => _handleOpenMenu(ev)}>
+              onClick={_handleOpenMenu}>
               <AvatarUser user={user} />
             </IconButton>
             <Menu
@@ -387,6 +412,7 @@ function Dashboard(props) {
                 vertical  : 'bottom'
               }}
               getContentAnchorEl={null}
+              keepMounted
               MenuListProps={{
                 style: {
                   padding: 0
@@ -418,7 +444,7 @@ function Dashboard(props) {
                         onClick={logout}>
                         {item.title}
                       </MenuItem> :
-                      validURL(item.url) ?
+                      isExternalURL(item.url) ?
                         <MenuItem
                           className={classes.menuLink}
                           key={n}>
@@ -454,12 +480,9 @@ function Dashboard(props) {
               ),
               root: classes.drawerRoot
             }}
-            data-test='adminDrawer'
             open={isOpenDrawer}
             variant='permanent'>
-            <List
-              data-test='adminDrawerItemsList'
-              disablePadding>
+            <List disablePadding>
               <ListItem
                 button
                 className={classes.drawerContentIcon}
@@ -470,42 +493,23 @@ function Dashboard(props) {
               </ListItem>
               <Divider />
               {
-                menus.length ?
-                  menus.map((item, n) => (
-                    validURL(item.url) ?
+                menus.map((item, index) => {
+                  const linkProps = isExternalURL(item.url) ?
+                    {
+                      href: item.url
+                    } :
+                    {
+                      component: RouterLink,
+                      to       : item.url
+                    }
+
+                  return (
+                    (
                       <ListItem
                         button
                         className={classes.menuDashboardListItem}
                         disableGutters
-                        key={n}>
-                        <Link
-                          className={clsx(
-                            classes.menuDashboardItem,
-                            {
-                              [classes.menuDashboardItemActive]: location.pathname === item.path
-                            }
-                          )}
-                          color='inherit'
-                          component='a'
-                          href={item.url}
-                          target={item.target ? item.target : '_blank'}
-                          underline='none'>
-                          {/* {
-                            item.icon ?
-                            // <ListItemIcon>
-                              <Icon icon={item.icon} />
-                            </ListItemIcon> : null
-                          } */}
-                          <ListItemText
-                            className={classes.labelDrawer}
-                            primary={item.title} />
-                        </Link>
-                      </ListItem> :
-                      <ListItem
-                        button
-                        className={classes.menuDashboardListItem}
-                        disableGutters
-                        key={n}>
+                        key={index}>
                         <Link
                           className={clsx(
                             classes.menuDashboardItem,
@@ -514,21 +518,24 @@ function Dashboard(props) {
                             }
                           )}
                           color='inherit'
-                          component={RouterLink}
-                          to={item.url}
-                          underline='none'>
+                          target={item.target}
+                          underline='none'
+                          {...linkProps}>
                           {
                             item.icon ?
                               <ListItemIcon className={classes.iconMenu}>
                                 {item.icon}
-                              </ListItemIcon> : null
+                              </ListItemIcon> :
+                              null
                           }
                           <ListItemText
                             className={classes.labelDrawer}
                             primary={item.title} />
                         </Link>
                       </ListItem>
-                  )) : null
+                    )
+                  )
+                })
               }
             </List>
           </Drawer>

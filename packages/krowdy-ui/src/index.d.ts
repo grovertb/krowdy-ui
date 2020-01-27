@@ -47,7 +47,6 @@ export { default as GridListTile } from './GridListTile';
 export { default as GridListTileBar } from './GridListTileBar';
 export { default as Grow } from './Grow';
 export { default as Hidden } from './Hidden';
-export { default as Icon } from './Icon';
 export { default as IconButton } from './IconButton';
 export { default as Input } from './Input';
 export { default as InputAdornment } from './InputAdornment';
