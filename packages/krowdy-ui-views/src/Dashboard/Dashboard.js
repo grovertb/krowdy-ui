@@ -55,9 +55,6 @@ const useStyles = makeStyles(theme => ({
   drawerPaperClose: {
     width: 56
   },
-  drawerRoot: {
-    height: '100%'
-  },
   iconMenu: {
     color: theme.palette.common.white
   },
@@ -250,12 +247,12 @@ const useStyles = makeStyles(theme => ({
     borderRadius  : 4,
     display       : 'flex',
     flex          : 1,
-    height        : 'calc(100vh - 88px)',
+    // height        : 'calc(100vh - 88px)',
     justifyContent: 'center',
     margin        : theme.spacing(1),
     overflow      : 'auto'
   }
-}))
+}), { name: 'Dashboard' })
 
 const isExternalURL = str => new RegExp('^(https?:\\/\\/)?' +
   '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' +
@@ -469,77 +466,74 @@ function Dashboard(props) {
         </Toolbar>
       </AppBar>
       <div className={classes.wrapper}>
-        <div>
-          <Drawer
-            classes={{
-              paper: clsx(
-                classes.drawerPaper,
-                {
-                  [classes.drawerPaperClose]: isOpenDrawer
-                }
-              ),
-              root: classes.drawerRoot
-            }}
-            open={isOpenDrawer}
-            variant='permanent'>
-            <List disablePadding>
-              <ListItem
-                button
-                className={classes.drawerContentIcon}
-                onClick={_handleClickToggleDrawer}>
-                {
-                  !isOpenDrawer ? <ChevronLeftIcon /> : <MenuIcon />
-                }
-              </ListItem>
-              <Divider />
+        <Drawer
+          classes={{
+            paper: clsx(
+              classes.drawerPaper,
               {
-                menus.map((item, index) => {
-                  const linkProps = isExternalURL(item.url) ?
-                    {
-                      href: item.url
-                    } :
-                    {
-                      component: RouterLink,
-                      to       : item.url
-                    }
-
-                  return (
-                    (
-                      <ListItem
-                        button
-                        className={classes.menuDashboardListItem}
-                        disableGutters
-                        key={index}>
-                        <Link
-                          className={clsx(
-                            classes.menuDashboardItem,
-                            {
-                              [classes.menuDashboardItemActive]: location.pathname === item.url
-                            }
-                          )}
-                          color='inherit'
-                          target={item.target}
-                          underline='none'
-                          {...linkProps}>
-                          {
-                            item.icon ?
-                              <ListItemIcon className={classes.iconMenu}>
-                                {item.icon}
-                              </ListItemIcon> :
-                              null
-                          }
-                          <ListItemText
-                            className={classes.labelDrawer}
-                            primary={item.title} />
-                        </Link>
-                      </ListItem>
-                    )
-                  )
-                })
+                [classes.drawerPaperClose]: isOpenDrawer
               }
-            </List>
-          </Drawer>
-        </div>
+            )
+          }}
+          open={isOpenDrawer}
+          variant='permanent'>
+          <List disablePadding>
+            <ListItem
+              button
+              className={classes.drawerContentIcon}
+              onClick={_handleClickToggleDrawer}>
+              {
+                !isOpenDrawer ? <ChevronLeftIcon /> : <MenuIcon />
+              }
+            </ListItem>
+            <Divider />
+            {
+              menus.map((item, index) => {
+                const linkProps = isExternalURL(item.url) ?
+                  {
+                    href: item.url
+                  } :
+                  {
+                    component: RouterLink,
+                    to       : item.url
+                  }
+
+                return (
+                  (
+                    <ListItem
+                      button
+                      className={classes.menuDashboardListItem}
+                      disableGutters
+                      key={index}>
+                      <Link
+                        className={clsx(
+                          classes.menuDashboardItem,
+                          {
+                            [classes.menuDashboardItemActive]: location.pathname === item.url
+                          }
+                        )}
+                        color='inherit'
+                        target={item.target}
+                        underline='none'
+                        {...linkProps}>
+                        {
+                          item.icon ?
+                            <ListItemIcon className={classes.iconMenu}>
+                              {item.icon}
+                            </ListItemIcon> :
+                            null
+                        }
+                        <ListItemText
+                          className={classes.labelDrawer}
+                          primary={item.title} />
+                      </Link>
+                    </ListItem>
+                  )
+                )
+              })
+            }
+          </List>
+        </Drawer>
         <div className={classes.wrapperContent}>
           {children}
         </div>
@@ -582,7 +576,7 @@ Dashboard.propTypes = {
       icon  : PropTypes.element,
       target: PropTypes.string,
       title : PropTypes.string.isRequired,
-      type  : PropTypes.string.isRequired,
+      // type  : PropTypes.string.isRequired,
       url   : PropTypes.string.isRequired
     })
   ),

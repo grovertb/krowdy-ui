@@ -10,10 +10,10 @@ export const styles = theme => ({
     borderRadius  : '50%',
     display       : 'flex',
     fontSize      : 14,
-    height        : 48,
+    height        : 36,
     justifyContent: 'center',
     // marginRight: theme.spacing(2),
-    width         : 48
+    width         : 36
   },
   defaultAvatarNothing: {
     background: theme.palette.grey[400]
@@ -21,9 +21,9 @@ export const styles = theme => ({
   image: {
     border      : `solid 2px ${theme.palette.primary.main}`,
     borderRadius: '50%',
-    height      : 48,
+    height      : 36,
     // marginRight: theme.spacing(2),
-    width       : 48
+    width       : 36
   }
 })
 
