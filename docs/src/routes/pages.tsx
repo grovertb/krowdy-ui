@@ -165,10 +165,6 @@ const pages: Array<Page> = [
         path: '/views/dashboard'
       },
       {
-        title: 'Search Tasks',
-        path: '/views/searchtasks'
-      },
-      {
         title: 'Inputs',
         path: '/views/inputs'
       },
