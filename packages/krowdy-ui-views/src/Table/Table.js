@@ -178,7 +178,7 @@ const Table = ({
   const [ openMenu, setOpenMenu ] = useState(null)
   const [ addNewCell, setAddNewCell ] = useState(false)
   const [ localNewCellProps, setLocalNewCellProps ] = useState({})
-  const visibleColumns = columns.filter(({ visible }) => visible)
+  const visibleColumns = columns.filter(({ visible = true }) => visible)
 
   useEffect(() => {
     if(validateNewCellProps)
