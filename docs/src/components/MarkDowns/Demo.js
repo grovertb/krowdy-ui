@@ -3,7 +3,7 @@ import clsx from 'clsx'
 import copy from 'clipboard-copy'
 import { makeStyles } from '@krowdy-ui/styles'
 import { Tooltip, IconButton, Collapse, MenuItem, Menu, useMediaQuery } from '@krowdy-ui/core'
-import { fade } from '@krowdy-ui/core/styles'
+import { fade } from '@krowdy-ui/core'
 import {
   Code as CodeIcon,
   GitHub as GitHubIcon,

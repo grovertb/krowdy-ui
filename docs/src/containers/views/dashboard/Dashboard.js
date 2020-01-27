@@ -1,4 +1,5 @@
 import React from 'react'
+import { Paper } from '@krowdy-ui/core'
 import { Dashboard } from '@krowdy-ui/views'
 import {
   AttachMoney as AttachMoneyIcon,
@@ -106,7 +107,9 @@ export default function () {
           url   : '#'
         }
       ]}>
-      <h1>Dashboard</h1>
+      <Paper style={{ flex: 1 }}>
+        <h1>Dashboard</h1>
+      </Paper>
     </Dashboard>
   )
 }
