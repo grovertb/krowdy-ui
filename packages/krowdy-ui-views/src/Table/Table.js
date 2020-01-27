@@ -430,7 +430,7 @@ const Table = ({
               )
 
             ) : null}
-            {rows.map((row, index) => {
+            {rows.length ? rows.map((row, index) => {
               const { _id, selected = false } = row
 
               return (
@@ -454,7 +454,13 @@ const Table = ({
                   {withMenuColumns ? (<TableCell />) : null}
                 </TableRow>
               )
-            })}
+            }) : (
+              <TableRow>
+                <TableCell colSpan={visibleColumns.length} >
+                  <Typography align='center'>No hay registros para mostrar</Typography>
+                </TableCell>
+              </TableRow>
+            )}
           </TableBody>
         </MuiTable>
       </TableContainer>

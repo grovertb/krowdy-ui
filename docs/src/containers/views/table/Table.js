@@ -239,7 +239,7 @@ export default function () {
     <Grid container>
       <Table
         columns={columns}
-        enableAddCell={true}
+        enableAddCell={false}
         iconButton={<AddIcon />}
         // maxHeight={400}
         newCellProps={newCellProps}
