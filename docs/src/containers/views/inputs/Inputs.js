@@ -3,7 +3,7 @@ import { Button } from '@krowdy-ui/core'
 import clsx from 'clsx'
 import { makeStyles } from '@krowdy-ui/styles'
 import { Inputs, RadioForm } from '@krowdy-ui/views'
-import { SkillCard } from '@krowdy-ui/views/Cards'
+import { CardExpand } from '@krowdy-ui/views'
 import { RemoveCircleOutline, DragIndicator/* , Info, ExpandMore */ } from '@material-ui/icons'
 
 const useStyle = makeStyles({
@@ -74,7 +74,7 @@ export default function () {
           <DragIndicator color='disabled' />
         </div>
 
-        <SkillCard
+        <CardExpand
           colorCard='gray'
           content={
             <div>
@@ -88,7 +88,8 @@ export default function () {
               la verdad y lo que siente.
               </span>
             </div>
-          } />
+          }
+          title='Card Expand' />
         <div className={clsx(classes.styleLess)}>
           <Button
             className={classes.button}

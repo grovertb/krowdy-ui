@@ -161,6 +161,10 @@ const pages: Array<Page> = [
         path: '/views/cards'
       },
       {
+        title: 'Card Expand',
+        path: '/views/cardexpand'
+      },
+      {
         title: 'Dashboard',
         path: '/views/dashboard'
       },

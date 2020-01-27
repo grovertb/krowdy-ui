@@ -5,17 +5,6 @@ import { withStyles } from '@krowdy-ui/styles'
 import { ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Typography } from '@material-ui/core'
 
 export const styles = theme => ({
-  alignSelf: {
-    alignSelf: 'flex-start'
-  },
-  button: {
-    '&:hover': {
-      backgroundColor: 'transparent'
-    },
-    margin  : 0,
-    minWidth: 0,
-    padding : 0
-  },
   content: {
     padding: theme.spacing(0, 1.5, 1.5, 1.5)
   },
@@ -23,23 +12,19 @@ export const styles = theme => ({
     backgroundColor: theme.palette.grey[0]
   },
   expanded: {
-    margin   : '10px 0',
-    minHeight: '0'
+    margin   : theme.spacing(0, 1.5),
+    minHeight: 0
   },
   gray: {
     backgroundColor: theme.palette.grey[400]
   },
   heading: {
     fontWeight   : 'bold',
+    paddingLeft  : 12,
     verticalAlign: 'middle'
   },
   iconDragContainer: {
     color: theme.palette.grey[500]
-  },
-  inputContent: {
-    display: 'flex',
-    flex   : 1,
-    margin : '0 8px'
   },
   size: {
     fontSize: 14
@@ -47,13 +32,10 @@ export const styles = theme => ({
   styleLess: {
     margin : 0,
     padding: 0
-  },
-  summeryRoot: {
-    padding: theme.spacing(0, 1.5)
   }
 })
 
-const SkillCard = props => {
+const CardExpand = props => {
   const {
     classes,
     content,
@@ -68,15 +50,16 @@ const SkillCard = props => {
 
     <div className={classes.container} >
       <ExpansionPanel
-        classes={{ root: clsx(classes[color], classes.styleLess) }}
+        classes={{ expanded: classes.expanded, root: clsx(classes[color], classes.styleLess) }}
         defaultExpanded={defaultExpanded}
         onChange={onChange}>
 
         <ExpansionPanelSummary
-          classes={{ content: classes.styleLess, expanded: classes.styleLess, root: classes.summeryRoot }}
-          className={classes.expanded}
+          classes={{ content: classes.styleLess, expanded: classes.expanded, root: classes.styleLess }}
           expandIcon={expandIcon ? expandIcon : null}>
-          <Typography className={clsx(classes.styleLess, classes.heading, classes.size)} component='div'>{(title) ? title : null}</Typography>
+          <Typography className={clsx(classes.heading, classes.size)} component='div'>
+            {(title) ? title : null}
+          </Typography>
         </ExpansionPanelSummary>
 
         <ExpansionPanelDetails classes={{ root: classes.styleLess }} className={classes.expandDetails} >
@@ -89,12 +72,13 @@ const SkillCard = props => {
   )
 }
 
-SkillCard.propTypes = {
+CardExpand.propTypes = {
   classes: PropTypes.shape({
-    container: PropTypes.string,
-    content  : PropTypes.string,
-    heading  : PropTypes.string,
-    size     : PropTypes.string
+    container    : PropTypes.string,
+    content      : PropTypes.string,
+    expandDetails: PropTypes.string,
+    heading      : PropTypes.string,
+    size         : PropTypes.string
   }),
   color          : PropTypes.oneOf([ 'defaultColor', 'gray' ]),
   content        : PropTypes.oneOfType([ PropTypes.node, PropTypes.string ]),
@@ -103,6 +87,6 @@ SkillCard.propTypes = {
   title          : PropTypes.oneOfType([ PropTypes.node, PropTypes.string ]).isRequired
 }
 
-SkillCard.muiName = 'SkillCard'
+CardExpand.muiName = 'CardExpand'
 
-export default withStyles(styles, { name: 'KrowdySkillCard' })(SkillCard)
+export default withStyles(styles, { name: 'KrowdyCardExpand' })(CardExpand)
