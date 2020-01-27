@@ -40,3 +40,5 @@ export * from './AvatarUser';
 export { default as ToggleRole } from './ToggleRole';
 export * from './ToggleRole';
 
+export { default as CardExpand } from './CardExpand'
+export * from './CardExpand'
