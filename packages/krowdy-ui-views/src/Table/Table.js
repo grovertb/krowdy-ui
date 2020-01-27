@@ -168,10 +168,11 @@ const Table = ({
   onHandlePaymentButton = () => false,
   onHandleToggleColumnTable = () => false,
   onHandleAddNewCell = () => false,
-  onHandleClickRow = () => false
+  onHandleClickRow = () => false,
+  onHandleSelectAutocomplete = () => false
 }) => {
   const { orderBy = '', sort = 'asc' } = sortTable
-  const { totalRows, currentPage, rowsPerPage } = pagination
+  const { total, page, perPage } = pagination
   const validateNewCellProps = Object.keys(newCellProps).length
   const classes = useStyles()
   const inputSearch = useRef(null)
@@ -247,6 +248,7 @@ const Table = ({
               {withSearch ? withAutocomplete ? (
                 <Autocomplete
                   noOptionsText='No hay coincidencias'
+                  onChange={onHandleSelectAutocomplete}
                   options={searchSuggestions.map(option => option.title)}
                   popupIcon={<SearchIcon />}
                   renderInput={params => (
@@ -459,12 +461,15 @@ const Table = ({
       {
         withPagination ? (
           <TablePagination
+            backIconButtonText='Página anterior'
             component='div'
-            count={totalRows}
+            count={total}
+            labelRowsPerPage='Filas por pagina'
+            nextIconButtonText='Página siguiente'
             onChangePage={onHandleChangePage}
             onChangeRowsPerPage={onHandleChangeRowsPerPage}
-            page={currentPage}
-            rowsPerPage={rowsPerPage}
+            page={page}
+            rowsPerPage={perPage}
             rowsPerPageOptions={[ 10, 25, 100 ]} />
         ) : null
       }
@@ -507,37 +512,38 @@ Table.propTypes = {
   /**
    * eneableAddCell muetra un boton para agregar una nueva celda
    */
-  enableAddCell            : PropTypes.bool,
+  enableAddCell             : PropTypes.bool,
   /**
    * iconBotton recibe un nodo para pinterlo al boton del header
    */
-  iconButton               : PropTypes.element,
+  iconButton                : PropTypes.element,
   /**
    * maxHeigth string | number para la altura de la tabla
    */
-  maxHeight                : PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]),
+  maxHeight                 : PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]),
   /**
    * newCellProps un array de objetos con las keys a editar cuando se agregue una nueva celda, requiere de `enableAddCell`
    */
-  newCellProps             : PropTypes.object,
-  onHandleAddNewCell       : PropTypes.func,
-  onHandleBtnAction        : PropTypes.func,
-  onHandleChangePage       : PropTypes.func,
-  onHandleChangeRowsPerPage: PropTypes.func,
-  onHandleClickRow         : PropTypes.func,
-  onHandlePaymentButton    : PropTypes.func,
-  onHandleSearch           : PropTypes.func,
-  onHandleSelectAll        : PropTypes.func,
-  onHandleSelectItem       : PropTypes.func,
-  onHandleSortTable        : PropTypes.func,
-  onHandleToggleColumnTable: PropTypes.func,
+  newCellProps              : PropTypes.object,
+  onHandleAddNewCell        : PropTypes.func,
+  onHandleBtnAction         : PropTypes.func,
+  onHandleChangePage        : PropTypes.func,
+  onHandleChangeRowsPerPage : PropTypes.func,
+  onHandleClickRow          : PropTypes.func,
+  onHandlePaymentButton     : PropTypes.func,
+  onHandleSearch            : PropTypes.func,
+  onHandleSelectAll         : PropTypes.func,
+  onHandleSelectAutocomplete: PropTypes.func,
+  onHandleSelectItem        : PropTypes.func,
+  onHandleSortTable         : PropTypes.func,
+  onHandleToggleColumnTable : PropTypes.func,
   /**
    * pagination objeto para paginar, requiere  de `withPagination`
    */
-  pagination               : PropTypes.shape({
-    currentPage: PropTypes.number.isRequired,
-    rowsPerPage: PropTypes.number.isRequired,
-    totalRows  : PropTypes.number.isRequired
+  pagination                : PropTypes.shape({
+    page   : PropTypes.number.isRequired,
+    perPage: PropTypes.number.isRequired,
+    total  : PropTypes.number.isRequired
   }),
   /**
    * paymentAmount number para mostrar total a pagar
