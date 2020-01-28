@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import XDate from 'xdate'
 import { Typography, Button, Grid, Divider, List, ListItem, ListItemText, Chip } from '@krowdy-ui/core'
 import BusinessIcon from '@material-ui/icons/Business'
-import { withStyles } from '@krowdy-ui/core/styles'
+import { withStyles } from '@krowdy-ui/styles'
 
 export const styles = theme => ({
   btnPostular: {

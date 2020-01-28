@@ -1,10 +1,10 @@
 import React from 'react'
-import { CardUser } from '@krowdy-ui/views'
+import { SwitchButton } from '@krowdy-ui/views'
 
 export default function () {
   return (
     <div>
-      <CardUser title='Prueba' />
+      <SwitchButton />
     </div>
   )
 }
