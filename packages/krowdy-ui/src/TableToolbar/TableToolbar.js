@@ -4,7 +4,7 @@ import clsx from 'clsx'
 import Typography from '../Typography'
 import TextField from '../TextField'
 import withStyles from '../styles/withStyles'
-import { InputAdornment } from '..'
+import InputAdornment from '../InputAdornment'
 
 const styles = ({ spacing }) => ({
   action: {
