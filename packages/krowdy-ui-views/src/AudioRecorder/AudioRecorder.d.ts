@@ -1,4 +1,4 @@
-interface classes {
+interface Classes {
   audio: Record<string, string | number>
   barContainer: Record<string, string | number>
   button: Record<string, string | number>
@@ -8,7 +8,7 @@ interface classes {
 }
 export interface AudioRecorder {
   classNameCanvas?: string;
-  classes?: object;
+  classes?: Classes;
   delete: React.ReactNode;
   onBlobUrl?: (blobUrl: string) => void;
   onStatus?: (status: string) => void;

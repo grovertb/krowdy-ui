@@ -1,11 +1,11 @@
-interface classes {
+interface Classes {
   icon: Record<string, string | number>
   inputBase: Record<string, string | number>
   paper: Record<string, string | number>
   paperBottom: Record<string, string | number>
 }
 export type SearchProps = {
-  classes: classes,
+  classes: Classes,
   searchIcon: React.ReactNode,
   type: string,
 };

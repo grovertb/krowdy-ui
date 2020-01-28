@@ -1,4 +1,4 @@
-interface classes {
+interface Classes {
   input: Record<string, string | number>
   root: Record<string, string | number>
 }
@@ -6,7 +6,7 @@ type IFunOnChange = (number: number) => void
 
 export type CounterProps = {
   addIcon: React.ReactNode;
-  classes: classes,
+  classes: Classes,
   color: string,
   disabled: boolean,
   max: number,
