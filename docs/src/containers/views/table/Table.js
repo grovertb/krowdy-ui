@@ -271,9 +271,9 @@ export default function () {
         onHandleToggleColumnTable={_handleToggleColumnTable}
         pagination={
           {
-            currentPage: 2,
+            currentPage: 1,
             rowsPerPage: 25,
-            totalRows  : 275
+            totalRows  : 100
           }
         }
         paymentAmount={350.20}
