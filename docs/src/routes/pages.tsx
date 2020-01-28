@@ -153,10 +153,6 @@ const pages: Array<Page> = [
         path: '/views/search'
       },
       {
-        title: 'Questionary',
-        path: '/views/questionary'
-      },
-      {
         title: 'Cards',
         path: '/views/cards'
       },
@@ -167,10 +163,6 @@ const pages: Array<Page> = [
       {
         title: 'Dashboard',
         path: '/views/dashboard'
-      },
-      {
-        title: 'Inputs',
-        path: '/views/inputs'
       },
       {
         title: 'Drag',

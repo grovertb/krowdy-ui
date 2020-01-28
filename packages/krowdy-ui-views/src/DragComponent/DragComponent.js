@@ -16,7 +16,6 @@ export const styles = theme => ({
   },
   container: {
     height: 'calc(100% - 40px)',
-    // overflow: 'auto',
     width : '100%'
   }
 })
