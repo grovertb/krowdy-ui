@@ -5,8 +5,7 @@ import clsx from 'clsx'
 import {
   Card,
   CardHeader,
-  CardContent,
-  Divider
+  CardContent
 } from '@krowdy-ui/core'
 
 export const styles = theme => ({
@@ -25,7 +24,7 @@ export const styles = theme => ({
   displayHover: {
     '&:hover': {
       border   : `1px solid ${theme.palette.primary[500]}`,
-      boxShadow: '0px 4px 5px rgba(0, 39, 102, 0.08), 0px 3px 14px rgba(0, 39, 102, 0.04), 0px 8px 10px rgba(0, 39, 102, 0.05)'
+      boxShadow: `${theme.spacing(0, 0.5, 0.6)}  rgba(0, 39, 102, 0.08), ${theme.spacing(0, 0.4, 1.75)} rgba(0, 39, 102, 0.04),  ${theme.spacing(0, 1, 1.25)} rgba(0, 39, 102, 0.05)`
     }
   },
   icon: {
@@ -65,9 +64,7 @@ const CardContainer = props => {
     disabledHover = false,
     action,
     sizePadding = 'middle',
-    onClick = () => { },
-    propsDivider,
-    divider
+    onClick = () => { }
   } = props
 
   return (
@@ -87,8 +84,6 @@ const CardContainer = props => {
           classes={{ action: classes.action, root: clsx(classes.lessStyle, classes.header), title: classes.title }}
           title={title}
           {...cardHeaderProps} />}
-
-      {divider && <Divider {...propsDivider} />}
 
       <CardContent classes={{ root: classes.cardContent }}>
         {content}
@@ -110,7 +105,6 @@ CardContainer.propTypes = {
   }),
   content      : PropTypes.oneOfType([ PropTypes.node, PropTypes.string ]),
   disabledHover: PropTypes.bool,
-  divider      : PropTypes.bool,
   onClick      : PropTypes.func,
   sizePadding  : PropTypes.oneOf([ 'small', 'middle' ]),
   title        : PropTypes.oneOfType([ PropTypes.node, PropTypes.string ])
