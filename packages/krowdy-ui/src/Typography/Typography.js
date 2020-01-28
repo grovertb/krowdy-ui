@@ -17,7 +17,7 @@ export const styles = theme => ({
   },
   display1: {
     fontSize  : '3.3125rem',
-    fontWeight: 500
+    fontWeight: 900
   },
   display2: {
     fontSize  : '3.3125rem',
