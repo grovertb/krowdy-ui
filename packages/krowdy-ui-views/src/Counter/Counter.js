@@ -42,7 +42,7 @@ const Counter = props => {
 
   const onClick = (type) => {
     if(type === 'increase')
-      number > min && (onChange(number - 1))
+      number > min && onChange(number - 1)
 
     if(type === 'decrease')
       number < max && onChange(number + 1)

@@ -1,6 +1,6 @@
 # Switch Button
 
-<p class="description">Component </p>
+<p class="description">Container SwitchButton </p>
 
 {{"demo": "containers/views/switchbutton/SwitchButton.js" }}
 
@@ -8,12 +8,10 @@
 Props:
 </h1>
 
-| Name                               |      Type      |  Default | Description   |
-|:-----------------------------------|:---------------|:---------|:-------------| 
-|     active      |   bool    |      |               |
-|   classes        | object       |       |               |
-|    onChange       |    function    |       |               |
-|    titleLeft       |  string      |       |               |
-|   titleRight        | string       |       |               |
+| Name            |      Type      |  Default | Description             |
+|:----------------|:---------------|:---------|:------------------------| 
+|     index       |    number      |          | Obtain position selected|
+|    onChange     |    function    |          |                         |
+|    selected     |    number      |          | Is element selected     |
 
 

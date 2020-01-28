@@ -133,10 +133,6 @@ const pages: Array<Page> = [
         path: '/views/jobdetail'
       },
       {
-        title: 'Card User',
-        path: '/views/carduser'
-      },
-      {
         title: 'Card Exception',
         path: '/views/cardexception'
       },
@@ -165,12 +161,12 @@ const pages: Array<Page> = [
         path: '/views/cards'
       },
       {
-        title: 'Dashboard',
-        path: '/views/dashboard'
+        title: 'Card Expand',
+        path: '/views/cardexpand'
       },
       {
-        title: 'Search Tasks',
-        path: '/views/searchtasks'
+        title: 'Dashboard',
+        path: '/views/dashboard'
       },
       {
         title: 'Inputs',
@@ -179,10 +175,6 @@ const pages: Array<Page> = [
       {
         title: 'Drag',
         path: '/views/dragcomponent'
-      },
-      {
-        title: 'Header Task',
-        path: '/views/headertask'
       },
       {
         title: 'Counter',
@@ -200,6 +192,10 @@ const pages: Array<Page> = [
         title: 'Modal',
         path: '/views/modalkrowder'
       },
+      {
+        title: 'Radio Form',
+        path: '/views/radioform'
+      }
     ]
   },
 

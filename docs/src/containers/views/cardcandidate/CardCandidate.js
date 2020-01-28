@@ -22,9 +22,9 @@ export default function () {
       width         : 'auto'
     }}>
       <CardCandidate
+        _id={1}
         checked={checked}
         firstName={firstName}
-        id={1}
         lastName={lastName}
         onChangeCheckbox={_handleChange}
         src={src}

@@ -3,7 +3,6 @@ import React from 'react'
 import clsx from 'clsx'
 import withStyles from '../styles/withStyles'
 import MuiTablePagination from '@material-ui/core/TablePagination'
-import TextField from '../TextField'
 
 export const styles = theme => ({
   actions: {
@@ -64,8 +63,7 @@ const TablePagination = React.forwardRef(function TablePagination({ ...props }) 
         selectRoot: classes.selectRoot
       }
     }
-    labelDisplayedRows={({ from, to }) => `${
-      <TextField>  {from}</TextField>}/${to}`}
+    labelDisplayedRows={({ from, to }) => `${from}/${to}`}
     // ActionsComponent={}
     nextIconButtonProps={{
       classes: {

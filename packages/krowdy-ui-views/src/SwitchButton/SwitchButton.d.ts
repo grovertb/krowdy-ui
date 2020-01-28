@@ -1,10 +1,8 @@
-
+type IFuncOnChange = (index: number) => void
 export type SwitchButtonProps = {
-  onChange: any,
-  onKeyDown: any,
-  placeholder: string,
-  searchIcon: Node,
-  value: string
+  index: number,
+  onChange: IFuncOnChange,
+  selected: number
 };
 
 declare const SwitchButton: React.ComponentType<SwitchButtonProps>;

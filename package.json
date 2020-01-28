@@ -94,6 +94,5 @@
     "{src,server,docs,packages}/**/*.js": [
       "eslint . --ext .js --fix"
     ]
-  },
-  "dependencies": {}
+  }
 }

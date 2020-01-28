@@ -25,6 +25,7 @@ export type CardContainer = {
   onClick?: IFuncOnClick,
   sizePadding?: string,
   title?: string | React.ReactNode,
+  divider?: boolean,
 };
 
 declare const CardContainer: React.ComponentType<CardContainer>;

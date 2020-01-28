@@ -1,5 +1,7 @@
 deploy to dev:
   image: ubuntu:latest
+  tags:
+    - buildS1
   script: 
     - DEBIAN_FRONTEND=noninteractive apt-get update -y
     - DEBIAN_FRONTEND=noninteractive apt-get install sudo curl tzdata awscli git wget gnupg -y

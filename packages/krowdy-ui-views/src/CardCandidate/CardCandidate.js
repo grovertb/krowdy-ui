@@ -5,7 +5,7 @@ import {
   Avatar,
   Typography,
   Checkbox,
-  Card
+  Paper
 } from '@krowdy-ui/core'
 import clsx from 'clsx'
 
@@ -22,7 +22,32 @@ export const styles = theme => ({
     textAlign      : 'center',
     width          : 28
   },
-  card: {
+  checkboxHover: {
+    '&:hover': {
+      backgroundColor: 'transparent',
+      boxShadow      : 'none'
+    },
+    height: 28,
+    width : 28
+  },
+  checked: {
+    '& $avatar': {
+      display: 'none'
+    },
+    '& $checkboxHover': {
+      display: 'inline-flex'
+    }
+  },
+  labelCandidate: {
+    marginLeft: theme.spacing(1)
+  },
+  name: {
+    color     : theme.palette.grey[700],
+    fontSize  : 12,
+    fontStyle : 'normal',
+    fontWeight: 'normal'
+  },
+  paper: {
     '&:active': {
       border: `1px solid ${theme.palette.grey[500]}`
     },
@@ -42,41 +67,15 @@ export const styles = theme => ({
     marginBottom: theme.spacing(1),
     width       : '100%'
   },
-  checkbox: {
-    '&:hover': {
-      backgroundColor: 'transparent',
-      boxShadow      : 'none'
-    },
-    height: 28,
-    width : 28
-  },
-  checked: {
-    '& $avatar': {
-      display: 'none'
-    },
-    '& $checkbox': {
-      boxShadow: 'none',
-      display  : 'inline-flex'
-    }
-  },
-  labelCandidate: {
-    marginLeft: theme.spacing(1)
-  },
-  name: {
-    color     : theme.palette.grey[700],
-    fontSize  : 12,
-    fontStyle : 'normal',
-    fontWeight: 'normal'
-  },
   root: {
-    '& $checkbox': {
+    '& $checkboxHover': {
       display: 'none'
     },
     '&:hover': {
       '& $avatar': {
         display: 'none'
       },
-      '& $checkbox': {
+      '& $checkboxHover': {
         display: 'inline-flex'
       }
     },
@@ -86,24 +85,22 @@ export const styles = theme => ({
 
 const CardCandidate = ({
   checked,
-  id,
+  _id,
   firstName = '',
   lastName = '',
   onChangeCheckbox = () => { },
   src,
-  classes,
-  ...restPropCard
+  classes
 }) => (
-  <Card
-    className={classes.card}
-    key={id}
-    {...restPropCard}>
+  <Paper
+    className={classes.paper}
+    key={_id}>
     <div className={clsx(classes.root, { [classes.checked]: checked })}>
       <Checkbox
         checked={checked}
-        className={classes.checkbox}
+        className={classes.checkboxHover}
         color='primary'
-        onChange={({ target: { checked } }) => onChangeCheckbox(id, checked)} />
+        onChange={({ target: { checked } }) => onChangeCheckbox(_id, checked)} />
       <Avatar
         className={classes.avatar}
         src={src}>
@@ -115,15 +112,15 @@ const CardCandidate = ({
         {firstName} {lastName}
       </Typography>
     </div>
-  </Card>
+  </Paper>
 
 )
 
 CardCandidate.propTypes = {
+  _id             : PropTypes.number,
   checked         : PropTypes.bool,
   classes         : PropTypes.object,
   firstName       : PropTypes.string,
-  id              : PropTypes.number,
   lastName        : PropTypes.string,
   onChangeCheckbox: PropTypes.func,
   src             : PropTypes.string
