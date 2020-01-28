@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
-import capitalize from '../utils/capitalize'
 import withStyles from '../styles/withStyles'
 
 import MuiTablePagination from '@material-ui/core/TablePagination'
@@ -21,10 +20,10 @@ const TablePagination = React.forwardRef(function TablePagination({ color = 'def
     backIconButtonProps={{
       color: 'blue',
       height: 18,
-      width: 18
+      width: 18,
+      position: 'absolute',
+      marginRight: 15
     }}
-
-
   />)
 })
 
@@ -33,4 +32,4 @@ TablePagination.propTypes = {
 
 }
 
-export default withStyles(styles, { 'name': 'TablePagination' })(TablePagination)
+export default withStyles(styles, { name: 'TablePagination' })(TablePagination)
