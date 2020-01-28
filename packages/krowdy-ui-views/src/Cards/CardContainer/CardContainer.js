@@ -18,7 +18,7 @@ export const styles = theme => ({
       paddingBottom: 0
     },
     align  : 'left',
-    color  : theme.palette.grey['700'],
+    color  : theme.palette.grey[700],
     margin : theme.spacing(1, 0, 0, 0),
     padding: 0
   },
