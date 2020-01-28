@@ -3,7 +3,7 @@ interface IMenu {
   icon?: React.ReactNode
   target?: string
   title: string
-  type: string
+  // type: string
   url: string
 }
 

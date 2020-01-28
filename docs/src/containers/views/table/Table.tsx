@@ -8,15 +8,75 @@ interface ISortTable {
 	sort: 'asc' | 'desc'
 }
 const demoColumns = [
-	{ id: 'name', label: 'Nombre', minWidth: 150, ordering: true, active: true },
-	{ id: 'status', label: 'Estado', minWidth: 120, ordering: true, active: true },
-	{ id: 'type', label: 'Tipo de actividad', minWidth: 170, ordering: false, active: true },
-	{ id: 'incharge', label: 'Encargado', minWidth: 100, ordering: false, active: true },
-	// { id: 'currentTasks', label: 'Tareas actuales', minWidth: 150, align: 'right', ordering: true, active: true },
-	// { id: 'amountPayable', label: 'Monto por pagar', minWidth: 160, align: 'right', ordering: true, active: true },
-	// { id: 'amountTasks', label: 'Tareas por pagar', minWidth: 160, align: 'right', ordering: true, active: true },
-	// { id: 'incidents', label: 'Incidentes', minWidth: 90, align: 'right', ordering: true, active: true },
-	// { id: 'other', label: 'Otro valor', minWidth: 120, ordering: false, active: false }
+	{
+		editable: true,
+		key: 'name',
+		label: 'Nombre',
+		minWidth: 150,
+		ordering: true,
+		type: 'text'
+	}, {
+		editable: false,
+		key: 'status',
+		label: 'Estado',
+		minWidth: 120,
+		ordering: true,
+		type: 'text'
+	}, {
+		editable: false,
+		key: 'type',
+		label: 'Tipo de actividad',
+		minWidth: 170,
+		ordering: false,
+		type: 'text'
+	}, {
+		editable: true,
+		key: 'incharge',
+		label: 'Encargado',
+		minWidth: 100,
+		ordering: false,
+		type: 'select'
+	}, {
+		align: 'right',
+		editable: true,
+		key: 'currentTasks',
+		label: 'Tareas actuales',
+		minWidth: 150,
+		ordering: true,
+		type: 'date'
+	}, {
+		align: 'right',
+		editable: true,
+		key: 'amountPayable',
+		label: 'Monto por pagar',
+		minWidth: 160,
+		ordering: true,
+		type: 'number'
+	}, {
+		align: 'right',
+		editable: true,
+		key: 'amountTasks',
+		label: 'Tareas por pagar',
+		minWidth: 160,
+		ordering: true,
+		type: 'text'
+	}, {
+		align: 'right',
+		editable: true,
+		key: 'incidents',
+		label: 'Incidentes',
+		minWidth: 90,
+		ordering: true,
+		type: 'text'
+	}, {
+		editable: true,
+		key: 'other',
+		label: 'Otro valor',
+		minWidth: 120,
+		ordering: false,
+		type: 'text',
+		visible: false
+	}
 ]
 
 export default function () {
@@ -187,9 +247,9 @@ export default function () {
 					sort:"asc"
 				}}
 				pagination={{
-					totalRows: 275,
-					rowsPerPage: 25,
-					currentPage: 2
+					total: 275,
+					perPage: 25,
+					page: 2
 				}}
 				newCellProps={newCellProps}
 				titleButton='Agregar Krowder'
