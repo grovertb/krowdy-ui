@@ -9,10 +9,17 @@ export const styles = theme => ({
     margin: 0
   },
   borderDefault: {
-    borderRadius: '8px 8px 0px 0px',
+    borderRadius: theme.spacing(1, 1, 0, 0),
     minHeight   : 40,
     outline     : `1px solid ${theme.palette.grey[300]}`,
     padding     : theme.spacing(1.25, 2.5)
+  },
+  header: {
+    position: 'relative'
+  },
+  icon: {
+    position: 'absolute',
+    right   : 10
   },
   lessStyle: {
     margin : 0,
@@ -48,7 +55,7 @@ const HeaderCard = props => {
     <CardHeader
       action={action}
       avatar={avatar}
-      classes={{ action: classes.action, root: classes.header, title: classes.title }}
+      classes={{ action: clsx(classes.action, classes.icon), root: classes.header, title: classes.title }}
       className={clsx(classes.borderDefault, classes[`sizePadding${sizePadding}`], { [classes.shadow]: shadow })}
       title={title}
       {...cardHeaderProps} />

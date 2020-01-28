@@ -10,8 +10,10 @@ import {
 
 export const styles = theme => ({
   boxContainer: {
-    display : 'flex',
-    minWidth: 98
+    display: 'flex'
+  },
+  isRow: {
+    flexDirection: 'row'
   },
   isVert: {
     flexDirection: 'column'
@@ -20,13 +22,18 @@ export const styles = theme => ({
     margin : 0,
     padding: theme.spacing(1.5, 1)
   },
+  outlineRow: {
+    margin: theme.spacing(0, 0.6, 0, 0.6)
+  },
   outlined: {
     '&:hover': {
       border: `1px solid ${theme.palette.primary[400]}`
     },
     border : `1px solid ${theme.palette.grey[300]}`,
-    margin : theme.spacing(1.5, 0, 0, 0),
     padding: theme.spacing(1.5, 1.25)
+  },
+  outlinedVert: {
+    margin: theme.spacing(0.6, 0, 0.6, 0)
   },
   roundBorder: {
     borderRadius: 8
@@ -34,7 +41,6 @@ export const styles = theme => ({
   size: {
     fontSize: 14
   }
-
 })
 
 const InputsRadiosForm = props => {
@@ -57,13 +63,13 @@ const InputsRadiosForm = props => {
 
   return (
     <RadioGroup
-      className={clsx(classes.boxContainer, { [classes.isVert]: !isRow })} name={name} onChange={handleChange}
+      className={clsx(classes.boxContainer, { [classes.isVert]: !isRow }, { [classes.isRow]: isRow })} name={name} onChange={handleChange}
       row={isRow} value={currentValue}>
       {
         inputs.map((element) => (
           <FormControlLabel
             classes={{ label: classes.size }}
-            className={(outlined) ? clsx(classes.outlined, classes[`${outlined}Border`]) : clsx(classes.noLine)}
+            className={clsx({ [classes.noLine]: !outlined }, { [classes.outlined && classes[`${outlined}Border`]]: outlined }, { [classes.outlinedVert]: !isRow }, { [classes.outlineRow]: isRow })}
             control={<Radio color='primary' disableRipple size='small' />}
             key={element._id}
             label={element.label}
