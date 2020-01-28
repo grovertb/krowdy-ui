@@ -195,7 +195,7 @@ const pages: Array<Page> = [
       {
         title: 'Radio Form',
         path: '/views/radioform'
-      },
+      }
     ]
   },
 
