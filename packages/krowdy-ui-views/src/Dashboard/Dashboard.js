@@ -66,7 +66,7 @@ const useStyles = makeStyles(theme => ({
   linkLabel: {
     '&:after': {
       backgroundColor: theme.palette.primary.main,
-      bottom         : '-2px',
+      bottom         : -2,
       content        : '""',
       height         : 1,
       left           : 0,
@@ -157,7 +157,7 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 600,
     lineHeight: '1.5',
     minHeight : 'auto',
-    padding   : '8px 16px'
+    padding   : theme.spacing(1, 2)
   },
   menuLink: {
     '& > a': {
@@ -171,7 +171,7 @@ const useStyles = makeStyles(theme => ({
     '&:hover': {
       textDecoration: 'none'
     },
-    padding       : '8px 16px',
+    padding       : theme.spacing(1, 2),
     textDecoration: 'none',
     width         : '100%'
   },

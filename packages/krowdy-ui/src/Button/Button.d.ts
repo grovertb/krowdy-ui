@@ -3,6 +3,7 @@ import { PropTypes } from '..';
 
 type PropsButton = {
   color?: PropTypes.Color;
+  dashed? : boolean,
 }
 
 export type KrowdyButtonProps = Omit<ButtonProps, keyof PropsButton> & PropsButton;
