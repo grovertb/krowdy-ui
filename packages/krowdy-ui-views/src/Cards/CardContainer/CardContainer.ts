@@ -11,9 +11,7 @@ interface IClassObject {
   title?: string,
 }
 
-interface IFuncOnClick {
-  (e: Event): void
-}
+type TypeOnclick = (event: any) => void
 
 export type CardContainer = {
   action?: React.ReactNode,
@@ -22,7 +20,7 @@ export type CardContainer = {
   classes?: IClassObject,
   content?: string | React.ReactNode,
   disabledHover?: boolean,
-  onClick?: IFuncOnClick,
+  onClick?: TypeOnclick,
   sizePadding?: string,
   title?: string | React.ReactNode,
   divider?: boolean,

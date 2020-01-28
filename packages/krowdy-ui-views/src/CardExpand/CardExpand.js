@@ -38,7 +38,7 @@ export const styles = theme => ({
 const CardExpand = props => {
   const {
     classes,
-    content,
+    content = '',
     color = 'defaultColor',
     defaultExpanded,
     expandIcon,
@@ -58,14 +58,13 @@ const CardExpand = props => {
           classes={{ content: classes.styleLess, expanded: classes.expanded, root: classes.styleLess }}
           expandIcon={expandIcon ? expandIcon : null}>
           <Typography className={clsx(classes.heading, classes.size)} component='div'>
-            {title ? title : null}
+            {title}
           </Typography>
         </ExpansionPanelSummary>
 
         <ExpansionPanelDetails classes={{ root: classes.styleLess }} className={classes.expandDetails} >
           <Typography className={clsx(classes.content, classes.size)} component='div'>
-            {(content) ? content : null}
-          </Typography>
+            {content}</Typography>
         </ExpansionPanelDetails>
       </ExpansionPanel>
     </div >
@@ -84,6 +83,7 @@ CardExpand.propTypes = {
   content        : PropTypes.oneOfType([ PropTypes.node, PropTypes.string ]),
   defaultExpanded: PropTypes.bool,
   expandIcon     : PropTypes.node,
+  onChange       : PropTypes.func,
   title          : PropTypes.oneOfType([ PropTypes.node, PropTypes.string ]).isRequired
 }
 
