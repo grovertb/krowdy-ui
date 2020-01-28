@@ -26,7 +26,7 @@ export const styles = theme => ({
     padding: 0
   },
   shadow: {
-    boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.05)'
+    boxShadow: `${theme.spacing(0, 0.25, 0.6)} rgba(0, 0, 0, 0.05)`// '0px 2px 5px rgba(0, 0, 0, 0.05)'
   },
   sizePaddingmiddle: {
     padding: theme.spacing(1.5, 2.5)
