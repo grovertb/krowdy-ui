@@ -1,13 +1,18 @@
-import type { KrowdyIconProps } from "@krowdy-ui/core/Icon";
+interface classes {
+  input: Record<string, string | number>
+  root: Record<string, string | number>
+}
+type IFunOnChange = (number: number) => void
+
 export type CounterProps = {
-  addIcon: React.ComponentType<KrowdyIconProps>;
-  classes: object,
+  addIcon: React.ReactNode;
+  classes: classes,
   color: string,
   disabled: boolean,
   max: number,
   min: number,
-  onChange: Function,
-  removeIcon: React.ComponentType<KrowdyIconProps>;
+  onChange: IFunOnChange,
+  removeIcon: React.ReactNode,
   number: number
 };
 

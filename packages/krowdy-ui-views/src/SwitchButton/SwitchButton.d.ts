@@ -1,6 +1,7 @@
+type IFuncOnChange = (index: number) => void
 export type SwitchButtonProps = {
   index: number,
-  onChange: Function,
+  onChange: IFuncOnChange,
   selected: number
 };
 

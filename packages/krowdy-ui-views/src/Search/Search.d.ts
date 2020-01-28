@@ -1,7 +1,12 @@
-import type { KrowdyIconProps } from "@krowdy-ui/core/Icon";
+interface classes {
+  icon: Record<string, string | number>
+  inputBase: Record<string, string | number>
+  paper: Record<string, string | number>
+  paperBottom: Record<string, string | number>
+}
 export type SearchProps = {
-  classes: object,
-  searchIcon: React.ComponentType<KrowdyIconProps>,
+  classes: classes,
+  searchIcon: React.ReactNode,
   type: string,
 };
 
