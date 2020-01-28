@@ -50,11 +50,11 @@ const InputsRadiosForm = props => {
     inputs = [],
     onChange = () => { },
     outlined,
-    value,
+    valueDefault,
     name
   } = props
 
-  const [ currentValue, setValue ] = React.useState(value)
+  const [ currentValue, setValue ] = React.useState(valueDefault)
 
   const handleChange = event => {
     setValue(event.target.value)
@@ -81,13 +81,13 @@ const InputsRadiosForm = props => {
 }
 
 InputsRadiosForm.propTypes = {
-  classes : PropTypes.object,
-  inputs  : PropTypes.array,
-  isRow   : PropTypes.bool,
-  name    : PropTypes.string,
-  onChange: PropTypes.func,
-  outlined: PropTypes.oneOf([ 'square', 'round' ]),
-  value   : PropTypes.oneOfType([ PropTypes.string, PropTypes.number ])
+  classes     : PropTypes.object,
+  inputs      : PropTypes.array,
+  isRow       : PropTypes.bool,
+  name        : PropTypes.string,
+  onChange    : PropTypes.func,
+  outlined    : PropTypes.oneOf([ 'square', 'round' ]),
+  valueDefault: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ])
 }
 
 InputsRadiosForm.muiName = 'InputsRadiosForm'
