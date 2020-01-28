@@ -473,7 +473,7 @@ const Table = ({
           <TablePagination
             backIconButtonText='Página anterior'
             component='div'
-            count={totalRows}
+            count={total}
             labelRowsPerPage='Mostrar'
             onChangePage={onHandleChangePage}
             onChangeRowsPerPage={onHandleChangeRowsPerPage}
