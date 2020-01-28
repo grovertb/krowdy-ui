@@ -269,7 +269,7 @@ const Table = ({
                       variant='outlined' />
                   )}
                   style={{ width: 400 }} />
-              ): (
+              ) : (
                 <TextField
                   className={classes.inputSearch}
                   InputLabelProps={{ shrink: false }}
@@ -330,7 +330,7 @@ const Table = ({
                     </TableSortLabel>
                   ) : (
                     <Typography className={classes.headerTable} variant='body1'>{label}</Typography>
-                  ) }
+                  )}
                 </TableCell>
               ))}
               {withMenuColumns ? (
@@ -449,7 +449,7 @@ const Table = ({
                   ) : (
                     <TableCell align={align || 'left'} key={key}>
                       <Typography className={classes.bodyTable} variant='body1'>
-                        {Array.isArray(row[key]) ? (row[key].join(', ')) : row[key] }
+                        {Array.isArray(row[key]) ? (row[key].join(', ')) : row[key]}
                       </Typography>
                     </TableCell>
                   ))}
@@ -465,6 +465,7 @@ const Table = ({
           <TablePagination
             component='div'
             count={totalRows}
+            labelRowsPerPage='Mostrar'
             onChangePage={onHandleChangePage}
             onChangeRowsPerPage={onHandleChangeRowsPerPage}
             page={currentPage}

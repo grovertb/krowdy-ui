@@ -1,1 +1,36 @@
-export { default } from '@material-ui/core/TablePagination'
+import React from 'react'
+import PropTypes from 'prop-types'
+import clsx from 'clsx'
+import capitalize from '../utils/capitalize'
+import withStyles from '../styles/withStyles'
+
+import MuiTablePagination from '@material-ui/core/TablePagination'
+
+export const styles = (theme) => ({
+
+})
+
+const TablePagination = React.forwardRef(function TablePagination({ color = 'default', ...props }, ref) {
+  const {
+    classes,
+    backIconButtonProps,
+    ...otherProps
+  } = props
+
+  return (<MuiTablePagination
+    backIconButtonProps={{
+      color: 'blue',
+      height: 18,
+      width: 18
+    }}
+
+
+  />)
+})
+
+TablePagination.propTypes = {
+
+
+}
+
+export default withStyles(styles, { 'name': 'TablePagination' })(TablePagination)
