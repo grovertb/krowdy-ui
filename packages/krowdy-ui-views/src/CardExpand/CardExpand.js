@@ -58,7 +58,7 @@ const CardExpand = props => {
           classes={{ content: classes.styleLess, expanded: classes.expanded, root: classes.styleLess }}
           expandIcon={expandIcon ? expandIcon : null}>
           <Typography className={clsx(classes.heading, classes.size)} component='div'>
-            {(title) ? title : null}
+            {title ? title : null}
           </Typography>
         </ExpansionPanelSummary>
 
