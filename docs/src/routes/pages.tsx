@@ -125,16 +125,20 @@ const pages: Array<Page> = [
     title: 'Views',
     routes: [
       {
+        title: 'Audio Recorder',
+        path: '/views/audioRecorder'
+      },
+      {
         title: 'Job Detail',
         path: '/views/jobdetail'
       },
       {
-        title: 'Card User',
-        path: '/views/carduser'
-      },
-      {
         title: 'Card Exception',
         path: '/views/cardexception'
+      },
+      {
+        title: 'Card Candidate',
+        path: '/views/cardcandidate'
       },
       {
         title: 'Table',
@@ -145,6 +149,42 @@ const pages: Array<Page> = [
         path: '/views/dashboard'
       },
       {
+        title: 'Search',
+        path: '/views/search'
+      },
+      {
+        title: 'Questionary',
+        path: '/views/questionary'
+      },
+      {
+        title: 'Cards',
+        path: '/views/cards'
+      },
+      {
+        title: 'Card Expand',
+        path: '/views/cardexpand'
+      },
+      {
+        title: 'Dashboard',
+        path: '/views/dashboard'
+      },
+      {
+        title: 'Inputs',
+        path: '/views/inputs'
+      },
+      {
+        title: 'Drag',
+        path: '/views/dragcomponent'
+      },
+      {
+        title: 'Counter',
+        path: '/views/counter'
+      },
+      {
+        title: 'SwitchButton',
+        path: '/views/switchbutton'
+      },
+      {
         title: 'Avatar user',
         path: '/views/avataruser'
       },
@@ -153,11 +193,12 @@ const pages: Array<Page> = [
         path: '/views/modalkrowder'
       },
       {
-        title: 'Toggle Role',
-        path: '/views/togglerole'
-      },
+        title: 'Radio Form',
+        path: '/views/radioform'
+      }
     ]
-  }
+  },
+
   // {
   //   title: 'Styles'
   // },

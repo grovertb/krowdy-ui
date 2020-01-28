@@ -1,5 +1,5 @@
 import React from 'react'
-import { makeStyles } from '@krowdy-ui/core/styles'
+import { makeStyles } from '@krowdy-ui/styles'
 import Button from '@krowdy-ui/core/Button'
 
 const useStyles = makeStyles(theme => ({
