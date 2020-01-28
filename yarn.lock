@@ -1202,33 +1202,26 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^13.0.0"
 
-"@krowdy-ui/core@0.0.28":
-  version "0.0.28"
-  resolved "https://registry.yarnpkg.com/@krowdy-ui/core/-/core-0.0.28.tgz#354993175f230c511c2cdc669281335d31bd1d16"
-  integrity sha512-qR25rEihMvNY3JzIDN7k1MTbVdwB9XaDJQ6ZudEgXPa0TmmDD8xmNEr/1oOWLojxpm3zgxJT9u39yPp3IOingA==
+"@krowdy-ui/core@0.0.29":
+  version "0.0.29"
+  resolved "https://registry.yarnpkg.com/@krowdy-ui/core/-/core-0.0.29.tgz#68eb5c4ec4f64a53f8ed40dfe3608ea947d6d0a9"
+  integrity sha512-HPJEF+va8EOvnzq6cntVnyqxEcuhaCI7s40RSKg1VjAqzkdFVZPO6zNigB+OrYyzp/xHqV8njrkuTUGUKe0Khw==
   dependencies:
-    "@krowdy-ui/styles" "^0.0.15"
-    "@material-ui/core" "4.8.3"
+    "@krowdy-ui/styles" "^0.0.16"
+    "@material-ui/core" "^4.9.0"
 
-"@krowdy-ui/styles@^0.0.15":
-  version "0.0.15"
-  resolved "https://registry.yarnpkg.com/@krowdy-ui/styles/-/styles-0.0.15.tgz#3256db0f76c5c438f787c8bfebfaf936f49be7e2"
-  integrity sha512-rtmRNSbnuEwGQSE7Nk1w4IBDWf43l7I3KKCtpwBqcDwC8WbzRtkQooxQh6cIjEReysGKUgrWiWlhnspNoC7a+g==
+"@krowdy-ui/views@0.0.12-next":
+  version "0.0.12-next"
+  resolved "https://registry.yarnpkg.com/@krowdy-ui/views/-/views-0.0.12-next.tgz#74989c7af8a9b68f8612da8a0f6ddf78716e420f"
+  integrity sha512-xR2ZLENk4m/Bsc4z6mCUrmrWUtSrzLluhmR9aT+nhViKKcg2TOQRH8dJnFJskZpFD2qWvBp/646Yxx/C3wo3SQ==
   dependencies:
-    "@material-ui/styles" "4.8.2"
-
-"@krowdy-ui/views@^0.0.23":
-  version "0.0.23"
-  resolved "https://registry.yarnpkg.com/@krowdy-ui/views/-/views-0.0.23.tgz#5d2a09ad81d674445aade341996500e75178336d"
-  integrity sha512-x53SlJbfPp1WgVSKIFy0eM8TeHqk3+J0m5gEGZLIQVEKbTeTyeTyYNb5iNjE+yHvksP5u+iJeJC/f1mzQpui3A==
-  dependencies:
-    "@krowdy-ui/core" "0.0.28"
+    "@krowdy-ui/core" "0.0.29"
     "@loadable/component" "5.12.0"
     "@material-ui/icons" "4.5.1"
-    "@material-ui/lab" "^4.0.0-alpha.39"
+    "@material-ui/lab" "4.0.0-alpha.40"
     xdate "0.8.2"
 
-"@loadable/component@5.12.0", "@loadable/component@^5.12.0":
+"@loadable/component@5.12.0", "@loadable/component@^5.11.0":
   version "5.12.0"
   resolved "https://registry.yarnpkg.com/@loadable/component/-/component-5.12.0.tgz#34d056d15f53dc08d04e9203cad6867cf4f7306c"
   integrity sha512-eDG7FPZ8tCFA/mqu2IrYV6eS+UxGBo21PwtEV9QpkpYrx25xKRXzJUm36yfQPK3o7jXu43xpPkwiU4mLWcjJlw==
@@ -1236,7 +1229,7 @@
     "@babel/runtime" "^7.7.7"
     hoist-non-react-statics "^3.3.1"
 
-"@material-ui/core@4.9.0":
+"@material-ui/core@4.9.0", "@material-ui/core@^4.9.0":
   version "4.9.0"
   resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-4.9.0.tgz#96ca3281ee06216d44fd4d0e306dbe0429eb2ebe"
   integrity sha512-zrrr8mPU5DDBYaVil4uJYauW41PjSn5otn7cqGsmWOY0t90fypr9nNgM7rRJaPz2AP6oRSDx1kBQt2igf5uelg==
@@ -1263,7 +1256,7 @@
   dependencies:
     "@babel/runtime" "^7.4.4"
 
-"@material-ui/lab@4.0.0-alpha.40", "@material-ui/lab@^4.0.0-alpha.39":
+"@material-ui/lab@4.0.0-alpha.40", "@material-ui/lab@^4.0.0-alpha.40":
   version "4.0.0-alpha.40"
   resolved "https://registry.yarnpkg.com/@material-ui/lab/-/lab-4.0.0-alpha.40.tgz#8d78dc80d32c27c05def7eda8a36e0d0a0748e7f"
   integrity sha512-VwXCNFJKfctu9Ot9XP5u2SSzXpm2Fn7F/o08bUfrJDkMCuRc8MCGVnNhT+guZRZa35rR97uWKc3SGQ/LAv8yEg==
@@ -10045,13 +10038,6 @@ react-hot-loader@^4.12.18:
     shallowequal "^1.1.0"
     source-map "^0.7.3"
 
-react-infinite-scroll-component@^5.0.4:
-  version "5.0.4"
-  resolved "https://registry.yarnpkg.com/react-infinite-scroll-component/-/react-infinite-scroll-component-5.0.4.tgz#45ca72c75bfe1ad5cf46d032247a8e0af65593ca"
-  integrity sha512-wl6MXreH57z6X6uILpRbvt2iaETZDX4HdnHaPy0vp9fVQ01ALM+zvFrG2xk2nsxynXxob2IEFan9eI1CDV2V0A==
-  dependencies:
-    throttle-debounce "^2.1.0"
-
 react-is@^16.12.0, react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.0, react-is@^16.8.1, react-is@^16.8.4, react-is@^16.8.6, react-is@^16.9.0:
   version "16.12.0"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.12.0.tgz#2cc0fe0fba742d97fd527c42a13bec4eeb06241c"
@@ -11732,11 +11718,6 @@ throat@^4.0.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/throat/-/throat-4.1.0.tgz#89037cbc92c56ab18926e6ba4cbb200e15672a6a"
   integrity sha1-iQN8vJLFarGJJua6TLsgDhVnKmo=
-
-throttle-debounce@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/throttle-debounce/-/throttle-debounce-2.1.0.tgz#257e648f0a56bd9e54fe0f132c4ab8611df4e1d5"
-  integrity sha512-AOvyNahXQuU7NN+VVvOOX+uW6FPaWdAOdRP5HfwYxAfCzXTFKRMoIMk+n+po318+ktcChx+F1Dd91G3YHeMKyg==
 
 through2@^2.0.0:
   version "2.0.5"

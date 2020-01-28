@@ -1,10 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { withStyles } from '@krowdy-ui/styles'
 import { ButtonGroup } from '@krowdy-ui/core'
-
-export const styles = () => ({
-})
 
 const SwitchButton = props => {
   const {
@@ -36,6 +32,4 @@ SwitchButton.propTypes = {
   selected: PropTypes.number
 }
 
-SwitchButton.muiName = 'SwitchButton'
-
-export default withStyles(styles, { name: 'KrowdySwitchButton' })(SwitchButton)
+export default SwitchButton

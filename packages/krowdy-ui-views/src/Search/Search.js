@@ -5,7 +5,7 @@ import { InputBase, InputAdornment } from '@krowdy-ui/core'
 
 export const styles = theme => ({
   icon: {
-    color      : theme.palette.grey['600'],
+    color      : theme.palette.grey[600],
     fontSize   : 18,
     marginRight: theme.spacing(1)
   },
@@ -19,17 +19,17 @@ export const styles = theme => ({
   },
   paper: {
     '&:active': {
-      border: `1px solid ${theme.palette.grey['500']}`
+      border: `1px solid ${theme.palette.grey[500]}`
     },
     '&:focus': {
-      border: `1px solid ${theme.palette.primary['600']}`
+      border: `1px solid ${theme.palette.primary[600]}`
     },
     '&:hover': {
-      border: `1px solid ${theme.palette.primary['400']}`
+      border: `1px solid ${theme.palette.primary[400]}`
     },
     alignItems  : 'center',
     background  : theme.palette.primary['contrastText'],
-    border      : `1px solid ${theme.palette.grey['400']}`,
+    border      : `1px solid ${theme.palette.grey[400]}`,
     borderRadius: 4,
     boxShadow   : 'none',
     boxSizing   : 'border-box',
@@ -39,17 +39,17 @@ export const styles = theme => ({
   },
   paperBottom: {
     '&:active': {
-      borderBottom: `1px solid ${theme.palette.grey['500']}`
+      borderBottom: `1px solid ${theme.palette.grey[500]}`
     },
     '&:focus': {
-      borderBottom: `1px solid ${theme.palette.primary['600']}`
+      borderBottom: `1px solid ${theme.palette.primary[600]}`
     },
     '&:hover': {
-      borderBottom: `1px solid ${theme.palette.primary['400']}`
+      borderBottom: `1px solid ${theme.palette.primary[400]}`
     },
     alignItems  : 'center',
     background  : theme.palette.primary['contrastText'],
-    borderBottom: `1px solid ${theme.palette.grey['400']}`,
+    borderBottom: `1px solid ${theme.palette.grey[400]}`,
     display     : 'flex',
     height      : 40,
     width       : 330
