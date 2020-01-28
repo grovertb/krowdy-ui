@@ -1,8 +1,9 @@
 import React from 'react'
 // import PropTypes from 'prop-types'
-// import clsx from 'clsx'
+import clsx from 'clsx'
 import withStyles from '../styles/withStyles'
 import MuiTablePagination from '@material-ui/core/TablePagination'
+import TextField from '../TextField'
 
 export const styles = theme => ({
   actions: {
@@ -10,19 +11,20 @@ export const styles = theme => ({
     marginLeft: -90
   },
   backIcon: {
-    color      : theme.palette.grey[700],
     fontSize   : 18,
-    marginRight: 50
+    marginRight: 28
   },
   caption: {
-    color   : theme.palette.grey[700],
     fontSize: 12
   },
-  input: {
+  color: {
     color: theme.palette.grey[700]
   },
+  input: {
+
+  },
   nextIcon: {
-    color: theme.palette.grey[700]
+
   },
   select: {
     border      : `1px solid ${theme.palette.grey[400]}`,
@@ -36,9 +38,6 @@ export const styles = theme => ({
     justifyContent: 'center'
   },
   selectRoot: {
-    '&:active': {
-      borderRadius: 4
-    },
     marginRight: 38
   }
 })
@@ -46,31 +45,31 @@ export const styles = theme => ({
 const TablePagination = React.forwardRef(function TablePagination({ ...props }) {
   const {
     classes,
-    backIconButtonProps,
     ...otherProps
   } = props
 
   return (<MuiTablePagination
     backIconButtonProps={{
       classes: {
-        root: classes.backIcon
+        root: clsx(classes.backIcon, classes.color)
       }
     }}
     classes={
       {
         actions   : classes.actions,
-        caption   : classes.caption,
-        input     : classes.input,
+        caption   : clsx(classes.caption, classes.color),
+        input     : clsx(classes.input, classes.color),
         select    : classes.select,
         selectIcon: classes.selectIcon,
         selectRoot: classes.selectRoot
       }
     }
-    labelDisplayedRows={({ from, to }) => `${from}/${to}`}
+    labelDisplayedRows={({ from, to }) => `${
+      <TextField>  {from}</TextField>}/${to}`}
     // ActionsComponent={}
     nextIconButtonProps={{
       classes: {
-        root: classes.nextIcon
+        root: clsx(classes.nextIcon, classes.color)
       }
 
     }}

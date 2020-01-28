@@ -12,8 +12,8 @@ import clsx from 'clsx'
 export const styles = theme => ({
   avatar: {
     backgroundColor: theme.palette.primary['contrastText'],
-    border         : `1px solid ${theme.palette.grey['300']}`,
-    color          : theme.palette.grey['600'],
+    border         : `1px solid ${theme.palette.grey[300]}`,
+    color          : theme.palette.grey[600],
     fontSize       : 10,
     fontStyle      : 'normal',
     fontWeight     : 'normal',
@@ -24,16 +24,16 @@ export const styles = theme => ({
   },
   card: {
     '&:active': {
-      border: `1px solid ${theme.palette.grey['500']}`
+      border: `1px solid ${theme.palette.grey[500]}`
     },
     '&:focus': {
-      border: `1px solid ${theme.palette.primary['600']}`
+      border: `1px solid ${theme.palette.primary[600]}`
     },
     '&:hover': {
-      border: `1px solid ${theme.palette.primary['400']}`
+      border: `1px solid ${theme.palette.primary[400]}`
     },
     alignItems  : 'center',
-    border      : `1px solid ${theme.palette.grey['400']}`,
+    border      : `1px solid ${theme.palette.grey[400]}`,
     borderRadius: 8,
     boxShadow   : 'none',
     boxSizing   : 'border-box',
@@ -63,7 +63,7 @@ export const styles = theme => ({
     marginLeft: theme.spacing(1)
   },
   name: {
-    color     : theme.palette.grey['700'],
+    color     : theme.palette.grey[700],
     fontSize  : 12,
     fontStyle : 'normal',
     fontWeight: 'normal'
