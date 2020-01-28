@@ -1,6 +1,3 @@
-interface onChange {
-
-}
 export type CounterProps = {
   addIcon: Node,
   classes: object,
