@@ -278,9 +278,9 @@ export default function () {
         onHandleToggleColumnTable={_handleToggleColumnTable}
         pagination={
           {
-            currentPage: 1,
-            rowsPerPage: 25,
-            totalRows  : 100
+            page   : 2,
+            perPage: 25,
+            total  : 275
           }
         }
         paymentAmount={350.20}
@@ -295,9 +295,8 @@ export default function () {
         withHeader={true}
         withMenuColumns={true}
         withOrder={true}
-        withPagination
+        withPagination={true}
         withSearch={true} />
-
     </Grid>
   )
 }
