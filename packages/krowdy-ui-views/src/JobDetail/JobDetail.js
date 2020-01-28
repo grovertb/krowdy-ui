@@ -64,8 +64,8 @@ export const styles = theme => ({
       margin: theme.spacing(2, 0)
     },
     [theme.breakpoints.down('xs')]: {
-      marginLeft   : '15px',
-      marginRight  : '15px',
+      marginLeft   : theme.spacing(2),
+      marginRight  : theme.spacing(2),
       paddingBottom: theme.spacing(5)
     },
     margin: theme.spacing(0, 5)
@@ -152,9 +152,9 @@ export const styles = theme => ({
     fontSize: '.8rem'
   },
   textEndJob: {
-    fontSize    : '12px',
-    marginTop   : '5px',
-    paddingRight: '5px'
+    fontSize    : 12,
+    marginTop   : theme.spacing(.5),
+    paddingRight: theme.spacing(.5)
   },
   titleCompany: {
     '&.no-visible': {

@@ -97,6 +97,10 @@ const pages: Array<Page> = [
           {
             title: 'Typography',
             path: '/components/typography'
+          },
+          {
+            title: 'Table',
+            path: '/components/tables'
           }
         ]
       },
