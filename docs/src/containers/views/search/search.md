@@ -8,11 +8,11 @@
 Props:
 </h1>
 
-| Name                               |      Type      |  Default | Description   |
-|:-----------------------------------|:---------------|:---------|:-------------| 
-|   classes        |   object       |       |               |
-|    searchIcon       |    icon    |       |               |
-|     type      |   'border-bottom' o 'border'    |  'border'     |               |
-|           |        |       |               |
+| Name                               |      Type            |  Default | Description   |
+|:-----------------------------------|:---------------------|:---------|:-------------| 
+|   classes                          |   object             |      |               |
+|    searchIcon                      |    icon              |       |               |
+|     type                           |   'border-bottom' o 'border'    |  'border'     |               |
+|                        |                    |       |               |
 	
 

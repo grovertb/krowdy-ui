@@ -8,10 +8,10 @@ import {
 import clsx from 'clsx'
 
 export const styles = theme => ({
-  fontSizeMiddle: {
+  fontSizemedium: {
     fontSize: 14
   },
-  fontSizeSmall: {
+  fontSizesmall: {
     fontSize: 12
   },
   input: {
@@ -70,7 +70,7 @@ const Counter = props => {
       <Input
         classes={{
           input: classes.input,
-          root : clsx(classes.root, { [classes.fontSizeSmall]: type === 'small', [classes.fontSizeMiddle]: type === 'medium' })
+          root : clsx(classes.root, classes[`fontSize${type}`], classes[`fontSize${type}`])
         }}
         disabled={disabled}
         disableUnderline
@@ -100,7 +100,7 @@ Counter.propTypes = {
   number    : PropTypes.number.isRequired,
   onChange  : PropTypes.func,
   removeIcon: PropTypes.node.isRequired,
-  type      : PropTypes.string
+  type      : PropTypes.oneOf([ 'small', 'middle' ])
 }
 
 Counter.muiName = 'Counter'
