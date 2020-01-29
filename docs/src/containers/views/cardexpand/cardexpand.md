@@ -10,7 +10,6 @@
 | :----------------|:--------| :---------------------------|
 | classes  | object  | Modify class.   |
 | content | node  | Card Content  |
-| disabledHover | bool  |  If is true,  gover disabled |
 | onClick | func  | Card Function |
 | defaultExpanded | boolean | If is true  |
 | expandIcon | node | Icon Expan of @krowdy-ui/icons  |
