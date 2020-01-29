@@ -15,7 +15,7 @@ const SwitchButton = props => {
         {children.map((child, index) => React.cloneElement(child, {
           onClick: (e) => {
             onChange(index)
-            if(index !== selected)
+            if(index !== selected && child.props.onClick)
               child.props.onClick(e)
           },
           variant: index === selected ? 'contained' : 'outlined'

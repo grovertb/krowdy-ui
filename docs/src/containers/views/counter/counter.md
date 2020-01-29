@@ -15,8 +15,8 @@
 | disabled                | bool           |          | If true, the counter will be disabled.                       |
 | max                     |    number      |          | Maximum limit of the counter.                                |
 | min                     |    number      |          | Minimum counter limit.                                       |
+| name                    |   string       |          | The name attribute specifies the name of an input element.   |
 | number                  |   number       |          | is the number that increases and decreases.                  |      
 | onChange                |    function    |          | Callback fired when the state is changed.                    |
 | removeIcon              |   icon         |          | ```<RemoveIcon/>``` Icon (-)                                 |
- 
 
