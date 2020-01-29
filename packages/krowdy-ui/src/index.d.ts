@@ -1,3 +1,33 @@
+export type PaletteType = 'light' | 'dark';
+
+export namespace PropTypes {
+  type Alignment = 'inherit' | 'left' | 'center' | 'right' | 'justify';
+  type Color = 'inherit' | 'primary' | 'secondary' | 'default' | 'krowdy' | 'error'; 
+  type Margin = 'none' | 'dense' | 'normal';
+}
+
+export interface Color {
+  50: string;
+  100: string;
+  200: string;
+  300: string;
+  400: string;
+  500: string;
+  600: string;
+  700: string;
+  800: string;
+  900: string;
+  A100: string;
+  A200: string;
+  A400: string;
+  A700: string;
+}
+
+import * as colors from './colors';
+
+export { colors };
+export * from './styles';
+
 export { default as AppBar } from './AppBar';
 export { default as Avatar } from './Avatar';
 export { default as Backdrop } from './Backdrop';
@@ -47,7 +77,6 @@ export { default as GridListTile } from './GridListTile';
 export { default as GridListTileBar } from './GridListTileBar';
 export { default as Grow } from './Grow';
 export { default as Hidden } from './Hidden';
-export { default as Icon } from './Icon';
 export { default as IconButton } from './IconButton';
 export { default as Input } from './Input';
 export { default as InputAdornment } from './InputAdornment';
@@ -101,6 +130,7 @@ export { default as TableHead } from './TableHead';
 export { default as TablePagination } from './TablePagination';
 export { default as TableRow } from './TableRow';
 export { default as TableSortLabel } from './TableSortLabel';
+export { default as TableToolbar } from './TableToolbar';
 export { default as Tabs } from './Tabs';
 export { default as TextareaAutosize } from './TextareaAutosize';
 export { default as TextField } from './TextField';
@@ -110,46 +140,3 @@ export { default as Typography } from './Typography';
 export { default as useMediaQuery } from './useMediaQuery';
 export { default as withWidth } from './withWidth';
 export { default as Zoom } from './Zoom';
-
-export {
-  createGenerateClassName,
-  createMuiTheme,
-  createStyles,
-  jssPreset,
-  makeStyles,
-  responsiveFontSizes,
-  ServerStyleSheets,
-  styled,
-  StyleRulesCallback,
-  StylesProvider,
-  Theme,
-  ThemeProvider,
-  useTheme,
-  withStyles,
-  withTheme,
-  WithTheme,
-  krowdyTheme
-} from './styles'
-
-export namespace PropTypes {
-  type Alignment = 'inherit' | 'left' | 'center' | 'right' | 'justify';
-  type Color = 'inherit' | 'primary' | 'secondary' | 'default' | 'krowdy' | 'error'; 
-  type Margin = 'none' | 'dense' | 'normal';
-}
-
-export interface Color {
-  50: string;
-  100: string;
-  200: string;
-  300: string;
-  400: string;
-  500: string;
-  600: string;
-  700: string;
-  800: string;
-  900: string;
-  A100: string;
-  A200: string;
-  A400: string;
-  A700: string;
-}

@@ -16,9 +16,7 @@ import {
 import { AvatarUser } from '@krowdy-ui/views'
 import {
   ExpandMore as ExpandMoreIcon,
-  Close as CloseIcon,
-  Delete as DeleteIcon,
-  PauseCircleOutline as PauseCircleOutlineIcon
+  Close as CloseIcon
 } from '@material-ui/icons'
 
 export const styles = theme => ({
@@ -26,11 +24,6 @@ export const styles = theme => ({
     height: 'calc(100% - 160px)'
   },
   expandHeader: {
-    // '&$expanded': {
-    //   backgroundColor: 'red',
-    //   height: '40px',
-    //   minHeight: '40px',
-    // },
     background: theme.palette.grey[50],
     border    : `1px solid ${theme.palette.grey[100]}`,
     height    : 40,
@@ -65,48 +58,6 @@ export const styles = theme => ({
     justifyContent: 'space-between',
     padding       : theme.spacing(2, 0)
   },
-  headerProfileName: {
-    alignItems    : 'center',
-    border        : `solid 2px ${theme.palette.primary.main}`,
-    borderRadius  : '50%',
-    display       : 'flex',
-    height        : 48,
-    justifyContent: 'center',
-    marginRight   : 12,
-    width         : 48
-  },
-  iconProfileActionDelete: {
-    // color: theme.palette.error.main,
-    cursor  : 'pointer',
-    fontSize: '1.125rem'
-  },
-  iconProfileActionPause: {
-    // color: theme.palette.primary.main,
-    cursor  : 'pointer',
-    fontSize: '1.125rem'
-  },
-  krowderAvatar: {
-    border     : `solid 2px ${theme.palette.primary.main}`,
-    height     : 48,
-    marginRight: 12,
-    width      : 48
-  },
-  krowderEmail: {
-    color       : theme.palette.grey[700],
-    fontSize    : '0.75rem',
-    marginBottom: 4
-  },
-  krowderName: {
-    color       : theme.palette.grey[800],
-    fontSize    : '1.125rem',
-    fontWeight  : 'bold',
-    marginBottom: 4
-  },
-  krowderPhone: {
-    color   : theme.palette.grey[700],
-    /* Gray/700 */
-    fontSize: '0.75rem'
-  },
   modal: {
     alignItems    : 'center',
     display       : 'flex',
@@ -119,11 +70,17 @@ function ModalKrowder(props) {
     open,
     onclose,
     user = {},
-    onsuspend,
-    ondelete,
+    action,
+    headerContent,
     collapses = [],
     classes
   } = props
+
+  const [ expanded, setExpanded ] = React.useState(false)
+
+  const _handleChangeCollapse = panel => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false)
+  }
 
   return (
     <Modal
@@ -152,27 +109,10 @@ function ModalKrowder(props) {
                 <div className={classes.headerAvatar}>
                   <AvatarUser user={user} />
                 </div>
-                <div>
-                  <Typography className={classes.krowderName}>{user.firstName} {user.lastName}</Typography>
-                  <Typography className={classes.krowderEmail}>{user.email}</Typography>
-                  <Typography className={classes.krowderPhone}>{user.phone}</Typography>
-                </div>
+                {headerContent}
               </div>
               <div className={classes.headerProfileActions}>
-                {
-                  onsuspend ?
-                    <IconButton color='primary' onClick={onsuspend} tooltip='Suspender'>
-                      <PauseCircleOutlineIcon
-                        className={classes.iconProfileActionPause} />
-                    </IconButton> : null
-                }
-                {
-                  ondelete ?
-                    <IconButton color='error' onClick={ondelete} tooltip='Eliminar'>
-                      <DeleteIcon
-                        className={classes.iconProfileActionDelete} />
-                    </IconButton> : null
-                }
+                {action}
               </div>
             </div>
             {/* collapses */}
@@ -184,7 +124,9 @@ function ModalKrowder(props) {
                       classes={{
                         expanded: classes.expandedItem
                       }}
-                      className={classes.expandItem} key={n}>
+                      className={classes.expandItem}
+                      expanded={expanded === `panel-${n}`}
+                      key={n} onChange={_handleChangeCollapse(`panel-${n}`)}>
                       <ExpansionPanelSummary
                         className={classes.expandHeader}
                         expandIcon={<ExpandMoreIcon className={classes.expandIcon} />}>
@@ -208,6 +150,7 @@ function ModalKrowder(props) {
 }
 
 ModalKrowder.propTypes = {
+  action   : PropTypes.element,
   classes  : PropTypes.object,
   collapses: PropTypes.arrayOf(
     PropTypes.shape({
@@ -215,11 +158,10 @@ ModalKrowder.propTypes = {
       title    : PropTypes.string.isRequired
     })
   ),
-  onclose  : PropTypes.func.isRequired,
-  ondelete : PropTypes.func,
-  onsuspend: PropTypes.func,
-  open     : PropTypes.bool.isRequired,
-  user     : PropTypes.shape({
+  headerContent: PropTypes.element,
+  onclose      : PropTypes.func.isRequired,
+  open         : PropTypes.bool.isRequired,
+  user         : PropTypes.shape({
     firstName: PropTypes.string,
     lastName : PropTypes.string,
     photo    : PropTypes.string

@@ -10,10 +10,10 @@ export const styles = theme => ({
     borderRadius  : '50%',
     display       : 'flex',
     fontSize      : 14,
-    height        : 48,
+    height        : 36,
     justifyContent: 'center',
     // marginRight: theme.spacing(2),
-    width         : 48
+    width         : 36
   },
   defaultAvatarNothing: {
     background: theme.palette.grey[400]
@@ -21,9 +21,9 @@ export const styles = theme => ({
   image: {
     border      : `solid 2px ${theme.palette.primary.main}`,
     borderRadius: '50%',
-    height      : 48,
+    height      : 36,
     // marginRight: theme.spacing(2),
-    width       : 48
+    width       : 36
   }
 })
 
@@ -43,16 +43,7 @@ function AvatarUser(props) {
         <div
           className={classes.defaultAvatar}>
           {
-            `${user.firstName ?
-              typeof user.firstName === 'string' ?
-                user.firstName.charAt().toUpperCase() :
-                '' :
-              ''}
-              ${user.lastName ?
-      typeof user.lastName === 'string' ?
-        user.lastName.charAt().toUpperCase() :
-        '' :
-      ''}`
+            `${user.firstName && typeof user.firstName === 'string' ? user.firstName.charAt() : ''}${user.lastName && typeof user.lastName === 'string' ? user.lastName.charAt() : ''}`
           }
         </div> :
       null // <div className={clsx(classes.defaultAvatar, classes.defaultAvatarNothing )} />

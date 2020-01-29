@@ -201,7 +201,9 @@ export default function () {
   const _handleChangeRowsPerPage = () => {
     console.log('change row per page')
   }
-  const _handleChangePage = () => {
+  const _handleChangePage = (e, page) => {
+    console.log('TCL: _handleChangeRowsPerPage -> page', page)
+    console.log('TCL: _handleChangeRowsPerPage -> e', e)
     console.log('change page')
   }
   const _handleSelectAll = (value) => {
@@ -229,11 +231,15 @@ export default function () {
     console.log('TCL: _handleClickRow -> id', id)
   }
 
+  const _handleSelectAutocomplete = (e, value) => {
+    console.log('TCL: _handleSelectAutocomplete -> value', value)
+  }
+
   return (
     <Grid container>
       <Table
         columns={columns}
-        enableAddCell={true}
+        enableAddCell={false}
         iconButton={<AddIcon />}
         // maxHeight={400}
         newCellProps={newCellProps}
@@ -242,33 +248,34 @@ export default function () {
         onHandleChangePage={_handleChangePage}
         onHandleChangeRowsPerPage={_handleChangeRowsPerPage}
         onHandleClickRow={_handleClickRow}
-        // titleTable='Tabla de Krowders'
         onHandlePaymentButton={_handlePaymentButton}
+        // titleTable='Tabla de Krowders'
         onHandleSearch={_handleSearch}
         onHandleSelectAll={_handleSelectAll}
+        onHandleSelectAutocomplete={_handleSelectAutocomplete}
         onHandleSelectItem={_handleSelectItem}
         onHandleSortTable={_handleSortTable}
         onHandleToggleColumnTable={_handleToggleColumnTable}
         pagination={
           {
-            currentPage: 2,
-            rowsPerPage: 25,
-            totalRows  : 275
+            page   : 2,
+            perPage: 25,
+            total  : 275
           }
         }
-        paymentAmount={350.20}
+        paymentAmount={0}
         rows={rows}
         searchSuggestions={searchSuggestions}
         sortTable={sort}
         titleButton='Agregar Krowder'
-        withAutocomplete={false}
+        withAutocomplete={true}
         withButton={false}
         withCheckbox={true}
-        withFooter={false}
+        withFooter={true}
         withHeader={true}
         withMenuColumns={true}
         withOrder={true}
-        withPagination={false}
+        withPagination={true}
         withSearch={true} />
     </Grid>
   )

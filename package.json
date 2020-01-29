@@ -91,11 +91,8 @@
     }
   },
   "lint-staged": {
-    "{src,server,docs,packages}/**/*.js": [
+    "{docs,packages}/**/*.js": [
       "eslint . --ext .js --fix"
     ]
-  },
-  "dependencies": {
-    "react-infinite-scroll-component": "^5.0.4"
   }
 }

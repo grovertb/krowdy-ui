@@ -27,6 +27,7 @@ function ToggleRole(props) {
     value,
     checked,
     name,
+    disabled,
     classes
   } = props
 
@@ -50,6 +51,7 @@ function ToggleRole(props) {
         <Switch
           checked={active}
           color='primary'
+          disabled={disabled}
           name={name}
           onChange={_handleChange}
           value={value} />
@@ -62,6 +64,7 @@ function ToggleRole(props) {
 ToggleRole.propTypes = {
   checked : PropTypes.bool.isRequired,
   classes : PropTypes.object,
+  disabled: PropTypes.bool,
   name    : PropTypes.string.isRequired,
   onchange: PropTypes.func.isRequired,
   subtitle: PropTypes.string,

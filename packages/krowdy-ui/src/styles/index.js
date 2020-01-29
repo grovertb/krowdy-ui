@@ -12,7 +12,7 @@ export {
   useTheme,
   // withStyles,
   withTheme
-} from '@material-ui/core/styles'
+} from '@material-ui/core'
 
 export { default as createMuiTheme } from './createMuiTheme'
 export { default as krowdyTheme } from './krowdyTheme'

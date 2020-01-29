@@ -7,8 +7,7 @@ export interface CardCandidateProps {
     src?: string;
     lastName: string;
     onChangeCheckbox?: IFunCheckbox;
-};
-
+}
 declare const CardCandidate: React.ComponentType<CardCandidateProps>;
 
 export default CardCandidate;

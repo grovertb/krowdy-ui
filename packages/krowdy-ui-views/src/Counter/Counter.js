@@ -11,8 +11,8 @@ export const styles = theme => ({
     textAlign: 'center'
   },
   root: {
-    borderBottom: `1px solid ${theme.palette.grey['500']}`,
-    color       : theme.palette.grey['700'],
+    borderBottom: `1px solid ${theme.palette.grey[500]}`,
+    color       : theme.palette.grey[700],
     fontSize    : 14,
     fontStyle   : 'normal',
     fontWeight  : 'normal',
@@ -42,7 +42,7 @@ const Counter = props => {
 
   const onClick = (type) => {
     if(type === 'increase')
-      number > min && (onChange(number - 1))
+      number > min && onChange(number - 1)
 
     if(type === 'decrease')
       number < max && onChange(number + 1)

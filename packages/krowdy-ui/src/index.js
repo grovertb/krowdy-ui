@@ -151,9 +151,6 @@ export * from './Grow'
 export { default as Hidden } from './Hidden'
 export * from './Hidden'
 
-export { default as Icon } from './Icon'
-export * from './Icon'
-
 export { default as IconButton } from './IconButton'
 export * from './IconButton'
 
@@ -315,6 +312,9 @@ export * from './TableRow'
 
 export { default as TableSortLabel } from './TableSortLabel'
 export * from './TableSortLabel'
+
+export { default as TableToolbar } from './TableToolbar'
+export * from './TableToolbar'
 
 export { default as Tabs } from './Tabs'
 export * from './Tabs'

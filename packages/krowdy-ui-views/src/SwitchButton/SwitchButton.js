@@ -1,10 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { withStyles } from '@krowdy-ui/styles'
 import { ButtonGroup } from '@krowdy-ui/core'
-
-export const styles = () => ({
-})
 
 const SwitchButton = props => {
   const {
@@ -17,6 +13,7 @@ const SwitchButton = props => {
     <div>
       <ButtonGroup>
         {children.map((child, index) => React.cloneElement(child, {
+          key    : `SwitchButton-${index}`,
           onClick: (e) => {
             onChange(index)
             if(index !== selected)
@@ -36,6 +33,4 @@ SwitchButton.propTypes = {
   selected: PropTypes.number
 }
 
-SwitchButton.muiName = 'SwitchButton'
-
-export default withStyles(styles, { name: 'KrowdySwitchButton' })(SwitchButton)
+export default SwitchButton

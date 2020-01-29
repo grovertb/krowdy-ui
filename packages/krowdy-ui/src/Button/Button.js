@@ -57,6 +57,12 @@ export const styles = theme => ({
     backgroundColor: theme.palette.secondary.main,
     color          : theme.palette.secondary.contrastText
   },
+  dashed: {
+    '&:hover': {
+      border: '1px dashed'
+    },
+    border: '1px dashed'
+  },
   disabled     : {},
   fullWidth    : {},
   outlinedError: {
@@ -115,6 +121,7 @@ const Button = React.forwardRef(function Button({ color = 'default', variant = '
     className: classNameProps,
     classes,
     fullWidth = false,
+    dashed = false,
     ...otherProps
   } = props
 
@@ -123,16 +130,23 @@ const Button = React.forwardRef(function Button({ color = 'default', variant = '
     classes[variant],
     {
       [classes[`${variant}${capitalize(color)}`]]: color !== 'default' && color !== 'inherit',
-      [classes.fullWidth]                        : fullWidth
+      [classes.fullWidth]                        : fullWidth,
+      [classes.dashed]                           : dashed
     }
   )
 
   if(color === 'krowdy' || color === 'error') color = 'default'
   if(variant === 'krowdy') variant = 'text'
 
-  return <MuiButton
-    className={className} color={color} fullWidth={fullWidth}
-    ref={ref} variant={variant} {...otherProps} />
+  return (
+    <MuiButton
+      className={className}
+      color={color}
+      fullWidth={fullWidth}
+      ref={ref}
+      variant={variant}
+      {...otherProps} />
+  )
 })
 
 Button.propTypes = {
@@ -153,6 +167,7 @@ Button.propTypes = {
    * The color of the component. It supports those theme colors that make sense for this component.
    */
   color    : PropTypes.oneOf([ 'default', 'inherit', 'primary', 'secondary', 'krowdy', 'error' ]),
+  dashed   : PropTypes.bool,
   /**
    * If `true`, the button will take up the full width of its container.
    */

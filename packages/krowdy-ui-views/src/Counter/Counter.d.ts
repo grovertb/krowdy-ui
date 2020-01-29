@@ -1,14 +1,18 @@
-interface onChange {
-
+interface Classes {
+  input: Record<string, string | number>
+  root: Record<string, string | number>
 }
+type IFunOnChange = (number: number) => void
+
 export type CounterProps = {
-  addIcon: Node,
-  classes: object,
+  addIcon: React.ReactNode;
+  classes: Classes,
+  color: string,
   disabled: boolean,
   max: number,
   min: number,
-  onChange: Function,
-  removeIcon: Node,
+  onChange: IFunOnChange,
+  removeIcon: React.ReactNode,
   number: number
 };
 
