@@ -71,6 +71,7 @@ function ModalKrowder(props) {
     onclose,
     user = {},
     action,
+    onChangeCollapse,
     headerContent,
     collapses = [],
     classes
@@ -79,6 +80,7 @@ function ModalKrowder(props) {
   const [ expanded, setExpanded ] = React.useState(false)
 
   const _handleChangeCollapse = panel => (event, isExpanded) => {
+    onChangeCollapse({ event, isExpanded, panel })
     setExpanded(isExpanded ? panel : false)
   }
 
@@ -125,8 +127,9 @@ function ModalKrowder(props) {
                         expanded: classes.expandedItem
                       }}
                       className={classes.expandItem}
-                      expanded={expanded === `panel-${n}`}
-                      key={n} onChange={_handleChangeCollapse(`panel-${n}`)}>
+                      expanded={expanded === item.key}
+                      key={n}
+                      onChange={_handleChangeCollapse(item.key)}>
                       <ExpansionPanelSummary
                         className={classes.expandHeader}
                         expandIcon={<ExpandMoreIcon className={classes.expandIcon} />}>
@@ -158,10 +161,11 @@ ModalKrowder.propTypes = {
       title    : PropTypes.string.isRequired
     })
   ),
-  headerContent: PropTypes.element,
-  onclose      : PropTypes.func.isRequired,
-  open         : PropTypes.bool.isRequired,
-  user         : PropTypes.shape({
+  headerContent   : PropTypes.element,
+  onChangeCollapse: PropTypes.func,
+  onclose         : PropTypes.func.isRequired,
+  open            : PropTypes.bool.isRequired,
+  user            : PropTypes.shape({
     firstName: PropTypes.string,
     lastName : PropTypes.string,
     photo    : PropTypes.string

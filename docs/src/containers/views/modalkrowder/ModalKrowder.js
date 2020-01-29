@@ -209,7 +209,11 @@ function ModalKrowderDoc({ classes }) {
   }
 
   const _handleChangeRole = name  => {
-    console.log('Xavi :) ===> :(: name', name)
+    console.log(name)
+  }
+
+  const _handleClickCollapse = (ev) => {
+    console.log(ev)
   }
 
   const Tasks = () => <Table
@@ -288,18 +292,22 @@ function ModalKrowderDoc({ classes }) {
         collapses={[
           {
             component: <Roles />,
+            key      : 'role',
             title    : 'Roles'
           },
           {
             component: <Tasks />,
+            key      : 'task',
             title    : 'Tareas'
           },
           {
             component: <Payments />,
+            key      : 'pay',
             title    : 'Pagos'
           },
           {
             component: <Reports />,
+            key      : 'inc',
             title    : 'Incidencias'
           }
         ]}
@@ -310,6 +318,7 @@ function ModalKrowderDoc({ classes }) {
             <Typography className={classes.krowderPhone}>+51 555 555 555</Typography>
           </div>
         }
+        onChangeCollapse={_handleClickCollapse}
         onclose={_handleClickClose}
         open={open}
         user={{
@@ -317,8 +326,7 @@ function ModalKrowderDoc({ classes }) {
           firstName: 'Xavi',
           lastName : 'Gonzalez',
           phone    : '+51 555 555 555',
-          photo    : '',
-          status   : 'Confimed'
+          photo    : ''
         }} />
     </div>
   )}
