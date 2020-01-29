@@ -436,7 +436,7 @@ const Table = ({
 
             ) : null}
             {rows.length ? rows.map((row, index) => {
-              const { _id, selected = false } = row
+              const { _id, selected = false, disabled = false } = row
 
               return (
                 <TableRow
@@ -446,6 +446,7 @@ const Table = ({
                     <TableCell padding='checkbox'>
                       <Checkbox
                         checked={selected}
+                        disabled={disabled}
                         onClick={(e) => _handleClickSelectItem(e, _id)} />
                     </TableCell>
                   ) : null}
