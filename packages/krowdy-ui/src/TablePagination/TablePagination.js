@@ -3,6 +3,7 @@ import React from 'react'
 import clsx from 'clsx'
 import withStyles from '../styles/withStyles'
 import MuiTablePagination from '@material-ui/core/TablePagination'
+import { TextField, Box } from '@krowdy-ui/core'
 
 export const styles = theme => ({
   actions: {
@@ -13,6 +14,11 @@ export const styles = theme => ({
     fontSize   : 18,
     marginRight: 28
   },
+  box: {
+    alignItems    : 'center',
+    display       : 'flex',
+    justifyContent: 'center'
+  },
   caption: {
     fontSize: 12
   },
@@ -22,7 +28,15 @@ export const styles = theme => ({
   input: {
 
   },
+  inputTextfield: {
+    color   : '#595959',
+    fontSize: 12
+  },
   nextIcon: {
+
+  },
+  rootTextfield: {
+    width: 25
 
   },
   select: {
@@ -38,6 +52,14 @@ export const styles = theme => ({
   },
   selectRoot: {
     marginRight: 38
+  },
+  totalPages: {
+    color    : '#595959',
+    fontSize : 12,
+    margin   : '0px -10px 0px 0px',
+    padding  : '4px 3px',
+    textAlign: 'center',
+    width    : 34
   }
 })
 
@@ -63,7 +85,19 @@ const TablePagination = React.forwardRef(function TablePagination({ ...props }) 
         selectRoot: classes.selectRoot
       }
     }
-    labelDisplayedRows={({ from, to }) => `${from}/${to}`}
+    labelDisplayedRows={({ from, to }) => (
+      <Box className={classes.box}>
+        <TextField
+          classes={{ root: classes.rootTextfield }}
+          InputProps={{ classes: { input: classes.inputTextfield } }}
+          value={from} />
+        <span>/</span>
+        <span>{to}</span>
+      </Box>
+
+      //  `${from}/${to}`
+    )
+    }
     // ActionsComponent={}
     nextIconButtonProps={{
       classes: {

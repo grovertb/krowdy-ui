@@ -17,7 +17,24 @@ export const styles = theme => ({
     lineHeight: 16,
     marginLeft: theme.spacing(1.375)
   },
-  paper: {
+  paperBottomPrimary: {
+    '&:active': {
+      borderBottom: `1px solid ${theme.palette.grey[500]}`
+    },
+    '&:focus': {
+      borderBottom: `1px solid ${theme.palette.primary[600]}`
+    },
+    '&:hover': {
+      borderBottom: `1px solid ${theme.palette.primary[400]}`
+    },
+    alignItems  : 'center',
+    background  : theme.palette.primary['contrastText'],
+    borderBottom: `1px solid ${theme.palette.grey[400]}`,
+    display     : 'flex',
+    height      : 40,
+    width       : '100%'
+  },
+  paperPrimary: {
     '&:active': {
       border: `1px solid ${theme.palette.grey[500]}`
     },
@@ -35,24 +52,7 @@ export const styles = theme => ({
     boxSizing   : 'border-box',
     display     : 'flex',
     height      : 40,
-    width       : 330
-  },
-  paperBottom: {
-    '&:active': {
-      borderBottom: `1px solid ${theme.palette.grey[500]}`
-    },
-    '&:focus': {
-      borderBottom: `1px solid ${theme.palette.primary[600]}`
-    },
-    '&:hover': {
-      borderBottom: `1px solid ${theme.palette.primary[400]}`
-    },
-    alignItems  : 'center',
-    background  : theme.palette.primary['contrastText'],
-    borderBottom: `1px solid ${theme.palette.grey[400]}`,
-    display     : 'flex',
-    height      : 40,
-    width       : 330
+    width       : '100%'
   }
 })
 
@@ -65,7 +65,7 @@ const Search = props => {
   } = props
 
   return (
-    <div className={type === 'border-bottom' ? classes.paperBottom : classes.paper} >
+    <div className={type === 'border-bottom' ? classes.paperBottomPrimary : classes.paperPrimary} >
       <InputBase
         className={classes.inputBase}
         endAdornment={
