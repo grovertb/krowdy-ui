@@ -1,11 +1,21 @@
 import React, { useState } from 'react'
+import { withStyles } from '@krowdy-ui/styles'
+import {
+  IconButton,
+  Typography
+} from '@krowdy-ui/core'
 import { ModalKrowder, Table, ToggleRole } from '@krowdy-ui/views'
+import {
+  Delete as DeleteIcon,
+  HowToReg as HowToRegIcon,
+  Brightness2 as Brightness2Icon
+} from '@material-ui/icons'
 
 const demoColumns = [
   {
     active  : true,
     editable: true,
-    id      : 'name',
+    key     : 'name',
     label   : 'Nombre',
     minWidth: 150,
     ordering: true,
@@ -13,7 +23,7 @@ const demoColumns = [
   }, {
     active  : true,
     editable: false,
-    id      : 'status',
+    key     : 'status',
     label   : 'Estado',
     minWidth: 120,
     ordering: true,
@@ -21,7 +31,7 @@ const demoColumns = [
   }, {
     active  : true,
     editable: false,
-    id      : 'type',
+    key     : 'type',
     label   : 'Tipo de actividad',
     minWidth: 170,
     ordering: false,
@@ -29,7 +39,7 @@ const demoColumns = [
   }, {
     active  : true,
     editable: true,
-    id      : 'incharge',
+    key     : 'incharge',
     label   : 'Encargado',
     minWidth: 100,
     ordering: false,
@@ -38,7 +48,7 @@ const demoColumns = [
     active  : true,
     align   : 'right',
     editable: true,
-    id      : 'currentTasks',
+    key     : 'currentTasks',
     label   : 'Tareas actuales',
     minWidth: 150,
     ordering: true,
@@ -47,7 +57,7 @@ const demoColumns = [
     active  : true,
     align   : 'right',
     editable: true,
-    id      : 'amountPayable',
+    key     : 'amountPayable',
     label   : 'Monto por pagar',
     minWidth: 160,
     ordering: true,
@@ -56,7 +66,7 @@ const demoColumns = [
     active  : false,
     align   : 'right',
     editable: true,
-    id      : 'amountTasks',
+    key     : 'amountTasks',
     label   : 'Tareas por pagar',
     minWidth: 160,
     ordering: true,
@@ -65,7 +75,7 @@ const demoColumns = [
     active  : false,
     align   : 'right',
     editable: true,
-    id      : 'incidents',
+    key     : 'incidents',
     label   : 'Incidentes',
     minWidth: 90,
     ordering: true,
@@ -73,7 +83,7 @@ const demoColumns = [
   }, {
     active  : false,
     editable: true,
-    id      : 'other',
+    key     : 'other',
     label   : 'Otro valor',
     minWidth: 120,
     ordering: false,
@@ -152,8 +162,35 @@ const newCellProps = {
   type  : [ 'LL', 'VE' ]
 }
 
-export default function () {
+export const styles = theme => ({
+  iconProfileActionDelete: {
+    cursor  : 'pointer',
+    fontSize: '1.125rem'
+  },
+  iconProfileActionPause: {
+    cursor  : 'pointer',
+    fontSize: '1.125rem'
+  },
+  krowderEmail: {
+    color       : theme.palette.grey[700],
+    fontSize    : '0.75rem',
+    marginBottom: 4
+  },
+  krowderName: {
+    color       : theme.palette.grey[800],
+    fontSize    : '1.125rem',
+    fontWeight  : 'bold',
+    marginBottom: 4
+  },
+  krowderPhone: {
+    color   : theme.palette.grey[700],
+    fontSize: '0.75rem'
+  }
+})
+
+function ModalKrowderDoc({ classes }) {
   const [ open, setOpen ] = useState(false)
+  const [ userStatus, setUserStatus ] = useState('')
 
   const _handleClickOpen = () => {
     setOpen(true)
@@ -163,8 +200,8 @@ export default function () {
     setOpen(false)
   }
 
-  const _handleClickSuspend = () => {
-    console.log('SUSPEND')
+  const _handleClickToggleSuspend = () => {
+    setUserStatus(prevState => prevState === 'Suspend' ? 'Confimed' : 'Suspend')
   }
 
   const _handleClickDelete = () => {
@@ -226,6 +263,28 @@ export default function () {
     <div>
       <button onClick={_handleClickOpen}>open</button>
       <ModalKrowder
+        action={
+          <>
+            <IconButton
+              color='primary'
+              onClick={_handleClickToggleSuspend}
+              tooltip={userStatus === 'Suspend' ? 'Activar' : 'Suspender'}>
+              {
+                userStatus === 'Suspend' ?
+                  <HowToRegIcon
+                    className={classes.iconProfileActionPause} /> :
+                  <Brightness2Icon
+                    className={classes.iconProfileActionPause} />
+              }
+            </IconButton>
+
+            <IconButton color='error' onClick={_handleClickDelete} tooltip='Eliminar'>
+              <DeleteIcon
+                className={classes.iconProfileActionDelete} />
+            </IconButton>
+          </>
+
+        }
         collapses={[
           {
             component: <Roles />,
@@ -244,16 +303,26 @@ export default function () {
             title    : 'Incidencias'
           }
         ]}
+        headerContent={
+          <div>
+            <Typography className={classes.krowderName}>Nombre Apellido</Typography>
+            <Typography className={classes.krowderEmail}>email@gmail.com</Typography>
+            <Typography className={classes.krowderPhone}>+51 555 555 555</Typography>
+          </div>
+        }
         onclose={_handleClickClose}
-        ondelete={_handleClickDelete}
-        onsuspend={_handleClickSuspend}
         open={open}
         user={{
           email    : 'xavi@mail.com',
           firstName: 'Xavi',
           lastName : 'Gonzalez',
           phone    : '+51 555 555 555',
-          photo    : ''
+          photo    : '',
+          status   : 'Confimed'
         }} />
     </div>
   )}
+
+ModalKrowderDoc.muiName = 'ModalKrowderDoc'
+
+export default withStyles(styles, { name: 'ModalKrowderDoc' })(ModalKrowderDoc)
