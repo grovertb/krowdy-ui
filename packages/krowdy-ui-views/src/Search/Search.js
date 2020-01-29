@@ -2,7 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@krowdy-ui/styles'
 import { InputBase, InputAdornment } from '@krowdy-ui/core'
-
+import {
+  Search as SearchIcon
+} from '@material-ui/icons'
 export const styles = theme => ({
   icon: {
     color      : theme.palette.grey[600],
@@ -59,9 +61,8 @@ export const styles = theme => ({
 const Search = props => {
   const {
     classes,
-    searchIcon,
     type = '',
-    ...rest
+    ...restProps
   } = props
 
   return (
@@ -70,12 +71,12 @@ const Search = props => {
         className={classes.inputBase}
         endAdornment={
           <InputAdornment className={classes.icon} >
-            {searchIcon}
+            <SearchIcon />
           </InputAdornment>}
         inputProps={{
           'aria-label': 'search'
         }}
-        {...rest} />
+        {...restProps} />
     </div >
 
   )

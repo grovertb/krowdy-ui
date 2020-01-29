@@ -283,7 +283,7 @@ export default function () {
             total  : 275
           }
         }
-        paymentAmount={0}
+        // paymentAmount={0}
         rows={rows}
         searchSuggestions={searchSuggestions}
         sortTable={sort}
@@ -291,7 +291,7 @@ export default function () {
         withAutocomplete={true}
         withButton={false}
         withCheckbox={true}
-        withFooter={true}
+        // withFooter={true}
         withHeader={true}
         withMenuColumns={true}
         withOrder={true}

@@ -22,11 +22,13 @@ export const styles = theme => ({
     textAlign      : 'center',
     width          : 28
   },
-  checkboxHover: {
+  checkbox: {
     '&:hover': {
       backgroundColor: 'transparent',
       boxShadow      : 'none'
-    },
+    }
+  },
+  checkboxHover: {
     height: 28,
     width : 28
   },
@@ -35,7 +37,8 @@ export const styles = theme => ({
       display: 'none'
     },
     '& $checkboxHover': {
-      display: 'inline-flex'
+      display   : 'inline-flex',
+      marginLeft: theme.spacing(1)
     }
   },
   labelCandidate: {
@@ -96,7 +99,7 @@ const CardCandidate = ({
   <Paper
     className={classes.paper}
     key={_id}>
-    <div className={clsx(classes.root, { [classes.checked]: checked })}>
+    <div className={clsx({ [classes.checked]: checked, [classes.root]: !checked })}>
       <Checkbox
         checked={checked}
         className={classes.checkboxHover}

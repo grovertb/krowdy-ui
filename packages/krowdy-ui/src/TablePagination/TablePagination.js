@@ -1,18 +1,22 @@
 import React from 'react'
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import withStyles from '../styles/withStyles'
 import MuiTablePagination from '@material-ui/core/TablePagination'
-import { TextField, Box } from '@krowdy-ui/core'
+import { Input, Box, Typography } from '@krowdy-ui/core'
 
 export const styles = theme => ({
   actions: {
     display   : 'flex',
-    marginLeft: -90
+    marginLeft: theme.spacing(-10.25)
   },
   backIcon: {
-    fontSize   : 18,
-    marginRight: 28
+    '& svg': {
+      height: 18,
+      width : 18
+    },
+    marginRight: theme.spacing(8.75),
+    padding    : 0
   },
   box: {
     alignItems    : 'center',
@@ -26,38 +30,63 @@ export const styles = theme => ({
     color: theme.palette.grey[700]
   },
   input: {
-
+    padding  : theme.spacing(0.625, 1),
+    textAlign: 'center'
   },
-  inputTextfield: {
-    color   : '#595959',
+  inputBase: {
+    margin: `${theme.spacing(0)}px ${theme.spacing(4.25)}px ${theme.spacing(0)}px ${theme.spacing(1.5)}px`
+  },
+  inputSelect: {
+    padding: theme.spacing(0.625, 0.8)
+  },
+  menuItem: {
     fontSize: 12
   },
   nextIcon: {
-
+    '& svg': {
+      height: 18,
+      width : 18
+    },
+    padding: 0
   },
   rootTextfield: {
-    width: 25
-
+    border      : ` 1px solid ${theme.palette.grey[400]}`,
+    borderRadius: 4,
+    boxSizing   : 'border-box',
+    color       : theme.palette.grey[700],
+    fontSize    : 12,
+    width       : 25
   },
   select: {
+    '&:focus': {
+      borderRadius: 4
+    },
     border      : `1px solid ${theme.palette.grey[400]}`,
     borderRadius: 4,
     boxSizing   : 'border-box',
-    fontSize    : 12
+    width       : 47
   },
   selectIcon: {
+    '& svg': {
+      height: 18,
+      width : 18
+    },
     alignItems    : 'center',
     display       : 'flex',
     justifyContent: 'center'
   },
-  selectRoot: {
-    marginRight: 38
+  selectMenu: {
+    fontSize  : 12,
+    lineHeight: '14px'
+  },
+  slash: {
+    padding: theme.spacing(0, 0.75)
   },
   totalPages: {
-    color    : '#595959',
+    color    : theme.palette.grey[700],
     fontSize : 12,
-    margin   : '0px -10px 0px 0px',
-    padding  : '4px 3px',
+    margin   : theme.spacing(0, -10),
+    padding  : theme.spacing(0.5, 0.375),
     textAlign: 'center',
     width    : 34
   }
@@ -73,48 +102,85 @@ const TablePagination = React.forwardRef(function TablePagination({ ...props }) 
     backIconButtonProps={{
       classes: {
         root: clsx(classes.backIcon, classes.color)
-      }
+      },
+      size: 'small'
     }}
     classes={
       {
-        actions   : classes.actions,
-        caption   : clsx(classes.caption, classes.color),
-        input     : clsx(classes.input, classes.color),
-        select    : classes.select,
-        selectIcon: classes.selectIcon,
-        selectRoot: classes.selectRoot
+        actions : classes.actions,
+        caption : clsx(classes.caption, classes.color),
+        input   : classes.inputBase,
+        menuItem: classes.menuItem
       }
     }
     labelDisplayedRows={({ from, to }) => (
       <Box className={classes.box}>
-        <TextField
-          classes={{ root: classes.rootTextfield }}
-          InputProps={{ classes: { input: classes.inputTextfield } }}
+        <Input
+          classes={{
+            input: clsx(classes.input, classes.color),
+            root : classes.rootTextfield
+          }}
+          disableUnderline
           value={from} />
-        <span>/</span>
-        <span>{to}</span>
+        <Typography className={classes.slash}>/</Typography>
+        <Typography>{to}</Typography>
       </Box>
-
-      //  `${from}/${to}`
-    )
-    }
-    // ActionsComponent={}
+    )}
     nextIconButtonProps={{
       classes: {
         root: clsx(classes.nextIcon, classes.color)
       }
 
     }}
-    // SelectProps={{
-    //   classes: {
-    //     root: classes.colorInput
-    //   }
-    // }}
+    SelectProps={{
+      classes: {
+        icon      : classes.selectIcon,
+        root      : classes.select,
+        selectMenu: classes.selectMenu
+      },
+      inputProps: {
+        classes: {
+          root: clsx(classes.inputSelect, classes.color)
+        }
+      }
+    }}
 
     {...otherProps} />)
 })
 
 TablePagination.propTypes = {
+
+  /**
+   * Props applied to the back arrow [`IconButton`](/api/icon-button/) component.
+   */
+  SelectProps        : PropTypes.object,
+  /**
+   * Text label for the back arrow icon button.
+   *
+   * For localization purposes, you can use the provided [translations](/guides/localization/).
+   */
+  backIconButtonProps: PropTypes.object,
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css) below for more details.
+   */
+  /**
+   * @ignore
+   */
+  classes            : PropTypes.object.isRequired,
+  /**
+   * The component used for the root node.
+   * Either a string to use a DOM element or a component.
+  /**
+   * For localization purposes, you can use the provided [translations](/guides/localization/).
+   */
+  nextIconButtonProps: PropTypes.object
+  /**
+   * Callback fired when the page is changed.
+   *
+   * @param {object} event The event source of the callback.
+   * @param {number} page The page selected.
+   */
 
 }
 
