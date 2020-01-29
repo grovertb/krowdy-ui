@@ -16,9 +16,6 @@ const pages: Array<Page> = [
         title: 'Usage',
         path: '/getting-started/usage'
       },
-      // {
-      //   title: 'Example Projects'
-      // }
     ]
   },
   {
@@ -39,10 +36,6 @@ const pages: Array<Page> = [
             title: 'Grid',
             path: '/components/grid'
           },
-          // {
-          //   title: 'Grid List',
-          //   path: '/components/gridlist'
-          // },
           {
             title: 'Hidden',
             path: '/components/hidden'
@@ -60,37 +53,8 @@ const pages: Array<Page> = [
             title: 'Checkboxes',
             path: '/components/checkboxes'
           },
-          // {
-          //   title: 'Date / Time',
-          //   path: '/components/pickers'
-          // },
-          // {
-          //   title: 'Radio Buttons',
-          //   path: '/components/radio-buttons'
-          // },
-          // {
-          //   title: 'Selects'
-          // },
-          // {
-          //   title: 'Slider'
-          // },
-          // {
-          //   title: 'Switches'
-          // },
-          // {
-          //   title: 'Text Fields'
-          // }
         ]
       },
-      // {
-      //   title: 'Navigation'
-      // },
-      // {
-      //   title: 'Surfaces'
-      // },
-      // {
-      //   title: 'Feedback'
-      // },
       {
         title: 'Data Display',
         routes: [
@@ -104,12 +68,6 @@ const pages: Array<Page> = [
           }
         ]
       },
-      // {
-      //   title: 'Utils'
-      // },
-      // {
-      //   title: 'Lab'
-      // }
     ]
   },
   {
@@ -129,81 +87,108 @@ const pages: Array<Page> = [
     title: 'Views',
     routes: [
       {
-        title: 'Audio Recorder',
-        path: '/views/audioRecorder'
+        title: 'A',
+        routes: [
+          {
+            title: 'Audio Recorder',
+            path: '/views/audioRecorder'
+          },
+          {
+            title: 'Avatar user',
+            path: '/views/avataruser'
+          },
+        ]
       },
       {
-        title: 'Job Detail',
-        path: '/views/jobdetail'
+        title: 'C',
+        routes: [
+          {
+            title: 'Cards',
+            path: '/views/cards'
+          },
+          {
+            title: 'Card Expand',
+            path: '/views/cardexpand'
+          },
+          {
+            title: 'Card Exception',
+            path: '/views/cardexception'
+          },
+          {
+            title: 'Card Candidate',
+            path: '/views/cardcandidate'
+          },
+          {
+            title: 'Counter',
+            path: '/views/counter'
+          },
+        ]
       },
       {
-        title: 'Card Exception',
-        path: '/views/cardexception'
+        title: 'D',
+        routes: [
+          {
+            title: 'Dashboard',
+            path: '/views/dashboard'
+          },
+          {
+            title: 'Drag',
+            path: '/views/dragcomponent'
+          },
+        ]
       },
       {
-        title: 'Card Candidate',
-        path: '/views/cardcandidate'
+        title: 'J',
+        routes: [
+          {
+            title: 'Job Detail',
+            path: '/views/jobdetail'
+          },
+        ]
       },
       {
-        title: 'Table',
-        path: '/views/table'
+        title: 'M',
+        routes: [
+          {
+            title: 'Modal',
+            path: '/views/modalkrowder'
+          }
+        ]
       },
       {
-        title: 'Dashboard',
-        path: '/views/dashboard'
+        title: 'S',
+        routes: [
+          {
+            title: 'Search',
+            path: '/views/search'
+          },
+          
+          {
+            title: 'SwitchButton',
+            path: '/views/switchbutton'
+          },
+        ]
       },
       {
-        title: 'Search',
-        path: '/views/search'
+        title: 'R',
+        routes: [
+          {
+            title: 'Radio Form',
+            path: '/views/radioform'
+          }
+        ]
       },
       {
-        title: 'Cards',
-        path: '/views/cards'
+        title: 'T',
+        routes: [
+          {
+            title: 'Table',
+            path: '/views/table'
+          },
+        ]
       },
-      {
-        title: 'Card Expand',
-        path: '/views/cardexpand'
-      },
-      {
-        title: 'Dashboard',
-        path: '/views/dashboard'
-      },
-      {
-        title: 'Drag',
-        path: '/views/dragcomponent'
-      },
-      {
-        title: 'Counter',
-        path: '/views/counter'
-      },
-      {
-        title: 'SwitchButton',
-        path: '/views/switchbutton'
-      },
-      {
-        title: 'Avatar user',
-        path: '/views/avataruser'
-      },
-      {
-        title: 'Modal',
-        path: '/views/modalkrowder'
-      },
-      {
-        title: 'Radio Form',
-        path: '/views/radioform'
-      }
     ]
   },
-
-  // {
-  //   title: 'Styles'
-  // },
-  // {
-  //   title: 'System'
-  // },
-  // {
-  //   title: 'Customization'
-  // }
 ]
 
 export const apiRoutes = [
