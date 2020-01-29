@@ -1202,20 +1202,20 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^13.0.0"
 
-"@krowdy-ui/core@0.0.29":
-  version "0.0.29"
-  resolved "https://registry.yarnpkg.com/@krowdy-ui/core/-/core-0.0.29.tgz#68eb5c4ec4f64a53f8ed40dfe3608ea947d6d0a9"
-  integrity sha512-HPJEF+va8EOvnzq6cntVnyqxEcuhaCI7s40RSKg1VjAqzkdFVZPO6zNigB+OrYyzp/xHqV8njrkuTUGUKe0Khw==
+"@krowdy-ui/core@0.0.32":
+  version "0.0.32"
+  resolved "https://registry.yarnpkg.com/@krowdy-ui/core/-/core-0.0.32.tgz#1e08a0f7063adef804b355a40476c7f4e7eed0dc"
+  integrity sha512-9dp3cnrNMo7si3ZT8ROS719zpYJyWk4p7Ovckn0I1igZYvED/eTO0q4hISx/brKwcAow7AGoW93DKxi7Z6uOUg==
   dependencies:
     "@krowdy-ui/styles" "^0.0.16"
-    "@material-ui/core" "^4.9.0"
+    "@material-ui/core" "4.9.0"
 
-"@krowdy-ui/views@0.0.12-next":
-  version "0.0.12-next"
-  resolved "https://registry.yarnpkg.com/@krowdy-ui/views/-/views-0.0.12-next.tgz#74989c7af8a9b68f8612da8a0f6ddf78716e420f"
-  integrity sha512-xR2ZLENk4m/Bsc4z6mCUrmrWUtSrzLluhmR9aT+nhViKKcg2TOQRH8dJnFJskZpFD2qWvBp/646Yxx/C3wo3SQ==
+"@krowdy-ui/views@0.0.14-next":
+  version "0.0.14-next"
+  resolved "https://registry.yarnpkg.com/@krowdy-ui/views/-/views-0.0.14-next.tgz#33460d8b511d7a68b1b50a3833b0d30213ae0c5a"
+  integrity sha512-PmOLd4GdMsu6Ev7DBuRobV94MHvBtjajZ60qvCFzUxjzyhv0nr7/D52Seuo+hpmzolKiFC9A6GdGTAWo0Y+JZw==
   dependencies:
-    "@krowdy-ui/core" "0.0.29"
+    "@krowdy-ui/core" "0.0.32"
     "@loadable/component" "5.12.0"
     "@material-ui/icons" "4.5.1"
     "@material-ui/lab" "4.0.0-alpha.40"
@@ -1229,7 +1229,7 @@
     "@babel/runtime" "^7.7.7"
     hoist-non-react-statics "^3.3.1"
 
-"@material-ui/core@4.9.0", "@material-ui/core@^4.9.0":
+"@material-ui/core@4.9.0":
   version "4.9.0"
   resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-4.9.0.tgz#96ca3281ee06216d44fd4d0e306dbe0429eb2ebe"
   integrity sha512-zrrr8mPU5DDBYaVil4uJYauW41PjSn5otn7cqGsmWOY0t90fypr9nNgM7rRJaPz2AP6oRSDx1kBQt2igf5uelg==
@@ -1628,7 +1628,7 @@
     "@types/react" "*"
     "@types/react-router" "*"
 
-"@types/react-router@*", "@types/react-router@^5.1.4":
+"@types/react-router@*", "@types/react-router@^5.1.3":
   version "5.1.4"
   resolved "https://registry.yarnpkg.com/@types/react-router/-/react-router-5.1.4.tgz#7d70bd905543cb6bcbdcc6bd98902332054f31a6"
   integrity sha512-PZtnBuyfL07sqCJvGg3z+0+kt6fobc/xmle08jBiezLS8FrmGeiGkJnuxL/8Zgy9L83ypUhniV5atZn/L8n9MQ==
@@ -1643,10 +1643,18 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@16.9.19":
+"@types/react@*":
   version "16.9.19"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.9.19.tgz#c842aa83ea490007d29938146ff2e4d9e4360c40"
   integrity sha512-LJV97//H+zqKWMms0kvxaKYJDG05U2TtQB3chRLF8MPNs+MQh/H1aGlyDUxjaHvu08EAGerdX2z4LTBc7ns77A==
+  dependencies:
+    "@types/prop-types" "*"
+    csstype "^2.2.0"
+
+"@types/react@16.9.18":
+  version "16.9.18"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.9.18.tgz#7dfb420a780e3740d43563506009834a86ae2af0"
+  integrity sha512-MvjiKX/kUE8o49ipppg49RDZ97p4XfW1WWksp/UlTUSJpisyhzd62pZAMXxAscFLoxfYOflkGANAnGkSeHTFQg==
   dependencies:
     "@types/prop-types" "*"
     csstype "^2.2.0"
