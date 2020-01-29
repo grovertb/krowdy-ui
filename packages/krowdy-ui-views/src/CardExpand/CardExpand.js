@@ -12,10 +12,10 @@ export const styles = theme => ({
     backgroundColor: theme.palette.grey[0]
   },
   expandIcon: {
-
+    position: 'absolute',
+    right   : 12
   },
   expanded: {
-    margin   : theme.spacing(0, 1.5),
     minHeight: 0
   },
   gray: {
@@ -23,7 +23,7 @@ export const styles = theme => ({
   },
   heading: {
     fontWeight   : 'bold',
-    paddingLeft  : 12,
+    padding      : theme.spacing(0, 1.5),
     verticalAlign: 'middle'
   },
   iconDragContainer: {
