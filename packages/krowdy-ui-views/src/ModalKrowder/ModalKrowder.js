@@ -58,30 +58,6 @@ export const styles = theme => ({
     justifyContent: 'space-between',
     padding       : theme.spacing(2, 0)
   },
-  headerProfileName: {
-    alignItems    : 'center',
-    border        : `solid 2px ${theme.palette.primary.main}`,
-    borderRadius  : '50%',
-    display       : 'flex',
-    height        : 48,
-    justifyContent: 'center',
-    marginRight   : 12,
-    width         : 48
-  },
-  iconProfileActionDelete: {
-    cursor  : 'pointer',
-    fontSize: '1.125rem'
-  },
-  iconProfileActionPause: {
-    cursor  : 'pointer',
-    fontSize: '1.125rem'
-  },
-  krowderAvatar: {
-    border     : `solid 2px ${theme.palette.primary.main}`,
-    height     : 48,
-    marginRight: 12,
-    width      : 48
-  },
   modal: {
     alignItems    : 'center',
     display       : 'flex',
