@@ -25,6 +25,9 @@ const useStyles = makeStyles({
     borderColor: 'black',
     margin     : '5%'
   },
+  item: {
+    margin: '4%'
+  },
   styleLess: {
     '&:last-child': {
       paddingBottom: 0
@@ -48,8 +51,6 @@ export default function () {
              obligatorios y cuáles no deberían aparecer. cuáles no deberían aparecer </CardContent>
         </Card>
       </Grid >
-      <Grid className={classes.headerCard} item xs={5}>
-      </Grid>
       <Grid className={classes.item} item xs={4} >
         <Card
           hoverable outlined='round'
