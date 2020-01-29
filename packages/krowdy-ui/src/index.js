@@ -313,6 +313,9 @@ export * from './TableRow'
 export { default as TableSortLabel } from './TableSortLabel'
 export * from './TableSortLabel'
 
+export { default as TableToolbar } from './TableToolbar'
+export * from './TableToolbar'
+
 export { default as Tabs } from './Tabs'
 export * from './Tabs'
 

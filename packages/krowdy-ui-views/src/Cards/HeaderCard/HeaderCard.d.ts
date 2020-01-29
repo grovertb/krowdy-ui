@@ -1,6 +1,5 @@
 interface ICardHeaderProps {
   subheader?: React.ReactNode,
-  //subheaderTypographyProps?: any
 }
 
 interface IClassObject {
@@ -11,9 +10,8 @@ interface IClassObject {
   title?: string,
 }
 
-interface IFuncOnClick {
-  (e: Event): void
-}
+type TypeOnclick = (event: any) => void
+
 
 export type HeaderCard = {
   action?: React.ReactNode,
@@ -22,7 +20,7 @@ export type HeaderCard = {
   classes?: IClassObject,
   content?: string | React.ReactNode,
   disabledHover?: boolean,
-  onClick?: IFuncOnClick,
+  onClick?: TypeOnclick,
   sizePadding?: string,
   title?: string | React.ReactNode,
 };

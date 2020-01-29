@@ -75,6 +75,8 @@ const useStyles = makeStyles(theme => ({
     fontWeight  : 'bold',
     marginBottom: 12
   },
+  disableText: {
+  },
   editableCell: {
     display: 'flex'
   },
@@ -122,6 +124,9 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.grey[100]
   },
   textAmount: {
+    '&$disableText': {
+      color: theme.palette.grey[500]
+    },
     color     : theme.palette.primary.main,
     fontWeight: 'bold'
   },
@@ -492,10 +497,11 @@ const Table = ({
                 alignItems='center' className={classes.paymentText} display='flex'
                 marginRight={3}>
                 <Typography className={classes.textTotal} variant='h6'>Total</Typography>
-                <Typography className={classes.textAmount} variant='h5'>s/ {paymentAmount.toFixed(2)}</Typography>
+                <Typography className={clsx(classes.textAmount, { [classes.disableText]: !paymentAmount })} variant='h5'>s/ {paymentAmount.toFixed(2)}</Typography>
               </Box>
               <Button
-                className={classes.buttonFooter} color='primary' onClick={onHandlePaymentButton}
+                className={classes.buttonFooter} color='primary' disabled={!paymentAmount}
+                onClick={onHandlePaymentButton}
                 variant='contained'>Pagar</Button>
             </Box>
           </Box>
