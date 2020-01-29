@@ -8,15 +8,13 @@
 
 | prop             | type    | description                 |
 | :----------------|:--------| :---------------------------|
-| action           | node    | The action to display in the card header.|
-| avatar      | node  | The Avatar for the Card Header.  |
-| cardHeaderProps   | object  | Contains properties of CardHeader element . |
+| isRow           | boolean    | Buttons orientation |
+| name      | string  | Form Name  |
+| inputs   | object  | Each of the elements |
 | classes  | object  | Modify class.   |
-| content | node  | Card Content  |
-| disabledHover | bool  |  If is true,  gover disabled |
-| onClick | func  | Card Function |
-| sizePadding   | string  |  two values : 'small' or 'middle'   |  
-| title   | node o string  |  If is string title     | 
+| outlined | string  | Can be 'round' o  'square' |
+| onChange | func  | Return two values : event , index of element changed |
+| valueDefault | string or number  | radio Value default  |
 
 
 <h2> CSS </h2>
@@ -24,8 +22,4 @@
 
 | Rule name   | Global name | Description             |
 | :-----------|:--------| :---------------------------|
-| action |  .KrowdyCardContainer-action   | Styles applied to the action element.|
-| cardContent |  .KrowdyCardContent  | Styles applied to the content element.|
-| header      |  .MuiCardHeader-root | Styles applied to the root element of Header.  |
-| root | .KrowdyCardContainer   |   Styles applied to the root element of Card.|
-| title   |   | Styles applied to the title Typography element.|
+

@@ -6,16 +6,15 @@ interface IClassObject {
   size?: string,
 }
 
-interface IColor {
-  [index: number]: string;
-}
+
+type TypeOnchange = (event: any) => void
 
 export type CardExpand = {
   classes?: IClassObject,
-  color?: IColor,
   content?: React.ReactNode | string,
   defaultExpanded?: boolean,
   expandIcon?: React.ReactNode,
+  onChange?: TypeOnchange,
   title?: React.ReactNode | string
 };
 

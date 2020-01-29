@@ -26,11 +26,6 @@ export const styles = theme => ({
     height: 'calc(100% - 160px)'
   },
   expandHeader: {
-    // '&$expanded': {
-    //   backgroundColor: 'red',
-    //   height: '40px',
-    //   minHeight: '40px',
-    // },
     background: theme.palette.grey[50],
     border    : `1px solid ${theme.palette.grey[100]}`,
     height    : 40,
