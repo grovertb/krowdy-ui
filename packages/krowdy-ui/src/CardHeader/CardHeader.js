@@ -8,15 +8,12 @@ export const styles = theme => ({
   action: {
     margin: 0
   },
-  actionPosition: {
-    paddingTop: 10
-  },
   header: {
     position: 'relative'
   },
   icon: {
     position: 'absolute',
-    right   : 10
+    right   : 0
   },
   shadow: {
     boxShadow: `${theme.spacing(0, 0.25, 0.6)} rgba(0, 0, 0, 0.05)`
@@ -44,7 +41,7 @@ const CardHeader = React.forwardRef(function CardHeader({ ...props }, ref) {
   return <MuiCardHeader
     action={action}
     avatar={avatar}
-    classes={{ action: clsx(classes.action, classes.icon, { [classes.actionPosition]: avatar }), content: clsx({ [classes.titleStyles]: !avatar }), root: clsx(classes.styleLess, classes.header) }}
+    classes={{ action: clsx(classes.action, classes.icon), content: clsx({ [classes.titleStyles]: !avatar }), root: clsx(classes.styleLess, classes.header) }}
     className={clsx({ [classes.shadow]: shadow })}
     disableTypography
     ref={ref}
