@@ -5,20 +5,27 @@ import {
   IconButton,
   Input
 } from '@krowdy-ui/core'
+import clsx from 'clsx'
 
 export const styles = theme => ({
+  fontSizeMiddle: {
+    fontSize: 14
+  },
+  fontSizeSmall: {
+    fontSize: 12
+  },
   input: {
-    textAlign: 'center'
+    padding  : theme.spacing(0.5, 0),
+    textAlign: 'center',
+    width    : 40
   },
   root: {
     borderBottom: `1px solid ${theme.palette.grey[500]}`,
     color       : theme.palette.grey[700],
-    fontSize    : 14,
     fontStyle   : 'normal',
     fontWeight  : 'normal',
     lineHeight  : '100%',
-    textAlign   : 'center',
-    width       : 23
+    textAlign   : 'center'
   }
 })
 
@@ -36,6 +43,7 @@ const Counter = props => {
     min,
     name,
     max,
+    type = 'medium',
     disabled,
     number,
     onChange = () => { }
@@ -62,7 +70,7 @@ const Counter = props => {
       <Input
         classes={{
           input: classes.input,
-          root : classes.root
+          root : clsx(classes.root, { [classes.fontSizeSmall]: type === 'small', [classes.fontSizeMiddle]: type === 'medium' })
         }}
         disabled={disabled}
         disableUnderline
@@ -91,7 +99,8 @@ Counter.propTypes = {
   name      : PropTypes.string,
   number    : PropTypes.number.isRequired,
   onChange  : PropTypes.func,
-  removeIcon: PropTypes.node.isRequired
+  removeIcon: PropTypes.node.isRequired,
+  type      : PropTypes.string
 }
 
 Counter.muiName = 'Counter'
