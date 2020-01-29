@@ -16,9 +16,6 @@ export * from './CardCandidate'
 export { default as Search } from './Search'
 export * from './Search'
 
-export { default as Cards } from './Cards';
-export * from './Cards';
-
 export { default as Counter } from './Counter';
 export * from './Counter';
 
