@@ -184,10 +184,6 @@ const pages: Array<Page> = [
         title: 'Modal',
         path: '/views/modalkrowder'
       },
-      {
-        title: 'Radio Form',
-        path: '/views/radioform'
-      }
     ]
   },
 
