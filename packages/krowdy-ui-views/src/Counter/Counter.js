@@ -34,6 +34,7 @@ const Counter = props => {
     addIcon,
     removeIcon,
     min,
+    name,
     max,
     disabled,
     number,
@@ -65,6 +66,7 @@ const Counter = props => {
         }}
         disabled={disabled}
         disableUnderline
+        name={name}
         value={addLeadingZero(number)} />
       <IconButton
         color={color}
@@ -86,6 +88,7 @@ Counter.propTypes = {
   disabled  : PropTypes.bool,
   max       : PropTypes.number,
   min       : PropTypes.number,
+  name      : PropTypes.string,
   number    : PropTypes.number.isRequired,
   onChange  : PropTypes.func,
   removeIcon: PropTypes.node.isRequired
