@@ -219,7 +219,6 @@ const HeaderTask = props => {
           null
         }
       </div >
-
     </Paper >
 
   )
