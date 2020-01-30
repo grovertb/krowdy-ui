@@ -42,6 +42,9 @@ const useStyles = makeStyles(theme => ({
   //   height         : 50,
   //   justifyContent : 'flex-end'
   // },
+  drawerIcon: {
+    color: 'inherit'
+  },
   drawerPaper: {
     '&:hover': {
       boxShadow: '0 10px 30px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)',
@@ -52,12 +55,12 @@ const useStyles = makeStyles(theme => ({
     overflow   : 'hidden',
     position   : 'absolute',
     transition : theme.transitions.create('width', {
-      duration: theme.transitions.duration.short,
+      duration: theme.transitions.duration.standard,
       easing  : theme.transitions.easing.easeInOut
     }),
     whiteSpace: 'nowrap',
     width     : drawerWidth,
-    zIndex    : 1
+    zIndex    : 100
   },
   drawerPaperClose: {
     width: drawerWidthMin
@@ -116,47 +119,43 @@ const useStyles = makeStyles(theme => ({
     position      : 'relative'
   },
   main: {
-    display      : 'flex',
-    flexDirection: 'column',
-    minHeight    : '100vh',
-    width        : '100%'
+    backgroundColor: theme.palette.grey[200],
+    display        : 'flex',
+    flex           : 1,
+    position       : 'relative'
   },
   menuButton: {
     marginRight: theme.spacing(2)
   },
   menuDashboardItem: {
-    '&:active': {
-      '& > div': {
-        color: 'inherit'
-      },
-      backgroundColor: theme.palette.primary.main
-    },
-    alignItems   : 'center',
-    color        : theme.palette.common.white,
-    display      : 'flex',
-    paddingBottom: 10,
-    paddingLeft  : 16,
-    paddingRight : 16,
-    paddingTop   : 10,
-    width        : '100%'
-  },
-  menuDashboardItemActive: {
-    '& > div': {
-      color: 'inherit'
-    },
-    '&:active': {
-      backgroundColor: theme.palette.common.white,
-      color          : theme.palette.primary.main
-    },
-    backgroundColor: theme.palette.common.white,
-    color          : theme.palette.primary.main
+    alignItems: 'center',
+    display   : 'flex',
+    padding   : theme.spacing(1, 2),
+    width     : '100%'
   },
   menuDashboardItemLink: {
     display: 'flex'
   },
   menuDashboardListItem: {
-    paddingBottom: 0,
-    paddingTop   : 0
+    // '&:hover': {
+    //   backgroundColor: theme.palette.primary[600]
+    // },
+    color  : theme.palette.common.white,
+    padding: 0
+  },
+  menuDashboardListItemActive: {
+    '&:hover': {
+      backgroundColor: theme.palette.common.white
+    },
+    // '& > div': {
+    //   color: 'inherit'
+    // },
+    // '&:active': {
+    //   backgroundColor: theme.palette.common.white,
+    //   color          : theme.palette.primary.main
+    // },
+    backgroundColor: theme.palette.common.white,
+    color          : theme.palette.primary.main
   },
   menuItemContentName: {
     '&:focus': {
@@ -212,7 +211,10 @@ const useStyles = makeStyles(theme => ({
     width          : 34
   },
   root: {
-    flexGrow: 1
+    display      : 'flex',
+    flexDirection: 'column',
+    minHeight    : '100vh',
+    width        : '100%'
   },
   title: {
     color   : theme.palette.primary.main,
@@ -250,12 +252,6 @@ const useStyles = makeStyles(theme => ({
   topBar: {
     backgroundColor: theme.palette.common.white,
     boxShadow      : '0px 2px 5px rgba(0, 0, 0, 0.1)'
-  },
-  wrapper: {
-    backgroundColor: theme.palette.grey[200],
-    display        : 'flex',
-    flex           : 1,
-    position       : 'relative'
   },
   wrapperContent: {
     borderRadius  : 4,
@@ -308,9 +304,10 @@ function Dashboard(props) {
   const _handleCloseMenu = () => setAnchorEl(null)
 
   return (
-    <div className={classes.main}>
+    <div className={classes.root}>
       <AppBar
         className={classes.topBar}
+        color='default'
         position='relative'>
         <Toolbar className={classes.toolbar} >
           <IconButton
@@ -485,7 +482,7 @@ function Dashboard(props) {
           </div>
         </Toolbar>
       </AppBar>
-      <div className={classes.wrapper}>
+      <main className={classes.main}>
         <div className={classes.drawerContent}>
           <Drawer
             classes={{
@@ -523,23 +520,29 @@ function Dashboard(props) {
                     (
                       <ListItem
                         button
-                        className={classes.menuDashboardListItem}
+                        className={clsx(
+                          classes.menuDashboardListItem,
+                          {
+                            [classes.menuDashboardListItemActive]: location.pathname === item.url
+                          }
+                        )}
+                        // className={clsx(
+                        //     classes.menuDashboardItem,
+                        //     {
+                        //       [classes.menuDashboardItemActive]: location.pathname === item.url
+                        //     }
+                        //   )}
                         disableGutters
                         key={index}>
                         <Link
-                          className={clsx(
-                            classes.menuDashboardItem,
-                            {
-                              [classes.menuDashboardItemActive]: location.pathname === item.url
-                            }
-                          )}
+                          className={classes.menuDashboardItem}
                           color='inherit'
                           target={item.target}
                           underline='none'
                           {...linkProps}>
                           {
                             item.icon ?
-                              <ListItemIcon className={classes.iconMenu}>
+                              <ListItemIcon className={classes.drawerIcon}>
                                 {item.icon}
                               </ListItemIcon> :
                               null
@@ -559,7 +562,7 @@ function Dashboard(props) {
         <div className={classes.wrapperContent}>
           {children}
         </div>
-      </div>
+      </main>
     </div>
   )
 }
