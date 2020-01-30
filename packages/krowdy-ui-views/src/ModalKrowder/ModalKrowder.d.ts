@@ -1,6 +1,4 @@
-interface IFuncVoid {
-  (): void
-}
+type IFuncVoid = () => void
 interface IUser {
   email?: string
   firstName?: string
@@ -18,6 +16,7 @@ export type ModalKrowderProps = {
   user?: IUser;
   onclose?: IFuncVoid
   open: boolean
+  onChangeCollapse?: IFuncVoid
   action?: React.ReactNode
   headerContent?: React.ReactNode
   collapses?: Array<ICollapse>
