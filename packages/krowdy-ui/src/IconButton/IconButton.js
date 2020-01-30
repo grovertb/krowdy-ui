@@ -60,10 +60,8 @@ const IconButton = React.forwardRef(function IconButton({ color = 'default', ...
   const className = clsx(
     classNameProps,
     {
-      [classes[`color${capitalize(color)}`]]: color !== 'default'
-    },
-    {
-      [classes.typeSquare]: square
+      [classes[`color${capitalize(color)}`]]: color !== 'default',
+      [classes.typeSquare]                  : square
     }
   )
 
