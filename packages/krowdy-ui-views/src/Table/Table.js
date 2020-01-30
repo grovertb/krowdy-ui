@@ -243,6 +243,10 @@ const Table = ({
     onHandleSelectItem(id)
   }
 
+  const _handleChangePage = (e, currentPage) => {
+    onHandleChangePage(parseInt(currentPage) + 1)
+  }
+
   return (
     <Paper className={classes.containerTable}>
       {
@@ -478,9 +482,9 @@ const Table = ({
             count={total}
             labelRowsPerPage='Filas por pagina'
             nextIconButtonText='Página siguiente'
-            onChangePage={onHandleChangePage}
+            onChangePage={_handleChangePage}
             onChangeRowsPerPage={onHandleChangeRowsPerPage}
-            page={page}
+            page={parseInt(page) - 1}
             rowsPerPage={perPage}
             rowsPerPageOptions={[ 10, 25, 100 ]} />
         ) : null

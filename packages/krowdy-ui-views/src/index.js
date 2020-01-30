@@ -1,7 +1,6 @@
 export { default as AudioRecorder } from './AudioRecorder'
 export { default as AvatarUser } from './AvatarUser'
 export { default as CardCandidate } from './CardCandidate'
-export { default as CardException } from './CardException'
 export { default as CardExpand } from './CardExpand'
 export * from './Cards'
 export { default as Counter } from './Counter'

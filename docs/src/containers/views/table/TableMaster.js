@@ -260,7 +260,7 @@ export default function () {
         onHandleToggleColumnTable={_handleToggleColumnTable}
         pagination={
           {
-            page   : 2,
+            page   : 1,
             perPage: 25,
             total  : 275
           }
