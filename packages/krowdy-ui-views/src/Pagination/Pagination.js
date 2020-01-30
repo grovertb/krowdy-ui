@@ -4,7 +4,7 @@ import { withStyles } from '@krowdy-ui/styles'
 import {
   Search as SearchIcon
 } from '@material-ui/icons'
-export const styles = theme => ({
+export const styles = () => ({
 
 })
 
