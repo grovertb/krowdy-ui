@@ -42,3 +42,6 @@ export * from './Table';
 
 export { default as ToggleRole } from './ToggleRole';
 export * from './ToggleRole';
+
+export { default as Pagination } from './Pagination';
+export * from './Pagination';
