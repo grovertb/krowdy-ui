@@ -45,8 +45,18 @@ const useStyles = makeStyles(theme => ({
   drawerIcon: {
     color: 'inherit'
   },
+  drawerLabel: {
+    '& > span': {
+      fontSize: '1rem'
+    },
+    transition: 'transform 300ms ease 0s, opacity 300ms ease 0s'
+  },
   drawerPaper: {
     '&:hover': {
+      '& $drawerLabel': {
+        opacity  : 1,
+        transform: 'translate3d(0px, 0, 0)'
+      },
       boxShadow: '0 10px 30px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)',
       width    : drawerWidth
     },
@@ -60,9 +70,13 @@ const useStyles = makeStyles(theme => ({
     }),
     whiteSpace: 'nowrap',
     width     : drawerWidth,
-    zIndex    : 100
+    zIndex    : 10
   },
   drawerPaperClose: {
+    '& $drawerLabel': {
+      opacity  : 0,
+      transform: 'translate3d(-25px, 0, 0)'
+    },
     width: drawerWidthMin
   },
   hiddenIsMobile: {
@@ -72,11 +86,6 @@ const useStyles = makeStyles(theme => ({
   },
   iconMenu: {
     color: theme.palette.common.white
-  },
-  labelDrawer: {
-    '& > span': {
-      fontSize: '1rem'
-    }
   },
   linkLabel: {
     '&:after': {
@@ -547,7 +556,7 @@ function Dashboard(props) {
                               null
                           }
                           <ListItemText
-                            className={classes.labelDrawer}
+                            className={classes.drawerLabel}
                             primary={item.title} />
                         </Link>
                       </ListItem>
