@@ -11,7 +11,7 @@ export default function () {
       flexDirection : 'column',
       height        : 400,
       justifyContent: 'space-evenly',
-      margin        : '50px',
+      margin        : 50,
       width         : 'auto'
     }}>
       <Pagination limits={limits} valueInputPages={5} />
