@@ -163,6 +163,7 @@ const translations = {
     '/components/steppers'                 : 'Steppers',
     '/components/surfaces'                 : 'Surfaces',
     '/components/switches'                 : 'Switches',
+    '/components/tab-panel'                : 'TabPanel',
     '/components/tables'                   : 'Tables',
     '/components/tabs'                     : 'Tabs',
     '/components/text-fields'              : 'Text Fields',

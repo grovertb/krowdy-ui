@@ -7,9 +7,6 @@ export * from './AvatarUser';
 export { default as CardCandidate } from './CardCandidate'
 export * from './CardCandidate'
 
-export { default as CardException } from './CardException';
-export * from './CardException';
-
 export { default as CardExpand } from './CardExpand'
 export * from './CardExpand'
 

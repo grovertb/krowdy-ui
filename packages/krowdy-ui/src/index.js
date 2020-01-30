@@ -316,6 +316,9 @@ export * from './TableSortLabel'
 export { default as TableToolbar } from './TableToolbar'
 export * from './TableToolbar'
 
+export { default as TabPanel } from './TabPanel'
+export * from './TabPanel'
+
 export { default as Tabs } from './Tabs'
 export * from './Tabs'
 
