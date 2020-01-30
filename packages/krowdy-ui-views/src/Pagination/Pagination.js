@@ -101,7 +101,7 @@ const Pagination = props => {
   } = props
 
   return (
-    <Box alignItems='center' display='flex'>
+    <Box className={classes.boxStyle} >
       <Typography className={classes.label}>Mostrar</Typography>
       <Select
         classes={{
