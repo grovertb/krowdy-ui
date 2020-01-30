@@ -25,6 +25,9 @@ export * from './DragComponent'
 export { default as JobDetail } from './JobDetail'
 export * from './JobDetail'
 
+export { default as ListWindow } from './ListWindow';
+export * from './ListWindow';
+
 export { default as ModalKrowder } from './ModalKrowder';
 export * from './ModalKrowder';
 
@@ -39,6 +42,9 @@ export * from './SwitchButton';
 
 export { default as Table } from './Table';
 export * from './Table';
+
+export { default as TableWindow } from './TableWindow';
+export * from './TableWindow';
 
 export { default as ToggleRole } from './ToggleRole';
 export * from './ToggleRole';
