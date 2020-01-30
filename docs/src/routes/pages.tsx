@@ -156,6 +156,15 @@ const pages: Array<Page> = [
         ]
       },
       {
+        title: 'P',
+        routes: [
+          {
+            title: 'Pagination',
+            path: '/views/pagination'
+          },
+        ]
+      },
+      {
         title: 'S',
         routes: [
           {
