@@ -1,6 +1,4 @@
-interface IFuncVoid {
-  (): void
-}
+type IFuncVoid = () => void
 interface IUser {
   email?: string
   firstName?: string
