@@ -162,20 +162,11 @@ const pages: Array<Page> = [
             title: 'Search',
             path: '/views/search'
           },
-          
+
           {
             title: 'SwitchButton',
             path: '/views/switchbutton'
           },
-        ]
-      },
-      {
-        title: 'R',
-        routes: [
-          {
-            title: 'Radio Form',
-            path: '/views/radioform'
-          }
         ]
       },
       {

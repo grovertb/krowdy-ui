@@ -28,9 +28,6 @@ export * from './JobDetail'
 export { default as ModalKrowder } from './ModalKrowder';
 export * from './ModalKrowder';
 
-export { default as RadioForm } from './RadioForm'
-export * from './RadioForm'
-
 export { default as Search } from './Search'
 export * from './Search'
 
