@@ -243,12 +243,10 @@ const useStyles = makeStyles(theme => ({
     flex           : 1
   },
   wrapperContent: {
-    // backgroundColor: theme.palette.common.white,
     borderRadius  : 4,
     display       : 'flex',
     flex          : 1,
     justifyContent: 'center',
-    // height        : 'calc(100vh - 88px)',
     margin        : theme.spacing(1),
     overflow      : 'auto',
     position      : 'relative'
