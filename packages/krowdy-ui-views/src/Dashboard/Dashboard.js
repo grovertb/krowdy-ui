@@ -303,6 +303,10 @@ function Dashboard(props) {
   const _handleOpenMenu = ev => setAnchorEl(ev.currentTarget)
   const _handleCloseMenu = () => setAnchorEl(null)
 
+  const _handlePreventRoute = mUrl => (ev) => {
+    if(location.pathname === mUrl) ev.preventDefault()
+  }
+
   return (
     <div className={classes.root}>
       <AppBar
@@ -526,17 +530,12 @@ function Dashboard(props) {
                             [classes.menuDashboardListItemActive]: location.pathname === item.url
                           }
                         )}
-                        // className={clsx(
-                        //     classes.menuDashboardItem,
-                        //     {
-                        //       [classes.menuDashboardItemActive]: location.pathname === item.url
-                        //     }
-                        //   )}
                         disableGutters
                         key={index}>
                         <Link
                           className={classes.menuDashboardItem}
                           color='inherit'
+                          onClick={_handlePreventRoute(item.url)}
                           target={item.target}
                           underline='none'
                           {...linkProps}>
