@@ -2,6 +2,8 @@ import React from 'react'
 import { Pagination } from '@krowdy-ui/views'
 
 export default function () {
+  const limits = [ 20, 50, 100 ]
+
   return (
     <div style={{
       alignItems    : 'center',
@@ -12,7 +14,7 @@ export default function () {
       margin        : '50px',
       width         : 'auto'
     }}>
-      <Pagination />
+      <Pagination limits={limits} valueInputPages={5} />
     </div>
   )
 }
