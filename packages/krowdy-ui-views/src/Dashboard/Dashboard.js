@@ -4,8 +4,7 @@ import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import { makeStyles } from '@krowdy-ui/styles'
 import {
-  Menu as MenuIcon,
-  ChevronLeft as ChevronLeftIcon
+  Menu as MenuIcon
 } from '@material-ui/icons'
 import {
   AppBar,
@@ -28,32 +27,45 @@ import { AvatarUser } from '@krowdy-ui/views'
 import capitalize from '../utils/capitalize'
 
 const drawerWidth = 210
+const drawerWidthMin = 56
 
 const useStyles = makeStyles(theme => ({
-  drawerContentIcon: {
-    '&:hover': {
-      backgroundColor: theme.palette.primary[600]
-    },
-    backgroundColor: theme.palette.primary[600],
-    color          : theme.palette.common.white,
-    height         : 50,
-    justifyContent : 'flex-end'
+  drawerContent: {
+    width: drawerWidthMin
   },
+  // drawerContentIcon: {
+  //   '&:hover': {
+  //     backgroundColor: theme.palette.primary[600]
+  //   },
+  //   backgroundColor: theme.palette.primary[600],
+  //   color          : theme.palette.common.white,
+  //   height         : 50,
+  //   justifyContent : 'flex-end'
+  // },
   drawerPaper: {
+    '&:hover': {
+      boxShadow: '0 10px 30px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)',
+      width    : drawerWidth
+    },
     background : theme.palette.primary.main,
     borderRight: '0',
     overflow   : 'hidden',
-    position   : 'relative',
+    position   : 'absolute',
     transition : theme.transitions.create('width', {
-      duration: theme.transitions.duration.enteringScreen,
-      easing  : theme.transitions.easing.sharp
+      duration: theme.transitions.duration.short,
+      easing  : theme.transitions.easing.easeInOut
     }),
     whiteSpace: 'nowrap',
     width     : drawerWidth,
     zIndex    : 1
   },
   drawerPaperClose: {
-    width: 56
+    width: drawerWidthMin
+  },
+  hiddenIsMobile: {
+    [theme.breakpoints.up('md')]: {
+      display: 'none'
+    }
   },
   iconMenu: {
     color: theme.palette.common.white
@@ -98,8 +110,9 @@ const useStyles = makeStyles(theme => ({
     display       : 'flex',
     height        : 64,
     justifyContent: 'center',
-    marginLeft    : theme.spacing(3),
-    marginRight   : 10,
+    // marginLeft    : theme.spacing(3),
+    // marginRight   : 10,
+    margin        : theme.spacing(0, 1),
     position      : 'relative'
   },
   main: {
@@ -235,21 +248,25 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(0, 1)
   },
   topBar: {
-    backgroundColor: theme.palette.common.white
+    backgroundColor: theme.palette.common.white,
+    boxShadow      : '0px 2px 5px rgba(0, 0, 0, 0.1)'
   },
   wrapper: {
     backgroundColor: theme.palette.grey[200],
     display        : 'flex',
-    flex           : 1
+    flex           : 1,
+    position       : 'relative'
   },
   wrapperContent: {
     borderRadius  : 4,
     display       : 'flex',
     flex          : 1,
     justifyContent: 'center',
-    margin        : theme.spacing(1),
+    // margin        : theme.spacing(1),
     overflow      : 'auto',
+    padding       : theme.spacing(1),
     position      : 'relative'
+    // width         : `calc(100% - ${drawerWidthMin}px)`
   }
 }), { name: 'Dashboard' })
 
@@ -294,9 +311,13 @@ function Dashboard(props) {
     <div className={classes.main}>
       <AppBar
         className={classes.topBar}
-        elevation={1}
         position='relative'>
-        <Toolbar className={classes.toolbar}>
+        <Toolbar className={classes.toolbar} >
+          <IconButton
+            aria-label='menu' className={classes.hiddenIsMobile} edge='start'
+            onClick={_handleClickToggleDrawer}>
+            <MenuIcon />
+          </IconButton>
           <Link className={classes.logoCompany} component={RouterLink} to='/'>
             <img
               alt='Logo Main'
@@ -465,74 +486,76 @@ function Dashboard(props) {
         </Toolbar>
       </AppBar>
       <div className={classes.wrapper}>
-        <Drawer
-          classes={{
-            paper: clsx(
-              classes.drawerPaper,
-              {
-                [classes.drawerPaperClose]: isOpenDrawer
-              }
-            )
-          }}
-          open={isOpenDrawer}
-          variant='permanent'>
-          <List disablePadding>
-            <ListItem
+        <div className={classes.drawerContent}>
+          <Drawer
+            classes={{
+              paper: clsx(
+                classes.drawerPaper,
+                {
+                  [classes.drawerPaperClose]: !isOpenDrawer
+                }
+              )
+            }}
+            open={isOpenDrawer}
+            variant='permanent'>
+            <List disablePadding>
+              {/* <ListItem
               button
               className={classes.drawerContentIcon}
               onClick={_handleClickToggleDrawer}>
               {
-                !isOpenDrawer ? <ChevronLeftIcon /> : <MenuIcon />
+                isOpenDrawer ? <ChevronLeftIcon /> : <MenuIcon />
               }
             </ListItem>
-            <Divider />
-            {
-              menus.map((item, index) => {
-                const linkProps = isExternalURL(item.url) ?
-                  {
-                    href: item.url
-                  } :
-                  {
-                    component: RouterLink,
-                    to       : item.url
-                  }
+            <Divider /> */}
+              {
+                menus.map((item, index) => {
+                  const linkProps = isExternalURL(item.url) ?
+                    {
+                      href: item.url
+                    } :
+                    {
+                      component: RouterLink,
+                      to       : item.url
+                    }
 
-                return (
-                  (
-                    <ListItem
-                      button
-                      className={classes.menuDashboardListItem}
-                      disableGutters
-                      key={index}>
-                      <Link
-                        className={clsx(
-                          classes.menuDashboardItem,
+                  return (
+                    (
+                      <ListItem
+                        button
+                        className={classes.menuDashboardListItem}
+                        disableGutters
+                        key={index}>
+                        <Link
+                          className={clsx(
+                            classes.menuDashboardItem,
+                            {
+                              [classes.menuDashboardItemActive]: location.pathname === item.url
+                            }
+                          )}
+                          color='inherit'
+                          target={item.target}
+                          underline='none'
+                          {...linkProps}>
                           {
-                            [classes.menuDashboardItemActive]: location.pathname === item.url
+                            item.icon ?
+                              <ListItemIcon className={classes.iconMenu}>
+                                {item.icon}
+                              </ListItemIcon> :
+                              null
                           }
-                        )}
-                        color='inherit'
-                        target={item.target}
-                        underline='none'
-                        {...linkProps}>
-                        {
-                          item.icon ?
-                            <ListItemIcon className={classes.iconMenu}>
-                              {item.icon}
-                            </ListItemIcon> :
-                            null
-                        }
-                        <ListItemText
-                          className={classes.labelDrawer}
-                          primary={item.title} />
-                      </Link>
-                    </ListItem>
+                          <ListItemText
+                            className={classes.labelDrawer}
+                            primary={item.title} />
+                        </Link>
+                      </ListItem>
+                    )
                   )
-                )
-              })
-            }
-          </List>
-        </Drawer>
+                })
+              }
+            </List>
+          </Drawer>
+        </div>
         <div className={classes.wrapperContent}>
           {children}
         </div>
