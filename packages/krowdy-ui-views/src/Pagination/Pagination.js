@@ -9,6 +9,10 @@ import { Box, Typography, InputBase, Select, MenuItem, Input, IconButton } from 
 import clsx from 'clsx'
 
 export const styles = theme => ({
+  boxStyle: {
+    alignItems: 'center',
+    display   : 'flex'
+  },
   color: {
     color: theme.palette.grey[700]
   },
@@ -79,6 +83,7 @@ export const styles = theme => ({
   slash           : {
     padding: theme.spacing(0, 0.75)
   }
+
 })
 
 const Pagination = props => {
@@ -123,7 +128,7 @@ const Pagination = props => {
             value={limit}>{limit}</MenuItem>
         ))}
       </Select>
-      <Box alignItems='center' display='flex'>
+      <Box className={classes.boxStyle}>
         <IconButton className={classes.rootLeftIcon} size='small'>
           <ArrowLeftIcon
             className={classes.icon}
