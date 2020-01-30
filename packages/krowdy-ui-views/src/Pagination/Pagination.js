@@ -75,10 +75,8 @@ export const styles = theme => ({
     lineHeight: '14px',
     textAlign : 'center'
   },
-  selectedMenuItem: {
-
-  },
-  slash: {
+  selectedMenuItem: {},
+  slash           : {
     padding: theme.spacing(0, 0.75)
   }
 })
@@ -89,8 +87,8 @@ const Pagination = props => {
     onChangeLimitSelect,
     valueLimitSelect,
     onClickBackPage,
-    onChangeInput,
-    onKeyDownInput,
+    onChangeInputPages,
+    onKeyDownInputPages,
     valueInputPages,
     limits = [],
     totalPages,
@@ -137,8 +135,8 @@ const Pagination = props => {
             root : classes.rootTextfield
           }}
           disableUnderline
-          onChange={onChangeInput}
-          onKeyDown={onKeyDownInput}
+          onChange={onChangeInputPages}
+          onKeyDown={onKeyDownInputPages}
           value={valueInputPages} />
         <Typography className={classes.slash}>/</Typography>
         <Typography>{totalPages > 0 ? totalPages : 1}</Typography>
@@ -155,11 +153,11 @@ const Pagination = props => {
 Pagination.propTypes = {
   classes            : PropTypes.object,
   limits             : PropTypes.array,
-  onChangeInput      : PropTypes.func,
+  onChangeInputPages : PropTypes.func,
   onChangeLimitSelect: PropTypes.func,
   onClickBackPage    : PropTypes.func,
   onClickNextPage    : PropTypes.func,
-  onKeyDownInput     : PropTypes.func,
+  onKeyDownInputPages: PropTypes.func,
   totalPages         : PropTypes.number,
   valueInputPages    : PropTypes.number,
   valueLimitSelect   : PropTypes.number
