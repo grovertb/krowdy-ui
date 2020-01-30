@@ -21,18 +21,3 @@ Props:
 |  valueInputPages                   |      number          |          | Value for input pages              |	
 | valueLimitSelect                   |      number          |          | Value for select               |	
 |                                    |                      |          |               |	
-
-
-
-   : PropTypes.func,
-
-	
-  
- 
-  onChangeLimitSelect: PropTypes.func,
-  onClickBackPage    : PropTypes.func,
-  onClickNextPage    : PropTypes.func,
-  onKeyDownInputPages: PropTypes.func,
-  totalPages         : PropTypes.number,
-  valueInputPages    : PropTypes.number,
-  valueLimitSelect   : PropTypes.number
