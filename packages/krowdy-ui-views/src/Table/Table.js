@@ -178,7 +178,6 @@ const Table = ({
 }) => {
   const { orderBy = '', sort = 'asc' } = sortTable
   const { total, page, perPage } = pagination
-  console.log('TCL: page', parseInt(page - 1))
   const validateNewCellProps = Object.keys(newCellProps).length
   const classes = useStyles()
   const inputSearch = useRef(null)
@@ -245,7 +244,7 @@ const Table = ({
   }
 
   const _handleChangePage = (e, currentPage) => {
-    onHandleChangePage(parseInt(currentPage + 1))
+    onHandleChangePage(parseInt(currentPage) + 1)
   }
 
   return (
@@ -485,7 +484,7 @@ const Table = ({
             nextIconButtonText='Página siguiente'
             onChangePage={_handleChangePage}
             onChangeRowsPerPage={onHandleChangeRowsPerPage}
-            page={parseInt(page - 1)}
+            page={parseInt(page) - 1}
             rowsPerPage={perPage}
             rowsPerPageOptions={[ 10, 25, 100 ]} />
         ) : null
