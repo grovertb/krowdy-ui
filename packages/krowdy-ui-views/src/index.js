@@ -13,3 +13,5 @@ export { default as Table } from './Table'
 export { default as ModalKrowder } from './ModalKrowder'
 export { default as AvatarUser } from './AvatarUser'
 export { default as ToggleRole } from './ToggleRole'
+export { default as Pagination } from './Pagination'
+

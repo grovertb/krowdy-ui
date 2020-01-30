@@ -130,7 +130,6 @@ const TablePagination = React.forwardRef(function TablePagination({ ...props }) 
       classes: {
         root: clsx(classes.nextIcon, classes.color)
       }
-
     }}
     SelectProps={{
       classes: {
