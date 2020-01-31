@@ -104,7 +104,7 @@ const Pagination = props => {
   const onClickButton = (type) => {
     if(type === 'left')
       page > 1 && onChangePage(page - 1)
-    if(type === 'right')
+    else if(type === 'right')
       page < totalPages && onChangePage(page + 1)
   }
 

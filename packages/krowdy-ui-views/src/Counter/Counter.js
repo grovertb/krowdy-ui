@@ -53,7 +53,7 @@ const Counter = props => {
     if(type === 'increase')
       number > min && onChange(number - 1)
 
-    if(type === 'decrease')
+    else if(type === 'decrease')
       number < max && onChange(number + 1)
   }
 
