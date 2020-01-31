@@ -57,12 +57,19 @@ const Counter = props => {
       number < max && onChange(number + 1)
   }
 
+  const _handleCLickIncrease = () => {
+    onClick('increase')
+  }
+  const _handleCLickDecrease = () => {
+    onClick('decrease')
+  }
+
   return (
     <div >
       <IconButton
         color={color}
         disabled={disabled}
-        onClick={() => onClick('increase')}
+        onClick={_handleCLickIncrease}
         size={size}
         square>
         {removeIcon}
@@ -79,12 +86,11 @@ const Counter = props => {
       <IconButton
         color={color}
         disabled={disabled}
-        onClick={() => onClick('decrease')}
+        onClick={_handleCLickDecrease}
         size={size}
         square>
         {addIcon}
       </IconButton>
-
     </div >
   )
 }

@@ -101,6 +101,12 @@ const Pagination = props => {
     totalPages
   } = props
 
+  const _handleClickLeft = () => {
+    onClickButton('left')
+  }
+  const _handleClickRight = () => {
+    onClickButton('right')
+  }
   const onClickButton = (type) => {
     if(type === 'left')
       page > 1 && onChangePage(page - 1)
@@ -139,7 +145,7 @@ const Pagination = props => {
       <Box className={classes.boxStyle}>
         <IconButton
           className={classes.rootLeftIcon}
-          onClick={() => onClickButton('left')}
+          onClick={_handleClickLeft}
           size='small'>
           <ArrowLeftIcon
             className={classes.icon} />
@@ -155,7 +161,7 @@ const Pagination = props => {
         <Typography>{totalPages > 0 ? totalPages : 1}</Typography>
         <IconButton
           className={classes.rootRightIcon}
-          onClick={() => onClickButton('right')}
+          onClick={_handleClickRight}
           size='small'>
           <ArrowRightIcon
             className={classes.icon} />
