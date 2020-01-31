@@ -12,12 +12,12 @@ Props:
 |:-----------------------------------|:---------------------|:---------|:-------------| 
 |   classes                          |   object             |          |               |
 |     limits                         |       array          |          | Limits of input select.   |
-|     onChangeInputPages             |  function            |          | Function about input present page. |
-| onChangeLimitSelect                |      function        |          |Function OnChange for select              |
-|    onClickBackPage                 |    function          |          | Function onclick for back icon.              |
-|  onClickNextPage                   |   function           |          | Function onclick for next icon.              |
-|  onKeyDownInputPages               |   function           |          | Function onkeydown for input of pages              |
+|     onChangePage             |  function            |          | Function about input present page. |
+| onChangeSelect                     |      function        |          |Function OnChange for select              |
 |  totalPages                        |      number          |          | Show total pages              |
-|  valueInputPages                   |      number          |          | Value for input pages              |	
-| valueLimitSelect                   |      number          |          | Value for select               |	
+|  page                   |      number          |          | Value for input pages              |	
+| valueSelect                   |      number          |          | Value for select               |	
 |                                    |                      |          |               |	
+
+
+
