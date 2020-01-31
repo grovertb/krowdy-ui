@@ -22,6 +22,10 @@ export const styles = theme => ({
   },
   input: {
     fontSize : 12,
+    textAlign: 'center'
+  },
+  inputSel: {
+    fontSize : 12,
     padding  : theme.spacing(0.625, 1),
     textAlign: 'center'
   },
@@ -89,16 +93,26 @@ export const styles = theme => ({
 const Pagination = props => {
   const {
     classes,
-    onChangeLimitSelect,
-    valueLimitSelect,
-    onClickBackPage,
-    onChangeInputPages,
-    onKeyDownInputPages,
-    valueInputPages,
+    onChangeSelect = () => { },
+    valueSelect,
+    onChangePage = () => { },
+    page,
     limits = [],
-    totalPages,
-    onClickNextPage
+    totalPages
   } = props
+
+  const _handleClickLeft = () => {
+    onClickButton('left')
+  }
+  const _handleClickRight = () => {
+    onClickButton('right')
+  }
+  const onClickButton = (type) => {
+    if(type === 'left')
+      page > 1 && onChangePage(page - 1)
+    else if(type === 'right')
+      page < totalPages && onChangePage(page + 1)
+  }
 
   return (
     <Box className={classes.boxStyle} >
@@ -112,12 +126,12 @@ const Pagination = props => {
         input={<InputBase />}
         inputProps={{
           classes: {
-            input: clsx(classes.input, classes.color),
+            input: clsx(classes.inputSel, classes.color),
             root : clsx(classes.inputSelect, classes.color)
           }
         }}
-        onChange={onChangeLimitSelect}
-        value={valueLimitSelect}>
+        onChange={onChangeSelect}
+        value={valueSelect}>
         {limits.map((limit, index) => (
           <MenuItem
             classes={{
@@ -129,10 +143,12 @@ const Pagination = props => {
         ))}
       </Select>
       <Box className={classes.boxStyle}>
-        <IconButton className={classes.rootLeftIcon} size='small'>
+        <IconButton
+          className={classes.rootLeftIcon}
+          onClick={_handleClickLeft}
+          size='small'>
           <ArrowLeftIcon
-            className={classes.icon}
-            onClick={onClickBackPage} />
+            className={classes.icon} />
         </IconButton>
         <Input
           classes={{
@@ -140,15 +156,15 @@ const Pagination = props => {
             root : classes.rootTextfield
           }}
           disableUnderline
-          onChange={onChangeInputPages}
-          onKeyDown={onKeyDownInputPages}
-          value={valueInputPages} />
+          value={page} />
         <Typography className={classes.slash}>/</Typography>
         <Typography>{totalPages > 0 ? totalPages : 1}</Typography>
-        <IconButton className={classes.rootRightIcon} size='small'>
+        <IconButton
+          className={classes.rootRightIcon}
+          onClick={_handleClickRight}
+          size='small'>
           <ArrowRightIcon
-            className={classes.icon}
-            onClick={onClickNextPage} />
+            className={classes.icon} />
         </IconButton>
       </Box>
     </Box>
@@ -156,16 +172,12 @@ const Pagination = props => {
 }
 
 Pagination.propTypes = {
-  classes            : PropTypes.object,
-  limits             : PropTypes.array,
-  onChangeInputPages : PropTypes.func,
-  onChangeLimitSelect: PropTypes.func,
-  onClickBackPage    : PropTypes.func,
-  onClickNextPage    : PropTypes.func,
-  onKeyDownInputPages: PropTypes.func,
-  totalPages         : PropTypes.number,
-  valueInputPages    : PropTypes.number,
-  valueLimitSelect   : PropTypes.number
+  limits        : PropTypes.array,
+  onChangePage  : PropTypes.func,
+  onChangeSelect: PropTypes.func,
+  page          : PropTypes.number,
+  totalPages    : PropTypes.number,
+  valueSelect   : PropTypes.number
 }
 
 Pagination.muiName = 'Pagination'

@@ -25,7 +25,7 @@ export type PaginationProps = {
   classes: Classes,
   limits: number[],
   onChangeInputPages: IFunInputPages,
-  onChangeLimitSelect: IFuncLimit,
+  onChangeSelect: IFuncLimit,
   onClickBackPage: IFunBackPage,
   onClickNextPage: IFunNextPage,
   onKeyDownInputPages: IFunKeyInputPages,
