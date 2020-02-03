@@ -68,6 +68,15 @@ const pages: Array<Page> = [
           }
         ]
       },
+      {
+        title: 'Navigation',
+        routes: [
+          {
+            title: 'Tabs',
+            path: '/components/tabs'
+          }
+        ]
+      },
     ]
   },
   {
@@ -109,10 +118,6 @@ const pages: Array<Page> = [
           {
             title: 'Card Expand',
             path: '/views/cardexpand'
-          },
-          {
-            title: 'Card Exception',
-            path: '/views/cardexception'
           },
           {
             title: 'Card Candidate',
@@ -184,6 +189,9 @@ const pages: Array<Page> = [
           {
             title: 'Table',
             path: '/views/table'
+          },{
+            title: 'Table Window',
+            path: '/views/tablewindow'
           },
         ]
       },

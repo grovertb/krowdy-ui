@@ -4,8 +4,7 @@ import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import { makeStyles } from '@krowdy-ui/styles'
 import {
-  Menu as MenuIcon,
-  ChevronLeft as ChevronLeftIcon
+  Menu as MenuIcon
 } from '@material-ui/icons'
 import {
   AppBar,
@@ -28,40 +27,65 @@ import { AvatarUser } from '@krowdy-ui/views'
 import capitalize from '../utils/capitalize'
 
 const drawerWidth = 210
+const drawerWidthMin = 56
 
 const useStyles = makeStyles(theme => ({
-  drawerContentIcon: {
-    '&:hover': {
-      backgroundColor: theme.palette.primary[600]
+  drawerContent: {
+    width: drawerWidthMin
+  },
+  // drawerContentIcon: {
+  //   '&:hover': {
+  //     backgroundColor: theme.palette.primary[600]
+  //   },
+  //   backgroundColor: theme.palette.primary[600],
+  //   color          : theme.palette.common.white,
+  //   height         : 50,
+  //   justifyContent : 'flex-end'
+  // },
+  drawerIcon: {
+    color: 'inherit'
+  },
+  drawerLabel: {
+    '& > span': {
+      fontSize: '1rem'
     },
-    backgroundColor: theme.palette.primary[600],
-    color          : theme.palette.common.white,
-    height         : 50,
-    justifyContent : 'flex-end'
+    transition: 'transform 300ms ease 0s, opacity 300ms ease 0s'
   },
   drawerPaper: {
+    '&:hover': {
+      '& $drawerLabel': {
+        opacity  : 1,
+        transform: 'translate3d(0px, 0, 0)'
+      },
+      boxShadow: '0 10px 30px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)',
+      width    : drawerWidth
+    },
     background : theme.palette.primary.main,
     borderRight: '0',
     overflow   : 'hidden',
-    position   : 'relative',
+    position   : 'absolute',
     transition : theme.transitions.create('width', {
-      duration: theme.transitions.duration.enteringScreen,
-      easing  : theme.transitions.easing.sharp
+      duration: theme.transitions.duration.standard,
+      easing  : theme.transitions.easing.easeInOut
     }),
     whiteSpace: 'nowrap',
     width     : drawerWidth,
-    zIndex    : 1
+    zIndex    : 10
   },
   drawerPaperClose: {
-    width: 56
+    '& $drawerLabel': {
+      opacity  : 0,
+      transform: 'translate3d(-25px, 0, 0)'
+    },
+    width: drawerWidthMin
+  },
+  hiddenIsMobile: {
+    [theme.breakpoints.up('md')]: {
+      display: 'none'
+    }
   },
   iconMenu: {
     color: theme.palette.common.white
-  },
-  labelDrawer: {
-    '& > span': {
-      fontSize: '1rem'
-    }
   },
   linkLabel: {
     '&:after': {
@@ -98,52 +122,49 @@ const useStyles = makeStyles(theme => ({
     display       : 'flex',
     height        : 64,
     justifyContent: 'center',
-    marginLeft    : theme.spacing(3),
-    marginRight   : 10,
+    // marginLeft    : theme.spacing(3),
+    // marginRight   : 10,
+    margin        : theme.spacing(0, 1),
     position      : 'relative'
   },
   main: {
-    display      : 'flex',
-    flexDirection: 'column',
-    minHeight    : '100vh',
-    width        : '100%'
+    backgroundColor: theme.palette.grey[200],
+    display        : 'flex',
+    flex           : 1,
+    position       : 'relative'
   },
   menuButton: {
     marginRight: theme.spacing(2)
   },
   menuDashboardItem: {
-    '&:active': {
-      '& > div': {
-        color: 'inherit'
-      },
-      backgroundColor: theme.palette.primary.main
-    },
-    alignItems   : 'center',
-    color        : theme.palette.common.white,
-    display      : 'flex',
-    paddingBottom: 10,
-    paddingLeft  : 16,
-    paddingRight : 16,
-    paddingTop   : 10,
-    width        : '100%'
-  },
-  menuDashboardItemActive: {
-    '& > div': {
-      color: 'inherit'
-    },
-    '&:active': {
-      backgroundColor: theme.palette.common.white,
-      color          : theme.palette.primary.main
-    },
-    backgroundColor: theme.palette.common.white,
-    color          : theme.palette.primary.main
+    alignItems: 'center',
+    display   : 'flex',
+    padding   : theme.spacing(1, 2),
+    width     : '100%'
   },
   menuDashboardItemLink: {
     display: 'flex'
   },
   menuDashboardListItem: {
-    paddingBottom: 0,
-    paddingTop   : 0
+    // '&:hover': {
+    //   backgroundColor: theme.palette.primary[600]
+    // },
+    color  : theme.palette.common.white,
+    padding: 0
+  },
+  menuDashboardListItemActive: {
+    '&:hover': {
+      backgroundColor: theme.palette.common.white
+    },
+    // '& > div': {
+    //   color: 'inherit'
+    // },
+    // '&:active': {
+    //   backgroundColor: theme.palette.common.white,
+    //   color          : theme.palette.primary.main
+    // },
+    backgroundColor: theme.palette.common.white,
+    color          : theme.palette.primary.main
   },
   menuItemContentName: {
     '&:focus': {
@@ -199,7 +220,10 @@ const useStyles = makeStyles(theme => ({
     width          : 34
   },
   root: {
-    flexGrow: 1
+    display      : 'flex',
+    flexDirection: 'column',
+    minHeight    : '100vh',
+    width        : '100%'
   },
   title: {
     color   : theme.palette.primary.main,
@@ -235,22 +259,19 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(0, 1)
   },
   topBar: {
-    backgroundColor: theme.palette.common.white
-  },
-  wrapper: {
-    backgroundColor: theme.palette.grey[200],
-    display        : 'flex',
-    flex           : 1
+    backgroundColor: theme.palette.common.white,
+    boxShadow      : '0px 2px 5px rgba(0, 0, 0, 0.1)'
   },
   wrapperContent: {
-    // backgroundColor: theme.palette.common.white,
     borderRadius  : 4,
     display       : 'flex',
     flex          : 1,
-    // height        : 'calc(100vh - 88px)',
     justifyContent: 'center',
-    margin        : theme.spacing(1),
-    overflow      : 'auto'
+    // margin        : theme.spacing(1),
+    overflow      : 'auto',
+    padding       : theme.spacing(1),
+    position      : 'relative'
+    // width         : `calc(100% - ${drawerWidthMin}px)`
   }
 }), { name: 'Dashboard' })
 
@@ -291,13 +312,22 @@ function Dashboard(props) {
   const _handleOpenMenu = ev => setAnchorEl(ev.currentTarget)
   const _handleCloseMenu = () => setAnchorEl(null)
 
+  const _handlePreventRoute = mUrl => (ev) => {
+    if(location.pathname === mUrl) ev.preventDefault()
+  }
+
   return (
-    <div className={classes.main}>
+    <div className={classes.root}>
       <AppBar
         className={classes.topBar}
-        elevation={1}
+        color='default'
         position='relative'>
-        <Toolbar className={classes.toolbar}>
+        <Toolbar className={classes.toolbar} >
+          <IconButton
+            aria-label='menu' className={classes.hiddenIsMobile} edge='start'
+            onClick={_handleClickToggleDrawer}>
+            <MenuIcon />
+          </IconButton>
           <Link className={classes.logoCompany} component={RouterLink} to='/'>
             <img
               alt='Logo Main'
@@ -465,79 +495,82 @@ function Dashboard(props) {
           </div>
         </Toolbar>
       </AppBar>
-      <div className={classes.wrapper}>
-        <Drawer
-          classes={{
-            paper: clsx(
-              classes.drawerPaper,
-              {
-                [classes.drawerPaperClose]: isOpenDrawer
-              }
-            )
-          }}
-          open={isOpenDrawer}
-          variant='permanent'>
-          <List disablePadding>
-            <ListItem
+      <main className={classes.main}>
+        <div className={classes.drawerContent}>
+          <Drawer
+            classes={{
+              paper: clsx(
+                classes.drawerPaper,
+                {
+                  [classes.drawerPaperClose]: !isOpenDrawer
+                }
+              )
+            }}
+            open={isOpenDrawer}
+            variant='permanent'>
+            <List disablePadding>
+              {/* <ListItem
               button
               className={classes.drawerContentIcon}
               onClick={_handleClickToggleDrawer}>
               {
-                !isOpenDrawer ? <ChevronLeftIcon /> : <MenuIcon />
+                isOpenDrawer ? <ChevronLeftIcon /> : <MenuIcon />
               }
             </ListItem>
-            <Divider />
-            {
-              menus.map((item, index) => {
-                const linkProps = isExternalURL(item.url) ?
-                  {
-                    href: item.url
-                  } :
-                  {
-                    component: RouterLink,
-                    to       : item.url
-                  }
+            <Divider /> */}
+              {
+                menus.map((item, index) => {
+                  const linkProps = isExternalURL(item.url) ?
+                    {
+                      href: item.url
+                    } :
+                    {
+                      component: RouterLink,
+                      to       : item.url
+                    }
 
-                return (
-                  (
-                    <ListItem
-                      button
-                      className={classes.menuDashboardListItem}
-                      disableGutters
-                      key={index}>
-                      <Link
+                  return (
+                    (
+                      <ListItem
+                        button
                         className={clsx(
-                          classes.menuDashboardItem,
+                          classes.menuDashboardListItem,
                           {
-                            [classes.menuDashboardItemActive]: location.pathname === item.url
+                            [classes.menuDashboardListItemActive]: location.pathname === item.url
                           }
                         )}
-                        color='inherit'
-                        target={item.target}
-                        underline='none'
-                        {...linkProps}>
-                        {
-                          item.icon ?
-                            <ListItemIcon className={classes.iconMenu}>
-                              {item.icon}
-                            </ListItemIcon> :
-                            null
-                        }
-                        <ListItemText
-                          className={classes.labelDrawer}
-                          primary={item.title} />
-                      </Link>
-                    </ListItem>
+                        disableGutters
+                        key={index}>
+                        <Link
+                          className={classes.menuDashboardItem}
+                          color='inherit'
+                          onClick={_handlePreventRoute(item.url)}
+                          target={item.target}
+                          underline='none'
+                          {...linkProps}>
+                          {
+                            item.icon ?
+                              <ListItemIcon className={classes.drawerIcon}>
+                                {item.icon}
+                              </ListItemIcon> :
+                              null
+                          }
+                          <ListItemText
+                            className={classes.drawerLabel}
+                            primary={item.title} />
+                        </Link>
+                      </ListItem>
+                    )
                   )
-                )
-              })
-            }
-          </List>
-        </Drawer>
+                })
+              }
+            </List>
+          </Drawer>
+        </div>
         <div className={classes.wrapperContent}>
           {children}
         </div>
-      </div>
+      </main>
     </div>
   )
 }

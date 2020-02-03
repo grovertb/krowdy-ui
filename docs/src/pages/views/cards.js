@@ -9,10 +9,10 @@ const reqSource = require.context(
 )
 const reqPrefix = 'containers/views/cards'
 
-function Page() {
-  return <MarkdownDocs
-    disableAd req={req} reqPrefix={reqPrefix}
+export default () => (
+  <MarkdownDocs
+    disableAd
+    req={req}
+    reqPrefix={reqPrefix}
     reqSource={reqSource} />
-}
-
-export default Page
+)

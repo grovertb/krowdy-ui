@@ -158,10 +158,12 @@ export default function () {
       amountPayable: 15,
       amountTasks  : 0,
       currentTasks : 2,
+      disabled     : true,
       extra        : 'Status',
       incharge     : 'Jimena',
       incidents    : 0,
       name         : 'Juana de Arco',
+      selected     : true,
       status       : 'Hace 2 dias',
       type         : [ 'LL', 'Ln' ]
     }, {
@@ -258,7 +260,7 @@ export default function () {
         onHandleToggleColumnTable={_handleToggleColumnTable}
         pagination={
           {
-            page   : 2,
+            page   : 1,
             perPage: 25,
             total  : 275
           }
