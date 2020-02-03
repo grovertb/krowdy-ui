@@ -248,7 +248,7 @@ const Table = ({
   }
 
   return (
-    <Paper className={classes.containerTable}>
+    <Paper className={classes.containerTable} variant='outlined'>
       {
         withHeader ? (
           <div className={clsx(classes.containerHeaderTable, { [classes.spaceBetween]: titleTable })}>
