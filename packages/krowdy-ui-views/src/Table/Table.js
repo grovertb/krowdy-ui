@@ -138,7 +138,7 @@ const useStyles = makeStyles(theme => ({
   titleTable: {
     fontWeight: 'bold'
   }
-}))
+}), { name: 'KrowdyTable' })
 
 const Table = ({
   titleTable,
