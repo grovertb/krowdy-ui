@@ -5,20 +5,27 @@ import {
   IconButton,
   Input
 } from '@krowdy-ui/core'
+import clsx from 'clsx'
 
 export const styles = theme => ({
+  fontSizemedium: {
+    fontSize: 14
+  },
+  fontSizesmall: {
+    fontSize: 12
+  },
   input: {
-    textAlign: 'center'
+    padding  : theme.spacing(0.5, 0),
+    textAlign: 'center',
+    width    : 40
   },
   root: {
     borderBottom: `1px solid ${theme.palette.grey[500]}`,
     color       : theme.palette.grey[700],
-    fontSize    : 14,
     fontStyle   : 'normal',
     fontWeight  : 'normal',
     lineHeight  : '100%',
-    textAlign   : 'center',
-    width       : 23
+    textAlign   : 'center'
   }
 })
 
@@ -34,7 +41,9 @@ const Counter = props => {
     addIcon,
     removeIcon,
     min,
+    name,
     max,
+    type = 'medium',
     disabled,
     number,
     onChange = () => { }
@@ -44,8 +53,15 @@ const Counter = props => {
     if(type === 'increase')
       number > min && onChange(number - 1)
 
-    if(type === 'decrease')
+    else if(type === 'decrease')
       number < max && onChange(number + 1)
+  }
+
+  const _handleCLickIncrease = () => {
+    onClick('increase')
+  }
+  const _handleCLickDecrease = () => {
+    onClick('decrease')
   }
 
   return (
@@ -53,7 +69,7 @@ const Counter = props => {
       <IconButton
         color={color}
         disabled={disabled}
-        onClick={() => onClick('increase')}
+        onClick={_handleCLickIncrease}
         size={size}
         square>
         {removeIcon}
@@ -61,20 +77,20 @@ const Counter = props => {
       <Input
         classes={{
           input: classes.input,
-          root : classes.root
+          root : clsx(classes.root, classes[`fontSize${type}`], classes[`fontSize${type}`])
         }}
         disabled={disabled}
         disableUnderline
+        name={name}
         value={addLeadingZero(number)} />
       <IconButton
         color={color}
         disabled={disabled}
-        onClick={() => onClick('decrease')}
+        onClick={_handleCLickDecrease}
         size={size}
         square>
         {addIcon}
       </IconButton>
-
     </div >
   )
 }
@@ -86,9 +102,11 @@ Counter.propTypes = {
   disabled  : PropTypes.bool,
   max       : PropTypes.number,
   min       : PropTypes.number,
+  name      : PropTypes.string,
   number    : PropTypes.number.isRequired,
   onChange  : PropTypes.func,
-  removeIcon: PropTypes.node.isRequired
+  removeIcon: PropTypes.node.isRequired,
+  type      : PropTypes.oneOf([ 'small', 'middle' ])
 }
 
 Counter.muiName = 'Counter'

@@ -1,13 +1,11 @@
 import React, { useState } from 'react'
 import { Search } from '@krowdy-ui/views'
-import SearchIcon from '@material-ui/icons/Search'
 
 export default function () {
   const [ search, setSearch ] = useState('')
 
   const type = 'border-bottom'
   const placeholder = 'Buscar candidatos'
-  const searchIcon = <SearchIcon />
   const onChange = event => {
     setSearch(event.target.value)
   }
@@ -23,19 +21,17 @@ export default function () {
       flexDirection : 'column',
       height        : 400,
       justifyContent: 'space-evenly',
-      margin        : '50px',
+      margin        : 50,
       width         : 'auto'
     }}>
       <Search
         onChange={onChange}
         onKeyDown={onKeyDown}
         placeholder={placeholder}
-        searchIcon={searchIcon}
         type={type}
         value={search} />
       <Search
-        placeholder={placeholder}
-        searchIcon={searchIcon} />
+        placeholder={placeholder} />
     </div>
   )
 }

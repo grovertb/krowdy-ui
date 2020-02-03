@@ -11,8 +11,11 @@ export const styles = theme => ({
   defaultColor: {
     backgroundColor: theme.palette.grey[0]
   },
+  expandIcon: {
+    position: 'absolute',
+    right   : 12
+  },
   expanded: {
-    margin   : theme.spacing(0, 1.5),
     minHeight: 0
   },
   gray: {
@@ -20,7 +23,7 @@ export const styles = theme => ({
   },
   heading: {
     fontWeight   : 'bold',
-    paddingLeft  : 12,
+    padding      : theme.spacing(0, 1.5),
     verticalAlign: 'middle'
   },
   iconDragContainer: {
@@ -55,7 +58,7 @@ const CardExpand = props => {
         onChange={onChange}>
 
         <ExpansionPanelSummary
-          classes={{ content: classes.styleLess, expanded: classes.expanded, root: classes.styleLess }}
+          classes={{ content: classes.styleLess, expandIcon: classes.expandIcon, expanded: classes.expanded, root: classes.styleLess }}
           expandIcon={expandIcon ? expandIcon : null}>
           <Typography className={clsx(classes.heading, classes.size)} component='div'>
             {title}
@@ -66,7 +69,7 @@ const CardExpand = props => {
           <Typography className={clsx(classes.content, classes.size)} component='div'>
             {content}</Typography>
         </ExpansionPanelDetails>
-      </ExpansionPanel>
+      </ExpansionPanel >
     </div >
   )
 }

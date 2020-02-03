@@ -161,26 +161,26 @@ const pages: Array<Page> = [
         ]
       },
       {
+        title: 'P',
+        routes: [
+          {
+            title: 'Pagination',
+            path: '/views/pagination'
+          },
+        ]
+      },
+      {
         title: 'S',
         routes: [
           {
             title: 'Search',
             path: '/views/search'
           },
-          
+
           {
             title: 'SwitchButton',
             path: '/views/switchbutton'
           },
-        ]
-      },
-      {
-        title: 'R',
-        routes: [
-          {
-            title: 'Radio Form',
-            path: '/views/radioform'
-          }
         ]
       },
       {

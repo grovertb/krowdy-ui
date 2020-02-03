@@ -1,11 +1,10 @@
 import React from 'react'
-import { Grid } from '@krowdy-ui/core'
-import { CardContainer } from '@krowdy-ui/views/Cards'
+import { Grid, Card } from '@krowdy-ui/core'
 
 export default function () {
   return (
     <Grid container>
-      <CardContainer />
+      <Card />
     </Grid>
   )
 }

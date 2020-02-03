@@ -18,8 +18,8 @@ export default function () {
       flexDirection : 'column',
       height        : 400,
       justifyContent: 'space-evenly',
-      margin        : '50px',
-      width         : 'auto'
+      margin        : 50,
+      width         : 300
     }}>
       <CardCandidate
         _id={1}
@@ -27,9 +27,7 @@ export default function () {
         firstName={firstName}
         lastName={lastName}
         onChangeCheckbox={_handleChange}
-        src={src}
-        style={{ height: 40, width: 300 }} />
-      <CardCandidate />
+        src={src} />
     </div>
   )
 }
