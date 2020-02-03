@@ -74,7 +74,8 @@ function ModalKrowder(props) {
     onChangeCollapse,
     headerContent,
     collapses = [],
-    classes
+    classes,
+    minWidth = 320
   } = props
 
   const [ expanded, setExpanded ] = React.useState(false)
@@ -82,6 +83,11 @@ function ModalKrowder(props) {
   const _handleChangeCollapse = panel => (event, isExpanded) => {
     onChangeCollapse({ event, isExpanded, panel })
     setExpanded(isExpanded ? panel : false)
+  }
+
+  const _handleOnClose = () => {
+    onclose()
+    setExpanded(false)
   }
 
   return (
@@ -93,13 +99,13 @@ function ModalKrowder(props) {
       className={classes.modal}
       closeAfterTransition
       disableAutoFocus={true}
-      onClose={onclose}
+      onClose={_handleOnClose}
       open={open}>
       <>
-        <Card className={classes.card}>
+        <Card className={classes.card} style={{ minWidth: minWidth }}>
           <CardHeader
             action={
-              <IconButton aria-label='settings' onClick={onclose}>
+              <IconButton aria-label='settings' onClick={_handleOnClose}>
                 <CloseIcon />
               </IconButton>
             }
@@ -162,6 +168,7 @@ ModalKrowder.propTypes = {
     })
   ),
   headerContent   : PropTypes.element,
+  minWidth        : PropTypes.number,
   onChangeCollapse: PropTypes.func,
   onclose         : PropTypes.func.isRequired,
   open            : PropTypes.bool.isRequired,
