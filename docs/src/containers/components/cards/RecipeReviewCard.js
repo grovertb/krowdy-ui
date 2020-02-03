@@ -41,7 +41,7 @@ const useStyles = makeStyles(theme => ({
     height    : 0,
     paddingTop: '56.25%' // 16:9
   }
-}))
+}), { name: 'RecipeReviewCard' })
 
 export default function RecipeReviewCard() {
   const classes = useStyles()

@@ -17,7 +17,7 @@ const useStyles = makeStyles({
   title: {
     fontSize: 14
   }
-})
+}, { name: 'OutlinedCard' })
 
 export default function OutlinedCard() {
   const classes = useStyles()
