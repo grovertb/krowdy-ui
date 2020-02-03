@@ -23,7 +23,7 @@ const useStyles = makeStyles({
   title: {
     fontSize: 14
   }
-})
+}, { name: 'SimpleCard' })
 
 export default function SimpleCard() {
   const classes = useStyles()

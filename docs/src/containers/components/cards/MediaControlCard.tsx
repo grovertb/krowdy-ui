@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
     height: 38,
     width : 38
   }
-}))
+}), { name: 'MediaControlCard' })
 
 export default function MediaControlCard() {
   const classes = useStyles()

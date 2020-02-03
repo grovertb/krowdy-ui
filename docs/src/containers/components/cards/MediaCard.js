@@ -15,7 +15,7 @@ const useStyles = makeStyles({
   media: {
     height: 140
   }
-})
+}, { name: 'MediaCard' })
 
 export default function MediaCard() {
   const classes = useStyles()

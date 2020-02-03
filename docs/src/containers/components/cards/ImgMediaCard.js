@@ -12,7 +12,7 @@ const useStyles = makeStyles({
   card: {
     maxWidth: 345
   }
-})
+}, { name: 'ImgMediaCard' })
 
 export default function ImgMediaCard() {
   const classes = useStyles()
