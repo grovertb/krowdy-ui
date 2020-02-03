@@ -1,6 +1,6 @@
 {
   "name": "@krowdy-ui/views",
-  "version": "0.0.25-next",
+  "version": "0.0.26-next",
   "private": false,
   "author": "Krowdy Team",
   "description": "React components that implement Google's Material Design.",
@@ -32,10 +32,10 @@
   },
   "peerDependencies": {},
   "dependencies": {
-    "@krowdy-ui/core": "0.0.34",
+    "@krowdy-ui/core": "0.0.35",
     "@loadable/component": "5.12.0",
-    "@material-ui/icons": "4.5.1",
-    "@material-ui/lab": "^4.0.0-alpha.40",
+    "@material-ui/icons": "4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.41",
     "mic-recorder-to-mp3": "^2.2.1",
     "react-beautiful-dnd": "12.2.0",
     "react-compound-timer": "^1.1.15",
