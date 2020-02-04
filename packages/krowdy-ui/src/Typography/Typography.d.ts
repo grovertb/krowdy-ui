@@ -8,6 +8,7 @@ import { PropTypes } from '..';
 type PropsTypography = {
   color?: 'initial' | 'inherit' | 'primary' | 'secondary' | 'textPrimary' | 'textSecondary' | 'error' | 'body' | 'info';
   variant?: Variant | 'srOnly' | 'inherit' | 'display1' | 'display2' | 'body3' | 'info1' | 'info2';
+  component?: React.ElementType;
 }
 
 export type KrowdyTypographyProps = Omit<TypographyProps, keyof PropsTypography> & PropsTypography;
