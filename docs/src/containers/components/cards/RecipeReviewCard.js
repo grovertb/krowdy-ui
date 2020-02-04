@@ -12,7 +12,6 @@ import {
   IconButton,
   Typography
 } from '@krowdy-ui/core'
-import { red } from '@material-ui/core/colors'
 import {
   Favorite as FavoriteIcon,
   Share as ShareIcon,
@@ -22,7 +21,7 @@ import {
 
 const useStyles = makeStyles(theme => ({
   avatar: {
-    backgroundColor: red[500]
+    backgroundColor: theme.palette.primary.main
   },
   card: {
     maxWidth: 345
