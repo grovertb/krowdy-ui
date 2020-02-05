@@ -136,6 +136,126 @@ const rows = [
     name         : 'Pedro Colmenarez',
     status       : 'Invitado',
     type         : [ 'LL', 'Ln' ]
+  },
+  {
+    _id          : '3',
+    amountPayable: 123,
+    amountTasks  : 4,
+    currentTasks : 2,
+    extra        : 'Status',
+    incharge     : 'Jimena',
+    incidents    : 2,
+    name         : 'Pedro Colmenarez',
+    status       : 'Invitado',
+    type         : [ 'LL', 'Ln' ]
+  },
+  {
+    _id          : '3',
+    amountPayable: 123,
+    amountTasks  : 4,
+    currentTasks : 2,
+    extra        : 'Status',
+    incharge     : 'Jimena',
+    incidents    : 2,
+    name         : 'Pedro Colmenarez',
+    status       : 'Invitado',
+    type         : [ 'LL', 'Ln' ]
+  },
+  {
+    _id          : '3',
+    amountPayable: 123,
+    amountTasks  : 4,
+    currentTasks : 2,
+    extra        : 'Status',
+    incharge     : 'Jimena',
+    incidents    : 2,
+    name         : 'Pedro Colmenarez',
+    status       : 'Invitado',
+    type         : [ 'LL', 'Ln' ]
+  },
+  {
+    _id          : '3',
+    amountPayable: 123,
+    amountTasks  : 4,
+    currentTasks : 2,
+    extra        : 'Status',
+    incharge     : 'Jimena',
+    incidents    : 2,
+    name         : 'Pedro Colmenarez',
+    status       : 'Invitado',
+    type         : [ 'LL', 'Ln' ]
+  },
+  {
+    _id          : '3',
+    amountPayable: 123,
+    amountTasks  : 4,
+    currentTasks : 2,
+    extra        : 'Status',
+    incharge     : 'Jimena',
+    incidents    : 2,
+    name         : 'Pedro Colmenarez',
+    status       : 'Invitado',
+    type         : [ 'LL', 'Ln' ]
+  },
+  {
+    _id          : '3',
+    amountPayable: 123,
+    amountTasks  : 4,
+    currentTasks : 2,
+    extra        : 'Status',
+    incharge     : 'Jimena',
+    incidents    : 2,
+    name         : 'Pedro Colmenarez',
+    status       : 'Invitado',
+    type         : [ 'LL', 'Ln' ]
+  },
+  {
+    _id          : '3',
+    amountPayable: 123,
+    amountTasks  : 4,
+    currentTasks : 2,
+    extra        : 'Status',
+    incharge     : 'Jimena',
+    incidents    : 2,
+    name         : 'Pedro Colmenarez',
+    status       : 'Invitado',
+    type         : [ 'LL', 'Ln' ]
+  },
+  {
+    _id          : '3',
+    amountPayable: 123,
+    amountTasks  : 4,
+    currentTasks : 2,
+    extra        : 'Status',
+    incharge     : 'Jimena',
+    incidents    : 2,
+    name         : 'Pedro Colmenarez',
+    status       : 'Invitado',
+    type         : [ 'LL', 'Ln' ]
+  },
+  {
+    _id          : '3',
+    amountPayable: 123,
+    amountTasks  : 4,
+    currentTasks : 2,
+    extra        : 'Status',
+    incharge     : 'Jimena',
+    incidents    : 2,
+    name         : 'Pedro Colmenarez',
+    status       : 'Invitado',
+    type         : [ 'LL', 'Ln' ]
+  },
+  {
+    _id          : '3',
+    amountPayable: 123,
+    amountTasks  : 4,
+    currentTasks : 2,
+    extra        : 'Status',
+    incharge     : 'Jimena',
+    incidents    : 2,
+    name         : 'Pedro Colmenarez',
+    status       : 'Invitado',
+    type         : [ 'LL', 'Ln' ]
   }
 ]
 
@@ -218,10 +338,12 @@ function ModalKrowderDoc({ classes }) {
 
   const Tasks = () => <Table
     columns={demoColumns}
+    maxHeight={'40vh'}
     rows={rows} />
 
   const Payments = () => <Table
     columns={demoColumns}
+    maxHeight={'40vh'}
     onHandlePaymentButton={() => {}}
     onHandleSelectAll={() => {}}
     onHandleSelectItem={() => {}}

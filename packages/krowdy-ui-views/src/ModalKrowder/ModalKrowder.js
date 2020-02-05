@@ -23,6 +23,10 @@ export const styles = theme => ({
   collapsesContent: {
     height: 'calc(100% - 160px)'
   },
+  expandContent: {
+    height  : '40vh',
+    overflow: 'auto'
+  },
   expandHeader: {
     background: theme.palette.grey[50],
     border    : `1px solid ${theme.palette.grey[100]}`,
