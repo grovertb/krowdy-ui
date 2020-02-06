@@ -153,7 +153,8 @@ export default function () {
       name         : 'Juan Perez',
       status       : 'En linea',
       type         : [ 'LL', 'Ln', 'VoD', 'VE' ]
-    }, {
+    },
+    {
       _id          : '1',
       amountPayable: 15,
       amountTasks  : 0,
@@ -270,12 +271,7 @@ export default function () {
           }
         }
         paymentAmount={0}
-        rows={[
-          ...rows,
-          ...rows,
-          ...rows,
-          ...rows
-        ]}
+        rows={rows}
         searchSuggestions={searchSuggestions}
         sortTable={sort}
         stickyHeader={true}
