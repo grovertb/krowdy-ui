@@ -238,21 +238,25 @@ export default function () {
   }
 
   return (
-    <Grid container>
+    <Grid
+      container style={{
+        height  : '50vh',
+        overflow: 'hidden'
+      }}>
       <Table
         columns={columns}
         enableAddCell={false}
         iconButton={<AddIcon />}
-        // maxHeight={400}
         newCellProps={newCellProps}
+        // maxHeight={400}
         onHandleAddNewCell={_handleAddNewCell}
         onHandleBtnAction={_handleBtnAction}
         onHandleChangePage={_handleChangePage}
         onHandleChangeRowsPerPage={_handleChangeRowsPerPage}
         onHandleClickRow={_handleClickRow}
         onHandlePaymentButton={_handlePaymentButton}
-        // titleTable='Tabla de Krowders'
         onHandleSearch={_handleSearch}
+        // titleTable='Tabla de Krowders'
         onHandleSelectAll={_handleSelectAll}
         onHandleSelectAutocomplete={_handleSelectAutocomplete}
         onHandleSelectItem={_handleSelectItem}
@@ -266,9 +270,15 @@ export default function () {
           }
         }
         paymentAmount={0}
-        rows={rows}
+        rows={[
+          ...rows,
+          ...rows,
+          ...rows,
+          ...rows
+        ]}
         searchSuggestions={searchSuggestions}
         sortTable={sort}
+        stickyHeader={true}
         titleButton='Agregar Krowder'
         withAutocomplete={true}
         withButton={false}
