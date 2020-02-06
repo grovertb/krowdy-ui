@@ -131,6 +131,8 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.grey[200],
     display        : 'flex',
     flex           : 1,
+    height         : '100%',
+    overflow       : 'hidden',
     position       : 'relative'
   },
   menuButton: {
@@ -222,7 +224,8 @@ const useStyles = makeStyles(theme => ({
   root: {
     display      : 'flex',
     flexDirection: 'column',
-    minHeight    : '100vh',
+    height       : '100vh',
+    overflow     : 'hidden',
     width        : '100%'
   },
   title: {
@@ -269,6 +272,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
     // margin        : theme.spacing(1),
     overflow      : 'auto',
+    overflow      : 'hidden',
     padding       : theme.spacing(1),
     position      : 'relative'
     // width         : `calc(100% - ${drawerWidthMin}px)`
