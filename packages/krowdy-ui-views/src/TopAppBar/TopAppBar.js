@@ -1,5 +1,6 @@
 import React from 'react'
-import { Link as RouterLink, useHistory } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import { Link as RouterLink/* , useHistory*/ } from 'react-router-dom'
 import clsx from 'clsx'
 import { makeStyles } from '@krowdy-ui/styles'
 import { AppBar, Toolbar, IconButton, Link, Button, Menu, Typography, Divider, MenuItem } from '@krowdy-ui/core'
@@ -7,43 +8,108 @@ import {
   Menu as MenuIcon
 } from '@material-ui/icons'
 import AvatarUser from '../AvatarUser'
-import capitalize from '../utils/capitalize'
-const useStyles = makeStyles({})
+import { capitalize, isExternalURL } from '../utils'
+
+const useStyles = makeStyles(theme => ({
+  logoCompany: {
+    '& > img': {
+      maxHeight: 50,
+      maxWidth : 115
+    },
+    alignItems    : 'center',
+    cursor        : 'pointer',
+    display       : 'flex',
+    justifyContent: 'center',
+    margin        : theme.spacing(0, 2),
+    position      : 'relative'
+  },
+  menuItemContentName: {
+    '&:focus': {
+      outline: 'none'
+    },
+    display      : 'flex',
+    flexDirection: 'column'
+  },
+  menuItemName: {
+    fontSize  : '1rem',
+    fontWeight: 600,
+    lineHeight: 1.5,
+    padding   : theme.spacing(.75, 2)
+  },
+  menuLink: {
+    '& > a': {
+      color  : theme.palette.grey[800],
+      display: 'block',
+      width  : '100%'
+    },
+    '& > a:hover': {
+      textDecoration: 'none'
+    },
+    '&:hover': {
+      textDecoration: 'none'
+    },
+    padding       : theme.spacing(1, 2),
+    textDecoration: 'none',
+    width         : '100%'
+  },
+  notificationIcon: {
+    // '& svg': {
+    //   fontSize: '1.75rem'
+    // },
+    // '&:hover': {
+    //   backgroundColor: 'transparent',
+    //   color          : theme.palette.grey[500]
+    // },
+    color  : theme.palette.grey[600],
+    padding: theme.spacing(1)
+  },
+  toolbarCenter: {
+    display       : 'flex',
+    flex          : 1,
+    justifyContent: 'space-between'
+  },
+  toolbarCenterLeft: {
+    '& > a': {
+      '&:first-child': {
+        marginLeft: 0
+      },
+      marginLeft: theme.spacing(1)
+    },
+    padding: theme.spacing(0, 1)
+  },
+  toolbarCenterRight: {
+    '& > a': {
+      '&:last-child': {
+        marginRight: 0
+      },
+      marginRight: theme.spacing(1)
+    },
+    padding: theme.spacing(0, 1)
+  },
+  topBar: {
+    boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.1)'
+  }
+}), { name: 'TopAppBar' })
 
 function TopAppBar(props) {
   const {
-    color = 'default'
+    color = 'default',
+    logo = {},
+    user = {},
+    onHandleToggleDrawer,
+    onHandleLogout,
+    userMenu = [],
+    menuTopRight = [],
+    menuTopLeft = []
   } = props
 
-  const logo = {}
-  const user = {}
-  const menuTopLeft = [], menuTopRight = [], userMenu = []
-
-  const history = useHistory()
+  // const history = useHistory()
   const classes = useStyles()
 
   const [ anchorEl, setAnchorEl ] = React.useState(null)
 
-  console.log('Grover: TopAppBar -> setAnchorEl', setAnchorEl)
-  console.log('Grover: TopAppBar -> history', history)
-
-  const _handleClickToggleDrawer = () => {
-
-  }
-
-  const _handleCloseMenu = () => {
-
-  }
-
-  const _handleOpenMenu = () => {
-
-  }
-
-  const _handleLogout = () => {
-
-  }
-
-  const isExternalURL = () => true
+  const _handleOpenMenu = ev => setAnchorEl(ev.currentTarget)
+  const _handleCloseMenu = () => setAnchorEl(null)
 
   return (
     <AppBar
@@ -51,14 +117,18 @@ function TopAppBar(props) {
       color={color}
       position='relative'>
       <Toolbar className={classes.toolbar} >
-        <IconButton
-          aria-label='menu'
-          className={classes.hiddenIsMobile}
-          color='inherit'
-          edge='start'
-          onClick={_handleClickToggleDrawer}>
-          <MenuIcon />
-        </IconButton>
+        {
+          onHandleToggleDrawer ?
+            <IconButton
+              aria-label='menu'
+              className={classes.hiddenIsMobile}
+              color='inherit'
+              edge='start'
+              onClick={onHandleToggleDrawer}>
+              <MenuIcon />
+            </IconButton>:
+            null
+        }
         <Link className={classes.logoCompany} component={RouterLink} to='/'>
           <img
             alt='Logo Main'
@@ -193,40 +263,56 @@ function TopAppBar(props) {
               <Divider />
             </li>
             {
-              userMenu.length ?
-                userMenu.map((item, n) => (
-                  item.type === 'action' ?
-                    <MenuItem
-                      className={classes.menuLink}
-                      key={n}
-                      onClick={_handleLogout}>
-                      {item.title}
-                    </MenuItem> :
+              userMenu.map((item, index) => (
+                <MenuItem
+                  className={classes.menuLink}
+                  key={`user-menu-${index}`}>
+                  {
                     isExternalURL(item.url) ?
-                      <MenuItem
-                        className={classes.menuLink}
-                        key={n}>
-                        <Link
-                          component='a'
-                          href={item.url}
-                          target={item.target ? item.target : '_blank'}>{item.title}</Link>
-                      </MenuItem> :
-                      <MenuItem
-                        className={classes.menuLink}
-                        key={n}>
-                        <Link
-                          component={RouterLink}
-                          to={item.url}>
-                          {item.title}
-                        </Link>
-                      </MenuItem>
-                )) : null
+                      <Link
+                        component='a'
+                        href={item.url}
+                        target={item.target || '_blank'}>
+                        {item.title}
+                      </Link> :
+                      <Link
+                        component={RouterLink}
+                        to={item.url}>
+                        {item.title}
+                      </Link>
+                  }
+                </MenuItem>
+              ))
+            }
+            {
+              onHandleLogout ?
+                <MenuItem
+                  className={classes.menuLink}
+                  onClick={onHandleLogout}>
+                  Cerrar Sesión
+                </MenuItem>:
+                null
             }
           </Menu>
         </div>
       </Toolbar>
     </AppBar>
   )
+}
+
+TopAppBar.propTypes = {
+  color: PropTypes.oneOf([ 'default', 'inherit', 'primary', 'secondary', 'krowdy', 'error' ]),
+  logo : PropTypes.shape({
+    alt   : PropTypes.string,
+    source: PropTypes.string
+  }),
+  onHandleLogout      : PropTypes.func,
+  onHandleToggleDrawer: PropTypes.func,
+  user                : PropTypes.shape({
+    firstName: PropTypes.string,
+    lastName : PropTypes.string,
+    photo    : PropTypes.string
+  })
 }
 
 export default TopAppBar
