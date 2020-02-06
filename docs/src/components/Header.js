@@ -10,6 +10,9 @@ import { makeStyles } from '@krowdy-ui/styles'
 import clsx from 'clsx'
 
 const useStyles = makeStyles(theme => ({
+  appBar: {
+
+  },
   appBarHome: {
     boxShadow: 'none'
   },

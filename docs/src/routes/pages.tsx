@@ -77,6 +77,15 @@ const pages: Array<Page> = [
           }
         ]
       },
+      {
+        title: 'Surfaces',
+        routes: [
+          {
+            title: 'Card',
+            path: '/components/cards'
+          },
+        ]
+      }
     ]
   },
   {
@@ -111,10 +120,6 @@ const pages: Array<Page> = [
       {
         title: 'C',
         routes: [
-          {
-            title: 'Cards',
-            path: '/views/cards'
-          },
           {
             title: 'Card Expand',
             path: '/views/cardexpand'

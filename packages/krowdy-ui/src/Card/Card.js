@@ -5,84 +5,57 @@ import clsx from 'clsx'
 import { withStyles } from '@krowdy-ui/styles'
 
 export const styles = theme => ({
-  displayHover: {
+  hoverable: {
     '&:hover': {
-      border   : `1px solid ${theme.palette.primary[500]}`,
-      boxShadow: `${theme.spacing(0, 0.5, 0.6)}  rgba(0, 39, 102, 0.08), ${theme.spacing(0, 0.4, 1.75)} rgba(0, 39, 102, 0.04),  ${theme.spacing(0, 1, 1.25)} rgba(0, 39, 102, 0.05)`,
-      cursor   : 'pointer'
+      border   : `1px solid ${theme.palette.primary.main}`,
+      boxShadow: '0px 4px 5px rgba(0, 39, 102, 0.08), 0px 3px 14px rgba(0, 39, 102, 0.04), 0px 8px 10px rgba(0, 39, 102, 0.05)',
+      cursor   : 'pointer',
+      margin   : props => props.variant !== 'outlined' ?  -1: ''
     }
-  },
-  lessStyle: {
-    margin : 0,
-    padding: 0
-  },
-  outlineround: {
-    border      : `1px solid ${theme.palette.grey[300]}`,
-    borderRadius: 8
-  },
-  outlinesquare: {
-    border: `1px solid ${theme.palette.grey[300]}`
-  },
-  root: {
-    boxShadow: 'none',
-    fontSize : 14
-  },
-  sizePaddinglarge: {
-    padding: 20
-  },
-  sizePaddingmiddle: {
-    padding: 12
-  },
-  sizePaddingsmall: {
-    padding: 8
   }
 })
 
-const Card = React.forwardRef(function Card({ ...props }, ref) {
+const Card = React.forwardRef(function Card(props, ref) {
   const {
     className: classNameProps,
     classes,
-    hoverable,
-    sizePadding = 'middle',
-    outlined,
+    hoverable = false,
     ...otherProps
   } = props
 
-  return <MuiCard
-    classes={{
-      root: clsx(classes.lessStyle,
-        { [classes.displayHover]: hoverable, [classes[`outline${outlined}`]]: outlined },
-        classes[`sizePadding${sizePadding}`],
-        classes.root)
-    }}
-    raised={false}
-    ref={ref}
-    {...otherProps} />
+  return (
+    <MuiCard
+      className={
+        clsx(
+          classNameProps,
+          {
+            [classes.hoverable]: hoverable
+          }
+        )
+      }
+      ref={ref}
+      {...otherProps} />
+  )
 })
 
 Card.propTypes = {
   /**
    * The content of the Card.
    */
-  children   : PropTypes.node.isRequired,
+  children : PropTypes.node.isRequired,
   /**
    * Override or extend the styles applied to the component.
    * See [CSS API](#css) below for more details.
    */
-  className  : PropTypes.string,
+  className: PropTypes.string,
   /**
    * @ignore
    */
-  classes    : PropTypes.object,
+  classes  : PropTypes.object,
   /**
- * If `true`, the Card will be hover.
- */
-  hoverable  : PropTypes.bool,
-  /**
-   * Less shadow
+   * If `true`, the Card will be hover.
    */
-  outlined   : PropTypes.oneOf([ 'round', 'square' ]),
-  sizePadding: PropTypes.oneOf([ 'large', 'small', 'middle' ])
+  hoverable: PropTypes.bool
 }
 
 export default withStyles(styles, { name: 'KrowdyCard' })(Card)

@@ -8,6 +8,11 @@ export default {
         textTransform: 'initial'
       }
     },
+    MuiPaper: {
+      rounded: {
+        borderRadius: 8
+      }
+    },
     MuiTypography: {
       body1: {
         fontSize: '0.75rem'

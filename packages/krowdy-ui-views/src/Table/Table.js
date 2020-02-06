@@ -145,7 +145,7 @@ const useStyles = makeStyles(theme => ({
   titleTable: {
     fontWeight: 'bold'
   }
-}))
+}), { name: 'KrowdyTable' })
 
 const Table = ({
   titleTable,
@@ -255,7 +255,7 @@ const Table = ({
   }
 
   return (
-    <Paper className={classes.containerTable}>
+    <Paper className={classes.containerTable} variant='outlined'>
       {
         withHeader ? (
           <div className={clsx(classes.containerHeaderTable, { [classes.spaceBetween]: titleTable })}>
