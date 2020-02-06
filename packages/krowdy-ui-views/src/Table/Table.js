@@ -42,8 +42,12 @@ const useStyles = makeStyles(theme => ({
     width   : '100px'
   },
   container: {
+    '& > table': {
+      height: '100%'
+    },
+    flex    : 1,
+    overflow: 'auto'
     // maxHeight: 200,
-    // overflow : 'auto'
   },
   containerHeaderTable: {
     padding: theme.spacing(2)
@@ -53,8 +57,11 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'space-between'
   },
   containerTable: {
-    overflow: 'hidden',
-    width   : '100%'
+    display      : 'flex',
+    flexDirection: 'column',
+    height       : '100%',
+    overflow     : 'hidden',
+    width        : '100%'
   },
   customBottomAdd: {
     border       : 'dashed 1px',
