@@ -42,12 +42,8 @@ const useStyles = makeStyles(theme => ({
     width   : '100px'
   },
   container: {
-    '& > table': {
-      height: '100%'
-    },
     flex    : 1,
     overflow: 'auto'
-    // maxHeight: 200,
   },
   containerHeaderTable: {
     padding: theme.spacing(2)
