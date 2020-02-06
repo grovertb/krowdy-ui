@@ -194,10 +194,15 @@ const pages: Array<Page> = [
           {
             title: 'Table',
             path: '/views/table'
-          },{
+          },
+          {
             title: 'Table Window',
             path: '/views/tablewindow'
           },
+          {
+            title: 'Top AppBar',
+            path: '/views/topappbar'
+          }
         ]
       },
     ]

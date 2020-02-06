@@ -28,6 +28,9 @@ export * from './ListWindow';
 export { default as ModalKrowder } from './ModalKrowder';
 export * from './ModalKrowder';
 
+export { default as Pagination } from './Pagination';
+export * from './Pagination';
+
 export { default as Search } from './Search'
 export * from './Search'
 
@@ -42,3 +45,6 @@ export * from './TableWindow';
 
 export { default as ToggleRole } from './ToggleRole';
 export * from './ToggleRole';
+
+export { default as TopAppBar } from './TopAppBar';
+export * from './TopAppBar';
