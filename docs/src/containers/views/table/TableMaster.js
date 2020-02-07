@@ -42,6 +42,7 @@ const demoColumns = [
     type    : 'date'
   }, {
     align   : 'right',
+    currency: true,
     editable: true,
     key     : 'amountPayable',
     label   : 'Monto por pagar',
@@ -159,7 +160,7 @@ export default function () {
       amountPayable: 15,
       amountTasks  : 0,
       currentTasks : 2,
-      disabled     : true,
+      disabled     : false,
       extra        : 'Status',
       incharge     : 'Jimena',
       incidents    : 0,
@@ -246,18 +247,19 @@ export default function () {
       }}>
       <Table
         columns={columns}
+        currency='S/'
         enableAddCell={false}
         iconButton={<AddIcon />}
-        newCellProps={newCellProps}
         // maxHeight={400}
+        newCellProps={newCellProps}
         onHandleAddNewCell={_handleAddNewCell}
         onHandleBtnAction={_handleBtnAction}
         onHandleChangePage={_handleChangePage}
         onHandleChangeRowsPerPage={_handleChangeRowsPerPage}
         onHandleClickRow={_handleClickRow}
         onHandlePaymentButton={_handlePaymentButton}
-        onHandleSearch={_handleSearch}
         // titleTable='Tabla de Krowders'
+        onHandleSearch={_handleSearch}
         onHandleSelectAll={_handleSelectAll}
         onHandleSelectAutocomplete={_handleSelectAutocomplete}
         onHandleSelectItem={_handleSelectItem}
@@ -270,7 +272,7 @@ export default function () {
             total  : 275
           }
         }
-        paymentAmount={0}
+        paymentAmount={100}
         rows={rows}
         searchSuggestions={searchSuggestions}
         sortTable={sort}

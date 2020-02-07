@@ -166,6 +166,7 @@ const Table = ({
   withAutocomplete = false,
   withButton = false,
   enableAddCell = false,
+  currency = 'S/',
   onHandleSortTable = () => false,
   onHandleSearch = () => false,
   onHandleBtnAction = () => false,
@@ -323,6 +324,7 @@ const Table = ({
               {withCheckbox ? (
                 <TableCell padding='checkbox'>
                   <Checkbox
+                    color='primary'
                     inputProps={{ 'aria-label': 'select all desserts' }}
                     onChange={(e) => onHandleSelectAll(e.target.checked)} />
                 </TableCell>
@@ -454,13 +456,15 @@ const Table = ({
                     <TableCell padding='checkbox'>
                       <Checkbox
                         checked={selected}
+                        color='primary'
                         disabled={disabled}
                         onClick={(e) => _handleClickSelectItem(e, _id)} />
                     </TableCell>
                   ) : null}
-                  {visibleColumns.map(({ key, align }) => (
+                  {visibleColumns.map(({ key, align, currency: currencyTableCell }) => (
                     <TableCell align={align || 'left'} key={key}>
                       <Typography className={classes.bodyTable} variant='body1'>
+                        {currencyTableCell && `${currency} `}
                         {Array.isArray(row[key]) ? (row[key].join(', ')) : row[key] }
                       </Typography>
                     </TableCell>
@@ -503,7 +507,7 @@ const Table = ({
                 alignItems='center' className={classes.paymentText} display='flex'
                 marginRight={3}>
                 <Typography className={classes.textTotal} variant='h6'>Total</Typography>
-                <Typography className={clsx(classes.textAmount, { [classes.disableText]: !paymentAmount })} variant='h5'>s/ {paymentAmount.toFixed(2)}</Typography>
+                <Typography className={clsx(classes.textAmount, { [classes.disableText]: !paymentAmount })} color='primary' variant='h5'>{currency} {paymentAmount.toFixed(2)}</Typography>
               </Box>
               <Button
                 className={classes.buttonFooter} color='primary' disabled={!paymentAmount}
@@ -524,12 +528,14 @@ Table.propTypes = {
   columns: PropTypes.arrayOf(
     PropTypes.shape({
       align   : PropTypes.string,
+      currency: PropTypes.bool,
       key     : PropTypes.string.isRequired,
       label   : PropTypes.string.isRequired,
       minWidth: PropTypes.number,
       ordering: PropTypes.bool
     })
   ).isRequired,
+  currency                  : PropTypes.string,
   /**
    * eneableAddCell muetra un boton para agregar una nueva celda
    */

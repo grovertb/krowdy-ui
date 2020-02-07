@@ -8,6 +8,7 @@ interface IColumnsTable {
 	minWidth?: number
 	align?: string
 	visible: boolean
+	currency?: boolean
 }
 
 interface IRowsTable {
@@ -53,6 +54,7 @@ export type TableProps = {
 	titleTable?: string
 	titleButton?: string
 	pagination?: IPagination
+	currency?: string
 	widthFooter?: boolean
 	withCheckbox?: boolean
 	withPagination?: boolean
