@@ -259,6 +259,7 @@ const Table = ({
             <div className={clsx(classes.containerSearch, { [classes.flexEnd]: titleTable })}>
               {withSearch ? withAutocomplete ? (
                 <Autocomplete
+                  freeSolo
                   noOptionsText='No hay coincidencias'
                   onChange={onHandleSelectAutocomplete}
                   options={searchSuggestions.map(option => option.title)}
