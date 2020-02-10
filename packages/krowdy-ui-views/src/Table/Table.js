@@ -461,7 +461,7 @@ const Table = ({
                         onClick={(e) => _handleClickSelectItem(e, _id)} />
                     </TableCell>
                   ) : null}
-                  {visibleColumns.map(({ key, align, component: Componente }) => Componente ? (
+                  {visibleColumns.map(({ key, align, component: Componente, currency: currencyTableCell  }) => Componente ? (
                     <TableCell align={align || 'left'} key={key}>
                       <Componente value={row[key]} />
                     </TableCell>
