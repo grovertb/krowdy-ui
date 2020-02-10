@@ -102,12 +102,12 @@ export default function () {
         },
         {
           action: 'logout',
-          title : 'Cerrar sesiòn',
+          title : 'Cerrar sesión',
           type  : 'action',
           url   : '#'
         }
       ]}>
-      <Paper style={{ flex: 1 }}>
+      <Paper style={{ flex: 1 }} variant='outlined'>
         <h1>Dashboard</h1>
       </Paper>
     </Dashboard>

@@ -79,8 +79,8 @@ const useStyles = makeStyles(theme => ({
     },
     width: drawerWidthMin
   },
-  hiddenIsMobile: {
-    [theme.breakpoints.down('sm')]: {
+  hiddenUpMobile: {
+    [theme.breakpoints.up('md')]: {
       display: 'none'
     }
   },
@@ -338,7 +338,7 @@ function Dashboard(props) {
         position='relative'>
         <Toolbar className={classes.toolbar} >
           <IconButton
-            aria-label='menu' className={classes.hiddenIsMobile} edge='start'
+            aria-label='menu' className={classes.hiddenUpMobile} edge='start'
             onClick={_handleClickToggleDrawer}>
             <MenuIcon />
           </IconButton>
