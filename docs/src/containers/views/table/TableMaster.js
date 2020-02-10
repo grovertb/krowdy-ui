@@ -84,6 +84,46 @@ const demoColumns = [
     visible  : true
   }, {
     editable: true,
+    key     : 'incharge',
+    label   : 'Encargado',
+    minWidth: 100,
+    ordering: false,
+    type    : 'select'
+  }, {
+    align   : 'right',
+    editable: true,
+    key     : 'currentTasks',
+    label   : 'Tareas actuales',
+    minWidth: 150,
+    ordering: true,
+    type    : 'date'
+  }, {
+    align   : 'right',
+    currency: true,
+    editable: true,
+    key     : 'amountPayable',
+    label   : 'Monto por pagar',
+    minWidth: 160,
+    ordering: true,
+    type    : 'number'
+  }, {
+    align   : 'right',
+    editable: true,
+    key     : 'amountTasks',
+    label   : 'Tareas por pagar',
+    minWidth: 160,
+    ordering: true,
+    type    : 'text'
+  }, {
+    align   : 'right',
+    editable: true,
+    key     : 'incidents',
+    label   : 'Incidentes',
+    minWidth: 90,
+    ordering: true,
+    type    : 'text'
+  }, {
+    editable: true,
     key     : 'other',
     label   : 'Otro valor',
     minWidth: 120,
@@ -173,11 +213,13 @@ export default function () {
       responsible  : 'Carla',
       schedule     : 'En linea',
       type         : [ 'LL', 'Ln', 'VoD', 'VE' ]
-    }, {
+    },
+    {
       _id          : '1',
       amountPayable: 15,
       amountTasks  : 0,
       currentTasks : 2,
+      disabled     : false,
       extra        : 'Status',
       incidents    : 0,
       name         : [ 'Juana de Arco', 'Otro dato' ],
@@ -256,9 +298,14 @@ export default function () {
   }
 
   return (
-    <Grid container>
+    <Grid
+      container style={{
+        height  : '50vh',
+        overflow: 'hidden'
+      }}>
       <Table
         columns={columns}
+        currency='S/'
         enableAddCell={false}
         iconButton={<AddIcon />}
         // maxHeight={400}
@@ -278,15 +325,16 @@ export default function () {
         onHandleToggleColumnTable={_handleToggleColumnTable}
         pagination={
           {
-            page   : 2,
+            page   : 1,
             perPage: 25,
             total  : 275
           }
         }
-        // paymentAmount={0}
+        paymentAmount={100}
         rows={rows}
         searchSuggestions={searchSuggestions}
         sortTable={sort}
+        stickyHeader={true}
         titleButton='Agregar Krowder'
         withAutocomplete={true}
         withButton={false}

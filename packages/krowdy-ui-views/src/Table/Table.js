@@ -42,8 +42,8 @@ const useStyles = makeStyles(theme => ({
     width   : '100px'
   },
   container: {
-    // maxHeight: 200,
-    // overflow : 'auto'
+    flex    : 1,
+    overflow: 'auto'
   },
   containerHeaderTable: {
     padding: theme.spacing(2)
@@ -53,8 +53,11 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'space-between'
   },
   containerTable: {
-    overflow: 'hidden',
-    width   : '100%'
+    display      : 'flex',
+    flexDirection: 'column',
+    height       : '100%',
+    overflow     : 'hidden',
+    width        : '100%'
   },
   customBottomAdd: {
     border       : 'dashed 1px',
@@ -138,7 +141,7 @@ const useStyles = makeStyles(theme => ({
   titleTable: {
     fontWeight: 'bold'
   }
-}))
+}), { name: 'KrowdyTable' })
 
 const Table = ({
   titleTable,
@@ -163,6 +166,7 @@ const Table = ({
   withAutocomplete = false,
   withButton = false,
   enableAddCell = false,
+  currency = 'S/',
   onHandleSortTable = () => false,
   onHandleSearch = () => false,
   onHandleBtnAction = () => false,
@@ -243,8 +247,12 @@ const Table = ({
     onHandleSelectItem(id)
   }
 
+  const _handleChangePage = (e, currentPage) => {
+    onHandleChangePage(parseInt(currentPage) + 1)
+  }
+
   return (
-    <Paper className={classes.containerTable}>
+    <Paper className={classes.containerTable} variant='outlined'>
       {
         withHeader ? (
           <div className={clsx(classes.containerHeaderTable, { [classes.spaceBetween]: titleTable })}>
@@ -252,6 +260,7 @@ const Table = ({
             <div className={clsx(classes.containerSearch, { [classes.flexEnd]: titleTable })}>
               {withSearch ? withAutocomplete ? (
                 <Autocomplete
+                  freeSolo
                   noOptionsText='No hay coincidencias'
                   onChange={onHandleSelectAutocomplete}
                   options={searchSuggestions.map(option => option.title)}
@@ -315,6 +324,7 @@ const Table = ({
               {withCheckbox ? (
                 <TableCell padding='checkbox'>
                   <Checkbox
+                    color='primary'
                     inputProps={{ 'aria-label': 'select all desserts' }}
                     onChange={(e) => onHandleSelectAll(e.target.checked)} />
                 </TableCell>
@@ -436,7 +446,7 @@ const Table = ({
 
             ) : null}
             {rows.length ? rows.map((row, index) => {
-              const { _id, selected = false } = row
+              const { _id, selected = false, disabled = false } = row
 
               return (
                 <TableRow
@@ -446,6 +456,8 @@ const Table = ({
                     <TableCell padding='checkbox'>
                       <Checkbox
                         checked={selected}
+                        color='primary'
+                        disabled={disabled}
                         onClick={(e) => _handleClickSelectItem(e, _id)} />
                     </TableCell>
                   ) : null}
@@ -456,6 +468,7 @@ const Table = ({
                   ) : (
                     <TableCell align={align || 'left'} key={key}>
                       <Typography className={classes.bodyTable} variant='body1'>
+                        {currencyTableCell && `${currency} `}
                         {Array.isArray(row[key]) ? (row[key].join(', ')) : row[key]}
                       </Typography>
                     </TableCell>
@@ -480,9 +493,10 @@ const Table = ({
             component='div'
             count={total}
             labelRowsPerPage='Mostrar'
-            onChangePage={onHandleChangePage}
+            nextIconButtonText='Página siguiente'
+            onChangePage={_handleChangePage}
             onChangeRowsPerPage={onHandleChangeRowsPerPage}
-            page={page}
+            page={parseInt(page) - 1}
             rowsPerPage={perPage}
             rowsPerPageOptions={[ 10, 25, 100 ]} />
         ) : null
@@ -497,7 +511,7 @@ const Table = ({
                 alignItems='center' className={classes.paymentText} display='flex'
                 marginRight={3}>
                 <Typography className={classes.textTotal} variant='h6'>Total</Typography>
-                <Typography className={clsx(classes.textAmount, { [classes.disableText]: !paymentAmount })} variant='h5'>s/ {paymentAmount.toFixed(2)}</Typography>
+                <Typography className={clsx(classes.textAmount, { [classes.disableText]: !paymentAmount })} color='primary' variant='h5'>{currency} {paymentAmount.toFixed(2)}</Typography>
               </Box>
               <Button
                 className={classes.buttonFooter} color='primary' disabled={!paymentAmount}
@@ -518,12 +532,14 @@ Table.propTypes = {
   columns: PropTypes.arrayOf(
     PropTypes.shape({
       align   : PropTypes.string,
+      currency: PropTypes.bool,
       key     : PropTypes.string.isRequired,
       label   : PropTypes.string.isRequired,
       minWidth: PropTypes.number,
       ordering: PropTypes.bool
     })
   ).isRequired,
+  currency                  : PropTypes.string,
   /**
    * eneableAddCell muetra un boton para agregar una nueva celda
    */

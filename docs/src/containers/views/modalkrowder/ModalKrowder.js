@@ -136,6 +136,126 @@ const rows = [
     name         : 'Pedro Colmenarez',
     status       : 'Invitado',
     type         : [ 'LL', 'Ln' ]
+  },
+  {
+    _id          : '3',
+    amountPayable: 123,
+    amountTasks  : 4,
+    currentTasks : 2,
+    extra        : 'Status',
+    incharge     : 'Jimena',
+    incidents    : 2,
+    name         : 'Pedro Colmenarez',
+    status       : 'Invitado',
+    type         : [ 'LL', 'Ln' ]
+  },
+  {
+    _id          : '3',
+    amountPayable: 123,
+    amountTasks  : 4,
+    currentTasks : 2,
+    extra        : 'Status',
+    incharge     : 'Jimena',
+    incidents    : 2,
+    name         : 'Pedro Colmenarez',
+    status       : 'Invitado',
+    type         : [ 'LL', 'Ln' ]
+  },
+  {
+    _id          : '3',
+    amountPayable: 123,
+    amountTasks  : 4,
+    currentTasks : 2,
+    extra        : 'Status',
+    incharge     : 'Jimena',
+    incidents    : 2,
+    name         : 'Pedro Colmenarez',
+    status       : 'Invitado',
+    type         : [ 'LL', 'Ln' ]
+  },
+  {
+    _id          : '3',
+    amountPayable: 123,
+    amountTasks  : 4,
+    currentTasks : 2,
+    extra        : 'Status',
+    incharge     : 'Jimena',
+    incidents    : 2,
+    name         : 'Pedro Colmenarez',
+    status       : 'Invitado',
+    type         : [ 'LL', 'Ln' ]
+  },
+  {
+    _id          : '3',
+    amountPayable: 123,
+    amountTasks  : 4,
+    currentTasks : 2,
+    extra        : 'Status',
+    incharge     : 'Jimena',
+    incidents    : 2,
+    name         : 'Pedro Colmenarez',
+    status       : 'Invitado',
+    type         : [ 'LL', 'Ln' ]
+  },
+  {
+    _id          : '3',
+    amountPayable: 123,
+    amountTasks  : 4,
+    currentTasks : 2,
+    extra        : 'Status',
+    incharge     : 'Jimena',
+    incidents    : 2,
+    name         : 'Pedro Colmenarez',
+    status       : 'Invitado',
+    type         : [ 'LL', 'Ln' ]
+  },
+  {
+    _id          : '3',
+    amountPayable: 123,
+    amountTasks  : 4,
+    currentTasks : 2,
+    extra        : 'Status',
+    incharge     : 'Jimena',
+    incidents    : 2,
+    name         : 'Pedro Colmenarez',
+    status       : 'Invitado',
+    type         : [ 'LL', 'Ln' ]
+  },
+  {
+    _id          : '3',
+    amountPayable: 123,
+    amountTasks  : 4,
+    currentTasks : 2,
+    extra        : 'Status',
+    incharge     : 'Jimena',
+    incidents    : 2,
+    name         : 'Pedro Colmenarez',
+    status       : 'Invitado',
+    type         : [ 'LL', 'Ln' ]
+  },
+  {
+    _id          : '3',
+    amountPayable: 123,
+    amountTasks  : 4,
+    currentTasks : 2,
+    extra        : 'Status',
+    incharge     : 'Jimena',
+    incidents    : 2,
+    name         : 'Pedro Colmenarez',
+    status       : 'Invitado',
+    type         : [ 'LL', 'Ln' ]
+  },
+  {
+    _id          : '3',
+    amountPayable: 123,
+    amountTasks  : 4,
+    currentTasks : 2,
+    extra        : 'Status',
+    incharge     : 'Jimena',
+    incidents    : 2,
+    name         : 'Pedro Colmenarez',
+    status       : 'Invitado',
+    type         : [ 'LL', 'Ln' ]
   }
 ]
 
@@ -209,15 +329,21 @@ function ModalKrowderDoc({ classes }) {
   }
 
   const _handleChangeRole = name  => {
-    console.log('Xavi :) ===> :(: name', name)
+    console.log(name)
+  }
+
+  const _handleClickCollapse = (ev) => {
+    console.log(ev)
   }
 
   const Tasks = () => <Table
     columns={demoColumns}
+    maxHeight={'40vh'}
     rows={rows} />
 
   const Payments = () => <Table
     columns={demoColumns}
+    maxHeight={'40vh'}
     onHandlePaymentButton={() => {}}
     onHandleSelectAll={() => {}}
     onHandleSelectItem={() => {}}
@@ -288,18 +414,22 @@ function ModalKrowderDoc({ classes }) {
         collapses={[
           {
             component: <Roles />,
+            key      : 'role',
             title    : 'Roles'
           },
           {
             component: <Tasks />,
+            key      : 'task',
             title    : 'Tareas'
           },
           {
             component: <Payments />,
+            key      : 'pay',
             title    : 'Pagos'
           },
           {
             component: <Reports />,
+            key      : 'inc',
             title    : 'Incidencias'
           }
         ]}
@@ -310,6 +440,7 @@ function ModalKrowderDoc({ classes }) {
             <Typography className={classes.krowderPhone}>+51 555 555 555</Typography>
           </div>
         }
+        onChangeCollapse={_handleClickCollapse}
         onclose={_handleClickClose}
         open={open}
         user={{
@@ -317,8 +448,7 @@ function ModalKrowderDoc({ classes }) {
           firstName: 'Xavi',
           lastName : 'Gonzalez',
           phone    : '+51 555 555 555',
-          photo    : '',
-          status   : 'Confimed'
+          photo    : ''
         }} />
     </div>
   )}

@@ -1,8 +1,8 @@
 # Pagination
 
-<p class="description">Component search candidates</p>
+<p class="description">Component pagination for table</p>
 
-{{"demo": "containers/views/search/Search.js"}}
+{{"demo": "containers/views/pagination/Pagination.js"}}
 
 <h1>
 Props:
@@ -10,9 +10,14 @@ Props:
 
 | Name                               |      Type            |  Default | Description   |
 |:-----------------------------------|:---------------------|:---------|:-------------| 
-|   classes                          |   object             |      |               |
-|    searchIcon                      |    icon              |       |               |
-|     type                           |   'border-bottom' o 'border'    |  'border'     |               |
-|                        |                    |       |               |
-	
+|   classes                          |   object             |          |               |
+|     limits                         |       array          |          | Limits of input select.   |
+|     onChangePage             |  function            |          | Function about input present page. |
+| onChangeSelect                     |      function        |          |Function OnChange for select              |
+|  totalPages                        |      number          |          | Show total pages              |
+|  page                   |      number          |          | Value for input pages              |	
+| valueSelect                   |      number          |          | Value for select               |	
+|                                    |                      |          |               |	
+
+
 

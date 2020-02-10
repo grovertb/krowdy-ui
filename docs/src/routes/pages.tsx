@@ -68,6 +68,24 @@ const pages: Array<Page> = [
           }
         ]
       },
+      {
+        title: 'Navigation',
+        routes: [
+          {
+            title: 'Tabs',
+            path: '/components/tabs'
+          }
+        ]
+      },
+      {
+        title: 'Surfaces',
+        routes: [
+          {
+            title: 'Card',
+            path: '/components/cards'
+          },
+        ]
+      }
     ]
   },
   {
@@ -103,16 +121,8 @@ const pages: Array<Page> = [
         title: 'C',
         routes: [
           {
-            title: 'Cards',
-            path: '/views/cards'
-          },
-          {
             title: 'Card Expand',
             path: '/views/cardexpand'
-          },
-          {
-            title: 'Card Exception',
-            path: '/views/cardexception'
           },
           {
             title: 'Card Candidate',
@@ -179,21 +189,20 @@ const pages: Array<Page> = [
         ]
       },
       {
-        title: 'R',
-        routes: [
-          {
-            title: 'Radio Form',
-            path: '/views/radioform'
-          }
-        ]
-      },
-      {
         title: 'T',
         routes: [
           {
             title: 'Table',
             path: '/views/table'
           },
+          {
+            title: 'Table Window',
+            path: '/views/tablewindow'
+          },
+          {
+            title: 'Top AppBar',
+            path: '/views/topappbar'
+          }
         ]
       },
     ]

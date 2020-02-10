@@ -18,8 +18,8 @@ export default function () {
       flexDirection : 'column',
       height        : 400,
       justifyContent: 'space-evenly',
-      margin        : '50px',
-      width         : '300px'
+      margin        : 50,
+      width         : 300
     }}>
       <CardCandidate
         _id={1}

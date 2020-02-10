@@ -1,140 +1,221 @@
-import { Box, makeStyles, OutlinedInput as MuiOutlinedInput } from '@krowdy-ui/core'
-import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft'
-import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight'
-import { createStyles, withStyles } from '@krowdy-ui/styles'
-import React from 'react'
-import { withRouter } from 'react-router-dom'
-import { isPositiveNumberString } from '../../utils'
-import LimitSelect from './LimitSelect'
+import React, { useState, useEffect, useMemo } from 'react'
+import PropTypes from 'prop-types'
+import { withStyles } from '@krowdy-ui/styles'
+import {
+  KeyboardArrowLeft as ArrowLeftIcon,
+  KeyboardArrowRight as ArrowRightIcon
+} from '@material-ui/icons'
+import { Box, Typography, InputBase, Select, MenuItem, Input, IconButton } from '@krowdy-ui/core'
+import clsx from 'clsx'
 
-const TablePagination = ({
-  onChangePage = () => { },
-  onChangeLimit = () => { },
-  page = 1,
-  totalPages = 1
-}) => {
-  const { icon, bgMargin, smMargin, slash, ...classes } = useStyles()
-
-  const backPage = () => {
-    const newPage = page - 1
-    if(newPage >= 1)
-      onChangePage(newPage)
+export const styles = theme => ({
+  boxStyle: {
+    alignItems: 'center',
+    display   : 'flex'
+  },
+  color: {
+    color: theme.palette.grey[700]
+  },
+  icon: {
+    height: 18,
+    width : 18
+  },
+  input: {
+    fontSize : 12,
+    textAlign: 'center'
+  },
+  inputSel: {
+    fontSize : 12,
+    padding  : theme.spacing(0.625, 1),
+    textAlign: 'center'
+  },
+  inputSelect: {
+    padding: theme.spacing(0.625, 0.8)
+  },
+  label: {
+    marginRight: theme.spacing(1.5)
+  },
+  rootLeftIcon: {
+    marginLeft : theme.spacing(2.5),
+    marginRight: theme.spacing(1.25),
+    padding    : theme.spacing(0)
+  },
+  rootMenuItem: {
+    color   : theme.palette.grey[700],
+    fontSize: 12
+  },
+  rootRightIcon: {
+    marginLeft: theme.spacing(1.5),
+    padding   : theme.spacing(0)
+  },
+  rootTextfield: {
+    border      : ` 1px solid ${theme.palette.grey[400]}`,
+    borderRadius: 4,
+    boxSizing   : 'border-box',
+    color       : theme.palette.grey[700],
+    fontSize    : 12,
+    width       : 25
+  },
+  select: {
+    '&$selectMenu': {
+      paddingLeft : theme.spacing(0),
+      paddingRight: theme.spacing(2)
+    },
+    '&:focus': {
+      borderRadius: 4
+    },
+    border      : `1px solid ${theme.palette.grey[400]}`,
+    borderRadius: 4,
+    boxSizing   : 'border-box',
+    width       : 47
+  },
+  selectIcon: {
+    '& svg': {
+      height: 18,
+      width : 18
+    },
+    alignItems    : 'center',
+    display       : 'flex',
+    justifyContent: 'center'
+  },
+  selectMenu: {
+    fontSize  : 12,
+    lineHeight: '14px',
+    textAlign : 'center'
+  },
+  selectedMenuItem: {},
+  slash           : {
+    padding: theme.spacing(0, 0.75)
   }
 
-  const sgtPage = () => {
-    const newPage = page + 1
-    if(newPage <= totalPages)
-      onChangePage(newPage)
+})
+
+const Pagination = props => {
+  const {
+    classes,
+    onChangeSelect = () => { },
+    valueSelect,
+    onChangePage = () => { },
+    page: commingPage = 1,
+    limits = [],
+    totalPages
+  } = props
+
+  const [ page, setPage ] = useState(commingPage.toString())
+
+  useEffect(() => {
+    if(commingPage.toString() !== page)
+      setPage(commingPage.toString())
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ commingPage ])
+
+  const [ isValidPage, pageNumber ] = useMemo(() => {
+    const pageNumber = parseInt(page)
+    const isValid = !isNaN(pageNumber) && pageNumber
+
+    return [ isValid, pageNumber ]
+  },[ page ])
+
+  useEffect(() => {
+    if(isValidPage)
+      if(pageNumber > totalPages)
+        setPage(totalPages)
+      else if(pageNumber !== commingPage)
+        onChangePage(pageNumber)
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ page ])
+
+  const _handleClickLeft = () => {
+    if(isValidPage && pageNumber > 1)
+      setPage(parseInt(page) - 1)
+  }
+
+  const _handleClickRight = () => {
+    if(isValidPage && pageNumber < totalPages)
+      setPage(parseInt(page) + 1)
+  }
+
+  const _handleOnBlur = () => {
+    if(pageNumber !== commingPage)
+      setPage(commingPage)
   }
 
   const _handleChange = (event) => {
-    event.persist()
-    if(event.target.value === '') {
-      onChangePage('')
-    }
-    else if(isPositiveNumberString(event.target.value)) {
-      let newValue = parseInt(event.target.value)
-      if(newValue > totalPages)
-        newValue = totalPages ? totalPages : 1
-      onChangePage(newValue)
-    }
-  }
-
-  const _handleKeyDown = ({ key }) => {
-    switch (key) {
-      case 'ArrowUp': {
-        sgtPage()
-        break
-      }
-      case 'ArrowDown': {
-        backPage()
-        break
-      }
-      default: {
-        break
-      }
-    }
+    const newValue = event.target.value
+    if(/^[0-9]*$/g.test(newValue))
+      setPage(newValue)
   }
 
   return (
-    <Box alignItems='center' display='flex'>
-      <LimitSelect
-        className={bgMargin}
-        onChange={(val) => {
-          onChangeLimit(val)
-          onChangePage(1)
-        }} />
-      <Box alignItems='center' className={bgMargin} display='flex'>
-        <KeyboardArrowLeftIcon
-          className={icon}
-          data-test='before-page'
-          onClick={backPage} />
-        <OutlinedInput
-          className={smMargin}
-          data-test='page-number'
+    <Box className={classes.boxStyle} >
+      <Typography className={classes.label}>Mostrar</Typography>
+      <Select
+        classes={{
+          icon      : classes.selectIcon,
+          root      : classes.select,
+          selectMenu: classes.selectMenu
+        }}
+        input={<InputBase />}
+        inputProps={{
+          classes: {
+            input: clsx(classes.inputSel, classes.color),
+            root : clsx(classes.inputSelect, classes.color)
+          }
+        }}
+        onChange={onChangeSelect}
+        value={valueSelect}>
+        {limits.map((limit, index) => (
+          <MenuItem
+            classes={{
+              root    : classes.rootMenuItem,
+              selected: classes.selectedMenuItem
+            }}
+            key={index}
+            value={limit}>{limit}</MenuItem>
+        ))}
+      </Select>
+      <Box className={classes.boxStyle}>
+        <IconButton
+          className={classes.rootLeftIcon}
+          onClick={_handleClickLeft}
+          size='small'>
+          <ArrowLeftIcon
+            className={classes.icon} />
+        </IconButton>
+        <Input
+          classes={{
+            input: clsx(classes.input, classes.color),
+            root : classes.rootTextfield
+          }}
+          disableUnderline
+          onBlur={_handleOnBlur}
           onChange={_handleChange}
-          onKeyDown={_handleKeyDown}
           value={page} />
-        <span className={`${slash} ${smMargin}`}>/</span>
-        <span className={classes.totalPages} data-test='total-pages'>{totalPages > 0 ? totalPages : 1}</span>
-        <KeyboardArrowRightIcon
-          className={`${icon} ${smMargin}`}
-          data-test='next-page'
-          onClick={sgtPage} />
+        <Typography className={classes.slash}>/</Typography>
+        <Typography>{totalPages > 0 ? totalPages : 1}</Typography>
+        <IconButton
+          className={classes.rootRightIcon}
+          onClick={_handleClickRight}
+          size='small'>
+          <ArrowRightIcon
+            className={classes.icon} />
+        </IconButton>
       </Box>
     </Box>
   )
 }
 
-const OutlinedInput = withStyles(({ palette: { krowdyFontGray } }) => ({
-  input: {
-    color    : krowdyFontGray,
-    fontSize : 12,
-    margin   : 0,
-    padding  : '4px 3px',
-    textAlign: 'center',
-    width    : 34
-  },
-  notchedOutline: {
-    borderColor: 'rgba(0, 0, 0, 0.23) !important',
-    borderWidth: 1
-  },
-  root: {
-    '&:hover .MuiOutlinedInput-notchedOutline': {
-      borderColor: 'rgba(0, 0, 0, 0.23) !important',
-      borderWidth: 1
-    }
-  }
-}))(MuiOutlinedInput)
+Pagination.propTypes = {
+  limits        : PropTypes.array,
+  onChangePage  : PropTypes.func,
+  onChangeSelect: PropTypes.func,
+  page          : PropTypes.number,
+  totalPages    : PropTypes.number,
+  valueSelect   : PropTypes.number
+}
 
-const useStyles = makeStyles(({
-  palette: {
-    krowdyFontGray
-  }
-}) => createStyles({
-  bgMargin: {
-    marginLeft: 12
-  },
-  icon: {
-    color   : '#262626',
-    cursor  : 'pointer',
-    fontSize: 16
-  },
-  slash: {
-    color   : krowdyFontGray,
-    fontSize: 12
-  },
-  smMargin: {
-    marginLeft: '6px'
-  },
-  totalPages: {
-    color    : '#595959',
-    fontSize : 12,
-    margin   : '0px -10px 0px 0px',
-    padding  : '4px 3px',
-    textAlign: 'center',
-    width    : 34
-  }
-}))
+Pagination.muiName = 'Pagination'
 
-export default withRouter(TablePagination)
+export default withStyles(styles, { name: 'KrowdyPagination' })(Pagination)

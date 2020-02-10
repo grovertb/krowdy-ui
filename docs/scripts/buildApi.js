@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { mkdir, readFileSync, writeFileSync } from 'fs'
 import path from 'path'
 import { defaultHandlers, parse as docgenParse } from 'react-docgen'

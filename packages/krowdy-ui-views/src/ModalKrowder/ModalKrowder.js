@@ -23,6 +23,10 @@ export const styles = theme => ({
   collapsesContent: {
     height: 'calc(100% - 160px)'
   },
+  expandContent: {
+    height  : '40vh',
+    overflow: 'auto'
+  },
   expandHeader: {
     background: theme.palette.grey[50],
     border    : `1px solid ${theme.palette.grey[100]}`,
@@ -71,15 +75,23 @@ function ModalKrowder(props) {
     onclose,
     user = {},
     action,
+    onChangeCollapse,
     headerContent,
     collapses = [],
-    classes
+    classes,
+    minWidth = 320
   } = props
 
   const [ expanded, setExpanded ] = React.useState(false)
 
   const _handleChangeCollapse = panel => (event, isExpanded) => {
+    onChangeCollapse({ event, isExpanded, panel })
     setExpanded(isExpanded ? panel : false)
+  }
+
+  const _handleOnClose = () => {
+    onclose()
+    setExpanded(false)
   }
 
   return (
@@ -91,13 +103,13 @@ function ModalKrowder(props) {
       className={classes.modal}
       closeAfterTransition
       disableAutoFocus={true}
-      onClose={onclose}
+      onClose={_handleOnClose}
       open={open}>
       <>
-        <Card className={classes.card}>
+        <Card className={classes.card} style={{ minWidth: minWidth }}>
           <CardHeader
             action={
-              <IconButton aria-label='settings' onClick={onclose}>
+              <IconButton aria-label='settings' onClick={_handleOnClose}>
                 <CloseIcon />
               </IconButton>
             }
@@ -125,8 +137,9 @@ function ModalKrowder(props) {
                         expanded: classes.expandedItem
                       }}
                       className={classes.expandItem}
-                      expanded={expanded === `panel-${n}`}
-                      key={n} onChange={_handleChangeCollapse(`panel-${n}`)}>
+                      expanded={expanded === item.key}
+                      key={n}
+                      onChange={_handleChangeCollapse(item.key)}>
                       <ExpansionPanelSummary
                         className={classes.expandHeader}
                         expandIcon={<ExpandMoreIcon className={classes.expandIcon} />}>
@@ -158,10 +171,12 @@ ModalKrowder.propTypes = {
       title    : PropTypes.string.isRequired
     })
   ),
-  headerContent: PropTypes.element,
-  onclose      : PropTypes.func.isRequired,
-  open         : PropTypes.bool.isRequired,
-  user         : PropTypes.shape({
+  headerContent   : PropTypes.element,
+  minWidth        : PropTypes.number,
+  onChangeCollapse: PropTypes.func,
+  onclose         : PropTypes.func.isRequired,
+  open            : PropTypes.bool.isRequired,
+  user            : PropTypes.shape({
     firstName: PropTypes.string,
     lastName : PropTypes.string,
     photo    : PropTypes.string

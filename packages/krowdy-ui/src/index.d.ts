@@ -131,6 +131,7 @@ export { default as TablePagination } from './TablePagination';
 export { default as TableRow } from './TableRow';
 export { default as TableSortLabel } from './TableSortLabel';
 export { default as TableToolbar } from './TableToolbar';
+export { default as TabPanel } from './TabPanel';
 export { default as Tabs } from './Tabs';
 export { default as TextareaAutosize } from './TextareaAutosize';
 export { default as TextField } from './TextField';

@@ -375,7 +375,6 @@ const JobDetail = props => {
                       {titleBenefits}
                       <ListItemText
                         secondary={
-                          // eslint-disable-next-line no-nested-ternary
                           titleBenefits === 'EPS' ?
                             descriptionBenefits ? `${descriptionBenefits}%` :
                               '' :
