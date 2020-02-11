@@ -78,7 +78,12 @@ const RadioLabelGroup = props => {
         items.map((element, index) => (
           <FormControlLabel
             classes={{ label: classes.label }}
-            className={clsx({ [classes.noLine]: !outlined }, { [classes.outlined && classes[`${outlined}Border`]]: outlined }, { [classes.outlinedVert]: !isRow }, { [classes.outlineRow]: isRow })}
+            className={clsx({
+              [classes.noLine]                                  : !outlined,
+              [classes.outlinedVert]                            : !isRow,
+              [classes.outlined && classes[`${outlined}Border`]]: outlined,
+              [classes.outlineRow]                              : isRow
+            })}
             control={<Radio
               color='primary'
               disableRipple
