@@ -1,6 +1,6 @@
 import withStyles from '../styles/withStyles'
 
-const GlobalCss = withStyles(theme => ({
+const styles = ({ palette, typography }) => ({
   '@global': {
     '*, *::before, *::after': {
       boxSizing: 'inherit'
@@ -18,15 +18,15 @@ const GlobalCss = withStyles(theme => ({
     },
     body: {
       '&::backdrop': {
-        backgroundColor: theme.palette.background.default
+        backgroundColor: palette.background.default
       }, // Remove the margin in all browsers.
       '@media print': {
         // Save printer ink.
-        backgroundColor: theme.palette.common.white
+        backgroundColor: palette.common.white
       },
-      ...theme.typography.body2,
-      backgroundColor: theme.palette.background.default,
-      color          : theme.palette.text.primary,
+      ...typography.body2,
+      backgroundColor: palette.background.default,
+      color          : palette.text.primary,
       // Add support for document.body.requestFullScreen().
       // Other elements, if background transparent, are not supported.
       margin         : 0
@@ -42,6 +42,6 @@ const GlobalCss = withStyles(theme => ({
       fontWeight: 'bolder'
     }
   }
-}), { name: 'GlobalCss' })(() => null)
+})
 
-export default GlobalCss
+export default withStyles(styles, { name: 'CssGlobal' })(() => null)
