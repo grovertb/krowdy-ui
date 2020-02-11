@@ -85,7 +85,6 @@ export default function () {
       user={{
         firstName: 'Xavi',
         lastName : 'Gonzalez'
-      // photo    : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZFvVFIsVQw4gBlCOw45vcWAGoD75tkHP6dnIx6AYEHUNwLpUG&s'
       }}
       userMenu={[
         {
