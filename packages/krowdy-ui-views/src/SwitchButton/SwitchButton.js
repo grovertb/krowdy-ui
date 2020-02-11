@@ -6,12 +6,13 @@ const SwitchButton = props => {
   const {
     selected,
     children,
-    onChange = () => { }
+    onChange = () => { },
+    classes
   } = props
 
   return (
     <div>
-      <ButtonGroup>
+      <ButtonGroup  className={classes.buttongroup}>
         {children.map((child, index) => React.cloneElement(child, {
           key    : `SwitchButton-${index}`,
           onClick: (e) => {
@@ -28,6 +29,9 @@ const SwitchButton = props => {
 }
 
 SwitchButton.propTypes = {
+  classes: PropTypes.shape({
+    buttongroup: PropTypes.string
+  }),
   index   : PropTypes.number,
   onChange: PropTypes.func,
   selected: PropTypes.number
