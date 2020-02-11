@@ -5,7 +5,8 @@ interface Classes {
 type IFunOnChange = (number: number) => void
 
 export type CounterProps = {
-  addIcon: React.ReactNode;
+  name: string,
+  addIcon: React.ReactNode,
   classes: Classes,
   color: string,
   disabled: boolean,

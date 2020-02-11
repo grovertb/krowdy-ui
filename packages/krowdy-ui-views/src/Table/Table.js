@@ -285,7 +285,7 @@ const Table = ({
                       variant='outlined' />
                   )}
                   style={{ width: 400 }} />
-              ): (
+              ) : (
                 <TextField
                   className={classes.inputSearch}
                   InputLabelProps={{ shrink: false }}
@@ -347,7 +347,7 @@ const Table = ({
                     </TableSortLabel>
                   ) : (
                     <Typography className={classes.headerTable} variant='body1'>{label}</Typography>
-                  ) }
+                  )}
                 </TableCell>
               ))}
               {withMenuColumns ? (
@@ -461,11 +461,15 @@ const Table = ({
                         onClick={(e) => _handleClickSelectItem(e, _id)} />
                     </TableCell>
                   ) : null}
-                  {visibleColumns.map(({ key, align, currency: currencyTableCell }) => (
+                  {visibleColumns.map(({ key, align, component: Componente, currency: currencyTableCell  }) => Componente ? (
+                    <TableCell align={align || 'left'} key={key}>
+                      <Componente value={row[key]} />
+                    </TableCell>
+                  ) : (
                     <TableCell align={align || 'left'} key={key}>
                       <Typography className={classes.bodyTable} variant='body1'>
                         {currencyTableCell && `${currency} `}
-                        {Array.isArray(row[key]) ? (row[key].join(', ')) : row[key] }
+                        {Array.isArray(row[key]) ? (row[key].join(', ')) : row[key]}
                       </Typography>
                     </TableCell>
                   ))}
@@ -488,7 +492,7 @@ const Table = ({
             backIconButtonText='Página anterior'
             component='div'
             count={total}
-            labelRowsPerPage='Filas por pagina'
+            labelRowsPerPage='Mostrar'
             nextIconButtonText='Página siguiente'
             onChangePage={_handleChangePage}
             onChangeRowsPerPage={onHandleChangeRowsPerPage}

@@ -175,7 +175,7 @@ const pages: Array<Page> = [
           {
             title: 'Pagination',
             path: '/views/pagination'
-          },
+          }
         ]
       },
       {

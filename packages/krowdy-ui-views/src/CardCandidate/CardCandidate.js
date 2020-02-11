@@ -91,6 +91,7 @@ const CardCandidate = ({
   _id,
   firstName = '',
   lastName = '',
+  colorCheckbox = 'primary',
   onChangeCheckbox = () => { },
   src,
   classes
@@ -101,8 +102,8 @@ const CardCandidate = ({
     <div className={clsx({ [classes.checked]: checked, [classes.root]: !checked })}>
       <Checkbox
         checked={checked}
-        className={clsx(classes.checkbox, classes.checkboxHover)}
-        color='primary'
+        className={classes.checkboxHover}
+        color={colorCheckbox}
         onChange={({ target: { checked } }) => onChangeCheckbox(_id, checked)} />
       <Avatar
         className={classes.avatar}
@@ -123,6 +124,7 @@ CardCandidate.propTypes = {
   _id             : PropTypes.number,
   checked         : PropTypes.bool,
   classes         : PropTypes.object,
+  colorCheckbox   : PropTypes.string,
   firstName       : PropTypes.string,
   lastName        : PropTypes.string,
   onChangeCheckbox: PropTypes.func,

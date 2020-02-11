@@ -31,7 +31,8 @@ export default function () {
         min={min}
         number={number}
         onChange={onChange}
-        removeIcon={<RemoveIcon style={{ height: 18, width: 18 }} />} />
+        removeIcon={<RemoveIcon style={{ height: 18, width: 18 }} />}
+        width={{ width: 40 }} />
     </div>
 
   )

@@ -37,11 +37,11 @@ const Counter = props => {
   const {
     classes,
     size,
+    name,
     color = 'primary',
     addIcon,
     removeIcon,
     min,
-    name,
     max,
     type = 'medium',
     disabled,

@@ -24,6 +24,7 @@ export default function () {
       <CardCandidate
         _id={1}
         checked={checked}
+        colorCheckbox='krowdy'
         firstName={firstName}
         lastName={lastName}
         onChangeCheckbox={_handleChange}
