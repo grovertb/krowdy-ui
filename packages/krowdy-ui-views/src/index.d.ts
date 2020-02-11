@@ -34,6 +34,9 @@ export * from './ModalKrowder';
 export { default as Pagination } from './Pagination';
 export * from './Pagination';
 
+export { default as RadioLabelGroup } from './RadioLabelGroup';
+export * from './RadioLabelGroup';
+
 export { default as Search } from './Search'
 export * from './Search'
 

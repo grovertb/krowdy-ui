@@ -179,6 +179,15 @@ const pages: Array<Page> = [
         ]
       },
       {
+        title: 'R',
+        routes: [
+          {
+            title: 'RadioLabelGroup',
+            path: '/views/radioLabelGroup'
+          }
+        ]
+      },
+      {
         title: 'S',
         routes: [
           {
