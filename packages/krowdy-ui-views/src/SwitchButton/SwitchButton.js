@@ -12,7 +12,7 @@ const SwitchButton = props => {
 
   return (
     <div>
-      <ButtonGroup  className={classes.buttongroup}>
+      <ButtonGroup className={classes.buttongroup}>
         {children.map((child, index) => React.cloneElement(child, {
           key    : `SwitchButton-${index}`,
           onClick: (e) => {
