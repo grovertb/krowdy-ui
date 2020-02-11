@@ -34,7 +34,7 @@ export const styles = theme => ({
     textAlign: 'center'
   },
   inputBase: {
-    margin: `${theme.spacing(0)}px ${theme.spacing(4.25)}px ${theme.spacing(0)}px ${theme.spacing(1.5)}px`
+    margin: theme.spacing(0, 4.25, 0, 1.5)
   },
   inputSelect: {
     padding: theme.spacing(0.625, 0.8)
