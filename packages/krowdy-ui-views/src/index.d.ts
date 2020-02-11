@@ -25,6 +25,9 @@ export * from './JobDetail'
 export { default as ListWindow } from './ListWindow';
 export * from './ListWindow';
 
+export { default as Main } from './Main';
+export * from './Main';
+
 export { default as ModalKrowder } from './ModalKrowder';
 export * from './ModalKrowder';
 

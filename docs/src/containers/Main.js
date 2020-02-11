@@ -5,6 +5,29 @@ import { CssBaseline, createMuiTheme, krowdyTheme, Container } from '@krowdy-ui/
 import Header from '../components/Header'
 
 const useStyles = makeStyles({
+  '@global': {
+    '#root': {
+      display      : 'flex',
+      flexDirection: 'column',
+      minHeight    : '100vh'
+    },
+    '::-webkit-scrollbar': {
+      height: 6,
+      width : 6
+    },
+    '::-webkit-scrollbar-thumb': {
+      backgroundColor: 'rgba(0, 0, 0, 0.3)',
+      borderRadius   : '10px'
+    },
+    '::-webkit-scrollbar-track': {
+      borderRadius: '10px'
+    },
+    main: {
+      display      : 'flex',
+      flex         : '1 0 auto',
+      flexDirection: 'column'
+    }
+  },
   drawer: {
     width: 0
   },
