@@ -1,33 +1,10 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom'
 import { ThemeProvider, makeStyles } from '@krowdy-ui/styles'
-import { CssBaseline, createMuiTheme, krowdyTheme, Container } from '@krowdy-ui/core'
+import { CssGlobal, createMuiTheme, krowdyTheme, Container } from '@krowdy-ui/core'
 import Header from '../components/Header'
 
 const useStyles = makeStyles({
-  '@global': {
-    '#root': {
-      display      : 'flex',
-      flexDirection: 'column',
-      minHeight    : '100vh'
-    },
-    '::-webkit-scrollbar': {
-      height: 6,
-      width : 6
-    },
-    '::-webkit-scrollbar-thumb': {
-      backgroundColor: 'rgba(0, 0, 0, 0.3)',
-      borderRadius   : '10px'
-    },
-    '::-webkit-scrollbar-track': {
-      borderRadius: '10px'
-    },
-    main: {
-      display      : 'flex',
-      flex         : '1 0 auto',
-      flexDirection: 'column'
-    }
-  },
   drawer: {
     width: 0
   },
@@ -58,7 +35,7 @@ export default function Main({ children }) {
 
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline />
+      <CssGlobal />
       <div className={classes.root}>
         <Header className={classes.drawer} isRootPath={isRootPath} />
         <Container
