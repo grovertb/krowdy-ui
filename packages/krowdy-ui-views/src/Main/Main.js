@@ -320,7 +320,8 @@ function Main(props) {
 }
 
 Main.propTypes = {
-  menus: PropTypes.arrayOf(
+  isOpenDrawer: PropTypes.bool,
+  menus       : PropTypes.arrayOf(
     PropTypes.shape({
       icon   : PropTypes.element,
       options: PropTypes.array,

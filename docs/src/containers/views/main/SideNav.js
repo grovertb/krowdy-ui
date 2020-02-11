@@ -13,23 +13,10 @@ import {
 import { makeStyles } from '@krowdy-ui/styles'
 
 const useStyles = makeStyles({
-  '@global': {
-    '::-webkit-scrollbar': {
-      height: 6,
-      width : 6
-    },
-    '::-webkit-scrollbar-thumb': {
-      backgroundColor: 'rgba(0, 0, 0, 0.3)',
-      borderRadius   : 10
-    },
-    '::-webkit-scrollbar-track': {
-      borderRadius: 10
-    }
-  },
   root: {
     display: 'flex'
   }
-})
+}, { name: 'SideNav' })
 
 export default function SideNav() {
   const classes = useStyles()
