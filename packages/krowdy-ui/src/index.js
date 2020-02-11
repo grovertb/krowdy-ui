@@ -76,6 +76,9 @@ export * from './Container'
 export { default as CssBaseline } from './CssBaseline'
 export * from './CssBaseline'
 
+export { default as CssGlobal } from './CssGlobal'
+export * from './CssGlobal'
+
 export { default as Dialog } from './Dialog'
 export * from './Dialog'
 

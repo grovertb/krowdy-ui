@@ -162,6 +162,10 @@ const pages: Array<Page> = [
           {
             title: 'Modal',
             path: '/views/modalkrowder'
+          },
+          {
+            title: 'Main',
+            path: '/views/main'
           }
         ]
       },
@@ -194,10 +198,15 @@ const pages: Array<Page> = [
           {
             title: 'Table',
             path: '/views/table'
-          },{
+          },
+          {
             title: 'Table Window',
             path: '/views/tablewindow'
           },
+          {
+            title: 'Top AppBar',
+            path: '/views/topappbar'
+          }
         ]
       },
     ]

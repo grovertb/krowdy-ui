@@ -33,7 +33,6 @@ export function getHeaders(markdown) {
   let regexMatches
   const headers = {}
 
-  // eslint-disable-next-line no-cond-assign
   while ((regexMatches = headerKeyValueRegExp.exec(header)) !== null)
     headers[regexMatches[1]] = regexMatches[2]
 
@@ -354,7 +353,7 @@ export function getDependencies(raw, options = {}) {
 
   const re = /^import\s'([^']+)'|import\s[\s\S]*?\sfrom\s+'([^']+)/gm
   let m
-  // eslint-disable-next-line no-cond-assign
+
   while ((m = re.exec(raw))) {
     let name
 

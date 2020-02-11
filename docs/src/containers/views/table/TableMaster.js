@@ -42,6 +42,7 @@ const demoColumns = [
     type    : 'date'
   }, {
     align   : 'right',
+    currency: true,
     editable: true,
     key     : 'amountPayable',
     label   : 'Monto por pagar',
@@ -153,12 +154,13 @@ export default function () {
       name         : 'Juan Perez',
       status       : 'En linea',
       type         : [ 'LL', 'Ln', 'VoD', 'VE' ]
-    }, {
+    },
+    {
       _id          : '1',
       amountPayable: 15,
       amountTasks  : 0,
       currentTasks : 2,
-      disabled     : true,
+      disabled     : false,
       extra        : 'Status',
       incharge     : 'Jimena',
       incidents    : 0,
@@ -238,9 +240,14 @@ export default function () {
   }
 
   return (
-    <Grid container>
+    <Grid
+      container style={{
+        height  : '50vh',
+        overflow: 'hidden'
+      }}>
       <Table
         columns={columns}
+        currency='S/'
         enableAddCell={false}
         iconButton={<AddIcon />}
         // maxHeight={400}
@@ -265,10 +272,11 @@ export default function () {
             total  : 275
           }
         }
-        paymentAmount={0}
+        paymentAmount={100}
         rows={rows}
         searchSuggestions={searchSuggestions}
         sortTable={sort}
+        stickyHeader={true}
         titleButton='Agregar Krowder'
         withAutocomplete={true}
         withButton={false}

@@ -39,7 +39,7 @@ interface Ilogo {
 }
 
 export type DashboardProps = {
-  menus?: IMenu
+  menus?: Array<IMenu>
   userMenu?: Array<IUserMenu>
   user?: object
   menuTopLeft?: Array<ITopMenu>

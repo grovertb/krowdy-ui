@@ -31,7 +31,6 @@ renderer.heading = (text, level) => {
   if(level >= 4)
     return `<h${level}>${text}</h${level}>`
 
-  // eslint-disable-next-line no-underscore-dangle
   const escapedText = textToHash(text, global.__MARKED_UNIQUE__)
 
   return [

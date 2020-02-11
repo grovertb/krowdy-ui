@@ -133,7 +133,7 @@ export default function AppDrawer(props) {
           // onClick={onClose}
           // href="https://material-ui.com/versions/"
             color='textSecondary'
-            variant='caption'>v0.0.16</Typography>
+            variant='caption'>v0.0.37</Typography>
         </div>
       </div>
       <Divider />

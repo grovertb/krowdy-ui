@@ -85,7 +85,6 @@ export default function () {
       user={{
         firstName: 'Xavi',
         lastName : 'Gonzalez'
-      // photo    : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZFvVFIsVQw4gBlCOw45vcWAGoD75tkHP6dnIx6AYEHUNwLpUG&s'
       }}
       userMenu={[
         {
@@ -102,12 +101,12 @@ export default function () {
         },
         {
           action: 'logout',
-          title : 'Cerrar sesiòn',
+          title : 'Cerrar sesión',
           type  : 'action',
           url   : '#'
         }
       ]}>
-      <Paper style={{ flex: 1 }}>
+      <Paper style={{ flex: 1 }} variant='outlined'>
         <h1>Dashboard</h1>
       </Paper>
     </Dashboard>

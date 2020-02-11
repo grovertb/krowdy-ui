@@ -79,7 +79,7 @@ const useStyles = makeStyles(theme => ({
     },
     width: drawerWidthMin
   },
-  hiddenIsMobile: {
+  hiddenUpMobile: {
     [theme.breakpoints.up('md')]: {
       display: 'none'
     }
@@ -128,9 +128,14 @@ const useStyles = makeStyles(theme => ({
     position      : 'relative'
   },
   main: {
+    [theme.breakpoints.down('sm')]: {
+      overflow: 'auto'
+    },
     backgroundColor: theme.palette.grey[200],
     display        : 'flex',
     flex           : 1,
+    height         : '100%',
+    overflow       : 'hidden',
     position       : 'relative'
   },
   menuButton: {
@@ -220,10 +225,15 @@ const useStyles = makeStyles(theme => ({
     width          : 34
   },
   root: {
-    display      : 'flex',
-    flexDirection: 'column',
-    minHeight    : '100vh',
-    width        : '100%'
+    display                       : 'flex',
+    flexDirection                 : 'column',
+    height                        : '100vh',
+    overflow                      : 'hidden',
+    width                         : '100%',
+    [theme.breakpoints.down('sm')]: {
+      height   : '100%',
+      minHeight: '100vh'
+    }
   },
   title: {
     color   : theme.palette.primary.main,
@@ -263,12 +273,16 @@ const useStyles = makeStyles(theme => ({
     boxShadow      : '0px 2px 5px rgba(0, 0, 0, 0.1)'
   },
   wrapperContent: {
+    [theme.breakpoints.down('sm')]: {
+      overflow: 'initial'
+    },
     borderRadius  : 4,
     display       : 'flex',
     flex          : 1,
     justifyContent: 'center',
     // margin        : theme.spacing(1),
-    overflow      : 'auto',
+    // overflow      : 'auto',
+    overflow      : 'hidden',
     padding       : theme.spacing(1),
     position      : 'relative'
     // width         : `calc(100% - ${drawerWidthMin}px)`
@@ -324,7 +338,7 @@ function Dashboard(props) {
         position='relative'>
         <Toolbar className={classes.toolbar} >
           <IconButton
-            aria-label='menu' className={classes.hiddenIsMobile} edge='start'
+            aria-label='menu' className={classes.hiddenUpMobile} edge='start'
             onClick={_handleClickToggleDrawer}>
             <MenuIcon />
           </IconButton>
