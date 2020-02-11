@@ -184,6 +184,10 @@ const pages: Array<Page> = [
           {
             title: 'RadioLabelGroup',
             path: '/views/radioLabelGroup'
+          },
+          {
+            title: 'Root',
+            path: '/views/root'
           }
         ]
       },

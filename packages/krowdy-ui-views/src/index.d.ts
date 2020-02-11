@@ -37,6 +37,9 @@ export * from './Pagination';
 export { default as RadioLabelGroup } from './RadioLabelGroup';
 export * from './RadioLabelGroup';
 
+export { default as Root } from './Root';
+export * from './Root';
+
 export { default as Search } from './Search'
 export * from './Search'
 

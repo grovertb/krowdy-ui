@@ -73,17 +73,6 @@ const useStyles = makeStyles(theme => ({
     },
     width: drawerWidthMin
   },
-  // main: {
-  //   [theme.breakpoints.down('sm')]: {
-  //     overflow: 'auto'
-  //   },
-  //   backgroundColor: theme.palette.grey[200],
-  //   display        : 'flex',
-  //   flex           : 1,
-  //   height         : '100%',
-  //   overflow       : 'hidden',
-  //   position       : 'relative'
-  // },
   flexCenterVertical: {
     alignItems: 'center',
     display   : 'flex'
@@ -97,14 +86,15 @@ const useStyles = makeStyles(theme => ({
     overflowX: 'hidden'
     // justifyContent: 'space-between'
   },
-  mainContent: {
-    flexGrow: 1,
-    padding : theme.spacing(1)
+  main: {
+    backgroundColor: theme.palette.grey[200],
+    display        : 'flex',
+    flexGrow       : 1,
     // [theme.breakpoints.down('sm')]: {
     //   overflow: 'initial'
     // },
     // borderRadius  : 4,
-    // display       : 'flex',
+    padding        : theme.spacing(1)
     // flex          : 1,
     // justifyContent: 'center',
     // overflow      : 'hidden',
@@ -130,7 +120,8 @@ const useStyles = makeStyles(theme => ({
   },
   optionBottom: {
     boxShadow: '0px -1px 5px rgba(0, 0, 0, 0.1)'
-  }
+  },
+  toolbar: theme.mixins.toolbar
 }), { name: 'Main' })
 
 function DrawerListItem({ menu, classes }) {
@@ -245,6 +236,7 @@ const renderDrawerList = (menus, classes) => (
 function Main(props) {
   const {
     menus = [],
+    component: Component = 'main',
     isOpenDrawer,
     children,
     optionBottom
@@ -312,9 +304,9 @@ function Main(props) {
           ) : null
         }
       </Drawer>
-      <main className={classes.mainContent}>
+      <Component className={classes.main}>
         {children}
-      </main>
+      </Component>
     </>
   )
 }
