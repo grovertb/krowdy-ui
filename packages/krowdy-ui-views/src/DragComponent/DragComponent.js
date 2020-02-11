@@ -2,21 +2,19 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@krowdy-ui/styles'
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
+import clsx from 'clsx'
 
 export const styles = theme => ({
   aditionalInput: {
-    '&:hover': {
-      borderBottom: `1px solid ${theme.palette.primary[400]}`
-    },
-    borderBottom: `1px solid ${theme.palette.grey[400]}`,
-    color       : theme.palette.grey[700],
-    fontSize    : 14,
-    margin      : theme.spacing(1.5),
-    width       : 'fill-available'
+    color   : theme.palette.grey[700],
+    fontSize: 14,
+    margin  : 'auto',
+    width   : 'fill-available'
   },
   container: {
-    height: 'calc(100% - 40px)',
-    width : '100%'
+    height  : '100%',
+    overflow: 'auto',
+    width   : '100%'
   }
 })
 
@@ -33,7 +31,8 @@ const DragComponent = props => {
     addInputComponent,
     classes,
     children,
-    onItemsOrdered = () => { }
+    onItemsOrdered = () => { },
+    disableAdditionalInput = false
   } = props
 
   const onDragEnd = (result) => {
@@ -48,7 +47,7 @@ const DragComponent = props => {
   }
 
   return (
-    <div className={classes.container}>
+    <div className={clsx(classes.container,classes.root)}>
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable direction='vertical' droppableId='droppable'>
           {(dropProvided) => (
@@ -59,30 +58,27 @@ const DragComponent = props => {
               tabIndex='-1'>
               {
                 React.Children.map(children, (item, index) => (
-                  (item && item.props) ?
-                    <Draggable
-                      draggableId={`drag-${item.props.id}`}
-                      index={index}
-                      key={`drag-${item.props.id}`}>
-                      {(dragProvided) => (
-                        <div
-                          ref={dragProvided.innerRef}
-                          {...dragProvided.draggableProps}
-                          {...dragProvided.dragHandleProps}
-                          style={dragProvided.draggableProps.style}
-                          tabIndex='-1'>
-                          {item}
-                        </div>
-                      )}
-                    </Draggable> :
-                    null
-                )
-                )
+                  <Draggable
+                    draggableId={`drag-${item.props.id}`}
+                    index={index}
+                    key={`drag-${item.props.id}`}>
+                    {(dragProvided) => (
+                      <div
+                        ref={dragProvided.innerRef}
+                        {...dragProvided.draggableProps}
+                        {...dragProvided.dragHandleProps}
+                        style={dragProvided.draggableProps.style}
+                        tabIndex='-1'>
+                        {item}
+                      </div>
+                    )}
+                  </Draggable>
+                ))
               }
               {dropProvided.placeholder}
               {addInputComponent && (
-                <div className={classes.aditionalInput}>
-                  {addInputComponent}
+                <div className={clsx({ [classes.aditionalInput]: !disableAdditionalInput })}>
+                  {addInputComponent }
                 </div>
               )}
             </div>)
@@ -97,9 +93,11 @@ DragComponent.propTypes = {
   addInputComponent: PropTypes.node,
   classes          : PropTypes.shape({
     aditionalInput: PropTypes.string,
-    container     : PropTypes.string
+    container     : PropTypes.string,
+    root          : PropTypes.string
   }),
-  onItemsOrdered: PropTypes.func
+  disableAdditionalInput: PropTypes.bool,
+  onItemsOrdered        : PropTypes.func
 }
 
 DragComponent.muiName = 'DragComponent'
