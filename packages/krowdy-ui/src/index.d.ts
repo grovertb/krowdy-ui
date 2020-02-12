@@ -2,7 +2,7 @@ export type PaletteType = 'light' | 'dark';
 
 export namespace PropTypes {
   type Alignment = 'inherit' | 'left' | 'center' | 'right' | 'justify';
-  type Color = 'inherit' | 'primary' | 'secondary' | 'default' | 'krowdy' | 'error'; 
+  type Color = 'inherit' | 'primary' | 'secondary' | 'default' | 'krowdy' | 'error';
   type Margin = 'none' | 'dense' | 'normal';
 }
 
@@ -98,6 +98,7 @@ export { default as MobileStepper } from './MobileStepper';
 export { default as Modal } from './Modal';
 export { default as NativeSelect } from './NativeSelect';
 export { default as NoSsr } from './NoSsr';
+export { default as notify } from './notify';
 export { default as OutlinedInput } from './OutlinedInput';
 export { default as Paper } from './Paper';
 export { default as Popover } from './Popover';

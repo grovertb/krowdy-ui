@@ -1,3 +1,6 @@
+export { default } from './notify'
+export * from './notify'
+
 // interface user {
 //   firstName?: string;
 //   lastName?: string;

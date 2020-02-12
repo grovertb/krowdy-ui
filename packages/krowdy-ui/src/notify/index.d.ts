@@ -1,2 +1,2 @@
-export { default } from './notify';
+export { default } from './notify'
 export * from './notify'
