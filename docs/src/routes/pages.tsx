@@ -85,6 +85,15 @@ const pages: Array<Page> = [
             path: '/components/cards'
           },
         ]
+      },
+      {
+        title: 'Utils',
+        routes: [
+          {
+            title: 'Notify',
+            path: '/components/notify'
+          },
+        ]
       }
     ]
   },
