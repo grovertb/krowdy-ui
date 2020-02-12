@@ -214,6 +214,9 @@ export * from './NativeSelect'
 export { default as NoSsr } from './NoSsr'
 export * from './NoSsr'
 
+export { default as notify } from './notify'
+export * from './notify'
+
 export { default as OutlinedInput } from './OutlinedInput'
 export * from './OutlinedInput'
 
