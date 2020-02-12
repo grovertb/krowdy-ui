@@ -1,16 +1,14 @@
-export { default } from './notify'
-export * from './notify'
+// | string; easing: string; delay: number | string
+type INotify = (
+  message: string,
+  options?: Partial<{ time: number }>,
+) => void
 
-// interface user {
-//   firstName?: string;
-//   lastName?: string;
-//   photo?: string;
-// }
+export interface Notify {
+  success: INotify
+  warning: INotify
+  error: INotify
+}
 
-// export type AvatarUserProps = {
-//   user: user
-// };
-
-// declare const AvatarUser: React.ComponentType<AvatarUserProps>;
-
-// export default AvatarUser;
+declare const notify: Notify;
+export default notify;
