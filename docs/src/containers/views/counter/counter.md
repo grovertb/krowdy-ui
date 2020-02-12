@@ -17,8 +17,8 @@
 | name                    |    string      |          | The name attribute specifies the name of an input element.   |
 | max                     |    number      |          | Maximum limit of the counter.                                |
 | min                     |    number      |          | Minimum counter limit.                                       |
+| name                    |   string       |          | The name attribute specifies the name of an input element.   |
 | number                  |   number       |          | is the number that increases and decreases.                  |      
-| onChange                |    function    |          | Callback fired when the state is changed.                    |
+| onChange                |    func    |          | Callback fired when the state is changed.<br/><br>  **Signature:** <br/>`function(event: { target: { name: string, value: number }}) => void`                |
 | removeIcon              |   icon         |          | ```<RemoveIcon/>``` Icon (-)                                 |
- 
 

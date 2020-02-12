@@ -1,9 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { create } from 'jss'
-import { withStyles, useTheme, jssPreset, StylesProvider } from '@krowdy-ui/core/styles'
 import Frame from 'react-frame-component'
-import { CssBaseline } from '@krowdy-ui/core'
+import { withStyles, useTheme, jssPreset, StylesProvider, CssGlobal } from '@krowdy-ui/core'
 
 const styles = theme => ({
   frame: {
@@ -59,7 +58,7 @@ function DemoFrame(props) {
       {
         state.ready ? (
           <StylesProvider jss={state.jss} sheetsManager={state.sheetsManager}>
-            <CssBaseline />
+            <CssGlobal />
             {
               React.cloneElement(children, {
                 container: state.container,

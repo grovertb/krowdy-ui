@@ -167,7 +167,7 @@ class Message {
     else
       return Message.instance
   }
-  susscess(message, option = { time: 2000 }) {
+  success(message, option = { time: 2000 }) {
     this.nt.subscribe({ message, time: option.time, type: 'success' })
   }
   warning(message, option = { time: 2000 }) {

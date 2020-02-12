@@ -5,12 +5,28 @@ import clsx from 'clsx'
 import { makeStyles } from '@krowdy-ui/styles'
 import { AppBar, Toolbar, IconButton, Link, Button, Menu, Typography, Divider, MenuItem } from '@krowdy-ui/core'
 import {
-  Menu as MenuIcon
+  Menu as MenuIcon,
+  Apps as AppsIcon
 } from '@material-ui/icons'
 import AvatarUser from '../AvatarUser'
 import { capitalize, isExternalURL } from '../utils'
 
 const useStyles = makeStyles(theme => ({
+  customDivider: {
+    background: theme.palette.grey[300],
+    height    : 24,
+    margin    : theme.spacing(0, 1),
+    padding   : 0
+  },
+  flexCenter: {
+    alignItems: 'center',
+    display   : 'flex'
+  },
+  hiddenUpMobile: {
+    [theme.breakpoints.up('md')]: {
+      display: 'none'
+    }
+  },
   logoCompany: {
     '& > img': {
       maxHeight: 50,
@@ -93,23 +109,44 @@ const useStyles = makeStyles(theme => ({
 
 function TopAppBar(props) {
   const {
-    color = 'default',
+    apps = [],
+    color = 'inherit',
     logo = {},
-    user = {},
-    onHandleToggleDrawer,
-    onHandleLogout,
-    userMenu = [],
+    menuTopLeft = [],
     menuTopRight = [],
-    menuTopLeft = []
+    onHandleLogout,
+    onHandleToggleDrawer,
+    user = {},
+    userMenu = []
   } = props
 
   // const history = useHistory()
   const classes = useStyles()
 
-  const [ anchorEl, setAnchorEl ] = React.useState(null)
+  const [ anchorEl, setAnchorEl ] = React.useState({
+    apps: null,
+    user: null
+  })
 
-  const _handleOpenMenu = ev => setAnchorEl(ev.currentTarget)
-  const _handleCloseMenu = () => setAnchorEl(null)
+  const [ menuActive, setMenuActive ] = React.useState(null)
+
+  const _handleOpenMenu = (ev, key) => {
+    setAnchorEl({
+      ...anchorEl,
+      [key]: ev.currentTarget
+    })
+
+    setMenuActive(key)
+  }
+
+  const _handleCloseMenu = () => {
+    setAnchorEl({
+      apps: null,
+      user: null
+    })
+
+    setMenuActive(null)
+  }
 
   return (
     <AppBar
@@ -121,7 +158,7 @@ function TopAppBar(props) {
           onHandleToggleDrawer ?
             <IconButton
               aria-label='menu'
-              className={classes.hiddenIsMobile}
+              className={classes.hiddenUpMobile}
               color='inherit'
               edge='start'
               onClick={onHandleToggleDrawer}>
@@ -224,74 +261,105 @@ function TopAppBar(props) {
             }
           </div>
         </div>
+        {
+          menuTopRight.length ? <Divider className={classes.customDivider} orientation='vertical' /> : null
+        }
         <div>
+          {
+            apps.length ? (
+              <IconButton
+                aria-controls='menu-apps'
+                aria-haspopup='true'
+                onClick={ev => _handleOpenMenu(ev, 'apps')}>
+                <AppsIcon />
+              </IconButton>
+            ) : null
+          }
           <IconButton
-            aria-controls='simple-menu'
+            aria-controls='menu-user'
             aria-haspopup='true'
             className={classes.notificationIcon}
             color='inherit'
-            onClick={_handleOpenMenu}>
+            onClick={ev => _handleOpenMenu(ev, 'user')}>
             <AvatarUser user={user} />
           </IconButton>
           <Menu
-            anchorEl={anchorEl}
+            anchorEl={anchorEl[menuActive]}
             anchorOrigin={{
               horizontal: 'right',
               vertical  : 'bottom'
             }}
             getContentAnchorEl={null}
-            keepMounted
+            // keepMounted
             MenuListProps={{
               style: {
                 padding: 0
               }
             }}
             onClose={_handleCloseMenu}
-            open={Boolean(anchorEl)}
+            open={Boolean(anchorEl[menuActive])}
             transformOrigin={{
               horizontal: 'right',
               vertical  : 'top'
             }}>
-            <li
-              className={classes.menuItemContentName}
-              tabIndex={-1}>
-              <Typography
-                className={classes.menuItemName}
-                variant='inherit'>
-                {user.firstName} {user.lastName}
-              </Typography>
-              <Divider />
-            </li>
             {
-              userMenu.map((item, index) => (
-                <MenuItem
-                  className={classes.menuLink}
-                  key={`user-menu-${index}`}>
-                  {
-                    isExternalURL(item.url) ?
+              menuActive === 'user' ?(
+                [
+                  <li
+                    className={classes.menuItemContentName}
+                    key='user-menu-1'
+                    tabIndex={-1}>
+                    <Typography
+                      className={classes.menuItemName}
+                      variant='inherit'>
+                      {user.firstName} {user.lastName}
+                    </Typography>
+                    <Divider />
+                  </li>,
+                  userMenu.map((item, index) => (
+                    <MenuItem
+                      className={classes.menuLink}
+                      key={`user-menu-2-${index}`}>
+                      {
+                        isExternalURL(item.url) ?
+                          <Link
+                            component='a'
+                            href={item.url}
+                            target={item.target || '_blank'}>
+                            {item.title}
+                          </Link> :
+                          <Link
+                            component={RouterLink}
+                            to={item.url}>
+                            {item.title}
+                          </Link>
+                      }
+                    </MenuItem>
+                  )),
+                  onHandleLogout ?
+                    <MenuItem
+                      className={classes.menuLink}
+                      key='user-menu-3'
+                      onClick={onHandleLogout}>
+                        Cerrar Sesión
+                    </MenuItem>:
+                    null
+                ]
+              ) :
+                menuActive === 'apps' ?
+                  apps.map((app, index) => (
+                    <MenuItem
+                      className={classes.menuLink}
+                      key={`app-menu-${index}`}>
                       <Link
                         component='a'
-                        href={item.url}
-                        target={item.target || '_blank'}>
-                        {item.title}
-                      </Link> :
-                      <Link
-                        component={RouterLink}
-                        to={item.url}>
-                        {item.title}
+                        href={app.url}
+                        target={app.target || '_blank'}>
+                        {app.title}
                       </Link>
-                  }
-                </MenuItem>
-              ))
-            }
-            {
-              onHandleLogout ?
-                <MenuItem
-                  className={classes.menuLink}
-                  onClick={onHandleLogout}>
-                  Cerrar Sesión
-                </MenuItem>:
-                null
+                    </MenuItem>
+                  )) :
+                  null
             }
           </Menu>
         </div>
@@ -301,18 +369,52 @@ function TopAppBar(props) {
 }
 
 TopAppBar.propTypes = {
+  apps: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string,
+      url  : PropTypes.string
+    })
+  ),
   color: PropTypes.oneOf([ 'default', 'inherit', 'primary', 'secondary', 'krowdy', 'error' ]),
   logo : PropTypes.shape({
     alt   : PropTypes.string,
     source: PropTypes.string
   }),
+  menuTopLeft: PropTypes.arrayOf(
+    PropTypes.shape({
+      color  : PropTypes.string,
+      target : PropTypes.string,
+      title  : PropTypes.string.isRequired,
+      type   : PropTypes.string.isRequired,
+      url    : PropTypes.string.isRequired,
+      variant: PropTypes.string
+    })
+  ),
+  menuTopRight: PropTypes.arrayOf(
+    PropTypes.shape({
+      color  : PropTypes.string,
+      target : PropTypes.string,
+      title  : PropTypes.string.isRequired,
+      type   : PropTypes.string.isRequired,
+      url    : PropTypes.string.isRequired,
+      variant: PropTypes.string
+    })
+  ),
   onHandleLogout      : PropTypes.func,
   onHandleToggleDrawer: PropTypes.func,
   user                : PropTypes.shape({
     firstName: PropTypes.string,
     lastName : PropTypes.string,
     photo    : PropTypes.string
-  })
+  }),
+  userMenu: PropTypes.arrayOf(
+    PropTypes.shape({
+      target: PropTypes.string,
+      title : PropTypes.string.isRequired,
+      type  : PropTypes.string.isRequired,
+      url   : PropTypes.string.isRequired
+    })
+  )
 }
 
 export default TopAppBar

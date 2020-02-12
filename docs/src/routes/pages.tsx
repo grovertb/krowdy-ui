@@ -171,6 +171,10 @@ const pages: Array<Page> = [
           {
             title: 'Modal',
             path: '/views/modalkrowder'
+          },
+          {
+            title: 'Main',
+            path: '/views/main'
           }
         ]
       },
@@ -180,7 +184,20 @@ const pages: Array<Page> = [
           {
             title: 'Pagination',
             path: '/views/pagination'
+          }
+        ]
+      },
+      {
+        title: 'R',
+        routes: [
+          {
+            title: 'RadioLabelGroup',
+            path: '/views/radioLabelGroup'
           },
+          {
+            title: 'Root',
+            path: '/views/root'
+          }
         ]
       },
       {

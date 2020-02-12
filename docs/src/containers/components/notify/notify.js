@@ -13,7 +13,7 @@ export default function SimpleTabs() {
   const classes = useStyles()
 
   const runNotify = () => {
-    notify.susscess('!Notify!', { time: 5000 })
+    notify.success('!Notify!', { time: 5000 })
   }
 
   const runNotify2 = () => {

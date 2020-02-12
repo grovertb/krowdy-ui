@@ -1,7 +1,7 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom'
 import { ThemeProvider, makeStyles } from '@krowdy-ui/styles'
-import { CssBaseline, createMuiTheme, krowdyTheme, Container } from '@krowdy-ui/core'
+import { CssGlobal, createMuiTheme, krowdyTheme, Container } from '@krowdy-ui/core'
 import Header from '../components/Header'
 
 const useStyles = makeStyles({
@@ -35,7 +35,7 @@ export default function Main({ children }) {
 
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline />
+      <CssGlobal />
       <div className={classes.root}>
         <Header className={classes.drawer} isRootPath={isRootPath} />
         <Container

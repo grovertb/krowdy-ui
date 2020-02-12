@@ -2,20 +2,20 @@ interface Classes {
   input: Record<string, string | number>
   root: Record<string, string | number>
 }
-type IFunOnChange = (number: number) => void
 
 export type CounterProps = {
-  addIcon: React.ReactNode;
-  classes: Classes,
-  color: string,
-  disabled: boolean,
+  addIcon: React.ReactNode,
   max: number,
   min: number,
-  onChange: IFunOnChange,
   removeIcon: React.ReactNode,
-  number: number
+  onChange: (event: { target: { name: string, value: number }}) => void,
+  name?: string,
+  classes?: Classes,
+  color?: string,
+  disabled?: boolean,
+  number?: number
 };
 
-declare const Counter: React.ComponentType<CounterProps>;
+declare const Counter: React.ComponentType<CounterProps>
 
-export default Counter;
+export default Counter

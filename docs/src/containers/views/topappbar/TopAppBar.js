@@ -14,7 +14,20 @@ export default () => {
   return (
     <div className={classes.root}>
       <TopAppBar
-        color='default'
+        apps={[
+          {
+            title: 'Publicar empleo ( ATS )',
+            url  : 'https://ats.krowdy.com'
+          },
+          {
+            title: 'Account',
+            url  : 'https://myaccount.krowdy.com/'
+          },
+          {
+            title: 'Laborum',
+            url  : 'https://chamba.laborum.pe/'
+          }
+        ]}
         logo={{
           alt   : 'Logo',
           source: 'https://cdn.krowdy.com/auth/logobase.png'
@@ -37,6 +50,9 @@ export default () => {
         ]}
         onHandleLogout={() => {
           console.log('logout')
+        }}
+        onHandleToggleDrawer={()=> {
+          console.log('onHandleToggleDrawer')
         }}
         user={{
           firstName: 'Alfredo',

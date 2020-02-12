@@ -5,6 +5,8 @@ import { InputBase, InputAdornment } from '@krowdy-ui/core'
 import {
   Search as SearchIcon
 } from '@material-ui/icons'
+import clsx from 'clsx'
+
 export const styles = theme => ({
   icon: {
     color      : theme.palette.grey[600],
@@ -33,7 +35,7 @@ export const styles = theme => ({
     background  : theme.palette.primary['contrastText'],
     borderBottom: `1px solid ${theme.palette.grey[400]}`,
     display     : 'flex',
-    height      : 40,
+    minHeight   : 40,
     width       : '100%'
   },
   paperPrimary: {
@@ -53,7 +55,7 @@ export const styles = theme => ({
     boxShadow   : 'none',
     boxSizing   : 'border-box',
     display     : 'flex',
-    height      : 40,
+    minHeight   : 40,
     width       : '100%'
   }
 })
@@ -61,12 +63,14 @@ export const styles = theme => ({
 const Search = props => {
   const {
     classes,
+    className,
     type = '',
     ...restProps
   } = props
 
   return (
-    <div className={type === 'border-bottom' ? classes.paperBottomPrimary : classes.paperPrimary} >
+    <div
+      className={clsx(type === 'border-bottom' ? classes.paperBottomPrimary : classes.paperPrimary, className)}>
       <InputBase
         className={classes.inputBase}
         endAdornment={
@@ -78,7 +82,6 @@ const Search = props => {
         }}
         {...restProps} />
     </div >
-
   )
 }
 

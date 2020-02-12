@@ -30,37 +30,37 @@ export const styles = theme => ({
 })
 
 function addLeadingZero(number) {
-  return ('0' + number).slice(-2)
+  return number.toString().padStart(2, '0')
 }
 
 const Counter = props => {
   const {
     classes,
-    size,
-    color = 'primary',
+    name,
     addIcon,
     removeIcon,
-    min,
-    name,
-    max,
-    type = 'medium',
-    disabled,
     number,
+    min,
+    max,
+    disabled = false,
+    size = 'middle',
+    type = 'medium',
+    color = 'primary',
     onChange = () => { }
   } = props
 
   const onClick = (type) => {
     if(type === 'increase')
-      number > min && onChange(number - 1)
+      number < max && onChange({ target: { name, value: number + 1 } })
 
     else if(type === 'decrease')
-      number < max && onChange(number + 1)
+      number > min && onChange({ target: { name, value: number - 1 } })
   }
 
-  const _handleCLickIncrease = () => {
+  const _handleClickIncrease = () => {
     onClick('increase')
   }
-  const _handleCLickDecrease = () => {
+  const _handleClickDecrease = () => {
     onClick('decrease')
   }
 
@@ -69,7 +69,7 @@ const Counter = props => {
       <IconButton
         color={color}
         disabled={disabled}
-        onClick={_handleCLickIncrease}
+        onClick={_handleClickDecrease}
         size={size}
         square>
         {removeIcon}
@@ -77,7 +77,7 @@ const Counter = props => {
       <Input
         classes={{
           input: classes.input,
-          root : clsx(classes.root, classes[`fontSize${type}`], classes[`fontSize${type}`])
+          root : clsx(classes.root, classes[`fontSize${type}`])
         }}
         disabled={disabled}
         disableUnderline
@@ -86,7 +86,7 @@ const Counter = props => {
       <IconButton
         color={color}
         disabled={disabled}
-        onClick={_handleCLickDecrease}
+        onClick={_handleClickIncrease}
         size={size}
         square>
         {addIcon}
