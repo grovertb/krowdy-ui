@@ -36,16 +36,16 @@ function addLeadingZero(number) {
 const Counter = props => {
   const {
     classes,
-    size,
     name,
-    color = 'primary',
     addIcon,
     removeIcon,
+    number,
     min,
     max,
+    disabled = false,
+    size = 'middle',
     type = 'medium',
-    disabled,
-    number,
+    color = 'primary',
     onChange = () => { }
   } = props
 
@@ -77,7 +77,7 @@ const Counter = props => {
       <Input
         classes={{
           input: classes.input,
-          root : clsx(classes.root, classes[`fontSize${type}`], classes[`fontSize${type}`])
+          root : clsx(classes.root, classes[`fontSize${type}`])
         }}
         disabled={disabled}
         disableUnderline
