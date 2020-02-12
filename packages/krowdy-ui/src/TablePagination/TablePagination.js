@@ -1,9 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
-import withStyles from '../styles/withStyles'
 import MuiTablePagination from '@material-ui/core/TablePagination'
-import { Input, Box, Typography } from '@krowdy-ui/core'
+import withStyles from '../styles/withStyles'
+import Input from '../Input'
+import Typography from '../Typography'
 
 export const styles = theme => ({
   actions: {
@@ -98,53 +99,54 @@ const TablePagination = React.forwardRef(function TablePagination({ ...props }) 
     ...otherProps
   } = props
 
-  return (<MuiTablePagination
-    backIconButtonProps={{
-      classes: {
-        root: clsx(classes.backIcon, classes.color)
-      },
-      size: 'small'
-    }}
-    classes={
-      {
-        actions : classes.actions,
-        caption : clsx(classes.caption, classes.color),
-        input   : classes.inputBase,
-        menuItem: classes.menuItem
-      }
-    }
-    labelDisplayedRows={({ from, to }) => (
-      <Box className={classes.box}>
-        <Input
-          classes={{
-            input: clsx(classes.input, classes.color),
-            root : classes.rootTextfield
-          }}
-          disableUnderline
-          value={from} />
-        <Typography className={classes.slash}>/</Typography>
-        <Typography>{to}</Typography>
-      </Box>
-    )}
-    nextIconButtonProps={{
-      classes: {
-        root: clsx(classes.nextIcon, classes.color)
-      }
-    }}
-    SelectProps={{
-      classes: {
-        icon      : classes.selectIcon,
-        root      : classes.select,
-        selectMenu: classes.selectMenu
-      },
-      inputProps: {
+  return (
+    <MuiTablePagination
+      backIconButtonProps={{
         classes: {
-          root: clsx(classes.inputSelect, classes.color)
+          root: clsx(classes.backIcon, classes.color)
+        },
+        size: 'small'
+      }}
+      classes={
+        {
+          actions : classes.actions,
+          caption : clsx(classes.caption, classes.color),
+          input   : classes.inputBase,
+          menuItem: classes.menuItem
         }
       }
-    }}
-
-    {...otherProps} />)
+      labelDisplayedRows={({ from, to }) => (
+        <div className={classes.box}>
+          <Input
+            classes={{
+              input: clsx(classes.input, classes.color),
+              root : classes.rootTextfield
+            }}
+            disableUnderline
+            value={from} />
+          <Typography className={classes.slash}>/</Typography>
+          <Typography>{to}</Typography>
+        </div>
+      )}
+      nextIconButtonProps={{
+        classes: {
+          root: clsx(classes.nextIcon, classes.color)
+        }
+      }}
+      SelectProps={{
+        classes: {
+          icon      : classes.selectIcon,
+          root      : classes.select,
+          selectMenu: classes.selectMenu
+        },
+        inputProps: {
+          classes: {
+            root: clsx(classes.inputSelect, classes.color)
+          }
+        }
+      }}
+      {...otherProps} />
+  )
 })
 
 TablePagination.propTypes = {
