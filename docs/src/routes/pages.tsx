@@ -157,6 +157,15 @@ const pages: Array<Page> = [
         ]
       },
       {
+        title: 'F',
+        routes: [
+          {
+            title: 'Filters',
+            path: '/views/filters'
+          },
+        ]
+      },
+      {
         title: 'J',
         routes: [
           {
