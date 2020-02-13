@@ -1,8 +1,8 @@
-import React from 'react'
+import { List, ListItem, ListItemText, ListSubheader, makeStyles } from '@krowdy-ui/core'
 import Search from '@krowdy-ui/views/Search'
-import { List, ListSubheader, ListItem, ListItemText, makeStyles } from '@krowdy-ui/core'
+import React, { useMemo, useState } from 'react'
 
-export const useFiltersListStyles = makeStyles((theme) => ({
+export const useStyles = makeStyles((theme) => ({
   filtersList: {
     maxHeight: 500,
     overflow : 'auto',
@@ -50,18 +50,47 @@ const FiltersList = (props) => {
     filterGroups
   } = props
 
-  const classes = useFiltersListStyles()
+  const classes = useStyles()
+  const [ search, setSearch ] = useState('')
+
+  const searchInGroups = (search) => {
+    if(!search) return filterGroups
+    const searchTerm = new RegExp(search, 'i')
+
+    return filterGroups.map(filterGroup => {
+      const filtersSearched = filterGroup.subItems.filter(filter => searchTerm.test(filter.label))
+
+      if(filtersSearched.length)
+        return {
+          _id     : filterGroup._id,
+          label   : filterGroup.label,
+          subItems: filtersSearched
+        }
+
+      return null
+    }).filter(Boolean)
+  }
+
+  const filterGroupsSearched = useMemo(() =>
+    searchInGroups(search)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  , [ search ])
+
+  const _handleChangeSearch = (event) => setSearch(event.target.value)
 
   return (
     <>
       <div className={classes.searchFiltersContainer}>
-        <Search placeholder='Buscar' />
+        <Search
+          onChange={_handleChangeSearch}
+          placeholder='Buscar'
+          value={search}  />
       </div>
       <List
         className={classes.filtersList}
         subheader={<li />}>
         {
-          filterGroups.map(filterGroup => (
+          filterGroupsSearched.map(filterGroup => (
             <li
               className={classes.listSection}
               key={`section-${filterGroup._id}`}>

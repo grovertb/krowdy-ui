@@ -83,7 +83,6 @@ const Filters = (props) => {
     title = 'Todos las compras',
     filters: filterGroups = []
   }  = props
-  console.log('Dante: Filters -> filters', filterGroups)
 
   const [ view, setView ] = useState(Views.FILTERS_SEARCH)
 
