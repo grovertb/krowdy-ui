@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { makeStyles, FormControl, Select, MenuItem, Button } from '@krowdy-ui/core'
+import { makeStyles, FormControl, Select, MenuItem, Button, TextField } from '@krowdy-ui/core'
 
 const CONFIG_TYPES = {
   category: {
@@ -121,6 +121,28 @@ const CONFIG_TYPES = {
 }
 
 const useStyles = makeStyles((theme) => ({
+  addFilterButton: {
+    marginTop: 22
+  },
+  center: {
+    display       : 'flex',
+    justifyContent: 'center'
+  },
+  configOptionContainer: {
+    padding: '20px 0'
+  },
+  firstInputContainer: {
+    '& p': {
+      fontSize   : 14,
+      margin     : 0,
+      paddingLeft: 8
+    },
+    alignItems: 'flex-end',
+    display   : 'flex'
+  },
+  input: {
+    fontSize: 12
+  },
   menuItem: {
     '&:hover': {
       background: '#F3FBFF',
@@ -134,6 +156,9 @@ const useStyles = makeStyles((theme) => ({
       background: '#F3FBFF'
     },
     color: theme.palette.primary[500]
+  },
+  secondInputContainer: {
+    paddingTop: 18
   },
   select: {
     fontSize     : 12,
@@ -154,7 +179,6 @@ const useStyles = makeStyles((theme) => ({
     lineHeight       : '20px',
     padding          : '4px 0'
   }
-
 }))
 
 const FilterConfig = (props) => {
@@ -170,6 +194,57 @@ const FilterConfig = (props) => {
 
   const _handleChange = (event) => {
     setOption(event.target.value)
+  }
+
+  const renderConfigOption = (filterType, /* option */) => {
+    console.log('Dante: renderConfigOption -> filterType', filterType)
+    switch ('number') {
+      case 'number':
+        return (
+          <>
+            <div className={classes.firstInputContainer}>
+              <TextField
+                fullWidth
+                InputProps={{
+                  classes: {
+                    input: classes.input
+                  }
+                }}
+                placeholder='Valor'
+                size='small' />
+              <p>y</p>
+            </div>
+            <div className={classes.secondInputContainer}>
+              <TextField
+                fullWidth
+                InputProps={{
+                  classes: {
+                    input: classes.input
+                  }
+                }}
+                placeholder='Valor'
+                size='small' />
+            </div>
+          </>
+        )
+      case 'generic':
+        return null
+      case 'date':
+        return (
+          <div>
+            Configuracion para el tipo Fecha
+          </div>
+        )
+      case 'category':
+        return (
+          <div>
+            COnfig Categoria
+          </div>
+        )
+
+      default:
+        return null
+    }
   }
 
   return (
@@ -212,11 +287,19 @@ const FilterConfig = (props) => {
           }
         </Select>
       </FormControl>
-      <Button
-        color='primary'
-        onClick={onClickApply}>
-          Añadir filtro
-      </Button>
+      <div className={classes.configOptionContainer}>
+        {
+          renderConfigOption(filter.typeFilter, option)
+        }
+      </div>
+      <div className={classes.center}>
+        <Button
+          className={classes.addFilterButton}
+          color='primary'
+          onClick={onClickApply}>
+          Aplicar filtros
+        </Button>
+      </div>
     </div>
   )
 }
