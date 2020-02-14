@@ -47,7 +47,8 @@ export const useStyles = makeStyles((theme) => ({
 
 const FiltersList = (props) => {
   const {
-    filterGroups
+    filterGroups,
+    onClickItem
   } = props
 
   const classes = useStyles()
@@ -77,6 +78,7 @@ const FiltersList = (props) => {
   , [ search ])
 
   const _handleChangeSearch = (event) => setSearch(event.target.value)
+  const _handleClickItem = (item) => (event) => onClickItem(event, item)
 
   return (
     <>
@@ -104,7 +106,9 @@ const FiltersList = (props) => {
                   filterGroup.subItems.map(filter => (
                     <ListItem
                       className={classes.listItem}
-                      key={`item-${filterGroup._id}-${filter._id}`}>
+                      key={`item-${filterGroup._id}-${filter._id}`}
+                      onClick={_handleClickItem(filter)}
+                      value={filter}>
                       <ListItemText
                         primary={filter.label} />
                     </ListItem>

@@ -4,58 +4,15 @@ import clsx from 'clsx'
 import { PropTypes } from 'prop-types'
 import React, { useState } from 'react'
 import FiltersList from './FiltersList'
+import FilterConfig from './FilterConfig'
 
-const Views = {
-  FILTERS_SEARCH: {
-    index      : 1,
-    withPadding: false
-  },
-  HOME: {
-    index      : 0,
-    withPadding: true
-  }
-}
-
-export const styles = (theme) => ({
+export const styles = () => ({
   cardContent: {
     display       : 'flex',
     justifyContent: 'center'
   },
   cardTitle: {
     fontSize: 14
-  },
-  filtersList: {
-    maxHeight: 500,
-    overflow : 'auto',
-    position : 'relative'
-  },
-  listItem: {
-    '&:hover': {
-      background: '#F3FBFF',
-      color     : theme.palette.primary[500]
-    },
-    color     : theme.palette.grey[700],
-    cursor    : 'pointer',
-    fontSize  : 12,
-    lineHeight: '16px',
-    padding   : '8px 12px',
-    transition: '.3s'
-  },
-  listSection: {
-    backgroundColor: theme.palette.background.paper
-  },
-  listSubheader: {
-    borderBottom     : '1px solid',
-    borderBottomColor: theme.palette.grey[300],
-    color            : theme.palette.grey[800],
-    fontSize         : 12,
-    fontWeight       : 'bold',
-    lineHeight       : '20px',
-    marginBottom     : 4,
-    marginLeft       : 12,
-    marginRight      : 12,
-    padding          : 0,
-    paddingBottom    : 4
   },
   noPadding: {
     padding: 0
@@ -65,17 +22,27 @@ export const styles = (theme) => ({
     maxWidth : 304,
     padding  : 0
   },
-  searchFiltersContainer: {
-    padding: 12
-  },
-  ul: {
-    backgroundColor: theme.palette.background.paper,
-    padding        : 0
-  },
   viewContainer: {
     width: '100%'
   }
 })
+
+const Views = {
+  FILTERS_SEARCH: {
+    backIndex  : 'HOME',
+    index      : 1,
+    withPadding: false
+  },
+  FILTER_CONFIG: {
+    backIndex  : 'FILTERS_SEARCH',
+    index      : 2,
+    withPadding: true
+  },
+  HOME: {
+    index      : 0,
+    withPadding: true
+  }
+}
 
 const Filters = (props) => {
   const {
@@ -85,10 +52,22 @@ const Filters = (props) => {
   }  = props
 
   const [ view, setView ] = useState(Views.FILTERS_SEARCH)
+  const [ filterSelected, setFilterSelected ] = useState()
 
-  const _handleClickAddFilter = () => {
-    setView(Views.FILTERS_SEARCH)
+  const _handleClickFilterListItem = (_, item) => {
+    setFilterSelected(item)
+    setView(Views.FILTER_CONFIG)
   }
+
+  const _handleClickAddFilter = () => setView(Views.FILTERS_SEARCH)
+  const _handleClickApplyFilters = () => setView(Views.HOME)
+
+  const _handleBack = () => {
+    if(view.backIndex)
+      setView(Views[view.backIndex])
+  }
+
+  const cardTitle = () => view.index === 0 ? title : 'Atrás'
 
   return (
     <Card className={classes.root}>
@@ -96,11 +75,16 @@ const Filters = (props) => {
         // classes={{
         //   title: classes.cardTitle
         // }}
-        title={title} />
-      <CardContent className={clsx(classes.cardContent, {
-        [classes.noPadding]: !view.withPadding
-      })}>
-        <TabPanel className={classes.viewContainer} index={0} value={view.index}>
+        onClick={_handleBack}
+        title={cardTitle()} />
+      <CardContent
+        className={clsx(classes.cardContent, {
+          [classes.noPadding]: !view.withPadding
+        })}>
+        <TabPanel
+          className={classes.viewContainer}
+          index={Views.HOME.index}
+          value={view.index}>
           <Button
             color='primary'
             onClick={_handleClickAddFilter}
@@ -108,9 +92,19 @@ const Filters = (props) => {
         </TabPanel>
         <TabPanel
           className={classes.viewContainer}
-          index={1}
+          index={Views.FILTERS_SEARCH.index}
           value={view.index}>
-          <FiltersList filterGroups={filterGroups} />
+          <FiltersList
+            filterGroups={filterGroups}
+            onClickItem={_handleClickFilterListItem} />
+        </TabPanel>
+        <TabPanel
+          className={classes.viewContainer}
+          index={Views.FILTER_CONFIG.index}
+          value={view.index}>
+          <FilterConfig
+            filter={filterSelected}
+            onClickApply={_handleClickApplyFilters} />
         </TabPanel>
       </CardContent>
     </Card>
