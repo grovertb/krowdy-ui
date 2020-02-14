@@ -185,7 +185,7 @@ ModalKrowder.propTypes = {
     })
   ),
   headerContent   : PropTypes.element,
-  minWidth        : PropTypes.number,
+  minWidth        : PropTypes.string,
   onChangeCollapse: PropTypes.func,
   onclose         : PropTypes.func.isRequired,
   open            : PropTypes.bool.isRequired,
