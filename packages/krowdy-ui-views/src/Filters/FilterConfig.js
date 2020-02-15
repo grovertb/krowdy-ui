@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { makeStyles, FormControl, Select, MenuItem, Button, TextField } from '@krowdy-ui/core'
+import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
+import DayJSUtils from '@date-io/dayjs'
 
 const CONFIG_TYPES = {
   category: {
@@ -28,28 +30,34 @@ const CONFIG_TYPES = {
     _id    : 2,
     options: [
       {
-        label   : 'Es igual a',
-        operator: '$eq'
+        label         : 'Es igual a',
+        numberOfInputs: 1,
+        operator      : '$eq'
       },
       {
-        label   : 'Es posterior a',
-        operator: '$gt'
+        label         : 'Es posterior a',
+        numberOfInputs: 1,
+        operator      : '$gt'
       },
       {
-        label   : 'Es anterior a',
-        operator: '$lt'
+        label         : 'Es anterior a',
+        numberOfInputs: 1,
+        operator      : '$lt'
       },
       {
-        label   : 'Está entre',
-        operator: '$range'
+        label         : 'Está entre',
+        numberOfInputs: 2,
+        operator      : '$range'
       },
       {
-        label   : 'Es conocido',
-        operator: '$ne'
+        label         : 'Es conocido',
+        numberOfInputs: 0,
+        operator      : '$ne'
       },
       {
-        label   : 'Es desconocido',
-        operator: '$eq'
+        label         : 'Es desconocido',
+        numberOfInputs: 0,
+        operator      : '$eq'
       }
     ],
     type: 'date'
@@ -80,40 +88,49 @@ const CONFIG_TYPES = {
     _id    : 1,
     options: [
       {
-        label   : 'Es igual a',
-        operator: '$eq'
+        label         : 'Es igual a',
+        numberOfInputs: 1,
+        operator      : '$eq'
       },
       {
-        label   : 'No es igual a',
-        operator: '$ne'
+        label         : 'No es igual a',
+        numberOfInputs: 1,
+        operator      : '$ne'
       },
       {
-        label   : 'Es mayor que',
-        operator: '$gt'
+        label         : 'Es mayor que',
+        numberOfInputs: 1,
+        operator      : '$gt'
       },
       {
-        label   : 'Es mayor o igual que',
-        operator: '$gte'
+        label         : 'Es mayor o igual que',
+        numberOfInputs: 1,
+        operator      : '$gte'
       },
       {
-        label   : 'Es menor que',
-        operator: '$lt'
+        label         : 'Es menor que',
+        numberOfInputs: 1,
+        operator      : '$lt'
       },
       {
-        label   : 'Es menor o igual que',
-        operator: '$lte'
+        label         : 'Es menor o igual que',
+        numberOfInputs: 1,
+        operator      : '$lte'
       },
       {
-        label   : 'Está entre',
-        operator: '$range'
+        label         : 'Está entre',
+        numberOfInputs: 2,
+        operator      : '$range'
       },
       {
-        label   : 'Es conocido',
-        operator: '$ne'
+        label         : 'Es conocido',
+        numberOfInputs: 0,
+        operator      : '$ne'
       },
       {
-        label   : 'Es desconocido',
-        operator: '$eq'
+        label         : 'Es desconocido',
+        numberOfInputs: 0,
+        operator      : '$eq'
       }
     ],
     type: 'number'
@@ -141,6 +158,9 @@ const useStyles = makeStyles((theme) => ({
     display   : 'flex'
   },
   input: {
+    fontSize: 12
+  },
+  inputEndAdornment: {
     fontSize: 12
   },
   menuItem: {
@@ -197,8 +217,8 @@ const FilterConfig = (props) => {
   }
 
   const renderConfigOption = (filterType, /* option */) => {
-    console.log('Dante: renderConfigOption -> filterType', filterType)
-    switch ('number') {
+    const showSecondInput = type.options[option].numberOfInputs === 2
+    switch (filterType) {
       case 'number':
         return (
           <>
@@ -212,28 +232,70 @@ const FilterConfig = (props) => {
                 }}
                 placeholder='Valor'
                 size='small' />
-              <p>y</p>
+              { showSecondInput && <p>y</p>}
             </div>
-            <div className={classes.secondInputContainer}>
-              <TextField
-                fullWidth
-                InputProps={{
-                  classes: {
-                    input: classes.input
-                  }
-                }}
-                placeholder='Valor'
-                size='small' />
-            </div>
+            { showSecondInput &&
+              <div className={classes.secondInputContainer}>
+                <TextField
+                  fullWidth
+                  InputProps={{
+                    classes: {
+                      input: classes.input
+                    }
+                  }}
+                  placeholder='Valor'
+                  size='small' />
+              </div>
+            }
           </>
         )
       case 'generic':
         return null
       case 'date':
         return (
-          <div>
-            Configuracion para el tipo Fecha
-          </div>
+          <MuiPickersUtilsProvider utils={DayJSUtils}>
+            <>
+              <div className={classes.firstInputContainer}>
+                <KeyboardDatePicker
+                  format='DD/MM/YYYY'
+                  fullWidth
+                  InputAdornmentProps={{
+                    classes: {
+                      root: classes.inputEndAdornment
+                    }
+
+                  }}
+                  InputProps={{
+                    classes: {
+                      input: classes.input
+                    }
+                  }}
+                  placeholder='DD/MM/AAAA'
+                  size='small' />
+                { showSecondInput && <p>y</p> }
+              </div>
+              { showSecondInput &&
+              <div className={classes.secondInputContainer}>
+                <KeyboardDatePicker
+                  format='DD/MM/YYYY'
+                  fullWidth
+                  InputAdornmentProps={{
+                    classes: {
+                      root: classes.inputEndAdornment
+                    }
+
+                  }}
+                  InputProps={{
+                    classes: {
+                      input: classes.input
+                    }
+                  }}
+                  placeholder='DD/MM/AAAA'
+                  size='small' />
+              </div>
+              }
+            </>
+          </MuiPickersUtilsProvider>
         )
       case 'category':
         return (
@@ -280,6 +342,7 @@ const FilterConfig = (props) => {
                   selected: classes.menuItemSelected
 
                 }}
+                key={index}
                 value={index}>
                 {option.label}
               </MenuItem>

@@ -1,4 +1,4 @@
-import { makeStyles } from '@krowdy-ui/core'
+import { makeStyles, FormControlLabel, Checkbox } from '@krowdy-ui/core'
 import { Filters } from '@krowdy-ui/views'
 import React from 'react'
 
@@ -246,6 +246,13 @@ const getGroupedFilters = () => {
 }
 
 const groupedFilters = getGroupedFilters()
+
+const HomeComponent = () => (
+  <div>
+    <FormControlLabel control={<Checkbox color='primary' size='small' value='checked' />} label='Mostrar solo los candidatos postulantes' />
+  </div>
+)
+
 export default function () {
   const classes = useStyles()
 
@@ -258,7 +265,9 @@ export default function () {
         classes={{
           root: classes.root
         }}
-        filters={groupedFilters} />
+        filters={groupedFilters}
+        headerHomeComponent={<HomeComponent />}
+        title='Todos las compras' />
     </div>
   )
 }
