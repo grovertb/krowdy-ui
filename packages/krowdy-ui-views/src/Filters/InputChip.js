@@ -1,30 +1,34 @@
-import React, { useState, useEffect } from 'react'
-import Autocomplete from '@material-ui/lab/Autocomplete'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
+import { PropTypes } from 'prop-types'
+import Autocomplete from '@material-ui/lab/Autocomplete'
+import React, { useEffect, useState } from 'react'
 
 const useStyles = makeStyles(theme => ({
   root: {
     '& > * + *': {
       marginTop: theme.spacing(2)
+    },
+    '&& .MuiInputBase-root': {
+      paddingRight: 24
     }
   }
 }))
 
 const InputChip = (props) => {
   const {
-    onChange
+    onChange,
+    values: commingValues = []
   } = props
 
   const classes = useStyles()
   const [ inputValue, setInputValue ] = useState('')
-
-  const [ values, setValues ] = useState([])
+  const [ values, setValues ] = useState(() => commingValues.map(item => ({ title: item })))
 
   const existsTitle = title => values.some(value => value.title === title)
 
   useEffect(() => {
-    onChange(values)
+    onChange(values.map(({ title }) => title))
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ values ])
 
@@ -42,8 +46,8 @@ const InputChip = (props) => {
     setInputValue(text)
   }
 
-  const _handleChange = (_, vals) => {
-    setValues(vals)
+  const _handleChange = (_, values) => {
+    setValues(values)
   }
 
   return (
@@ -67,13 +71,18 @@ const InputChip = (props) => {
           <TextField
             {...params}
             fullWidth
-            placeholder='Favorites'
+            placeholder='Valor'
             size='small' />
         )}
         size='small'
         value={values} />
     </div>
   )
+}
+
+InputChip.propTypes = {
+  onChange: PropTypes.func.isRequired,
+  values  : PropTypes.arrayOf(PropTypes.string).isRequired
 }
 
 export default InputChip

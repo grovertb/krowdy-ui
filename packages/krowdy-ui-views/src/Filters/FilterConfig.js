@@ -5,6 +5,7 @@ import dayjs from 'dayjs'
 import esLocale from 'dayjs/locale/es'
 import React, { useState } from 'react'
 import InputChip from './InputChip'
+import { PropTypes } from 'prop-types'
 
 const CONFIG_TYPES = {
   category: {
@@ -218,6 +219,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize         : 12,
     fontWeight       : 'bold',
     lineHeight       : '20px',
+    marginTop        : 0,
     padding          : '4px 0'
   }
 }))
@@ -297,15 +299,15 @@ const FilterConfig = (props) => {
 
   const _handleClickApply = () => {
     const configValue = getFilterConfigValue(filter.typeFilter)
+    console.log('Dante: _handleClickApply -> configValue', configValue)
 
     const res = {
-      [filter.key]: {
-        [option.operator]: configValue
-      }
+      key     : filter.key,
+      label   : filter.label,
+      operator: option.operator,
+      value   : configValue
     }
-    console.log('Dante: _handleClickApply -> res', res)
-
-    return res
+    onClickApply(res)
   }
 
   const renderConfigOption = (filterType,  optionIndex) => {
@@ -350,7 +352,8 @@ const FilterConfig = (props) => {
         return (
           <div>
             {
-              showInputs && <InputChip onChange={_handleChange()} />
+              showInputs &&
+              <InputChip onChange={_handleChange()} values={filterConfig} />
             }
           </div>
         )
@@ -474,6 +477,16 @@ const FilterConfig = (props) => {
       </div>
     </div>
   )
+}
+
+FilterConfig.propTypes = {
+  filter: PropTypes.shape({
+    _id       : PropTypes.string.isRequired,
+    key       : PropTypes.string.isRequired,
+    label     : PropTypes.string.isRequired,
+    typeFilter: PropTypes.string.isRequired
+  }),
+  onClickApply: PropTypes.func.isRequired
 }
 
 export default FilterConfig

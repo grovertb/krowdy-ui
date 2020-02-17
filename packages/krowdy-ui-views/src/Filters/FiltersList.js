@@ -58,14 +58,16 @@ const FiltersList = (props) => {
     if(!search) return filterGroups
     const searchTerm = new RegExp(search, 'i')
 
+    console.log('Dante: searchInGroups -> filterGroups', filterGroups)
+
     return filterGroups.map(filterGroup => {
-      const filtersSearched = filterGroup.subItems.filter(filter => searchTerm.test(filter.label))
+      const filtersSearched = filterGroup.children.filter(filter => searchTerm.test(filter.label))
 
       if(filtersSearched.length)
         return {
           _id     : filterGroup._id,
-          label   : filterGroup.label,
-          subItems: filtersSearched
+          children: filtersSearched,
+          label   : filterGroup.label
         }
 
       return null
@@ -103,7 +105,7 @@ const FiltersList = (props) => {
                   {filterGroup.label}
                 </ListSubheader>
                 {
-                  filterGroup.subItems.map(filter => (
+                  filterGroup.children.map(filter => (
                     <ListItem
                       className={classes.listItem}
                       key={`item-${filterGroup._id}-${filter._id}`}
@@ -116,7 +118,6 @@ const FiltersList = (props) => {
                 }
               </ul>
             </li>
-
           ))
         }
       </List>

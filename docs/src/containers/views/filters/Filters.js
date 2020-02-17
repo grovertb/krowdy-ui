@@ -1,6 +1,6 @@
 import { makeStyles, FormControlLabel, Checkbox } from '@krowdy-ui/core'
 import { Filters } from '@krowdy-ui/views'
-import React from 'react'
+import React, { useState } from 'react'
 
 const generateId = () => Math.round(Math.random() * 8798798).toString()
 
@@ -12,23 +12,23 @@ const useStyles = makeStyles({
 
 const parentGroupKeys = {
   0: {
-    _id  : 0,
+    _id  : '0',
     label: 'Sobre el proceso'
   },
   1: {
-    _id  : 1,
+    _id  : '1',
     label: 'Sobre el candidato'
   },
   2: {
-    _id  : 2,
+    _id  : '2',
     label: 'Sobre la tarea'
   },
   3: {
-    _id  : 3,
+    _id  : '3',
     label: 'Sobre el candidato'
   },
   4: {
-    _id  : 4,
+    _id  : '4',
     label: 'Datos de la empresa'
   }
 }
@@ -158,23 +158,7 @@ const datatables = [
   {
     _id           : generateId(),
     key           : 'tamanoempresa',
-    label         : 'Tamano de la empresa',
-    parentGroupKey: 4,
-    source        : 'company',
-    typeFilter    : 'category'
-  },
-  {
-    _id           : generateId(),
-    key           : 'tamanoempresa',
-    label         : 'Tamano de la empresa',
-    parentGroupKey: 4,
-    source        : 'company',
-    typeFilter    : 'category'
-  },
-  {
-    _id           : generateId(),
-    key           : 'tamanoempresa',
-    label         : 'Tamano de la empresa',
+    label         : 'TamangetFilterConfigValueo de la empresa',
     parentGroupKey: 4,
     source        : 'company',
     typeFilter    : 'category'
@@ -232,11 +216,11 @@ const datatables = [
 const getGroupedFilters = () => {
   const objGrouped = datatables.reduce((obj, x) => {
     if(obj[x.parentGroupKey])
-      obj[x.parentGroupKey].subItems.push(x)
+      obj[x.parentGroupKey].children.push(x)
     else
       obj[x.parentGroupKey] = {
         ...parentGroupKeys[x.parentGroupKey],
-        subItems: [ x ]
+        children: [ x ]
       }
 
     return obj
@@ -247,7 +231,7 @@ const getGroupedFilters = () => {
 
 const groupedFilters = getGroupedFilters()
 
-const HomeComponent = () => (
+const HeaderHomeComponent = () => (
   <div>
     <FormControlLabel control={<Checkbox color='primary' size='small' value='checked' />} label='Mostrar solo los candidatos postulantes' />
   </div>
@@ -255,6 +239,14 @@ const HomeComponent = () => (
 
 export default function () {
   const classes = useStyles()
+
+  const [ appliedFilters, setAppliedFilters ] = useState([])
+  console.log('Dante: appliedFilters', appliedFilters)
+
+  // handled on update or add filter
+  const _handleApplyFilter = (newFilter) => {
+    setAppliedFilters(prev => [ ...prev, newFilter ])
+  }
 
   return (
     <div style={{
@@ -265,8 +257,10 @@ export default function () {
         classes={{
           root: classes.root
         }}
-        filters={groupedFilters}
-        headerHomeComponent={<HomeComponent />}
+        filterGroups={groupedFilters}
+        filters={appliedFilters}
+        headerHomeComponent={<HeaderHomeComponent />}
+        onClickApply={_handleApplyFilter}
         title='Todos las compras' />
     </div>
   )

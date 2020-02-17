@@ -7,6 +7,7 @@ import FiltersList from './FiltersList'
 import FilterConfig from './FilterConfig'
 import ArrowBackIcon from '@material-ui/icons/ArrowBackIos'
 import { IconButton } from '@material-ui/core'
+import AppliedFilters from './AppliedFilters'
 
 export const styles = () => ({
   backIcon: {
@@ -69,11 +70,13 @@ const Filters = (props) => {
   const {
     classes,
     title = 'Todos las compras',
-    headerHomeComponent,
-    filters: filterGroups = []
+    headerHomeComponent: HeaderHomeComponent,
+    filters = [],
+    onClickApply,
+    filterGroups = []
   }  = props
 
-  const [ view, setView ] = useState(Views.FILTERS_SEARCH)
+  const [ view, setView ] = useState(Views.HOME)
   const [ filterSelected, setFilterSelected ] = useState()
 
   const _handleClickFilterListItem = (_, item) => {
@@ -82,7 +85,10 @@ const Filters = (props) => {
   }
 
   const _handleClickAddFilter = () => setView(Views.FILTERS_SEARCH)
-  const _handleClickApplyFilters = () => setView(Views.HOME)
+  const _handleClickApplyFilters = (newFilter) => {
+    onClickApply(newFilter)
+    setView(Views.HOME)
+  }
 
   const _handleBack = () => {
     if(view.backIndex)
@@ -117,7 +123,8 @@ const Filters = (props) => {
           className={classes.viewContainer}
           index={Views.HOME.index}
           value={view.index}>
-          {headerHomeComponent}
+          {HeaderHomeComponent}
+          <AppliedFilters filters={filters} />
           <div className={classes.center}>
             <Button
               color='primary'
@@ -147,8 +154,38 @@ const Filters = (props) => {
 }
 
 Filters.propTypes = {
-  classes: PropTypes.object,
-  title  : PropTypes.string.isRequired
+  classes     : PropTypes.object,
+  filterGroups: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id     : PropTypes.string.isRequired,
+      children: PropTypes.arrayOf(
+        PropTypes.shape({
+          _id       : PropTypes.string.isRequired,
+          key       : PropTypes.string.isRequired,
+          label     : PropTypes.string.isRequired,
+          typeFilter: PropTypes.string.isRequired
+        })
+      ),
+      label: PropTypes.string.isRequired
+    })
+  ),
+  filters: PropTypes.arrayOf(
+    PropTypes.shape({
+      key     : PropTypes.string.isRequired,
+      label   : PropTypes.string.isRequired,
+      operator: PropTypes.string.isRequired,
+      value   : PropTypes.arrayOf(
+        PropTypes.oneOfType([
+          PropTypes.string,
+          PropTypes.number,
+          PropTypes.array
+        ])
+      )
+    })
+  ),
+  headerHomeComponent: PropTypes.node,
+  onClickApply       : PropTypes.func.isRequired,
+  title              : PropTypes.string.isRequired
 }
 
 Filters.muiName = 'KrowdyFilters'
