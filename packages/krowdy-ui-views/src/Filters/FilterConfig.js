@@ -1,12 +1,16 @@
-import React, { useState } from 'react'
-import { makeStyles, FormControl, Select, MenuItem, Button, TextField } from '@krowdy-ui/core'
-import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
 import DayJSUtils from '@date-io/dayjs'
+import { Button, FormControl, makeStyles, MenuItem, Select, TextField } from '@krowdy-ui/core'
+import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
+import dayjs from 'dayjs'
+import esLocale from 'dayjs/locale/es'
+import React, { useState } from 'react'
+import InputChip from './InputChip'
 
 const CONFIG_TYPES = {
   category: {
-    _id    : 3,
-    options: [
+    _id         : 3,
+    initialValue: [],
+    options     : [
       {
         label   : 'Es cualquiera de',
         operator: '$in'
@@ -27,7 +31,11 @@ const CONFIG_TYPES = {
     type: 'category'
   },
   date: {
-    _id    : 2,
+    _id         : 2,
+    initialValue: {
+      first : null, // from
+      second: null // to
+    },
     options: [
       {
         label         : 'Es igual a',
@@ -47,7 +55,7 @@ const CONFIG_TYPES = {
       {
         label         : 'Está entre',
         numberOfInputs: 2,
-        operator      : '$range'
+        operator      : '$range' // rage a - b
       },
       {
         label         : 'Es conocido',
@@ -63,29 +71,42 @@ const CONFIG_TYPES = {
     type: 'date'
   },
   generic: {
-    _id    : 4,
-    options: [
+    _id         : 4,
+    initialValue: [],
+    options     : [
       {
-        label   : 'Contiene exactamente',
-        operator: '$eq'
+        initialValue  : [],
+        label         : 'Contiene exactamente',
+        numberOfInputs: 1,
+        operator      : '$eq'
       },
       {
-        label   : 'No contiene exactamente',
-        operator: '$ne'
+        initialValue  : [],
+        label         : 'No contiene exactamente',
+        numberOfInputs: 1,
+        operator      : '$ne'
       },
       {
-        label   : 'Es conocido',
-        operator: '$ne'
+        initialValue  : [],
+        label         : 'Es conocido',
+        numberOfInputs: 0,
+        operator      : '$ne'
       },
       {
-        label   : 'Es desconocido',
-        operator: '$eq'
+        initialValue  : [],
+        label         : 'Es desconocido',
+        numberOfInputs: 0,
+        operator      : '$eq'
       }
     ],
     type: 'generic'
   },
   number: {
-    _id    : 1,
+    _id         : 1,
+    initialValue: {
+      first : '', // from
+      second: '' // to
+    },
     options: [
       {
         label         : 'Es igual a',
@@ -206,18 +227,90 @@ const FilterConfig = (props) => {
     filter,
     onClickApply
   } = props
+  console.log('Dante: FilterConfig -> filter', filter)
 
   const classes = useStyles()
-  const [ option, setOption ]  = useState(0)
-
+  const [ optionIndex, setOptionIndex ]  = useState(0)
   const type = CONFIG_TYPES[filter.typeFilter]
+  const option = type.options[optionIndex]
 
-  const _handleChange = (event) => {
-    setOption(event.target.value)
+  const [ filterConfig, setFilterConfig ] = useState(type.initialValue)
+  console.log('Dante: FilterConfig -> filterConfig', filterConfig)
+
+  const _handleOptionChange = (event) => {
+    setOptionIndex(event.target.value)
   }
 
-  const renderConfigOption = (filterType, /* option */) => {
-    const showSecondInput = type.options[option].numberOfInputs === 2
+  const _handleChange = (key) => (eventOrValue) => {
+    if(eventOrValue && typeof eventOrValue === 'object' && eventOrValue.target)
+      eventOrValue.persist()
+
+    switch (filter.typeFilter) {
+      case 'number':
+        setFilterConfig(prev => ({
+          ...prev,
+          [key]: eventOrValue.target.value
+        }))
+        break
+      case 'date':
+        setFilterConfig(prev => ({
+          ...prev,
+          [key]: eventOrValue
+        }))
+        break
+      case 'generic':
+        setFilterConfig(eventOrValue)
+        break
+      case 'category':
+        break
+      default:
+        break
+    }
+  }
+
+  const getFilterConfigValue = (filterType) => {
+    switch (filterType) {
+      case 'number':
+        if(option.numberOfInputs === 1)
+          return filterConfig.first
+
+        else if(option.numberOfInputs === 2)
+          return [ filterConfig.first, filterConfig.second ]
+
+        return null
+      case 'date':
+        if(option.numberOfInputs === 1)
+          return filterConfig.first
+
+        else if(option.numberOfInputs === 2)
+          return [ filterConfig.first, filterConfig.second ]
+
+        return null
+      case 'generic':
+        return filterConfig
+      case 'category':
+        return filterConfig
+      default:
+        return null
+    }
+  }
+
+  const _handleClickApply = () => {
+    const configValue = getFilterConfigValue(filter.typeFilter)
+
+    const res = {
+      [filter.key]: {
+        [option.operator]: configValue
+      }
+    }
+    console.log('Dante: _handleClickApply -> res', res)
+
+    return res
+  }
+
+  const renderConfigOption = (filterType,  optionIndex) => {
+    const showInputs = type.options[optionIndex].numberOfInputs > 0
+    const showSecondInput = type.options[optionIndex].numberOfInputs === 2
     switch (filterType) {
       case 'number':
         return (
@@ -230,8 +323,10 @@ const FilterConfig = (props) => {
                     input: classes.input
                   }
                 }}
+                onChange={_handleChange('first')}
                 placeholder='Valor'
-                size='small' />
+                size='small'
+                value={filterConfig.first} />
               { showSecondInput && <p>y</p>}
             </div>
             { showSecondInput &&
@@ -243,22 +338,31 @@ const FilterConfig = (props) => {
                       input: classes.input
                     }
                   }}
+                  onChange={_handleChange('second')}
                   placeholder='Valor'
-                  size='small' />
+                  size='small'
+                  value={filterConfig.second} />
               </div>
             }
           </>
         )
       case 'generic':
-        return null
+        return (
+          <div>
+            {
+              showInputs && <InputChip onChange={_handleChange()} />
+            }
+          </div>
+        )
       case 'date':
         return (
-          <MuiPickersUtilsProvider utils={DayJSUtils}>
+          <MuiPickersUtilsProvider  locale={esLocale} utils={DayJSUtils}>
             <>
               <div className={classes.firstInputContainer}>
                 <KeyboardDatePicker
                   format='DD/MM/YYYY'
                   fullWidth
+                  initialFocusedDate={dayjs(new Date()).minute(0).second(0).format()}
                   InputAdornmentProps={{
                     classes: {
                       root: classes.inputEndAdornment
@@ -270,29 +374,34 @@ const FilterConfig = (props) => {
                       input: classes.input
                     }
                   }}
+                  onChange={_handleChange('first')}
                   placeholder='DD/MM/AAAA'
-                  size='small' />
+                  size='small'
+                  value={filterConfig.first} />
                 { showSecondInput && <p>y</p> }
               </div>
               { showSecondInput &&
-              <div className={classes.secondInputContainer}>
-                <KeyboardDatePicker
-                  format='DD/MM/YYYY'
-                  fullWidth
-                  InputAdornmentProps={{
-                    classes: {
-                      root: classes.inputEndAdornment
-                    }
+                <div className={classes.secondInputContainer}>
+                  <KeyboardDatePicker
+                    format='DD/MM/YYYY'
+                    fullWidth
+                    initialFocusedDate={dayjs(new Date()).minute(0).second(0).format()}
+                    InputAdornmentProps={{
+                      classes: {
+                        root: classes.inputEndAdornment
+                      }
 
-                  }}
-                  InputProps={{
-                    classes: {
-                      input: classes.input
-                    }
-                  }}
-                  placeholder='DD/MM/AAAA'
-                  size='small' />
-              </div>
+                    }}
+                    InputProps={{
+                      classes: {
+                        input: classes.input
+                      }
+                    }}
+                    onChange={_handleChange('second')}
+                    placeholder='DD/MM/AAAA'
+                    size='small'
+                    value={filterConfig.second} />
+                </div>
               }
             </>
           </MuiPickersUtilsProvider>
@@ -332,8 +441,8 @@ const FilterConfig = (props) => {
             },
             getContentAnchorEl: null
           }}
-          onChange={_handleChange}
-          value={option}>
+          onChange={_handleOptionChange}
+          value={optionIndex}>
           {
             type.options.map((option, index) => (
               <MenuItem
@@ -352,14 +461,14 @@ const FilterConfig = (props) => {
       </FormControl>
       <div className={classes.configOptionContainer}>
         {
-          renderConfigOption(filter.typeFilter, option)
+          renderConfigOption(filter.typeFilter, optionIndex)
         }
       </div>
       <div className={classes.center}>
         <Button
           className={classes.addFilterButton}
           color='primary'
-          onClick={onClickApply}>
+          onClick={_handleClickApply}>
           Aplicar filtros
         </Button>
       </div>
