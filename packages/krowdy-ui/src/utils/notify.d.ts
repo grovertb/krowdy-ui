@@ -1,4 +1,3 @@
-// | string; easing: string; delay: number | string
 type INotify = (
   message: string,
   options?: Partial<{ time: number }>,
