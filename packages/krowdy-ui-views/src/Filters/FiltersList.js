@@ -58,8 +58,6 @@ const FiltersList = (props) => {
     if(!search) return filterGroups
     const searchTerm = new RegExp(search, 'i')
 
-    console.log('Dante: searchInGroups -> filterGroups', filterGroups)
-
     return filterGroups.map(filterGroup => {
       const filtersSearched = filterGroup.children.filter(filter => searchTerm.test(filter.label))
 

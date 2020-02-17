@@ -2,7 +2,7 @@ import { makeStyles, FormControlLabel, Checkbox } from '@krowdy-ui/core'
 import { Filters } from '@krowdy-ui/views'
 import React, { useState } from 'react'
 
-const generateId = () => Math.round(Math.random() * 8798798).toString()
+const generateId = () => Math.round(Math.random() * 879898798).toString()
 
 const useStyles = makeStyles({
   root: {
@@ -240,17 +240,35 @@ const HeaderHomeComponent = () => (
 export default function () {
   const classes = useStyles()
 
-  const [ appliedFilters, setAppliedFilters ] = useState([])
-  console.log('Dante: appliedFilters', appliedFilters)
+  const [ appliedFilters, setAppliedFilters ] = useState([
+    {
+      _id        : '255424333',
+      key        : 'codigoproceso',
+      label      : 'Código proceso',
+      operator   : '$ne',
+      optionIndex: 1,
+      typeFilter : 'generic',
+      value      : [ 'HEMERON', 'DANTE' ]
+    }
+  ])
 
   // handled on update or add filter
   const _handleApplyFilter = (newFilter) => {
     setAppliedFilters(prev => [ ...prev, newFilter ])
   }
 
+  const _handleDeleteItem = (filter) => {
+    setAppliedFilters(prev => prev.filter(item => {
+      if(item._id !== filter._id)
+        return true
+
+      return false
+    }))
+  }
+
   return (
     <div style={{
-      maxHeight: 500,
+      maxHeight: 1200,
       width    : '75%'
     }}>
       <Filters
@@ -261,6 +279,7 @@ export default function () {
         filters={appliedFilters}
         headerHomeComponent={<HeaderHomeComponent />}
         onClickApply={_handleApplyFilter}
+        onDeleteFilter={_handleDeleteItem}
         title='Todos las compras' />
     </div>
   )

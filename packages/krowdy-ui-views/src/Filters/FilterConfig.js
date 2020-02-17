@@ -6,6 +6,7 @@ import esLocale from 'dayjs/locale/es'
 import React, { useState } from 'react'
 import InputChip from './InputChip'
 import { PropTypes } from 'prop-types'
+import generateRandomId from '../utils/generateRandomId'
 
 const CONFIG_TYPES = {
   category: {
@@ -226,18 +227,20 @@ const useStyles = makeStyles((theme) => ({
 
 const FilterConfig = (props) => {
   const {
-    filter,
+    filter: commingFilter,
+    filterToEdit,
     onClickApply
   } = props
-  console.log('Dante: FilterConfig -> filter', filter)
+  const filter = Object.assign({}, commingFilter, filterToEdit)
 
   const classes = useStyles()
-  const [ optionIndex, setOptionIndex ]  = useState(0)
+
+  const [ optionIndex, setOptionIndex ] = useState(filter.optionIndex || 0)
+
   const type = CONFIG_TYPES[filter.typeFilter]
   const option = type.options[optionIndex]
 
-  const [ filterConfig, setFilterConfig ] = useState(type.initialValue)
-  console.log('Dante: FilterConfig -> filterConfig', filterConfig)
+  const [ filterConfig, setFilterConfig ] = useState(filter.value || type.initialValue)
 
   const _handleOptionChange = (event) => {
     setOptionIndex(event.target.value)
@@ -299,13 +302,15 @@ const FilterConfig = (props) => {
 
   const _handleClickApply = () => {
     const configValue = getFilterConfigValue(filter.typeFilter)
-    console.log('Dante: _handleClickApply -> configValue', configValue)
 
     const res = {
-      key     : filter.key,
-      label   : filter.label,
-      operator: option.operator,
-      value   : configValue
+      _id        : generateRandomId(),
+      key        : filter.key, // Para facil acceso al editar
+      label      : filter.label,
+      operator   : option.operator,
+      optionIndex: optionIndex,
+      typeFilter : filter.typeFilter, // Para facil acceso al editar
+      value      : configValue
     }
     onClickApply(res)
   }
@@ -482,6 +487,12 @@ const FilterConfig = (props) => {
 FilterConfig.propTypes = {
   filter: PropTypes.shape({
     _id       : PropTypes.string.isRequired,
+    key       : PropTypes.string.isRequired,
+    label     : PropTypes.string.isRequired,
+    typeFilter: PropTypes.string.isRequired
+  }),
+  filterToEdit: PropTypes.shape({
+    _id       : PropTypes.string,
     key       : PropTypes.string.isRequired,
     label     : PropTypes.string.isRequired,
     typeFilter: PropTypes.string.isRequired

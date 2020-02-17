@@ -73,11 +73,13 @@ const Filters = (props) => {
     headerHomeComponent: HeaderHomeComponent,
     filters = [],
     onClickApply,
+    onDeleteFilter,
     filterGroups = []
   }  = props
 
   const [ view, setView ] = useState(Views.HOME)
   const [ filterSelected, setFilterSelected ] = useState()
+  const [ filterToEdit, setFilterToEdit ] = useState()
 
   const _handleClickFilterListItem = (_, item) => {
     setFilterSelected(item)
@@ -85,14 +87,21 @@ const Filters = (props) => {
   }
 
   const _handleClickAddFilter = () => setView(Views.FILTERS_SEARCH)
+  const _handleClickEditFilter = (_, item) => {
+    setFilterToEdit(item)
+    setView(Views.FILTER_CONFIG)
+  }
   const _handleClickApplyFilters = (newFilter) => {
     onClickApply(newFilter)
+    setFilterToEdit(null)
     setView(Views.HOME)
   }
 
   const _handleBack = () => {
-    if(view.backIndex)
+    if(view.backIndex) {
       setView(Views[view.backIndex])
+      setFilterToEdit(null)
+    }
   }
 
   const cardTitle = () => view.index === 0 ? title : 'Atrás'
@@ -124,7 +133,7 @@ const Filters = (props) => {
           index={Views.HOME.index}
           value={view.index}>
           {HeaderHomeComponent}
-          <AppliedFilters filters={filters} />
+          <AppliedFilters filters={filters}  onClickEdit={_handleClickEditFilter} onDeleteFilter={onDeleteFilter} />
           <div className={classes.center}>
             <Button
               color='primary'
@@ -146,6 +155,7 @@ const Filters = (props) => {
           value={view.index}>
           <FilterConfig
             filter={filterSelected}
+            filterToEdit={filterToEdit}
             onClickApply={_handleClickApplyFilters} />
         </TabPanel>
       </CardContent>
@@ -185,6 +195,7 @@ Filters.propTypes = {
   ),
   headerHomeComponent: PropTypes.node,
   onClickApply       : PropTypes.func.isRequired,
+  onDeleteFilter     : PropTypes.func.isRequired,
   title              : PropTypes.string.isRequired
 }
 
