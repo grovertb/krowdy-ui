@@ -228,6 +228,10 @@ const pages: Array<Page> = [
           {
             title: 'Top AppBar',
             path: '/views/topappbar'
+          },
+          {
+            title: 'Table Group',
+            path: '/views/tablegroup'
           }
         ]
       },
