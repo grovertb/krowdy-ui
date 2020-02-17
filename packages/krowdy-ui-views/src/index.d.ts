@@ -49,6 +49,9 @@ export * from './SwitchButton';
 export { default as Table } from './Table';
 export * from './Table';
 
+export { default as TableGroup } from './TableGroup';
+export * from './TableGroup';
+
 export { default as TableWindow } from './TableWindow';
 export * from './TableWindow';
 
