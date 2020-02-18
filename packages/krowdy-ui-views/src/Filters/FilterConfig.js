@@ -1,5 +1,5 @@
 import DayJSUtils from '@date-io/dayjs'
-import { Button, FormControl, makeStyles, MenuItem, Select, TextField } from '@krowdy-ui/core'
+import { Button, FormControl, makeStyles, MenuItem, Select, TextField, FormControlLabel, Checkbox } from '@krowdy-ui/core'
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
 import dayjs from 'dayjs'
 import esLocale from 'dayjs/locale/es'
@@ -7,6 +7,7 @@ import React, { useState } from 'react'
 import InputChip from './InputChip'
 import { PropTypes } from 'prop-types'
 import generateRandomId from '../utils/generateRandomId'
+import InfiniteItems from './InfiniteItems'
 
 const CONFIG_TYPES = {
   category: {
@@ -18,7 +19,7 @@ const CONFIG_TYPES = {
         operator: '$in'
       },
       {
-        label   : 'Es cualquiera de',
+        label   : 'No es ninguna de',
         operator: '$nin'
       },
       {
@@ -223,6 +224,8 @@ const useStyles = makeStyles((theme) => ({
     marginTop        : 0,
     padding          : '4px 0'
   }
+  // Category
+
 }))
 
 const parseToValidDate = (date) => {
@@ -236,6 +239,7 @@ const FilterConfig = (props) => {
   const {
     filter: commingFilter,
     filterToEdit,
+    categoryItems,
     onClickApply
   } = props
   const filter = Object.assign({}, commingFilter, filterToEdit)
@@ -452,7 +456,13 @@ const FilterConfig = (props) => {
       case 'category':
         return (
           <div>
-            COnfig Categoria
+            <InfiniteItems
+              items={categoryItems}
+              loadNextPage={() => console.log('Dante: Load more here')}
+              pagination={{
+                hasNextPage: true
+
+              }} />
           </div>
         )
 

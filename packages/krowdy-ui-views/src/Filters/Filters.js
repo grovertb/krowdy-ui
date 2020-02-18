@@ -73,6 +73,7 @@ const Filters = (props) => {
     headerHomeComponent: HeaderHomeComponent,
     filters = [],
     onChangeFilters = () => {},
+    categoryItems,
     filterGroups = []
   }  = props
 
@@ -193,6 +194,7 @@ const Filters = (props) => {
           index={Views.FILTER_CONFIG.index}
           value={view.index}>
           <FilterConfig
+            categoryItems={categoryItems}
             filter={filterSelected}
             filterToEdit={filterToEdit}
             onClickApply={_handleClickApplyFilters} />

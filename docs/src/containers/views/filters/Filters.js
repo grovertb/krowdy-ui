@@ -237,6 +237,89 @@ const HeaderHomeComponent = () => (
   </div>
 )
 
+const categoryItems =[
+  {
+    _id  : '5e4c3b0dfc13ae1263000000',
+    label: 'Kittie Osgarby alsdkfj laskdf a;lsdkff ;alksdfj ;laksdfj; laksjdfiasjdfijwoeiwj owiejfo iwjefiojjeiofwjioefjwiojfoejiwjiofwej'
+  },
+  {
+    _id  : '5e4c3b0dfc13ae1263000001',
+    label: 'Boy Buxcy'
+  },
+  {
+    _id  : '5e4c3b0dfc13ae1263000002',
+    label: 'Bibby Carriage'
+  },
+  {
+    _id  : '5e4c3b0dfc13ae1263000003',
+    label: 'Francklin Haresign'
+  },
+  {
+    _id  : '5e4c3b0dfc13ae1263000004',
+    label: 'Robb Mattiazzi'
+  },
+  {
+    _id  : '5e4c3b0dfc13ae1263000005',
+    label: 'Husein Abbett'
+  },
+  {
+    _id  : '5e4c3b0dfc13ae1263000006',
+    label: 'Curry Gieraths'
+  },
+  {
+    _id  : '5e4c3b0dfc13ae1263000007',
+    label: 'Edwina Cejka'
+  },
+  {
+    _id  : '5e4c3b0dfc13ae1263000008',
+    label: 'Fabio Santhouse'
+  },
+  {
+    _id  : '5e4c3b0dfc13ae1263000009',
+    label: 'Iris Hedges'
+  },
+  {
+    _id  : '5e4c3b0dfc13ae126300000a',
+    label: 'Vaughn Danell'
+  },
+  {
+    _id  : '5e4c3b0dfc13ae126300000b',
+    label: 'Amerigo Hesse'
+  },
+  {
+    _id  : '5e4c3b0dfc13ae126300000c',
+    label: 'Ephrem Mac Giolla Pheadair'
+  },
+  {
+    _id  : '5e4c3b0dfc13ae126300000d',
+    label: 'Mandie Andrea'
+  },
+  {
+    _id  : '5e4c3b0dfc13ae126300000e',
+    label: 'Ban Dalley'
+  },
+  {
+    _id  : '5e4c3b0dfc13ae126300000f',
+    label: 'Nefen Cockson'
+  },
+  {
+    _id  : '5e4c3b0dfc13ae1263000010',
+    label: 'Gloria Apfel'
+  },
+  {
+    _id  : '5e4c3b0dfc13ae1263000011',
+    label: 'Robinett Mantram'
+  },
+  {
+    _id  : '5e4c3b0dfc13ae1263000012',
+    label: 'Aarika Quinion alksdfjlas dfla sdflkaj dflkja dsflkajsdf lkajdfl kjalfkdsjl'
+  },
+  {
+    _id  : '5e4c3b0dfc13ae1263000013',
+    label: 'Georgetta Hosier'
+  }
+]
+
 export default function () {
   const classes = useStyles()
 
@@ -262,6 +345,7 @@ export default function () {
       width: '75%'
     }}>
       <Filters
+        categoryItems={categoryItems}
         classes={{
           root: classes.root
         }}
