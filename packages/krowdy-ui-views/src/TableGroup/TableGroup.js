@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { withStyles } from '@krowdy-ui/styles'
 import {
   Grid,
@@ -9,7 +9,6 @@ import {
 import SearchIcon from '@material-ui/icons/Search'
 import {
   GroupingState,
-  IntegratedSorting,
   SortingState,
   CustomGrouping
 } from '@devexpress/dx-react-grid'
@@ -22,10 +21,18 @@ import {
   DragDropProvider,
   Toolbar
 } from '@devexpress/dx-react-grid-material-ui'
+import Autocomplete from '@material-ui/lab/Autocomplete'
 
 export const styles = theme => ({
   containerFullwidth: {
     height: '100%'
+  },
+  containerHeaderTable: {
+    padding: theme.spacing(2)
+  },
+  containerSearch: {
+    display       : 'flex',
+    justifyContent: 'space-between'
   },
   contetPagination: {
     display       : 'flex',
@@ -107,166 +114,76 @@ export const styles = theme => ({
   }
 })
 
-// const dataExmpleGroup = [
-//   {
-//     items: [
-//       {
-//         items: [
-//           {
-//             _id         : '5e46d81c9838b30009e984ad',
-//             activitytype: [
-//               'QQQ'
-//             ],
-//             currenttask: 15,
-//             name       : 'Jorge Alonso Eyzaguirre Herrera',
-//             paytask    : 0,
-//             paytotal   : 0,
-//             status     : 'Confirmed'
-//           },
-//           {
-//             _id         : 'cccccc',
-//             activitytype: [
-//               'QQQ'
-//             ],
-//             currenttask: 15,
-//             name       : 'Jorge Alonso Eyzaguirre Herrera',
-//             paytask    : 0,
-//             paytotal   : 0,
-//             status     : 'Confirmed'
-//           }
-//         ],
-//         key: 'QQQ'
-//       },
-//       {
-//         items: [
-//           {
-//             _id         : '5e46d81c9838b30009e984ad',
-//             activitytype: [
-//               'BEEEE'
-//             ],
-//             currenttask: 15,
-//             name       : 'Jorge Alonso Eyzaguirre Herrera',
-//             paytask    : 0,
-//             paytotal   : 0,
-//             status     : 'Confirmed'
-//           },
-//           {
-//             _id         : 'cccccc',
-//             activitytype: [
-//               'BEEEE'
-//             ],
-//             currenttask: 15,
-//             name       : 'Jorge Alonso Eyzaguirre Herrera',
-//             paytask    : 0,
-//             paytotal   : 0,
-//             status     : 'Confirmed'
-//           }
-//         ],
-//         key: 'BEEEE'
-//       }
-//     ],
-//     key: 'Confirmed'
-//   },
-//   {
-//     items: [
-//       {
-//         items: [
-//           {
-//             _id         : '5e46d81dsa983sd8b30009e984ad',
-//             activitytype: [
-//               'VEE'
-//             ],
-//             currenttask: 15,
-//             name       : 'Jorge Alonso Eyzaguirre Herrera',
-//             paytask    : 0,
-//             paytotal   : 0,
-//             status     : 'Pending'
-//           },
-//           {
-//             _id         : '5e46d81hhdsa9838b30009e984ad',
-//             activitytype: [
-//               'VEE'
-//             ],
-//             currenttask: 15,
-//             name       : 'Jorge Alonso Eyzaguirre Herrera',
-//             paytask    : 0,
-//             paytotal   : 0,
-//             status     : 'Pending'
-//           }
-//         ],
-//         key: 'VEE'
-//       }
-//     ],
-//     key: 'Pending'
-//   }
-// ]
+const formatColumns = columns => columns.map(column => ({ name: column.key, title: column.label }))
 
-const dataExmple = [
-  {
-    _id         : '5e46d81c9838b30009e984add',
-    activitytype: [
-      'QQQ'
-    ],
-    currenttask: 15,
-    name       : 'Jorge Alonso Eyzaguirre Herrera',
-    paytask    : 0,
-    paytotal   : 0,
-    status     : 'Confirmed'
-  },
-  {
-    _id         : 'cccccc',
-    activitytype: [
-      'QQQ'
-    ],
-    currenttask: 15,
-    name       : 'Jorge Alonso Eyzaguirre Herrera',
-    paytask    : 0,
-    paytotal   : 0,
-    status     : 'Confirmed'
-  }
-]
+const columnsDraggableDisable = columns => columns.map(column => ({ columnName: column.key, groupingEnabled: column.draggable }))
+
+const sortingFormat = sortings => sortings.map(sorting => ({ columnName: sorting.orderBy, direction: sorting.sort }))
+const sortingFormatReverse = sortings => sortings.map(sorting => ({ orderBy: sorting.columnName, sort: sorting.direction }))
+
+const getRowId = row => row._id
 
 const TableGroup = props => {
   const {
-    classes
-    // sorting
+    classes,
+    rows = [],
+    columns = [],
+    groupingData = [],
+    changeGrouping = () => false,
+    sorting = false,
+    grouping = false,
+    sortingData = [],
+    changeSorting = () => false,
+    withHeader = false,
+    withSearch = false,
+    withAutocomplete = false,
+    searchSuggestions = [],
+    onHandleSearch = () => false,
+    onHandleSelectAutocomplete = () => false
   } = props
 
-  const [ columns ] = useState([
-    { name: 'name', title: 'Name' },
-    { name: 'status', title: 'status' },
-    { name: 'activitytype', title: 'activitytype' },
-    { name: 'currenttask', title: 'currenttask' },
-    { name: 'paytotal', title: 'paytotal' },
-    { name: 'paytask', title: 'paytask' }
-  ])
+  const [ columnsData, setColumnData ] = useState([])
+  const [ sortingDataFormat, setSortingFormat ] = useState([])
 
-  const [ rows ] = useState([ ...dataExmple ])
-  const [ sortingData, setSortingData ] = useState([ ])
-  const [ grouping, setGrouping ] = useState([ ])
-  const [ groupingStateColumnExtensions ] = useState([
-    { columnName: 'name', groupingEnabled: false }
-  ])
+  const [ groupingStateColumnExtensions, setGroupingStateColumnExtensions ] = useState([])
+  const [ expandData, setExpandData ] = useState([])
+  const inputSearch = useRef(null)
+
+  // effects
+  useEffect(() => {
+    if(columns.length) {
+      setColumnData(formatColumns(columns))
+      setGroupingStateColumnExtensions(columnsDraggableDisable(columns))
+    }
+  }, [ columns ])
+
+  useEffect(() => {
+    if(sortingData.length)
+      setSortingFormat(sortingFormat(sortingData))
+  }, [ sortingData ])
 
   // actions
-  const getRowId = row => row._id
 
   const getChildGroups = groups => groups
     .map(group => ({ childRows: group.items, key: group.key }))
 
-  const changeSorting = (value) => {
-    setSortingData(value)
-    // setGrouping(value)
-    // dispatch({ payload: value, type: 'CHANGE_GROUPING' })
+  const setExpandedGroups = (value) => {
+    // recibe un array de string ["Confirmed", "Completed"]
+    setExpandData(value)
   }
 
-  const changeGrouping = (value) => {
-    setGrouping(value)
-    // dispatch({ payload: value, type: 'CHANGE_GROUPING' })
+  const _handleSearchValidate = (e) => {
+    const { value } = e.target
+    if(e.keyCode === 13) onHandleSearch(value)
+  }
+
+  const onChangeSorting = value => {
+    console.log('%c Xavi :) ===> :(: valuddsde', 'color: orange; font-size: 16px', value)
+    // changeSorting
+    changeSorting(sortingFormatReverse(value))
   }
 
   return (
-
     <Grid container>
       <Grid className={classes.containerFullwidth} item xs={12}>
         <Paper
@@ -276,90 +193,102 @@ const TableGroup = props => {
           style={{ position: 'relative' }}>
           <div className={classes.tableContainer}>
             {/* search */}
-            <div className={classes.gridTableSearch}>
-              <TextField
-                className={classes.inputSearch}
-                InputLabelProps={{ shrink: false }}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position='end'>
-                      <SearchIcon
-                      // onClick={onHandleSearch}
-                        className={classes.searchIcon} />
-                    </InputAdornment>
-                  )
-                }}
-                // onChange={_handleChangeSearch}
+            {
+              withHeader ? (
+                <div className={classes.containerHeaderTable}>
+                  <div className={classes.containerSearch}>
+                    {withSearch ? withAutocomplete ? (
+                      <Autocomplete
+                        freeSolo
+                        noOptionsText='No hay coincidencias'
+                        onChange={onHandleSelectAutocomplete}
+                        options={searchSuggestions.map(option => option.title)}
+                        popupIcon={<SearchIcon />}
+                        renderInput={params => (
+                          <TextField
+                            {...params}
+                            className={classes.inputSearch}
+                            fullWidth
+                            InputLabelProps={{ shrink: false }}
+                            InputProps={{
+                              ...params.InputProps,
+                              endAdornment: (
+                                <InputAdornment position='end'>
+                                  <SearchIcon className={classes.searchIcon} onClick={() => onHandleSearch(inputSearch.current.value)} />
+                                </InputAdornment>
+                              )
+                            }}
+                            inputRef={inputSearch}
+                            onKeyUp={_handleSearchValidate}
+                            placeholder='Buscar'
+                            variant='outlined' />
+                        )}
+                        style={{ width: 400 }} />
+                    ) : (
+                      <TextField
+                        className={classes.inputSearch}
+                        InputLabelProps={{ shrink: false }}
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position='end'>
+                              <SearchIcon className={classes.searchIcon} onClick={() => onHandleSearch(inputSearch.current.value)} />
+                            </InputAdornment>
+                          )
+                        }}
+                        inputRef={inputSearch}
+                        onKeyUp={_handleSearchValidate}
+                        placeholder='Buscar'
+                        style={{ width: 400 }}
+                        variant='outlined' />
+                    ) : null}
 
-                placeholder='Buscar'
-                style={{ width: 400 }}
-                // value={searchValue}
-                variant='outlined' />
-            </div>
+                  </div>
+                </div>
+              ) : null
+            }
 
             <GridTable
-              columns={columns}
+              columns={columnsData}
               getRowId={getRowId}
               rows={rows}>
 
-              {/* others */}
-
-              {/* <Toolbar /> */}
-              <Toolbar rootComponent={(props) => (
-                <div className={classes.gridTableToolbar}>
-                  {props.children}
-                </div>
-              )} />
-
-              {/* search */}
-
               {/* sorting */}
               <SortingState
-                onSortingChange={changeSorting}
-                sorting={sortingData} />
-              <IntegratedSorting />
+                onSortingChange={onChangeSorting}
+                sorting={sortingDataFormat} />
 
-              {/* Paging */}
-              {/* <PagingState
-                  defaultCurrentPage={0}
-                  pageSize={5} />
-                <IntegratedPaging />
-                <PagingPanel /> */}
-
-              {/* Grouping */}
-              <DragDropProvider />
+              {/* grouping */}
+              {
+                grouping &&
+                  <DragDropProvider />
+              }
               <GroupingState
+                // expandedGroups={[ 'Confirmed' ]}
                 columnExtensions={groupingStateColumnExtensions}
-                grouping={grouping}
+                grouping={groupingData}
+                onExpandedGroupsChange={setExpandedGroups}
                 onGroupingChange={changeGrouping} />
               <CustomGrouping
-                // expandedGroups={tempExpandedGroups}
+                expandedGroups={expandData}
                 getChildGroups={getChildGroups}
                 grouping={null} />
+
               <Table />
+
+              <TableHeaderRow messages={{ sortingHint: 'Ordenar' }} showSortingControls={sorting} />
 
               <TableGroupRow
                 rowComponent={({ children }) =>(
                   <TableHeaderRow.Row className={classes.gridTableHeaderGroup}>{children}</TableHeaderRow.Row>
                 )} />
+
+              <Toolbar />
+
               <GroupingPanel
                 emptyMessageComponent={() => (
                   <div className={classes.gridTableGroupingEmpty}>Arrastra aquí una columna para agrupar tus registros.</div>
                 )}
                 showGroupingControls />
-
-              {/* Table Row and header */}
-              <TableHeaderRow
-                cellComponent={(props) => (
-                  <TableHeaderRow.Cell
-                    {...props}
-                    className={classes.gridTableHeader} />
-                )}
-                messages={{ sortingHint: 'Ordenar' }}
-                rowComponent={({ children }) => (
-                  <TableHeaderRow.Row className={classes.gridTableHeaderRoot}>{children}</TableHeaderRow.Row>
-                )}
-                showSortingControls />
 
             </GridTable>
           </div>
