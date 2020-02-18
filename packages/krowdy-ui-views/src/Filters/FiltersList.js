@@ -86,7 +86,6 @@ const FiltersList = (props) => {
     searchInGroups(search)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   , [ search ])
-  console.log('Dante: FiltersList -> filterGroupsSearched', filterGroupsSearched)
 
   const _handleChangeSearch = (event) => setSearch(event.target.value)
   const _handleClickItem = (item) => (event) => onClickItem(event, item)

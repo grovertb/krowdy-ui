@@ -72,9 +72,7 @@ const Filters = (props) => {
     title = 'Todos las compras',
     headerHomeComponent: HeaderHomeComponent,
     filters = [],
-    onClickApply,
-    onDeleteFilter,
-    onEditFilter,
+    onChangeFilters = () => {},
     filterGroups = []
   }  = props
 
@@ -94,12 +92,46 @@ const Filters = (props) => {
     setView(Views.FILTER_CONFIG)
   }
 
+  const updateFilter = ({ _id, ...filter }) => {
+    const filterIndex = filters.findIndex(item => item._id === _id)
+    const existsFilter = filterIndex !== -1
+    if(existsFilter) {
+      const updatedFilter = {
+        ...filters[filterIndex],
+        ...filter
+      }
+
+      const updatedFilters = [
+        ...filters.slice(0, filterIndex),
+        updatedFilter,
+        ...filters.slice(filterIndex + 1)
+      ]
+
+      onChangeFilters(updatedFilters)
+    }
+  }
+
+  const addFilter = (filter) => {
+    onChangeFilters([ ...filters, filter ])
+  }
+
+  const _handleDeleteFilter = (deletedFilter) => {
+    const updatedFilters = filters.filter(filter => {
+      if(filter._id !== deletedFilter._id)
+        return true
+
+      return false
+    })
+
+    onChangeFilters(updatedFilters)
+  }
+
   const _handleClickApplyFilters = (filter) => {
     if(filterToEdit) {
-      onEditFilter(filter)
+      updateFilter(filter)
       setFilterToEdit(null)
     } else {
-      onClickApply(filter)
+      addFilter(filter)
     }
     setView(Views.HOME)
   }
@@ -140,7 +172,7 @@ const Filters = (props) => {
           index={Views.HOME.index}
           value={view.index}>
           {HeaderHomeComponent}
-          <AppliedFilters filters={filters} onClickEdit={_handleClickEditFilter} onDeleteFilter={onDeleteFilter} />
+          <AppliedFilters filters={filters} onClickEdit={_handleClickEditFilter} onDeleteFilter={_handleDeleteFilter} />
           <div className={classes.center}>
             <Button
               color='primary'
@@ -199,9 +231,7 @@ Filters.propTypes = {
     })
   ),
   headerHomeComponent: PropTypes.node,
-  onClickApply       : PropTypes.func.isRequired,
-  onDeleteFilter     : PropTypes.func.isRequired,
-  onEditFilter       : PropTypes.func.isRequired,
+  onChangeFilters    : PropTypes.func.isRequired,
   title              : PropTypes.string.isRequired
 }
 
