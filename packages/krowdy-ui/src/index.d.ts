@@ -2,7 +2,7 @@ export type PaletteType = 'light' | 'dark';
 
 export namespace PropTypes {
   type Alignment = 'inherit' | 'left' | 'center' | 'right' | 'justify';
-  type Color = 'inherit' | 'primary' | 'secondary' | 'default' | 'krowdy' | 'error'; 
+  type Color = 'inherit' | 'primary' | 'secondary' | 'default' | 'krowdy' | 'error';
   type Margin = 'none' | 'dense' | 'normal';
 }
 
@@ -27,6 +27,7 @@ import * as colors from './colors';
 
 export { colors };
 export * from './styles';
+export * from './utils';
 
 export { default as AppBar } from './AppBar';
 export { default as Avatar } from './Avatar';

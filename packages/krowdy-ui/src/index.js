@@ -2,7 +2,9 @@
 import * as colors from './colors'
 
 export { colors }
+
 export * from './styles'
+export * from './utils'
 
 export { default as AppBar } from './AppBar'
 export * from './AppBar'

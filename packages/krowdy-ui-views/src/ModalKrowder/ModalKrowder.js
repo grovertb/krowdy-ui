@@ -20,6 +20,17 @@ import {
 } from '@material-ui/icons'
 
 export const styles = theme => ({
+  card: {
+    display      : 'flex',
+    flexDirection: 'column',
+    height       : '90%',
+    paddingBottom: 30
+  },
+  cardContentRoot: {
+    flex    : 1,
+    height  : '100%',
+    overflow: 'auto'
+  },
   collapsesContent: {
     height: 'calc(100% - 160px)'
   },
@@ -114,7 +125,9 @@ function ModalKrowder(props) {
               </IconButton>
             }
             title='Editar Krowder' />
-          <CardContent>
+          <CardContent classes={{
+            root: classes.cardContentRoot
+          }}>
             {/* profile */}
             <div className={classes.headerProfileContent}>
               <div className={classes.headerProfile}>
@@ -172,7 +185,7 @@ ModalKrowder.propTypes = {
     })
   ),
   headerContent   : PropTypes.element,
-  minWidth        : PropTypes.number,
+  minWidth        : PropTypes.string,
   onChangeCollapse: PropTypes.func,
   onclose         : PropTypes.func.isRequired,
   open            : PropTypes.bool.isRequired,

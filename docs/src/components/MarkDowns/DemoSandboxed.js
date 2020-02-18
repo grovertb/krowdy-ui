@@ -1,9 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { create } from 'jss'
-import { withStyles, useTheme, jssPreset, StylesProvider } from '@krowdy-ui/core/styles'
 import Frame from 'react-frame-component'
-import { CssGlobal } from '@krowdy-ui/core'
+import { withStyles, useTheme, jssPreset, StylesProvider, CssGlobal } from '@krowdy-ui/core'
 
 const styles = theme => ({
   frame: {

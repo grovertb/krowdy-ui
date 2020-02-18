@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@krowdy-ui/styles'
 import {
@@ -96,22 +96,56 @@ const Pagination = props => {
     onChangeSelect = () => { },
     valueSelect,
     onChangePage = () => { },
-    page,
+    page: commingPage = 1,
     limits = [],
     totalPages
   } = props
 
+  const [ page, setPage ] = useState(commingPage.toString())
+
+  useEffect(() => {
+    if(commingPage.toString() !== page)
+      setPage(commingPage.toString())
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ commingPage ])
+
+  const [ isValidPage, pageNumber ] = useMemo(() => {
+    const pageNumber = parseInt(page)
+    const isValid = !isNaN(pageNumber) && pageNumber
+
+    return [ isValid, pageNumber ]
+  },[ page ])
+
+  useEffect(() => {
+    if(isValidPage)
+      if(pageNumber > totalPages)
+        setPage(totalPages)
+      else if(pageNumber !== commingPage)
+        onChangePage(pageNumber)
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ page ])
+
   const _handleClickLeft = () => {
-    onClickButton('left')
+    if(isValidPage && pageNumber > 1)
+      setPage(parseInt(page) - 1)
   }
+
   const _handleClickRight = () => {
-    onClickButton('right')
+    if(isValidPage && pageNumber < totalPages)
+      setPage(parseInt(page) + 1)
   }
-  const onClickButton = (type) => {
-    if(type === 'left')
-      page > 1 && onChangePage(page - 1)
-    else if(type === 'right')
-      page < totalPages && onChangePage(page + 1)
+
+  const _handleOnBlur = () => {
+    if(pageNumber !== commingPage)
+      setPage(commingPage)
+  }
+
+  const _handleChange = (event) => {
+    const newValue = event.target.value
+    if(/^[0-9]*$/g.test(newValue))
+      setPage(newValue)
   }
 
   return (
@@ -156,6 +190,8 @@ const Pagination = props => {
             root : classes.rootTextfield
           }}
           disableUnderline
+          onBlur={_handleOnBlur}
+          onChange={_handleChange}
           value={page} />
         <Typography className={classes.slash}>/</Typography>
         <Typography>{totalPages > 0 ? totalPages : 1}</Typography>

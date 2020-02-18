@@ -35,7 +35,7 @@ export const styles = theme => ({
     background  : theme.palette.primary['contrastText'],
     borderBottom: `1px solid ${theme.palette.grey[400]}`,
     display     : 'flex',
-    height      : 40,
+    minHeight   : 40,
     width       : '100%'
   },
   paperPrimary: {
@@ -55,7 +55,7 @@ export const styles = theme => ({
     boxShadow   : 'none',
     boxSizing   : 'border-box',
     display     : 'flex',
-    height      : 40,
+    minHeight   : 40,
     width       : '100%'
   }
 })

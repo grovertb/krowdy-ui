@@ -1,30 +1,87 @@
 import React, { useState } from 'react'
-import { Grid } from '@krowdy-ui/core'
+import { Grid, TextField } from '@krowdy-ui/core'
 import { Table } from '@krowdy-ui/views'
 import AddIcon from '@material-ui/icons/Add'
+import { makeStyles } from '@krowdy-ui/styles'
 
+const useStyles = makeStyles(() => ({
+  root: {
+    color     : '#595959',
+    fontSize  : 12,
+    fontWeight: 'normal',
+    maxWidth  : 249,
+    minWidth  : 247
+  }
+}))
+const Componente = ({ value: [ name, apellido ] }) => (
+  <div style={{
+    display      : 'flex',
+    flexDirection: 'column'
+  }}>
+    <span style={{
+      color     : '#595959',
+      fontSize  : 12,
+      fontWeight: 'normal'
+    }} >{name} </span>
+    <span style={{
+      color     : '#8C8C8C',
+      fontSize  : 12,
+      fontWeight: 'normal'
+    }}>{apellido}</span>
+  </div>
+)
+const scheduleComponent = () => (
+  <div>
+    <TextField
+      InputProps={{
+        classes: {
+          root: classes.root
+        }
+      }}
+      placeholder='Selecciona fecha y hora'></TextField>
+  </div>
+)
+// eslint-disable-next-line react-hooks/rules-of-hooks
+const classes = useStyles()
+const responsibleComponent = () => (
+  <div >
+    <TextField
+      InputProps={{
+        classes: {
+          root: classes.root
+        }
+      }}
+      placeholder='Ingrese correo electrónico'></TextField>
+  </div >
+)
 const demoColumns = [
   {
-    editable: true,
-    key     : 'name',
-    label   : 'Nombre',
-    minWidth: 150,
-    ordering: true,
-    type    : 'text'
+    component: Componente,
+    editable : false,
+    key      : 'name',
+    label    : 'Nombre',
+    minWidth : 150,
+    ordering : true,
+    type     : 'text',
+    visible  : true
   }, {
-    editable: false,
-    key     : 'status',
-    label   : 'Estado',
-    minWidth: 120,
-    ordering: true,
-    type    : 'text'
+    component: scheduleComponent,
+    editable : true,
+    key      : 'schedule',
+    label    : 'Horario',
+    minWidth : 247,
+    ordering : true,
+    type     : 'text',
+    visible  : true
   }, {
-    editable: false,
-    key     : 'type',
-    label   : 'Tipo de actividad',
-    minWidth: 170,
-    ordering: false,
-    type    : 'text'
+    component: responsibleComponent,
+    editable : true,
+    key      : 'responsible',
+    label    : 'Responsible',
+    minWidth : 170,
+    ordering : false,
+    type     : 'text',
+    visible  : true
   }, {
     editable: true,
     key     : 'incharge',
@@ -97,6 +154,7 @@ const newCellProps = {
   status: 'Pendiente',
   type  : [ 'LL', 'VE' ]
 }
+
 export default function () {
   const [ sort, setSort ] = useState({ orderBy: null, sort: 'asc' })
   const [ columns, setColumns ] = useState(demoColumns)
@@ -151,8 +209,9 @@ export default function () {
       extra        : 'Status',
       incharge     : 'Jimena',
       incidents    : 5,
-      name         : 'Juan Perez',
-      status       : 'En linea',
+      name         : [ 'Juan Perez', 'Otro dato' ],
+      responsible  : 'Carla',
+      schedule     : 'En linea',
       type         : [ 'LL', 'Ln', 'VoD', 'VE' ]
     },
     {
@@ -162,11 +221,10 @@ export default function () {
       currentTasks : 2,
       disabled     : false,
       extra        : 'Status',
-      incharge     : 'Jimena',
       incidents    : 0,
-      name         : 'Juana de Arco',
-      selected     : true,
-      status       : 'Hace 2 dias',
+      name         : [ 'Juana de Arco', 'Otro dato' ],
+      responsible  : 'Jimena',
+      schedule     : 'Hace 2 dias',
       type         : [ 'LL', 'Ln' ]
     }, {
       _id          : '2',
@@ -174,10 +232,10 @@ export default function () {
       amountTasks  : 0,
       currentTasks : 2,
       extra        : 'Status',
-      incharge     : 'Jimena',
       incidents    : 1,
-      name         : 'Pedro de Arco',
-      status       : 'Hace 7 dias',
+      name         : [ 'Pedro de Arco', 'Otro dato' ],
+      responsible  : 'Jimena',
+      schedule     : 'Hace 7 dias',
       type         : [ 'LL', 'Ln' ]
     }, {
       _id          : '3',
@@ -185,10 +243,10 @@ export default function () {
       amountTasks  : 4,
       currentTasks : 2,
       extra        : 'Status',
-      incharge     : 'Jimena',
       incidents    : 2,
-      name         : 'Pedro Colmenarez',
-      status       : 'Invitado',
+      name         : [ 'Pedro Colmenarez', 'Otro dato' ],
+      responsible  : 'Jimena',
+      schedule     : 'Invitado',
       type         : [ 'LL', 'Ln' ]
     }
   ]
@@ -281,7 +339,7 @@ export default function () {
         withAutocomplete={true}
         withButton={false}
         withCheckbox={true}
-        withFooter={true}
+        // withFooter={true}
         withHeader={true}
         withMenuColumns={true}
         withOrder={true}

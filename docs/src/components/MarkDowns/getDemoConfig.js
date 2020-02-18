@@ -8,11 +8,16 @@ function jsDemo(demoData) {
       'index.js': `
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { ThemeProvider, createMuiTheme, krowdyTheme } from "@krowdy-ui/core";
 import Demo from './demo';
 
-ReactDOM.render(<Demo />, document.querySelector('#root'));
-    `
-    }
+ReactDOM.render(
+  <ThemeProvider theme={createMuiTheme(krowdyTheme)}>
+    <Demo />
+  </ThemeProvider>, 
+  document.querySelector('#root')
+);
+` }
   }
 }
 
@@ -24,10 +29,16 @@ function tsDemo(demoData) {
       'index.tsx': `
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { ThemeProvider, createMuiTheme, krowdyTheme } from "@krowdy-ui/core";
 import Demo from './demo';
 
-ReactDOM.render(<Demo />, document.querySelector('#root'));
-    `,
+ReactDOM.render(
+  <ThemeProvider theme={createMuiTheme(krowdyTheme)}>
+    <Demo />
+  </ThemeProvider>, 
+  document.querySelector('#root')
+);
+`,
       'tsconfig.json': `{
   "compilerOptions": {
     "target": "es5",

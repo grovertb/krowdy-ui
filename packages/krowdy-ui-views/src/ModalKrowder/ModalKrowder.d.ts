@@ -20,7 +20,7 @@ export type ModalKrowderProps = {
   action?: React.ReactNode
   headerContent?: React.ReactNode
   collapses?: Array<ICollapse>
-  minWidth?: number
+  minWidth?: string
 }
 
 declare const ModalKrowder: React.ComponentType<ModalKrowderProps>

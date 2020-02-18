@@ -1,3 +1,5 @@
+export * from './utils'
+
 export { default as AudioRecorder } from './AudioRecorder'
 export * from './AudioRecorder'
 
@@ -33,6 +35,12 @@ export * from './ModalKrowder';
 
 export { default as Pagination } from './Pagination';
 export * from './Pagination';
+
+export { default as RadioLabelGroup } from './RadioLabelGroup';
+export * from './RadioLabelGroup';
+
+export { default as Root } from './Root';
+export * from './Root';
 
 export { default as Search } from './Search'
 export * from './Search'

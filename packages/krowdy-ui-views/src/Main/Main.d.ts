@@ -2,7 +2,7 @@ interface IMenu {
   icon?: React.ReactNode
   target?: string
   title: string
-  url?: string,
+  url?: string
   options?: Array<IMenu>
 }
 
@@ -13,9 +13,10 @@ interface OptionBottom {
 }
 
 export type MainProps = {
-  menus?: Array<IMenu>,
-  optionBottom?: OptionBottom,
+  menus?: Array<IMenu>
+  optionBottom?: OptionBottom
   isOpenDrawer?: boolean
+  component?: React.ElementType
 };
 
 declare const Main: React.ComponentType<MainProps>;
