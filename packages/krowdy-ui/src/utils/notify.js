@@ -1,7 +1,7 @@
 
 class Notify {
   constructor() {
-    if(window && window.document) {
+    if(typeof window !== 'undefined') {
       this.containner = Notify.createContainer()
       this.divNotification = Notify.createContainerNotify()
       this._init()

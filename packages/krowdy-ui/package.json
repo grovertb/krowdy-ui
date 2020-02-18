@@ -1,6 +1,6 @@
 {
   "name": "@krowdy-ui/core",
-  "version": "0.0.39",
+  "version": "0.0.41",
   "private": false,
   "author": "Krowdy Team",
   "description": "React components that implement Google's Material Design.",
