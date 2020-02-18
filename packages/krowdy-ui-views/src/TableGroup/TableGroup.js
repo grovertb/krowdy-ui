@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+import PropTypes from 'prop-types'
 import { withStyles } from '@krowdy-ui/styles'
 import {
   Grid,
@@ -177,11 +178,7 @@ const TableGroup = props => {
     if(e.keyCode === 13) onHandleSearch(value)
   }
 
-  const onChangeSorting = value => {
-    console.log('%c Xavi :) ===> :(: valuddsde', 'color: orange; font-size: 16px', value)
-    // changeSorting
-    changeSorting(sortingFormatReverse(value))
-  }
+  const onChangeSorting = value => changeSorting(sortingFormatReverse(value))
 
   return (
     <Grid container>
@@ -296,6 +293,41 @@ const TableGroup = props => {
       </Grid>
     </Grid>
   )
+}
+
+TableGroup.propTypes = {
+  changeGrouping: PropTypes.func,
+  changeSorting : PropTypes.func,
+  columns       : PropTypes.arrayOf(
+    PropTypes.shape({
+      align   : PropTypes.string,
+      currency: PropTypes.bool,
+      key     : PropTypes.string.isRequired,
+      label   : PropTypes.string.isRequired,
+      minWidth: PropTypes.number,
+      ordering: PropTypes.bool
+    })
+  ).isRequired,
+  grouping    : PropTypes.bool,
+  groupingData: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string
+  })),
+  onHandleSearch            : PropTypes.func,
+  onHandleSelectAutocomplete: PropTypes.func,
+  rows                      : PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired
+    })
+  ).isRequired,
+  searchSuggestions: PropTypes.array,
+  sorting          : PropTypes.bool,
+  sortingData      : PropTypes.arrayOf(PropTypes.shape({
+    orderBy: PropTypes.string,
+    sort   : PropTypes.string
+  })),
+  withAutocomplete: PropTypes.bool,
+  withHeader      : PropTypes.bool,
+  withSearch      : PropTypes.bool
 }
 
 TableGroup.muiName = 'TableGroup'
