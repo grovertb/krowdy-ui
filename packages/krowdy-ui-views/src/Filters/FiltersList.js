@@ -36,6 +36,16 @@ export const useStyles = makeStyles((theme) => ({
     padding          : 0,
     paddingBottom    : 4
   },
+  notFound: {
+    '& p': {
+      color     : theme.palette.grey[500],
+      fontWeight: 'bold'
+    },
+    alignItems   : 'center',
+    display      : 'flex',
+    flexDirection: 'column',
+    padding      : 20
+  },
   searchFiltersContainer: {
     padding: 12
   },
@@ -76,6 +86,7 @@ const FiltersList = (props) => {
     searchInGroups(search)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   , [ search ])
+  console.log('Dante: FiltersList -> filterGroupsSearched', filterGroupsSearched)
 
   const _handleChangeSearch = (event) => setSearch(event.target.value)
   const _handleClickItem = (item) => (event) => onClickItem(event, item)
@@ -91,6 +102,14 @@ const FiltersList = (props) => {
       <List
         className={classes.filtersList}
         subheader={<li />}>
+        {
+          !filterGroupsSearched.length &&
+          <div className={classes.notFound}>
+            <img alt='Sin resultados' src='https://s3.amazonaws.com/cdn.krowdy.com/media/images/krowdy-empty.svg' />
+            <p>No se encontraron resultados</p>
+          </div>
+
+        }
         {
           filterGroupsSearched.map(filterGroup => (
             <li
