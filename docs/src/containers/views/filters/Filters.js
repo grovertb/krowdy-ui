@@ -257,7 +257,7 @@ export default function () {
     setAppliedFilters(prev => [ ...prev, newFilter ])
   }
 
-  const _handleDeleteItem = (filter) => {
+  const _handleDeleteFilter = (filter) => {
     setAppliedFilters(prev => prev.filter(item => {
       if(item._id !== filter._id)
         return true
@@ -266,10 +266,33 @@ export default function () {
     }))
   }
 
+  const _handleEditFilter = ({ _id, ...filter }) => {
+    console.log('Dante: _handleEditFilter -> filter', filter)
+    console.log('Dante: _handleEditFilter -> _id', _id)
+    setAppliedFilters(prev => {
+      const filterIndex = prev.findIndex(item => item._id === _id)
+
+      if(filterIndex !== -1) {
+        const updatedFilter = {
+          ...prev[filterIndex],
+          ...filter
+        }
+
+        return [
+          ...prev.slice(0, filterIndex),
+          updatedFilter,
+          ...prev.slice(filterIndex + 1)
+        ]
+      }
+
+      return prev
+    })
+  }
+
   return (
     <div style={{
-      maxHeight: 1200,
-      width    : '75%'
+      // maxHeight: 1200,
+      width: '75%'
     }}>
       <Filters
         classes={{
@@ -279,7 +302,8 @@ export default function () {
         filters={appliedFilters}
         headerHomeComponent={<HeaderHomeComponent />}
         onClickApply={_handleApplyFilter}
-        onDeleteFilter={_handleDeleteItem}
+        onDeleteFilter={_handleDeleteFilter}
+        onEditFilter={_handleEditFilter}
         title='Todos las compras' />
     </div>
   )

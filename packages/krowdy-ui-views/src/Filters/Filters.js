@@ -74,6 +74,7 @@ const Filters = (props) => {
     filters = [],
     onClickApply,
     onDeleteFilter,
+    onEditFilter,
     filterGroups = []
   }  = props
 
@@ -87,13 +88,19 @@ const Filters = (props) => {
   }
 
   const _handleClickAddFilter = () => setView(Views.FILTERS_SEARCH)
+
   const _handleClickEditFilter = (_, item) => {
     setFilterToEdit(item)
     setView(Views.FILTER_CONFIG)
   }
-  const _handleClickApplyFilters = (newFilter) => {
-    onClickApply(newFilter)
-    setFilterToEdit(null)
+
+  const _handleClickApplyFilters = (filter) => {
+    if(filterToEdit) {
+      onEditFilter(filter)
+      setFilterToEdit(null)
+    } else {
+      onClickApply(filter)
+    }
     setView(Views.HOME)
   }
 
@@ -133,7 +140,7 @@ const Filters = (props) => {
           index={Views.HOME.index}
           value={view.index}>
           {HeaderHomeComponent}
-          <AppliedFilters filters={filters}  onClickEdit={_handleClickEditFilter} onDeleteFilter={onDeleteFilter} />
+          <AppliedFilters filters={filters} onClickEdit={_handleClickEditFilter} onDeleteFilter={onDeleteFilter} />
           <div className={classes.center}>
             <Button
               color='primary'
@@ -196,6 +203,7 @@ Filters.propTypes = {
   headerHomeComponent: PropTypes.node,
   onClickApply       : PropTypes.func.isRequired,
   onDeleteFilter     : PropTypes.func.isRequired,
+  onEditFilter       : PropTypes.func.isRequired,
   title              : PropTypes.string.isRequired
 }
 

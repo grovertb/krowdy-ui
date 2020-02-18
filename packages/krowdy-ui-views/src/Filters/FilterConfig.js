@@ -303,8 +303,10 @@ const FilterConfig = (props) => {
   const _handleClickApply = () => {
     const configValue = getFilterConfigValue(filter.typeFilter)
 
+    const _id = filterToEdit ? filterToEdit._id : generateRandomId()
+
     const res = {
-      _id        : generateRandomId(),
+      _id,
       key        : filter.key, // Para facil acceso al editar
       label      : filter.label,
       operator   : option.operator,
