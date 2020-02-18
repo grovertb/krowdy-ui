@@ -1,3 +1,4 @@
+export * from './utils'
 export { default as AudioRecorder } from './AudioRecorder'
 export { default as AvatarUser } from './AvatarUser'
 export { default as CardCandidate } from './CardCandidate'
