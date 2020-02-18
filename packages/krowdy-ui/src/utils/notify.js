@@ -1,11 +1,13 @@
 
 class Notify {
   constructor() {
-    this.containner = Notify.createContainer()
-    this.divNotification = Notify.createContainerNotify()
-    this._init()
-    this.index = 1
-    this.arr = []
+    if(window && window.document) {
+      this.containner = Notify.createContainer()
+      this.divNotification = Notify.createContainerNotify()
+      this._init()
+      this.index = 1
+      this.arr = []
+    }
   }
 
   _init() {
