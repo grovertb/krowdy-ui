@@ -1,13 +1,13 @@
 import DayJSUtils from '@date-io/dayjs'
-import { Button, FormControl, makeStyles, MenuItem, Select, TextField, FormControlLabel, Checkbox } from '@krowdy-ui/core'
+import { Button, FormControl, makeStyles, MenuItem, Select, TextField } from '@krowdy-ui/core'
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
 import dayjs from 'dayjs'
 import esLocale from 'dayjs/locale/es'
-import React, { useState } from 'react'
-import InputChip from './InputChip'
 import { PropTypes } from 'prop-types'
+import React, { useState } from 'react'
 import generateRandomId from '../utils/generateRandomId'
-import InfiniteItems from './InfiniteItems'
+import CategoryItems from './CategoryItems'
+import InputChip from './InputChip'
 
 const CONFIG_TYPES = {
   category: {
@@ -15,20 +15,24 @@ const CONFIG_TYPES = {
     initialValue: [],
     options     : [
       {
-        label   : 'Es cualquiera de',
-        operator: '$in'
+        label         : 'Es cualquiera de',
+        numberOfInputs: 1,
+        operator      : '$in'
       },
       {
-        label   : 'No es ninguna de',
-        operator: '$nin'
+        label         : 'No es ninguna de',
+        numberOfInputs: 1,
+        operator      : '$nin'
       },
       {
-        label   : 'Es conocido',
-        operator: '$ne'
+        label         : 'Es conocido',
+        numberOfInputs: 0,
+        operator      : '$ne'
       },
       {
-        label   : 'Es desconocido',
-        operator: '$eq'
+        label         : 'Es desconocido',
+        numberOfInputs: 0,
+        operator      : '$eq'
       }
     ],
     type: 'category'
@@ -354,6 +358,10 @@ const FilterConfig = (props) => {
     onClickApply(res)
   }
 
+  const _handleChangeSelected = (newFilterConfig) => {
+    setFilterConfig(newFilterConfig)
+  }
+
   const renderConfigOption = (filterType,  optionIndex) => {
     const showInputs = type.options[optionIndex].numberOfInputs > 0
     const showSecondInput = type.options[optionIndex].numberOfInputs === 2
@@ -456,13 +464,15 @@ const FilterConfig = (props) => {
       case 'category':
         return (
           <div>
-            <InfiniteItems
+            <CategoryItems
               items={categoryItems}
               loadNextPage={() => console.log('Dante: Load more here')}
+              onChangeSelected={_handleChangeSelected}
               pagination={{
                 hasNextPage: true
 
-              }} />
+              }}
+              selectedItems={filterConfig} />
           </div>
         )
 

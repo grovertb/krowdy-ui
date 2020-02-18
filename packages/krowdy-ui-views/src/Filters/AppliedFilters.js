@@ -31,7 +31,7 @@ const AppliedFilters = ({ filters  = [], onClickEdit = () => {}, onDeleteFilter 
                       key={valIndex} style={{
                         border    : '1px solid blue',
                         marginLeft: 20
-                      }}>{filterValue}</li>)
+                      }}>{filter.typeFilter === 'category' ? filterValue.label : filterValue}</li>)
                   }
                 </ul>                :
                 <p style={{

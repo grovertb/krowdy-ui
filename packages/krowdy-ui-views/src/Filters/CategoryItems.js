@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import InfiniteLoader from 'react-window-infinite-loader'
 import { FixedSizeList as List } from 'react-window'
 import { FormControlLabel, Checkbox, makeStyles } from '@krowdy-ui/core'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import arr2obj from '../utils/arr2obj'
 
 const useStyles = makeStyles({
   formControlLabel: {
@@ -20,28 +21,46 @@ const useStyles = makeStyles({
   }
 })
 
-const InfiniteItems = ({
+const CategoryItems = ({
   items = [],
+  selectedItems = [],
   pagination,
+  onChangeSelected,
   isNextPageLoading = false,
   loadNextPage
 }) => {
   const classes = useStyles()
   const itemCount = pagination.hasNextPage ? items.length + 1 : items.length
-
   const loadMoreItems = isNextPageLoading ? () => {} : loadNextPage
-
   const isItemLoaded = index => !pagination.hasNextPage || index < items.length
 
-  // Render an item or a loading indicator.
+  const selectedMap = useMemo(() => arr2obj(selectedItems, {
+    key  : item => item._id,
+    value: item => item
+  }), [ selectedItems ])
+
+  const _handleChange = item => (event) => {
+    let updatedSelected = []
+    if(event.target.checked)
+      updatedSelected = [ ...selectedItems, item ]
+    else
+      updatedSelected = selectedItems.filter(selected => selected._id !== item._id)
+
+    onChangeSelected(updatedSelected)
+  }
+
   const Item = ({ index, style }) => {
-    if(!isItemLoaded(index))
+    if(!isItemLoaded(index)) {
       return (
         <div className={classes.loadingContainer} style={style}>
           <CircularProgress size={20} style={{ marginTop: 8 }} />
         </div>
       )
-    else
+    }
+    else {
+      const item = items[index]
+      const isSelected = Boolean(selectedMap[item._id])
+
       return (
         <FormControlLabel
           classes={{
@@ -50,13 +69,19 @@ const InfiniteItems = ({
           }}
           color='primary'
           control={
-            <Checkbox color='primary' size='small' value={items[index._id]} />
+            <Checkbox
+              checked={isSelected}
+              color='primary'
+              onChange={_handleChange(item)}
+              size='small'
+              value={item._id} />
           }
           key={index}
-          label={items[index].label}
+          label={item.label}
           size='small'
           style={style} />
       )
+    }
   }
 
   return (
@@ -80,4 +105,4 @@ const InfiniteItems = ({
   )
 }
 
-export default InfiniteItems
+export default CategoryItems
