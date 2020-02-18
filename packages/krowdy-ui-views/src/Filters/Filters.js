@@ -191,13 +191,11 @@ Filters.propTypes = {
       key     : PropTypes.string.isRequired,
       label   : PropTypes.string.isRequired,
       operator: PropTypes.string.isRequired,
-      value   : PropTypes.arrayOf(
-        PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.number,
-          PropTypes.array
-        ])
-      )
+      value   : PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+        PropTypes.array
+      ])
     })
   ),
   headerHomeComponent: PropTypes.node,

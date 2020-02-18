@@ -225,6 +225,13 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
+const parseToValidDate = (date) => {
+  if(date)
+    return dayjs(date).toISOString()
+
+  return null
+}
+
 const FilterConfig = (props) => {
   const {
     filter: commingFilter,
@@ -240,7 +247,33 @@ const FilterConfig = (props) => {
   const type = CONFIG_TYPES[filter.typeFilter]
   const option = type.options[optionIndex]
 
-  const [ filterConfig, setFilterConfig ] = useState(filter.value || type.initialValue)
+  const [ filterConfig, setFilterConfig ] = useState(() => {
+    if(filter.value && option.numberOfInputs)
+      switch (filter.typeFilter) {
+        case 'number':
+        case 'date':
+          switch (option.operator) {
+            case '$range':
+              return {
+                first : filter.value[0],
+                second: filter.value[1]
+              }
+            default:
+              return {
+                ...type.initialValue,
+                first : filter.value,
+                second: ''
+              }
+          }
+        case 'category':
+        case 'generic':
+          return filter.value
+        default:
+          return type.initialValue
+      }
+
+    return type.initialValue
+  })
 
   const _handleOptionChange = (event) => {
     setOptionIndex(event.target.value)
@@ -285,10 +318,10 @@ const FilterConfig = (props) => {
         return null
       case 'date':
         if(option.numberOfInputs === 1)
-          return filterConfig.first
+          return parseToValidDate(filterConfig.first)
 
         else if(option.numberOfInputs === 2)
-          return [ filterConfig.first, filterConfig.second ]
+          return [ parseToValidDate(filterConfig.first), parseToValidDate(filterConfig.second) ]
 
         return null
       case 'generic':
