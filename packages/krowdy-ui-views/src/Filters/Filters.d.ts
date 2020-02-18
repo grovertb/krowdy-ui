@@ -4,7 +4,7 @@ interface Classes {
   titleContainer: Record<string, string>
 }
 
-interface FilterGroup {
+type FilterGroup = {
   _id: string,
   children: [{
     _id: string,
@@ -16,11 +16,16 @@ interface FilterGroup {
 }
 
 // Applied filter
-interface Filter {
+type Filter = {
   key: string,
   label: string,
   operator: string,
   value: string | number | string[] | number[]
+}
+
+type CategoryItem = {
+  _id: string
+  label: string
 }
 
 export interface FiltersProps {
@@ -28,9 +33,12 @@ export interface FiltersProps {
   filterGroups: [FilterGroup],
   filters: [Filter],
   headerHomeComponent: React.ReactNode,
-  onClickApply: (filter: Filter) => void,
-  onDeleteFilter: (filter: Filter) => void,
+  onChangeFilters: (filters: Filter[]) => void,
+  hasNextPage?: boolean,
+  isNextPageLoading?: boolean,
+  loadMoreCategoryItems: (filterType: string) => void,
   title: string,
+  categoryItems: [CategoryItem]
 } 
 
 declare const Filters: React.ComponentType<FiltersProps>;

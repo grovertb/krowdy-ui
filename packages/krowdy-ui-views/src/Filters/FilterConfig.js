@@ -244,9 +244,13 @@ const FilterConfig = (props) => {
     filter: commingFilter,
     filterToEdit,
     categoryItems,
-    onClickApply
+    onClickApply,
+    hasNextPage,
+    isNextPageLoading,
+    loadMoreCategoryItems
   } = props
   const filter = Object.assign({}, commingFilter, filterToEdit)
+  console.log('Dante: FilterConfig -> filter', filter)
 
   const classes = useStyles()
 
@@ -362,6 +366,10 @@ const FilterConfig = (props) => {
     setFilterConfig(newFilterConfig)
   }
 
+  const _handleLoadMoreItems = (categoryKey) => () => {
+    loadMoreCategoryItems(categoryKey)
+  }
+
   const renderConfigOption = (filterType,  optionIndex) => {
     const showInputs = type.options[optionIndex].numberOfInputs > 0
     const showSecondInput = type.options[optionIndex].numberOfInputs === 2
@@ -464,18 +472,18 @@ const FilterConfig = (props) => {
       case 'category':
         return (
           <div>
-            <CategoryItems
-              items={categoryItems}
-              loadNextPage={() => console.log('Dante: Load more here')}
-              onChangeSelected={_handleChangeSelected}
-              pagination={{
-                hasNextPage: true
-
-              }}
-              selectedItems={filterConfig} />
+            {
+              showInputs &&
+              <CategoryItems
+                hasNextPage={hasNextPage}
+                isNextPageLoading={isNextPageLoading}
+                items={categoryItems}
+                loadMore={_handleLoadMoreItems(filter.key)}
+                onChangeSelected={_handleChangeSelected}
+                selectedItems={filterConfig} />
+            }
           </div>
         )
-
       default:
         return null
     }
@@ -540,6 +548,10 @@ const FilterConfig = (props) => {
 }
 
 FilterConfig.propTypes = {
+  categoryItems: PropTypes.arrayOf(PropTypes.shape({
+    _id  : PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired
+  })).isRequired,
   filter: PropTypes.shape({
     _id       : PropTypes.string.isRequired,
     key       : PropTypes.string.isRequired,
@@ -552,7 +564,10 @@ FilterConfig.propTypes = {
     label     : PropTypes.string.isRequired,
     typeFilter: PropTypes.string.isRequired
   }),
-  onClickApply: PropTypes.func.isRequired
+  hasNextPage          : PropTypes.bool.isRequired,
+  isNextPageLoading    : PropTypes.bool.isRequired,
+  loadMoreCategoryItems: PropTypes.func.isRequired,
+  onClickApply         : PropTypes.func.isRequired
 }
 
 export default FilterConfig

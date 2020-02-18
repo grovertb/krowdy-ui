@@ -4,6 +4,7 @@ import { FixedSizeList as List } from 'react-window'
 import { FormControlLabel, Checkbox, makeStyles } from '@krowdy-ui/core'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import arr2obj from '../utils/arr2obj'
+import { PropTypes } from 'prop-types'
 
 const useStyles = makeStyles({
   formControlLabel: {
@@ -24,15 +25,17 @@ const useStyles = makeStyles({
 const CategoryItems = ({
   items = [],
   selectedItems = [],
-  pagination,
+  hasNextPage,
   onChangeSelected,
   isNextPageLoading = false,
-  loadNextPage
+  loadMore
 }) => {
   const classes = useStyles()
-  const itemCount = pagination.hasNextPage ? items.length + 1 : items.length
-  const loadMoreItems = isNextPageLoading ? () => {} : loadNextPage
-  const isItemLoaded = index => !pagination.hasNextPage || index < items.length
+  const itemCount = hasNextPage ? items.length + 1 : items.length
+  const loadMoreItems = isNextPageLoading ? () => {} : loadMore
+  console.log('Dante ==: loadMoreItems', loadMoreItems)
+  console.log('Dante ==: isNextPageLoading', isNextPageLoading)
+  const isItemLoaded = index => !hasNextPage || index < items.length
 
   const selectedMap = useMemo(() => arr2obj(selectedItems, {
     key  : item => item._id,
@@ -103,6 +106,21 @@ const CategoryItems = ({
       }
     </InfiniteLoader>
   )
+}
+
+CategoryItems.propTypes = {
+  hasNextPage      : PropTypes.bool.isRequired,
+  isNextPageLoading: PropTypes.bool.isRequired,
+  items            : PropTypes.arrayOf(PropTypes.shape({
+    _id  : PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired
+  })).isRequired,
+  loadMore        : PropTypes.func.isRequired,
+  onChangeSelected: PropTypes.func.isRequired,
+  selectedItems   : PropTypes.arrayOf(PropTypes.shape({
+    _id  : PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired
+  })).isRequired
 }
 
 export default CategoryItems

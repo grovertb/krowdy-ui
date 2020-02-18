@@ -73,7 +73,10 @@ const Filters = (props) => {
     headerHomeComponent: HeaderHomeComponent,
     filters = [],
     onChangeFilters = () => {},
-    categoryItems,
+    categoryItems = [],
+    hasNextPage = false,
+    loadMoreCategoryItems = () => {},
+    isNextPageLoading = false,
     filterGroups = []
   }  = props
 
@@ -197,6 +200,9 @@ const Filters = (props) => {
             categoryItems={categoryItems}
             filter={filterSelected}
             filterToEdit={filterToEdit}
+            hasNextPage={hasNextPage}
+            isNextPageLoading={isNextPageLoading}
+            loadMoreCategoryItems={loadMoreCategoryItems}
             onClickApply={_handleClickApplyFilters} />
         </TabPanel>
       </CardContent>
@@ -205,6 +211,10 @@ const Filters = (props) => {
 }
 
 Filters.propTypes = {
+  categoryItems: PropTypes.arrayOf(PropTypes.shape({
+    _id  : PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired
+  })).isRequired,
   classes     : PropTypes.object,
   filterGroups: PropTypes.arrayOf(
     PropTypes.shape({
@@ -232,9 +242,12 @@ Filters.propTypes = {
       ])
     })
   ),
-  headerHomeComponent: PropTypes.node,
-  onChangeFilters    : PropTypes.func.isRequired,
-  title              : PropTypes.string.isRequired
+  hasNextPage          : PropTypes.bool,
+  headerHomeComponent  : PropTypes.node,
+  isNextPageLoading    : PropTypes.bool,
+  loadMoreCategoryItems: PropTypes.func,
+  onChangeFilters      : PropTypes.func.isRequired,
+  title                : PropTypes.string.isRequired
 }
 
 Filters.muiName = 'KrowdyFilters'
