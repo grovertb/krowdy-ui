@@ -93,7 +93,7 @@ export const styles = theme => ({
   }
 })
 
-const TablePagination = React.forwardRef(function TablePagination({ ...props }) {
+const TablePagination = React.forwardRef(function TablePagination({ ...props }, ref) {
   const {
     classes,
     ...otherProps
@@ -133,6 +133,7 @@ const TablePagination = React.forwardRef(function TablePagination({ ...props }) 
           root: clsx(classes.nextIcon, classes.color)
         }
       }}
+      ref={ref}
       SelectProps={{
         classes: {
           icon      : classes.selectIcon,

@@ -113,133 +113,97 @@ const pages: Array<Page> = [
   {
     title: 'Views',
     routes: [
+      // A
       {
-        title: 'A',
-        routes: [
-          {
-            title: 'Audio Recorder',
-            path: '/views/audioRecorder'
-          },
-          {
-            title: 'Avatar user',
-            path: '/views/avataruser'
-          },
-        ]
+        title: 'Audio Recorder',
+        path: '/views/audioRecorder'
       },
       {
-        title: 'C',
-        routes: [
-          {
-            title: 'Card Expand',
-            path: '/views/cardexpand'
-          },
-          {
-            title: 'Card Candidate',
-            path: '/views/cardcandidate'
-          },
-          {
-            title: 'Counter',
-            path: '/views/counter'
-          },
-        ]
+        title: 'Avatar user',
+        path: '/views/avataruser'
+      },
+      // C
+      {
+        title: 'Card Expand',
+        path: '/views/cardexpand'
       },
       {
-        title: 'D',
-        routes: [
-          {
-            title: 'Dashboard',
-            path: '/views/dashboard'
-          },
-          {
-            title: 'Drag',
-            path: '/views/dragcomponent'
-          },
-        ]
+        title: 'Card Candidate',
+        path: '/views/cardcandidate'
       },
       {
-        title: 'F',
-        routes: [
-          {
-            title: 'Filters',
-            path: '/views/filters'
-          },
-        ]
+        title: 'Counter',
+        path: '/views/counter'
+      },
+      // D
+      {
+        title: 'Dashboard',
+        path: '/views/dashboard'
       },
       {
-        title: 'J',
-        routes: [
-          {
-            title: 'Job Detail',
-            path: '/views/jobdetail'
-          },
-        ]
+        title: 'Drag',
+        path: '/views/dragcomponent'
+      },
+      // F
+      {
+        title: 'Filters',
+        path: '/views/filters'
+      },
+      // J
+      {
+        title: 'Job Detail',
+        path: '/views/jobdetail'
+      },
+      // M
+      {
+        title: 'Modal',
+        path: '/views/modalkrowder'
       },
       {
-        title: 'M',
-        routes: [
-          {
-            title: 'Modal',
-            path: '/views/modalkrowder'
-          },
-          {
-            title: 'Main',
-            path: '/views/main'
-          }
-        ]
+        title: 'Main',
+        path: '/views/main'
+      },
+      // P
+      {
+        title: 'Pagination',
+        path: '/views/pagination'
+      },
+      // R
+      {
+        title: 'RadioLabelGroup',
+        path: '/views/radioLabelGroup'
       },
       {
-        title: 'P',
-        routes: [
-          {
-            title: 'Pagination',
-            path: '/views/pagination'
-          }
-        ]
+        title: 'Root',
+        path: '/views/root'
+      },
+      // S
+      {
+        title: 'Search',
+        path: '/views/search'
       },
       {
-        title: 'R',
-        routes: [
-          {
-            title: 'RadioLabelGroup',
-            path: '/views/radioLabelGroup'
-          },
-          {
-            title: 'Root',
-            path: '/views/root'
-          }
-        ]
+        title: 'SwitchButton',
+        path: '/views/switchbutton'
+      },
+      // T
+      {
+        title: 'Table',
+        path: '/views/table'
       },
       {
-        title: 'S',
-        routes: [
-          {
-            title: 'Search',
-            path: '/views/search'
-          },
-
-          {
-            title: 'SwitchButton',
-            path: '/views/switchbutton'
-          },
-        ]
+        title: 'Table Window',
+        path: '/views/tablewindow'
       },
       {
-        title: 'T',
-        routes: [
-          {
-            title: 'Table',
-            path: '/views/table'
-          },
-          {
-            title: 'Table Window',
-            path: '/views/tablewindow'
-          },
-          {
-            title: 'Top AppBar',
-            path: '/views/topappbar'
-          }
-        ]
+        title: 'Top AppBar',
+        path: '/views/topappbar'
       },
+      {
+        title: 'Table Group',
+        path: '/views/tablegroup'
+      }
+      // V
     ]
   },
 ]
