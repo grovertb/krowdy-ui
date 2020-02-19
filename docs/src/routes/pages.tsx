@@ -144,6 +144,11 @@ const pages: Array<Page> = [
         title: 'Drag',
         path: '/views/dragcomponent'
       },
+      // F
+      {
+        title: 'Filters',
+        path: '/views/filters'
+      },
       // J
       {
         title: 'Job Detail',
