@@ -1,6 +1,6 @@
 export default function formatFilters(filters) {
   return filters.map(({ key, operator, type, value, children = [] }) => {
-    const child = children.length ? { $and: formatFilters(children) } :{}
+    const child = children.length ? { $and: [ { $or: formatFilters(children) } ] } :{}
 
     const valueFilter = type === 'date' ?
       Array.isArray(value) ?
