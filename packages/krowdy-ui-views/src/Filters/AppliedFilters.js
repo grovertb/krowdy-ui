@@ -31,11 +31,10 @@ const AppliedFilters = ({ filters  = [], onClickEdit = () => {}, onDeleteFilter 
                       key={valIndex} style={{
                         border    : '1px solid blue',
                         marginLeft: 20
-                      }}>{filter.typeFilter === 'category' ? filterValue.label : filterValue}</li>)
+                      }}>{filter.type === 'category' ? filterValue.label : filterValue}</li>)
                   }
-                </ul>                :
+                </ul> :
                 <p style={{
-                  border    : '1px solid blue',
                   marginLeft: 20
                 }}>{filter.value}</p>
             }

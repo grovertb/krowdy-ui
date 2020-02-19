@@ -4,23 +4,32 @@ interface Classes {
   titleContainer: Record<string, string>
 }
 
+// Supported filter types
+type FilterType = 'string' | 'number' | 'date' | 'category'
+
+type Filter = {
+  _id: string,
+  key: string,
+  label: string,
+  type: FilterType
+}
+
 type FilterGroup = {
   _id: string,
-  children: [{
-    _id: string,
-    key: string,
-    label: string,
-    typeFilter: string
-  }],
+  children: Filter[],
   label: string
 }
 
 // Applied filter
-type Filter = {
+type AppliedFilter = {
+  _id: string,
   key: string,
   label: string,
   operator: string,
-  value: string | number | string[] | number[]
+  operatorLabel: string,
+  optionIndex  : number, 
+  type         : FilterType
+  value?: string | number | any[]
 }
 
 type CategoryItem = {
@@ -30,15 +39,15 @@ type CategoryItem = {
 
 export interface FiltersProps {
   classes?: Classes,
-  filterGroups: [FilterGroup],
-  filters: [Filter],
-  headerHomeComponent: React.ReactNode,
-  onChangeFilters: (filters: Filter[]) => void,
+  filterGroups: FilterGroup[],
+  filters: AppliedFilter[],
+  headerHomeComponent?: React.ReactNode,
+  listWidth?: number,
+  onChangeFilters: (appliedFilters: AppliedFilter[]) => void,
   hasNextPage?: boolean,
-  isNextPageLoading?: boolean,
-  loadMoreCategoryItems: (filterType: string) => void,
+  loadMoreCategoryItems: (categoryKey: string) => void,
   title: string,
-  categoryItems: [CategoryItem]
+  categoryItems: CategoryItem[]
 } 
 
 declare const Filters: React.ComponentType<FiltersProps>;

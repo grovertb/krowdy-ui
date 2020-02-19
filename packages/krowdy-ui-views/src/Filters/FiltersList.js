@@ -1,6 +1,8 @@
 import { List, ListItem, ListItemText, ListSubheader, makeStyles } from '@krowdy-ui/core'
 import Search from '@krowdy-ui/views/Search'
 import React, { useMemo, useState } from 'react'
+import tilderize from '../utils/tilderize'
+import escapeRegexp from '../utils/escapeRegexp'
 
 export const useStyles = makeStyles((theme) => ({
   filtersList: {
@@ -66,7 +68,8 @@ const FiltersList = React.memo((props) => {
 
   const searchInGroups = (search) => {
     if(!search) return filterGroups
-    const searchTerm = new RegExp(search, 'i')
+    const escapedText = tilderize(escapeRegexp(search))
+    const searchTerm = new RegExp(escapedText, 'i')
 
     return filterGroups.map(filterGroup => {
       const filtersSearched = filterGroup.children.filter(filter => searchTerm.test(filter.label))

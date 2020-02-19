@@ -219,10 +219,10 @@ Filters.propTypes = {
       _id     : PropTypes.string.isRequired,
       children: PropTypes.arrayOf(
         PropTypes.shape({
-          _id       : PropTypes.string.isRequired,
-          key       : PropTypes.string.isRequired,
-          label     : PropTypes.string.isRequired,
-          typeFilter: PropTypes.string.isRequired
+          _id  : PropTypes.string.isRequired,
+          key  : PropTypes.string.isRequired,
+          label: PropTypes.string.isRequired,
+          type : PropTypes.string.isRequired
         })
       ),
       label: PropTypes.string.isRequired
@@ -230,10 +230,14 @@ Filters.propTypes = {
   ),
   filters: PropTypes.arrayOf(
     PropTypes.shape({
-      key     : PropTypes.string.isRequired,
-      label   : PropTypes.string.isRequired,
-      operator: PropTypes.string.isRequired,
-      value   : PropTypes.oneOfType([
+      _id          : PropTypes.string.isRequired,
+      key          : PropTypes.string.isRequired,
+      label        : PropTypes.string.isRequired,
+      operator     : PropTypes.string.isRequired,
+      operatorLabel: PropTypes.string.isRequired,
+      optionIndex  : PropTypes.number.isRequired,
+      type         : PropTypes.string.isRequired,
+      value        : PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.number,
         PropTypes.array

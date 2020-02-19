@@ -1,2 +1,6 @@
+export { default as arr2obj } from './arr2obj'
 export { default as capitalize } from './capitalize'
+export { default as escapeRegexp } from './escapeRegexp'
+export { default as generateRandomId } from './generateRandomId'
 export { default as isExternalURL } from './isExternalURL'
+export { default as tilderize } from './tilderize'

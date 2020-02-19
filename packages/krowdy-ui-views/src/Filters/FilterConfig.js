@@ -213,9 +213,6 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: 7,
     paddingTop   : 7
   },
-  selectForm: {
-    // background: 'red',
-  },
   selectPaper: {
     borderRadius: 2
   },
@@ -253,12 +250,12 @@ const FilterConfig = (props) => {
 
   const [ optionIndex, setOptionIndex ] = useState(filter.optionIndex || 0)
 
-  const type = CONFIG_TYPES[filter.typeFilter]
+  const type = CONFIG_TYPES[filter.type]
   const option = type.options[optionIndex]
 
   const [ filterConfig, setFilterConfig ] = useState(() => {
     if(filter.value && option.numberOfInputs)
-      switch (filter.typeFilter) {
+      switch (filter.type) {
         case 'number':
         case 'date':
           switch (option.operator) {
@@ -320,7 +317,7 @@ const FilterConfig = (props) => {
     if(eventOrValue && typeof eventOrValue === 'object' && eventOrValue.target)
       eventOrValue.persist()
 
-    switch (filter.typeFilter) {
+    switch (filter.type) {
       case 'number':
         setFilterConfig(prev => ({
           ...prev,
@@ -343,7 +340,7 @@ const FilterConfig = (props) => {
   }
 
   const _handleClickApply = () => {
-    const configValue = getFilterConfigValue(filter.typeFilter)
+    const configValue = getFilterConfigValue(filter.type)
     const _id = filterToEdit ? filterToEdit._id : generateRandomId()
 
     const res = {
@@ -353,7 +350,7 @@ const FilterConfig = (props) => {
       operator     : option.operator,
       operatorLabel: option.label,
       optionIndex  : optionIndex,
-      typeFilter   : filter.typeFilter,
+      type         : filter.type,
       value        : configValue
     }
     onClickApply(res)
@@ -481,7 +478,6 @@ const FilterConfig = (props) => {
     <div>
       <p className={classes.title}>{filter.label}</p>
       <FormControl
-        className={classes.selectForm}
         color='primary'
         fullWidth
         variant='outlined'>
@@ -520,7 +516,7 @@ const FilterConfig = (props) => {
       </FormControl>
       <div className={classes.configOptionContainer}>
         {
-          renderConfigOption(filter.typeFilter, optionIndex)
+          renderConfigOption(filter.type, optionIndex)
         }
       </div>
       <div className={classes.center}>
@@ -541,16 +537,24 @@ FilterConfig.propTypes = {
     label: PropTypes.string.isRequired
   })).isRequired,
   filter: PropTypes.shape({
-    _id       : PropTypes.string.isRequired,
-    key       : PropTypes.string.isRequired,
-    label     : PropTypes.string.isRequired,
-    typeFilter: PropTypes.string.isRequired
+    _id  : PropTypes.string.isRequired,
+    key  : PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+    type : PropTypes.string.isRequired
   }),
   filterToEdit: PropTypes.shape({
-    _id       : PropTypes.string,
-    key       : PropTypes.string.isRequired,
-    label     : PropTypes.string.isRequired,
-    typeFilter: PropTypes.string.isRequired
+    _id          : PropTypes.string.isRequired,
+    key          : PropTypes.string.isRequired,
+    label        : PropTypes.string.isRequired,
+    operator     : PropTypes.string.isRequired,
+    operatorLabel: PropTypes.string.isRequired,
+    optionIndex  : PropTypes.number.isRequired,
+    type         : PropTypes.string.isRequired,
+    value        : PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.array
+    ])
   }),
   hasNextPage          : PropTypes.bool.isRequired,
   loadMoreCategoryItems: PropTypes.func.isRequired,
