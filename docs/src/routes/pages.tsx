@@ -177,33 +177,27 @@ const pages: Array<Page> = [
         title: 'Search',
         path: '/views/search'
       },
-
       {
         title: 'SwitchButton',
         path: '/views/switchbutton'
       },
       // T
       {
-        title: 'T',
-        routes: [
-          {
-            title: 'Table',
-            path: '/views/table'
-          },
-          {
-            title: 'Table Window',
-            path: '/views/tablewindow'
-          },
-          {
-            title: 'Top AppBar',
-            path: '/views/topappbar'
-          },
-          {
-            title: 'Table Group',
-            path: '/views/tablegroup'
-          }
-        ]
+        title: 'Table',
+        path: '/views/table'
       },
+      {
+        title: 'Table Window',
+        path: '/views/tablewindow'
+      },
+      {
+        title: 'Top AppBar',
+        path: '/views/topappbar'
+      },
+      {
+        title: 'Table Group',
+        path: '/views/tablegroup'
+      }
       // V
     ]
   },
