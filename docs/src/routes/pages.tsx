@@ -184,7 +184,6 @@ const pages: Array<Page> = [
       },
       // T
       {
-<<<<<<< HEAD
         title: 'T',
         routes: [
           {
@@ -204,18 +203,6 @@ const pages: Array<Page> = [
             path: '/views/tablegroup'
           }
         ]
-=======
-        title: 'Table',
-        path: '/views/table'
-      },
-      {
-        title: 'Table Window',
-        path: '/views/tablewindow'
-      },
-      {
-        title: 'Top AppBar',
-        path: '/views/topappbar'
->>>>>>> ca84e03144cbdac4fd79829d134951fe20394530
       },
       // V
     ]
