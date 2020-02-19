@@ -177,7 +177,6 @@ const pages: Array<Page> = [
         title: 'Search',
         path: '/views/search'
       },
-
       {
         title: 'SwitchButton',
         path: '/views/switchbutton'
@@ -195,6 +194,10 @@ const pages: Array<Page> = [
         title: 'Top AppBar',
         path: '/views/topappbar'
       },
+      {
+        title: 'Table Group',
+        path: '/views/tablegroup'
+      }
       // V
     ]
   },

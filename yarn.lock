@@ -960,6 +960,39 @@
   resolved "https://registry.yarnpkg.com/@csstools/normalize.css/-/normalize.css-10.1.0.tgz#f0950bba18819512d42f7197e56c518aa491cf18"
   integrity sha512-ij4wRiunFfaJxjB0BdrYHIH8FxBJpOwNPhhAcunlmPdXudL1WQV1qoP9un6JsEBAgQH+7UXyyjh0g7jTxXK6tg==
 
+"@devexpress/dx-core@2.4.0":
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/@devexpress/dx-core/-/dx-core-2.4.0.tgz#d65fc545ed23e87c94c4e7935e1b027fafee4453"
+  integrity sha512-6N+S3qhpu3mAGsM4ShCVJO+xN6Da53tak5S6ZN+aMhlHMvQMAol56RmOF5HdYc3muzIRC190o9pFHjNGV4iIQg==
+
+"@devexpress/dx-grid-core@2.4.0":
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/@devexpress/dx-grid-core/-/dx-grid-core-2.4.0.tgz#c63126fd303fa00995a77948b12992e056d19bfd"
+  integrity sha512-RIjkw/wn7cYyBwoYdXg+ET8VxX1Aee+aTz4RlyMbcVstfnJUnZKI1T2Xb138XcpMBdhwENNry4TBO1pCyrUGvA==
+
+"@devexpress/dx-react-core@^2.4.0":
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/@devexpress/dx-react-core/-/dx-react-core-2.4.0.tgz#47ee91dfb07a5933e96c69ae02261135cfc67860"
+  integrity sha512-9KR329NOjl2K8O2+0vQX0r/Y/MIXVru1jIfh39W/h8T7cj5at4WIeSAONwcFHr475z0f/h5m+pLMwKFzLf+Yzw==
+  dependencies:
+    "@devexpress/dx-core" "2.4.0"
+    prop-types "^15.7.2"
+
+"@devexpress/dx-react-grid-material-ui@^2.4.0":
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/@devexpress/dx-react-grid-material-ui/-/dx-react-grid-material-ui-2.4.0.tgz#71c94aeca4ffed355e2c2f097303237545faab16"
+  integrity sha512-Jepr0Abh8LrZykagrSD4S4GJ3Zs0ADAy6dBs+f6Sh6Bnlgr6pzE4J2AxOsYYIfcaKL6IWd0XkKAmUBLF12sJ9w==
+  dependencies:
+    clsx "^1.0.4"
+    prop-types "^15.7.2"
+
+"@devexpress/dx-react-grid@^2.4.0":
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/@devexpress/dx-react-grid/-/dx-react-grid-2.4.0.tgz#5b1d92f3a44008139e0e0a17a4735361f9d85a3a"
+  integrity sha512-Uys/hH5FzRhfxIjQ1GEtvgPt0zAeXVCPuPdIwJ+4MGlQLLZ28yT2G1c3s2FARfYVwQUWoidoWmw32SXjeV5uBg==
+  dependencies:
+    "@devexpress/dx-grid-core" "2.4.0"
+
 "@emotion/hash@^0.7.4":
   version "0.7.4"
   resolved "https://registry.yarnpkg.com/@emotion/hash/-/hash-0.7.4.tgz#f14932887422c9056b15a8d222a9074a7dfa2831"
