@@ -4,11 +4,8 @@ import { PropTypes } from 'prop-types'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import React, { useEffect, useState } from 'react'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   root: {
-    '& > * + *': {
-      marginTop: theme.spacing(2)
-    },
     '&& .MuiInputBase-root': {
       paddingRight: 24
     }
@@ -34,21 +31,17 @@ const InputChip = (props) => {
 
   const _handleKeyDown = event => {
     if(event.keyCode === 13 && inputValue) {
-      const exists = existsTitle(inputValue)
-      if(!exists)
+      const existsValue = existsTitle(inputValue)
+      // Don't add if value already exists
+      if(!existsValue)
         setValues(prev => [ ...prev, { title: inputValue } ])
 
       setInputValue('')
     }
   }
 
-  const _handleInputChange = (_, text) => {
-    setInputValue(text)
-  }
-
-  const _handleChange = (_, values) => {
-    setValues(values)
-  }
+  const _handleInputChange = (_, text) => setInputValue(text)
+  const _handleChange = (_, values) => setValues(values)
 
   return (
     <div className={classes.root}>
@@ -58,7 +51,6 @@ const InputChip = (props) => {
           variant: 'outlined'
         }}
         getOptionLabel={option => option.title}
-        id='size-small-standard-multi'
         inputValue={inputValue}
         multiple
         onChange={_handleChange}

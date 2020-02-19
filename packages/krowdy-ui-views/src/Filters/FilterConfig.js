@@ -228,8 +228,6 @@ const useStyles = makeStyles((theme) => ({
     marginTop        : 0,
     padding          : '4px 0'
   }
-  // Category
-
 }))
 
 const parseToValidDate = (date) => {
@@ -246,7 +244,7 @@ const FilterConfig = (props) => {
     categoryItems,
     onClickApply,
     hasNextPage,
-    isNextPageLoading,
+    listWidth,
     loadMoreCategoryItems
   } = props
   const filter = Object.assign({}, commingFilter, filterToEdit)
@@ -265,9 +263,11 @@ const FilterConfig = (props) => {
         case 'date':
           switch (option.operator) {
             case '$range':
+              const [ first, second ] = filter.value
+
               return {
-                first : filter.value[0],
-                second: filter.value[1]
+                first,
+                second
               }
             default:
               return {
@@ -285,6 +285,32 @@ const FilterConfig = (props) => {
 
     return type.initialValue
   })
+
+  const getFilterConfigValue = (filterType) => {
+    switch (filterType) {
+      case 'number':
+        if(option.numberOfInputs === 1)
+          return filterConfig.first
+
+        else if(option.numberOfInputs === 2)
+          return [ filterConfig.first, filterConfig.second ]
+
+        return null
+      case 'date':
+        if(option.numberOfInputs === 1)
+          return parseToValidDate(filterConfig.first)
+
+        else if(option.numberOfInputs === 2)
+          return [ parseToValidDate(filterConfig.first), parseToValidDate(filterConfig.second) ]
+
+        return null
+      case 'generic':
+      case 'category':
+        return filterConfig
+      default:
+        return null
+    }
+  }
 
   const _handleOptionChange = (event) => {
     setOptionIndex(event.target.value)
@@ -308,61 +334,29 @@ const FilterConfig = (props) => {
         }))
         break
       case 'generic':
+      case 'category':
         setFilterConfig(eventOrValue)
         break
-      case 'category':
-        break
       default:
         break
-    }
-  }
-
-  const getFilterConfigValue = (filterType) => {
-    switch (filterType) {
-      case 'number':
-        if(option.numberOfInputs === 1)
-          return filterConfig.first
-
-        else if(option.numberOfInputs === 2)
-          return [ filterConfig.first, filterConfig.second ]
-
-        return null
-      case 'date':
-        if(option.numberOfInputs === 1)
-          return parseToValidDate(filterConfig.first)
-
-        else if(option.numberOfInputs === 2)
-          return [ parseToValidDate(filterConfig.first), parseToValidDate(filterConfig.second) ]
-
-        return null
-      case 'generic':
-        return filterConfig
-      case 'category':
-        return filterConfig
-      default:
-        return null
     }
   }
 
   const _handleClickApply = () => {
     const configValue = getFilterConfigValue(filter.typeFilter)
-
     const _id = filterToEdit ? filterToEdit._id : generateRandomId()
 
     const res = {
       _id,
-      key        : filter.key, // Para facil acceso al editar
-      label      : filter.label,
-      operator   : option.operator,
-      optionIndex: optionIndex,
-      typeFilter : filter.typeFilter, // Para facil acceso al editar
-      value      : configValue
+      key          : filter.key,
+      label        : filter.label,
+      operator     : option.operator,
+      operatorLabel: option.label,
+      optionIndex  : optionIndex,
+      typeFilter   : filter.typeFilter,
+      value        : configValue
     }
     onClickApply(res)
-  }
-
-  const _handleChangeSelected = (newFilterConfig) => {
-    setFilterConfig(newFilterConfig)
   }
 
   const _handleLoadMoreItems = (categoryKey) => () => {
@@ -371,6 +365,7 @@ const FilterConfig = (props) => {
 
   const renderConfigOption = (filterType,  optionIndex) => {
     const showInputs = type.options[optionIndex].numberOfInputs > 0
+    if(!showInputs) return null
     const showSecondInput = type.options[optionIndex].numberOfInputs === 2
     switch (filterType) {
       case 'number':
@@ -410,10 +405,7 @@ const FilterConfig = (props) => {
       case 'generic':
         return (
           <div>
-            {
-              showInputs &&
-              <InputChip onChange={_handleChange()} values={filterConfig} />
-            }
+            <InputChip onChange={_handleChange()} values={filterConfig} />
           </div>
         )
       case 'date':
@@ -471,16 +463,13 @@ const FilterConfig = (props) => {
       case 'category':
         return (
           <div>
-            {
-              showInputs &&
-              <CategoryItems
-                hasNextPage={hasNextPage}
-                isNextPageLoading={isNextPageLoading}
-                items={categoryItems}
-                loadMore={_handleLoadMoreItems(filter.key)}
-                onChangeSelected={_handleChangeSelected}
-                selectedItems={filterConfig} />
-            }
+            <CategoryItems
+              hasNextPage={hasNextPage}
+              items={categoryItems}
+              listWidth={listWidth}
+              loadMore={_handleLoadMoreItems(filter.key)}
+              onChangeSelected={_handleChange()}
+              selectedItems={filterConfig} />
           </div>
         )
       default:
@@ -564,7 +553,6 @@ FilterConfig.propTypes = {
     typeFilter: PropTypes.string.isRequired
   }),
   hasNextPage          : PropTypes.bool.isRequired,
-  isNextPageLoading    : PropTypes.bool.isRequired,
   loadMoreCategoryItems: PropTypes.func.isRequired,
   onClickApply         : PropTypes.func.isRequired
 }

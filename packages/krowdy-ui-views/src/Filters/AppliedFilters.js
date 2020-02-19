@@ -4,8 +4,8 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/Edit'
 
 const AppliedFilters = ({ filters  = [], onClickEdit = () => {}, onDeleteFilter = () => {} }) => {
-  const _handleClick = (item) =>  (event) => {
-    onClickEdit(event, item)
+  const _handleClick = (item) =>  () => {
+    onClickEdit(item)
   }
 
   const _handleClickDelete = (item) => () => {

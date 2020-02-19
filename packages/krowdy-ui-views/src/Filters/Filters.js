@@ -1,13 +1,13 @@
 import { Button, Card, CardContent, CardHeader, TabPanel, withStyles } from '@krowdy-ui/core'
+import { IconButton } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
+import ArrowBackIcon from '@material-ui/icons/ArrowBackIos'
 import clsx from 'clsx'
 import { PropTypes } from 'prop-types'
 import React, { useState } from 'react'
-import FiltersList from './FiltersList'
-import FilterConfig from './FilterConfig'
-import ArrowBackIcon from '@material-ui/icons/ArrowBackIos'
-import { IconButton } from '@material-ui/core'
 import AppliedFilters from './AppliedFilters'
+import FilterConfig from './FilterConfig'
+import FiltersList from './FiltersList'
 
 export const styles = () => ({
   backIcon: {
@@ -33,7 +33,9 @@ export const styles = () => ({
   root: {
     maxHeight: '100%',
     maxWidth : 304,
-    padding  : 0
+    minWidth : 204,
+    padding  : 0,
+    width    : 204
   },
   titleContainer: {
     '& p': {
@@ -76,33 +78,25 @@ const Filters = (props) => {
     categoryItems = [],
     hasNextPage = false,
     loadMoreCategoryItems = () => {},
-    isNextPageLoading = false,
+    listWidth,
     filterGroups = []
   }  = props
 
-  const [ view, setView ] = useState(Views.HOME)
+  const [ view, goToView ] = useState(Views.HOME)
   const [ filterSelected, setFilterSelected ] = useState()
   const [ filterToEdit, setFilterToEdit ] = useState()
 
-  const _handleClickFilterListItem = (_, item) => {
-    setFilterSelected(item)
-    setView(Views.FILTER_CONFIG)
+  const addFilter = (filter) => {
+    onChangeFilters([ ...filters, filter ])
   }
 
-  const _handleClickAddFilter = () => setView(Views.FILTERS_SEARCH)
-
-  const _handleClickEditFilter = (_, item) => {
-    setFilterToEdit(item)
-    setView(Views.FILTER_CONFIG)
-  }
-
-  const updateFilter = ({ _id, ...filter }) => {
-    const filterIndex = filters.findIndex(item => item._id === _id)
+  const updateFilter = ({ _id, ...appliedfilter }) => {
+    const filterIndex = filters.findIndex(filter => filter._id === _id)
     const existsFilter = filterIndex !== -1
     if(existsFilter) {
       const updatedFilter = {
         ...filters[filterIndex],
-        ...filter
+        ...appliedfilter
       }
 
       const updatedFilters = [
@@ -115,39 +109,40 @@ const Filters = (props) => {
     }
   }
 
-  const addFilter = (filter) => {
-    onChangeFilters([ ...filters, filter ])
-  }
-
-  const _handleDeleteFilter = (deletedFilter) => {
-    const updatedFilters = filters.filter(filter => {
-      if(filter._id !== deletedFilter._id)
-        return true
-
-      return false
-    })
-
+  const _handleDeleteFilter = (appliedFilter) => {
+    const updatedFilters = filters.filter(filter => filter._id !== appliedFilter._id)
     onChangeFilters(updatedFilters)
   }
 
   const _handleClickApplyFilters = (filter) => {
     if(filterToEdit) {
+      // Exists, so update it
       updateFilter(filter)
       setFilterToEdit(null)
     } else {
       addFilter(filter)
     }
-    setView(Views.HOME)
+    goToView(Views.HOME)
   }
 
-  const _handleBack = () => {
+  const _handleClickFilterListItem = (item) => {
+    setFilterSelected(item)
+    goToView(Views.FILTER_CONFIG)
+  }
+
+  const _handleClickAddFilter = () => goToView(Views.FILTERS_SEARCH)
+
+  const _handleClickEditFilter = (appliedFilter) => {
+    setFilterToEdit(appliedFilter)
+    goToView(Views.FILTER_CONFIG)
+  }
+
+  const _handleClickBack = () => {
     if(view.backIndex) {
-      setView(Views[view.backIndex])
+      goToView(Views[view.backIndex])
       setFilterToEdit(null)
     }
   }
-
-  const cardTitle = () => view.index === 0 ? title : 'Atrás'
 
   return (
     <Card className={classes.root}>
@@ -159,12 +154,12 @@ const Filters = (props) => {
               <IconButton
                 aria-label='delete'
                 className={classes.margin}
-                onClick={_handleBack}
+                onClick={_handleClickBack}
                 size='small'>
                 <ArrowBackIcon fontSize='inherit' />
               </IconButton>
             )}
-            <p>{cardTitle()}</p>
+            <p>{view.index === 0 ? title : 'Atrás'}</p>
           </div>
         )} />
       <CardContent
@@ -176,7 +171,10 @@ const Filters = (props) => {
           index={Views.HOME.index}
           value={view.index}>
           {HeaderHomeComponent}
-          <AppliedFilters filters={filters} onClickEdit={_handleClickEditFilter} onDeleteFilter={_handleDeleteFilter} />
+          <AppliedFilters
+            filters={filters}
+            onClickEdit={_handleClickEditFilter}
+            onDeleteFilter={_handleDeleteFilter} />
           <div className={classes.center}>
             <Button
               color='primary'
@@ -201,7 +199,7 @@ const Filters = (props) => {
             filter={filterSelected}
             filterToEdit={filterToEdit}
             hasNextPage={hasNextPage}
-            isNextPageLoading={isNextPageLoading}
+            listWidth={listWidth}
             loadMoreCategoryItems={loadMoreCategoryItems}
             onClickApply={_handleClickApplyFilters} />
         </TabPanel>
@@ -244,7 +242,7 @@ Filters.propTypes = {
   ),
   hasNextPage          : PropTypes.bool,
   headerHomeComponent  : PropTypes.node,
-  isNextPageLoading    : PropTypes.bool,
+  listWidth            : PropTypes.number,
   loadMoreCategoryItems: PropTypes.func,
   onChangeFilters      : PropTypes.func.isRequired,
   title                : PropTypes.string.isRequired

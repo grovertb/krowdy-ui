@@ -27,12 +27,12 @@ const CategoryItems = ({
   selectedItems = [],
   hasNextPage,
   onChangeSelected,
-  isNextPageLoading,
+  listWidth = 204,
   loadMore
 }) => {
   const classes = useStyles()
+
   const itemCount = hasNextPage ? items.length + 1 : items.length
-  const _handleLoadMore = isNextPageLoading ? () => {} : loadMore
 
   const isItemLoaded = index => !hasNextPage || index < items.length
 
@@ -50,6 +50,8 @@ const CategoryItems = ({
 
     onChangeSelected(updatedSelected)
   }
+
+  const _handleLoadMore = hasNextPage ? loadMore : () => {}
 
   const Item = ({ index, style }) => {
     if(!isItemLoaded(index)) {
@@ -91,29 +93,30 @@ const CategoryItems = ({
       isItemLoaded={isItemLoaded}
       itemCount={itemCount}
       loadMoreItems={_handleLoadMore}>
-      {({ onItemsRendered, ref }) => (
-        <List
-          height={350}
-          itemCount={itemCount}
-          itemSize={36}
-          onItemsRendered={onItemsRendered}
-          ref={ref}
-          width={272}>
-          {Item}
-        </List>
-      )
+      {
+        ({ onItemsRendered, ref }) => (
+          <List
+            height={350}
+            itemCount={itemCount}
+            itemSize={36}
+            onItemsRendered={onItemsRendered}
+            ref={ref}
+            width={listWidth - 32/* padding*/}>
+            {Item}
+          </List>
+        )
       }
     </InfiniteLoader>
   )
 }
 
 CategoryItems.propTypes = {
-  hasNextPage      : PropTypes.bool.isRequired,
-  isNextPageLoading: PropTypes.bool.isRequired,
-  items            : PropTypes.arrayOf(PropTypes.shape({
+  hasNextPage: PropTypes.bool.isRequired,
+  items      : PropTypes.arrayOf(PropTypes.shape({
     _id  : PropTypes.string.isRequired,
     label: PropTypes.string.isRequired
   })).isRequired,
+  listWidth       : PropTypes.number,
   loadMore        : PropTypes.func.isRequired,
   onChangeSelected: PropTypes.func.isRequired,
   selectedItems   : PropTypes.arrayOf(PropTypes.shape({

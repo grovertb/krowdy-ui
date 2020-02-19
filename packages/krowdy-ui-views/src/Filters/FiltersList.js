@@ -55,7 +55,7 @@ export const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const FiltersList = (props) => {
+const FiltersList = React.memo((props) => {
   const {
     filterGroups,
     onClickItem
@@ -88,7 +88,7 @@ const FiltersList = (props) => {
   , [ search ])
 
   const _handleChangeSearch = (event) => setSearch(event.target.value)
-  const _handleClickItem = (item) => (event) => onClickItem(event, item)
+  const _handleClickItem = (item) => () => onClickItem(item)
 
   return (
     <>
@@ -104,7 +104,7 @@ const FiltersList = (props) => {
         {
           !filterGroupsSearched.length &&
           <div className={classes.notFound}>
-            <img alt='Sin resultados' src='https://s3.amazonaws.com/cdn.krowdy.com/media/images/krowdy-empty.svg' />
+            <img alt='Sin resultados' src='https://s3.amazonaws.com/test.krowdy.apps/portales/sources/empty_content.png' width={140} />
             <p>No se encontraron resultados</p>
           </div>
 
@@ -139,6 +139,6 @@ const FiltersList = (props) => {
       </List>
     </>
   )
-}
+})
 
 export default FiltersList

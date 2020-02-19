@@ -280,7 +280,6 @@ export default function () {
         filters={appliedFilters}
         hasNextPage={categoryItems.length < 100 ? true : false}
         headerHomeComponent={<HeaderHomeComponent />}
-        isNextPageLoading={false}
         loadMoreCategoryItems={_handleLoadMoreCategoryItems}
         onChangeFilters={_handleChangeFilters}
         title='Todos las compras' />
