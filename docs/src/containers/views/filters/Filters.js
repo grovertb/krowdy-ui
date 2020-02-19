@@ -237,40 +237,24 @@ const HeaderHomeComponent = () => (
   </div>
 )
 
-const getNewItemsAsync = async (key, time = 3000) => {
-  const newItems = new Array(10).fill(12).map(() => {
-    const id = Math.round(Math.random() * 123124583).toString()
+const getNewItemsAsync = async (key, time = 3000) => new Promise(resolve => {
+  setTimeout(() => {
+    const newItems = new Array(20).fill(20).map(() => {
+      const id = Math.round(Math.random() * 123124583).toString()
 
-    return {
-      _id  : id,
-      label: `${key} - ${id}`
-    }
-  })
+      return {
+        _id  : id,
+        label: `${key} - ${id}`
+      }
+    })
+    resolve(newItems)
+  }, time)
+})
 
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve(newItems)
-    }, time)
-  })
-}
 export default function () {
   const classes = useStyles()
 
-  const [ appliedFilters, setAppliedFilters ] = useState([
-    // {
-    //   _id        : '255424333',
-    //   key        : 'codigoproceso',
-    //   label      : 'Código proceso',
-    //   operator   : '$ne',
-    //   optionIndex: 1,
-    //   typeFilter : 'generic',
-    //   value      : [ 'HEMERON', 'DANTE' ]
-    // }
-  ])
-
-  const [ isNextPageLoading, setIsNextPageLoading ] = useState(false)
-  console.log('Dante: isNextPageLoading', isNextPageLoading)
-
+  const [ appliedFilters, setAppliedFilters ] = useState([])
   const [ categoryItems, setCategoryItems ] = useState([])
 
   const _handleChangeFilters = (updatedFilters) => {
@@ -278,11 +262,8 @@ export default function () {
   }
 
   const _handleLoadMoreCategoryItems = async (key) => {
-    console.log('Dante ==LLamando a la funcionnnn')
-    // setIsNextPageLoading(true)
-    const newItems = await getNewItemsAsync(key)
+    const newItems = await getNewItemsAsync(key, 400)
     setCategoryItems(prev => [ ...prev, ...newItems ])
-    // setIsNextPageLoading(false)
   }
 
   return (
@@ -299,7 +280,7 @@ export default function () {
         filters={appliedFilters}
         hasNextPage={categoryItems.length < 100 ? true : false}
         headerHomeComponent={<HeaderHomeComponent />}
-        isNextPageLoading={isNextPageLoading}
+        isNextPageLoading={false}
         loadMoreCategoryItems={_handleLoadMoreCategoryItems}
         onChangeFilters={_handleChangeFilters}
         title='Todos las compras' />

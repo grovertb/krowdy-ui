@@ -250,7 +250,6 @@ const FilterConfig = (props) => {
     loadMoreCategoryItems
   } = props
   const filter = Object.assign({}, commingFilter, filterToEdit)
-  console.log('Dante: FilterConfig -> filter', filter)
 
   const classes = useStyles()
 

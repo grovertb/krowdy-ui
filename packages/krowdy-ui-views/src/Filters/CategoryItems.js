@@ -27,14 +27,13 @@ const CategoryItems = ({
   selectedItems = [],
   hasNextPage,
   onChangeSelected,
-  isNextPageLoading = false,
+  isNextPageLoading,
   loadMore
 }) => {
   const classes = useStyles()
   const itemCount = hasNextPage ? items.length + 1 : items.length
-  const loadMoreItems = isNextPageLoading ? () => {} : loadMore
-  console.log('Dante ==: loadMoreItems', loadMoreItems)
-  console.log('Dante ==: isNextPageLoading', isNextPageLoading)
+  const _handleLoadMore = isNextPageLoading ? () => {} : loadMore
+
   const isItemLoaded = index => !hasNextPage || index < items.length
 
   const selectedMap = useMemo(() => arr2obj(selectedItems, {
@@ -91,7 +90,7 @@ const CategoryItems = ({
     <InfiniteLoader
       isItemLoaded={isItemLoaded}
       itemCount={itemCount}
-      loadMoreItems={loadMoreItems}>
+      loadMoreItems={_handleLoadMore}>
       {({ onItemsRendered, ref }) => (
         <List
           height={350}
