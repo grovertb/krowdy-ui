@@ -27,6 +27,7 @@ import * as colors from './colors';
 
 export { colors };
 export * from './styles';
+export * from './utils';
 
 export { default as AppBar } from './AppBar';
 export { default as Avatar } from './Avatar';
@@ -99,7 +100,6 @@ export { default as MobileStepper } from './MobileStepper';
 export { default as Modal } from './Modal';
 export { default as NativeSelect } from './NativeSelect';
 export { default as NoSsr } from './NoSsr';
-export { default as notify } from './notify';
 export { default as OutlinedInput } from './OutlinedInput';
 export { default as Paper } from './Paper';
 export { default as Popover } from './Popover';

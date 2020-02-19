@@ -2,7 +2,9 @@
 import * as colors from './colors'
 
 export { colors }
+
 export * from './styles'
+export * from './utils'
 
 export { default as AppBar } from './AppBar'
 export * from './AppBar'
@@ -216,9 +218,6 @@ export * from './NativeSelect'
 
 export { default as NoSsr } from './NoSsr'
 export * from './NoSsr'
-
-export { default as notify } from './notify'
-export * from './notify'
 
 export { default as OutlinedInput } from './OutlinedInput'
 export * from './OutlinedInput'

@@ -1,3 +1,5 @@
+export * from './utils'
+
 export { default as AudioRecorder } from './AudioRecorder'
 export * from './AudioRecorder'
 

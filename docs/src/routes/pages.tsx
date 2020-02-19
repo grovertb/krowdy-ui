@@ -113,108 +113,78 @@ const pages: Array<Page> = [
   {
     title: 'Views',
     routes: [
+      // A
       {
-        title: 'A',
-        routes: [
-          {
-            title: 'Audio Recorder',
-            path: '/views/audioRecorder'
-          },
-          {
-            title: 'Avatar user',
-            path: '/views/avataruser'
-          },
-        ]
+        title: 'Audio Recorder',
+        path: '/views/audioRecorder'
       },
       {
-        title: 'C',
-        routes: [
-          {
-            title: 'Card Expand',
-            path: '/views/cardexpand'
-          },
-          {
-            title: 'Card Candidate',
-            path: '/views/cardcandidate'
-          },
-          {
-            title: 'Counter',
-            path: '/views/counter'
-          },
-        ]
+        title: 'Avatar user',
+        path: '/views/avataruser'
+      },
+      // C
+      {
+        title: 'Card Expand',
+        path: '/views/cardexpand'
       },
       {
-        title: 'D',
-        routes: [
-          {
-            title: 'Dashboard',
-            path: '/views/dashboard'
-          },
-          {
-            title: 'Drag',
-            path: '/views/dragcomponent'
-          },
-        ]
+        title: 'Card Candidate',
+        path: '/views/cardcandidate'
       },
       {
-        title: 'J',
-        routes: [
-          {
-            title: 'Job Detail',
-            path: '/views/jobdetail'
-          },
-        ]
+        title: 'Counter',
+        path: '/views/counter'
+      },
+      // D
+      {
+        title: 'Dashboard',
+        path: '/views/dashboard'
       },
       {
-        title: 'M',
-        routes: [
-          {
-            title: 'Modal',
-            path: '/views/modalkrowder'
-          },
-          {
-            title: 'Main',
-            path: '/views/main'
-          }
-        ]
+        title: 'Drag',
+        path: '/views/dragcomponent'
+      },
+      // J
+      {
+        title: 'Job Detail',
+        path: '/views/jobdetail'
+      },
+      // M
+      {
+        title: 'Modal',
+        path: '/views/modalkrowder'
       },
       {
-        title: 'P',
-        routes: [
-          {
-            title: 'Pagination',
-            path: '/views/pagination'
-          }
-        ]
+        title: 'Main',
+        path: '/views/main'
+      },
+      // P
+      {
+        title: 'Pagination',
+        path: '/views/pagination'
+      },
+      // R
+      {
+        title: 'RadioLabelGroup',
+        path: '/views/radioLabelGroup'
       },
       {
-        title: 'R',
-        routes: [
-          {
-            title: 'RadioLabelGroup',
-            path: '/views/radioLabelGroup'
-          },
-          {
-            title: 'Root',
-            path: '/views/root'
-          }
-        ]
+        title: 'Root',
+        path: '/views/root'
       },
+      // S
       {
-        title: 'S',
-        routes: [
-          {
-            title: 'Search',
-            path: '/views/search'
-          },
+        title: 'Search',
+        path: '/views/search'
+      },
 
-          {
-            title: 'SwitchButton',
-            path: '/views/switchbutton'
-          },
-        ]
-      },
       {
+        title: 'SwitchButton',
+        path: '/views/switchbutton'
+      },
+      // T
+      {
+<<<<<<< HEAD
         title: 'T',
         routes: [
           {
@@ -234,7 +204,20 @@ const pages: Array<Page> = [
             path: '/views/tablegroup'
           }
         ]
+=======
+        title: 'Table',
+        path: '/views/table'
       },
+      {
+        title: 'Table Window',
+        path: '/views/tablewindow'
+      },
+      {
+        title: 'Top AppBar',
+        path: '/views/topappbar'
+>>>>>>> ca84e03144cbdac4fd79829d134951fe20394530
+      },
+      // V
     ]
   },
 ]
