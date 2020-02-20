@@ -1,6 +1,6 @@
+import React, { useMemo, useState } from 'react'
 import { List, ListItem, ListItemText, ListSubheader, makeStyles } from '@krowdy-ui/core'
 import Search from '@krowdy-ui/views/Search'
-import React, { useMemo, useState } from 'react'
 import tilderize from '../utils/tilderize'
 import escapeRegexp from '../utils/escapeRegexp'
 
@@ -19,7 +19,7 @@ export const useStyles = makeStyles((theme) => ({
     cursor    : 'pointer',
     fontSize  : 12,
     lineHeight: '16px',
-    padding   : '8px 12px',
+    padding   : theme.spacing(1, 1.5),
     transition: '.3s'
   },
   listSection: {
@@ -32,11 +32,11 @@ export const useStyles = makeStyles((theme) => ({
     fontSize         : 12,
     fontWeight       : 'bold',
     lineHeight       : '20px',
-    marginBottom     : 4,
-    marginLeft       : 12,
-    marginRight      : 12,
+    marginBottom     : theme.spacing(0.5),
+    marginLeft       : theme.spacing(1.5),
+    marginRight      : theme.spacing(1.5),
     padding          : 0,
-    paddingBottom    : 4
+    paddingBottom    : theme.spacing(0.5)
   },
   notFound: {
     '& p': {
@@ -46,16 +46,16 @@ export const useStyles = makeStyles((theme) => ({
     alignItems   : 'center',
     display      : 'flex',
     flexDirection: 'column',
-    padding      : 20
+    padding      : theme.spacing(2.4)
   },
   searchFiltersContainer: {
-    padding: 12
+    padding: theme.spacing(1.5)
   },
   ul: {
     backgroundColor: theme.palette.background.paper,
     padding        : 0
   }
-}))
+}), { name: 'KrowdyFilterList' })
 
 const FiltersList = React.memo((props) => {
   const {
@@ -113,10 +113,10 @@ const FiltersList = React.memo((props) => {
 
         }
         {
-          filterGroupsSearched.map(filterGroup => (
+          filterGroupsSearched.map((filterGroup, index) => (
             <li
               className={classes.listSection}
-              key={`section-${filterGroup._id}`}>
+              key={`filterGroup-${index}`}>
               <ul className={classes.ul}>
                 <ListSubheader
                   className={classes.listSubheader}
@@ -127,9 +127,8 @@ const FiltersList = React.memo((props) => {
                   filterGroup.children.map(filter => (
                     <ListItem
                       className={classes.listItem}
-                      key={`item-${filterGroup._id}-${filter._id}`}
-                      onClick={_handleClickItem(filter)}
-                      value={filter}>
+                      key={`filter-${index}-${filter._id}`}
+                      onClick={_handleClickItem(filter)}>
                       <ListItemText
                         primary={filter.label} />
                     </ListItem>

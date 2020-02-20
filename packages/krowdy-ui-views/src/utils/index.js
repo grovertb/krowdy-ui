@@ -1,4 +1,3 @@
-export { default as arr2obj } from './arr2obj'
 export { default as capitalize } from './capitalize'
 export { default as escapeRegexp } from './escapeRegexp'
 export { default as formatFilters } from './formatFilters'
