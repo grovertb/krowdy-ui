@@ -92,9 +92,9 @@ export const styles = theme => ({
 const Pagination = props => {
   const {
     classes,
-    onChangeSelect = () => false,
+    onChangeSelect = () => {},
     valueSelect = 10,
-    onChangePage = () => false,
+    onChangePage = () => {},
     page = 10,
     limits = [ 10, 50, 100 ],
     totalPages = 1
