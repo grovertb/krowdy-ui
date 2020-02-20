@@ -52,40 +52,6 @@ const CategoryItems = ({
 
   const _handleLoadMore = hasNextPage ? loadMore : () => {}
 
-  const Item = ({ index, style }) => {
-    if(!isItemLoaded(index)) {
-      return (
-        <div className={classes.loadingContainer} style={style}>
-          <CircularProgress size={20} style={{ marginTop: 8 }} />
-        </div>
-      )
-    }
-    else {
-      const item = items[index]
-
-      return (
-        <FormControlLabel
-          classes={{
-            label: classes.formLabel,
-            root : classes.formControlLabel
-          }}
-          color='primary'
-          control={
-            <Checkbox
-              checked={Boolean(selectedItems.filter(({ _id }) => _id === item._id).length)}
-              color='primary'
-              onChange={_handleChange(item)}
-              size='small'
-              value={item._id} />
-          }
-          key={index}
-          label={item.label}
-          size='small'
-          style={style} />
-      )
-    }
-  }
-
   return (
     <InfiniteLoader
       isItemLoaded={isItemLoaded}
@@ -100,7 +66,41 @@ const CategoryItems = ({
             onItemsRendered={onItemsRendered}
             ref={ref}
             width={listWidth - 32/* padding*/}>
-            {Item}
+            {
+              ({ index, style }) => {
+                if(!isItemLoaded(index)) {
+                  return (
+                    <div className={classes.loadingContainer} style={style}>
+                      <CircularProgress size={20} style={{ marginTop: 8 }} />
+                    </div>
+                  )
+                }
+                else {
+                  const item = items[index]
+
+                  return (
+                    <FormControlLabel
+                      classes={{
+                        label: classes.formLabel,
+                        root : classes.formControlLabel
+                      }}
+                      color='primary'
+                      control={
+                        <Checkbox
+                          checked={Boolean(selectedItems.filter(({ _id }) => _id === item._id).length)}
+                          color='primary'
+                          onChange={_handleChange(item)}
+                          size='small'
+                          value={item._id} />
+                      }
+                      key={index}
+                      label={item.label}
+                      size='small'
+                      style={style} />
+                  )
+                }
+              }
+            }
           </List>
         )
       }

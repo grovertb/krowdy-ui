@@ -78,7 +78,6 @@ const Filters = (props) => {
     filterGroups = []
   }  = props
 
-  console.log('Dante: Filters -> filters', filters)
   const [ view, goToView ] = useState(Views.HOME)
   const [ filterSelected, setFilterSelected ] = useState()
   const [ filterToEdit, setFilterToEdit ] = useState()
@@ -87,27 +86,39 @@ const Filters = (props) => {
     onChangeFilters([ ...filters, filter ])
   }
 
-  const updateFilter = ({ _id, ...appliedfilter }) => {
-    const filterIndex = filters.findIndex(filter => filter._id === _id)
-    const existsFilter = filterIndex !== -1
-    if(existsFilter) {
-      const updatedFilter = {
-        ...filters[filterIndex],
-        ...appliedfilter
+  const deepUpdate = (arr, { _id, ...updatedItem } ) => arr.map(item => {
+    if(item._id === _id)
+      return Object.assign({}, item, updatedItem)
+
+    if(Array.isArray(item.children) && item.children.length)
+      return {
+        ...item,
+        children: deepUpdate(item.children, { _id, ...updatedItem })
       }
 
-      const updatedFilters = [
-        ...filters.slice(0, filterIndex),
-        updatedFilter,
-        ...filters.slice(filterIndex + 1)
-      ]
+    return item
+  })
 
-      onChangeFilters(updatedFilters)
-    }
+  const deepDelete = (arr, { _id, ...updatedItem } ) => arr.map(item => {
+    if(item._id === _id)
+      return null
+
+    if(Array.isArray(item.children) && item.children.length)
+      return {
+        ...item,
+        children: deepDelete(item.children, { _id, ...updatedItem })
+      }
+
+    return item
+  }).filter(Boolean)
+
+  const updateFilter = (filter) => {
+    const updatedFilters = deepUpdate(filters, filter)
+    onChangeFilters(updatedFilters)
   }
 
-  const _handleDeleteFilter = (appliedFilter) => {
-    const updatedFilters = filters.filter(filter => filter._id !== appliedFilter._id)
+  const _handleDeleteFilter = (deletedFilter) => {
+    const updatedFilters = deepDelete(filters, deletedFilter)
     onChangeFilters(updatedFilters)
   }
 
