@@ -29,6 +29,7 @@ export const styles = (theme) => ({
     padding: 0
   },
   root: {
+    height  : '100%',
     minWidth: 204
   },
   titleBack: {
@@ -141,7 +142,7 @@ const Filters = (props) => {
   }
 
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} variant='outlined'>
       <CardHeader
         shadow
         title={(
