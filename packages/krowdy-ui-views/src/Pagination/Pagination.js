@@ -109,20 +109,26 @@ const Pagination = props => {
     onChangeSelect(page)
   }
 
-  const _handleClickLeft = () => setCurrentPage(prevState => {
-    const page = parseInt(prevState) - 1
-    onChangePage(page)
+  const _handleClickLeft = () => {
+    currentPage > 1 &&
+    setCurrentPage(prevState => {
+      const page = parseInt(prevState) - 1
+      onChangePage(page)
 
-    return page
-  })
+      return page
+    })
+  }
 
-  const _handleClickRight = () => setCurrentPage(prevState => {
-    const page = parseInt(prevState) + 1
+  const _handleClickRight = () => {
+    currentPage < totalPages &&
+    setCurrentPage(prevState => {
+      const page = parseInt(prevState) + 1
 
-    onChangePage(page)
+      onChangePage(page)
 
-    return page
-  })
+      return page
+    })
+  }
 
   const _handleChange = ev => {
     const { value } = ev.target
@@ -159,7 +165,7 @@ const Pagination = props => {
         <IconButton
           className={classes.rootLeftIcon}
           disabled={parseInt(currentPage) === 1}
-          onClick={() => currentPage > 1 && _handleClickLeft()}
+          onClick={_handleClickLeft}
           size='small'>
           <ArrowLeftIcon
             className={classes.icon} />
@@ -177,7 +183,7 @@ const Pagination = props => {
         <IconButton
           className={classes.rootRightIcon}
           disabled={parseInt(currentPage) === parseInt(totalPages)}
-          onClick={() => currentPage < totalPages && _handleClickRight()}
+          onClick={_handleClickRight}
           size='small'>
           <ArrowRightIcon
             className={classes.icon} />
