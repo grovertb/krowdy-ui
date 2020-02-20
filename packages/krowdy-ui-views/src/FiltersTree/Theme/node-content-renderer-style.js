@@ -1,6 +1,6 @@
 import { makeStyles } from '@krowdy-ui/styles'
 
-export default makeStyles({
+export default makeStyles(({ palette, spacing }) => ({
   '@keyframes arrow-pulse': {
     '0%': {
       opacity  : 0,
@@ -24,7 +24,12 @@ export default makeStyles({
     top     : 0
   },
   collapseButton: {},
-  expandButton  : {
+  contentDrag   : {
+    alignItems: 'center',
+    cursor    : 'grab',
+    display   : 'flex'
+  },
+  expandButton: {
     // '&::after': {
     //   transform: 'translate3d(-50%, -20%, 0) rotateZ(-90deg)'
     // }
@@ -143,7 +148,7 @@ export default makeStyles({
       height  : '100%',
       position: 'relative'
     },
-    '& $rowContents': {
+    '& $rowContent': {
       alignItems     : 'center',
       backgroundColor: 'white',
       // border         : '1px solid #D9D9D9',
@@ -167,9 +172,18 @@ export default makeStyles({
     // '& > *': {
     //   boxSizing: 'border-box'
     // },
+    '& $rowContentTitle, & $rowContentChips': {
+      display      : 'flex',
+      flexDirection: 'column'
+    },
     '& $rowIcon, & $rowLabel,& $rowToolbar': {
       alignItems: 'center',
       display   : 'flex'
+    },
+    '& $rowPanelLeft, & $rowPanelRight': {
+      display       : 'flex',
+      flexDirection : 'column',
+      justifyContent: 'space-between'
     },
     '&$rowCancelPad': {
       '&::before': {
@@ -201,21 +215,33 @@ export default makeStyles({
       boxShadow      : 'none',
       outline        : 'none'
     },
-    // alignItems: 'center',
-    // display   : 'flex',
-    flex    : 1,
-    height  : '100%',
-    // transition  : 'all 1s ease-in-out',
-    position: 'relative'
-    // whiteSpace: 'nowrap'
+    backgroundColor: 'white',
+    border         : `1px solid ${palette.grey[400]}`,
+    borderRadius   : 8,
+    display        : 'flex',
+    margin         : 4,
+    padding        : 8,
+    position       : 'relative'
   },
-  rowCancelPad: {},
-  rowContents : {},
-  rowIcon     : {
+  rowCancelPad   : {},
+  rowContent     : {},
+  rowContentChips: {
+    '& > div': {
+      marginTop: spacing(.5)
+    }
+  },
+  rowContentTitle: {},
+  rowIcon        : {
     color: '#D9D9D9'
   },
-  rowLabel      : {},
-  rowLandingPad : {},
+  rowLabel     : {},
+  rowLandingPad: {},
+  rowPanelLeft : {
+    flex: 1
+  },
+  rowPanelRight: {
+    marginLeft: spacing(2)
+  },
   rowSearchFocus: {
     // boxShadow: 'inset 0 -7px 7px -3px #fc6421',
     outline: 'solid 1px #fc6421'
@@ -232,11 +258,10 @@ export default makeStyles({
     '&:active': {
       opacity: 1
     },
-    '&:hover': {
-      opacity: 0.7
-    },
+    // '&:hover': {
+    //   opacity: 0.7 // Grover -> Remove opacity
+    // },
     boxSizing: 'border-box',
-    cursor   : 'grab',
     display  : 'flex',
     height   : '100%'
     // margin   : '2px 2px 2px 0'
@@ -244,4 +269,4 @@ export default makeStyles({
   rowWrapperDragDisabled: {
     cursor: 'default'
   }
-}, { name: 'FiltersTreeNodeContent' })
+}), { name: 'FiltersTreeNodeContent' })

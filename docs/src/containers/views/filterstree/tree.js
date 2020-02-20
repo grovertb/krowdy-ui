@@ -18,37 +18,39 @@ export default function () {
             {
               children: [
                 {
-                  label: 'react-sortable-tree.js'
+                  title: 'Empresa'
                 }
               ],
-              label: 'build'
+              optionLabel: 'Contiene exactamente',
+              title      : 'Cargo',
+              value      : [ 'Gerente', 'Jefe' ]
             },
             {
               children: [
                 {
                   children: [
                     {
-                      label: 'styles.css'
+                      title: 'styles.css'
                     }
                   ],
                   expanded: true,
-                  label   : 'styles.css'
+                  title   : 'styles.css'
                 }
               ],
               expanded: true,
-              label   : 'src'
+              title   : 'src'
             },
             {
               children: [
                 {
-                  label: '12214124-log'
+                  title: '12214124-log'
                 },
                 {
-                  label: 'drag-disabled-file'
+                  title: 'drag-disabled-file'
                 }
               ] ,
               expanded: true,
-              label   : 'package.json'
+              title   : 'package.json'
             }
           ]
         } />

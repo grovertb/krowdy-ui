@@ -1,7 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import DragIndicatorIcon from '@material-ui/icons/DragIndicator'
+import {
+  DragIndicator as DragIndicatorIcon,
+  Close as CloseIcon,
+  Edit as EdiIcon
+} from '@material-ui/icons'
 import useStyles from './node-content-renderer-style'
+import { IconButton, Chip, Typography } from '@krowdy-ui/core'
 
 function isDescendant(older, younger) {
   return (
@@ -15,112 +20,60 @@ function isDescendant(older, younger) {
 
 function FileThemeNodeContentRenderer(props) {
   const {
-    scaffoldBlockPxWidth,
-    // toggleChildrenVisibility,
     connectDragPreview,
     connectDragSource,
     isDragging,
     canDrop,
-    canDrag,
+    // canDrag,
     node,
-    label,
+    // title,
     draggedNode,
-    path,
-    treeIndex,
-    isSearchMatch,
-    isSearchFocus,
-    buttons,
+    // path,
+    // treeIndex,
+    // buttons,
     className,
-    style,
-    didDrop,
-    lowerSiblingCounts,
-    listIndex,
-    swapFrom,
-    swapLength,
-    swapDepth
+    didDrop
     // treeId // Not needed, but preserved for other renderers
     // isOver, // Not needed, but preserved for other renderers
     // parentNode, // Needed for dndManager
     // rowDirection
   } = props
 
+  console.log('Grover: FileThemeNodeContentRenderer -> props', props)
+
   const classes = useStyles()
 
-  const nodeTitle = label || node.label
+  // const nodeTitle = title || node.title
 
   const isDraggedDescendant = draggedNode && isDescendant(draggedNode, node)
   const isLandingPadActive = !didDrop && isDragging
 
-  // Construct the scaffold representing the structure of the tree
-  const scaffold = []
-
-  lowerSiblingCounts.forEach((lowerSiblingCount, i) => {
-    if(i > 0) {
-      scaffold.push(
-        <div
-          className={classes.lineBlock}
-          key={`pre_${1 + i}`}
-          style={{ width: scaffoldBlockPxWidth }} />
-      )
-
-      if(treeIndex !== listIndex && i === swapDepth) {
-      // This row has been shifted, and is at the depth of
-      // the line pointing to the new destination
-        let highlightLineClass = ''
-
-        if(listIndex === swapFrom + swapLength - 1)
-        // This block is on the bottom (target) line
-        // This block points at the target block (where the row will go when released)
-          highlightLineClass = classes.highlightBottomLeftCorner
-        else if(treeIndex === swapFrom)
-        // This block is on the top (source) line
-          highlightLineClass = classes.highlightTopLeftCorner
-        else
-        // This block is between the bottom and top
-          highlightLineClass = classes.highlightLineVertical
-
-        scaffold.push(
-          <div
-            className={`${classes.absoluteLineBlock} ${highlightLineClass}`}
-            key={`highlight_${1 + i}`}
-            style={{
-              left : scaffoldBlockPxWidth * i,
-              width: scaffoldBlockPxWidth
-            }} />
-        )
-      }
-    }
-  })
-
   const nodeContent = (
     <div className={classes.nodeContent}>
-      <div className={classes.rowWrapper + (!canDrag ? ` ${classes.rowWrapperDragDisabled}` : '')}>
-        {/* {scaffold} */}
-        {
-          connectDragPreview(
+      {
+        connectDragPreview(
+          <div className={classes.rowWrapper}>
+            {
+              connectDragSource(
+                <div className={classes.contentDrag}>
+                  <DragIndicatorIcon />
+                </div>
+              )
+            }
             <div
               className={
                 classes.row +
                 (isLandingPadActive ? ` ${classes.rowLandingPad}` : '') +
                 (isLandingPadActive && !canDrop ? ` ${classes.rowCancelPad}` : '') +
-                (isSearchMatch && !isSearchFocus ? ` ${classes.rowSearchMatch}` : '') +
-                (isSearchFocus ? ` ${classes.rowSearchFocus}` : '') +
                 (className ? ` ${className}` : '')
               }
-              style={{
-                opacity: isDraggedDescendant ? 0.5 : 1,
-                ...style
-              }}>
-              <div className={classes.rowContents + (!canDrag ? ` ${classes.rowContentsDragDisabled}` : '')}>
-                {
-                  connectDragSource(
-                    <div style={{ display: 'flex' }}>
-                      <DragIndicatorIcon />
-                    </div>
-                  )
-                }
-                <div className={classes.rowLabel}>
-                  {
+              style={{ opacity: isDraggedDescendant ? 0.5 : 1 }}>
+              {/* <div className={classes.rowContent}> */}
+              <div
+              // className={classes.rowLabel}
+                className={classes.rowPanelLeft}>
+                <div className={classes.rowContentTitle}>
+                  {/* {
                     typeof nodeTitle === 'string' ?
                       <span className={classes.rowTitle}>{nodeTitle}</span>  :
                       typeof nodeTitle === 'function' ?
@@ -130,23 +83,44 @@ function FileThemeNodeContentRenderer(props) {
                           treeIndex
                         }) :
                         nodeTitle
-                  }
+                  } */}
+                  <Typography color='body' variant='body2'>{node.title}</Typography>
+                  <Typography color='info' variant='info1'>{node.optionLabel}</Typography>
                 </div>
-                <div className={classes.rowToolbar}>
-                  {buttons}
+                <div className={classes.rowContentChips}>
+                  <div>
+                    <Chip
+                      color='primary'
+                      label='Gerente'
+                      size='small'
+                      variant='outlined' />
+                  </div>
+                  <div>
+                    <Chip
+                      color='primary'
+                      label='Jefe'
+                      size='small'
+                      variant='outlined' />
+                  </div>
                 </div>
               </div>
+              <div
+              // className={classes.rowToolbar}
+                className={classes.rowPanelRight}>
+                <IconButton size='small'>
+                  <CloseIcon fontSize='small' />
+                </IconButton>
+                <IconButton size='small'>
+                  <EdiIcon  fontSize='small' />
+                </IconButton>
+              </div>
+              {/* </div> */}
             </div>
-          )
-        }
-
-      </div>
+          </div>
+        )
+      }
     </div>
   )
-
-  // return canDrag ?
-  //   connectDragSource(nodeContent, { dropEffect: 'copy' }) :
-  //   nodeContent
 
   return nodeContent
 }

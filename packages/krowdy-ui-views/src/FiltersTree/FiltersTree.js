@@ -4,14 +4,18 @@ import Theme from './Theme'
 
 function FiltersTree(props) {
   const {
-    treeData
+    treeData: treeDataProps
   } = props
 
-  console.log('Grover: FiltersTree -> props', props)
-  console.log('Grover: FiltersTree -> treeData', treeData)
+  const [ treeData, setTreeData ] = React.useState([])
 
-  const _handleUpdateTreeData = () => {
+  React.useEffect(() => {
+    setTreeData(treeDataProps)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
+  const _handleUpdateTreeData = data => {
+    setTreeData(data)
   }
 
   return (

@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/styles'
 
-export default makeStyles({
+export default makeStyles(({ palette }) => ({
   lineBlock: {
     display : 'inline-block',
     height  : '100%',
@@ -28,7 +28,7 @@ export default makeStyles({
       width : '50%'
     },
     '& $lineHalfHorizontalRight::before, & $lineFullVertical::after, & $lineHalfVerticalTop::after, & $lineHalfVerticalBottom::after': {
-      backgroundColor: '#40A9FF',
+      backgroundColor: palette.primary[400],
       content        : '""',
       position       : 'absolute'
     },
@@ -45,4 +45,4 @@ export default makeStyles({
     minWidth: '100%',
     position: 'relative'
   }
-}, { name: 'FiltersTreeTreeNode' })
+}), { name: 'FiltersTreeTreeNode' })
