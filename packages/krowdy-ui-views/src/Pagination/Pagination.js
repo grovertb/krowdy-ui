@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@krowdy-ui/styles'
 import {
@@ -83,8 +83,7 @@ export const styles = theme => ({
     lineHeight: '14px',
     textAlign : 'center'
   },
-  selectedMenuItem: {},
-  slash           : {
+  slash: {
     padding: theme.spacing(0, 0.75)
   }
 
@@ -93,63 +92,49 @@ export const styles = theme => ({
 const Pagination = props => {
   const {
     classes,
-    onChangeSelect = () => { },
-    valueSelect,
-    onChangePage = () => { },
-    page: commingPage = 1,
-    limits = [],
-    totalPages
+    onChangeSelect = () => false,
+    valueSelect = 10,
+    onChangePage = () => false,
+    page = 10,
+    limits = [ 10, 50, 100 ],
+    totalPages = 1
   } = props
 
-  const [ page, setPage ] = useState(commingPage.toString())
+  const [ currentPerPage, setCurrentPerPage ] = useState(valueSelect)
+  const [ currentPage, setCurrentPage ] = useState(page)
 
-  useEffect(() => {
-    if(commingPage.toString() !== page)
-      setPage(commingPage.toString())
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ commingPage ])
-
-  const [ isValidPage, pageNumber ] = useMemo(() => {
-    const pageNumber = parseInt(page)
-    const isValid = !isNaN(pageNumber) && pageNumber
-
-    return [ isValid, pageNumber ]
-  },[ page ])
-
-  useEffect(() => {
-    if(isValidPage)
-      if(pageNumber > totalPages)
-        setPage(totalPages)
-      else if(pageNumber !== commingPage)
-        onChangePage(pageNumber)
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ page ])
-
-  const _handleClickLeft = () => {
-    if(isValidPage && pageNumber > 1)
-      setPage(parseInt(page) - 1)
+  const onChangeSelectState = ev => {
+    const page = ev.target.value
+    setCurrentPerPage(page)
+    onChangeSelect(page)
   }
 
-  const _handleClickRight = () => {
-    if(isValidPage && pageNumber < totalPages)
-      setPage(parseInt(page) + 1)
-  }
+  const _handleClickLeft = () => setCurrentPage(prevState => {
+    const page = parseInt(prevState) - 1
+    onChangePage(page)
 
-  const _handleOnBlur = () => {
-    if(pageNumber !== commingPage)
-      setPage(commingPage)
-  }
+    return page
+  })
 
-  const _handleChange = (event) => {
-    const newValue = event.target.value
-    if(/^[0-9]*$/g.test(newValue))
-      setPage(newValue)
+  const _handleClickRight = () => setCurrentPage(prevState => {
+    const page = parseInt(prevState) + 1
+
+    onChangePage(page)
+
+    return page
+  })
+
+  const _handleChange = ev => {
+    const { value } = ev.target
+
+    if(/^[0-9]*$/g.test(value))
+      setCurrentPage(prevState => value > totalPages ? prevState : value)
+
+    if(ev.keyCode === 13) onChangePage(value)
   }
 
   return (
-    <Box className={classes.boxStyle} >
+    <Box className={classes.boxStyle}>
       <Typography className={classes.label}>Mostrar</Typography>
       <Select
         classes={{
@@ -158,14 +143,8 @@ const Pagination = props => {
           selectMenu: classes.selectMenu
         }}
         input={<InputBase />}
-        inputProps={{
-          classes: {
-            input: clsx(classes.inputSel, classes.color),
-            root : clsx(classes.inputSelect, classes.color)
-          }
-        }}
-        onChange={onChangeSelect}
-        value={valueSelect}>
+        onChange={onChangeSelectState}
+        value={currentPerPage}>
         {limits.map((limit, index) => (
           <MenuItem
             classes={{
@@ -179,7 +158,8 @@ const Pagination = props => {
       <Box className={classes.boxStyle}>
         <IconButton
           className={classes.rootLeftIcon}
-          onClick={_handleClickLeft}
+          disabled={parseInt(currentPage) === 1}
+          onClick={() => currentPage > 1 && _handleClickLeft()}
           size='small'>
           <ArrowLeftIcon
             className={classes.icon} />
@@ -190,14 +170,14 @@ const Pagination = props => {
             root : classes.rootTextfield
           }}
           disableUnderline
-          onBlur={_handleOnBlur}
           onChange={_handleChange}
-          value={page} />
+          value={currentPage} />
         <Typography className={classes.slash}>/</Typography>
         <Typography>{totalPages > 0 ? totalPages : 1}</Typography>
         <IconButton
           className={classes.rootRightIcon}
-          onClick={_handleClickRight}
+          disabled={parseInt(currentPage) === parseInt(totalPages)}
+          onClick={() => currentPage < totalPages && _handleClickRight()}
           size='small'>
           <ArrowRightIcon
             className={classes.icon} />
