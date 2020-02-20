@@ -110,7 +110,7 @@ function TreeNodeRenderer(props) {
 
   return connectDropTarget(
     <div className={classes.root}>
-      <div>
+      <div className={classes.rootScaffold}>
         {scaffold}
       </div>
       {

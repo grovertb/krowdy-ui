@@ -308,7 +308,7 @@ const filterTypes = [
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 260
+    maxWidth: 300
   }
 })
 
@@ -354,24 +354,19 @@ export default function () {
   const _handleResetCategoryItems = () => setCategoryItems([])
 
   return (
-    <div style={{
-      // maxHeight: 1200,
-      width: '75%'
-    }}>
-      <Filters
-        categoryItems={categoryItems}
-        classes={{
-          root: classes.root
-        }}
-        filterGroups={groupedFilters}
-        filters={appliedFilters}
-        filterTypes={filterTypes}
-        hasNextPage={categoryItems.length < 100 ? true : false}
-        headerHomeComponent={<HeaderHomeComponent />}
-        loadMoreCategoryItems={_handleLoadMoreCategoryItems}
-        onChangeFilters={_handleChangeFilters}
-        onResetCategoryItems={_handleResetCategoryItems}
-        title='Todos las compras' />
-    </div>
+    <Filters
+      categoryItems={categoryItems}
+      classes={{
+        root: classes.root
+      }}
+      filterGroups={groupedFilters}
+      filters={appliedFilters}
+      filterTypes={filterTypes}
+      hasNextPage={categoryItems.length < 100 ? true : false}
+      headerHomeComponent={<HeaderHomeComponent />}
+      loadMoreCategoryItems={_handleLoadMoreCategoryItems}
+      onChangeFilters={_handleChangeFilters}
+      onResetCategoryItems={_handleResetCategoryItems}
+      title='Todos las compras' />
   )
 }

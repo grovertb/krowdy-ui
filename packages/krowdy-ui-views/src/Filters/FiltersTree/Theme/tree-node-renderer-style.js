@@ -44,5 +44,8 @@ export default makeStyles(({ palette }) => ({
     display : 'flex',
     minWidth: '100%',
     position: 'relative'
+  },
+  rootScaffold: {
+    display: 'flex'
   }
 }), { name: 'FiltersTreeTreeNode' })
