@@ -1,19 +1,17 @@
-import { Button, Card, CardContent, CardHeader, TabPanel, withStyles } from '@krowdy-ui/core'
-import { IconButton } from '@material-ui/core'
-import AddIcon from '@material-ui/icons/Add'
-import ArrowBackIcon from '@material-ui/icons/ArrowBackIos'
-import clsx from 'clsx'
-import { PropTypes } from 'prop-types'
 import React, { useState } from 'react'
+import { PropTypes } from 'prop-types'
+import clsx from 'clsx'
+import AddIcon from '@material-ui/icons/Add'
+import { IconButton } from '@material-ui/core'
+import ArrowBackIcon from '@material-ui/icons/ArrowBackIos'
+import { Button, Card, CardContent, CardHeader, TabPanel, withStyles } from '@krowdy-ui/core'
 import AppliedFilters from './AppliedFilters'
 import FilterConfig from './FilterConfig'
 import FiltersList from './FiltersList'
 
-export const styles = () => ({
+export const styles = (theme) => ({
   backIcon: {
-    height     : 14,
-    marginRight: 8,
-    width      : 14
+    marginRight: theme.spacing(1)
   },
   cardContent: {
     display       : 'flex',
@@ -31,17 +29,12 @@ export const styles = () => ({
     padding: 0
   },
   root: {
-    maxHeight: '100%',
-    maxWidth : 304,
-    minWidth : 204,
-    padding  : 0,
-    width    : 204
+    minWidth: 204
+  },
+  titleBack: {
+    fontSize: 14
   },
   titleContainer: {
-    '& p': {
-      fontSize: 14,
-      margin  : 0
-    },
     alignItems: 'center',
     display   : 'flex',
     height    : 20
@@ -72,16 +65,19 @@ const Filters = (props) => {
   const {
     classes,
     title = 'Todos las compras',
-    headerHomeComponent: HeaderHomeComponent,
+    headerHomeComponent: HeaderHomeComponent = null,
     filters = [],
     onChangeFilters = () => {},
+    onResetCategoryItems,
     categoryItems = [],
     hasNextPage = false,
+    filterTypes = [],
     loadMoreCategoryItems = () => {},
     listWidth,
     filterGroups = []
   }  = props
 
+  console.log('Dante: Filters -> filters', filters)
   const [ view, goToView ] = useState(Views.HOME)
   const [ filterSelected, setFilterSelected ] = useState()
   const [ filterToEdit, setFilterToEdit ] = useState()
@@ -153,13 +149,13 @@ const Filters = (props) => {
             { view.index !== 0 && (
               <IconButton
                 aria-label='delete'
-                className={classes.margin}
+                className={classes.backIcon}
                 onClick={_handleClickBack}
                 size='small'>
                 <ArrowBackIcon fontSize='inherit' />
               </IconButton>
             )}
-            <p>{view.index === 0 ? title : 'Atrás'}</p>
+            <p className={classes.titleBack}>{view.index === 0 ? title : 'Atrás'}</p>
           </div>
         )} />
       <CardContent
@@ -196,12 +192,14 @@ const Filters = (props) => {
           value={view.index}>
           <FilterConfig
             categoryItems={categoryItems}
-            filter={filterSelected}
-            filterToEdit={filterToEdit}
+            edit={filterToEdit ? true : false}
+            filter={filterToEdit || filterSelected}
+            filterTypes={filterTypes}
             hasNextPage={hasNextPage}
             listWidth={listWidth}
             loadMoreCategoryItems={loadMoreCategoryItems}
-            onClickApply={_handleClickApplyFilters} />
+            onClickApply={_handleClickApplyFilters}
+            onResetCategoryItems={onResetCategoryItems} />
         </TabPanel>
       </CardContent>
     </Card>
@@ -228,6 +226,21 @@ Filters.propTypes = {
       label: PropTypes.string.isRequired
     })
   ),
+  filterTypes: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id         : PropTypes.string.isRequired,
+      initialValue: PropTypes.any.isRequired,
+      options     : PropTypes.arrayOf(
+        PropTypes.shape({
+          _id           : PropTypes.string.isRequired,
+          label         : PropTypes.string.isRequired,
+          numberOfInputs: PropTypes.number.isRequired,
+          operator      : PropTypes.string.isRequired
+        })
+      ).isRequired,
+      type: PropTypes.string.isRequired
+    })
+  ).isRequired,
   filters: PropTypes.arrayOf(
     PropTypes.shape({
       _id          : PropTypes.string.isRequired,
@@ -249,6 +262,7 @@ Filters.propTypes = {
   listWidth            : PropTypes.number,
   loadMoreCategoryItems: PropTypes.func,
   onChangeFilters      : PropTypes.func.isRequired,
+  onResetCategoryItems : PropTypes.func,
   title                : PropTypes.string.isRequired
 }
 

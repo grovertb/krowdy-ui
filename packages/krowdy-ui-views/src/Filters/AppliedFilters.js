@@ -1,6 +1,6 @@
 import React from 'react'
-import { IconButton } from '@krowdy-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
+import { IconButton } from '@krowdy-ui/core'
 import EditIcon from '@material-ui/icons/Edit'
 
 const AppliedFilters = ({ filters  = [], onClickEdit = () => {}, onDeleteFilter = () => {} }) => {

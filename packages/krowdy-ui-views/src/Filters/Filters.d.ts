@@ -46,6 +46,7 @@ export interface FiltersProps {
   onChangeFilters: (appliedFilters: AppliedFilter[]) => void,
   hasNextPage?: boolean,
   loadMoreCategoryItems: (categoryKey: string) => void,
+  onResetCategoryItems: (categoryKey: string) => void,
   title: string,
   categoryItems: CategoryItem[]
 } 

@@ -1,15 +1,14 @@
-import React, { useMemo } from 'react'
+import React, { useEffect } from 'react'
+import { PropTypes } from 'prop-types'
 import InfiniteLoader from 'react-window-infinite-loader'
 import { FixedSizeList as List } from 'react-window'
-import { FormControlLabel, Checkbox, makeStyles } from '@krowdy-ui/core'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import arr2obj from '../utils/arr2obj'
-import { PropTypes } from 'prop-types'
+import { FormControlLabel, Checkbox, makeStyles } from '@krowdy-ui/core'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   formControlLabel: {
     boxSizing  : 'border-box',
-    paddingLeft: 11
+    paddingLeft: theme.spacing(1.4)
   },
   formLabel: {
     overflow    : 'hidden',
@@ -20,12 +19,16 @@ const useStyles = makeStyles({
     display       : 'flex',
     justifyContent: 'center'
   }
+}), {
+  name: 'KrowdyCategoryItem'
 })
 
 const CategoryItems = ({
   items = [],
   selectedItems = [],
   hasNextPage,
+  categoryKey,
+  onResetCategoryItems = () => {},
   onChangeSelected,
   listWidth = 204,
   loadMore
@@ -36,20 +39,16 @@ const CategoryItems = ({
 
   const isItemLoaded = index => !hasNextPage || index < items.length
 
-  const selectedMap = useMemo(() => arr2obj(selectedItems, {
-    key  : item => item._id,
-    value: item => item
-  }), [ selectedItems ])
-
   const _handleChange = item => (event) => {
-    let updatedSelected = []
-    if(event.target.checked)
-      updatedSelected = [ ...selectedItems, item ]
-    else
-      updatedSelected = selectedItems.filter(selected => selected._id !== item._id)
-
-    onChangeSelected(updatedSelected)
+    onChangeSelected(event.target.checked ?
+      [ ...selectedItems, item ] :
+      selectedItems.filter(selected => selected._id !== item._id))
   }
+
+  useEffect(() => {
+    onResetCategoryItems(categoryKey)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const _handleLoadMore = hasNextPage ? loadMore : () => {}
 
@@ -63,7 +62,6 @@ const CategoryItems = ({
     }
     else {
       const item = items[index]
-      const isSelected = Boolean(selectedMap[item._id])
 
       return (
         <FormControlLabel
@@ -74,7 +72,7 @@ const CategoryItems = ({
           color='primary'
           control={
             <Checkbox
-              checked={isSelected}
+              checked={Boolean(selectedItems.filter(({ _id }) => _id === item._id).length)}
               color='primary'
               onChange={_handleChange(item)}
               size='small'
@@ -111,15 +109,17 @@ const CategoryItems = ({
 }
 
 CategoryItems.propTypes = {
+  categoryKey: PropTypes.string,
   hasNextPage: PropTypes.bool.isRequired,
   items      : PropTypes.arrayOf(PropTypes.shape({
     _id  : PropTypes.string.isRequired,
     label: PropTypes.string.isRequired
   })).isRequired,
-  listWidth       : PropTypes.number,
-  loadMore        : PropTypes.func.isRequired,
-  onChangeSelected: PropTypes.func.isRequired,
-  selectedItems   : PropTypes.arrayOf(PropTypes.shape({
+  listWidth           : PropTypes.number,
+  loadMore            : PropTypes.func.isRequired,
+  onChangeSelected    : PropTypes.func.isRequired,
+  onResetCategoryItems: PropTypes.func,
+  selectedItems       : PropTypes.arrayOf(PropTypes.shape({
     _id  : PropTypes.string.isRequired,
     label: PropTypes.string.isRequired
   })).isRequired
