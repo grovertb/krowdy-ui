@@ -149,6 +149,10 @@ const pages: Array<Page> = [
         title: 'Filters',
         path: '/views/filters'
       },
+      {
+        title: 'Filters Tree',
+        path: '/views/filterstree'
+      },
       // J
       {
         title: 'Job Detail',

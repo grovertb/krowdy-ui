@@ -45,6 +45,7 @@
     "mic-recorder-to-mp3": "^2.2.1",
     "react-beautiful-dnd": "12.2.0",
     "react-compound-timer": "^1.1.15",
+    "react-sortable-tree": "^2.7.1",
     "react-window": "^1.8.5",
     "react-window-infinite-loader": "^1.0.5",
     "xdate": "0.8.2"
