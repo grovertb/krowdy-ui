@@ -5,9 +5,9 @@ import AddIcon from '@material-ui/icons/Add'
 import { IconButton } from '@material-ui/core'
 import ArrowBackIcon from '@material-ui/icons/ArrowBackIos'
 import { Button, Card, CardContent, CardHeader, TabPanel, withStyles } from '@krowdy-ui/core'
-import AppliedFilters from './AppliedFilters'
 import FilterConfig from './FilterConfig'
 import FiltersList from './FiltersList'
+import FiltersTree from './FiltersTree'
 
 export const styles = (theme) => ({
   backIcon: {
@@ -78,7 +78,6 @@ const Filters = (props) => {
     filterGroups = []
   }  = props
 
-  console.log('Dante: Filters -> filters', filters)
   const [ view, goToView ] = useState(Views.HOME)
   const [ filterSelected, setFilterSelected ] = useState()
   const [ filterToEdit, setFilterToEdit ] = useState()
@@ -106,10 +105,10 @@ const Filters = (props) => {
     }
   }
 
-  const _handleDeleteFilter = (appliedFilter) => {
-    const updatedFilters = filters.filter(filter => filter._id !== appliedFilter._id)
-    onChangeFilters(updatedFilters)
-  }
+  // const _handleDeleteFilter = (appliedFilter) => {
+  //   const updatedFilters = filters.filter(filter => filter._id !== appliedFilter._id)
+  //   onChangeFilters(updatedFilters)
+  // }
 
   const _handleClickApplyFilters = (filter) => {
     if(filterToEdit) {
@@ -129,10 +128,10 @@ const Filters = (props) => {
 
   const _handleClickAddFilter = () => goToView(Views.FILTERS_SEARCH)
 
-  const _handleClickEditFilter = (appliedFilter) => {
-    setFilterToEdit(appliedFilter)
-    goToView(Views.FILTER_CONFIG)
-  }
+  // const _handleClickEditFilter = (appliedFilter) => {
+  //   setFilterToEdit(appliedFilter)
+  //   goToView(Views.FILTER_CONFIG)
+  // }
 
   const _handleClickBack = () => {
     if(view.backIndex) {
@@ -147,15 +146,17 @@ const Filters = (props) => {
         shadow
         title={(
           <div className={classes.titleContainer}>
-            { view.index !== 0 && (
-              <IconButton
-                aria-label='delete'
-                className={classes.backIcon}
-                onClick={_handleClickBack}
-                size='small'>
-                <ArrowBackIcon fontSize='inherit' />
-              </IconButton>
-            )}
+            {
+              view.index !== 0 && (
+                <IconButton
+                  aria-label='delete'
+                  className={classes.backIcon}
+                  onClick={_handleClickBack}
+                  size='small'>
+                  <ArrowBackIcon fontSize='inherit' />
+                </IconButton>
+              )
+            }
             <p className={classes.titleBack}>{view.index === 0 ? title : 'Atrás'}</p>
           </div>
         )} />
@@ -167,11 +168,14 @@ const Filters = (props) => {
           className={classes.viewContainer}
           index={Views.HOME.index}
           value={view.index}>
-          {HeaderHomeComponent}
-          <AppliedFilters
+          {
+            filters.length === 0 ? HeaderHomeComponent : null
+          }
+          {/* <AppliedFilters
             filters={filters}
             onClickEdit={_handleClickEditFilter}
-            onDeleteFilter={_handleDeleteFilter} />
+            onDeleteFilter={_handleDeleteFilter} /> */}
+          <FiltersTree treeData={filters} />
           <div className={classes.center}>
             <Button
               color='primary'

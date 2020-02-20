@@ -84,25 +84,34 @@ function FileThemeNodeContentRenderer(props) {
                         }) :
                         nodeTitle
                   } */}
-                  <Typography color='body' variant='body2'>{node.title}</Typography>
-                  <Typography color='info' variant='info1'>{node.optionLabel}</Typography>
+                  <Typography color='body' variant='body2'>{node.label}</Typography>
+                  <Typography color='info' variant='info1'>{node.operatorLabel}</Typography>
                 </div>
-                <div className={classes.rowContentChips}>
-                  <div>
-                    <Chip
-                      color='primary'
-                      label='Gerente'
-                      size='small'
-                      variant='outlined' />
-                  </div>
-                  <div>
-                    <Chip
-                      color='primary'
-                      label='Jefe'
-                      size='small'
-                      variant='outlined' />
-                  </div>
-                </div>
+                {
+                  node.value ?
+                    <div className={classes.rowContentChips}>
+                      {
+                        Array.isArray(node.value) ?
+                          node.value.map((value, indexValue) => (
+                            <div key={`chip-${1 + indexValue}`}>
+                              <Chip
+                                color='primary'
+                                label={value.label || value}
+                                size='small'
+                                variant='outlined' />
+                            </div>
+                          )) :
+                          <div>
+                            <Chip
+                              color='primary'
+                              label={node.value}
+                              size='small'
+                              variant='outlined' />
+                          </div>
+                      }
+                    </div> :
+                    null
+                }
               </div>
               <div
               // className={classes.rowToolbar}
