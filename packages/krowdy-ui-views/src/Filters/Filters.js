@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { PropTypes } from 'prop-types'
+import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import AddIcon from '@material-ui/icons/Add'
 import { IconButton } from '@material-ui/core'
@@ -70,7 +70,7 @@ const Filters = (props) => {
     headerHomeComponent: HeaderHomeComponent = null,
     filters = [],
     onChangeFilters = () => {},
-    onResetCategoryItems,
+    onSelectCategoryFilter,
     categoryItems = [],
     hasNextPage = false,
     filterTypes = [],
@@ -221,7 +221,7 @@ const Filters = (props) => {
             listWidth={listWidth}
             loadMoreCategoryItems={loadMoreCategoryItems}
             onClickApply={_handleClickApplyFilters}
-            onResetCategoryItems={onResetCategoryItems} />
+            onSelectCategoryFilter={onSelectCategoryFilter} />
         </TabPanel>
       </CardContent>
     </Card>
@@ -279,14 +279,14 @@ Filters.propTypes = {
       ])
     })
   ),
-  hasNextPage          : PropTypes.bool,
-  headerHomeComponent  : PropTypes.node,
-  listWidth            : PropTypes.number,
-  loadMoreCategoryItems: PropTypes.func,
-  onChangeFilters      : PropTypes.func.isRequired,
-  onFetchFilterGroups  : PropTypes.func,
-  onResetCategoryItems : PropTypes.func,
-  title                : PropTypes.string.isRequired
+  hasNextPage           : PropTypes.bool,
+  headerHomeComponent   : PropTypes.node,
+  listWidth             : PropTypes.number,
+  loadMoreCategoryItems : PropTypes.func,
+  onChangeFilters       : PropTypes.func.isRequired,
+  onFetchFilterGroups   : PropTypes.func,
+  onSelectCategoryFilter: PropTypes.func,
+  title                 : PropTypes.string.isRequired
 }
 
 Filters.muiName = 'KrowdyFilters'

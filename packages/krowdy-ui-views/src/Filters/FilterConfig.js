@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { PropTypes } from 'prop-types'
+import PropTypes from 'prop-types'
 import DayJSUtils from '@date-io/dayjs'
 import dayjs from 'dayjs'
 import esLocale from 'dayjs/locale/es'
@@ -94,7 +94,7 @@ const FilterConfig = (props) => {
     filterTypes = [],
     listWidth,
     edit = false,
-    onResetCategoryItems,
+    onSelectCategoryFilter,
     loadMoreCategoryItems
   } = props
 
@@ -346,7 +346,7 @@ const FilterConfig = (props) => {
             listWidth={listWidth}
             loadMore={_handleLoadMoreItems(filter.key)}
             onChangeSelected={_handleChange()}
-            onResetCategoryItems={onResetCategoryItems}
+            onResetCategoryItems={onSelectCategoryFilter}
             selectedItems={filterConfig} />
         )
       default:
@@ -437,10 +437,10 @@ FilterConfig.propTypes = {
       PropTypes.array
     ])
   }),
-  hasNextPage          : PropTypes.bool.isRequired,
-  loadMoreCategoryItems: PropTypes.func.isRequired,
-  onClickApply         : PropTypes.func.isRequired,
-  onResetCategoryItems : PropTypes.func
+  hasNextPage           : PropTypes.bool.isRequired,
+  loadMoreCategoryItems : PropTypes.func.isRequired,
+  onClickApply          : PropTypes.func.isRequired,
+  onSelectCategoryFilter: PropTypes.func
 }
 
 export default FilterConfig

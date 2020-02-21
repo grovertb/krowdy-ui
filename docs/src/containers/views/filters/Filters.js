@@ -341,6 +341,7 @@ export default function () {
 
   const [ appliedFilters, setAppliedFilters ] = useState([])
   const [ categoryItems, setCategoryItems ] = useState([])
+  const [ currenCategory, setCurrentCategory ] = useState()
 
   const _handleChangeFilters = (updatedFilters) => {
     setAppliedFilters(updatedFilters)
@@ -351,7 +352,12 @@ export default function () {
     setCategoryItems(prev => [ ...prev, ...newItems ])
   }
 
-  const _handleResetCategoryItems = () => setCategoryItems([])
+  const _handleSelectCategoryFilter = (category) => {
+    if(currenCategory !== category) {
+      setCurrentCategory(category)
+      setCategoryItems([])
+    }
+  }
 
   return (
     <Filters
@@ -366,7 +372,7 @@ export default function () {
       headerHomeComponent={<HeaderHomeComponent />}
       loadMoreCategoryItems={_handleLoadMoreCategoryItems}
       onChangeFilters={_handleChangeFilters}
-      onResetCategoryItems={_handleResetCategoryItems}
+      onSelectCategoryFilter={_handleSelectCategoryFilter}
       title='Todos las compras' />
   )
 }

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { PropTypes } from 'prop-types'
+import PropTypes from 'prop-types'
 import InfiniteLoader from 'react-window-infinite-loader'
 import { FixedSizeList as List } from 'react-window'
 import CircularProgress from '@material-ui/core/CircularProgress'
