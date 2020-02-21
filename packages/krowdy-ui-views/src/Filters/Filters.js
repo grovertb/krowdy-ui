@@ -141,7 +141,7 @@ const Filters = (props) => {
   }
 
   const _handleChangeFilterTree = treeFilters => {
-    updateFilter(treeFilters)
+    onChangeFilters(treeFilters)
   }
 
   return (
