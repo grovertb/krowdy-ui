@@ -153,6 +153,10 @@ const Filters = (props) => {
     }
   }
 
+  const _handleChangeFilterTree = treeFilters => {
+    onChangeFilters(treeFilters)
+  }
+
   return (
     <Card className={classes.root} variant='outlined'>
       <CardHeader
@@ -188,7 +192,7 @@ const Filters = (props) => {
             filters={filters}
             onClickEdit={_handleClickEditFilter}
             onDeleteFilter={_handleDeleteFilter} /> */}
-          <FiltersTree treeData={filters} />
+          <FiltersTree onChange={_handleChangeFilterTree} treeData={filters} />
           <div className={classes.center}>
             <Button
               color='primary'
