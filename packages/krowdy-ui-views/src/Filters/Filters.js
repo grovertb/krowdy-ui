@@ -11,11 +11,12 @@ import FiltersTree from './FiltersTree'
 
 export const styles = (theme) => ({
   backIcon: {
-    marginRight: theme.spacing(1)
+    marginRight : theme.spacing(1),
+    paddingLeft : 6,
+    paddingRight: 0
   },
   cardContent: {
     display       : 'flex',
-    height        : 'calc(100% - 41px)',
     justifyContent: 'center'
   },
   cardTitle: {

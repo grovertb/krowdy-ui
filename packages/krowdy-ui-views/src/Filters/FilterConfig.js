@@ -24,10 +24,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center'
   },
   configOptionContainer: {
-    height   : 'calc(100% - 120px)',
-    overflowX: 'hidden',
-    overflowY: 'scroll',
-    padding  : theme.spacing(2.5, 0)
+    padding: theme.spacing(2.5, 0)
   },
   firstInputContainer: {
     alignItems: 'flex-end',
