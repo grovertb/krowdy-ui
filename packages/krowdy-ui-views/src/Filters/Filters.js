@@ -128,10 +128,10 @@ const Filters = (props) => {
 
   const _handleClickAddFilter = () => goToView(Views.FILTERS_SEARCH)
 
-  // const _handleClickEditFilter = (appliedFilter) => {
-  //   setFilterToEdit(appliedFilter)
-  //   goToView(Views.FILTER_CONFIG)
-  // }
+  const _handleClickEditFilter = (appliedFilter) => {
+    setFilterToEdit(appliedFilter)
+    goToView(Views.FILTER_CONFIG)
+  }
 
   const _handleClickBack = () => {
     if(view.backIndex) {
@@ -179,7 +179,10 @@ const Filters = (props) => {
             filters={filters}
             onClickEdit={_handleClickEditFilter}
             onDeleteFilter={_handleDeleteFilter} /> */}
-          <FiltersTree onChange={_handleChangeFilterTree} treeData={filters} />
+          <FiltersTree
+            onChange={_handleChangeFilterTree}
+            onClickEdit={_handleClickEditFilter}
+            treeData={filters} />
           <div className={classes.center}>
             <Button
               color='primary'

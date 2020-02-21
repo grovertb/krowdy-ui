@@ -1,12 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
-  DragIndicator as DragIndicatorIcon,
-  Close as CloseIcon,
-  Edit as EdiIcon
+  DragIndicator as DragIndicatorIcon
 } from '@material-ui/icons'
 import useStyles from './node-content-renderer-style'
-import { IconButton, Chip, Typography } from '@krowdy-ui/core'
+import { Chip, Typography } from '@krowdy-ui/core'
 
 function isDescendant(older, younger) {
   return (
@@ -30,7 +28,7 @@ function FileThemeNodeContentRenderer(props) {
     draggedNode,
     // path,
     // treeIndex,
-    // buttons,
+    buttons,
     className,
     didDrop
     // treeId // Not needed, but preserved for other renderers
@@ -114,12 +112,7 @@ function FileThemeNodeContentRenderer(props) {
               <div
               // className={classes.rowToolbar}
                 className={classes.rowPanelRight}>
-                <IconButton size='small'>
-                  <CloseIcon fontSize='small' />
-                </IconButton>
-                <IconButton size='small'>
-                  <EdiIcon  fontSize='small' />
-                </IconButton>
+                {buttons}
               </div>
               {/* </div> */}
             </div>
