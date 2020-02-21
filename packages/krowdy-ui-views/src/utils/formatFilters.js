@@ -20,30 +20,53 @@ const formatRegex = value => {
   return new RegExp(`(^|)${string.replace(/ /g, '\\s*')}($|)\\b`, 'i')
 }
 
+const formatValue = (type, value) => {
+  switch (type) {
+    case 'date':
+      return formatDate(value)
+    case 'number':
+      return Number(value)
+    default:
+      return value
+  }
+}
+
 export default function formatFilters(filters) {
   return filters.map(({ key, operator, type, value, children = [] }) => {
     const child = children.length ? { $and: [ { $or: formatFilters(children) } ] } : {}
 
-    const valueFilter = type === 'date' ?
-      Array.isArray(value) ?
-        value.map(date => formatDate(date)) : formatDate(value) :
-      value
+    const valueFilter =  Array.isArray(value) ? value.map(val => formatValue(type, val)) : formatValue(type, value)
 
-    return {
-      [key]: (operator === '$range') ?
-        {
+    let valueFromOperator = {}
+
+    switch (operator) {
+      case '$range':
+        valueFromOperator = {
           $gte: valueFilter[0],
           $lte: valueFilter[1],
           ...child
-        } :
-        (operator === '$regex' || operator === '$unregex') ? {
+        }
+
+        break
+      case '$regex':
+      case '$unregex':
+        valueFromOperator = {
           $regex: formatRegex(value),
           ...child
-        } :
-          {
-            [operator]: valueFilter,
-            ...child
-          }
+        }
+
+        break
+      default:
+        valueFromOperator = {
+          [operator]: valueFilter,
+          ...child
+        }
+
+        break
+    }
+
+    return {
+      [key]: valueFromOperator
     }
   })
 }
