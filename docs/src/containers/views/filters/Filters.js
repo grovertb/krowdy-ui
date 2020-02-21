@@ -1,6 +1,6 @@
+import React, { useState } from 'react'
 import { makeStyles, FormControlLabel, Checkbox } from '@krowdy-ui/core'
 import { Filters } from '@krowdy-ui/views'
-import React, { useState } from 'react'
 
 const groupedFilters = [
   {
@@ -119,9 +119,196 @@ const groupedFilters = [
   }
 ]
 
+const filterTypes = [
+  {
+    __v         : 0,
+    _id         : '5e46ee5c847d6f2bba55e128',
+    createdAt   : '2020-02-14T19:00:44.279Z',
+    initialValue: {
+      first : '', // from
+      second: '' // to
+    },
+    options: [
+      {
+        _id           : '5e46ee5c847d6f2bba55e129',
+        label         : 'Es igual a',
+        numberOfInputs: 1,
+        operator      : '$eq'
+      },
+      {
+        _id           : '5e46ee5c847d6f2bba55e12a',
+        label         : 'No es igual a',
+        numberOfInputs: 2,
+        operator      : '$ne'
+      },
+      {
+        _id           : '5e46ee5c847d6f2bba55e12b',
+        label         : 'Es mayor que',
+        numberOfInputs: 1,
+        operator      : '$gt'
+      },
+      {
+        _id           : '5e46ee5c847d6f2bba55e12c',
+        label         : 'Es mayor o igual que',
+        numberOfInputs: 1,
+        operator      : '$gte'
+      },
+      {
+        _id           : '5e46ee5c847d6f2bba55e12d',
+        label         : 'Es menor que',
+        numberOfInputs: 1,
+        operator      : '$lt'
+      },
+      {
+        _id           : '5e46ee5c847d6f2bba55e12e',
+        label         : 'Es menor o igual que',
+        numberOfInputs: 1,
+        operator      : '$lte'
+      },
+      {
+        _id           : '5e46ee5c847d6f2bba55e12f',
+        label         : 'Está entre',
+        numberOfInputs: 2,
+        operator      : '$range'
+      },
+      {
+        _id           : '5e46ee5c847d6f2bba55e130',
+        label         : 'Es conocido',
+        numberOfInputs: 0,
+        operator      : '$ne'
+      },
+      {
+        _id           : '5e46ee5c847d6f2bba55e131',
+        label         : 'Es desconocido',
+        numberOfInputs: 0,
+        operator      : '$eq'
+      }
+    ],
+    type     : 'number',
+    updatedAt: '2020-02-14T19:00:44.279Z'
+  },
+  {
+    __v         : 0,
+    _id         : '5e46ee98852bf22be2c0bd8d',
+    createdAt   : '2020-02-14T19:01:44.832Z',
+    initialValue: {
+      first : null, // from
+      second: null // to
+    },
+    options: [
+      {
+        _id           : '5e46ee98852bf22be2c0bd8e',
+        label         : 'Es igual a',
+        numberOfInputs: 1,
+        operator      : '$eq'
+      },
+      {
+        _id           : '5e46ee98852bf22be2c0bd8f',
+        label         : 'Es posterior a',
+        numberOfInputs: 1,
+        operator      : '$gt'
+      },
+      {
+        _id           : '5e46ee98852bf22be2c0bd90',
+        label         : 'Es anterior a',
+        numberOfInputs: 1,
+        operator      : '$lt'
+      },
+      {
+        _id           : '5e46ee98852bf22be2c0bd91',
+        label         : 'Está entre',
+        numberOfInputs: 2,
+        operator      : '$in'
+      },
+      {
+        _id           : '5e46ee98852bf22be2c0bd92',
+        label         : 'Es conocido',
+        numberOfInputs: 0,
+        operator      : '$ne'
+      },
+      {
+        _id           : '5e46ee98852bf22be2c0bd93',
+        label         : 'Es desconocido',
+        numberOfInputs: 0,
+        operator      : '$eq'
+      }
+    ],
+    type     : 'date',
+    updatedAt: '2020-02-14T19:01:44.832Z'
+  },
+  {
+    __v         : 0,
+    _id         : '5e46eebec3f5342c06b5d39c',
+    createdAt   : '2020-02-14T19:02:22.137Z',
+    initialValue: [],
+    options     : [
+      {
+        _id           : '5e46eebec3f5342c06b5d39d',
+        label         : 'Es cualquiera de',
+        numberOfInputs: 1,
+        operator      : '$in'
+      },
+      {
+        _id           : '5e46eebec3f5342c06b5d39e',
+        label         : 'Es cualquiera de',
+        numberOfInputs: 1,
+        operator      : '$nin'
+      },
+      {
+        _id           : '5e46eebec3f5342c06b5d39f',
+        label         : 'Es conocido',
+        numberOfInputs: 0,
+        operator      : '$ne'
+      },
+      {
+        _id           : '5e46eebec3f5342c06b5d3a0',
+        label         : 'Es desconocido',
+        numberOfInputs: 0,
+        operator      : '$eq'
+      }
+    ],
+    type     : 'category',
+    updatedAt: '2020-02-14T19:02:22.137Z'
+  },
+  {
+    __v         : 0,
+    _id         : '5e46eedbed5e312c30c3a904',
+    createdAt   : '2020-02-14T19:02:51.578Z',
+    initialValue: [],
+    options     : [
+      {
+        _id           : '5e46eedbed5e312c30c3a905',
+        label         : 'Contiene exactamente',
+        numberOfInputs: 1,
+        operator      : '$eq'
+      },
+      {
+        _id           : '5e46eedbed5e312c30c3a906',
+        label         : 'No contiene exactamente',
+        numberOfInputs: 1,
+        operator      : '$ne'
+      },
+      {
+        _id           : '5e46eedbed5e312c30c3a907',
+        label         : 'Es conocido',
+        numberOfInputs: 0,
+        operator      : '$ne'
+      },
+      {
+        _id           : '5e46eedbed5e312c30c3a908',
+        label         : 'Es desconocido',
+        numberOfInputs: 0,
+        operator      : '$eq'
+      }
+    ],
+    type     : 'generic',
+    updatedAt: '2020-02-14T19:02:51.578Z'
+  }
+]
+
 const useStyles = makeStyles({
   root: {
-    // maxWidth: 400
+    maxWidth: 300
   }
 })
 
@@ -164,23 +351,22 @@ export default function () {
     setCategoryItems(prev => [ ...prev, ...newItems ])
   }
 
+  const _handleResetCategoryItems = () => setCategoryItems([])
+
   return (
-    <div style={{
-      // maxHeight: 1200,
-      width: '75%'
-    }}>
-      <Filters
-        categoryItems={categoryItems}
-        classes={{
-          root: classes.root
-        }}
-        filterGroups={groupedFilters}
-        filters={appliedFilters}
-        hasNextPage={categoryItems.length < 100 ? true : false}
-        headerHomeComponent={<HeaderHomeComponent />}
-        loadMoreCategoryItems={_handleLoadMoreCategoryItems}
-        onChangeFilters={_handleChangeFilters}
-        title='Todos las compras' />
-    </div>
+    <Filters
+      categoryItems={categoryItems}
+      classes={{
+        root: classes.root
+      }}
+      filterGroups={groupedFilters}
+      filters={appliedFilters}
+      filterTypes={filterTypes}
+      hasNextPage={categoryItems.length < 100 ? true : false}
+      headerHomeComponent={<HeaderHomeComponent />}
+      loadMoreCategoryItems={_handleLoadMoreCategoryItems}
+      onChangeFilters={_handleChangeFilters}
+      onResetCategoryItems={_handleResetCategoryItems}
+      title='Todos las compras' />
   )
 }

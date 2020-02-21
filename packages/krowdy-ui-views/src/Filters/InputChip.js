@@ -1,16 +1,7 @@
-import { makeStyles } from '@material-ui/core/styles'
-import TextField from '@material-ui/core/TextField'
-import { PropTypes } from 'prop-types'
-import Autocomplete from '@material-ui/lab/Autocomplete'
 import React, { useEffect, useState } from 'react'
-
-const useStyles = makeStyles(() => ({
-  root: {
-    '&& .MuiInputBase-root': {
-      paddingRight: 24
-    }
-  }
-}))
+import { PropTypes } from 'prop-types'
+import TextField from '@material-ui/core/TextField'
+import Autocomplete from '@material-ui/lab/Autocomplete'
 
 const InputChip = (props) => {
   const {
@@ -18,7 +9,6 @@ const InputChip = (props) => {
     values: commingValues = []
   } = props
 
-  const classes = useStyles()
   const [ inputValue, setInputValue ] = useState('')
   const [ values, setValues ] = useState(() => commingValues.map(item => ({ title: item })))
 
@@ -44,31 +34,30 @@ const InputChip = (props) => {
   const _handleChange = (_, values) => setValues(values)
 
   return (
-    <div className={classes.root}>
-      <Autocomplete
-        ChipProps={{
-          color  : 'primary',
-          variant: 'outlined'
-        }}
-        getOptionLabel={option => option.title}
-        inputValue={inputValue}
-        multiple
-        onChange={_handleChange}
-        onInputChange={_handleInputChange}
-        onKeyDown={_handleKeyDown}
-        open={false}
-        options={[]}
-        popupIcon={null}
-        renderInput={params => (
-          <TextField
-            {...params}
-            fullWidth
-            placeholder='Valor'
-            size='small' />
-        )}
-        size='small'
-        value={values} />
-    </div>
+    <Autocomplete
+      ChipProps={{
+        color  : 'primary',
+        variant: 'outlined'
+      }}
+      forcePopupIcon={false}
+      getOptionLabel={option => option.title}
+      inputValue={inputValue}
+      multiple
+      onChange={_handleChange}
+      onInputChange={_handleInputChange}
+      onKeyDown={_handleKeyDown}
+      open={false}
+      options={[]}
+      popupIcon={null}
+      renderInput={params => (
+        <TextField
+          {...params}
+          fullWidth
+          placeholder='Valor'
+          size='small' />
+      )}
+      size='small'
+      value={values} />
   )
 }
 
