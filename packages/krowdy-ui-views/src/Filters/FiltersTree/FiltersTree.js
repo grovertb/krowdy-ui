@@ -1,10 +1,12 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import SortableTree from 'react-sortable-tree'
 import Theme from './Theme'
 
 function FiltersTree(props) {
   const {
-    treeData: treeDataProps
+    treeData: treeDataProps,
+    onChange = () => {}
   } = props
 
   const [ treeData, setTreeData ] = React.useState([])
@@ -16,6 +18,7 @@ function FiltersTree(props) {
 
   const _handleUpdateTreeData = data => {
     setTreeData(data)
+    onChange(data)
   }
 
   return (
@@ -25,6 +28,11 @@ function FiltersTree(props) {
       theme={Theme}
       treeData={treeData} />
   )
+}
+
+FiltersTree.propTypes = {
+  onChange: PropTypes.func,
+  treeData: PropTypes.array
 }
 
 export default FiltersTree

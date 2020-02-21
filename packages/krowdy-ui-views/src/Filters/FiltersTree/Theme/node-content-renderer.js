@@ -39,8 +39,6 @@ function FileThemeNodeContentRenderer(props) {
     // rowDirection
   } = props
 
-  console.log('Grover: FileThemeNodeContentRenderer -> props', props)
-
   const classes = useStyles()
 
   // const nodeTitle = title || node.title
