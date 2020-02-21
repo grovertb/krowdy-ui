@@ -15,6 +15,7 @@ export const styles = (theme) => ({
   },
   cardContent: {
     display       : 'flex',
+    height        : 'calc(100% - 41px)',
     justifyContent: 'center'
   },
   cardTitle: {
@@ -279,6 +280,7 @@ Filters.propTypes = {
   listWidth            : PropTypes.number,
   loadMoreCategoryItems: PropTypes.func,
   onChangeFilters      : PropTypes.func.isRequired,
+  onFetchFilterGroups  : PropTypes.func,
   onResetCategoryItems : PropTypes.func,
   title                : PropTypes.string.isRequired
 }

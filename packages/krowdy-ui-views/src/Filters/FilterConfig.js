@@ -23,7 +23,9 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center'
   },
   configOptionContainer: {
-    padding: theme.spacing(2.5, 0)
+    height  : 'calc(100% - 120px)',
+    overflow: 'auto',
+    padding : theme.spacing(2.5, 0)
   },
   firstInputContainer: {
     alignItems: 'flex-end',
@@ -251,11 +253,7 @@ const FilterConfig = (props) => {
           </>
         )
       case 'generic':
-        return (
-          <div>
-            <InputChip onChange={_handleChange()} values={filterConfig} />
-          </div>
-        )
+        return <InputChip onChange={_handleChange()} values={filterConfig} />
       case 'date':
         return (
           <MuiPickersUtilsProvider  locale={esLocale} utils={DayJSUtils}>
@@ -310,17 +308,15 @@ const FilterConfig = (props) => {
         )
       case 'category':
         return (
-          <div>
-            <CategoryItems
-              categoryKey={filter.key}
-              hasNextPage={hasNextPage}
-              items={categoryItems}
-              listWidth={listWidth}
-              loadMore={_handleLoadMoreItems(filter.key)}
-              onChangeSelected={_handleChange()}
-              onResetCategoryItems={onResetCategoryItems}
-              selectedItems={filterConfig} />
-          </div>
+          <CategoryItems
+            categoryKey={filter.key}
+            hasNextPage={hasNextPage}
+            items={categoryItems}
+            listWidth={listWidth}
+            loadMore={_handleLoadMoreItems(filter.key)}
+            onChangeSelected={_handleChange()}
+            onResetCategoryItems={onResetCategoryItems}
+            selectedItems={filterConfig} />
         )
       default:
         return null

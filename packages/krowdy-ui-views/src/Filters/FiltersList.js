@@ -6,9 +6,9 @@ import escapeRegexp from '../utils/escapeRegexp'
 
 export const useStyles = makeStyles((theme) => ({
   filtersList: {
-    maxHeight: 500,
-    overflow : 'auto',
-    position : 'relative'
+    height  : 'calc(100% - 64px)',
+    overflow: 'auto',
+    position: 'relative'
   },
   listItem: {
     '&:hover': {
