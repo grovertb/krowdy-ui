@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@krowdy-ui/styles'
 import {
@@ -92,16 +92,20 @@ export const styles = theme => ({
 const Pagination = props => {
   const {
     classes,
-    onChangeSelect = () => {},
+    onChangeSelect = () => { },
     valueSelect = 10,
-    onChangePage = () => {},
-    page = 10,
+    onChangePage = () => { },
+    page = 1,
     limits = [ 10, 50, 100 ],
     totalPages = 1
   } = props
 
   const [ currentPerPage, setCurrentPerPage ] = useState(valueSelect)
   const [ currentPage, setCurrentPage ] = useState(page)
+
+  useEffect(() => {
+    setCurrentPage(page)
+  }, [ page ])
 
   const onChangeSelectState = ev => {
     const page = ev.target.value
@@ -111,23 +115,23 @@ const Pagination = props => {
 
   const _handleClickLeft = () => {
     currentPage > 1 &&
-    setCurrentPage(prevState => {
-      const page = parseInt(prevState) - 1
-      onChangePage(page)
+      setCurrentPage(prevState => {
+        const page = parseInt(prevState) - 1
+        onChangePage(page)
 
-      return page
-    })
+        return page
+      })
   }
 
   const _handleClickRight = () => {
     currentPage < totalPages &&
-    setCurrentPage(prevState => {
-      const page = parseInt(prevState) + 1
+      setCurrentPage(prevState => {
+        const page = parseInt(prevState) + 1
 
-      onChangePage(page)
+        onChangePage(page)
 
-      return page
-    })
+        return page
+      })
   }
 
   const _handleChange = ev => {
