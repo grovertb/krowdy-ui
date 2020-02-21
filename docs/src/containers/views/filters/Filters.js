@@ -138,7 +138,7 @@ const filterTypes = [
       {
         _id           : '5e46ee5c847d6f2bba55e12a',
         label         : 'No es igual a',
-        numberOfInputs: 2,
+        numberOfInputs: 1,
         operator      : '$ne'
       },
       {

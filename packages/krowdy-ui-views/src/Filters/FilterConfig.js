@@ -8,6 +8,7 @@ import { Button, FormControl, makeStyles, MenuItem, Select, TextField } from '@k
 import generateRandomId from '../utils/generateRandomId'
 import CategoryItems from './CategoryItems'
 import InputChip from './InputChip'
+import { useFilterValidator } from './useFilterValidator'
 
 const useStyles = makeStyles((theme) => ({
   and: {
@@ -23,9 +24,10 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center'
   },
   configOptionContainer: {
-    height  : 'calc(100% - 120px)',
-    overflow: 'auto',
-    padding : theme.spacing(2.5, 0)
+    height   : 'calc(100% - 120px)',
+    overflowX: 'hidden',
+    overflowY: 'scroll',
+    padding  : theme.spacing(2.5, 0)
   },
   firstInputContainer: {
     alignItems: 'flex-end',
@@ -134,6 +136,8 @@ const FilterConfig = (props) => {
     return type.initialValue
   })
 
+  const errors = useFilterValidator(filterConfig, filter.type, option)
+
   if(!type) return null
 
   const getFilterConfigValue = (filterType) => {
@@ -223,7 +227,9 @@ const FilterConfig = (props) => {
           <>
             <div className={classes.firstInputContainer}>
               <TextField
+                error={Boolean(errors && errors.first)}
                 fullWidth
+                helperText={errors && errors.first}
                 InputProps={{
                   classes: {
                     input: classes.input
@@ -232,13 +238,16 @@ const FilterConfig = (props) => {
                 onChange={_handleChange('first')}
                 placeholder='Valor'
                 size='small'
+                type='number'
                 value={filterConfig.first} />
               { showSecondInput && <p className={classes.and}>y</p>}
             </div>
             { showSecondInput &&
               <div className={classes.secondInputContainer}>
                 <TextField
+                  error={Boolean(errors && errors.second)}
                   fullWidth
+                  helperText={errors && errors.second}
                   InputProps={{
                     classes: {
                       input: classes.input
@@ -247,6 +256,7 @@ const FilterConfig = (props) => {
                   onChange={_handleChange('second')}
                   placeholder='Valor'
                   size='small'
+                  type='number'
                   value={filterConfig.second} />
               </div>
             }
@@ -262,6 +272,14 @@ const FilterConfig = (props) => {
                 <KeyboardDatePicker
                   format='DD/MM/YYYY'
                   fullWidth
+                  {...(
+                    errors && errors.first ?
+                      {
+                        error     : true,
+                        helperText: errors.first
+                      } :
+                      {}
+                  )}
                   initialFocusedDate={dayjs(new Date()).minute(0).second(0).format()}
                   InputAdornmentProps={{
                     classes: {
@@ -274,6 +292,8 @@ const FilterConfig = (props) => {
                       input: classes.input
                     }
                   }}
+                  maxDateMessage='El rango es incorrecto'
+                  minDateMessage='El rango es incorrecto'
                   onChange={_handleChange('first')}
                   placeholder='DD/MM/AAAA'
                   size='small'
@@ -285,6 +305,14 @@ const FilterConfig = (props) => {
                   <KeyboardDatePicker
                     format='DD/MM/YYYY'
                     fullWidth
+                    {...(
+                      errors && errors.second ?
+                        {
+                          error     : true,
+                          helperText: errors.second
+                        } :
+                        {}
+                    )}
                     initialFocusedDate={dayjs(new Date()).minute(0).second(0).format()}
                     InputAdornmentProps={{
                       classes: {
@@ -297,6 +325,9 @@ const FilterConfig = (props) => {
                         input: classes.input
                       }
                     }}
+                    maxDateMessage='El rango es incorrecto'
+                    minDate={filterConfig.first}
+                    minDateMessage='El rango es incorrecto'
                     onChange={_handleChange('second')}
                     placeholder='DD/MM/AAAA'
                     size='small'
@@ -371,6 +402,7 @@ const FilterConfig = (props) => {
         <Button
           className={classes.applyFilterButton}
           color='primary'
+          disabled={Boolean(errors)}
           onClick={_handleClickApply}>
           Aplicar filtros
         </Button>
