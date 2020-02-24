@@ -17,5 +17,6 @@
 | <span class="prop-name">loadMoreCategoryItems</span> | <span class="prop-type">func</span> |  | Callback to be invoked when more rows must be loaded |
 | <span class="prop-name">categoryItems</span> | <span class="prop-type">array</span> |  | List of category items |
 | <span class="prop-name">onChangeFilters</span> | <span class="prop-type">func</span> |  | Callback to be invoked when create, update, delete filters |
+| <span class="prop-name">onSelectCategoryFilter</span> | <span class="prop-type">func</span> |  | Callback to be invoked when enter in category type filter config |
 | <span class="prop-name">classes</span> | <span class="prop-type">object</span> |  | Override or extend the styles applied to the component. |
 

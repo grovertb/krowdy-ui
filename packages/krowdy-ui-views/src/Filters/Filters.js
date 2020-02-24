@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { PropTypes } from 'prop-types'
+import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import AddIcon from '@material-ui/icons/Add'
 import { IconButton } from '@material-ui/core'
@@ -11,7 +11,9 @@ import FiltersTree from './FiltersTree'
 
 export const styles = (theme) => ({
   backIcon: {
-    marginRight: theme.spacing(1)
+    marginRight : theme.spacing(1),
+    paddingLeft : 6,
+    paddingRight: 0
   },
   cardContent: {
     display       : 'flex',
@@ -69,7 +71,7 @@ const Filters = (props) => {
     headerHomeComponent: HeaderHomeComponent = null,
     filters = [],
     onChangeFilters = () => {},
-    onResetCategoryItems,
+    onSelectCategoryFilter,
     categoryItems = [],
     hasNextPage = false,
     filterTypes = [],
@@ -86,27 +88,39 @@ const Filters = (props) => {
     onChangeFilters([ ...filters, filter ])
   }
 
-  const updateFilter = ({ _id, ...appliedfilter }) => {
-    const filterIndex = filters.findIndex(filter => filter._id === _id)
-    const existsFilter = filterIndex !== -1
-    if(existsFilter) {
-      const updatedFilter = {
-        ...filters[filterIndex],
-        ...appliedfilter
+  const deepUpdate = (arr, { _id, ...updatedItem } ) => arr.map(item => {
+    if(item._id === _id)
+      return Object.assign({}, item, updatedItem)
+
+    if(Array.isArray(item.children) && item.children.length)
+      return {
+        ...item,
+        children: deepUpdate(item.children, { _id, ...updatedItem })
       }
 
-      const updatedFilters = [
-        ...filters.slice(0, filterIndex),
-        updatedFilter,
-        ...filters.slice(filterIndex + 1)
-      ]
+    return item
+  })
 
-      onChangeFilters(updatedFilters)
-    }
+  // const deepDelete = (arr, { _id, ...updatedItem } ) => arr.map(item => {
+  //   if(item._id === _id)
+  //     return null
+
+  //   if(Array.isArray(item.children) && item.children.length)
+  //     return {
+  //       ...item,
+  //       children: deepDelete(item.children, { _id, ...updatedItem })
+  //     }
+
+  //   return item
+  // }).filter(Boolean)
+
+  const updateFilter = (filter) => {
+    const updatedFilters = deepUpdate(filters, filter)
+    onChangeFilters(updatedFilters)
   }
 
-  // const _handleDeleteFilter = (appliedFilter) => {
-  //   const updatedFilters = filters.filter(filter => filter._id !== appliedFilter._id)
+  // const _handleDeleteFilter = (deletedFilter) => {
+  //   const updatedFilters = deepDelete(filters, deletedFilter)
   //   onChangeFilters(updatedFilters)
   // }
 
@@ -128,16 +142,20 @@ const Filters = (props) => {
 
   const _handleClickAddFilter = () => goToView(Views.FILTERS_SEARCH)
 
-  // const _handleClickEditFilter = (appliedFilter) => {
-  //   setFilterToEdit(appliedFilter)
-  //   goToView(Views.FILTER_CONFIG)
-  // }
+  const _handleClickEditFilter = (appliedFilter) => {
+    setFilterToEdit(appliedFilter)
+    goToView(Views.FILTER_CONFIG)
+  }
 
   const _handleClickBack = () => {
     if(view.backIndex) {
       goToView(Views[view.backIndex])
       setFilterToEdit(null)
     }
+  }
+
+  const _handleChangeFilterTree = treeFilters => {
+    onChangeFilters(treeFilters)
   }
 
   return (
@@ -175,7 +193,10 @@ const Filters = (props) => {
             filters={filters}
             onClickEdit={_handleClickEditFilter}
             onDeleteFilter={_handleDeleteFilter} /> */}
-          <FiltersTree treeData={filters} />
+          <FiltersTree
+            onChange={_handleChangeFilterTree}
+            onClickEdit={_handleClickEditFilter}
+            treeData={filters} />
           <div className={classes.center}>
             <Button
               color='primary'
@@ -204,7 +225,7 @@ const Filters = (props) => {
             listWidth={listWidth}
             loadMoreCategoryItems={loadMoreCategoryItems}
             onClickApply={_handleClickApplyFilters}
-            onResetCategoryItems={onResetCategoryItems} />
+            onSelectCategoryFilter={onSelectCategoryFilter} />
         </TabPanel>
       </CardContent>
     </Card>
@@ -262,13 +283,14 @@ Filters.propTypes = {
       ])
     })
   ),
-  hasNextPage          : PropTypes.bool,
-  headerHomeComponent  : PropTypes.node,
-  listWidth            : PropTypes.number,
-  loadMoreCategoryItems: PropTypes.func,
-  onChangeFilters      : PropTypes.func.isRequired,
-  onResetCategoryItems : PropTypes.func,
-  title                : PropTypes.string.isRequired
+  hasNextPage           : PropTypes.bool,
+  headerHomeComponent   : PropTypes.node,
+  listWidth             : PropTypes.number,
+  loadMoreCategoryItems : PropTypes.func,
+  onChangeFilters       : PropTypes.func.isRequired,
+  onFetchFilterGroups   : PropTypes.func,
+  onSelectCategoryFilter: PropTypes.func,
+  title                 : PropTypes.string.isRequired
 }
 
 Filters.muiName = 'KrowdyFilters'
