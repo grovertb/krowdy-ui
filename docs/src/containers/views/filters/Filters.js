@@ -138,7 +138,7 @@ const filterTypes = [
       {
         _id           : '5e46ee5c847d6f2bba55e12a',
         label         : 'No es igual a',
-        numberOfInputs: 2,
+        numberOfInputs: 1,
         operator      : '$ne'
       },
       {
@@ -341,6 +341,7 @@ export default function () {
 
   const [ appliedFilters, setAppliedFilters ] = useState([])
   const [ categoryItems, setCategoryItems ] = useState([])
+  const [ currenCategory, setCurrentCategory ] = useState()
 
   const _handleChangeFilters = (updatedFilters) => {
     setAppliedFilters(updatedFilters)
@@ -351,7 +352,12 @@ export default function () {
     setCategoryItems(prev => [ ...prev, ...newItems ])
   }
 
-  const _handleResetCategoryItems = () => setCategoryItems([])
+  const _handleSelectCategoryFilter = (category) => {
+    if(currenCategory !== category) {
+      setCurrentCategory(category)
+      setCategoryItems([])
+    }
+  }
 
   return (
     <Filters
@@ -366,7 +372,7 @@ export default function () {
       headerHomeComponent={<HeaderHomeComponent />}
       loadMoreCategoryItems={_handleLoadMoreCategoryItems}
       onChangeFilters={_handleChangeFilters}
-      onResetCategoryItems={_handleResetCategoryItems}
+      onSelectCategoryFilter={_handleSelectCategoryFilter}
       title='Todos las compras' />
   )
 }

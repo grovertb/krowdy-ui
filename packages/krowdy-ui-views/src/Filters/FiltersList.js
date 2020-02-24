@@ -6,9 +6,8 @@ import escapeRegexp from '../utils/escapeRegexp'
 
 export const useStyles = makeStyles((theme) => ({
   filtersList: {
-    maxHeight: 500,
-    overflow : 'auto',
-    position : 'relative'
+    overflow  : 'auto',
+    paddingTop: 0
   },
   listItem: {
     '&:hover': {
@@ -19,8 +18,7 @@ export const useStyles = makeStyles((theme) => ({
     cursor    : 'pointer',
     fontSize  : 12,
     lineHeight: '16px',
-    padding   : theme.spacing(1, 1.5),
-    transition: '.3s'
+    padding   : theme.spacing(1, 1.5)
   },
   listSection: {
     backgroundColor: theme.palette.background.paper
@@ -66,7 +64,7 @@ const FiltersList = React.memo((props) => {
   const classes = useStyles()
   const [ search, setSearch ] = useState('')
 
-  const searchInGroups = (search) => {
+  const searchInGroups = (filterGroups, search) => {
     if(!search) return filterGroups
     const escapedText = tilderize(escapeRegexp(search))
     const searchTerm = new RegExp(escapedText, 'i')
@@ -86,9 +84,9 @@ const FiltersList = React.memo((props) => {
   }
 
   const filterGroupsSearched = useMemo(() =>
-    searchInGroups(search)
+    searchInGroups(filterGroups, search)
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  , [ search ])
+  , [ filterGroups, search ])
 
   const _handleChangeSearch = (event) => setSearch(event.target.value)
   const _handleClickItem = (item) => () => onClickItem(item)
@@ -102,8 +100,7 @@ const FiltersList = React.memo((props) => {
           value={search}  />
       </div>
       <List
-        className={classes.filtersList}
-        subheader={<li />}>
+        className={classes.filtersList}>
         {
           !filterGroupsSearched.length &&
           <div className={classes.notFound}>
@@ -126,6 +123,7 @@ const FiltersList = React.memo((props) => {
                 {
                   filterGroup.children.map(filter => (
                     <ListItem
+                      button
                       className={classes.listItem}
                       key={`filter-${index}-${filter._id}`}
                       onClick={_handleClickItem(filter)}>
