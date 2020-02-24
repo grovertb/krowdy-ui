@@ -8,7 +8,7 @@ import { Button, FormControl, makeStyles, MenuItem, Select, TextField } from '@k
 import generateRandomId from '../utils/generateRandomId'
 import CategoryItems from './CategoryItems'
 import InputChip from './InputChip'
-import { useFilterValidator } from './useFilterValidator'
+import useFilterValidator from './useFilterValidator'
 
 const useStyles = makeStyles((theme) => ({
   and: {

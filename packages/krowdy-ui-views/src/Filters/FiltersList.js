@@ -6,7 +6,8 @@ import escapeRegexp from '../utils/escapeRegexp'
 
 export const useStyles = makeStyles((theme) => ({
   filtersList: {
-    overflow: 'auto'
+    overflow  : 'auto',
+    paddingTop: 0
   },
   listItem: {
     '&:hover': {
@@ -99,8 +100,7 @@ const FiltersList = React.memo((props) => {
           value={search}  />
       </div>
       <List
-        className={classes.filtersList}
-        subheader={<li />}>
+        className={classes.filtersList}>
         {
           !filterGroupsSearched.length &&
           <div className={classes.notFound}>

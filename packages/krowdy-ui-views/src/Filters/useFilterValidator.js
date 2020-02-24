@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import dayjs from 'dayjs'
 
-export function useFilterValidator(value, type, option) {
+export default function useFilterValidator(value, type, option) {
   const numberOfInputs = option.numberOfInputs
   const errors = useMemo(() => {
     switch (type) {
