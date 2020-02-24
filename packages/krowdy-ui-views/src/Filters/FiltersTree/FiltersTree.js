@@ -20,7 +20,7 @@ function FiltersTree(props) {
   React.useEffect(() => {
     setTreeData(treeDataProps)
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [ treeDataProps ])
 
   const _handleUpdateTreeData = data => {
     setTreeData(data)
