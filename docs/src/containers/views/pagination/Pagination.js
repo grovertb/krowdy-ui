@@ -6,7 +6,7 @@ export default function () {
   const [ valueInputPages, setValue ] = React.useState(1)
   const totalPages = 10
   const onChange = (event) => {
-    console.log('===> XAVI <===: onChange -> event', event)
+    console.log('===> XAVsdsadsaI <===: onChange -> event', event)
     setValue(event)
   }
 

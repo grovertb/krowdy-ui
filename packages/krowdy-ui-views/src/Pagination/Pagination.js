@@ -140,7 +140,7 @@ const Pagination = props => {
     if(/^[0-9]*$/g.test(value))
       setCurrentPage(prevState => value > totalPages ? prevState : value)
 
-    if(ev.keyCode === 13) onChangePage(value)
+    if(ev.keyCode === 13) onChangePage(parseInt(value))
   }
 
   return (
@@ -181,6 +181,7 @@ const Pagination = props => {
           }}
           disableUnderline
           onChange={_handleChange}
+          onKeyDown={_handleChange}
           value={currentPage} />
         <Typography className={classes.slash}>/</Typography>
         <Typography>{totalPages > 0 ? totalPages : 1}</Typography>
