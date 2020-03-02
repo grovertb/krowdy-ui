@@ -31,8 +31,7 @@ export const styles = (theme) => ({
     padding: 0
   },
   root: {
-    height  : '100%',
-    minWidth: 204
+    height: '100%'
   },
   titleBack: {
     fontSize: 14
