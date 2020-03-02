@@ -22,9 +22,9 @@ const drawerWidth = 216
 const drawerWidthMin = 56
 
 const useStyles = makeStyles(theme => ({
-  drawer: {
-    width: drawerWidthMin
-  },
+  // drawer: {
+  // width: drawerWidthMin
+  // },
   drawerContent: {
     width: drawerWidthMin
   },
@@ -46,18 +46,19 @@ const useStyles = makeStyles(theme => ({
     transition: 'transform 300ms ease 0s, opacity 300ms ease 0s'
   },
   drawerPaper: {
-    '&:hover': {
-      '& $drawerLabel': {
-        opacity  : 1,
-        transform: 'translate3d(0px, 0, 0)'
-      },
-      boxShadow: '0 10px 30px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)',
-      width    : drawerWidth
-    },
+    // '&:hover': {
+    //   '& $drawerLabel': {
+    //     opacity  : 1,
+    //     transform: 'translate3d(0px, 0, 0)'
+    //   },
+    //   boxShadow: '0 10px 30px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)',
+    //   width    : drawerWidth
+    // },
     background : theme.palette.primary.main,
     borderRight: 0,
     overflow   : 'hidden',
-    position   : 'absolute',
+    // position   : 'absolute',
+    position   : 'initial',
     transition : theme.transitions.create('width', {
       duration: theme.transitions.duration.standard,
       easing  : theme.transitions.easing.easeInOut
@@ -255,11 +256,11 @@ function Main(props) {
           paper: clsx(
             classes.drawerPaper,
             {
-              [classes.drawerPaperClose]: !isOpenDrawer
+              [classes.drawerPaperClose]: isOpenDrawer
             }
           )
         }}
-        className={classes.drawer}
+        // className={classes.drawer}
         open={isOpenDrawer}
         variant='permanent'>
         {

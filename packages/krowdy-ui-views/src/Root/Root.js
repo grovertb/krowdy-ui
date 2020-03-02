@@ -13,6 +13,7 @@ const useStyles = makeStyles({
   rootFlex: {
     display : 'flex',
     height  : '100%',
+    overflow: 'hidden',
     position: 'relative'
   }
 }, { name: 'Root' })

@@ -10,20 +10,20 @@ import {
 
 function FiltersTree(props) {
   const {
-    treeData: treeDataProps,
+    treeData, // : treeDataProps,
     onChange = () => {},
     onClickEdit = () => {}
   } = props
 
-  const [ treeData, setTreeData ] = React.useState([])
+  // const [ treeData, setTreeData ] = React.useState([])
 
-  React.useEffect(() => {
-    setTreeData(treeDataProps)
+  // React.useEffect(() => {
+  // setTreeData(treeDataProps)
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ treeDataProps ])
+  // }, [ treeDataProps ])
 
   const _handleUpdateTreeData = data => {
-    setTreeData(data)
+    // setTreeData(data)
     onChange(data)
   }
 
@@ -37,7 +37,6 @@ function FiltersTree(props) {
   }
 
   const _handleClickEdit = rowInfo => () => {
-    console.log('Grover: FiltersTree -> rowInfo', rowInfo)
     onClickEdit(rowInfo.node)
   }
 
