@@ -24,7 +24,8 @@ function Root(props) {
   const {
     menus = [],
     optionBottom,
-    children
+    children,
+    topAppBarProps
   } = props
 
   const classes = useStyles()
@@ -35,7 +36,7 @@ function Root(props) {
 
   return (
     <div className={classes.root}>
-      <TopAppBar onHandleToggleDrawer={_handleToggleDrawer} />
+      <TopAppBar onHandleToggleDrawer={_handleToggleDrawer} {...topAppBarProps} />
       <main className={classes.rootFlex}>
         <Main
           component='div'
