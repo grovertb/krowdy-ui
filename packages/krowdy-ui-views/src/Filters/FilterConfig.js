@@ -224,9 +224,9 @@ const FilterConfig = (props) => {
           <>
             <div className={classes.firstInputContainer}>
               <TextField
-                error={Boolean(errors && errors.first)}
+                // error={Boolean(errors && errors.first)}
                 fullWidth
-                helperText={errors && errors.first}
+                // helperText={errors && errors.first}
                 InputProps={{
                   classes: {
                     input: classes.input
@@ -242,9 +242,9 @@ const FilterConfig = (props) => {
             { showSecondInput &&
               <div className={classes.secondInputContainer}>
                 <TextField
-                  error={Boolean(errors && errors.second)}
+                  // error={Boolean(errors && errors.second)}
                   fullWidth
-                  helperText={errors && errors.second}
+                  // helperText={errors && errors.second}
                   InputProps={{
                     classes: {
                       input: classes.input
