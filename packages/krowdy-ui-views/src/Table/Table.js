@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
+import XDate from 'xdate'
 import {
   Paper,
   TableBody,
@@ -189,11 +190,27 @@ const Table = ({
   const [ addNewCell, setAddNewCell ] = useState(false)
   const [ localNewCellProps, setLocalNewCellProps ] = useState({})
   const visibleColumns = columns.filter(({ visible = true }) => visible)
+  const [ validNewCell, setValidNewCell ] = useState(false)
+  console.log('localNewCellProps', localNewCellProps)
 
   useEffect(() => {
-    if(validateNewCellProps)
-      setLocalNewCellProps(newCellProps)
-  }, [ newCellProps, validateNewCellProps ])
+    const localCellLength = Object.keys(localNewCellProps).length
+    if(validateNewCellProps && !localCellLength) {
+      const cell = {}
+      for (const key in newCellProps)
+        cell[key] = (typeof newCellProps[key] !== 'object' && newCellProps[key] !== '') ? newCellProps[key] : ''
+
+      setLocalNewCellProps(cell)
+    }
+  }, [ localNewCellProps, newCellProps, validateNewCellProps ])
+
+  useEffect(() => {
+    const isValid = Object.values(localNewCellProps).every((once) => once !== '' )
+    if(isValid && !validNewCell)
+      setValidNewCell(true)
+    else if(!isValid && validNewCell)
+      setValidNewCell(false)
+  }, [ localNewCellProps, validNewCell ])
 
   const _handleClickOpenMenu = event => {
     setOpenMenu(event.currentTarget)
@@ -226,11 +243,10 @@ const Table = ({
     setLocalNewCellProps({})
   }
 
-  const _handleChangeNewCell = (e) => {
-    const { value, id } = e.target
+  const _handleChangeNewCell = (value, source) => {
     setLocalNewCellProps((prevState) => ({
       ...prevState,
-      [id]: value
+      [source]: value
     }))
   }
 
@@ -407,10 +423,14 @@ const Table = ({
                           {editable ?
                             type === 'select' ? (
                               <Select
-                                className={classes.optionSelect} id={key} onChange={_handleChangeNewCell}
-                                value={Array.isArray(localNewCellProps[key]) ? '' : localNewCellProps[key]}>
+                                className={classes.optionSelect} name={key} onChange={(e) => _handleChangeNewCell(e.target.value, key)}
+                                value={localNewCellProps[key]}>
+                                <MenuItem className={classes.optionSelect} value=''>Seleccione</MenuItem>
                                 {newCellProps[key].map(({ value, label }, index) =>
-                                  (<MenuItem className={classes.optionSelect} key={index} value={value}>{label}</MenuItem>))
+                                  (<MenuItem
+                                    className={classes.optionSelect} key={index}
+                                    name={label}
+                                    value={value}>{label}</MenuItem>))
                                 }
                               </Select>
                             ) : (
@@ -418,17 +438,33 @@ const Table = ({
                                 className={classes.inputSearch}
                                 defaultValue={newCellProps[key]}
                                 fullWidth
-                                id={key}
-                                onChange={_handleChangeNewCell}
+                                onChange={(e) => _handleChangeNewCell(e.target.value, key)}
                                 type={type} />
                             ) :
-                            (
-                              <Typography>{Array.isArray(newCellProps[key]) ? (newCellProps[key].join(', ')) : newCellProps[key]}</Typography>
-                            )}
+                            type === 'today' ? (
+                              <Typography>{newCellProps[key] ? newCellProps[key] : localNewCellProps[key] ? localNewCellProps[key] : (() => {
+                                const date = new XDate().toString('yyyy/MM/dd')
+                                _handleChangeNewCell(date, key)
+
+                                return date
+                              })()}</Typography>
+                            ) :
+                              type === 'hours' ? (
+                                <Typography>{newCellProps[key] ? newCellProps[key] : localNewCellProps[key] ? localNewCellProps[key] : (() => {
+                                  const hours = new XDate().toString('h(:mm)TT')
+                                  _handleChangeNewCell(hours, key)
+
+                                  return hours
+                                })()}</Typography>
+                              ) :
+                                (
+                                  <Typography>{Array.isArray(newCellProps[key]) ? (newCellProps[key].join(', ')) : newCellProps[key]}</Typography>
+                                )}
                           {lastCell && (
                             <Box display='flex' marginLeft={2}>
                               <CloseIcon className={clsx(classes.iconAdd)} color='error' onClick={_handleRemoveCell} />
-                              <CheckIcon className={clsx(classes.iconAdd)} color='primary' onClick={_handleAddNewCell} />
+                              <CheckIcon
+                                className={clsx(classes.iconAdd)} color={validNewCell ? 'primary' : 'disabled'} onClick={() => validNewCell ? _handleAddNewCell() : null} />
                             </Box>
                           )}
                         </Box>
