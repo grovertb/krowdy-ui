@@ -62,16 +62,16 @@ const demoColumns = [
     label    : 'Nombre',
     minWidth : 150,
     ordering : true,
-    type     : 'text',
+    type     : 'today',
     visible  : true
   }, {
     component: scheduleComponent,
-    editable : true,
+    editable : false,
     key      : 'schedule',
     label    : 'Horario',
     minWidth : 247,
     ordering : true,
-    type     : 'text',
+    type     : 'hours',
     visible  : true
   }, {
     component: responsibleComponent,
@@ -133,8 +133,9 @@ const demoColumns = [
   }
 ]
 const newCellProps = {
-  amountPayable: '',
-  currentTasks : '',
+  amountPayable: 0,
+  amountTasks  : 0,
+  currentTasks : 0,
   incharge     : [
     {
       label: 'Edward Sanchez',
@@ -150,9 +151,10 @@ const newCellProps = {
       value: 3
     }
   ],
-  name  : '',
-  status: 'Pendiente',
-  type  : [ 'LL', 'VE' ]
+  incidents  : 0,
+  name       : '',
+  responsible: '',
+  schedule   : ''
 }
 
 export default function () {
@@ -306,7 +308,7 @@ export default function () {
       <Table
         columns={columns}
         currency='S/'
-        enableAddCell={false}
+        enableAddCell={true}
         iconButton={<AddIcon />}
         // maxHeight={400}
         newCellProps={newCellProps}
