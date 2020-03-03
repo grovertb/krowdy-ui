@@ -424,7 +424,6 @@ const Table = ({
                               <Select
                                 className={classes.optionSelect} name={key} onChange={(e) => _handleChangeNewCell(e.target.value, key)}
                                 value={localNewCellProps[key]}>
-                                <MenuItem className={classes.optionSelect} value=''>Seleccione</MenuItem>
                                 {newCellProps[key].map(({ value, label }, index) =>
                                   (<MenuItem
                                     className={classes.optionSelect} key={index}
