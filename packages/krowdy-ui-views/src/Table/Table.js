@@ -181,7 +181,7 @@ const Table = ({
   onHandleSelectAutocomplete = () => false
 }) => {
   const { orderBy = '', sort = 'asc' } = sortTable
-  const { totalPages = '', totalItems = 200, page, perPage } = pagination
+  const { totalPages = '', totalItems = '', page, perPage } = pagination
   const validateNewCellProps = Object.keys(newCellProps).length
   const classes = useStyles()
   const inputSearch = useRef(null)
@@ -575,8 +575,8 @@ Table.propTypes = {
    */
   pagination                : PropTypes.shape({
     page   : PropTypes.number.isRequired,
-    perPage: PropTypes.number.isRequired,
-    total  : PropTypes.number.isRequired
+    perPage: PropTypes.number.isRequired
+    // total  : PropTypes.number.isRequired
   }),
   /**
    * paymentAmount number para mostrar total a pagar
