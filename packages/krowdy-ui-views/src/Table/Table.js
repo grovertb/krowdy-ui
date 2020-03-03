@@ -168,6 +168,7 @@ const Table = ({
   withButton = false,
   enableAddCell = false,
   currency = 'S/',
+  addNewCell = false,
   onHandleSortTable = () => false,
   onHandleSearch = () => false,
   onHandleBtnAction = () => false,
@@ -178,6 +179,7 @@ const Table = ({
   onHandlePaymentButton = () => false,
   onHandleToggleColumnTable = () => false,
   onHandleAddNewCell = () => false,
+  onHandleSendNewCell = () => false,
   onHandleClickRow = () => false,
   onHandleSelectAutocomplete = () => false
 }) => {
@@ -187,11 +189,9 @@ const Table = ({
   const classes = useStyles()
   const inputSearch = useRef(null)
   const [ openMenu, setOpenMenu ] = useState(null)
-  const [ addNewCell, setAddNewCell ] = useState(false)
   const [ localNewCellProps, setLocalNewCellProps ] = useState({})
   const visibleColumns = columns.filter(({ visible = true }) => visible)
   const [ validNewCell, setValidNewCell ] = useState(false)
-  console.log('localNewCellProps', localNewCellProps)
 
   useEffect(() => {
     const localCellLength = Object.keys(localNewCellProps).length
@@ -234,12 +234,8 @@ const Table = ({
     return onHandleSortTable({ orderBy: id, sort: invertSort })
   }
 
-  const _handleClickToggleCell = () => {
-    setAddNewCell(!addNewCell)
-  }
-
   const _handleRemoveCell = () => {
-    setAddNewCell(!addNewCell)
+    onHandleAddNewCell()
     setLocalNewCellProps({})
   }
 
@@ -250,8 +246,12 @@ const Table = ({
     }))
   }
 
+  const _handleSendNewCell = () => {
+    onHandleSendNewCell(localNewCellProps)
+  }
+
   const _handleAddNewCell = () => {
-    onHandleAddNewCell(localNewCellProps)
+    onHandleAddNewCell()
   }
 
   const _handleClickTableRow = (id) => {
@@ -425,7 +425,6 @@ const Table = ({
                               <Select
                                 className={classes.optionSelect} name={key} onChange={(e) => _handleChangeNewCell(e.target.value, key)}
                                 value={localNewCellProps[key]}>
-                                <MenuItem className={classes.optionSelect} value=''>Seleccione</MenuItem>
                                 {newCellProps[key].map(({ value, label }, index) =>
                                   (<MenuItem
                                     className={classes.optionSelect} key={index}
@@ -464,7 +463,7 @@ const Table = ({
                             <Box display='flex' marginLeft={2}>
                               <CloseIcon className={clsx(classes.iconAdd)} color='error' onClick={_handleRemoveCell} />
                               <CheckIcon
-                                className={clsx(classes.iconAdd)} color={validNewCell ? 'primary' : 'disabled'} onClick={() => validNewCell ? _handleAddNewCell() : null} />
+                                className={clsx(classes.iconAdd)} color={validNewCell ? 'primary' : 'disabled'} onClick={() => validNewCell ? _handleSendNewCell() : null} />
                             </Box>
                           )}
                         </Box>
@@ -475,7 +474,7 @@ const Table = ({
               ) : (
                 <TableRow>
                   <TableCell colSpan={columns.length} >
-                    <Typography className={classes.addCell} onClick={_handleClickToggleCell}>Agregar incidente</Typography>
+                    <Typography className={classes.addCell} onClick={_handleAddNewCell}>Agregar incidente</Typography>
                   </TableCell>
                 </TableRow>
               )
@@ -604,6 +603,7 @@ Table.propTypes = {
   onHandleSelectAll         : PropTypes.func,
   onHandleSelectAutocomplete: PropTypes.func,
   onHandleSelectItem        : PropTypes.func,
+  onHandleSendNewCell       : PropTypes.func,
   onHandleSortTable         : PropTypes.func,
   onHandleToggleColumnTable : PropTypes.func,
   /**

@@ -159,6 +159,7 @@ const newCellProps = {
 
 export default function () {
   const [ sort, setSort ] = useState({ orderBy: null, sort: 'asc' })
+  const [ addNewCell, setAddNewCell ] = useState(false)
   const [ columns, setColumns ] = useState(demoColumns)
   const searchSuggestions = [
     {
@@ -289,7 +290,12 @@ export default function () {
     } : column)
     setColumns(newCols)
   }
-  const _handleAddNewCell = (newCell) => {
+  const _handleAddNewCell = () => {
+    console.log('clikck en el add new cell')
+    setAddNewCell(!addNewCell)
+  }
+
+  const _handleSendNewCell = (newCell) => {
     console.log('TCL: _handleAddNewCell -> newCell', newCell)
   }
 
@@ -308,11 +314,12 @@ export default function () {
         overflow: 'hidden'
       }}>
       <Table
+        addNewCell={addNewCell}
         columns={columns}
         currency='S/'
         enableAddCell={true}
-        iconButton={<AddIcon />}
         // maxHeight={400}
+        iconButton={<AddIcon />}
         newCellProps={newCellProps}
         onHandleAddNewCell={_handleAddNewCell}
         onHandleBtnAction={_handleBtnAction}
@@ -320,11 +327,12 @@ export default function () {
         onHandleChangeRowsPerPage={_handleChangeRowsPerPage}
         onHandleClickRow={_handleClickRow}
         onHandlePaymentButton={_handlePaymentButton}
-        // titleTable='Tabla de Krowders'
         onHandleSearch={_handleSearch}
+        // titleTable='Tabla de Krowders'
         onHandleSelectAll={_handleSelectAll}
         onHandleSelectAutocomplete={_handleSelectAutocomplete}
         onHandleSelectItem={_handleSelectItem}
+        onHandleSendNewCell={_handleSendNewCell}
         onHandleSortTable={_handleSortTable}
         onHandleToggleColumnTable={_handleToggleColumnTable}
         pagination={
