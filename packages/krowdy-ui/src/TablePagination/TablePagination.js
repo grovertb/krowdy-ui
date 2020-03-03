@@ -1,54 +1,57 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import MuiTablePagination from '@material-ui/core/TablePagination'
+import { Box, Typography, InputBase, Select, MenuItem, Input, IconButton } from '@krowdy-ui/core'
+import {
+  KeyboardArrowLeft as ArrowLeftIcon,
+  KeyboardArrowRight as ArrowRightIcon
+} from '@material-ui/icons'
 import withStyles from '../styles/withStyles'
-import Input from '../Input'
-import Typography from '../Typography'
+// import Input from '../Input'
+// import Typography from '../Typography'
 
 export const styles = theme => ({
-  actions: {
-    display   : 'flex',
-    marginLeft: theme.spacing(-10.25)
-  },
-  backIcon: {
-    '& svg': {
-      height: 18,
-      width : 18
-    },
-    marginRight: theme.spacing(8.75),
-    padding    : 0
-  },
-  box: {
+  boxStyle: {
     alignItems    : 'center',
     display       : 'flex',
-    justifyContent: 'center'
-  },
-  caption: {
-    fontSize: 12
+    justifyContent: 'flex-end',
+    padding       : theme.spacing(1)
   },
   color: {
     color: theme.palette.grey[700]
   },
+  icon: {
+    height: 18,
+    width : 18
+  },
   input: {
-    padding  : theme.spacing(0.625, 1),
+    fontSize : 12,
     textAlign: 'center'
   },
-  inputBase: {
-    margin: theme.spacing(0, 4.25, 0, 1.5)
+  inputSel: {
+    fontSize : 12,
+    padding  : theme.spacing(0.625, 1),
+    textAlign: 'center'
   },
   inputSelect: {
     padding: theme.spacing(0.625, 0.8)
   },
-  menuItem: {
+  label: {
+    marginRight: theme.spacing(1.5)
+  },
+  rootLeftIcon: {
+    marginLeft : theme.spacing(2.5),
+    marginRight: theme.spacing(1.25),
+    padding    : theme.spacing(0)
+  },
+  rootMenuItem: {
+    color   : theme.palette.grey[700],
     fontSize: 12
   },
-  nextIcon: {
-    '& svg': {
-      height: 18,
-      width : 18
-    },
-    padding: 0
+  rootRightIcon: {
+    marginLeft: theme.spacing(1.5),
+    padding   : theme.spacing(0)
   },
   rootTextfield: {
     border      : ` 1px solid ${theme.palette.grey[400]}`,
@@ -59,6 +62,10 @@ export const styles = theme => ({
     width       : 25
   },
   select: {
+    '&$selectMenu': {
+      paddingLeft : theme.spacing(0),
+      paddingRight: theme.spacing(2)
+    },
     '&:focus': {
       borderRadius: 4
     },
@@ -78,77 +85,136 @@ export const styles = theme => ({
   },
   selectMenu: {
     fontSize  : 12,
-    lineHeight: '14px'
+    lineHeight: '14px',
+    textAlign : 'center'
   },
   slash: {
     padding: theme.spacing(0, 0.75)
-  },
-  totalPages: {
-    color    : theme.palette.grey[700],
-    fontSize : 12,
-    margin   : theme.spacing(0, -10),
-    padding  : theme.spacing(0.5, 0.375),
-    textAlign: 'center',
-    width    : 34
   }
 })
 
-const TablePagination = React.forwardRef(function TablePagination({ ...props }, ref) {
+const TablePagination = (props) => {
+  console.log('===> XAVI <===: TablePagination -> props', props)
+
   const {
+    totalPages = '',
+    totalItems = '',
     classes,
-    ...otherProps
+    onChangePage,
+    onChangeRowsPerPage,
+    rowsPerPage,
+    rowsPerPageOptions,
+    labelRowsPerPage,
+    page
   } = props
 
+  const [ currentPerPage, setCurrentPerPage ] = useState(rowsPerPage)
+  const [ currentPage, setCurrentPage ] = useState(page)
+
+  useEffect(() => {
+    setCurrentPage(page)
+  }, [ page ])
+
+  const onChangeSelectState = ev => {
+    const page = ev.target.value
+    setCurrentPerPage(page)
+    onChangeRowsPerPage(page)
+  }
+
+  const _handleClickLeft = () => {
+    currentPage > 1 &&
+      setCurrentPage(prevState => {
+        const page = parseInt(prevState) - 1
+        onChangePage(page)
+
+        return page
+      })
+  }
+
+  const _handleClickRight = () => {
+    currentPage < totalPages &&
+      setCurrentPage(prevState => {
+        const page = parseInt(prevState) + 1
+
+        onChangePage(page)
+
+        return page
+      })
+  }
+
+  const _handleChange = ev => {
+    const { value } = ev.target
+
+    if(/^[0-9]*$/g.test(value))
+      setCurrentPage(prevState => value > totalPages ? prevState : value)
+
+    if(ev.keyCode === 13) onChangePage(parseInt(value))
+  }
+
   return (
-    <MuiTablePagination
-      backIconButtonProps={{
-        classes: {
-          root: clsx(classes.backIcon, classes.color)
-        },
-        size: 'small'
-      }}
-      classes={
-        {
-          actions : classes.actions,
-          caption : clsx(classes.caption, classes.color),
-          input   : classes.inputBase,
-          menuItem: classes.menuItem
-        }
-      }
-      labelDisplayedRows={({ from, to }) => (
-        <div className={classes.box}>
+    totalPages ?
+      <Box className={classes.boxStyle}>
+        <Typography className={classes.label}>Mostrar</Typography>
+        <Select
+          classes={{
+            icon      : classes.selectIcon,
+            root      : classes.select,
+            selectMenu: classes.selectMenu
+          }}
+          input={<InputBase />}
+          onChange={onChangeSelectState}
+          value={currentPerPage}>
+          {rowsPerPageOptions.map((limit, index) => (
+            <MenuItem
+              classes={{
+                root    : classes.rootMenuItem,
+                selected: classes.selectedMenuItem
+              }}
+              key={index}
+              value={limit}>{limit}</MenuItem>
+          ))}
+        </Select>
+        <Box className={classes.boxStyle}>
+          <IconButton
+            className={classes.rootLeftIcon}
+            disabled={parseInt(currentPage) === 1}
+            onClick={_handleClickLeft}
+            size='small'>
+            <ArrowLeftIcon
+              className={classes.icon} />
+          </IconButton>
           <Input
             classes={{
               input: clsx(classes.input, classes.color),
               root : classes.rootTextfield
             }}
             disableUnderline
-            value={from} />
+            onChange={_handleChange}
+            onKeyDown={_handleChange}
+            value={currentPage} />
           <Typography className={classes.slash}>/</Typography>
-          <Typography>{to}</Typography>
-        </div>
-      )}
-      nextIconButtonProps={{
-        classes: {
-          root: clsx(classes.nextIcon, classes.color)
-        }
-      }}
-      ref={ref}
-      SelectProps={{
-        classes: {
-          icon      : classes.selectIcon,
-          root      : classes.select,
-          selectMenu: classes.selectMenu
-        },
-        inputProps: {
-          classes: {
-            root: clsx(classes.inputSelect, classes.color)
-          }
-        }
-      }}
-      {...otherProps} />
+          <Typography>{totalPages > 0 ? totalPages : 1}</Typography>
+          <IconButton
+            className={classes.rootRightIcon}
+            disabled={parseInt(currentPage) === parseInt(totalPages)}
+            onClick={_handleClickRight}
+            size='small'>
+            <ArrowRightIcon
+              className={classes.icon} />
+          </IconButton>
+        </Box>
+      </Box> :
+      <MuiTablePagination
+        component='div'
+        count={totalItems}
+        labelRowsPerPage={labelRowsPerPage}
+        onChangePage={(ev, value) => onChangePage(parseInt(value + 1))}
+        onChangeRowsPerPage={ev => onChangeSelectState(ev)}
+        page={2}
+        rowsPerPage={currentPerPage}
+        rowsPerPageOptions={rowsPerPageOptions} />
   )
-})
+}
 
 TablePagination.propTypes = {
 
