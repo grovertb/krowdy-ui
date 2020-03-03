@@ -191,7 +191,6 @@ const Table = ({
   const [ localNewCellProps, setLocalNewCellProps ] = useState({})
   const visibleColumns = columns.filter(({ visible = true }) => visible)
   const [ validNewCell, setValidNewCell ] = useState(false)
-  console.log('localNewCellProps', localNewCellProps)
 
   useEffect(() => {
     const localCellLength = Object.keys(localNewCellProps).length
