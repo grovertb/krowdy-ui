@@ -303,7 +303,7 @@ function TopAppBar(props) {
               vertical  : 'top'
             }}>
             {
-              menuActive === 'user' ?(
+              menuActive === 'user' ? (
                 [
                   <li
                     className={classes.menuItemContentName}

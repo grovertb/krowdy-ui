@@ -13,7 +13,7 @@ interface Ilogo {
 interface Iuser {
   firstName: string
   lastName: string
-  photo: string
+  photo?: string
 }
 
 interface ITopMenu {

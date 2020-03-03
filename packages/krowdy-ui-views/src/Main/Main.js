@@ -56,15 +56,15 @@ const useStyles = makeStyles(theme => ({
     // },
     background : theme.palette.primary.main,
     borderRight: 0,
-    overflow   : 'hidden',
+    minWidth   : drawerWidth,
     // position   : 'absolute',
+    overflow   : 'hidden',
     position   : 'initial',
     transition : theme.transitions.create('width', {
       duration: theme.transitions.duration.standard,
       easing  : theme.transitions.easing.easeInOut
     }),
     whiteSpace: 'nowrap',
-    width     : drawerWidth,
     zIndex    : 10
   },
   drawerPaperClose: {

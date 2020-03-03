@@ -98,22 +98,22 @@ export default function () {
           title: 'Accesos Directos'
         }
       ]}
+      topAppBarProps={{
+        logo: {
+          alt: 'Krowdy',
+          source: 'https://cdn.krowdy.com/auth/logobase.png'
+        },
+        user: {
+          firstName: 'Angel',
+          lastName: 'Lopez',
+        }
+      }}
       optionBottom={{
         icon   : <AddIcon />,
         onClick: () => {
           console.log('fixed Button')
         },
         title: 'Crear Empresa'
-      }}
-      topAppBarProps={{
-        logo: {
-          alt   : 'Krowdy',
-          source: 'https://cdn.krowdy.com/auth/logobase.png'
-        },
-        user: {
-          firstName: 'Angel',
-          lastName : 'Lopez'
-        }
       }}>
       <Paper style={{ flex: 1 }} variant='outlined'>
         Mi App
