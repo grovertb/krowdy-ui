@@ -182,7 +182,7 @@ const Table = ({
   onHandleSelectAutocomplete = () => false
 }) => {
   const { orderBy = '', sort = 'asc' } = sortTable
-  const { total, page, perPage } = pagination
+  const { totalPages = '', totalItems = 200, page, perPage } = pagination
   const validateNewCellProps = Object.keys(newCellProps).length
   const classes = useStyles()
   const inputSearch = useRef(null)
@@ -263,8 +263,8 @@ const Table = ({
     onHandleSelectItem(id)
   }
 
-  const _handleChangePage = (e, currentPage) => {
-    onHandleChangePage(parseInt(currentPage) + 1)
+  const _handleChangePage = (currentPage) => {
+    onHandleChangePage(parseInt(currentPage))
   }
 
   return (
@@ -527,14 +527,16 @@ const Table = ({
           <TablePagination
             backIconButtonText='Página anterior'
             component='div'
-            count={total}
+            // count={total}
             labelRowsPerPage='Mostrar'
             nextIconButtonText='Página siguiente'
             onChangePage={_handleChangePage}
             onChangeRowsPerPage={onHandleChangeRowsPerPage}
-            page={parseInt(page) - 1}
+            page={page}
             rowsPerPage={perPage}
-            rowsPerPageOptions={[ 10, 25, 100 ]} />
+            rowsPerPageOptions={[ 10, 25, 100 ]}
+            totalItems={totalItems}
+            totalPages={totalPages} />
         ) : null
       }
       {

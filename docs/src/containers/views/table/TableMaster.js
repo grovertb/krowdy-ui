@@ -262,12 +262,14 @@ export default function () {
   const _handleBtnAction = (e) => {
     console.log('TCL: _handleBtnAction -> e', e)
   }
-  const _handleChangeRowsPerPage = () => {
+  const _handleChangeRowsPerPage = (value) => {
+    console.log('===> XAVI <===: _handleChangeRowsPerPage -> value', value)
     console.log('change row per page')
   }
   const _handleChangePage = (e, page) => {
-    console.log('TCL: _handleChangeRowsPerPage -> page', page)
-    console.log('TCL: _handleChangeRowsPerPage -> e', e)
+    console.log('===> XAVI <===: _handleChangePage -> page', page)
+    console.log('===> XAVI <===: _handleChangePage -> e', e)
+
     console.log('change page')
   }
   const _handleSelectAll = (value) => {
