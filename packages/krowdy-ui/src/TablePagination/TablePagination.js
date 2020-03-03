@@ -210,7 +210,7 @@ const TablePagination = (props) => {
         labelRowsPerPage={labelRowsPerPage}
         onChangePage={(ev, value) => onChangePage(parseInt(value + 1))}
         onChangeRowsPerPage={ev => onChangeSelectState(ev)}
-        page={2}
+        page={parseInt(page - 1)}
         rowsPerPage={currentPerPage}
         rowsPerPageOptions={rowsPerPageOptions} />
   )
