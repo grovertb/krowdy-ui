@@ -26,14 +26,16 @@ const formatValue = (type, value) => {
       return formatDate(value)
     case 'number':
       return Number(value)
+    case 'category':
+      return typeof value === 'object' ? value._id  : value
     default:
       return value
   }
 }
 
 export default function formatFilters(filters) {
-  return filters.map(({ key, operator, type, value, children = [] }) => {
-    const child = children.length ? { $and: [ { $or: formatFilters(children) } ] } : {}
+  return filters.map((filter) => {
+    const { key, operator, type, value, children = [] } = filter
 
     const valueFilter =  Array.isArray(value) ? value.map(val => formatValue(type, val)) : formatValue(type, value)
 
@@ -43,30 +45,42 @@ export default function formatFilters(filters) {
       case '$range':
         valueFromOperator = {
           $gte: valueFilter[0],
-          $lte: valueFilter[1],
-          ...child
+          $lte: valueFilter[1]
         }
 
         break
       case '$regex':
       case '$unregex':
         valueFromOperator = {
-          $regex: formatRegex(value),
-          ...child
+          $regex: formatRegex(value)
         }
 
         break
       default:
         valueFromOperator = {
-          [operator]: valueFilter,
-          ...child
+          [operator]: valueFilter
         }
 
         break
     }
 
-    return {
+    const response = {
       [key]: valueFromOperator
     }
+
+    if(children.length) {
+      const child =  formatFilters(children)
+
+      return {
+        $and: [
+          {
+            $or  : child,
+            [key]: valueFromOperator
+          }
+        ]
+      }
+    }
+
+    return response
   })
 }
