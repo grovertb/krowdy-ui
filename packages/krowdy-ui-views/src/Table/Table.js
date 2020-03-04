@@ -194,6 +194,11 @@ const Table = ({
   const [ validNewCell, setValidNewCell ] = useState(false)
 
   useEffect(() => {
+    if(!addNewCell)
+      setLocalNewCellProps({})
+  }, [ addNewCell ])
+
+  useEffect(() => {
     const localCellLength = Object.keys(localNewCellProps).length
     if(validateNewCellProps && !localCellLength) {
       const cell = {}
@@ -564,7 +569,8 @@ Table.propTypes = {
   /**
    * Columns sirve para pasar la cabecera de la tabla
    */
-  columns: PropTypes.arrayOf(
+  addNewCell: PropTypes.bool,
+  columns   : PropTypes.arrayOf(
     PropTypes.shape({
       align   : PropTypes.string,
       currency: PropTypes.bool,
@@ -574,22 +580,22 @@ Table.propTypes = {
       ordering: PropTypes.bool
     })
   ).isRequired,
-  currency                  : PropTypes.string,
   /**
    * eneableAddCell muetra un boton para agregar una nueva celda
    */
-  enableAddCell             : PropTypes.bool,
+  currency                  : PropTypes.string,
   /**
    * iconBotton recibe un nodo para pinterlo al boton del header
    */
-  iconButton                : PropTypes.element,
+  enableAddCell             : PropTypes.bool,
   /**
    * maxHeigth string | number para la altura de la tabla
    */
-  maxHeight                 : PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]),
+  iconButton                : PropTypes.element,
   /**
    * newCellProps un array de objetos con las keys a editar cuando se agregue una nueva celda, requiere de `enableAddCell`
    */
+  maxHeight                 : PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]),
   newCellProps              : PropTypes.object,
   onHandleAddNewCell        : PropTypes.func,
   onHandleBtnAction         : PropTypes.func,
@@ -603,9 +609,12 @@ Table.propTypes = {
   onHandleSelectItem        : PropTypes.func,
   onHandleSendNewCell       : PropTypes.func,
   onHandleSortTable         : PropTypes.func,
-  onHandleToggleColumnTable : PropTypes.func,
   /**
    * pagination objeto para paginar, requiere  de `withPagination`
+   */
+  onHandleToggleColumnTable : PropTypes.func,
+  /**
+   * paymentAmount number para mostrar total a pagar
    */
   pagination                : PropTypes.shape({
     page   : PropTypes.number.isRequired,
@@ -613,12 +622,9 @@ Table.propTypes = {
     total  : PropTypes.number.isRequired
   }),
   /**
-   * paymentAmount number para mostrar total a pagar
-   */
-  paymentAmount: PropTypes.number,
-  /**
    * rows son las filas de la tabla
    */
+  paymentAmount: PropTypes.number,
   rows         : PropTypes.arrayOf(
     PropTypes.shape({
       _id: PropTypes.string.isRequired

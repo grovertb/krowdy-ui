@@ -53,6 +53,7 @@ export type TableProps = {
 	sortTable?: ISortTable
 	titleTable?: string
 	titleButton?: string
+	addNewCell?: boolean
 	pagination?: IPagination
 	currency?: string
 	widthFooter?: boolean
@@ -83,6 +84,7 @@ export type TableProps = {
 	onHandleClickRow?: IFuncId
 	onHandleToggleColumnTable?: IFuncId
 	onHandleAddNewCell?: IFuncAddNewCell
+	onHandleSendNewCell?: IFuncAddNewCell
 	onHandleSelectAutocomplete?: IFuncId
 };
 
