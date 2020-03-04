@@ -317,11 +317,12 @@ Main.propTypes = {
   isOpenDrawer: PropTypes.bool,
   menus       : PropTypes.arrayOf(
     PropTypes.shape({
-      icon   : PropTypes.element,
-      options: PropTypes.array,
-      target : PropTypes.string,
-      title  : PropTypes.string.isRequired,
-      url    : PropTypes.string
+      expanded: PropTypes.bool,
+      icon    : PropTypes.element,
+      options : PropTypes.array,
+      target  : PropTypes.string,
+      title   : PropTypes.string.isRequired,
+      url     : PropTypes.string
     })
   ),
   optionBottom: PropTypes.shape({
