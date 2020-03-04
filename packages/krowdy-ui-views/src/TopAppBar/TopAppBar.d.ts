@@ -13,15 +13,15 @@ interface Ilogo {
 interface Iuser {
   firstName: string
   lastName: string
-  photo: string
+  photo?: string
 }
 
 interface ITopMenu {
   color?: string
   target?: string
   title: string
-  type: string
-  url: string
+  type?: string
+  url?: string
   variant?: string
 }
 

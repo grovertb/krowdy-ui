@@ -62,16 +62,16 @@ const demoColumns = [
     label    : 'Nombre',
     minWidth : 150,
     ordering : true,
-    type     : 'text',
+    type     : 'today',
     visible  : true
   }, {
     component: scheduleComponent,
-    editable : true,
+    editable : false,
     key      : 'schedule',
     label    : 'Horario',
     minWidth : 247,
     ordering : true,
-    type     : 'text',
+    type     : 'hours',
     visible  : true
   }, {
     component: responsibleComponent,
@@ -133,8 +133,9 @@ const demoColumns = [
   }
 ]
 const newCellProps = {
-  amountPayable: '',
-  currentTasks : '',
+  amountPayable: 0,
+  amountTasks  : 0,
+  currentTasks : 0,
   incharge     : [
     {
       label: 'Edward Sanchez',
@@ -150,13 +151,15 @@ const newCellProps = {
       value: 3
     }
   ],
-  name  : '',
-  status: 'Pendiente',
-  type  : [ 'LL', 'VE' ]
+  incidents  : 0,
+  name       : '',
+  responsible: '',
+  schedule   : ''
 }
 
 export default function () {
   const [ sort, setSort ] = useState({ orderBy: null, sort: 'asc' })
+  const [ addNewCell, setAddNewCell ] = useState(false)
   const [ columns, setColumns ] = useState(demoColumns)
   const searchSuggestions = [
     {
@@ -260,12 +263,14 @@ export default function () {
   const _handleBtnAction = (e) => {
     console.log('TCL: _handleBtnAction -> e', e)
   }
-  const _handleChangeRowsPerPage = () => {
+  const _handleChangeRowsPerPage = (value) => {
+    console.log('===> XAVI <===: _handleChangeRowsPerPage -> value', value)
     console.log('change row per page')
   }
   const _handleChangePage = (e, page) => {
-    console.log('TCL: _handleChangeRowsPerPage -> page', page)
-    console.log('TCL: _handleChangeRowsPerPage -> e', e)
+    console.log('===> XAVI <===: _handleChangePage -> page', page)
+    console.log('===> XAVI <===: _handleChangePage -> e', e)
+
     console.log('change page')
   }
   const _handleSelectAll = (value) => {
@@ -285,7 +290,12 @@ export default function () {
     } : column)
     setColumns(newCols)
   }
-  const _handleAddNewCell = (newCell) => {
+  const _handleAddNewCell = () => {
+    console.log('clikck en el add new cell')
+    setAddNewCell(!addNewCell)
+  }
+
+  const _handleSendNewCell = (newCell) => {
     console.log('TCL: _handleAddNewCell -> newCell', newCell)
   }
 
@@ -304,11 +314,12 @@ export default function () {
         overflow: 'hidden'
       }}>
       <Table
+        addNewCell={addNewCell}
         columns={columns}
         currency='S/'
-        enableAddCell={false}
-        iconButton={<AddIcon />}
+        enableAddCell={true}
         // maxHeight={400}
+        iconButton={<AddIcon />}
         newCellProps={newCellProps}
         onHandleAddNewCell={_handleAddNewCell}
         onHandleBtnAction={_handleBtnAction}
@@ -316,18 +327,19 @@ export default function () {
         onHandleChangeRowsPerPage={_handleChangeRowsPerPage}
         onHandleClickRow={_handleClickRow}
         onHandlePaymentButton={_handlePaymentButton}
-        // titleTable='Tabla de Krowders'
         onHandleSearch={_handleSearch}
+        // titleTable='Tabla de Krowders'
         onHandleSelectAll={_handleSelectAll}
         onHandleSelectAutocomplete={_handleSelectAutocomplete}
         onHandleSelectItem={_handleSelectItem}
+        onHandleSendNewCell={_handleSendNewCell}
         onHandleSortTable={_handleSortTable}
         onHandleToggleColumnTable={_handleToggleColumnTable}
         pagination={
           {
-            page   : 1,
-            perPage: 25,
-            total  : 275
+            page      : 1,
+            perPage   : 25,
+            totalItems: 275
           }
         }
         paymentAmount={100}

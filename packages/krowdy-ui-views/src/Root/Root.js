@@ -13,6 +13,7 @@ const useStyles = makeStyles({
   rootFlex: {
     display : 'flex',
     height  : '100%',
+    overflow: 'hidden',
     position: 'relative'
   }
 }, { name: 'Root' })
@@ -21,9 +22,9 @@ function Root(props) {
   const [ openDrawer, setOpenDrawer ] = React.useState(false)
 
   const {
-    menus = [],
-    optionBottom,
-    children
+    children,
+    topAppBarProps = {},
+    mainProps = {}
   } = props
 
   const classes = useStyles()
@@ -34,13 +35,12 @@ function Root(props) {
 
   return (
     <div className={classes.root}>
-      <TopAppBar onHandleToggleDrawer={_handleToggleDrawer} />
+      <TopAppBar onHandleToggleDrawer={_handleToggleDrawer} {...topAppBarProps} />
       <main className={classes.rootFlex}>
         <Main
           component='div'
           isOpenDrawer={openDrawer}
-          menus={menus}
-          optionBottom={optionBottom} >
+          {...mainProps}>
           {children}
         </Main>
       </main>

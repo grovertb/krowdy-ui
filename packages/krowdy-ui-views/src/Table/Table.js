@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
+import XDate from 'xdate'
 import {
   Paper,
   TableBody,
@@ -167,6 +168,7 @@ const Table = ({
   withButton = false,
   enableAddCell = false,
   currency = 'S/',
+  addNewCell = false,
   onHandleSortTable = () => false,
   onHandleSearch = () => false,
   onHandleBtnAction = () => false,
@@ -177,23 +179,43 @@ const Table = ({
   onHandlePaymentButton = () => false,
   onHandleToggleColumnTable = () => false,
   onHandleAddNewCell = () => false,
+  onHandleSendNewCell = () => false,
   onHandleClickRow = () => false,
   onHandleSelectAutocomplete = () => false
 }) => {
   const { orderBy = '', sort = 'asc' } = sortTable
-  const { total, page, perPage } = pagination
+  const { totalPages = 0, totalItems = 0, page, perPage } = pagination
   const validateNewCellProps = Object.keys(newCellProps).length
   const classes = useStyles()
   const inputSearch = useRef(null)
   const [ openMenu, setOpenMenu ] = useState(null)
-  const [ addNewCell, setAddNewCell ] = useState(false)
   const [ localNewCellProps, setLocalNewCellProps ] = useState({})
   const visibleColumns = columns.filter(({ visible = true }) => visible)
+  const [ validNewCell, setValidNewCell ] = useState(false)
 
   useEffect(() => {
-    if(validateNewCellProps)
-      setLocalNewCellProps(newCellProps)
-  }, [ newCellProps, validateNewCellProps ])
+    if(!addNewCell)
+      setLocalNewCellProps({})
+  }, [ addNewCell ])
+
+  useEffect(() => {
+    const localCellLength = Object.keys(localNewCellProps).length
+    if(validateNewCellProps && !localCellLength) {
+      const cell = {}
+      for (const key in newCellProps)
+        cell[key] = (typeof newCellProps[key] !== 'object' && newCellProps[key] !== '') ? newCellProps[key] : ''
+
+      setLocalNewCellProps(cell)
+    }
+  }, [ localNewCellProps, newCellProps, validateNewCellProps ])
+
+  useEffect(() => {
+    const isValid = Object.values(localNewCellProps).every((once) => once !== '' )
+    if(isValid && !validNewCell)
+      setValidNewCell(true)
+    else if(!isValid && validNewCell)
+      setValidNewCell(false)
+  }, [ localNewCellProps, validNewCell ])
 
   const _handleClickOpenMenu = event => {
     setOpenMenu(event.currentTarget)
@@ -217,25 +239,24 @@ const Table = ({
     return onHandleSortTable({ orderBy: id, sort: invertSort })
   }
 
-  const _handleClickToggleCell = () => {
-    setAddNewCell(!addNewCell)
-  }
-
   const _handleRemoveCell = () => {
-    setAddNewCell(!addNewCell)
+    onHandleAddNewCell()
     setLocalNewCellProps({})
   }
 
-  const _handleChangeNewCell = (e) => {
-    const { value, id } = e.target
+  const _handleChangeNewCell = (value, source) => {
     setLocalNewCellProps((prevState) => ({
       ...prevState,
-      [id]: value
+      [source]: value
     }))
   }
 
+  const _handleSendNewCell = () => {
+    onHandleSendNewCell(localNewCellProps)
+  }
+
   const _handleAddNewCell = () => {
-    onHandleAddNewCell(localNewCellProps)
+    onHandleAddNewCell()
   }
 
   const _handleClickTableRow = (id) => {
@@ -247,8 +268,8 @@ const Table = ({
     onHandleSelectItem(id)
   }
 
-  const _handleChangePage = (e, currentPage) => {
-    onHandleChangePage(parseInt(currentPage) + 1)
+  const _handleChangePage = (currentPage) => {
+    onHandleChangePage(parseInt(currentPage))
   }
 
   return (
@@ -407,10 +428,13 @@ const Table = ({
                           {editable ?
                             type === 'select' ? (
                               <Select
-                                className={classes.optionSelect} id={key} onChange={_handleChangeNewCell}
-                                value={Array.isArray(localNewCellProps[key]) ? '' : localNewCellProps[key]}>
+                                className={classes.optionSelect} name={key} onChange={(e) => _handleChangeNewCell(e.target.value, key)}
+                                value={localNewCellProps[key]}>
                                 {newCellProps[key].map(({ value, label }, index) =>
-                                  (<MenuItem className={classes.optionSelect} key={index} value={value}>{label}</MenuItem>))
+                                  (<MenuItem
+                                    className={classes.optionSelect} key={index}
+                                    name={label}
+                                    value={value}>{label}</MenuItem>))
                                 }
                               </Select>
                             ) : (
@@ -418,17 +442,33 @@ const Table = ({
                                 className={classes.inputSearch}
                                 defaultValue={newCellProps[key]}
                                 fullWidth
-                                id={key}
-                                onChange={_handleChangeNewCell}
+                                onChange={(e) => _handleChangeNewCell(e.target.value, key)}
                                 type={type} />
                             ) :
-                            (
-                              <Typography>{Array.isArray(newCellProps[key]) ? (newCellProps[key].join(', ')) : newCellProps[key]}</Typography>
-                            )}
+                            type === 'today' ? (
+                              <Typography>{newCellProps[key] ? newCellProps[key] : localNewCellProps[key] ? localNewCellProps[key] : (() => {
+                                const date = new XDate().toString('yyyy/MM/dd')
+                                _handleChangeNewCell(date, key)
+
+                                return date
+                              })()}</Typography>
+                            ) :
+                              type === 'hours' ? (
+                                <Typography>{newCellProps[key] ? newCellProps[key] : localNewCellProps[key] ? localNewCellProps[key] : (() => {
+                                  const hours = new XDate().toString('h(:mm)TT')
+                                  _handleChangeNewCell(hours, key)
+
+                                  return hours
+                                })()}</Typography>
+                              ) :
+                                (
+                                  <Typography>{Array.isArray(newCellProps[key]) ? (newCellProps[key].join(', ')) : newCellProps[key]}</Typography>
+                                )}
                           {lastCell && (
                             <Box display='flex' marginLeft={2}>
                               <CloseIcon className={clsx(classes.iconAdd)} color='error' onClick={_handleRemoveCell} />
-                              <CheckIcon className={clsx(classes.iconAdd)} color='primary' onClick={_handleAddNewCell} />
+                              <CheckIcon
+                                className={clsx(classes.iconAdd)} color={validNewCell ? 'primary' : 'disabled'} onClick={() => validNewCell ? _handleSendNewCell() : null} />
                             </Box>
                           )}
                         </Box>
@@ -439,7 +479,7 @@ const Table = ({
               ) : (
                 <TableRow>
                   <TableCell colSpan={columns.length} >
-                    <Typography className={classes.addCell} onClick={_handleClickToggleCell}>Agregar incidente</Typography>
+                    <Typography className={classes.addCell} onClick={_handleAddNewCell}>Agregar incidente</Typography>
                   </TableCell>
                 </TableRow>
               )
@@ -491,14 +531,16 @@ const Table = ({
           <TablePagination
             backIconButtonText='Página anterior'
             component='div'
-            count={total}
+            // count={total}
             labelRowsPerPage='Mostrar'
             nextIconButtonText='Página siguiente'
             onChangePage={_handleChangePage}
             onChangeRowsPerPage={onHandleChangeRowsPerPage}
-            page={parseInt(page) - 1}
+            page={page}
             rowsPerPage={perPage}
-            rowsPerPageOptions={[ 10, 25, 100 ]} />
+            rowsPerPageOptions={[ 10, 25, 100 ]}
+            totalItems={totalItems}
+            totalPages={totalPages} />
         ) : null
       }
       {
@@ -529,7 +571,8 @@ Table.propTypes = {
   /**
    * Columns sirve para pasar la cabecera de la tabla
    */
-  columns: PropTypes.arrayOf(
+  addNewCell: PropTypes.bool,
+  columns   : PropTypes.arrayOf(
     PropTypes.shape({
       align   : PropTypes.string,
       currency: PropTypes.bool,
@@ -539,22 +582,22 @@ Table.propTypes = {
       ordering: PropTypes.bool
     })
   ).isRequired,
-  currency                  : PropTypes.string,
   /**
    * eneableAddCell muetra un boton para agregar una nueva celda
    */
-  enableAddCell             : PropTypes.bool,
+  currency                  : PropTypes.string,
   /**
    * iconBotton recibe un nodo para pinterlo al boton del header
    */
-  iconButton                : PropTypes.element,
+  enableAddCell             : PropTypes.bool,
   /**
    * maxHeigth string | number para la altura de la tabla
    */
-  maxHeight                 : PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]),
+  iconButton                : PropTypes.element,
   /**
    * newCellProps un array de objetos con las keys a editar cuando se agregue una nueva celda, requiere de `enableAddCell`
    */
+  maxHeight                 : PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]),
   newCellProps              : PropTypes.object,
   onHandleAddNewCell        : PropTypes.func,
   onHandleBtnAction         : PropTypes.func,
@@ -566,23 +609,24 @@ Table.propTypes = {
   onHandleSelectAll         : PropTypes.func,
   onHandleSelectAutocomplete: PropTypes.func,
   onHandleSelectItem        : PropTypes.func,
+  onHandleSendNewCell       : PropTypes.func,
   onHandleSortTable         : PropTypes.func,
-  onHandleToggleColumnTable : PropTypes.func,
   /**
    * pagination objeto para paginar, requiere  de `withPagination`
    */
-  pagination                : PropTypes.shape({
-    page   : PropTypes.number.isRequired,
-    perPage: PropTypes.number.isRequired,
-    total  : PropTypes.number.isRequired
-  }),
+  onHandleToggleColumnTable : PropTypes.func,
   /**
    * paymentAmount number para mostrar total a pagar
    */
-  paymentAmount: PropTypes.number,
+  pagination                : PropTypes.shape({
+    page   : PropTypes.number.isRequired,
+    perPage: PropTypes.number.isRequired
+    // total  : PropTypes.number.isRequired
+  }),
   /**
    * rows son las filas de la tabla
    */
+  paymentAmount: PropTypes.number,
   rows         : PropTypes.arrayOf(
     PropTypes.shape({
       _id: PropTypes.string.isRequired

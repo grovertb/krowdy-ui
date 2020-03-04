@@ -1,3 +1,6 @@
 export { default as capitalize } from './capitalize'
-export { default as isExternalURL } from './isExternalURL'
+export { default as escapeRegexp } from './escapeRegexp'
 export { default as formatFilters } from './formatFilters'
+export { default as generateRandomId } from './generateRandomId'
+export { default as isExternalURL } from './isExternalURL'
+export { default as tilderize } from './tilderize'

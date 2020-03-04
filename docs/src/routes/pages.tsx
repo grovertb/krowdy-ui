@@ -144,6 +144,11 @@ const pages: Array<Page> = [
         title: 'Drag',
         path: '/views/dragcomponent'
       },
+      // F
+      {
+        title: 'Filters',
+        path: '/views/filters'
+      },
       // J
       {
         title: 'Job Detail',
@@ -177,7 +182,6 @@ const pages: Array<Page> = [
         title: 'Search',
         path: '/views/search'
       },
-
       {
         title: 'SwitchButton',
         path: '/views/switchbutton'
@@ -195,6 +199,10 @@ const pages: Array<Page> = [
         title: 'Top AppBar',
         path: '/views/topappbar'
       },
+      {
+        title: 'Table Group',
+        path: '/views/tablegroup'
+      }
       // V
     ]
   },

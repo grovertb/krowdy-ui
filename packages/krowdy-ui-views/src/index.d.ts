@@ -21,6 +21,9 @@ export * from './Dashboard'
 export { default as DragComponent } from './DragComponent'
 export * from './DragComponent'
 
+export { default as Filters } from './Filters'
+export * from './Filters'
+
 export { default as JobDetail } from './JobDetail'
 export * from './JobDetail'
 
@@ -50,6 +53,9 @@ export * from './SwitchButton';
 
 export { default as Table } from './Table';
 export * from './Table';
+
+export { default as TableGroup } from './TableGroup';
+export * from './TableGroup';
 
 export { default as TableWindow } from './TableWindow';
 export * from './TableWindow';

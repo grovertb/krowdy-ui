@@ -22,15 +22,14 @@ export default function () {
             url  : '/'
           },
           {
-            icon  : <BackupIcon />,
-            target: '_blank',
-            title : 'Ir a Google',
-            url   : 'http://google.com'
+            icon : <BackupIcon />,
+            title: 'Ir a Google',
+            url  : 'http://google.com'
           },
           {
             icon : <DashboardIcon />,
-            title: 'Root',
-            url  : '/views/root'
+            title: 'Dashboard',
+            url  : '/views/dashboard'
           },
           {
             icon  : <AttachMoneyIcon />,
@@ -113,25 +112,6 @@ export default function () {
           alt   : 'Krowdy',
           source: 'https://cdn.krowdy.com/auth/logobase.png'
         },
-        menuTopRight: [
-          {
-            title: 'Grover',
-            type : 'link',
-            url  : '/views/root'
-          },
-          {
-            target: '_blank',
-            title : 'Link',
-            type  : 'link',
-            url   : 'http://google.com'
-          },
-          {
-            color  : 'primary',
-            title  : 'Button',
-            type   : 'button',
-            variant: 'contained'
-          }
-        ],
         user: {
           firstName: 'Angel',
           lastName : 'Lopez'
