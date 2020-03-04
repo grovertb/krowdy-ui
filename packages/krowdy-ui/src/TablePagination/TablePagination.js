@@ -2,14 +2,18 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import MuiTablePagination from '@material-ui/core/TablePagination'
-import { Box, Typography, InputBase, Select, MenuItem, Input, IconButton } from '@krowdy-ui/core'
 import {
   KeyboardArrowLeft as ArrowLeftIcon,
   KeyboardArrowRight as ArrowRightIcon
 } from '@material-ui/icons'
+import Box from '../Box'
+import InputBase from '../InputBase'
+import Select from '../Select'
+import MenuItem from '../MenuItem'
+import Input from '../Input'
+import IconButton from '../IconButton'
+import Typography from '../Typography'
 import withStyles from '../styles/withStyles'
-// import Input from '../Input'
-// import Typography from '../Typography'
 
 export const styles = theme => ({
   boxStyle: {
@@ -180,8 +184,7 @@ const TablePagination = (props) => {
             disabled={parseInt(currentPage) === 1}
             onClick={_handleClickLeft}
             size='small'>
-            <ArrowLeftIcon
-              className={classes.icon} />
+            <ArrowLeftIcon className={classes.icon} />
           </IconButton>
           <Input
             classes={{
@@ -199,8 +202,7 @@ const TablePagination = (props) => {
             disabled={parseInt(currentPage) === parseInt(totalPages)}
             onClick={_handleClickRight}
             size='small'>
-            <ArrowRightIcon
-              className={classes.icon} />
+            <ArrowRightIcon className={classes.icon} />
           </IconButton>
         </Box>
       </Box> :
