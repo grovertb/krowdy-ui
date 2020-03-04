@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link as RouterLink/* , useHistory*/ } from 'react-router-dom'
+import { Link as RouterLink, useLocation } from 'react-router-dom'
 import clsx from 'clsx'
 import { makeStyles } from '@krowdy-ui/styles'
 import { AppBar, Toolbar, IconButton, Link, Button, Menu, Typography, Divider, MenuItem } from '@krowdy-ui/core'
@@ -25,6 +25,36 @@ const useStyles = makeStyles(theme => ({
   hiddenUpMobile: {
     [theme.breakpoints.up('md')]: {
       display: 'none'
+    }
+  },
+  linkLabel: {
+    '&:after': {
+      backgroundColor: theme.palette.primary.main,
+      bottom         : -2,
+      content        : '""',
+      height         : 1,
+      left           : 0,
+      position       : 'absolute',
+      right          : 0,
+      transform      : 'scaleX(0)',
+      transition     : 'all .2s ease 0s'
+    },
+    '&:hover': {
+      '&:after': {
+        transform: 'scaleX(1)'
+      }
+    },
+    position: 'relative'
+  },
+  linkLabelActive: {
+    '&:after': {
+      transform: 'scaleX(1)'
+    },
+    color: theme.palette.primary.main
+  },
+  linkLabelSecondary: {
+    '&:after': {
+      backgroundColor: theme.palette.secondary.main
     }
   },
   logoCompany: {
@@ -85,19 +115,21 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'space-between'
   },
   toolbarCenterLeft: {
-    '& > a': {
+    '& > a, & > div': {
       '&:first-child': {
         marginLeft: 0
       },
+      display   : 'inline',
       marginLeft: theme.spacing(1)
     },
     padding: theme.spacing(0, 1)
   },
   toolbarCenterRight: {
-    '& > a': {
+    '& > a, & > div': {
       '&:last-child': {
         marginRight: 0
       },
+      display    : 'inline',
       marginRight: theme.spacing(1)
     },
     padding: theme.spacing(0, 1)
@@ -120,7 +152,7 @@ function TopAppBar(props) {
     userMenu = []
   } = props
 
-  // const history = useHistory()
+  const location = useLocation()
   const classes = useStyles()
 
   const [ anchorEl, setAnchorEl ] = React.useState({
@@ -219,14 +251,16 @@ function TopAppBar(props) {
           <div className={classes.toolbarCenterRight}>
             {
               menuTopRight.map((item, index) => {
-                const auxProps = isExternalURL(item.url) ?
-                  {
-                    href: item.url
-                  } :
-                  {
-                    component: RouterLink,
-                    to       : item.url
-                  }
+                const auxProps = item.url ?
+                  isExternalURL(item.url) ?
+                    {
+                      href: item.url
+                    } :
+                    {
+                      component: RouterLink,
+                      to       : item.url
+                    } :
+                  {}
 
                 return (
                   item.type  === 'button' ?
@@ -243,11 +277,12 @@ function TopAppBar(props) {
                           clsx(
                             classes.linkLabel,
                             {
-                              [ classes[`linkLabel${capitalize(item.color || '')}`] ]: Boolean(item.color)
-                            }
+                              [ classes[`linkLabel${capitalize(item.color || '')}`] ]: Boolean(item.color),
+                              [ classes.linkLabelActive ]                            : item.url === location.pathname
+                            },
                           )
                         }
-                        color={item.color ? item.color : undefined}
+                        color={item.color ? item.color : 'inherit'}
                         key={`menu-top-right-${index}`}
                         rel={item.target === '_blank' ? 'noopener' : undefined}
                         target={item.target}
@@ -386,8 +421,8 @@ TopAppBar.propTypes = {
       color  : PropTypes.string,
       target : PropTypes.string,
       title  : PropTypes.string.isRequired,
-      type   : PropTypes.string.isRequired,
-      url    : PropTypes.string.isRequired,
+      type   : PropTypes.string,
+      url    : PropTypes.string,
       variant: PropTypes.string
     })
   ),
@@ -396,8 +431,8 @@ TopAppBar.propTypes = {
       color  : PropTypes.string,
       target : PropTypes.string,
       title  : PropTypes.string.isRequired,
-      type   : PropTypes.string.isRequired,
-      url    : PropTypes.string.isRequired,
+      type   : PropTypes.string,
+      url    : PropTypes.string,
       variant: PropTypes.string
     })
   ),

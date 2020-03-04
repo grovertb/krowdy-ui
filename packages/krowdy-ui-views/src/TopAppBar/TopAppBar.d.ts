@@ -20,8 +20,8 @@ interface ITopMenu {
   color?: string
   target?: string
   title: string
-  type: string
-  url: string
+  type?: string
+  url?: string
   variant?: string
 }
 
