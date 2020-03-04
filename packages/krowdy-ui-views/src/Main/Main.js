@@ -84,6 +84,7 @@ const useStyles = makeStyles(theme => ({
     }
   },
   listRoot: {
+    flex     : 1,
     overflowX: 'hidden'
     // justifyContent: 'space-between'
   },
