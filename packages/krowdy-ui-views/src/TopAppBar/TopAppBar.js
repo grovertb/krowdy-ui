@@ -265,6 +265,7 @@ function TopAppBar(props) {
           menuTopRight.length ? <Divider className={classes.customDivider} orientation='vertical' /> : null
         }
         <div>
+
           {
             apps.length ? (
               <IconButton

@@ -22,10 +22,9 @@ function Root(props) {
   const [ openDrawer, setOpenDrawer ] = React.useState(false)
 
   const {
-    menus = [],
-    optionBottom,
     children,
-    topAppBarProps
+    topAppBarProps = {},
+    mainProps = {}
   } = props
 
   const classes = useStyles()
@@ -41,8 +40,7 @@ function Root(props) {
         <Main
           component='div'
           isOpenDrawer={openDrawer}
-          menus={menus}
-          optionBottom={optionBottom} >
+          {...mainProps}>
           {children}
         </Main>
       </main>
