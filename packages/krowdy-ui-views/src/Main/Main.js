@@ -132,8 +132,9 @@ function DrawerListItem({ menu, classes }) {
     location
   } = history
 
-  const [ openCollapse, setOpenCollapse ] = React.useState(false)
-  const { options, title, icon, url, target } = menu
+  const { options, title, icon, url, target, expanded = false } = menu
+
+  const [ openCollapse, setOpenCollapse ] = React.useState(expanded)
 
   const _handleToggleCollapse = () => {
     setOpenCollapse(!openCollapse)
