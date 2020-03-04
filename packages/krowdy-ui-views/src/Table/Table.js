@@ -184,7 +184,7 @@ const Table = ({
   onHandleSelectAutocomplete = () => false
 }) => {
   const { orderBy = '', sort = 'asc' } = sortTable
-  const { totalPages = '', totalItems = '', page, perPage } = pagination
+  const { totalPages = 0, totalItems = 0, page, perPage } = pagination
   const validateNewCellProps = Object.keys(newCellProps).length
   const classes = useStyles()
   const inputSearch = useRef(null)

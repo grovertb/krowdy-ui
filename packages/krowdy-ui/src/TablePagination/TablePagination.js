@@ -98,11 +98,9 @@ export const styles = theme => ({
 })
 
 const TablePagination = (props) => {
-  console.log('===> XAVI <===: TablePagination -> props', props)
-
   const {
-    totalPages = '',
-    totalItems = '',
+    totalPages = 0,
+    totalItems = 0,
     classes,
     onChangePage,
     onChangeRowsPerPage,
@@ -219,38 +217,19 @@ const TablePagination = (props) => {
 }
 
 TablePagination.propTypes = {
-
-  /**
-   * Props applied to the back arrow [`IconButton`](/api/icon-button/) component.
-   */
   SelectProps        : PropTypes.object,
-  /**
-   * Text label for the back arrow icon button.
-   *
-   * For localization purposes, you can use the provided [translations](/guides/localization/).
-   */
   backIconButtonProps: PropTypes.object,
-  /**
-   * Override or extend the styles applied to the component.
-   * See [CSS API](#css) below for more details.
-   */
-  /**
-   * @ignore
-   */
   classes            : PropTypes.object.isRequired,
-  /**
-   * The component used for the root node.
-   * Either a string to use a DOM element or a component.
-  /**
-   * For localization purposes, you can use the provided [translations](/guides/localization/).
-   */
-  nextIconButtonProps: PropTypes.object
-  /**
-   * Callback fired when the page is changed.
-   *
-   * @param {object} event The event source of the callback.
-   * @param {number} page The page selected.
-   */
+  count              : PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]),
+  labelRowsPerPage   : PropTypes.string,
+  nextIconButtonProps: PropTypes.object,
+  onChangePage       : PropTypes.func,
+  onChangeRowsPerPage: PropTypes.func,
+  page               : PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]),
+  rowsPerPage        : PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]),
+  rowsPerPageOptions : PropTypes.array.isRequired,
+  totalItems         : PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]),
+  totalPages         : PropTypes.oneOfType([ PropTypes.number, PropTypes.string ])
 
 }
 
