@@ -18,7 +18,7 @@ import {
 } from '@material-ui/icons'
 import { isExternalURL } from '../utils'
 
-const drawerWidth = 216
+const drawerWidth = 210
 const drawerWidthMin = 56
 
 const useStyles = makeStyles(theme => ({
