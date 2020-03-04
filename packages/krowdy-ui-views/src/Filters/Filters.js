@@ -41,6 +41,9 @@ export const styles = (theme) => ({
     display   : 'flex',
     height    : 20
   },
+  treeContainer: {
+    overflowY: 'scroll'
+  },
   viewContainer: {
     width: '100%'
   }
@@ -100,28 +103,10 @@ const Filters = (props) => {
     return item
   })
 
-  // const deepDelete = (arr, { _id, ...updatedItem } ) => arr.map(item => {
-  //   if(item._id === _id)
-  //     return null
-
-  //   if(Array.isArray(item.children) && item.children.length)
-  //     return {
-  //       ...item,
-  //       children: deepDelete(item.children, { _id, ...updatedItem })
-  //     }
-
-  //   return item
-  // }).filter(Boolean)
-
   const updateFilter = (filter) => {
     const updatedFilters = deepUpdate(filters, filter)
     onChangeFilters(updatedFilters)
   }
-
-  // const _handleDeleteFilter = (deletedFilter) => {
-  //   const updatedFilters = deepDelete(filters, deletedFilter)
-  //   onChangeFilters(updatedFilters)
-  // }
 
   const _handleClickApplyFilters = (filter) => {
     if(filterToEdit) {
@@ -188,14 +173,12 @@ const Filters = (props) => {
           {
             filters.length === 0 ? HeaderHomeComponent : null
           }
-          {/* <AppliedFilters
-            filters={filters}
-            onClickEdit={_handleClickEditFilter}
-            onDeleteFilter={_handleDeleteFilter} /> */}
-          <FiltersTree
-            onChange={_handleChangeFilterTree}
-            onClickEdit={_handleClickEditFilter}
-            treeData={filters} />
+          <div className={classes.treeContainer}>
+            <FiltersTree
+              onChange={_handleChangeFilterTree}
+              onClickEdit={_handleClickEditFilter}
+              treeData={filters} />
+          </div>
           <div className={classes.center}>
             <Button
               color='primary'
