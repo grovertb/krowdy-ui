@@ -291,10 +291,15 @@
     resolve "^1.13.1"
     v8flags "^3.1.1"
 
-"@babel/parser@7.7.5", "@babel/parser@^7.0.0", "@babel/parser@^7.1.0", "@babel/parser@^7.4.3", "@babel/parser@^7.8.3", "@babel/parser@^7.8.4":
+"@babel/parser@^7.0.0", "@babel/parser@^7.1.0", "@babel/parser@^7.4.3":
   version "7.7.5"
   resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.7.5.tgz#cbf45321619ac12d83363fcf9c94bb67fa646d71"
   integrity sha512-KNlOe9+/nk4i29g0VXgl8PEXIRms5xKLJeuZ6UptN0fHv+jDiriG+y94X6qAgWTR0h3KaoM1wK5G5h7MHFRSig==
+
+"@babel/parser@^7.8.3", "@babel/parser@^7.8.4":
+  version "7.8.6"
+  resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.8.6.tgz#ba5c9910cddb77685a008e3c587af8d27b67962c"
+  integrity sha512-trGNYSfwq5s0SgM1BMEB8hX3NDmO7EP2wsDGDexiaKMB92BaRpS+qZfpkMqUBhcsOTBwNy9B/jieo4ad/t/z2g==
 
 "@babel/plugin-proposal-async-generator-functions@^7.8.3":
   version "7.8.3"
@@ -897,7 +902,7 @@
     core-js "^2.6.5"
     regenerator-runtime "^0.13.2"
 
-"@babel/runtime@7.8.4", "@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.3.1", "@babel/runtime@^7.3.4", "@babel/runtime@^7.4.0", "@babel/runtime@^7.4.4", "@babel/runtime@^7.4.5", "@babel/runtime@^7.5.5", "@babel/runtime@^7.6.0", "@babel/runtime@^7.6.2", "@babel/runtime@^7.6.3", "@babel/runtime@^7.7.2", "@babel/runtime@^7.7.4", "@babel/runtime@^7.7.6", "@babel/runtime@^7.7.7":
+"@babel/runtime@7.8.4", "@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.3.1", "@babel/runtime@^7.3.4", "@babel/runtime@^7.4.0", "@babel/runtime@^7.4.4", "@babel/runtime@^7.4.5", "@babel/runtime@^7.5.5", "@babel/runtime@^7.6.0", "@babel/runtime@^7.6.2", "@babel/runtime@^7.6.3", "@babel/runtime@^7.7.2", "@babel/runtime@^7.7.6", "@babel/runtime@^7.7.7":
   version "7.8.4"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.8.4.tgz#d79f5a2040f7caa24d53e563aad49cbc05581308"
   integrity sha512-neAp3zt80trRVBI1x0azq6c57aNBqYZH8KhMm3TaB7wEI5Q4A2SHfBHE8w9gOhI/lrqxtEbXZgQIrHP+wvSGwQ==
@@ -1202,6 +1207,21 @@
   dependencies:
     "@krowdy-ui/styles" "^0.0.16"
     "@material-ui/core" "4.9.1"
+
+"@krowdy-ui/core@0.0.42":
+  version "0.0.42"
+  resolved "https://registry.yarnpkg.com/@krowdy-ui/core/-/core-0.0.42.tgz#47be0fcffb4002fccbebe62c17f2cea93bce92f0"
+  integrity sha512-f9HKVc/RSU3WKJI8o9y3i7IMdvO0Q0Q1MhbWEi9pz+pxnWdTSWvwwBc4HkUM3im7HiQhBtU0sxpzXPkmfeINJw==
+  dependencies:
+    "@krowdy-ui/styles" "^0.0.16"
+    "@material-ui/core" "4.9.2"
+
+"@krowdy-ui/styles@0.0.16", "@krowdy-ui/styles@^0.0.16":
+  version "0.0.16"
+  resolved "https://registry.yarnpkg.com/@krowdy-ui/styles/-/styles-0.0.16.tgz#d930746f13071a194e69822d3984a77986b10276"
+  integrity sha512-bB+MHDdO1Ofr64rs/5oBR2s1kZjly6KeFx/kUbe5XcNE9wNFeVV284MIt6PaMW4oHANUrSLDJ/ZAMtXWMJSw2g==
+  dependencies:
+    "@material-ui/styles" "4.9.0"
 
 "@krowdy-ui/views@0.0.36-next":
   version "0.0.36-next"
