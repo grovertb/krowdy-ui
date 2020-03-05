@@ -3,8 +3,10 @@ interface IMenu {
   target?: string
   title: string
   url?: string
-  options?: Array<IMenu>,
-  expanded?: boolean,
+  options?: Array<IMenu>
+  expanded?: boolean
+  disabled?: boolean
+  onClick?: () => void
 }
 
 interface OptionBottom {

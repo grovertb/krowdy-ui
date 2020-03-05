@@ -38,7 +38,7 @@ export type TopAppBarProps = {
   logo?: Ilogo;
   menuTopLeft?: Array<ITopMenu>,
   menuTopRight?: Array<ITopMenu>,
-  onHandleLogout?: ()    => void
+  onHandleLogout?: () => void
   onHandleToggleDrawer?: () => void
   user?: Iuser;
   userMenu?: Array<IUserMenu>

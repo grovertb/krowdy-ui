@@ -56,22 +56,23 @@ const useStyles = makeStyles(theme => ({
     // },
     background : theme.palette.primary.main,
     borderRight: 0,
-    minWidth   : drawerWidth,
-    // position   : 'absolute',
     overflow   : 'hidden',
+    // position   : 'absolute',
     position   : 'initial',
     transition : theme.transitions.create('width', {
       duration: theme.transitions.duration.standard,
       easing  : theme.transitions.easing.easeInOut
     }),
     whiteSpace: 'nowrap',
+    width     : drawerWidth,
     zIndex    : 10
   },
   drawerPaperClose: {
     '& $drawerLabel': {
       opacity  : 0,
-      transform: 'translate3d(-25px, 0, 0)'
+      transform: 'translate3d(-10px, 0, 0)'
     },
+    // minWidth: drawerWidthMin,
     width: drawerWidthMin
   },
   flexCenterVertical: {
@@ -133,7 +134,7 @@ function DrawerListItem({ menu, classes }) {
     location
   } = history
 
-  const { options, title, icon, url, target, expanded = false } = menu
+  const { options, title, icon, url, target, expanded = false, disabled = false, onClick } = menu
 
   const [ openCollapse, setOpenCollapse ] = React.useState(expanded)
 
@@ -141,8 +142,9 @@ function DrawerListItem({ menu, classes }) {
     setOpenCollapse(!openCollapse)
   }
 
-  const _handlePreventRoute = mUrl => (ev) => {
-    if(location.pathname === mUrl) ev.preventDefault()
+  const _handleClickLink = mUrl => ev => {
+    if(location.pathname === mUrl || onClick) ev.preventDefault()
+    if(onClick) onClick()
   }
 
   if(options && options.length)
@@ -184,14 +186,16 @@ function DrawerListItem({ menu, classes }) {
       </>
     )
 
-  const linkProps = url && isExternalURL(url) ?
-    {
-      href: url
-    } :
-    {
-      component: RouterLink,
-      to       : url
-    }
+  const linkProps = url ?
+    isExternalURL(url) ?
+      {
+        href: url
+      } :
+      {
+        component: RouterLink,
+        to       : url
+      } :
+    {}
 
   return (
     <ListItem
@@ -202,11 +206,12 @@ function DrawerListItem({ menu, classes }) {
           [classes.menuDashboardListItemActive]: location.pathname === url
         }
       )}
+      disabled={disabled}
       disableGutters>
       <Link
         className={classes.menuDashboardItem}
         color='inherit'
-        onClick={_handlePreventRoute(url)}
+        onClick={_handleClickLink(url)}
         target={target}
         underline='none'
         {...linkProps}>

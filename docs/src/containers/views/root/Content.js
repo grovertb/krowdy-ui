@@ -60,14 +60,17 @@ export default function () {
             url   : 'https://google.com'
           },
           {
-            icon : <CalendarTodayIcon />,
-            title: 'Calendar',
-            url  : '/'
+            icon   : <CalendarTodayIcon />,
+            onClick: () => {
+              console.log('click')
+            },
+            title: 'Calendar'
           },
           {
-            icon : <BackupIcon />,
-            title: 'Ir a Google',
-            url  : 'http://google.com'
+            disabled: true,
+            icon    : <BackupIcon />,
+            title   : 'Ir a Google',
+            url     : 'http://google.com'
           },
           {
             icon : <DashboardIcon />,
