@@ -150,6 +150,7 @@ const Table = ({
   paymentAmount,
   iconButton,
   maxHeight = 'auto',
+  maxWidth = 'auto',
   pagination = {},
   newCellProps = {},
   sortTable = {},
@@ -338,7 +339,7 @@ const Table = ({
           </div>
         ) : null
       }
-      <TableContainer className={classes.container} style={{ maxHeight }} >
+      <TableContainer className={classes.container} style={{ maxHeight, maxWidth }} >
         <MuiTable aria-label='sticky table' stickyHeader={stickyHeader}>
           <TableHead className={classes.tableHead}>
             <TableRow>
