@@ -2,7 +2,6 @@ import React from 'react'
 import { Link as RouterLink, useHistory } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
-import { makeStyles } from '@krowdy-ui/styles'
 import {
   Drawer,
   List,
@@ -10,7 +9,8 @@ import {
   Link,
   ListItemIcon,
   ListItemText,
-  Collapse
+  Collapse,
+  withStyles
 } from '@krowdy-ui/core'
 import {
   ExpandMore as ExpandMoreIcon,
@@ -21,7 +21,7 @@ import { isExternalURL } from '../utils'
 const drawerWidth = 210
 const drawerWidthMin = 56
 
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
   // drawer: {
   // width: drawerWidthMin
   // },
@@ -125,7 +125,7 @@ const useStyles = makeStyles(theme => ({
     boxShadow: '0px -1px 5px rgba(0, 0, 0, 0.1)'
   },
   toolbar: theme.mixins.toolbar
-}), { name: 'Main' })
+})
 
 function DrawerListItem({ menu, classes }) {
   const history = useHistory()
@@ -243,14 +243,13 @@ const renderDrawerList = (menus, classes) => (
 
 function Main(props) {
   const {
+    classes,
     menus = [],
     component: Component = 'main',
     isOpenDrawer,
     children,
     optionBottom
   } = props
-
-  const classes = useStyles()
 
   const _handleClickOptionBottom = ev => {
     if(optionBottom.onClick) optionBottom.onClick(ev)
@@ -320,7 +319,11 @@ function Main(props) {
 }
 
 Main.propTypes = {
+  classes     : PropTypes.object.isRequired,
   isOpenDrawer: PropTypes.bool,
+  /**
+   * @ignore
+   */
   menus       : PropTypes.arrayOf(
     PropTypes.shape({
       expanded: PropTypes.bool,
@@ -338,4 +341,4 @@ Main.propTypes = {
   })
 }
 
-export default Main
+export default withStyles(styles, { name: 'KrowdyMain' })(Main)
