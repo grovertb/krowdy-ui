@@ -352,7 +352,7 @@ const FilterConfig = (props) => {
   }
 
   return (
-    <div>
+    <>
       <p className={classes.title}>{filter.label}</p>
       <FormControl
         color='primary'
@@ -404,7 +404,7 @@ const FilterConfig = (props) => {
           Aplicar filtros
         </Button>
       </div>
-    </div>
+    </>
   )
 }
 

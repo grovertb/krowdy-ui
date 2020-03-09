@@ -17,7 +17,9 @@ export const styles = (theme) => ({
   },
   cardContent: {
     display       : 'flex',
-    justifyContent: 'center'
+    flex          : 2,
+    justifyContent: 'center',
+    overflowY     : 'hidden'
   },
   cardTitle: {
     fontSize: 14
@@ -31,7 +33,9 @@ export const styles = (theme) => ({
     padding: 0
   },
   root: {
-    height: '100%'
+    display : 'flex',
+    flexFlow: 'column',
+    height  : '100%'
   },
   titleBack: {
     fontSize: 14
@@ -45,7 +49,10 @@ export const styles = (theme) => ({
     overflowY: 'scroll'
   },
   viewContainer: {
-    width: '100%'
+    height   : '100%',
+    overflowX: 'hidden',
+    overflowY: 'scroll',
+    width    : '100%'
   }
 })
 
@@ -183,7 +190,9 @@ const Filters = (props) => {
             <Button
               color='primary'
               onClick={_handleClickAddFilter}
-              startIcon={<AddIcon />}>Añadir filtro</Button>
+              startIcon={<AddIcon />}>
+                Añadir filtro
+            </Button>
           </div>
         </TabPanel>
         <TabPanel
