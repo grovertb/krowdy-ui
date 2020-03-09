@@ -269,14 +269,14 @@ const FilterConfig = (props) => {
                 <KeyboardDatePicker
                   format='DD/MM/YYYY'
                   fullWidth
-                  {...(
-                    errors && errors.first ?
-                      {
-                        error     : true,
-                        helperText: errors.first
-                      } :
-                      {}
-                  )}
+                  // {...(
+                  //   errors && errors.first ?
+                  //     {
+                  //       error     : true,
+                  //       helperText: errors.first
+                  //     } :
+                  //     {}
+                  // )}
                   initialFocusedDate={dayjs(new Date()).minute(0).second(0).format()}
                   InputAdornmentProps={{
                     classes: {
@@ -302,14 +302,14 @@ const FilterConfig = (props) => {
                   <KeyboardDatePicker
                     format='DD/MM/YYYY'
                     fullWidth
-                    {...(
-                      errors && errors.second ?
-                        {
-                          error     : true,
-                          helperText: errors.second
-                        } :
-                        {}
-                    )}
+                    // {...(
+                    //   errors && errors.second ?
+                    //     {
+                    //       error     : true,
+                    //       helperText: errors.second
+                    //     } :
+                    //     {}
+                    // )}
                     initialFocusedDate={dayjs(new Date()).minute(0).second(0).format()}
                     InputAdornmentProps={{
                       classes: {
