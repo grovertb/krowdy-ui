@@ -204,6 +204,7 @@ const FilterConfig = (props) => {
       operator     : option.operator,
       operatorLabel: option.label,
       optionIndex  : optionIndex,
+      queryBase    : filter.queryBase,
       reference    : filter.reference,
       type         : filter.type,
       value        : configValue
