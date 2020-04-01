@@ -197,17 +197,17 @@ const FilterConfig = (props) => {
     const configValue = getFilterConfigValue(filter.type)
     const _id = edit ? filter._id : generateRandomId()
 
-    const res = {
+    onClickApply({
       _id,
       key          : filter.key,
       label        : filter.label,
       operator     : option.operator,
       operatorLabel: option.label,
       optionIndex  : optionIndex,
+      reference    : filter.reference,
       type         : filter.type,
       value        : configValue
-    }
-    onClickApply(res)
+    })
   }
 
   const _handleLoadMoreItems = (categoryKey) => () => {
