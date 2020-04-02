@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import XDate from 'xdate'
 import {
   DragIndicator as DragIndicatorIcon
 } from '@material-ui/icons'
@@ -43,6 +44,8 @@ function FileThemeNodeContentRenderer(props) {
 
   const isDraggedDescendant = draggedNode && isDescendant(draggedNode, node)
   const isLandingPadActive = !didDrop && isDragging
+
+  console.log('Grover: FileThemeNodeContentRenderer -> node', node)
 
   const nodeContent = (
     <div className={classes.nodeContent}>
@@ -92,7 +95,7 @@ function FileThemeNodeContentRenderer(props) {
                             <div key={`chip-${1 + indexValue}`}>
                               <Chip
                                 color='primary'
-                                label={value.label || value}
+                                label={node.type === 'date' ? new XDate(value.label || value).toString('dd/MM/yyyy') : value.label || value}
                                 size='small'
                                 variant='outlined' />
                             </div>
@@ -100,7 +103,7 @@ function FileThemeNodeContentRenderer(props) {
                           <div>
                             <Chip
                               color='primary'
-                              label={node.value}
+                              label={node.type === 'date' ? new XDate(node.value).toString('dd/MM/yyyy') : node.value}
                               size='small'
                               variant='outlined' />
                           </div>
