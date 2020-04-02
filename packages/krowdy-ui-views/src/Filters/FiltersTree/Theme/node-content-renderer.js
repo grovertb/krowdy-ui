@@ -45,8 +45,6 @@ function FileThemeNodeContentRenderer(props) {
   const isDraggedDescendant = draggedNode && isDescendant(draggedNode, node)
   const isLandingPadActive = !didDrop && isDragging
 
-  console.log('Grover: FileThemeNodeContentRenderer -> node', node)
-
   const nodeContent = (
     <div className={classes.nodeContent}>
       {
