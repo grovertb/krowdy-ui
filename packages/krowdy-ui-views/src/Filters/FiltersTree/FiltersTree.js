@@ -12,7 +12,8 @@ function FiltersTree(props) {
   const {
     treeData, // : treeDataProps,
     onChange = () => {},
-    onClickEdit = () => {}
+    onClickEdit = () => {},
+    dots
   } = props
 
   // const [ treeData, setTreeData ] = React.useState([])
@@ -52,7 +53,8 @@ function FiltersTree(props) {
               <EdiIcon  fontSize='small' />
             </IconButton>
           </React.Fragment>
-        ]
+        ],
+        dots
       })}
       isVirtualized={false}
       onChange={_handleUpdateTreeData}

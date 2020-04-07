@@ -97,10 +97,10 @@ const styles = theme => ({
     //   overflow: 'initial'
     // },
     // borderRadius  : 4,
-    padding        : theme.spacing(1),
+    overflow       : 'auto',
     // flex          : 1,
     // justifyContent: 'center',
-    overflow      : 'auto',
+    padding        : theme.spacing(1)
     // padding       : theme.spacing(1),
     // position      : 'relative'
   },
