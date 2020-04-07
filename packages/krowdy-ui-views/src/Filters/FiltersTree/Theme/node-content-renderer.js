@@ -21,22 +21,35 @@ function cutValue(value, size) {
   return value.length > size ? value.slice(0, size) + '...' : value
 }
 
-const ChipContainer = React.forwardRef((props, ref) =>{
-  const { label, ...rest } = props
+const ChipContainer = (props) =>{
+  const { label, size, dots } = props
 
-  return (
-    <div {...rest} ref={ref}>
-      <Chip
-        color='primary'
-        label={label}
-        size='small'
-        variant='outlined' />
-    </div>
-  )
-})
+  if(label.length <= size || !dots)
+    return (
+      <div>
+        <Chip
+          color='primary'
+          label={label}
+          size='small'
+          variant='outlined' />
+      </div>
+    )
+  else
+    return (
+      <Tooltip title={label}>
+        <div>
+          <Chip
+            color='primary'
+            label={cutValue(label, size)}
+            size='small'
+            variant='outlined' />
+        </div>
+      </Tooltip>
+    )
+}
 
-const Content = ({ value, variant, color, size }) => {
-  if(value.length <= size)
+const Content = ({ value, variant, color, size, dots }) => {
+  if(value.length <= size || !dots)
     return <Typography color={color} variant={variant}>{value}</Typography>
   else
     return (
@@ -51,6 +64,7 @@ function FileThemeNodeContentRenderer(props) {
     connectDragPreview,
     connectDragSource,
     isDragging,
+    dots,
     canDrop,
     // canDrag,
     node,
@@ -111,10 +125,12 @@ function FileThemeNodeContentRenderer(props) {
                         nodeTitle
                   } */}
                   <Content
-                    color='body' size={15} value={node.label}
+                    color='body' dots={dots} size={15}
+                    value={node.label}
                     variant='body2' />
                   <Content
-                    color='info' size={20} value={node.operatorLabel}
+                    color='info' dots={dots}
+                    size={20} value={node.operatorLabel}
                     variant='info1' />
                 </div>
                 {
@@ -126,13 +142,16 @@ function FileThemeNodeContentRenderer(props) {
                             const label = node.type === 'date' ? new XDate(value.label || value).toString('dd/MM/yyyy') : value.label || value
 
                             return (
-                              <Tooltip key={`chip-${1 + indexValue}`} title={label}>
-                                <ChipContainer label={cutValue(label, 10)} />
-                              </Tooltip>
+                              <ChipContainer
+                                dots={dots}
+                                key={`chip-${1 + indexValue}`}
+                                label={label}
+                                size={10} />
                             )}) :
-                          <Tooltip title={node.type === 'date' ? new XDate(node.value).toString('dd/MM/yyyy') : node.value}>
-                            <ChipContainer label={cutValue(node.type === 'date' ? new XDate(node.value).toString('dd/MM/yyyy') : node.value, 10)} />
-                          </Tooltip>
+                          <ChipContainer
+                            dots={dots}
+                            label={node.type === 'date' ? new XDate(node.value).toString('dd/MM/yyyy') : node.value}
+                            size={10} />
                       }
                     </div> :
                     null

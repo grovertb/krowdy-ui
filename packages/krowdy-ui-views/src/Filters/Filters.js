@@ -86,7 +86,8 @@ const Filters = (props) => {
     filterTypes = [],
     loadMoreCategoryItems = () => {},
     listWidth,
-    filterGroups = []
+    filterGroups = [],
+    dots = false
   }  = props
 
   const [ view, goToView ] = useState(Views.HOME)
@@ -182,6 +183,7 @@ const Filters = (props) => {
           }
           <div className={classes.treeContainer}>
             <FiltersTree
+              dots={dots}
               onChange={_handleChangeFilterTree}
               onClickEdit={_handleClickEditFilter}
               treeData={filters} />
