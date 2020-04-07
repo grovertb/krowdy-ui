@@ -5,7 +5,7 @@ import {
   DragIndicator as DragIndicatorIcon
 } from '@material-ui/icons'
 import useStyles from './node-content-renderer-style'
-import { Chip, Typography } from '@krowdy-ui/core'
+import { Chip, Typography, Tooltip } from '@krowdy-ui/core'
 
 function isDescendant(older, younger) {
   return (
@@ -15,6 +15,35 @@ function isDescendant(older, younger) {
       child => child === younger || isDescendant(child, younger)
     )
   )
+}
+
+function cutValue(value, size) {
+  return value.length > size ? value.slice(0, size) + '...' : value
+}
+
+const ChipContainer = React.forwardRef((props, ref) =>{
+  const { label, ...rest } = props
+
+  return (
+    <div {...rest} ref={ref}>
+      <Chip
+        color='primary'
+        label={label}
+        size='small'
+        variant='outlined' />
+    </div>
+  )
+})
+
+const Content = ({ value, variant, color, size }) => {
+  if(value.length <= size)
+    return <Typography color={color} variant={variant}>{value}</Typography>
+  else
+    return (
+      <Tooltip title={value}>
+        <Typography color={color} variant={variant}>{cutValue(value, size)}</Typography>
+      </Tooltip>
+    )
 }
 
 function FileThemeNodeContentRenderer(props) {
@@ -81,30 +110,29 @@ function FileThemeNodeContentRenderer(props) {
                         }) :
                         nodeTitle
                   } */}
-                  <Typography color='body' variant='body2'>{node.label}</Typography>
-                  <Typography color='info' variant='info1'>{node.operatorLabel}</Typography>
+                  <Content
+                    color='body' size={15} value={node.label}
+                    variant='body2' />
+                  <Content
+                    color='info' size={20} value={node.operatorLabel}
+                    variant='info1' />
                 </div>
                 {
                   node.value ?
                     <div className={classes.rowContentChips}>
                       {
                         Array.isArray(node.value) ?
-                          node.value.map((value, indexValue) => (
-                            <div key={`chip-${1 + indexValue}`}>
-                              <Chip
-                                color='primary'
-                                label={node.type === 'date' ? new XDate(value.label || value).toString('dd/MM/yyyy') : value.label || value}
-                                size='small'
-                                variant='outlined' />
-                            </div>
-                          )) :
-                          <div>
-                            <Chip
-                              color='primary'
-                              label={node.type === 'date' ? new XDate(node.value).toString('dd/MM/yyyy') : node.value}
-                              size='small'
-                              variant='outlined' />
-                          </div>
+                          node.value.map((value, indexValue) => {
+                            const label = node.type === 'date' ? new XDate(value.label || value).toString('dd/MM/yyyy') : value.label || value
+
+                            return (
+                              <Tooltip key={`chip-${1 + indexValue}`} title={label}>
+                                <ChipContainer label={cutValue(label, 10)} />
+                              </Tooltip>
+                            )}) :
+                          <Tooltip title={node.type === 'date' ? new XDate(node.value).toString('dd/MM/yyyy') : node.value}>
+                            <ChipContainer label={cutValue(node.type === 'date' ? new XDate(node.value).toString('dd/MM/yyyy') : node.value, 10)} />
+                          </Tooltip>
                       }
                     </div> :
                     null
