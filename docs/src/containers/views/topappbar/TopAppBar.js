@@ -54,6 +54,7 @@ export default () => {
         onHandleToggleDrawer={()=> {
           console.log('onHandleToggleDrawer')
         }}
+        persistMenuIcon
         user={{
           firstName: 'Alfredo',
           lastName : 'Londres'

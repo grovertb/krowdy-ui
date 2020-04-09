@@ -148,6 +148,7 @@ function TopAppBar(props) {
     menuTopRight = [],
     onHandleLogout,
     onHandleToggleDrawer,
+    persistMenuIcon = false,
     user = {},
     userMenu = []
   } = props
@@ -190,7 +191,9 @@ function TopAppBar(props) {
           onHandleToggleDrawer ?
             <IconButton
               aria-label='menu'
-              className={classes.hiddenUpMobile}
+              className={clsx({
+                [classes.hiddenUpMobile]: !persistMenuIcon
+              })}
               color='inherit'
               edge='start'
               onClick={onHandleToggleDrawer}>
