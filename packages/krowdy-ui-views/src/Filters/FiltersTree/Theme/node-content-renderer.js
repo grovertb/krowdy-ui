@@ -1,10 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import XDate from 'xdate'
 import {
   DragIndicator as DragIndicatorIcon
 } from '@material-ui/icons'
 import useStyles from './node-content-renderer-style'
-import { Chip, Typography } from '@krowdy-ui/core'
+import { Chip, Typography, Tooltip } from '@krowdy-ui/core'
 
 function isDescendant(older, younger) {
   return (
@@ -16,11 +17,54 @@ function isDescendant(older, younger) {
   )
 }
 
+function cutValue(value, size) {
+  return value.length > size ? value.slice(0, size) + '...' : value
+}
+
+const ChipContainer = (props) =>{
+  const { label, size, dots } = props
+
+  if(label.length <= size || !dots)
+    return (
+      <div>
+        <Chip
+          color='primary'
+          label={label}
+          size='small'
+          variant='outlined' />
+      </div>
+    )
+  else
+    return (
+      <Tooltip title={label}>
+        <div>
+          <Chip
+            color='primary'
+            label={cutValue(label, size)}
+            size='small'
+            variant='outlined' />
+        </div>
+      </Tooltip>
+    )
+}
+
+const Content = ({ value, variant, color, size, dots }) => {
+  if(value.length <= size || !dots)
+    return <Typography color={color} variant={variant}>{value}</Typography>
+  else
+    return (
+      <Tooltip title={value}>
+        <Typography color={color} variant={variant}>{cutValue(value, size)}</Typography>
+      </Tooltip>
+    )
+}
+
 function FileThemeNodeContentRenderer(props) {
   const {
     connectDragPreview,
     connectDragSource,
     isDragging,
+    dots,
     canDrop,
     // canDrag,
     node,
@@ -80,30 +124,34 @@ function FileThemeNodeContentRenderer(props) {
                         }) :
                         nodeTitle
                   } */}
-                  <Typography color='body' variant='body2'>{node.label}</Typography>
-                  <Typography color='info' variant='info1'>{node.operatorLabel}</Typography>
+                  <Content
+                    color='body' dots={dots} size={15}
+                    value={node.label}
+                    variant='body2' />
+                  <Content
+                    color='info' dots={dots}
+                    size={20} value={node.operatorLabel}
+                    variant='info1' />
                 </div>
                 {
                   node.value ?
                     <div className={classes.rowContentChips}>
                       {
                         Array.isArray(node.value) ?
-                          node.value.map((value, indexValue) => (
-                            <div key={`chip-${1 + indexValue}`}>
-                              <Chip
-                                color='primary'
-                                label={value.label || value}
-                                size='small'
-                                variant='outlined' />
-                            </div>
-                          )) :
-                          <div>
-                            <Chip
-                              color='primary'
-                              label={node.value}
-                              size='small'
-                              variant='outlined' />
-                          </div>
+                          node.value.map((value, indexValue) => {
+                            const label = node.type === 'date' ? new XDate(value.label || value).toString('dd/MM/yyyy') : value.label || value
+
+                            return (
+                              <ChipContainer
+                                dots={dots}
+                                key={`chip-${1 + indexValue}`}
+                                label={label}
+                                size={10} />
+                            )}) :
+                          <ChipContainer
+                            dots={dots}
+                            label={node.type === 'date' ? new XDate(node.value).toString('dd/MM/yyyy') : node.value}
+                            size={10} />
                       }
                     </div> :
                     null

@@ -197,17 +197,18 @@ const FilterConfig = (props) => {
     const configValue = getFilterConfigValue(filter.type)
     const _id = edit ? filter._id : generateRandomId()
 
-    const res = {
+    onClickApply({
       _id,
       key          : filter.key,
       label        : filter.label,
       operator     : option.operator,
       operatorLabel: option.label,
       optionIndex  : optionIndex,
+      queryBase    : filter.queryBase,
+      reference    : filter.reference,
       type         : filter.type,
       value        : configValue
-    }
-    onClickApply(res)
+    })
   }
 
   const _handleLoadMoreItems = (categoryKey) => () => {
@@ -269,14 +270,14 @@ const FilterConfig = (props) => {
                 <KeyboardDatePicker
                   format='DD/MM/YYYY'
                   fullWidth
-                  {...(
-                    errors && errors.first ?
-                      {
-                        error     : true,
-                        helperText: errors.first
-                      } :
-                      {}
-                  )}
+                  // {...(
+                  //   errors && errors.first ?
+                  //     {
+                  //       error     : true,
+                  //       helperText: errors.first
+                  //     } :
+                  //     {}
+                  // )}
                   initialFocusedDate={dayjs(new Date()).minute(0).second(0).format()}
                   InputAdornmentProps={{
                     classes: {
@@ -302,14 +303,14 @@ const FilterConfig = (props) => {
                   <KeyboardDatePicker
                     format='DD/MM/YYYY'
                     fullWidth
-                    {...(
-                      errors && errors.second ?
-                        {
-                          error     : true,
-                          helperText: errors.second
-                        } :
-                        {}
-                    )}
+                    // {...(
+                    //   errors && errors.second ?
+                    //     {
+                    //       error     : true,
+                    //       helperText: errors.second
+                    //     } :
+                    //     {}
+                    // )}
                     initialFocusedDate={dayjs(new Date()).minute(0).second(0).format()}
                     InputAdornmentProps={{
                       classes: {
@@ -352,7 +353,7 @@ const FilterConfig = (props) => {
   }
 
   return (
-    <div>
+    <>
       <p className={classes.title}>{filter.label}</p>
       <FormControl
         color='primary'
@@ -404,7 +405,7 @@ const FilterConfig = (props) => {
           Aplicar filtros
         </Button>
       </div>
-    </div>
+    </>
   )
 }
 

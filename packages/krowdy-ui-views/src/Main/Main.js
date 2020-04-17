@@ -2,7 +2,6 @@ import React from 'react'
 import { Link as RouterLink, useHistory } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
-import { makeStyles } from '@krowdy-ui/styles'
 import {
   Drawer,
   List,
@@ -10,7 +9,8 @@ import {
   Link,
   ListItemIcon,
   ListItemText,
-  Collapse
+  Collapse,
+  withStyles
 } from '@krowdy-ui/core'
 import {
   ExpandMore as ExpandMoreIcon,
@@ -21,7 +21,7 @@ import { isExternalURL } from '../utils'
 const drawerWidth = 210
 const drawerWidthMin = 56
 
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
   // drawer: {
   // width: drawerWidthMin
   // },
@@ -56,22 +56,23 @@ const useStyles = makeStyles(theme => ({
     // },
     background : theme.palette.primary.main,
     borderRight: 0,
-    minWidth   : drawerWidth,
-    // position   : 'absolute',
     overflow   : 'hidden',
+    // position   : 'absolute',
     position   : 'initial',
     transition : theme.transitions.create('width', {
       duration: theme.transitions.duration.standard,
       easing  : theme.transitions.easing.easeInOut
     }),
     whiteSpace: 'nowrap',
+    width     : drawerWidth,
     zIndex    : 10
   },
   drawerPaperClose: {
     '& $drawerLabel': {
       opacity  : 0,
-      transform: 'translate3d(-25px, 0, 0)'
+      transform: 'translate3d(-10px, 0, 0)'
     },
+    // minWidth: drawerWidthMin,
     width: drawerWidthMin
   },
   flexCenterVertical: {
@@ -84,6 +85,7 @@ const useStyles = makeStyles(theme => ({
     }
   },
   listRoot: {
+    flex     : 1,
     overflowX: 'hidden'
     // justifyContent: 'space-between'
   },
@@ -95,10 +97,10 @@ const useStyles = makeStyles(theme => ({
     //   overflow: 'initial'
     // },
     // borderRadius  : 4,
-    padding        : theme.spacing(1)
+    overflow       : 'auto',
     // flex          : 1,
     // justifyContent: 'center',
-    // overflow      : 'hidden',
+    padding        : theme.spacing(1)
     // padding       : theme.spacing(1),
     // position      : 'relative'
   },
@@ -123,7 +125,7 @@ const useStyles = makeStyles(theme => ({
     boxShadow: '0px -1px 5px rgba(0, 0, 0, 0.1)'
   },
   toolbar: theme.mixins.toolbar
-}), { name: 'Main' })
+})
 
 function DrawerListItem({ menu, classes }) {
   const history = useHistory()
@@ -132,15 +134,17 @@ function DrawerListItem({ menu, classes }) {
     location
   } = history
 
-  const [ openCollapse, setOpenCollapse ] = React.useState(false)
-  const { options, title, icon, url, target } = menu
+  const { options, title, icon, url, target, expanded = false, disabled = false, onClick } = menu
+
+  const [ openCollapse, setOpenCollapse ] = React.useState(expanded)
 
   const _handleToggleCollapse = () => {
     setOpenCollapse(!openCollapse)
   }
 
-  const _handlePreventRoute = mUrl => (ev) => {
-    if(location.pathname === mUrl) ev.preventDefault()
+  const _handleClickLink = mUrl => ev => {
+    if(location.pathname === mUrl || onClick) ev.preventDefault()
+    if(onClick) onClick()
   }
 
   if(options && options.length)
@@ -182,14 +186,16 @@ function DrawerListItem({ menu, classes }) {
       </>
     )
 
-  const linkProps = url && isExternalURL(url) ?
-    {
-      href: url
-    } :
-    {
-      component: RouterLink,
-      to       : url
-    }
+  const linkProps = url ?
+    isExternalURL(url) ?
+      {
+        href: url
+      } :
+      {
+        component: RouterLink,
+        to       : url
+      } :
+    {}
 
   return (
     <ListItem
@@ -200,11 +206,12 @@ function DrawerListItem({ menu, classes }) {
           [classes.menuDashboardListItemActive]: location.pathname === url
         }
       )}
+      disabled={disabled}
       disableGutters>
       <Link
         className={classes.menuDashboardItem}
         color='inherit'
-        onClick={_handlePreventRoute(url)}
+        onClick={_handleClickLink(url)}
         target={target}
         underline='none'
         {...linkProps}>
@@ -236,14 +243,13 @@ const renderDrawerList = (menus, classes) => (
 
 function Main(props) {
   const {
+    classes,
     menus = [],
     component: Component = 'main',
     isOpenDrawer,
     children,
     optionBottom
   } = props
-
-  const classes = useStyles()
 
   const _handleClickOptionBottom = ev => {
     if(optionBottom.onClick) optionBottom.onClick(ev)
@@ -313,14 +319,19 @@ function Main(props) {
 }
 
 Main.propTypes = {
+  classes     : PropTypes.object.isRequired,
   isOpenDrawer: PropTypes.bool,
+  /**
+   * @ignore
+   */
   menus       : PropTypes.arrayOf(
     PropTypes.shape({
-      icon   : PropTypes.element,
-      options: PropTypes.array,
-      target : PropTypes.string,
-      title  : PropTypes.string.isRequired,
-      url    : PropTypes.string
+      expanded: PropTypes.bool,
+      icon    : PropTypes.element,
+      options : PropTypes.array,
+      target  : PropTypes.string,
+      title   : PropTypes.string.isRequired,
+      url     : PropTypes.string
     })
   ),
   optionBottom: PropTypes.shape({
@@ -330,4 +341,4 @@ Main.propTypes = {
   })
 }
 
-export default Main
+export default withStyles(styles, { name: 'KrowdyMain' })(Main)

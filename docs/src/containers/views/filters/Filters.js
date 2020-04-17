@@ -360,19 +360,21 @@ export default function () {
   }
 
   return (
-    <Filters
-      categoryItems={categoryItems}
-      classes={{
-        root: classes.root
-      }}
-      filterGroups={groupedFilters}
-      filters={appliedFilters}
-      filterTypes={filterTypes}
-      hasNextPage={categoryItems.length < 100 ? true : false}
-      headerHomeComponent={<HeaderHomeComponent />}
-      loadMoreCategoryItems={_handleLoadMoreCategoryItems}
-      onChangeFilters={_handleChangeFilters}
-      onSelectCategoryFilter={_handleSelectCategoryFilter}
-      title='Todos las compras' />
+    <div style={{ maxHeight: 700 }}>
+      <Filters
+        categoryItems={categoryItems}
+        classes={{
+          root: classes.root
+        }}
+        filterGroups={groupedFilters}
+        filters={appliedFilters}
+        filterTypes={filterTypes}
+        hasNextPage={categoryItems.length < 100 ? true : false}
+        headerHomeComponent={<HeaderHomeComponent />}
+        loadMoreCategoryItems={_handleLoadMoreCategoryItems}
+        onChangeFilters={_handleChangeFilters}
+        onSelectCategoryFilter={_handleSelectCategoryFilter}
+        title='Todos las compras' />
+    </div>
   )
 }

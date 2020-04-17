@@ -174,7 +174,8 @@ export default makeStyles(({ palette, spacing }) => ({
     // },
     '& $rowContentTitle, & $rowContentChips': {
       display      : 'flex',
-      flexDirection: 'column'
+      flexDirection: 'column',
+      whiteSpace   : 'nowrap'
     },
     '& $rowIcon, & $rowLabel,& $rowToolbar': {
       alignItems: 'center',

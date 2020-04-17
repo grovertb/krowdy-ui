@@ -17,7 +17,9 @@ export const styles = (theme) => ({
   },
   cardContent: {
     display       : 'flex',
-    justifyContent: 'center'
+    flex          : 2,
+    justifyContent: 'center',
+    overflowY     : 'hidden'
   },
   cardTitle: {
     fontSize: 14
@@ -31,7 +33,9 @@ export const styles = (theme) => ({
     padding: 0
   },
   root: {
-    height: '100%'
+    display : 'flex',
+    flexFlow: 'column',
+    height  : '100%'
   },
   titleBack: {
     fontSize: 14
@@ -41,8 +45,14 @@ export const styles = (theme) => ({
     display   : 'flex',
     height    : 20
   },
+  treeContainer: {
+    overflowY: 'scroll'
+  },
   viewContainer: {
-    width: '100%'
+    height   : '100%',
+    overflowX: 'hidden',
+    overflowY: 'scroll',
+    width    : '100%'
   }
 })
 
@@ -76,7 +86,8 @@ const Filters = (props) => {
     filterTypes = [],
     loadMoreCategoryItems = () => {},
     listWidth,
-    filterGroups = []
+    filterGroups = [],
+    dots = false
   }  = props
 
   const [ view, goToView ] = useState(Views.HOME)
@@ -100,28 +111,10 @@ const Filters = (props) => {
     return item
   })
 
-  // const deepDelete = (arr, { _id, ...updatedItem } ) => arr.map(item => {
-  //   if(item._id === _id)
-  //     return null
-
-  //   if(Array.isArray(item.children) && item.children.length)
-  //     return {
-  //       ...item,
-  //       children: deepDelete(item.children, { _id, ...updatedItem })
-  //     }
-
-  //   return item
-  // }).filter(Boolean)
-
   const updateFilter = (filter) => {
     const updatedFilters = deepUpdate(filters, filter)
     onChangeFilters(updatedFilters)
   }
-
-  // const _handleDeleteFilter = (deletedFilter) => {
-  //   const updatedFilters = deepDelete(filters, deletedFilter)
-  //   onChangeFilters(updatedFilters)
-  // }
 
   const _handleClickApplyFilters = (filter) => {
     if(filterToEdit) {
@@ -188,19 +181,20 @@ const Filters = (props) => {
           {
             filters.length === 0 ? HeaderHomeComponent : null
           }
-          {/* <AppliedFilters
-            filters={filters}
-            onClickEdit={_handleClickEditFilter}
-            onDeleteFilter={_handleDeleteFilter} /> */}
-          <FiltersTree
-            onChange={_handleChangeFilterTree}
-            onClickEdit={_handleClickEditFilter}
-            treeData={filters} />
+          <div className={classes.treeContainer}>
+            <FiltersTree
+              dots={dots}
+              onChange={_handleChangeFilterTree}
+              onClickEdit={_handleClickEditFilter}
+              treeData={filters} />
+          </div>
           <div className={classes.center}>
             <Button
               color='primary'
               onClick={_handleClickAddFilter}
-              startIcon={<AddIcon />}>Añadir filtro</Button>
+              startIcon={<AddIcon />}>
+                Añadir filtro
+            </Button>
           </div>
         </TabPanel>
         <TabPanel
