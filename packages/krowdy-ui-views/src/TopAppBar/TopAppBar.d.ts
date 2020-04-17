@@ -36,10 +36,11 @@ export type TopAppBarProps = {
   apps?: Array<ITopMenu>,
   color?: PropTypes.Color;
   logo?: Ilogo;
-  menuTopLeft?: Array<ITopMenu>,
-  menuTopRight?: Array<ITopMenu>,
-  onHandleLogout?: () => void
-  onHandleToggleDrawer?: () => void
+  menuTopLeft?: Array<ITopMenu>;
+  menuTopRight?: Array<ITopMenu>;
+  onHandleLogout?: () => void;
+  persistMenuIcon?: boolean;
+  onHandleToggleDrawer?: () => void;
   user?: Iuser;
   userMenu?: Array<IUserMenu>
 };
