@@ -123,10 +123,11 @@ const FiltersList = React.memo((props) => {
                   {filterGroup.label}
                 </ListSubheader>
                 {
-                  filterGroup.children.filter(filter => uniqueFilter ? !filters.find(({ key }) => filter.key === key) : filter).map(filter => (
+                  filterGroup.children.map(filter => (
                     <ListItem
                       button
                       className={classes.listItem}
+                      disabled={uniqueFilter ? filters.find(({ key }) => filter.key === key) : false}
                       key={`filter-${index}-${filter._id}`}
                       onClick={_handleClickItem(filter)}>
                       <ListItemText

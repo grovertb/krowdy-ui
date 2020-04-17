@@ -375,7 +375,7 @@ export default function () {
         onChangeFilters={_handleChangeFilters}
         onSelectCategoryFilter={_handleSelectCategoryFilter}
         title='Todos las compras'
-        uniqueFilter={false} />
+        uniqueFilter={true} />
     </div>
   )
 }
