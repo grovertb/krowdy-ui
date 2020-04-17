@@ -58,6 +58,8 @@ export const useStyles = makeStyles((theme) => ({
 const FiltersList = React.memo((props) => {
   const {
     filterGroups,
+    filters,
+    uniqueFilter,
     onClickItem
   } = props
 
@@ -121,7 +123,7 @@ const FiltersList = React.memo((props) => {
                   {filterGroup.label}
                 </ListSubheader>
                 {
-                  filterGroup.children.map(filter => (
+                  filterGroup.children.filter(filter => uniqueFilter ? !filters.find(({ key }) => filter.key === key) : filter).map(filter => (
                     <ListItem
                       button
                       className={classes.listItem}

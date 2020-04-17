@@ -41,6 +41,7 @@ export interface FiltersProps {
   classes?: Classes,
   filterGroups: FilterGroup[],
   filters: AppliedFilter[],
+  uniqueFilter: boolean,
   headerHomeComponent?: React.ReactNode,
   listWidth?: number,
   onChangeFilters: (appliedFilters: AppliedFilter[]) => void,
