@@ -374,7 +374,8 @@ export default function () {
         loadMoreCategoryItems={_handleLoadMoreCategoryItems}
         onChangeFilters={_handleChangeFilters}
         onSelectCategoryFilter={_handleSelectCategoryFilter}
-        title='Todos las compras' />
+        title='Todos las compras'
+        uniqueFilter={false} />
     </div>
   )
 }
