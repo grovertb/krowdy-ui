@@ -48,6 +48,9 @@ export * from './Root';
 export { default as Search } from './Search'
 export * from './Search'
 
+export { default as Skeleton } from './Skeleton';
+export * from './Skeleton';
+
 export { default as SwitchButton } from './SwitchButton';
 export * from './SwitchButton';
 
