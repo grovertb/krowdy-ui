@@ -23,6 +23,7 @@ const CardHeader = React.forwardRef(function CardHeader(props, ref) {
 
   return (
     <MuiCardHeader
+      classes={classes}
       className={
         clsx(
           classNameProps,
