@@ -16,7 +16,10 @@ export const styles = theme => ({
 const CardHeader = React.forwardRef(function CardHeader(props, ref) {
   const {
     className: classNameProps,
-    classes,
+    classes: {
+      shadow: shadowClass,
+      ...classes
+    },
     shadow = false,
     ...othersProps
   } = props
@@ -28,7 +31,7 @@ const CardHeader = React.forwardRef(function CardHeader(props, ref) {
         clsx(
           classNameProps,
           {
-            [classes.shadow]: shadow
+            [shadowClass]: shadow
           }
         )
       }
