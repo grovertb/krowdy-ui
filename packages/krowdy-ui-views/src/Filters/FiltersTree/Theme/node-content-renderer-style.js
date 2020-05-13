@@ -26,8 +26,10 @@ export default makeStyles(({ palette, spacing }) => ({
   collapseButton: {},
   contentDrag   : {
     alignItems: 'center',
+    color     : palette.grey[600],
     cursor    : 'grab',
-    display   : 'flex'
+    display   : 'flex',
+    zoom      : '75%'
   },
   expandButton: {
     // '&::after': {
@@ -241,7 +243,7 @@ export default makeStyles(({ palette, spacing }) => ({
     flex: 1
   },
   rowPanelRight: {
-    marginLeft: spacing(2)
+    marginLeft: spacing(.5)
   },
   rowSearchFocus: {
     // boxShadow: 'inset 0 -7px 7px -3px #fc6421',
