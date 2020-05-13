@@ -6,28 +6,38 @@ import clsx from 'clsx'
 import { withStyles } from '@krowdy-ui/styles'
 
 export const styles = theme => ({
-  shadow: {
+  action : {},
+  avatar : {},
+  content: {},
+  root   : {},
+  shadow : {
     borderBottom: `1px solid ${theme.palette.grey[300]}`,
     boxShadow   : '0px 2px 5px rgba(0, 0, 0, 0.05)',
     padding     : theme.spacing(1.25, 2)
-  }
+  },
+  subheader: {},
+  title    : {}
 })
 
 const CardHeader = React.forwardRef(function CardHeader(props, ref) {
   const {
     className: classNameProps,
-    classes,
+    classes: {
+      shadow: shadowClass,
+      ...classes
+    },
     shadow = false,
     ...othersProps
   } = props
 
   return (
     <MuiCardHeader
+      classes={classes}
       className={
         clsx(
           classNameProps,
           {
-            [classes.shadow]: shadow
+            [shadowClass]: shadow
           }
         )
       }

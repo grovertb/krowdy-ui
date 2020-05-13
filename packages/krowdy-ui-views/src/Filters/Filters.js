@@ -87,7 +87,8 @@ const Filters = (props) => {
     loadMoreCategoryItems = () => {},
     listWidth,
     filterGroups = [],
-    dots = false
+    dots = false,
+    uniqueFilter = false
   }  = props
 
   const [ view, goToView ] = useState(Views.HOME)
@@ -203,7 +204,9 @@ const Filters = (props) => {
           value={view.index}>
           <FiltersList
             filterGroups={filterGroups}
-            onClickItem={_handleClickFilterListItem} />
+            filters={filters}
+            onClickItem={_handleClickFilterListItem}
+            uniqueFilter={uniqueFilter} />
         </TabPanel>
         <TabPanel
           className={classes.viewContainer}
@@ -283,7 +286,8 @@ Filters.propTypes = {
   onChangeFilters       : PropTypes.func.isRequired,
   onFetchFilterGroups   : PropTypes.func,
   onSelectCategoryFilter: PropTypes.func,
-  title                 : PropTypes.string.isRequired
+  title                 : PropTypes.string.isRequired,
+  uniqueFilter          : PropTypes.bool
 }
 
 Filters.muiName = 'KrowdyFilters'
