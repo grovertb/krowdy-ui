@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link as RouterLink, useLocation } from 'react-router-dom'
@@ -149,6 +150,7 @@ function TopAppBar(props) {
     onHandleLogout,
     onHandleToggleDrawer,
     persistMenuIcon = false,
+    historyPath,
     user = {},
     userMenu = []
   } = props
@@ -162,6 +164,13 @@ function TopAppBar(props) {
   })
 
   const [ menuActive, setMenuActive ] = React.useState(null)
+
+  const [ urlLogo, setUrlLogo ] = React.useState('/')
+
+  React.useEffect(() => {
+    if(historyPath)
+      if(location.pathname.includes(historyPath)) setUrlLogo(location.pathname)
+  }, [ historyPath, location.pathname ])
 
   const _handleOpenMenu = (ev, key) => {
     setAnchorEl({
@@ -201,9 +210,9 @@ function TopAppBar(props) {
             </IconButton>:
             null
         }
-        <Link className={classes.logoCompany} component={RouterLink} to='/'>
+        <Link className={classes.logoCompany} component={RouterLink} to={urlLogo}>
           <img
-            alt='Logo Main'
+            alt={logo.alt || 'Logo Main'}
             src={logo.source} />
         </Link>
         <div className={classes.toolbarCenter}>
@@ -414,8 +423,9 @@ TopAppBar.propTypes = {
       url  : PropTypes.string
     })
   ),
-  color: PropTypes.oneOf([ 'default', 'inherit', 'primary', 'secondary', 'krowdy', 'error' ]),
-  logo : PropTypes.shape({
+  color      : PropTypes.oneOf([ 'default', 'inherit', 'primary', 'secondary', 'krowdy', 'error' ]),
+  historyPath: PropTypes.string,
+  logo       : PropTypes.shape({
     alt   : PropTypes.string,
     source: PropTypes.string
   }),
