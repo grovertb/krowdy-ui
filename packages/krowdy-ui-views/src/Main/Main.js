@@ -124,6 +124,11 @@ const styles = theme => ({
   optionBottom: {
     boxShadow: '0px -1px 5px rgba(0, 0, 0, 0.1)'
   },
+  shadow: {
+    boxShadow: '0 10px 30px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)',
+    // boxShadow: '0 10px 20px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)',
+    position : 'relative'
+  },
   toolbar: theme.mixins.toolbar
 })
 
@@ -246,6 +251,7 @@ function Main(props) {
     classes,
     menus = [],
     component: Component = 'main',
+    shadow = false,
     isOpenDrawer,
     children,
     optionBottom
@@ -262,6 +268,7 @@ function Main(props) {
           paper: clsx(
             classes.drawerPaper,
             {
+              [classes.shadow]          : shadow,
               [classes.drawerPaperClose]: isOpenDrawer
             }
           )
@@ -338,7 +345,8 @@ Main.propTypes = {
     icon   : PropTypes.element,
     onClick: PropTypes.func,
     title  : PropTypes.string.isRequired
-  })
+  }),
+  shadow: PropTypes.bool
 }
 
 export default withStyles(styles, { name: 'KrowdyMain' })(Main)

@@ -109,7 +109,8 @@ export default function () {
             console.log('fixed Button')
           },
           title: 'Crear Empresa'
-        }
+        },
+        shadow: true
       }}
       topAppBarProps={{
         logo: {

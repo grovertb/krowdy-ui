@@ -20,6 +20,7 @@ export type MainProps = {
   optionBottom?: OptionBottom
   isOpenDrawer?: boolean
   component?: React.ElementType
+  shadow: boolean
 };
 
 declare const Main: React.ComponentType<MainProps>;
