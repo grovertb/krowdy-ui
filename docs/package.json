@@ -4,9 +4,9 @@
   "private": true,
   "dependencies": {
     "@hot-loader/react-dom": "16.13.0",
-    "@krowdy-ui/core": "^0.0.54",
-    "@krowdy-ui/styles": "^0.0.21",
-    "@krowdy-ui/views": "^0.0.92-next",
+    "@krowdy-ui/core": "^0.0.55",
+    "@krowdy-ui/styles": "^0.0.22",
+    "@krowdy-ui/views": "^0.0.96-next",
     "@loadable/component": "5.12.0",
     "@material-ui/icons": "4.9.1",
     "@material-ui/lab": "4.0.0-alpha.53",
