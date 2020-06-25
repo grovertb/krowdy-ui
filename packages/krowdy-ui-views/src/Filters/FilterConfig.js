@@ -9,6 +9,7 @@ import generateRandomId from '../utils/generateRandomId'
 import CategoryItems from './CategoryItems'
 import InputChip from './InputChip'
 import useFilterValidator from './useFilterValidator'
+import TagCloudWords from './TagCloudWords'
 
 const useStyles = makeStyles((theme) => ({
   and: {
@@ -261,7 +262,20 @@ const FilterConfig = (props) => {
           </>
         )
       case 'generic':
-        return <InputChip onChange={_handleChange()} values={filterConfig} />
+        return (
+          <TagCloudWords
+            categoryKey={filter.key}
+            hasNextPage={hasNextPage}
+            items={categoryItems}
+            listWidth={listWidth}
+            loadMore={_handleLoadMoreItems(filter.key)}
+            onChangeSelected={_handleChange()}
+            onResetCategoryItems={onSelectCategoryFilter}
+            selectedItems={filterConfig} />
+        )
+        // return <InputChip onChange={_handleChange()} values={filterConfig} />
+
+        // case 'keywords':
       case 'date':
         return (
           <MuiPickersUtilsProvider  locale={esLocale} utils={DayJSUtils}>

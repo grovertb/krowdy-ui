@@ -25,6 +25,30 @@ const groupedFilters = [
         type : 'category'
       },
       {
+        _id  : '577316010',
+        key  : 'estadoproceso-0',
+        label: 'Estado del proceso 0',
+        type : 'category'
+      },
+      {
+        _id  : '577316011',
+        key  : 'estadoproceso-1',
+        label: 'Estado del proceso 1',
+        type : 'category'
+      },
+      {
+        _id  : '577316012',
+        key  : 'estadoproceso-2',
+        label: 'Estado del proceso 2',
+        type : 'category'
+      },
+      {
+        _id  : '577316013',
+        key  : 'estadoproceso-3',
+        label: 'Estado del proceso 3',
+        type : 'category'
+      },
+      {
         _id  : '675041186',
         key  : 'estrategabusqueda',
         label: 'Estratega de búsqueda',
@@ -329,6 +353,7 @@ const getNewCategoryItemsAsync = async (key, time = 1000) => new Promise(resolve
 
       return {
         _id  : id,
+        count: Math.round(Math.random() * 1231),
         label: `${id} - ${key}`
       }
     })
@@ -349,6 +374,7 @@ export default function () {
 
   const _handleLoadMoreCategoryItems = async (key) => {
     const newItems = await getNewCategoryItemsAsync(key)
+    console.log('_handleLoadMoreCategoryItems -> newItems', newItems)
     setCategoryItems(prev => [ ...prev, ...newItems ])
   }
 
