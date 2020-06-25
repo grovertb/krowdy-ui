@@ -125,6 +125,7 @@ const FilterConfig = (props) => {
               }
           }
         case 'category':
+        case 'keyword':
         case 'generic':
           return filter.value
         default:
@@ -158,6 +159,7 @@ const FilterConfig = (props) => {
         return null
       case 'generic':
       case 'category':
+      case 'keyword':
         return filterConfig
       default:
         return null
@@ -187,6 +189,7 @@ const FilterConfig = (props) => {
         break
       case 'generic':
       case 'category':
+      case 'keyword':
         setFilterConfig(eventOrValue)
         break
       default:
@@ -261,7 +264,7 @@ const FilterConfig = (props) => {
             }
           </>
         )
-      case 'generic':
+      case 'keyword':
         return (
           <TagCloudWords
             categoryKey={filter.key}
@@ -273,9 +276,8 @@ const FilterConfig = (props) => {
             onResetCategoryItems={onSelectCategoryFilter}
             selectedItems={filterConfig} />
         )
-        // return <InputChip onChange={_handleChange()} values={filterConfig} />
-
-        // case 'keywords':
+      case 'generic':
+        return <InputChip onChange={_handleChange()} values={filterConfig} />
       case 'date':
         return (
           <MuiPickersUtilsProvider  locale={esLocale} utils={DayJSUtils}>

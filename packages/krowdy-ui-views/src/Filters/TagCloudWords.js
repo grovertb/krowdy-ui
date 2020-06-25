@@ -1,13 +1,55 @@
-import React, { useState, useEffect } from 'react'
-import { Dialog, DialogContent, Chip, makeStyles } from '@krowdy-ui/core'
-import { TagCloud } from 'react-tagcloud'
-// import TagCloud from 'react-tag-cloud'
+import React, { useState, useEffect, useMemo } from 'react'
+import { Dialog, DialogContent, makeStyles, Button, DialogTitle as MuiDialogTitle, withStyles, Typography, IconButton } from '@krowdy-ui/core'
+import InputChip from './InputChip'
+import { Close as CloseIcon } from '@material-ui/icons'
+
+const useStyles = makeStyles((theme) => ({
+  button: {
+    marginTop: 12
+  },
+  cloudTag: {
+    color   : ({ color }) => color,
+    cursor  : 'pointer',
+    display : 'inline-block',
+    fontSize: ({ count }) => count,
+    margin  : theme.spacing(0,1)
+  },
+  tagCloudWordsContainer: {
+    height   : 420,
+    textAlign: 'center'
+  },
+  tagsContainer: {
+    marginTop: 12
+  }
+}))
+
+const styles = (theme) => ({
+  closeButton: {
+    color   : theme.palette.grey[500],
+    position: 'absolute',
+    right   : theme.spacing(1),
+    top     : theme.spacing(1)
+  },
+  root: {
+    margin : 0,
+    padding: theme.spacing(2)
+  }
+})
 
 const transform = (A,B,x) =>
   Math.round((x - A.min) / (A.max - A.min) * ( B.max - B.min ) + B.min)
 
-const TagCloudWords = ({ onChange, values, onResetCategoryItems, loadMore,categoryKey,selectedItems,items }) => {
+const shuffle = (array) => [].concat(array).sort (() => 0.5 - Math.random ())
+
+function getColor() {
+  return `hsla(${~~(360 * Math.random())},70%,75%,1)`
+}
+
+const rangeDataDestination = { max: 35,min: 12 }
+
+const TagCloudWords = ({ onChangeSelected, onResetCategoryItems, loadMore,categoryKey,selectedItems,items }) => {
   const [ open, setOpen ] = useState(false)
+  const classes = useStyles()
   const _handleClose = () => {
     setOpen(false)
   }
@@ -15,63 +57,80 @@ const TagCloudWords = ({ onChange, values, onResetCategoryItems, loadMore,catego
     setOpen(true)
   }
 
-  console.log('TagCloudWords -> selectedItems', selectedItems)
-  console.log('items',items)
-
   useEffect(() => {
     onResetCategoryItems(categoryKey)
     loadMore()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const max = items.reduce((r,a) => Math.max(r,a.count),1)
-  const min = items.reduce((r,a) => Math.min(r,a.count),Infinity)
-  const rangeDataSource = { max,min }
-  const rangeDataDestination = { max: 35,min: 12 }
-  const tags = items.map((element) => ({ count: transform(rangeDataSource,rangeDataDestination,element.count),value: element.label }))
+  const tags = useMemo(() => {
+    const max = items.reduce((r,a) => Math.max(r,a.count),1)
+    const min = items.reduce((r,a) => Math.min(r,a.count),Infinity)
+    const rangeDataSource =({ max,min })
+
+    return shuffle(items.map((element) => ({
+      _id  : element._id,
+      color: getColor(),
+      count: transform(rangeDataSource,rangeDataDestination,element.count),
+      value: element.label
+    })))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[ items ])
+
+  const _handleClickTag = (tag) => {
+    const existsValue = selectedItems.includes(tag.value)
+    // Don't add if value already exists
+    if(!existsValue)
+      onChangeSelected(selectedItems.concat(tag.value))
+  }
 
   return (
     <div>
       <Dialog fullWidth onClose={_handleClose} open={open}>
-        <DialogContent style={{ height: 420 }}>
-          <TagCloud
-            maxSize={rangeDataDestination.max}
-            minSize={rangeDataDestination.min}
-            onClick={tag => console.log(tag)}
-            renderer={customRenderer}
-            shuffle={true}
-            style={{ textAlign: 'center' }}
-            tags={tags} />
+        <DialogTitle>Nube de palabras</DialogTitle>
+        <DialogContent className={classes.tagCloudWordsContainer}>
+          <InputChip onChange={onChangeSelected} values={selectedItems} />
+          <div className={classes.tagsContainer}>
+            {tags.map((tag) => (
+              <CloudTag key={tag._id} onClick={_handleClickTag} tag={tag} />
+            ))}
+          </div>
         </DialogContent>
       </Dialog>
-      <div onClick={_handleOpen}>
-        <Chip />
-      </div>
+      <InputChip onChange={onChangeSelected} values={selectedItems} />
+      <Button
+        className={classes.button}
+        fullWidth
+        onClick={_handleOpen}
+        variant='outlined'>Palabras</Button>
     </div>
   )
 }
 
-const customRenderer = (tag,size,color) => (
-  <span
-    key={tag.value}
-    style={{
-      // animation     : 'blinker 3s linear infinite',
-      // animationDelay: `${Math.random() * 2}s`,
-      // border  : `2px solid ${color}`,
-      color,
-      cursor  : 'pointer',
-      display : 'inline-block',
-      fontSize: size
-    }}>
-    {tag.value}
-  </span>
-)
+const DialogTitle = withStyles(styles)((props) => {
+  const { children, classes, onClose, ...other } = props
 
-// const useStyles = makeStyles(() => ({
-//   cloudItem: {
-//     color   : ({ color }) => color || 'black',
-//     fontSize: ({ fontSize }) => fontSize || 12
-//   }
-// }))
+  return (
+    <MuiDialogTitle className={classes.root} disableTypography {...other}>
+      <Typography variant='h6'>{children}</Typography>
+      {onClose ? (
+        <IconButton aria-label='close' className={classes.closeButton} onClick={onClose}>
+          <CloseIcon />
+        </IconButton>
+      ) : null}
+    </MuiDialogTitle>
+  )
+})
+
+const CloudTag = ({ tag, onClick }) => {
+  const { color, count, value } = tag
+  const classes = useStyles({ color, count })
+
+  return (
+    <span className={classes.cloudTag} onClick={() => onClick(tag)}>
+      {value}
+    </span>
+  )
+}
 
 export default TagCloudWords
