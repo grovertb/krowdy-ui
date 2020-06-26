@@ -81,8 +81,6 @@ const TagCloudWords = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[ items ])
 
-  console.log('tags',tags)
-
   const _handleClickTag = (tag) => {
     const existsValue = selectedItems.includes(tag.value)
     // Don't add if value already exists
