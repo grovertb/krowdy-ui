@@ -9,11 +9,12 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 12
   },
   cloudTag: {
-    color   : ({ color }) => color,
+    // color   : ({ color }) => color,
+    color   : theme.palette.secondary[500],
     cursor  : 'pointer',
     display : 'inline-block',
     fontSize: ({ count }) => count,
-    margin  : theme.spacing(0,1)
+    margin  : theme.spacing(0,.5)
   },
   tagCloudWordsContainer: {
     height   : 420,
@@ -42,9 +43,9 @@ const transform = (A,B,x) =>
 
 const shuffle = (array) => [].concat(array).sort (() => 0.5 - Math.random ())
 
-function getColor() {
-  return `hsla(${~~(360 * Math.random())},70%,75%,1)`
-}
+// function getColor() {
+//   return `hsla(${~~(360 * Math.random())},70%,75%,1)`
+// }
 
 const rangeDataDestination = { max: 35,min: 12 }
 
@@ -71,7 +72,6 @@ const TagCloudWords = ({ onChangeSelected = () => {}, onResetCategoryItems = () 
 
     return shuffle(items.map((element) => ({
       _id  : element._id,
-      color: getColor(),
       count: transform(rangeDataSource,rangeDataDestination,element.count),
       value: element.label
     })))
@@ -124,8 +124,8 @@ const DialogTitle = withStyles(styles)((props) => {
 })
 
 const CloudTag = ({ tag, onClick }) => {
-  const { color, count, value } = tag
-  const classes = useStyles({ color, count })
+  const { count, value } = tag
+  const classes = useStyles({ count })
 
   return (
     <span className={classes.cloudTag} onClick={() => onClick(tag)}>
