@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react'
-import { Dialog, DialogContent, makeStyles, Button, DialogTitle as MuiDialogTitle, withStyles, Typography, IconButton } from '@krowdy-ui/core'
+import { Dialog, DialogContent, makeStyles, Button, DialogTitle, Typography, IconButton } from '@krowdy-ui/core'
 import InputChip from './InputChip'
 import { Close as CloseIcon } from '@material-ui/icons'
 import PropTypes from 'prop-types'
@@ -7,6 +7,12 @@ import PropTypes from 'prop-types'
 const useStyles = makeStyles((theme) => ({
   button: {
     marginTop: 12
+  },
+  closeButton: {
+    color   : theme.palette.grey[500],
+    position: 'absolute',
+    right   : theme.spacing(1),
+    top     : theme.spacing(1)
   },
   cloudTag: {
     // color   : ({ color }) => color,
@@ -16,6 +22,10 @@ const useStyles = makeStyles((theme) => ({
     fontSize: ({ count }) => count,
     margin  : theme.spacing(0,.5)
   },
+  dialogTitleContainer: {
+    margin : 0,
+    padding: theme.spacing(2)
+  },
   tagCloudWordsContainer: {
     height   : 420,
     textAlign: 'center'
@@ -24,19 +34,6 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 12
   }
 }))
-
-const styles = (theme) => ({
-  closeButton: {
-    color   : theme.palette.grey[500],
-    position: 'absolute',
-    right   : theme.spacing(1),
-    top     : theme.spacing(1)
-  },
-  root: {
-    margin : 0,
-    padding: theme.spacing(2)
-  }
-})
 
 const transform = (A,B,x) =>
   Math.round((x - A.min) / (A.max - A.min) * ( B.max - B.min ) + B.min)
@@ -88,7 +85,14 @@ const TagCloudWords = ({ onChangeSelected = () => {}, onResetCategoryItems = () 
   return (
     <div>
       <Dialog fullWidth onClose={_handleClose} open={open}>
-        <DialogTitle>Nube de palabras</DialogTitle>
+        <DialogTitle className={classes.dialogTitleContainer} disableTypography>
+          <Typography variant='h6'>Nube de palabras</Typography>
+          <IconButton
+            aria-label='close' className={classes.closeButton} onClick={_handleClose}
+            size='small'>
+            <CloseIcon fontSize='small' />
+          </IconButton>
+        </DialogTitle>
         <DialogContent className={classes.tagCloudWordsContainer}>
           <InputChip onChange={onChangeSelected} values={selectedItems} />
           <div className={classes.tagsContainer}>
@@ -107,21 +111,6 @@ const TagCloudWords = ({ onChangeSelected = () => {}, onResetCategoryItems = () 
     </div>
   )
 }
-
-const DialogTitle = withStyles(styles)((props) => {
-  const { children, classes, onClose, ...other } = props
-
-  return (
-    <MuiDialogTitle className={classes.root} disableTypography {...other}>
-      <Typography variant='h6'>{children}</Typography>
-      {onClose ? (
-        <IconButton aria-label='close' className={classes.closeButton} onClick={onClose}>
-          <CloseIcon />
-        </IconButton>
-      ) : null}
-    </MuiDialogTitle>
-  )
-})
 
 const CloudTag = ({ tag, onClick }) => {
   const { count, value } = tag
