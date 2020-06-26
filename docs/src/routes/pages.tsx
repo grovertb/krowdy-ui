@@ -196,6 +196,10 @@ const pages: Array<Page> = [
         path: '/views/tablewindow'
       },
       {
+        title: 'Table Infinity',
+        path: '/views/tableInfinity'
+      },
+      {
         title: 'Top AppBar',
         path: '/views/topappbar'
       },
