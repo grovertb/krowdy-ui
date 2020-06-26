@@ -35,18 +35,22 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const transform = (A,B,x) =>
-  Math.round((x - A.min) / (A.max - A.min) * ( B.max - B.min ) + B.min)
-
-const shuffle = (array) => [].concat(array).sort (() => 0.5 - Math.random ())
+// Transforma un valor de un intervalo1 a un intervalo2
+const transform = (Interval1,Interval2,x) =>
+  Math.round((x - Interval1.min) / (Interval1.max - Interval1.min) * ( Interval2.max - Interval2.min ) + Interval2.min)
 
 // function getColor() {
 //   return `hsla(${~~(360 * Math.random())},70%,75%,1)`
 // }
 
-const rangeDataDestination = { max: 35,min: 12 }
-
-const TagCloudWords = ({ onChangeSelected = () => {}, onResetCategoryItems = () => {}, loadMore = () => {},categoryKey,selectedItems = [],items = [] }) => {
+const TagCloudWords = ({
+  onChangeSelected = () => {},
+  onResetCategoryItems = () => {},
+  loadMore = () => {},
+  categoryKey,
+  selectedItems = [],
+  items = []
+}) => {
   const [ open, setOpen ] = useState(false)
   const classes = useStyles()
   const _handleClose = () => {
@@ -63,17 +67,21 @@ const TagCloudWords = ({ onChangeSelected = () => {}, onResetCategoryItems = () 
   }, [])
 
   const tags = useMemo(() => {
-    const max = items.reduce((r,a) => Math.max(r,a.count),1)
-    const min = items.reduce((r,a) => Math.min(r,a.count),Infinity)
-    const rangeDataSource =({ max,min })
+    const max = items.reduce((r, a) => Math.max(r, a.count), 1)
+    const min = items.reduce((r, a) => Math.min(r, a.count), Infinity)
+    const rangeDataSource = { max, min }
 
-    return shuffle(items.map((element) => ({
-      _id  : element._id,
-      count: transform(rangeDataSource,rangeDataDestination,element.count),
-      value: element.label
-    })))
+    return [
+      ...items.map((element) => ({
+        _id  : element._id,
+        count: transform(rangeDataSource, { max: 35,min: 12 }, element.count),
+        value: element.label
+      }))
+    ].sort (() => 0.5 - Math.random ())
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[ items ])
+
+  console.log('tags',tags)
 
   const _handleClickTag = (tag) => {
     const existsValue = selectedItems.includes(tag.value)
@@ -88,7 +96,9 @@ const TagCloudWords = ({ onChangeSelected = () => {}, onResetCategoryItems = () 
         <DialogTitle className={classes.dialogTitleContainer} disableTypography>
           <Typography variant='h6'>Nube de palabras</Typography>
           <IconButton
-            aria-label='close' className={classes.closeButton} onClick={_handleClose}
+            aria-label='close'
+            className={classes.closeButton}
+            onClick={_handleClose}
             size='small'>
             <CloseIcon fontSize='small' />
           </IconButton>
