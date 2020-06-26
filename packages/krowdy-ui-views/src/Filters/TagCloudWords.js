@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react'
 import { Dialog, DialogContent, makeStyles, Button, DialogTitle as MuiDialogTitle, withStyles, Typography, IconButton } from '@krowdy-ui/core'
 import InputChip from './InputChip'
 import { Close as CloseIcon } from '@material-ui/icons'
+import PropTypes from 'prop-types'
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -47,7 +48,7 @@ function getColor() {
 
 const rangeDataDestination = { max: 35,min: 12 }
 
-const TagCloudWords = ({ onChangeSelected, onResetCategoryItems, loadMore,categoryKey,selectedItems,items }) => {
+const TagCloudWords = ({ onChangeSelected = () => {}, onResetCategoryItems = () => {}, loadMore = () => {},categoryKey,selectedItems = [],items = [] }) => {
   const [ open, setOpen ] = useState(false)
   const classes = useStyles()
   const _handleClose = () => {
@@ -131,6 +132,20 @@ const CloudTag = ({ tag, onClick }) => {
       {value}
     </span>
   )
+}
+
+TagCloudWords.propTypes = {
+  categoryKey: PropTypes.string,
+  hasNextPage: PropTypes.bool.isRequired,
+  items      : PropTypes.arrayOf(PropTypes.shape({
+    _id  : PropTypes.string.isRequired,
+    count: PropTypes.number.isRequired,
+    label: PropTypes.string
+  })).isRequired,
+  loadMore            : PropTypes.func.isRequired,
+  onChangeSelected    : PropTypes.func.isRequired,
+  onResetCategoryItems: PropTypes.func.isRequired,
+  selectedItems       : PropTypes.arrayOf(PropTypes.string).isRequired
 }
 
 export default TagCloudWords
