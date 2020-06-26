@@ -1,6 +1,37 @@
 import React from 'react'
-import { Paper } from '@krowdy-ui/core'
+import { Paper, IconButton, makeStyles, Button } from '@krowdy-ui/core'
 import { TableInfinity } from '@krowdy-ui/views'
+import { Delete } from '@material-ui/icons'
+
+const CustomComponent = () => (
+  <div style={{
+    alignItems    : 'center',
+    display       : 'flex',
+    justifyContent: 'center'
+  }}>
+    <IconButton>
+      <Delete color='primary' />
+    </IconButton>
+  </div>
+)
+
+const Action = ({ value }) => {
+  const classes = useStyles()
+
+  const _handleAction = () => {
+    console.log('click')
+  }
+
+  return (
+    <div className={classes.container}>
+      <Button
+        color='primary'
+        onClick={_handleAction}>
+        {value}
+      </Button>
+    </div>
+  )
+}
 
 const columns = [
   {
@@ -44,20 +75,22 @@ const columns = [
     type    : 'date'
   },
   {
-    align   : 'right',
-    editable: false,
-    key     : 'action',
-    label   : '',
-    minWidth: 200,
-    ordering: true,
-    type    : 'date'
+    align          : 'right',
+    columnComponent: CustomComponent,
+    editable       : false,
+    key            : 'action',
+    label          : '',
+    minWidth       : 200,
+    ordering       : true,
+    rowComponent   : Action,
+    type           : 'date'
   }
 ]
 
 const sample = [
   {
     _id      : '0',
-    action   : 'realizar',
+    action   : 'Realizar',
     assigned : '16/05/20',
     assigneds: 'Video cuestionario',
     finished : '00:15:31',
@@ -66,7 +99,7 @@ const sample = [
   },
   {
     _id      : '1',
-    action   : 'realizar',
+    action   : 'Realizar',
     assigned : '16/05/20',
     assigneds: 'Video Entrevista',
     finished : '00:20:69',
@@ -74,7 +107,7 @@ const sample = [
     status   : 'En Proceso'
   }, {
     _id      : '2',
-    action   : 'revisar',
+    action   : 'Revisar',
     assigned : '18/05/20',
     assigneds: 'Hunting',
     finished : '4 días',
@@ -82,7 +115,7 @@ const sample = [
     status   : 'Por realizar'
   }, {
     _id      : '3',
-    action   : 'revisar',
+    action   : 'Revisar',
     assigned : '19/05/20',
     assigneds: 'Video cuestionario',
     finished : '13 días',
@@ -115,3 +148,10 @@ export default function () {
     </Paper>
   )
 }
+
+const useStyles = makeStyles(() => ({
+  container: {
+    display      : 'flex',
+    flexDirection: 'column'
+  }
+}))

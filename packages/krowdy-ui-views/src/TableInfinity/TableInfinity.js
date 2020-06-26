@@ -62,31 +62,35 @@ class MuiVirtualizedTable extends React.PureComponent {
   cellRenderer = ({ cellData, columnIndex }) => {
     const { columns, classes, rowHeight, onRowClick } = this.props
 
+    const { numeric, rowComponent: Component } = columns[columnIndex]
+
     return (
       <TableCell
-        align={(columnIndex != null && columns[columnIndex].numeric) || false ? 'right' : 'left'}
+        align={(columnIndex != null && numeric) || false ? 'right' : 'left'}
         className={clsx(classes.tableCell, classes.flexContainer, {
           [classes.noClick]: onRowClick == null
         })}
         component='div'
         style={{ height: rowHeight }}
         variant='body'>
-        {cellData}
+        {Component ? <Component value={cellData} /> : cellData}
       </TableCell>
     )
   };
 
-  headerRenderer = ({ label, columnIndex }) => {
+  headerRenderer = (data) => {
+    const { label, columnIndex } = data
     const { headerHeight, columns, classes } = this.props
+    const { numeric, columnComponent: Component } = columns[columnIndex]
 
     return (
       <StyledTableCell
-        align={columns[columnIndex].numeric || false ? 'right' : 'left'}
+        align={numeric || false ? 'right' : 'left'}
         className={clsx(classes.tableCell, classes.flexContainer, classes.noClick)}
         component='div'
         style={{ height: headerHeight }}
         variant='head'>
-        <span>{label}</span>
+        <span>{Component ? <Component value={label} /> : label}</span>
       </StyledTableCell>
     )
   };
