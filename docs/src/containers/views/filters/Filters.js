@@ -16,7 +16,7 @@ const groupedFilters = [
         _id  : '200168138',
         key  : 'nombreproceso',
         label: 'Nombre del proceso',
-        type : 'generic'
+        type : 'keyword'
       },
       {
         _id  : '577316053',
@@ -34,7 +34,7 @@ const groupedFilters = [
         _id  : '360067768',
         key  : 'nombreproceso',
         label: 'Nombre del proceso',
-        type : 'generic'
+        type : 'keyword'
       },
       {
         _id  : '670448599',
@@ -303,6 +303,40 @@ const filterTypes = [
     ],
     type     : 'generic',
     updatedAt: '2020-02-14T19:02:51.578Z'
+  },
+  {
+    __v         : 0,
+    _id         : '5e46eedbed5e312c30c3a910',
+    createdAt   : '2020-02-14T19:02:51.578Z',
+    initialValue: [],
+    options     : [
+      {
+        _id           : '5e46eedbed5e312c30c3a905',
+        label         : 'Contiene exactamente',
+        numberOfInputs: 1,
+        operator      : '$eq'
+      },
+      {
+        _id           : '5e46eedbed5e312c30c3a906',
+        label         : 'No contiene exactamente',
+        numberOfInputs: 1,
+        operator      : '$ne'
+      },
+      {
+        _id           : '5e46eedbed5e312c30c3a907',
+        label         : 'Es conocido',
+        numberOfInputs: 0,
+        operator      : '$ne'
+      },
+      {
+        _id           : '5e46eedbed5e312c30c3a908',
+        label         : 'Es desconocido',
+        numberOfInputs: 0,
+        operator      : '$eq'
+      }
+    ],
+    type     : 'keyword',
+    updatedAt: '2020-02-14T19:02:51.578Z'
   }
 ]
 
@@ -329,6 +363,7 @@ const getNewCategoryItemsAsync = async (key, time = 1000) => new Promise(resolve
 
       return {
         _id  : id,
+        count: Math.round(Math.random() * 1231),
         label: `${id} - ${key}`
       }
     })

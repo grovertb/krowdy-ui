@@ -9,6 +9,7 @@ import generateRandomId from '../utils/generateRandomId'
 import CategoryItems from './CategoryItems'
 import InputChip from './InputChip'
 import useFilterValidator from './useFilterValidator'
+import TagCloudWords from './TagCloudWords'
 
 const useStyles = makeStyles((theme) => ({
   and: {
@@ -124,6 +125,7 @@ const FilterConfig = (props) => {
               }
           }
         case 'category':
+        case 'keyword':
         case 'generic':
           return filter.value
         default:
@@ -157,6 +159,7 @@ const FilterConfig = (props) => {
         return null
       case 'generic':
       case 'category':
+      case 'keyword':
         return filterConfig
       default:
         return null
@@ -186,6 +189,7 @@ const FilterConfig = (props) => {
         break
       case 'generic':
       case 'category':
+      case 'keyword':
         setFilterConfig(eventOrValue)
         break
       default:
@@ -259,6 +263,18 @@ const FilterConfig = (props) => {
               </div>
             }
           </>
+        )
+      case 'keyword':
+        return (
+          <TagCloudWords
+            categoryKey={filter.key}
+            hasNextPage={hasNextPage}
+            items={categoryItems}
+            listWidth={listWidth}
+            loadMore={_handleLoadMoreItems(filter.key)}
+            onChangeSelected={_handleChange()}
+            onResetCategoryItems={onSelectCategoryFilter}
+            selectedItems={filterConfig} />
         )
       case 'generic':
         return <InputChip onChange={_handleChange()} values={filterConfig} />
