@@ -14,8 +14,8 @@ const useStyles = makeStyles((theme) => ({
     '-webkit-box-orient': 'vertical',
     '-webkit-line-clamp': 2,
     display             : '-webkit-box',
-    height              : 32,
     lineHeight          : '1.5',
+    maxHeight           : 32,
     maxWidth            : 120,
     overflow            : 'hidden',
     textOverflow        : 'ellipsis'
