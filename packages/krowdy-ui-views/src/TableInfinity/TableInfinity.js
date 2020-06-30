@@ -14,6 +14,9 @@ const useStyles = makeStyles((theme) => ({
   noClick: {
     cursor: 'initial'
   },
+  selected: {
+    backgroundColor: theme.palette.primary[50]
+  },
   table: {
     // temporary right-to-left patch, waiting for
     // https://github.com/bvaughn/react-virtualized/issues/454
@@ -30,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
   tableRowHover: {
     '&:hover': {
-      backgroundColor: theme.palette.grey[200]
+      backgroundColor: theme.palette.primary[50]
     }
   }
 }))
@@ -62,12 +65,14 @@ const VirtualizedTable = (props) => {
 
   const cellRenderer = ({ cellData, columnIndex, rowData }) => {
     const { numeric, rowComponent: Component } = columns[columnIndex]
+    const { checkbox } = rowData
 
     return (
       <TableCell
         align={(columnIndex != null && numeric) || false ? 'right' : 'left'}
         className={clsx(classes.tableCell, classes.flexContainer, {
-          [classes.noClick]: onRowClick == null
+          [classes.noClick] : onRowClick == null,
+          [classes.selected]: checkbox
         })}
         component='div'
         style={{ height: rowHeight }}

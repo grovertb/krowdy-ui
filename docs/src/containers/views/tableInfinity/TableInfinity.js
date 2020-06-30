@@ -30,6 +30,7 @@ const ColumnCheckComponent = () => {
     }}>
       <Checkbox
         checked={checked}
+        color='primary'
         onChange={_handleChange} />
     </div>
   )
@@ -48,6 +49,7 @@ const RowCheckComponent = ({ value, rowData }) => {
     }}>
       <Checkbox
         checked={value}
+        color='primary'
         onChange={_handleChange} />
     </div>
   )
@@ -142,7 +144,7 @@ const sample = [
     action   : 'Realizar',
     assigned : '16/05/20',
     assigneds: 'Video cuestionario',
-    checkbox : false,
+    checkbox : true,
     finished : '00:15:31',
     job      : 'UI Senior',
     status   : 'Por realizar'
@@ -177,8 +179,8 @@ const sample = [
   }
 ]
 
-function createData(id, { action, assigned, assigneds, finished, job, status }) {
-  return { action, assigned, assigneds, finished, id, job, status }
+function createData(id, { action, assigned, assigneds, finished, job, status, checkbox }) {
+  return { action, assigned, assigneds, checkbox, finished, id, job, status }
 }
 
 const rows = []
