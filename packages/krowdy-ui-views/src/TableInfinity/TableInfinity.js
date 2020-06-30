@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import { withStyles, makeStyles } from '@material-ui/core/styles'
 import { Paper, TableCell } from '@material-ui/core'
-import { AutoSizer, Column, Table } from 'react-virtualized'
+import { AutoSizer, Column, Table, InfiniteLoader } from 'react-virtualized'
 
 const useStyles = makeStyles((theme) => ({
   flexContainer: {
@@ -46,7 +46,13 @@ const StyledTableCell = withStyles((theme) => ({
 }))(TableCell)
 
 const VirtualizedTable = (props) => {
-  const { columns, rowHeight = 48, headerHeight = 48, onRowClick, ...tableProps } = props
+  const {
+    columns, rowHeight = 48,
+    headerHeight = 48,
+    onRowClick, rowCount,
+    isRowLoaded = () => {},
+    loadMoreRows = () => {},
+    ...tableProps } = props
   const classes = useStyles()
 
   const getRowClassName = ({ index }) =>
@@ -88,37 +94,47 @@ const VirtualizedTable = (props) => {
   }
 
   return (
-    <AutoSizer>
-      {({ height, width }) => (
-        <Table
-          className={classes.table}
-          gridStyle={{
-            direction: 'inherit'
-          }}
-          headerHeight={headerHeight}
-          height={height}
-          onRowClick={onRowClick}
-          rowHeight={rowHeight}
-          width={width}
-          {...tableProps}
-          rowClassName={getRowClassName}>
-          {columns.map(({ key, ...other }, index) => (
-            <Column
-              cellRenderer={cellRenderer}
-              className={classes.flexContainer}
-              dataKey={key}
-              headerRenderer={(headerProps) =>
-                headerRenderer({
-                  ...headerProps,
-                  columnIndex: index
-                })
-              }
-              key={key}
-              {...other} />
-          ))}
-        </Table>
+    <InfiniteLoader
+      isRowLoaded={isRowLoaded}
+      loadMoreRows={loadMoreRows}
+      rowCount={rowCount}>
+      {({ onRowsRendered, registerChild }) => (
+        <AutoSizer>
+          {({ height, width }) => (
+            <Table
+              className={classes.table}
+              gridStyle={{
+                direction: 'inherit'
+              }}
+              headerHeight={headerHeight}
+              height={height}
+              onRowClick={onRowClick}
+              onRowsRendered={onRowsRendered}
+              ref={registerChild}
+              rowCount={rowCount}
+              rowHeight={rowHeight}
+              width={width}
+              {...tableProps}
+              rowClassName={getRowClassName}>
+              {columns.map(({ key, ...other }, index) => (
+                <Column
+                  cellRenderer={cellRenderer}
+                  className={classes.flexContainer}
+                  dataKey={key}
+                  headerRenderer={(headerProps) =>
+                    headerRenderer({
+                      ...headerProps,
+                      columnIndex: index
+                    })
+                  }
+                  key={key}
+                  {...other} />
+              ))}
+            </Table>
+          )}
+        </AutoSizer>
       )}
-    </AutoSizer>
+    </InfiniteLoader>
   )
 }
 
