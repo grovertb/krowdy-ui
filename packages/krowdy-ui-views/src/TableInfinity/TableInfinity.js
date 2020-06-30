@@ -54,7 +54,7 @@ const VirtualizedTable = (props) => {
       [classes.tableRowHover]: index !== -1 && onRowClick != null
     })
 
-  const cellRenderer = ({ cellData, columnIndex }) => {
+  const cellRenderer = ({ cellData, columnIndex, rowData }) => {
     const { numeric, rowComponent: Component } = columns[columnIndex]
 
     return (
@@ -66,7 +66,7 @@ const VirtualizedTable = (props) => {
         component='div'
         style={{ height: rowHeight }}
         variant='body'>
-        {Component ? <Component value={cellData} /> : cellData}
+        {Component ? <Component rowData={rowData} value={cellData} /> : cellData}
       </TableCell>
     )
   }

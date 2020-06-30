@@ -1,5 +1,5 @@
-import React from 'react'
-import { Paper, IconButton, makeStyles, Button } from '@krowdy-ui/core'
+import React, { useState } from 'react'
+import { Paper, IconButton, makeStyles, Button, Checkbox } from '@krowdy-ui/core'
 import { TableInfinity } from '@krowdy-ui/views'
 import { Delete } from '@material-ui/icons'
 
@@ -15,11 +15,49 @@ const CustomComponent = () => (
   </div>
 )
 
-const Action = ({ value }) => {
+const ColumnCheckComponent = () => {
+  const [ checked, setChecked ] = useState(false)
+
+  const _handleChange = () => {
+    setChecked(checked => !checked)
+  }
+
+  return (
+    <div style={{
+      alignItems    : 'center',
+      display       : 'flex',
+      justifyContent: 'center'
+    }}>
+      <Checkbox
+        checked={checked}
+        onChange={_handleChange} />
+    </div>
+  )
+}
+
+const RowCheckComponent = ({ value, rowData }) => {
+  const _handleChange = () => {
+    console.log(rowData)
+  }
+
+  return (
+    <div style={{
+      alignItems    : 'center',
+      display       : 'flex',
+      justifyContent: 'center'
+    }}>
+      <Checkbox
+        checked={value}
+        onChange={_handleChange} />
+    </div>
+  )
+}
+
+const Action = ({ value, rowData }) => {
   const classes = useStyles()
 
   const _handleAction = () => {
-    console.log('click')
+    console.log(rowData)
   }
 
   return (
@@ -34,6 +72,17 @@ const Action = ({ value }) => {
 }
 
 const columns = [
+  {
+    align          : 'right',
+    columnComponent: ColumnCheckComponent,
+    editable       : false,
+    key            : 'checkbox',
+    label          : '',
+    ordering       : true,
+    rowComponent   : RowCheckComponent,
+    type           : 'date',
+    width          : 80
+  },
   {
     editable: false,
     key     : 'assigneds',
@@ -93,6 +142,7 @@ const sample = [
     action   : 'Realizar',
     assigned : '16/05/20',
     assigneds: 'Video cuestionario',
+    checkbox : false,
     finished : '00:15:31',
     job      : 'UI Senior',
     status   : 'Por realizar'
@@ -102,6 +152,7 @@ const sample = [
     action   : 'Realizar',
     assigned : '16/05/20',
     assigneds: 'Video Entrevista',
+    checkbox : false,
     finished : '00:20:69',
     job      : 'UI Senior',
     status   : 'En Proceso'
@@ -110,6 +161,7 @@ const sample = [
     action   : 'Revisar',
     assigned : '18/05/20',
     assigneds: 'Hunting',
+    checkbox : false,
     finished : '4 días',
     job      : 'Dev',
     status   : 'Por realizar'
@@ -118,6 +170,7 @@ const sample = [
     action   : 'Revisar',
     assigned : '19/05/20',
     assigneds: 'Video cuestionario',
+    checkbox : false,
     finished : '13 días',
     job      : 'UI Senior',
     status   : 'Por revisar'
