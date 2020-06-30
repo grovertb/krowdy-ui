@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     // https://github.com/bvaughn/react-virtualized/issues/454
     '& .ReactVirtualized__Table__headerRow': {
       flip        : false,
-      paddingRight: theme.direction === 'rtl' ? '0 !important' : undefined
+      paddingRight: '0px !important'
     }
   },
   tableCell: {

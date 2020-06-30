@@ -83,7 +83,7 @@ const columns = [
     ordering       : true,
     rowComponent   : RowCheckComponent,
     type           : 'date',
-    width          : 80
+    width          : 100
   },
   {
     editable: false,
@@ -195,6 +195,14 @@ export default function () {
     console.log(data)
   }
 
+  const _handleRowLoaded = (data) => {
+    console.log(data)
+  }
+
+  const _handleLoadMoreRows = (data) => {
+    console.log(data)
+  }
+
   return (
     <Paper
       elevation={0} style={{
@@ -204,6 +212,8 @@ export default function () {
       }}>
       <TableInfinity
         columns={columns}
+        isRowLoaded={_handleRowLoaded}
+        loadMoreRows={_handleLoadMoreRows}
         onRowClick={_handleRowClick} rows={rows} />
     </Paper>
   )
