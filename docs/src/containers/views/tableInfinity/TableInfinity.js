@@ -38,41 +38,41 @@ const columns = [
     editable: false,
     key     : 'assigneds',
     label   : 'Asignadas',
-    minWidth: 150,
     ordering: true,
     type    : 'text',
-    visible : true
+    visible : true,
+    width   : 150
   }, {
     editable: false,
     key     : 'job',
     label   : 'Job',
-    minWidth: 200,
     ordering: true,
     type    : 'text',
-    visible : true
+    visible : true,
+    width   : 200
   }, {
     editable: false,
     key     : 'status',
     label   : 'Estado',
-    minWidth: 200,
     ordering: false,
     type    : 'text',
-    visible : true
+    visible : true,
+    width   : 200
   }, {
     editable: false,
     key     : 'assigned',
     label   : 'Asignada',
-    minWidth: 200,
     ordering: false,
-    type    : 'select'
+    type    : 'select',
+    width   : 200
   }, {
     align   : 'center',
     editable: false,
     key     : 'finished',
     label   : 'Finaliza en',
-    minWidth: 200,
     ordering: true,
-    type    : 'date'
+    type    : 'date',
+    width   : 200
   },
   {
     align          : 'right',
@@ -80,10 +80,10 @@ const columns = [
     editable       : false,
     key            : 'action',
     label          : '',
-    minWidth       : 200,
     ordering       : true,
     rowComponent   : Action,
-    type           : 'date'
+    type           : 'date',
+    width          : 200
   }
 ]
 
@@ -136,6 +136,10 @@ for (let i = 0; i < 200; i += 1) {
 }
 
 export default function () {
+  const _handleRowClick = (data) => {
+    console.log(data)
+  }
+
   return (
     <Paper
       elevation={0} style={{
@@ -144,7 +148,8 @@ export default function () {
         width   : '100%'
       }}>
       <TableInfinity
-        columns={columns} rows={rows} />
+        columns={columns}
+        onRowClick={_handleRowClick} rows={rows} />
     </Paper>
   )
 }

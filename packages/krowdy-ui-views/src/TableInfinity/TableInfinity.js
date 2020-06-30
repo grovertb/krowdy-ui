@@ -5,7 +5,7 @@ import { withStyles, makeStyles } from '@material-ui/core/styles'
 import { Paper, TableCell } from '@material-ui/core'
 import { AutoSizer, Column, Table } from 'react-virtualized'
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   flexContainer: {
     alignItems: 'center',
     boxSizing : 'border-box',
@@ -33,7 +33,7 @@ const styles = (theme) => ({
       backgroundColor: theme.palette.grey[200]
     }
   }
-})
+}))
 
 const StyledTableCell = withStyles((theme) => ({
   body: {
@@ -45,23 +45,16 @@ const StyledTableCell = withStyles((theme) => ({
   }
 }))(TableCell)
 
-class MuiVirtualizedTable extends React.PureComponent {
-  static defaultProps = {
-    headerHeight: 48,
-    rowHeight   : 48
-  };
+const VirtualizedTable = (props) => {
+  const { columns, rowHeight = 48, headerHeight = 48, onRowClick, ...tableProps } = props
+  const classes = useStyles()
 
-  getRowClassName = ({ index }) => {
-    const { classes, onRowClick } = this.props
-
-    return clsx(classes.tableRow, classes.flexContainer, {
+  const getRowClassName = ({ index }) =>
+    clsx(classes.tableRow, classes.flexContainer, {
       [classes.tableRowHover]: index !== -1 && onRowClick != null
     })
-  };
 
-  cellRenderer = ({ cellData, columnIndex }) => {
-    const { columns, classes, rowHeight, onRowClick } = this.props
-
+  const cellRenderer = ({ cellData, columnIndex }) => {
     const { numeric, rowComponent: Component } = columns[columnIndex]
 
     return (
@@ -76,11 +69,10 @@ class MuiVirtualizedTable extends React.PureComponent {
         {Component ? <Component value={cellData} /> : cellData}
       </TableCell>
     )
-  };
+  }
 
-  headerRenderer = (data) => {
+  const headerRenderer = (data) => {
     const { label, columnIndex } = data
-    const { headerHeight, columns, classes } = this.props
     const { numeric, columnComponent: Component } = columns[columnIndex]
 
     return (
@@ -93,54 +85,50 @@ class MuiVirtualizedTable extends React.PureComponent {
         <span>{Component ? <Component value={label} /> : label}</span>
       </StyledTableCell>
     )
-  };
-
-  render() {
-    const { classes, columns, rowHeight, headerHeight, ...tableProps } = this.props
-
-    return (
-      <AutoSizer>
-        {({ height, width }) => (
-          <Table
-            className={classes.table}
-            gridStyle={{
-              direction: 'inherit'
-            }}
-            headerHeight={headerHeight}
-            height={height}
-            rowHeight={rowHeight}
-            width={width}
-            {...tableProps}
-            rowClassName={this.getRowClassName}>
-            {columns.map(({ key, ...other }, index) => (
-              <Column
-                cellRenderer={this.cellRenderer}
-                className={classes.flexContainer}
-                dataKey={key}
-                headerRenderer={(headerProps) =>
-                  this.headerRenderer({
-                    ...headerProps,
-                    columnIndex: index
-                  })
-                }
-                key={key}
-                {...other} />
-            ))}
-          </Table>
-        )}
-      </AutoSizer>
-    )
   }
+
+  return (
+    <AutoSizer>
+      {({ height, width }) => (
+        <Table
+          className={classes.table}
+          gridStyle={{
+            direction: 'inherit'
+          }}
+          headerHeight={headerHeight}
+          height={height}
+          onRowClick={onRowClick}
+          rowHeight={rowHeight}
+          width={width}
+          {...tableProps}
+          rowClassName={getRowClassName}>
+          {columns.map(({ key, ...other }, index) => (
+            <Column
+              cellRenderer={cellRenderer}
+              className={classes.flexContainer}
+              dataKey={key}
+              headerRenderer={(headerProps) =>
+                headerRenderer({
+                  ...headerProps,
+                  columnIndex: index
+                })
+              }
+              key={key}
+              {...other} />
+          ))}
+        </Table>
+      )}
+    </AutoSizer>
+  )
 }
 
-MuiVirtualizedTable.propTypes = {
-  classes: PropTypes.object.isRequired,
+VirtualizedTable.propTypes = {
   columns: PropTypes.arrayOf(
     PropTypes.shape({
       key    : PropTypes.string.isRequired,
       label  : PropTypes.string.isRequired,
       numeric: PropTypes.bool,
-      width  : PropTypes.number.isRequired
+      width  : PropTypes.number
     }),
   ).isRequired,
   headerHeight: PropTypes.number,
@@ -148,22 +136,22 @@ MuiVirtualizedTable.propTypes = {
   rowHeight   : PropTypes.number
 }
 
-const VirtualizedTable = withStyles(styles)(MuiVirtualizedTable)
-
-const TableInfinity = ({ columns, rows }) => {
-  const classes = useStyles()
+const TableInfinity = ({ columns, rows, onRowClick, ...rest }) => {
+  const classes = useMainStyles()
 
   return (
     <Paper className={classes.paper}>
       <VirtualizedTable
         columns={columns}
+        onRowClick={onRowClick}
         rowCount={rows.length}
+        {...rest}
         rowGetter={({ index }) => rows[index]} />
     </Paper>
   )
 }
 
-const useStyles = makeStyles(() => ({
+const useMainStyles = makeStyles(() => ({
   paper: {
     height: 400,
     width : '100%'
