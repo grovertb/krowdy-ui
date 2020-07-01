@@ -157,8 +157,8 @@ VirtualizedTable.propTypes = {
   rowHeight   : PropTypes.number
 }
 
-const TableInfinity = ({ columns, rows, onRowClick, ...rest }) => {
-  const classes = useMainStyles()
+const TableInfinity = ({ height = 400, width = '100%', columns, rows, onRowClick, ...rest }) => {
+  const classes = useMainStyles({ height, width })
 
   return (
     <Paper className={classes.paper}>
@@ -174,8 +174,8 @@ const TableInfinity = ({ columns, rows, onRowClick, ...rest }) => {
 
 const useMainStyles = makeStyles(() => ({
   paper: {
-    height: 400,
-    width : '100%'
+    height: ({ height }) => height,
+    width : ({ width = '100%' }) => width
   }
 }))
 

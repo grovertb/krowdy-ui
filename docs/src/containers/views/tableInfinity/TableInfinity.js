@@ -212,9 +212,11 @@ export default function () {
       }}>
       <TableInfinity
         columns={columns}
+        height={400}
         isRowLoaded={_handleRowLoaded}
         loadMoreRows={_handleLoadMoreRows}
-        onRowClick={_handleRowClick} rows={rows} />
+        onRowClick={_handleRowClick}
+        rows={rows} width='100%' />
     </Paper>
   )
 }
