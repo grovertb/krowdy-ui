@@ -11,9 +11,14 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(1.4)
   },
   formLabel: {
-    overflow    : 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace  : 'nowrap'
+    '-webkit-box-orient': 'vertical',
+    '-webkit-line-clamp': 2,
+    display             : '-webkit-box',
+    lineHeight          : '1.5',
+    maxHeight           : 32,
+    maxWidth            : 120,
+    overflow            : 'hidden',
+    textOverflow        : 'ellipsis'
   },
   loadingContainer: {
     display       : 'flex',
