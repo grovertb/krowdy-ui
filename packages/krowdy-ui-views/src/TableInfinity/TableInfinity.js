@@ -175,7 +175,7 @@ const TableInfinity = ({ height = 400, width = '100%', columns, rows, onRowClick
 const useMainStyles = makeStyles(() => ({
   paper: {
     height: ({ height }) => height,
-    width : ({ width = '100%' }) => width
+    width : ({ width }) => width
   }
 }))
 

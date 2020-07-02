@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Paper, IconButton, makeStyles, Button, Checkbox } from '@krowdy-ui/core'
 import { TableInfinity } from '@krowdy-ui/views'
 import { Delete } from '@material-ui/icons'
@@ -16,10 +16,9 @@ const CustomComponent = () => (
 )
 
 const ColumnCheckComponent = () => {
-  const [ checked, setChecked ] = useState(false)
-
-  const _handleChange = () => {
-    setChecked(checked => !checked)
+  const _handleChange = (e) => {
+    // change checkbox to rows
+    console.log(e.currentTarget.checked)
   }
 
   return (
@@ -29,8 +28,9 @@ const ColumnCheckComponent = () => {
       justifyContent: 'center'
     }}>
       <Checkbox
-        checked={checked}
+        checked={rows.every(({ checkbox }) => checkbox)}
         color='primary'
+        indeterminate={rows.some(({ checkbox }) => checkbox) && !rows.every(({ checkbox }) => checkbox)}
         onChange={_handleChange} />
     </div>
   )
