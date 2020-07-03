@@ -92,7 +92,7 @@ const columns = [
     ordering: true,
     type    : 'text',
     visible : true,
-    width   : 150
+    width   : 200
   }, {
     editable: false,
     key     : 'job',
@@ -100,7 +100,7 @@ const columns = [
     ordering: true,
     type    : 'text',
     visible : true,
-    width   : 200
+    width   : 100
   }, {
     editable: false,
     key     : 'status',
@@ -108,14 +108,14 @@ const columns = [
     ordering: false,
     type    : 'text',
     visible : true,
-    width   : 200
+    width   : 150
   }, {
     editable: false,
     key     : 'assigned',
     label   : 'Asignada',
     ordering: false,
     type    : 'select',
-    width   : 200
+    width   : 100
   }, {
     align   : 'center',
     editable: false,
@@ -123,7 +123,7 @@ const columns = [
     label   : 'Finaliza en',
     ordering: true,
     type    : 'date',
-    width   : 200
+    width   : 120
   },
   {
     align          : 'right',
@@ -134,7 +134,7 @@ const columns = [
     ordering       : true,
     rowComponent   : Action,
     type           : 'date',
-    width          : 200
+    width          : 100
   }
 ]
 

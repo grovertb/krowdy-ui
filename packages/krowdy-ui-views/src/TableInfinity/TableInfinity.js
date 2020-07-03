@@ -4,12 +4,14 @@ import clsx from 'clsx'
 import { withStyles, makeStyles } from '@material-ui/core/styles'
 import { Paper, TableCell } from '@material-ui/core'
 import { AutoSizer, Column, Table, InfiniteLoader } from 'react-virtualized'
+import { Typography } from '@krowdy-ui/core'
 
 const useStyles = makeStyles((theme) => ({
   flexContainer: {
-    alignItems: 'center',
-    boxSizing : 'border-box',
-    display   : 'flex'
+    alignItems    : 'center',
+    boxSizing     : 'border-box',
+    display       : 'flex',
+    justifyContent: 'space-between'
   },
   noClick: {
     cursor: 'initial'
@@ -21,15 +23,20 @@ const useStyles = makeStyles((theme) => ({
     // temporary right-to-left patch, waiting for
     // https://github.com/bvaughn/react-virtualized/issues/454
     '& .ReactVirtualized__Table__headerRow': {
-      flip        : false,
-      paddingRight: '0px !important'
+      backgroundColor: theme.palette.secondary[50],
+      display        : 'flex',
+      flip           : false,
+      justifyContent : 'space-between',
+      paddingRight   : '0px !important'
     }
   },
   tableCell: {
     flex: 1
   },
   tableRow: {
-    cursor: 'pointer'
+    borderBottom: '1px solid rgba(224, 224, 224, 1)',
+    boxSizing   : 'border-box',
+    cursor      : 'pointer'
   },
   tableRowHover: {
     '&:hover': {
@@ -53,31 +60,38 @@ const VirtualizedTable = (props) => {
     columns, rowHeight = 48,
     headerHeight = 48,
     onRowClick, rowCount,
+    rows,
     isRowLoaded = () => {},
     loadMoreRows = () => {},
     ...tableProps } = props
   const classes = useStyles()
 
-  const getRowClassName = ({ index }) =>
-    clsx(classes.tableRow, classes.flexContainer, {
-      [classes.tableRowHover]: index !== -1 && onRowClick != null
+  const getRowClassName = ({ index }) => {
+    let checked = false
+    if(index > -1) {
+      const { checkbox } = rows[index]
+      checked = checkbox
+    }
+
+    return clsx(classes.tableRow, classes.flexContainer, {
+      [classes.tableRowHover]: index !== -1 && onRowClick != null,
+      [classes.selected]     : checked
     })
+  }
 
   const cellRenderer = ({ cellData, columnIndex, rowData }) => {
     const { numeric, rowComponent: Component } = columns[columnIndex]
-    const { checkbox } = rowData
 
     return (
       <TableCell
         align={(columnIndex != null && numeric) || false ? 'right' : 'left'}
         className={clsx(classes.tableCell, classes.flexContainer, {
-          [classes.noClick] : onRowClick == null,
-          [classes.selected]: checkbox
+          [classes.noClick]: onRowClick == null
         })}
         component='div'
         style={{ height: rowHeight }}
         variant='body'>
-        {Component ? <Component rowData={rowData} value={cellData} /> : cellData}
+        <Typography variant='body2'>{Component ? <Component rowData={rowData} value={cellData} /> : cellData}</Typography>
       </TableCell>
     )
   }
@@ -93,7 +107,7 @@ const VirtualizedTable = (props) => {
         component='div'
         style={{ height: headerHeight }}
         variant='head'>
-        <span>{Component ? <Component value={label} /> : label}</span>
+        <Typography variant='h5'>{Component ? <Component value={label} /> : label}</Typography>
       </StyledTableCell>
     )
   }
@@ -166,6 +180,7 @@ const TableInfinity = ({ height = 400, width = '100%', columns, rows, onRowClick
         columns={columns}
         onRowClick={onRowClick}
         rowCount={rows.length}
+        rows={rows}
         {...rest}
         rowGetter={({ index }) => rows[index]} />
     </Paper>
