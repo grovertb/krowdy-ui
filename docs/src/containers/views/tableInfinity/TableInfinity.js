@@ -17,7 +17,7 @@ const CustomComponent = () => (
 
 const ColumnCheckComponent = () => {
   const _handleChange = (e) => {
-    // change checkbox to rows
+    // change checked to rows
     console.log(e.currentTarget.checked)
   }
 
@@ -28,9 +28,9 @@ const ColumnCheckComponent = () => {
       justifyContent: 'center'
     }}>
       <Checkbox
-        checked={rows.every(({ checkbox }) => checkbox)}
+        checked={rows.every(({ checked }) => checked)}
         color='primary'
-        indeterminate={rows.some(({ checkbox }) => checkbox) && !rows.every(({ checkbox }) => checkbox)}
+        indeterminate={rows.some(({ checked }) => checked) && !rows.every(({ checked }) => checked)}
         onChange={_handleChange} />
     </div>
   )
@@ -78,8 +78,9 @@ const columns = [
     align          : 'right',
     columnComponent: ColumnCheckComponent,
     editable       : false,
-    key            : 'checkbox',
+    key            : 'checked',
     label          : '',
+    minWidth       : 100,
     ordering       : true,
     rowComponent   : RowCheckComponent,
     type           : 'date',
@@ -89,6 +90,7 @@ const columns = [
     editable: false,
     key     : 'assigneds',
     label   : 'Asignadas',
+    minWidth: 200,
     ordering: true,
     type    : 'text',
     visible : true,
@@ -97,6 +99,7 @@ const columns = [
     editable: false,
     key     : 'job',
     label   : 'Job',
+    minWidth: 100,
     ordering: true,
     type    : 'text',
     visible : true,
@@ -105,6 +108,7 @@ const columns = [
     editable: false,
     key     : 'status',
     label   : 'Estado',
+    minWidth: 150,
     ordering: false,
     type    : 'text',
     visible : true,
@@ -113,6 +117,7 @@ const columns = [
     editable: false,
     key     : 'assigned',
     label   : 'Asignada',
+    minWidth: 100,
     ordering: false,
     type    : 'select',
     width   : 100
@@ -121,6 +126,7 @@ const columns = [
     editable: false,
     key     : 'finished',
     label   : 'Finaliza en',
+    minWidth: 120,
     ordering: true,
     type    : 'date',
     width   : 120
@@ -131,6 +137,7 @@ const columns = [
     editable       : false,
     key            : 'action',
     label          : '',
+    minWidth       : 100,
     ordering       : true,
     rowComponent   : Action,
     type           : 'date',
@@ -144,7 +151,7 @@ const sample = [
     action   : 'Realizar',
     assigned : '16/05/20',
     assigneds: 'Video cuestionario',
-    checkbox : true,
+    checked  : true,
     finished : '00:15:31',
     job      : 'UI Senior',
     status   : 'Por realizar'
@@ -154,7 +161,7 @@ const sample = [
     action   : 'Realizar',
     assigned : '16/05/20',
     assigneds: 'Video Entrevista',
-    checkbox : false,
+    checked  : false,
     finished : '00:20:69',
     job      : 'UI Senior',
     status   : 'En Proceso'
@@ -163,7 +170,7 @@ const sample = [
     action   : 'Revisar',
     assigned : '18/05/20',
     assigneds: 'Hunting',
-    checkbox : false,
+    checked  : false,
     finished : '4 días',
     job      : 'Dev',
     status   : 'Por realizar'
@@ -172,15 +179,15 @@ const sample = [
     action   : 'Revisar',
     assigned : '19/05/20',
     assigneds: 'Video cuestionario',
-    checkbox : false,
+    checked  : false,
     finished : '13 días',
     job      : 'UI Senior',
     status   : 'Por revisar'
   }
 ]
 
-function createData(id, { action, assigned, assigneds, finished, job, status, checkbox }) {
-  return { action, assigned, assigneds, checkbox, finished, id, job, status }
+function createData(id, { action, assigned, assigneds, finished, job, status, checked }) {
+  return { action, assigned, assigneds, checked, finished, id, job, status }
 }
 
 const rows = []

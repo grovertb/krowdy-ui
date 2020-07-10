@@ -69,8 +69,8 @@ const VirtualizedTable = (props) => {
   const getRowClassName = ({ index }) => {
     let checked = false
     if(index > -1) {
-      const { checkbox } = rows[index]
-      checked = checkbox
+      const { checked: rowChecked, selected } = rows[index]
+      checked = rowChecked || selected
     }
 
     return clsx(classes.tableRow, classes.flexContainer, {
