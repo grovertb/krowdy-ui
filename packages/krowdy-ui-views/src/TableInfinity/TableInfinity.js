@@ -52,9 +52,12 @@ const VirtualizedTable = (props) => {
   const {
     columns, rowHeight = 48,
     headerHeight = 48,
-    onRowClick, rowCount,
+    onRowClick, rowCount = 100000,
     isRowLoaded = () => {},
     loadMoreRows = () => {},
+    threshold = 15,
+    minimumBatchSize = 10,
+    children,
     ...tableProps } = props
   const classes = useStyles()
 
@@ -100,9 +103,12 @@ const VirtualizedTable = (props) => {
 
   return (
     <InfiniteLoader
+      children={children}
       isRowLoaded={isRowLoaded}
       loadMoreRows={loadMoreRows}
-      rowCount={rowCount}>
+      minimumBatchSize={minimumBatchSize}
+      rowCount={rowCount}
+      threshold={threshold}>
       {({ onRowsRendered, registerChild }) => (
         <AutoSizer>
           {({ height, width }) => (
