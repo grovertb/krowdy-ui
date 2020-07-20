@@ -94,7 +94,10 @@ const VirtualizedTable = (props) => {
         component='div'
         style={{ height: rowHeight }}
         variant='body'>
-        <Typography variant='body2'>{Component ? <Component rowData={rowData} value={cellData} /> : cellData}</Typography>
+        <Typography
+          style={{
+            fontSize: 12
+          }} variant='body2'>{Component ? <Component rowData={rowData} value={cellData} /> : cellData}</Typography>
       </TableCell>
     )
   }
@@ -110,7 +113,10 @@ const VirtualizedTable = (props) => {
         component='div'
         style={{ height: headerHeight }}
         variant='head'>
-        <Typography variant='h5'>{Component ? <Component value={label} /> : label}</Typography>
+        <Typography
+          style={{
+            fontSize: 14
+          }} variant='h5'>{Component ? <Component value={label} /> : label}</Typography>
       </StyledTableCell>
     )
   }
