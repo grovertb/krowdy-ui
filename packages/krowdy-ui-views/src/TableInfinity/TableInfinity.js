@@ -187,7 +187,7 @@ const TableInfinity = ({ height = 400, width = '100%', columns, rows, onRowClick
   const classes = useMainStyles({ height, width })
 
   return (
-    <Paper className={classes.paper}>
+    <Paper className={classes.paper} square>
       <VirtualizedTable
         columns={columns}
         onRowClick={onRowClick}
