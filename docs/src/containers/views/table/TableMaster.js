@@ -359,7 +359,7 @@ export default function () {
         checkIcons={checkIcons}
         columns={columns}
         currency='S/'
-        enableAddCell={true}
+        // enableAddCell={true}
         iconButton={<AddIcon />}
         newCellProps={newCellProps}
         onHandleAddNewCell={_handleAddNewCell}
