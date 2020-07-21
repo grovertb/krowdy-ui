@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Grid, TextField, IconButton, Typography } from '@krowdy-ui/core'
+import { Grid, TextField, IconButton } from '@krowdy-ui/core'
 import { Table } from '@krowdy-ui/views'
 import {
   Add as AddIcon,
@@ -359,7 +359,6 @@ export default function () {
         checkIcons={checkIcons}
         columns={columns}
         currency='S/'
-        emptyComponent={<Typography variant='h5'>Oh no! no hay datos para mostrar</Typography>}
         enableAddCell={true}
         iconButton={<AddIcon />}
         newCellProps={newCellProps}
@@ -395,7 +394,7 @@ export default function () {
         withCheckbox
         withFooter={true}
         withHeader={true}
-        withMenuColumns={true}
+        // withMenuColumns={true}
         withOrder={true}
         withPagination={true}
         withSearch={true} />

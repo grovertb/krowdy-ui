@@ -9,6 +9,8 @@ interface IColumnsTable {
 	align?: string
 	visible: boolean
 	currency?: boolean
+	codeCheck?: string
+	excludeOfFilter?: string
 }
 
 interface IRowsTable {
@@ -47,8 +49,14 @@ interface IFuncAddNewCell {
 	(newCell: IMultipleProps): void
 }
 
+interface ICheckIcons {
+	code?: string
+	component?: React.ReactNode
+}
+
 export type TableProps = {
-	columns: Array<IColumnsTable>,
+	checkIcons: Array<ICheckIcons>
+	columns: Array<IColumnsTable>
 	rows: Array<IRowsTable>
 	sortTable?: ISortTable
 	titleTable?: string

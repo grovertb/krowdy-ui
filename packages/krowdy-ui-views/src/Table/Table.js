@@ -22,7 +22,8 @@ import {
   Select,
   Popover,
   makeStyles,
-  Input
+  Input,
+  CardMedia
 } from '@krowdy-ui/core'
 // import KeyboardDatePicker from '@material-ui/lab/'
 import { Table as MuiTable, TableContainer, IconButton } from '@krowdy-ui/core/'
@@ -101,6 +102,18 @@ const useStyles = makeStyles(theme => ({
   editableCell: {
     display: 'flex'
   },
+  emptyComponent: {
+    width: 'auto'
+  },
+  emptyContainer: {
+    alignContent  : 'center',
+    alignItems    : 'center',
+    display       : 'flex',
+    height        : 'calc(100% - 64px)',
+    justifyContent: 'center',
+    justifyItems  : 'center',
+    width         : '100%'
+  },
   flexEnd: {
     justifyContent: 'flex-end'
   },
@@ -171,7 +184,6 @@ const useStyles = makeStyles(theme => ({
 
 const Table = ({
   checkIcons = [],
-  emptyComponent = null,
   titleTable,
   titleButton,
   paymentAmount,
@@ -244,23 +256,6 @@ const Table = ({
     else if(!isValid && validNewCell)
       setValidNewCell(false)
   }, [ localNewCellProps, validNewCell ])
-
-  const CheckImage = ({ selected,disabled, _id, codeCheck }) => {
-    const currentImage = checkIcons.find(({ code }) => code === codeCheck)
-    const ImageCheck = currentImage && currentImage.component ? currentImage.component : null
-
-    return (
-      <div className={clsx({ [classes.hiddenCheck]: selected, [classes.checkRoot]: !selected })}>
-        <Checkbox
-          checked={selected}
-          className={classes.checkbox}
-          color='primary'
-          disabled={disabled}
-          onClick={(e) => _handleClickSelectItem(e, _id)} />
-        <div className={classes.checkImage}>{ImageCheck}</div>
-      </div>
-    )
-  }
 
   const _handleClickOpenMenu = event => {
     setOpenMenu(event.currentTarget)
@@ -410,14 +405,14 @@ const Table = ({
                       direction={orderBy === key ? sort : 'asc'}
                       onClick={() => _handleSortTable(key, sortTable)}>
                       {
-                        Component?
-                          <Component />:
+                        Component ?
+                          <Component /> :
                           <Typography className={classes.headerTable} variant='body1'>{label}</Typography>
                       }
                     </TableSortLabel>
                   ) : (
-                    Component?
-                      <Component />:
+                    Component ?
+                      <Component /> :
                       <Typography className={classes.headerTable} variant='body1'>{label}</Typography>
                   )}
                 </TableCell>
@@ -446,7 +441,7 @@ const Table = ({
                           columns.map(({ key, label, visible = true, excludeOfFilter }) => (
                             <React.Fragment>
                               {
-                                excludeOfFilter? null :
+                                excludeOfFilter ? null :
                                   <FormControlLabel
                                     control={
                                       <Checkbox
@@ -543,6 +538,7 @@ const Table = ({
             ) : null}
             {rows.length ? rows.map((row, index) => {
               const { _id, selected = false, disabled = false, codeCheck } = row
+              const currentImage = checkIcons.find(({ code }) => code === codeCheck)
 
               return (
                 <TableRow
@@ -550,7 +546,24 @@ const Table = ({
                   onClick={() => _handleClickTableRow(_id)}>
                   {withCheckbox ? (
                     <TableCell padding='checkbox'>
-                      <CheckImage codeCheck={codeCheck} disabled={disabled} selected={selected} />
+                      {
+                        !checkIcons || !currentImage ?
+                          <Checkbox
+                            checked={selected}
+                            className={classes.checkbox}
+                            color='primary'
+                            disabled={disabled}
+                            onClick={(e) => _handleClickSelectItem(e, _id)} /> :
+                          <div className={clsx({ [classes.hiddenCheck]: selected, [classes.checkRoot]: !selected })}>
+                            <Checkbox
+                              checked={selected}
+                              className={classes.checkbox}
+                              color='primary'
+                              disabled={disabled}
+                              onClick={(e) => _handleClickSelectItem(e, _id)} />
+                            <div className={classes.checkImage}>{currentImage && currentImage.component}</div>
+                          </div>
+                      }
                     </TableCell>
                   ) : null}
                   {visibleColumns.map(({ key, align, component: Componente, currency: currencyTableCell  }) => Componente ? (
@@ -568,19 +581,17 @@ const Table = ({
                   {withMenuColumns ? (<TableCell />) : null}
                 </TableRow>
               )
-            }) : (
-              <TableRow>
-                <TableCell colSpan={visibleColumns.length} >
-                  <Typography align='center'>
-                    {
-                      emptyComponent ? emptyComponent : 'No hay registros para mostrar'
-                    }
-                  </Typography>
-                </TableCell>
-              </TableRow>
-            )}
+            }) : null}
           </TableBody>
         </MuiTable>
+        {
+          !rows.length && <div className={classes.emptyContainer}>
+            <CardMedia
+              className={classes.emptyComponent}
+              component='img'
+              src='https://s3.amazonaws.com/cdn.krowdy.com/media/images/Mesa_de_trabajo.svg' />
+          </div>
+        }
       </TableContainer>
       {
         withPagination ? (
