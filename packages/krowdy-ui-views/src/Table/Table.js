@@ -22,7 +22,8 @@ import {
   Select,
   Popover,
   makeStyles,
-  Input
+  Input,
+  CardMedia
 } from '@krowdy-ui/core'
 // import KeyboardDatePicker from '@material-ui/lab/'
 import { Table as MuiTable, TableContainer, IconButton } from '@krowdy-ui/core/'
@@ -42,6 +43,23 @@ const useStyles = makeStyles(theme => ({
     fontSize: 12,
     width   : '100px'
   },
+  checkImage: {},
+  checkRoot : {
+    '& $checkbox': {
+      display: 'none'
+    },
+    '&:hover': {
+      '& $checkImage': {
+        display: 'none'
+      },
+      '& $checkbox': {
+        display: 'inline-flex'
+      }
+    },
+    display       : 'flex',
+    justifyContent: 'center'
+  },
+  checkbox : {},
   container: {
     flex    : 1,
     overflow: 'auto'
@@ -84,11 +102,31 @@ const useStyles = makeStyles(theme => ({
   editableCell: {
     display: 'flex'
   },
+  emptyComponent: {
+    width: 'auto'
+  },
+  emptyContainer: {
+    alignContent  : 'center',
+    alignItems    : 'center',
+    display       : 'flex',
+    height        : 'calc(100% - 64px)',
+    justifyContent: 'center',
+    justifyItems  : 'center',
+    width         : '100%'
+  },
   flexEnd: {
     justifyContent: 'flex-end'
   },
   headerTable: {
     fontWeight: 'bold'
+  },
+  hiddenCheck: {
+    '& $checkImage': {
+      display: 'none'
+    },
+    '& $checkbox': {
+      display: 'inline-flex'
+    }
   },
   iconAdd: {
     '&:nth-last-child(1)': {
@@ -145,6 +183,7 @@ const useStyles = makeStyles(theme => ({
 }), { name: 'KrowdyTable' })
 
 const Table = ({
+  checkIcons = [],
   titleTable,
   titleButton,
   paymentAmount,
@@ -351,7 +390,7 @@ const Table = ({
                     onChange={(e) => onHandleSelectAll(e.target.checked)} />
                 </TableCell>
               ) : null}
-              {visibleColumns.map(({ key, align, minWidth, label, ordering }) => (
+              {visibleColumns.map(({ key, align, minWidth, label = null, columnComponent: Component, ordering }) => (
                 <TableCell
                   align={align}
                   classes={{
@@ -365,10 +404,16 @@ const Table = ({
                       active={orderBy === key}
                       direction={orderBy === key ? sort : 'asc'}
                       onClick={() => _handleSortTable(key, sortTable)}>
-                      <Typography className={classes.headerTable} variant='body1'>{label}</Typography>
+                      {
+                        Component ?
+                          <Component /> :
+                          <Typography className={classes.headerTable} variant='body1'>{label}</Typography>
+                      }
                     </TableSortLabel>
                   ) : (
-                    <Typography className={classes.headerTable} variant='body1'>{label}</Typography>
+                    Component ?
+                      <Component /> :
+                      <Typography className={classes.headerTable} variant='body1'>{label}</Typography>
                   )}
                 </TableCell>
               ))}
@@ -393,19 +438,24 @@ const Table = ({
                       <Typography className={classes.customMenuHeadTitle} variant='body2'>Columnas</Typography>
                       <FormGroup>
                         {
-                          columns.map(({ key, label, visible = true }) => (
-                            <FormControlLabel
-                              control={
-                                <Checkbox
-                                  checked={visible}
-                                  className={classes.customCheckbox}
-                                  color='primary'
-                                  disabled={columns.filter(({ visible }) => visible).length === 1 && visible}
-                                  onChange={() => onHandleToggleColumnTable(key)}
-                                  value={key} />
+                          columns.map(({ key, label, visible = true, excludeOfFilter }) => (
+                            <React.Fragment>
+                              {
+                                excludeOfFilter ? null :
+                                  <FormControlLabel
+                                    control={
+                                      <Checkbox
+                                        checked={visible}
+                                        className={classes.customCheckbox}
+                                        color='primary'
+                                        disabled={columns.filter(({ visible }) => visible).length === 1 && visible}
+                                        onChange={() => onHandleToggleColumnTable(key)}
+                                        value={key} />
+                                    }
+                                    key={key}
+                                    label={label} />
                               }
-                              key={key}
-                              label={label} />
+                            </React.Fragment>
                           ))
                         }
                       </FormGroup>
@@ -487,7 +537,8 @@ const Table = ({
 
             ) : null}
             {rows.length ? rows.map((row, index) => {
-              const { _id, selected = false, disabled = false } = row
+              const { _id, selected = false, disabled = false, codeCheck } = row
+              const currentImage = checkIcons.find(({ code }) => code === codeCheck)
 
               return (
                 <TableRow
@@ -495,14 +546,27 @@ const Table = ({
                   onClick={() => _handleClickTableRow(_id)}>
                   {withCheckbox ? (
                     <TableCell padding='checkbox'>
-                      <Checkbox
-                        checked={selected}
-                        color='primary'
-                        disabled={disabled}
-                        onClick={(e) => _handleClickSelectItem(e, _id)} />
+                      {
+                        !checkIcons || !currentImage ?
+                          <Checkbox
+                            checked={selected}
+                            className={classes.checkbox}
+                            color='primary'
+                            disabled={disabled}
+                            onClick={(e) => _handleClickSelectItem(e, _id)} /> :
+                          <div className={clsx({ [classes.hiddenCheck]: selected, [classes.checkRoot]: !selected })}>
+                            <Checkbox
+                              checked={selected}
+                              className={classes.checkbox}
+                              color='primary'
+                              disabled={disabled}
+                              onClick={(e) => _handleClickSelectItem(e, _id)} />
+                            <div className={classes.checkImage}>{currentImage && currentImage.component}</div>
+                          </div>
+                      }
                     </TableCell>
                   ) : null}
-                  {visibleColumns.map(({ key, align, component: Componente, currency: currencyTableCell  }) => Componente ? (
+                  {visibleColumns.map(({ key, align, component: Componente, currency: currencyTableCell }) => Componente ? (
                     <TableCell align={align || 'left'} key={key}>
                       <Componente value={row[key]} />
                     </TableCell>
@@ -517,15 +581,17 @@ const Table = ({
                   {withMenuColumns ? (<TableCell />) : null}
                 </TableRow>
               )
-            }) : (
-              <TableRow>
-                <TableCell colSpan={visibleColumns.length} >
-                  <Typography align='center'>No hay registros para mostrar</Typography>
-                </TableCell>
-              </TableRow>
-            )}
+            }) : null}
           </TableBody>
         </MuiTable>
+        {
+          !rows.length && <div className={classes.emptyContainer}>
+            <CardMedia
+              className={classes.emptyComponent}
+              component='img'
+              src='https://s3.amazonaws.com/cdn.krowdy.com/media/images/Mesa_de_trabajo.svg' />
+          </div>
+        }
       </TableContainer>
       {
         withPagination ? (
@@ -573,14 +639,21 @@ Table.propTypes = {
    * Columns sirve para pasar la cabecera de la tabla
    */
   addNewCell: PropTypes.bool,
-  columns   : PropTypes.arrayOf(
+  checkIcons: PropTypes.arrayOf(
     PropTypes.shape({
-      align   : PropTypes.string,
-      currency: PropTypes.bool,
-      key     : PropTypes.string.isRequired,
-      label   : PropTypes.string.isRequired,
-      minWidth: PropTypes.number,
-      ordering: PropTypes.bool
+      code     : PropTypes.string.isRequired,
+      component: PropTypes.node.isRequired
+    })
+  ),
+  columns: PropTypes.arrayOf(
+    PropTypes.shape({
+      align          : PropTypes.string,
+      columnComponent: PropTypes.node,
+      currency       : PropTypes.bool,
+      key            : PropTypes.string.isRequired,
+      label          : PropTypes.string,
+      minWidth       : PropTypes.number,
+      ordering       : PropTypes.bool
     })
   ).isRequired,
   /**
@@ -613,7 +686,7 @@ Table.propTypes = {
   onHandleSendNewCell       : PropTypes.func,
   onHandleSortTable         : PropTypes.func,
   /**
-   * pagination objeto para paginar, requiere  de `withPagination`
+   * pagination objeto para paginar, requiere de `withPagination`
    */
   onHandleToggleColumnTable : PropTypes.func,
   /**
