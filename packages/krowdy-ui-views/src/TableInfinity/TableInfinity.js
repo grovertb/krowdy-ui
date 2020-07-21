@@ -171,7 +171,7 @@ VirtualizedTable.propTypes = {
   rowHeight   : PropTypes.number
 }
 
-const TableInfinity = ({ height = 400, width = '100%', columns, rows, onRowClick, ...rest }) => {
+const TableInfinity = ({ height = 400, width = '100%', columns, rows, onRowClick, rowCount, ...rest }) => {
   const classes = useMainStyles({ height, width })
 
   return (
@@ -179,7 +179,8 @@ const TableInfinity = ({ height = 400, width = '100%', columns, rows, onRowClick
       <VirtualizedTable
         columns={columns}
         onRowClick={onRowClick}
-        rowCount={rows.length}
+        rowCount={rowCount}
+        rowLength={rows.length}
         rows={rows}
         {...rest}
         rowGetter={({ index }) => rows[index]} />
