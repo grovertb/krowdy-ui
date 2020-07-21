@@ -663,7 +663,6 @@ Table.propTypes = {
   /**
    * iconBotton recibe un nodo para pinterlo al boton del header
    */
-  emptyComponent            : PropTypes.oneOfType([ PropTypes.node, PropTypes.string ]),
   enableAddCell             : PropTypes.bool,
   /**
    * maxHeigth string | number para la altura de la tabla
@@ -704,8 +703,7 @@ Table.propTypes = {
   paymentAmount: PropTypes.number,
   rows         : PropTypes.arrayOf(
     PropTypes.shape({
-      _id      : PropTypes.string.isRequired,
-      codeCheck: PropTypes.string
+      _id: PropTypes.string.isRequired
     })
   ).isRequired,
   searchSuggestions: PropTypes.array,
