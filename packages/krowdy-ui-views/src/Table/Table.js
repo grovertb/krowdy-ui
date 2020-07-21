@@ -566,7 +566,7 @@ const Table = ({
                       }
                     </TableCell>
                   ) : null}
-                  {visibleColumns.map(({ key, align, component: Componente, currency: currencyTableCell  }) => Componente ? (
+                  {visibleColumns.map(({ key, align, component: Componente, currency: currencyTableCell }) => Componente ? (
                     <TableCell align={align || 'left'} key={key}>
                       <Componente value={row[key]} />
                     </TableCell>
@@ -686,7 +686,7 @@ Table.propTypes = {
   onHandleSendNewCell       : PropTypes.func,
   onHandleSortTable         : PropTypes.func,
   /**
-   * pagination objeto para paginar, requiere  de `withPagination`
+   * pagination objeto para paginar, requiere de `withPagination`
    */
   onHandleToggleColumnTable : PropTypes.func,
   /**
