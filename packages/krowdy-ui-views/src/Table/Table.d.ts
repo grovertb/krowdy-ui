@@ -9,6 +9,7 @@ interface IColumnsTable {
 	align?: string
 	visible: boolean
 	currency?: boolean
+	columnComponent?: React.ReactNode
 	codeCheck?: string
 	excludeOfFilter?: string
 }
