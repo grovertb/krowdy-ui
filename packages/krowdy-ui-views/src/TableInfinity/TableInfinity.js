@@ -59,10 +59,13 @@ const VirtualizedTable = (props) => {
   const {
     columns, rowHeight = 48,
     headerHeight = 48,
-    onRowClick, rowCount,
+    onRowClick, rowCount = 100000,
     rows,
     isRowLoaded = () => {},
     loadMoreRows = () => {},
+    threshold = 15,
+    minimumBatchSize = 10,
+    children,
     ...tableProps } = props
   const classes = useStyles()
 
@@ -91,7 +94,10 @@ const VirtualizedTable = (props) => {
         component='div'
         style={{ height: rowHeight }}
         variant='body'>
-        <Typography variant='body2'>{Component ? <Component rowData={rowData} value={cellData} /> : cellData}</Typography>
+        <Typography
+          style={{
+            fontSize: 12
+          }} variant='body2'>{Component ? <Component rowData={rowData} value={cellData} /> : cellData}</Typography>
       </TableCell>
     )
   }
@@ -107,16 +113,22 @@ const VirtualizedTable = (props) => {
         component='div'
         style={{ height: headerHeight }}
         variant='head'>
-        <Typography variant='h5'>{Component ? <Component value={label} /> : label}</Typography>
+        <Typography
+          style={{
+            fontSize: 14
+          }} variant='h5'>{Component ? <Component value={label} /> : label}</Typography>
       </StyledTableCell>
     )
   }
 
   return (
     <InfiniteLoader
+      children={children}
       isRowLoaded={isRowLoaded}
       loadMoreRows={loadMoreRows}
-      rowCount={rowCount}>
+      minimumBatchSize={minimumBatchSize}
+      rowCount={rowCount}
+      threshold={threshold}>
       {({ onRowsRendered, registerChild }) => (
         <AutoSizer>
           {({ height, width }) => (
@@ -175,7 +187,7 @@ const TableInfinity = ({ height = 400, width = '100%', columns, rows, onRowClick
   const classes = useMainStyles({ height, width })
 
   return (
-    <Paper className={classes.paper}>
+    <Paper className={classes.paper} square>
       <VirtualizedTable
         columns={columns}
         onRowClick={onRowClick}
