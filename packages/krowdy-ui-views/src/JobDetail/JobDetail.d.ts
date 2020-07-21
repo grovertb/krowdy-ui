@@ -13,6 +13,7 @@ export type JobDetailProps = {
   visibleInformation?: boolean;
   expirationDate?: string;
   disabledPerson?: object;
+  hiddenButton?: boolean
 };
 
 declare const JobDetail: React.ComponentType<JobDetailProps>;

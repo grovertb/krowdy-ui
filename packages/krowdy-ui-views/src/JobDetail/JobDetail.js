@@ -183,6 +183,7 @@ export const styles = theme => ({
 
 const JobDetail = props => {
   const {
+    hiddenButton,
     jobId,
     classes,
     title,
@@ -256,9 +257,11 @@ const JobDetail = props => {
               <Typography className={classes.titleJob} variant='h1'>{title}</Typography>
             </div>
             <div className={classes.btnPostular}>
-              <Button
-                color='primary' disabled={timeToDown < 0} onClick={onClickPostulation}
-                size='large' variant='contained'>{userInJob ? 'Ver postulación' : 'Postular'}</Button>
+              {
+                !hiddenButton && <Button
+                  color='primary' disabled={timeToDown < 0} onClick={onClickPostulation}
+                  size='large' variant='contained'>{userInJob ? 'Ver postulación' : 'Postular'}</Button>
+              }
               {
                 (timeToDown >= 0 && timeToDown <= 14) ?
                   <Typography className={classes.textEndJob} component='span'>
@@ -439,6 +442,7 @@ JobDetail.propTypes = {
   detailJob         : PropTypes.array,
   disabledPerson    : PropTypes.object,
   expirationDate    : PropTypes.string,
+  hiddenButton      : PropTypes.bool,
   jobId             : PropTypes.string,
   onClickPostulation: PropTypes.func,
   // status: PropTypes.string

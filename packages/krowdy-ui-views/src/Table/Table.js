@@ -106,13 +106,12 @@ const useStyles = makeStyles(theme => ({
     width: 'auto'
   },
   emptyContainer: {
-    alignContent  : 'center',
     alignItems    : 'center',
     display       : 'flex',
-    height        : 'calc(100% - 64px)',
+    flex          : 1,
     justifyContent: 'center',
     justifyItems  : 'center',
-    width         : '100%'
+    paddingTop    : 12
   },
   flexEnd: {
     justifyContent: 'flex-end'
