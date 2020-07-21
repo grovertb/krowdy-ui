@@ -42,6 +42,23 @@ const useStyles = makeStyles(theme => ({
     fontSize: 12,
     width   : '100px'
   },
+  checkImage: {},
+  checkRoot : {
+    '& $checkbox': {
+      display: 'none'
+    },
+    '&:hover': {
+      '& $checkImage': {
+        display: 'none'
+      },
+      '& $checkbox': {
+        display: 'inline-flex'
+      }
+    },
+    display       : 'flex',
+    justifyContent: 'center'
+  },
+  checkbox : {},
   container: {
     flex    : 1,
     overflow: 'auto'
@@ -89,6 +106,14 @@ const useStyles = makeStyles(theme => ({
   },
   headerTable: {
     fontWeight: 'bold'
+  },
+  hiddenCheck: {
+    '& $checkImage': {
+      display: 'none'
+    },
+    '& $checkbox': {
+      display: 'inline-flex'
+    }
   },
   iconAdd: {
     '&:nth-last-child(1)': {
@@ -145,6 +170,8 @@ const useStyles = makeStyles(theme => ({
 }), { name: 'KrowdyTable' })
 
 const Table = ({
+  checkIcons = [],
+  emptyComponent = null,
   titleTable,
   titleButton,
   paymentAmount,
@@ -217,6 +244,23 @@ const Table = ({
     else if(!isValid && validNewCell)
       setValidNewCell(false)
   }, [ localNewCellProps, validNewCell ])
+
+  const CheckImage = ({ selected,disabled, _id, codeCheck }) => {
+    const currentImage = checkIcons.find(({ code }) => code === codeCheck)
+    const ImageCheck = currentImage && currentImage.component ? currentImage.component : null
+
+    return (
+      <div className={clsx({ [classes.hiddenCheck]: selected, [classes.checkRoot]: !selected })}>
+        <Checkbox
+          checked={selected}
+          className={classes.checkbox}
+          color='primary'
+          disabled={disabled}
+          onClick={(e) => _handleClickSelectItem(e, _id)} />
+        <div className={classes.checkImage}>{ImageCheck}</div>
+      </div>
+    )
+  }
 
   const _handleClickOpenMenu = event => {
     setOpenMenu(event.currentTarget)
@@ -351,7 +395,7 @@ const Table = ({
                     onChange={(e) => onHandleSelectAll(e.target.checked)} />
                 </TableCell>
               ) : null}
-              {visibleColumns.map(({ key, align, minWidth, label, ordering }) => (
+              {visibleColumns.map(({ key, align, minWidth, label = null, columnComponent: Component, ordering }) => (
                 <TableCell
                   align={align}
                   classes={{
@@ -365,10 +409,16 @@ const Table = ({
                       active={orderBy === key}
                       direction={orderBy === key ? sort : 'asc'}
                       onClick={() => _handleSortTable(key, sortTable)}>
-                      <Typography className={classes.headerTable} variant='body1'>{label}</Typography>
+                      {
+                        Component?
+                          <Component />:
+                          <Typography className={classes.headerTable} variant='body1'>{label}</Typography>
+                      }
                     </TableSortLabel>
                   ) : (
-                    <Typography className={classes.headerTable} variant='body1'>{label}</Typography>
+                    Component?
+                      <Component />:
+                      <Typography className={classes.headerTable} variant='body1'>{label}</Typography>
                   )}
                 </TableCell>
               ))}
@@ -393,19 +443,24 @@ const Table = ({
                       <Typography className={classes.customMenuHeadTitle} variant='body2'>Columnas</Typography>
                       <FormGroup>
                         {
-                          columns.map(({ key, label, visible = true }) => (
-                            <FormControlLabel
-                              control={
-                                <Checkbox
-                                  checked={visible}
-                                  className={classes.customCheckbox}
-                                  color='primary'
-                                  disabled={columns.filter(({ visible }) => visible).length === 1 && visible}
-                                  onChange={() => onHandleToggleColumnTable(key)}
-                                  value={key} />
+                          columns.map(({ key, label, visible = true, excludeOfFilter }) => (
+                            <React.Fragment>
+                              {
+                                excludeOfFilter? null :
+                                  <FormControlLabel
+                                    control={
+                                      <Checkbox
+                                        checked={visible}
+                                        className={classes.customCheckbox}
+                                        color='primary'
+                                        disabled={columns.filter(({ visible }) => visible).length === 1 && visible}
+                                        onChange={() => onHandleToggleColumnTable(key)}
+                                        value={key} />
+                                    }
+                                    key={key}
+                                    label={label} />
                               }
-                              key={key}
-                              label={label} />
+                            </React.Fragment>
                           ))
                         }
                       </FormGroup>
@@ -487,7 +542,7 @@ const Table = ({
 
             ) : null}
             {rows.length ? rows.map((row, index) => {
-              const { _id, selected = false, disabled = false } = row
+              const { _id, selected = false, disabled = false, codeCheck } = row
 
               return (
                 <TableRow
@@ -495,11 +550,7 @@ const Table = ({
                   onClick={() => _handleClickTableRow(_id)}>
                   {withCheckbox ? (
                     <TableCell padding='checkbox'>
-                      <Checkbox
-                        checked={selected}
-                        color='primary'
-                        disabled={disabled}
-                        onClick={(e) => _handleClickSelectItem(e, _id)} />
+                      <CheckImage codeCheck={codeCheck} disabled={disabled} selected={selected} />
                     </TableCell>
                   ) : null}
                   {visibleColumns.map(({ key, align, component: Componente, currency: currencyTableCell  }) => Componente ? (
@@ -520,7 +571,11 @@ const Table = ({
             }) : (
               <TableRow>
                 <TableCell colSpan={visibleColumns.length} >
-                  <Typography align='center'>No hay registros para mostrar</Typography>
+                  <Typography align='center'>
+                    {
+                      emptyComponent ? emptyComponent : 'No hay registros para mostrar'
+                    }
+                  </Typography>
                 </TableCell>
               </TableRow>
             )}
@@ -573,14 +628,21 @@ Table.propTypes = {
    * Columns sirve para pasar la cabecera de la tabla
    */
   addNewCell: PropTypes.bool,
-  columns   : PropTypes.arrayOf(
+  checkIcons: PropTypes.arrayOf(
     PropTypes.shape({
-      align   : PropTypes.string,
-      currency: PropTypes.bool,
-      key     : PropTypes.string.isRequired,
-      label   : PropTypes.string.isRequired,
-      minWidth: PropTypes.number,
-      ordering: PropTypes.bool
+      code     : PropTypes.string.isRequired,
+      component: PropTypes.node.isRequired
+    })
+  ),
+  columns: PropTypes.arrayOf(
+    PropTypes.shape({
+      align          : PropTypes.string,
+      columnComponent: PropTypes.node,
+      currency       : PropTypes.bool,
+      key            : PropTypes.string.isRequired,
+      label          : PropTypes.string,
+      minWidth       : PropTypes.number,
+      ordering       : PropTypes.bool
     })
   ).isRequired,
   /**
@@ -590,6 +652,7 @@ Table.propTypes = {
   /**
    * iconBotton recibe un nodo para pinterlo al boton del header
    */
+  emptyComponent            : PropTypes.oneOfType([ PropTypes.node, PropTypes.string ]),
   enableAddCell             : PropTypes.bool,
   /**
    * maxHeigth string | number para la altura de la tabla
@@ -630,7 +693,8 @@ Table.propTypes = {
   paymentAmount: PropTypes.number,
   rows         : PropTypes.arrayOf(
     PropTypes.shape({
-      _id: PropTypes.string.isRequired
+      _id      : PropTypes.string.isRequired,
+      codeCheck: PropTypes.string
     })
   ).isRequired,
   searchSuggestions: PropTypes.array,
