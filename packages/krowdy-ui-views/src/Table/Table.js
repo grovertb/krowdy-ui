@@ -111,7 +111,7 @@ const useStyles = makeStyles(theme => ({
     flex          : 1,
     justifyContent: 'center',
     justifyItems  : 'center',
-    paddingTop    : 12
+    paddingTop    : theme.spacing(1.5)
   },
   flexEnd: {
     justifyContent: 'flex-end'
