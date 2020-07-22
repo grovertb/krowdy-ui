@@ -22,8 +22,7 @@ import {
   Select,
   Popover,
   makeStyles,
-  Input,
-  CardMedia
+  Input
 } from '@krowdy-ui/core'
 // import KeyboardDatePicker from '@material-ui/lab/'
 import { Table as MuiTable, TableContainer, IconButton } from '@krowdy-ui/core/'
@@ -103,7 +102,10 @@ const useStyles = makeStyles(theme => ({
     display: 'flex'
   },
   emptyComponent: {
-    width: 'auto'
+    backgroundPosition: 'center',
+    backgroundRepeat  : 'no-repeat',
+    backgroundSize    : 'cover',
+    width             : 'auto'
   },
   emptyContainer: {
     alignItems    : 'center',
@@ -585,7 +587,8 @@ const Table = ({
         </MuiTable>
         {
           !rows.length && <div className={classes.emptyContainer}>
-            <CardMedia
+            <img
+              alt='empty'
               className={classes.emptyComponent}
               component='img'
               src='https://s3.amazonaws.com/cdn.krowdy.com/media/images/Mesa_de_trabajo.svg' />
