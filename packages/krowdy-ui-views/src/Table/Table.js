@@ -155,6 +155,10 @@ const useStyles = makeStyles(theme => ({
   searchIcon: {
     cursor: 'pointer'
   },
+  sizeIcon: {
+    height: 30,
+    width : 30
+  },
   spaceBetween: {
     alignItems    : 'center',
     display       : 'flex',
@@ -538,7 +542,7 @@ const Table = ({
 
             ) : null}
             {rows.length ? rows.map((row, index) => {
-              const { _id, selected = false, disabled = false, codeCheck } = row
+              const { _id, selected = false, disabled = false, codeCheck, urlIcon } = row
               const currentImage = checkIcons.find(({ code }) => code === codeCheck)
 
               return (
@@ -548,13 +552,7 @@ const Table = ({
                   {withCheckbox ? (
                     <TableCell padding='checkbox'>
                       {
-                        !checkIcons || !currentImage ?
-                          <Checkbox
-                            checked={selected}
-                            className={classes.checkbox}
-                            color='primary'
-                            disabled={disabled}
-                            onClick={(e) => _handleClickSelectItem(e, _id)} /> :
+                        checkIcons && checkIcons.length ?
                           <div className={clsx({ [classes.hiddenCheck]: selected, [classes.checkRoot]: !selected })}>
                             <Checkbox
                               checked={selected}
@@ -563,7 +561,25 @@ const Table = ({
                               disabled={disabled}
                               onClick={(e) => _handleClickSelectItem(e, _id)} />
                             <div className={classes.checkImage}>{currentImage && currentImage.component}</div>
-                          </div>
+                          </div>:
+                          urlIcon?
+                            <div className={clsx({ [classes.hiddenCheck]: selected, [classes.checkRoot]: !selected })}>
+                              <Checkbox
+                                checked={selected}
+                                className={classes.checkbox}
+                                color='primary'
+                                disabled={disabled}
+                                onClick={(e) => _handleClickSelectItem(e, _id)} />
+                              <div className={classes.checkImage}>
+                                <img alt='icon' className={classes.sizeIcon} src={urlIcon} />
+                              </div>
+                            </div> :
+                            <Checkbox
+                              checked={selected}
+                              className={classes.checkbox}
+                              color='primary'
+                              disabled={disabled}
+                              onClick={(e) => _handleClickSelectItem(e, _id)} />
                       }
                     </TableCell>
                   ) : null}
