@@ -136,6 +136,10 @@ const pages: Array<Page> = [
         path: '/views/cardcandidate'
       },
       {
+        title: 'Card Candidate Ranking',
+        path: '/views/cardcandidateranking'
+      },
+      {
         title: 'Counter',
         path: '/views/counter'
       },
