@@ -1,6 +1,8 @@
 import React from 'react'
 import { Button } from '@krowdy-ui/core'
-import { RankingGroup, MultiCheckBox } from '@krowdy-ui/views'
+import { RankingGroup, MultiCheckBox, CardCandidateRanking } from '@krowdy-ui/views'
+import { IconButton } from '@krowdy-ui/core'
+import { MoreVert as MoreVertIcon, Message as MessageIcon } from '@material-ui/icons'
 
 const rankingGroup = {
   name  : 'Grupo 1',
@@ -93,8 +95,15 @@ export default function () {
       rightActionFooter={rankingGroup.status === 'draft' && <Button color='primary' onClick={_handleClickActiveGroup}>Activar</Button>}
       status={rankingGroup.status === 'active'}
       title={rankingGroup.name}>
-      {candidateRankings.map((candidateRanking) => (
-        <div key={candidateRanking._id}>adwa</div>
+      {candidateRankings.map((candidateRanking, index) => (
+        <CardCandidateRanking
+          action={<IconButton color='primary' size='small'><MoreVertIcon fontSize='small' /></IconButton>}
+          actionHoverable={<IconButton color='primary' size='small'><MessageIcon fontSize='small' /></IconButton>}
+          firstName={candidateRanking.candidate.firstName}
+          key={candidateRanking._id}
+          lastName={candidateRanking.candidate.lastName}
+          photo={candidateRanking.candidate.photo}
+          position={index + 1} />
       ))}
     </RankingGroup>
   )

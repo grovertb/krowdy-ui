@@ -23,7 +23,11 @@ export const styles = (theme) => ({
     display   : 'flex'
   },
   fullName: {
-    cursor: 'default'
+    cursor         : 'default',
+    overflow       : 'hidden',
+    'text-overflow': 'ellipsis',
+    'white-space'  : 'nowrap',
+    width          : 132
   },
   header: {
     padding: 8
@@ -34,6 +38,8 @@ export const styles = (theme) => ({
   leftContainer: {
     fontSize   : 10,
     marginRight: 6,
+    maxWidth   : 12,
+    minWidth   : 12,
     width      : 12
   },
   rightContainer: {
@@ -84,23 +90,25 @@ const CardCandidateRanking = ({
           classes={{ action: classes.headerAction }}
           className={classes.header}
           title={
-            <Typography className={classes.fullName} component='span' >
-              <span>{firstName} {lastName}</span>
+            <Typography component='span' >
+              {firstName} {lastName}
             </Typography >
-          } />
+          }
+          titleTypographyProps={{ className: classes.fullName }} />
       </Card>
     </Container>
   )
 }
 
 CardCandidateRanking.propTypes = {
-  action     : PropTypes.node,
-  classes    : PropTypes.object,
-  firstName  : PropTypes.string,
-  lastName   : PropTypes.string,
-  paddingLeft: PropTypes.bool,
-  photo      : PropTypes.string,
-  position   : PropTypes.number
+  action         : PropTypes.node,
+  actionHoverable: PropTypes.node,
+  classes        : PropTypes.object,
+  firstName      : PropTypes.string,
+  lastName       : PropTypes.string,
+  paddingLeft    : PropTypes.bool,
+  photo          : PropTypes.string,
+  position       : PropTypes.number
 }
 
 CardCandidateRanking.muiName = 'CardCandidateRanking'
