@@ -121,7 +121,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'flex-end'
   },
   focusRow: {
-    backgroundColor: theme.palette.primary[0]
+    backgroundColor: theme.palette.primary[10]
   },
   headerTable: {
     fontWeight: 'bold'

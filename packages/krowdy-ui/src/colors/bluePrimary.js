@@ -1,4 +1,5 @@
 export default {
+  10          : '#EBF8FF',
   100         : '#BAE7FF',
   200         : '#91D5FF',
   300         : '#69C0FF',
