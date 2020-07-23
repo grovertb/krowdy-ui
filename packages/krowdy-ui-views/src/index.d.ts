@@ -42,6 +42,9 @@ export * from './Pagination';
 export { default as RadioLabelGroup } from './RadioLabelGroup';
 export * from './RadioLabelGroup';
 
+export { default as RankingGroup } from './RankingGroup';
+export * from './RankingGroup';
+
 export { default as Root } from './Root';
 export * from './Root';
 
@@ -68,3 +71,4 @@ export * from './ToggleRole';
 
 export { default as TopAppBar } from './TopAppBar';
 export * from './TopAppBar';
+

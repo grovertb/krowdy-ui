@@ -93,6 +93,10 @@ const pages: Array<Page> = [
             title: 'Notify',
             path: '/components/notify'
           },
+          {
+            title: 'Dot',
+            path: '/components/dots'
+          },
         ]
       }
     ]
@@ -172,6 +176,10 @@ const pages: Array<Page> = [
       {
         title: 'RadioLabelGroup',
         path: '/views/radioLabelGroup'
+      },
+      {
+        title: 'RankingGroup',
+        path: '/views/rankinggroup'
       },
       {
         title: 'Root',
