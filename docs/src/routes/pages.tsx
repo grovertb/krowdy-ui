@@ -167,6 +167,10 @@ const pages: Array<Page> = [
         title: 'Main',
         path: '/views/main'
       },
+      {
+        title: 'MultiCheckBox',
+        path: '/views/multicheckbox'
+      },
       // P
       {
         title: 'Pagination',

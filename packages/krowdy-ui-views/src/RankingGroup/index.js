@@ -1,1 +1,1 @@
-export { default } from './RankingGroup'
+export { default } from './RankingGroup.js'

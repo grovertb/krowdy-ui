@@ -36,6 +36,9 @@ export * from './Main';
 export { default as ModalKrowder } from './ModalKrowder';
 export * from './ModalKrowder';
 
+export { default as MultiCheckBox } from './MultiCheckBox';
+export * from './MultiCheckBox';
+
 export { default as Pagination } from './Pagination';
 export * from './Pagination';
 

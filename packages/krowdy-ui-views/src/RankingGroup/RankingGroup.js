@@ -1,45 +1,66 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Card, CardHeader, Typography, CardContent, CardActions, Dot, Button } from '@krowdy-ui/core'
+import { Card, CardHeader, Typography, CardContent, CardActions, Dot, withStyles } from '@krowdy-ui/core'
+
+export const styles = (theme) => ({
+  actions: {
+    alignItems    : 'center',
+    borderTop     : `solid 1px ${theme.palette.grey[300]}`,
+    display       : 'flex',
+    height        : 56,
+    justifyContent: 'space-between',
+    width         : '100%'
+  },
+  containerTitle: {
+    alignItems: 'center',
+    display   : 'flex'
+  },
+  content: {
+    height  : 344,
+    overflow: 'auto',
+    padding : 12,
+    width   : 296
+  },
+  header: {
+    padding: 12
+  },
+  root : {},
+  title: {
+    color     : theme.palette.secondary[400],
+    fontSize  : 14,
+    fontWeight: 'bold',
+    marginLeft: 8
+  }
+})
 
 const RankingGroup = props => {
   const {
     classes,
     status,
-    name,
-    candidateScores
+    title,
+    children,
+    action,
+    leftActionFooter = <div />,
+    rightActionFooter = <div />
   } = props
 
   return (
     <Card className={classes.root} elevation={3}>
       <CardHeader
-        // action={<MenuOptions />}
+        action={action}
         className={classes.header}
         title={(
           <div className={classes.containerTitle}>
-            <Dot color={status === 'active' ? 'success' : 'default'} />
-            <Typography className={classes.title}>{name}</Typography>
+            <Dot color={status ? 'success' : 'default'} />
+            <Typography className={classes.title}>{title}</Typography>
           </div>
         )} />
       <CardContent className={classes.content}>
-        {candidateScores.map((candidateScore, index) => (
-          <div className={classes.candidateRankingContainer} key={candidateScore._id}>
-            <div className={classes.index}>{status === 'active' && (index + 1)}</div>
-            {/* <CandidateCard candidate={candidateScore.candidate}  /> */}
-          </div>
-        ))}
+        {children}
       </CardContent>
       <CardActions className={classes.actions}>
-        <div className={classes.alignItems}>
-          {/* <MultiCheckBox
-            classes={{
-              root: classes.multiCheckBox
-            }}
-            label='Revisores'
-            onChange={_handleChangeMultiCheckBox}
-            options={options} /> */}
-        </div>
-        { status === 'draft' && <Button color='primary' /* onClick={_handleClickActiveGroup} */>Activar</Button>}
+        {leftActionFooter}
+        {rightActionFooter}
       </CardActions>
     </Card>
   )
@@ -51,4 +72,4 @@ RankingGroup.propTypes = {
   })
 }
 
-export default RankingGroup
+export default withStyles(styles, { name: 'RankingGroup' })(RankingGroup)
