@@ -246,7 +246,7 @@ export default function () {
       amountTasks  : 0,
       codeCheck    : 'icon2',
       currentTasks : 2,
-      disabled     : false,
+      disabled     : true,
       extra        : 'Status',
       incidents    : 0,
       name         : [ 'Juana de Arco', 'Otro dato' ],

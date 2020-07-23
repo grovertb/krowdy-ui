@@ -38,6 +38,10 @@ const useStyles = makeStyles(theme => ({
     cursor   : 'pointer',
     textAlign: 'right'
   },
+  alignCheckBox: {
+    display       : 'flex',
+    justifyContent: 'center'
+  },
   buttonFooter: {
     fontSize: 12,
     width   : '100px'
@@ -54,9 +58,7 @@ const useStyles = makeStyles(theme => ({
       '& $checkbox': {
         display: 'inline-flex'
       }
-    },
-    display       : 'flex',
-    justifyContent: 'center'
+    }
   },
   checkbox : {},
   container: {
@@ -539,10 +541,9 @@ const Table = ({
                   </TableCell>
                 </TableRow>
               )
-
             ) : null}
             {rows.length ? rows.map((row, index) => {
-              const { _id, selected = false, disabled = false, codeCheck, urlIcon } = row
+              const { _id, selected, disabled, codeCheck, urlIcon } = row
               const currentImage = checkIcons.find(({ code }) => code === codeCheck)
 
               return (
@@ -553,23 +554,35 @@ const Table = ({
                     <TableCell padding='checkbox'>
                       {
                         checkIcons && checkIcons.length ?
-                          <div className={clsx({ [classes.hiddenCheck]: selected, [classes.checkRoot]: !selected })}>
-                            <Checkbox
-                              checked={selected}
-                              className={classes.checkbox}
-                              color='primary'
-                              disabled={disabled}
-                              onClick={(e) => _handleClickSelectItem(e, _id)} />
-                            <div className={classes.checkImage}>{currentImage && currentImage.component}</div>
-                          </div>:
-                          urlIcon?
-                            <div className={clsx({ [classes.hiddenCheck]: selected, [classes.checkRoot]: !selected })}>
-                              <Checkbox
+                          <div className={
+                            clsx({
+                              [classes.hiddenCheck]: selected && !disabled,
+                              [classes.checkRoot]  : !selected && !disabled },
+                            classes.alignCheckBox)}>
+                            {
+                              !disabled && <Checkbox
                                 checked={selected}
                                 className={classes.checkbox}
                                 color='primary'
                                 disabled={disabled}
                                 onClick={(e) => _handleClickSelectItem(e, _id)} />
+                            }
+                            <div className={classes.checkImage}>{currentImage && currentImage.component}</div>
+                          </div> :
+                          urlIcon ?
+                            <div className={
+                              clsx({
+                                [classes.hiddenCheck]: selected && !disabled,
+                                [classes.checkRoot]  : !selected && !disabled },
+                              classes.alignCheckBox)}>
+                              {
+                                !disabled && <Checkbox
+                                  checked={selected}
+                                  className={classes.checkbox}
+                                  color='primary'
+                                  disabled={disabled}
+                                  onClick={(e) => _handleClickSelectItem(e, _id)} />
+                              }
                               <div className={classes.checkImage}>
                                 <img alt='icon' className={classes.sizeIcon} src={urlIcon} />
                               </div>
