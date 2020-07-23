@@ -120,6 +120,9 @@ const useStyles = makeStyles(theme => ({
   flexEnd: {
     justifyContent: 'flex-end'
   },
+  focusRow: {
+    backgroundColor: theme.color.primary[0]
+  },
   headerTable: {
     fontWeight: 'bold'
   },
@@ -543,11 +546,12 @@ const Table = ({
               )
             ) : null}
             {rows.length ? rows.map((row, index) => {
-              const { _id, selected, disabled, codeCheck, urlIcon } = row
+              const { _id, selected, disabled, codeCheck, urlIcon, focus } = row
               const currentImage = checkIcons.find(({ code }) => code === codeCheck)
 
               return (
                 <TableRow
+                  className={clsx({ [classes.focusRow]: focus })}
                   hover key={index}
                   onClick={() => _handleClickTableRow(_id)}>
                   {withCheckbox ? (
