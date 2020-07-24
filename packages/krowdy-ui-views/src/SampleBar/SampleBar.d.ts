@@ -1,7 +1,7 @@
 interface Classes {
-  bar: Record<string, string>,
-  mark:Record<string, string>,
-  root: Record<string, string>
+  bar: string;
+  mark: string;
+  root: string;
 }
 
 

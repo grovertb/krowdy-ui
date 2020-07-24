@@ -19,7 +19,7 @@ const styles = (theme) => ({
   }
 })
 
-const SampleBar =({ marks = [], classes, template = (mark) => mark.value || '', mark }) => {
+const SampleBar =({ marks = [], classes, template = () => {}, mark: currentMark }) => {
   const maxValue = Math.ceil(
     marks.reduce((max, mark) => Math.max(max, mark.value), 0)
   )
@@ -30,8 +30,9 @@ const SampleBar =({ marks = [], classes, template = (mark) => mark.value || '', 
         {new Array(maxValue - 1).fill(1).map((_, index) => (
           <LineVert index={index + 1} key={index} leftPercent={100/ maxValue * (index + 1)} />
         ))}
-        {marks.map(({ firstName, _id, lastName, value, photo }) => {
-          const active = mark && _id === mark._id
+        {marks.map((mark) => {
+          const { firstName, _id, lastName, value, photo } = mark
+          const active = currentMark && _id === currentMark._id
 
           return (
             <UserPoint
@@ -41,7 +42,7 @@ const SampleBar =({ marks = [], classes, template = (mark) => mark.value || '', 
               lastName={lastName}
               leftPercent={(value / maxValue) * 100}
               photo={photo}
-              subtitle={template({ value })} />
+              subtitle={template(mark)} />
           )
         })}
       </div>
