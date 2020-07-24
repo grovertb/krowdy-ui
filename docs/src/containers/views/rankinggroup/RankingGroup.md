@@ -9,7 +9,6 @@
 | status               |    string        |          |                                                          |
 | title                |    boolean       |          | (newOptions) => void                                     |
 | action               |    ReactNode     |          |                                                          |
-| action               |    ReactNode     |          |                                                          |
 | leftActionFooter     |    ReactNode     |          |                                                          |
 | rightActionFooter    |    ReactNode     |          |                                                          |
 | scroll               |    boolean       |          |                                                          |
