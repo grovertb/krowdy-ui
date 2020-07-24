@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import clsx from 'clsx'
 import { withStyles } from '@krowdy-ui/styles'
+
 // import clsx from 'clsx'
 
 export const styles = theme => ({
@@ -19,18 +21,22 @@ export const styles = theme => ({
     background: theme.palette.grey[400]
   },
   image: {
-    border      : `solid 2px ${theme.palette.primary.main}`,
+    border      : `solid 4px ${theme.palette.primary[300]}`,
     borderRadius: '50%',
     height      : 36,
     // marginRight: theme.spacing(2),
     width       : 36
+  },
+  imageActive: {
+    border: `solid 4px ${theme.palette.primary.main}`
   }
 })
 
 function AvatarUser(props) {
   const {
     user,
-    classes
+    classes,
+    active
   } = props
 
   return (
@@ -38,7 +44,7 @@ function AvatarUser(props) {
       user.photo ?
         <img
           alt={`${user.firstName} ${user.lastName}`}
-          className={classes.image}
+          className={clsx(classes.image, { [ classes.imageActive]: active })}
           src={user.photo} /> :
         <div
           className={classes.defaultAvatar}>
@@ -51,6 +57,7 @@ function AvatarUser(props) {
 }
 
 AvatarUser.propTypes = {
+  active : PropTypes.bool,
   classes: PropTypes.object,
   user   : PropTypes.shape({
     firstName: PropTypes.string,

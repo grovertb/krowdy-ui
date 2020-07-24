@@ -3,46 +3,53 @@ import { withStyles } from '@krowdy-ui/core'
 import LineVert from './LineVert'
 import UserPoint from './UserPoint'
 
-const styles = {
+const styles = (theme) => ({
+  bar: {
+    backgroundColor: theme.palette.secondary[100],
+    borderRadius   : 8,
+    height         : 12,
+    position       : 'relative',
+    width          : 344
+  },
   element: {
     borderRadius: '50%',
     position    : 'absolute',
     top         : 2
   },
   root: {
-    backgroundColor: '#CCD4E0',
-    borderRadius   : 8,
-    height         : 12,
-    position       : 'relative',
-    width          : 344
+    alignItems: 'center', display: 'flex', height: 54
   }
-}
+})
 
 const WIDTH = 344
-const selectedIndex = 0
-function SampleBar({ values, classes }) {
+function SampleBar({ dataSource, classes, template = '{{value}}', value }) {
   const maxValue = Math.ceil(
-    values.reduce((max, element) => Math.max(max, element.value), 0)
+    dataSource.reduce((max, element) => Math.max(max, element.value), 0)
   )
 
   const widthInterval = WIDTH / maxValue
 
   return (
     <div className={classes.root}>
-      {new Array(maxValue - 1).fill(1).map((_, index) => (
-        <LineVert key={index} left={widthInterval * (index + 1)} />
-      ))}
-      {values.map((element, index) => {
-        const selected = index === selectedIndex
+      <div className={classes.bar}>
+        {new Array(maxValue - 1).fill(1).map((_, index) => (
+          <LineVert index={index + 1} key={index} left={widthInterval * (index + 1)} />
+        ))}
+        {dataSource.map(({ firstName, _id, lastName, value: dataValue, photo }) => {
+          const active = _id === value._id
 
-        return (
-          <UserPoint
-            key={element._id}
-            leftPercent={(element.value / maxValue) * 100}
-            photo={element.photo}
-            selected={selected} />
-        )
-      })}
+          return (
+            <UserPoint
+              active={active}
+              firstName={firstName}
+              key={_id}
+              lastName={lastName}
+              leftPercent={(dataValue / maxValue) * 100}
+              photo={photo}
+              subtitle={template.replace(new RegExp('{{value}}', 'g'), dataValue)} />
+          )
+        })}
+      </div>
     </div>
   )
 }

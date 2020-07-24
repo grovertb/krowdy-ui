@@ -62,7 +62,8 @@ const data = [
 
 export default () => (
   <div>
-    <SampleBar values={data} />
+    <SampleBar dataSource={data} template='{{value}} anos' value={data[3]} />
+    <SampleBar dataSource={data} template='{{value}} veces por ano' value={data[3]} />
   </div>
 )
 
