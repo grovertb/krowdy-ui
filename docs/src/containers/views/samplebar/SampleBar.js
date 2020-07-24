@@ -96,7 +96,9 @@ export default () => {
 const useStyles = makeStyles(() => ({
   container: {
     display       : 'flex',
-    justifyContent: 'space-between', padding       : 12, width         : '100%'
+    justifyContent: 'space-between',
+    padding       : 12,
+    width         : '100%'
   },
   subSection: {
     alignItems: 'center',
