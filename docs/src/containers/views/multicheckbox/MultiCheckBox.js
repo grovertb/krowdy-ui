@@ -10,11 +10,11 @@ export default function () {
       checked: true,
       key    : '1',
       label  : 'Panchito'
-    },{
+    }, {
       checked: true,
       key    : '2',
       label  : 'Jaimito'
-    },{
+    }, {
       checked: true,
       key    : '3',
       label  : 'Anafleto'
@@ -27,11 +27,11 @@ export default function () {
       checked: true,
       key    : '4',
       label  : 'Panchito'
-    },{
+    }, {
       checked: true,
       key    : '5',
       label  : 'Jaimito'
-    },{
+    }, {
       checked: true,
       key    : '6',
       label  : 'Anafleto'

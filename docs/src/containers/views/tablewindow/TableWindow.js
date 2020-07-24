@@ -34,7 +34,7 @@ const useStyles = makeStyles({
 
 export default function () {
   const classes = useStyles()
-  const [ rows , setRows ]  = React.useState([])
+  const [ rows, setRows ]  = React.useState([])
   const [ pagination, setPagination ] = React.useState({
     page   : 1,
     perPage: 10,

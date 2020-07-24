@@ -69,7 +69,7 @@ const RefreshColumn = () => (
 
 const demoColumns = [
   {
-    component: Componente ,
+    component: Componente,
     editable : false,
     key      : 'name',
     label    : 'Nombre',
