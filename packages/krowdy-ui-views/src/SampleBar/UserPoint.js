@@ -1,5 +1,4 @@
 import React from 'react'
-import clsx from 'clsx'
 import { makeStyles, Tooltip } from '@material-ui/core'
 import { AvatarUser } from '@krowdy-ui/views'
 import { Typography } from '@krowdy-ui/core'
@@ -42,18 +41,19 @@ const useStyles = makeStyles({
 })
 
 const UserPoint = ({
-  leftPercent = 0,
+  leftPercent= 0,
   subtitle,
   photo,
   active,
   firstName,
   lastName,
-  size = 8
+  size= 8
 }) => {
   const classes = useStyles({ leftPercent, size })
+
   if(active)
     return (
-      <div className={clsx(classes.root)}>
+      <div className={classes.root}>
         <Tooltip
           arrow
           title={(
@@ -70,7 +70,7 @@ const UserPoint = ({
     )
 
   return (
-    <div className={clsx(classes.root)}>
+    <div className={classes.root}>
       <div className={classes.avatar}>
         <Tooltip
           arrow
