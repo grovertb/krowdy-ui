@@ -47,7 +47,7 @@ const DragComponent = props => {
   }
 
   return (
-    <div className={clsx(classes.container,classes.root)}>
+    <div className={clsx(classes.container, classes.root)}>
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable direction='vertical' droppableId='droppable'>
           {(dropProvided) => (

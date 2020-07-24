@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     cursor  : 'pointer',
     display : 'inline-block',
     fontSize: ({ count }) => count,
-    margin  : theme.spacing(0,.5)
+    margin  : theme.spacing(0, .5)
   },
   dialogTitleContainer: {
     margin : 0,
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 // Transforma un valor de un intervalo1 a un intervalo2
-const transform = (Interval1,Interval2,x) =>
+const transform = (Interval1, Interval2, x) =>
   Math.round((x - Interval1.min) / (Interval1.max - Interval1.min) * ( Interval2.max - Interval2.min ) + Interval2.min)
 
 // function getColor() {
@@ -74,12 +74,12 @@ const TagCloudWords = ({
     return [
       ...items.map((element) => ({
         _id  : element._id,
-        count: transform(rangeDataSource, { max: 35,min: 12 }, element.count),
+        count: transform(rangeDataSource, { max: 35, min: 12 }, element.count),
         value: element.label
       }))
     ].sort (() => 0.5 - Math.random ())
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[ items ])
+  }, [ items ])
 
   const _handleClickTag = (tag) => {
     const existsValue = selectedItems.includes(tag.value)
