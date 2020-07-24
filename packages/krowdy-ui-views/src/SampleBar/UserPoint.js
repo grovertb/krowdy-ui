@@ -41,7 +41,15 @@ const useStyles = makeStyles({
   }
 })
 
-const UserPoint = ({ leftPercent, subtitle, photo, active, firstName, lastName,  size = 8 }) => {
+const UserPoint = ({
+  leftPercent = 0,
+  subtitle,
+  photo,
+  active,
+  firstName,
+  lastName,
+  size = 8
+}) => {
   const classes = useStyles({ leftPercent, size })
   if(active)
     return (
@@ -55,7 +63,7 @@ const UserPoint = ({ leftPercent, subtitle, photo, active, firstName, lastName, 
             </>
           )}>
           <div>
-            <AvatarUser active={active} user={{ firstName, lastName, photo }} />
+            <AvatarUser active={active} size='small'   user={{ firstName, lastName, photo }} />
           </div>
         </Tooltip>
       </div>
@@ -74,7 +82,7 @@ const UserPoint = ({ leftPercent, subtitle, photo, active, firstName, lastName, 
           )}
           TransitionProps={{ timeout: 0 }}>
           <div>
-            <AvatarUser user={{ firstName, lastName, photo }} />
+            <AvatarUser size='small' user={{ firstName, lastName, photo }} />
           </div>
         </Tooltip>
       </div>

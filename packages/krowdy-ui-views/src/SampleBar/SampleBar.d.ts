@@ -1,10 +1,25 @@
+interface Classes {
+  bar: Record<string, string>,
+  mark:Record<string, string>,
+  root: Record<string, string>
+}
 
-import { TopAppBarProps } from '../TopAppBar'
-import { MainProps } from '../Main';
+
+interface Mark {
+  _id      : string | number,
+  firstName?: string,
+  lastName?: string,
+  photo?: string,
+  value: number
+}
+
+
 
 export type SampleBarProps = {
-  topAppBarProps: Partial<TopAppBarProps>
-  mainProps: Partial<MainProps>
+  classes?: Classes,
+  mark?   : Mark,
+  marks?:Mark[],
+  template?: string
 }
 
 declare const SampleBar: React.FC<SampleBarProps>;

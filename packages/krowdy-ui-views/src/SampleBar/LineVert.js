@@ -10,19 +10,19 @@ const useStyles = makeStyles((theme) => ({
     width          : 2
   },
   root: {
-    left    : ({ left }) => `${left}px`,
+    left    : ({ leftPercent }) => `${leftPercent}%`,
     position: 'absolute'
   },
   rootLabel: {
     bottom  : -24,
     color   : theme.palette.grey[600],
     fontSize: 12,
-    left    : ({ left }) => `calc(${left}px - 4px)`
+    left    : ({ leftPercent }) => `calc(${leftPercent}% - 4px)`
   }
 }))
 
-const LineVert = ({ left, index }) => {
-  const classes = useStyles({ left })
+const LineVert = ({ leftPercent = 0, index }) => {
+  const classes = useStyles({ leftPercent })
 
   return (
     <>

@@ -5,8 +5,9 @@ interface user {
 }
 
 export type AvatarUserProps = {
-  user: user,
-  active?: boolean
+  user: user;
+  active?: boolean;
+  size: 'small' | 'default' | 'big'
 };
 
 declare const AvatarUser: React.ComponentType<AvatarUserProps>;
