@@ -36,7 +36,7 @@
     "@devexpress/dx-react-core": "^2.5.1",
     "@devexpress/dx-react-grid": "^2.5.1",
     "@devexpress/dx-react-grid-material-ui": "^2.5.1",
-    "@krowdy-ui/core": "0.0.59",
+    "@krowdy-ui/core": "0.0.60",
     "@loadable/component": "5.12.0",
     "@material-ui/icons": "4.9.1",
     "@material-ui/lab": "4.0.0-alpha.45",
