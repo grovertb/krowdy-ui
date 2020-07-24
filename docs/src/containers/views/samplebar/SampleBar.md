@@ -7,7 +7,7 @@
 | Name                 |      Type        |  Default | Description                                              |
 |:---------------------|:-----------------|:---------|:---------------------------------------------------------| 
 | action               |    ReactNode     |          |                                                          |
-| actionHoverable      |    ReactNode     |          | (newOptions) => void                                     |
+| actionHoverable      |    ReactNode     |          |                                                          |
 | className            |    string        |          |                                                          |
 | firstName            |    string        |          |                                                          |
 | lastName             |    string        |          |                                                          |
