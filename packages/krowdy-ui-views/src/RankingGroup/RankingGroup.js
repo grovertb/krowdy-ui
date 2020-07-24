@@ -1,6 +1,15 @@
 import React from 'react'
+import clsx from 'clsx'
 import PropTypes from 'prop-types'
-import { Card, CardHeader, Typography, CardContent, CardActions, Dot, withStyles } from '@krowdy-ui/core'
+import {
+  Card,
+  CardHeader,
+  Typography,
+  CardContent,
+  CardActions,
+  Dot,
+  withStyles
+} from '@krowdy-ui/core'
 
 export const styles = (theme) => ({
   actions: {
@@ -16,15 +25,28 @@ export const styles = (theme) => ({
     display   : 'flex'
   },
   content: {
-    height  : 344,
-    overflow: 'auto',
-    padding : 12,
-    width   : 296
+    padding: 12,
+    width  : 296
   },
   header: {
     padding: 12
   },
-  root : {},
+  root  : {},
+  scroll: {
+    height  : 344,
+    overflow: 'auto'
+  },
+  subheaderContent: {
+    alignItems: 'center',
+    display   : 'flex',
+    padding   : theme.spacing(0,1.5),
+    paddingTop: 12
+  },
+  subtitle: {
+    color     : theme.palette.grey[600],
+    fontSize  : 14,
+    marginLeft: 20
+  },
   title: {
     color     : theme.palette.secondary[400],
     fontSize  : 14,
@@ -41,7 +63,11 @@ const RankingGroup = props => {
     children,
     action,
     leftActionFooter = <div />,
-    rightActionFooter = <div />
+    rightActionFooter = <div />,
+    subtitle,
+    subHeader,
+    scroll,
+    shadow
   } = props
 
   return (
@@ -49,13 +75,20 @@ const RankingGroup = props => {
       <CardHeader
         action={action}
         className={classes.header}
+        shadow={shadow}
         title={(
           <div className={classes.containerTitle}>
-            <Dot color={status ? 'success' : 'default'} />
+            { !shadow && <Dot color={status ? 'success' : 'default'} />}
             <Typography className={classes.title}>{title}</Typography>
+            {subtitle && <Typography className={classes.subtitle} variant='body2'>{subtitle}</Typography>}
           </div>
         )} />
-      <CardContent className={classes.content}>
+      {subHeader && (
+        <CardContent className={classes.subheaderContent}>
+          {subHeader}
+        </CardContent>
+      )}
+      <CardContent className={clsx(classes.content,{ [classes.scroll]: scroll })}>
         {children}
       </CardContent>
       <CardActions className={classes.actions}>
@@ -67,9 +100,16 @@ const RankingGroup = props => {
 }
 
 RankingGroup.propTypes = {
-  classes: PropTypes.shape({
-    buttongroup: PropTypes.string
-  })
+  action           : PropTypes.node,
+  children         : PropTypes.node,
+  classes          : PropTypes.object,
+  leftActionFooter : PropTypes.node,
+  rightActionFooter: PropTypes.node,
+  scroll           : PropTypes.bool,
+  status           : PropTypes.bool,
+  subHeader        : PropTypes.node,
+  subtitle         : PropTypes.string,
+  title            : PropTypes.string
 }
 
 export default withStyles(styles, { name: 'RankingGroup' })(RankingGroup)

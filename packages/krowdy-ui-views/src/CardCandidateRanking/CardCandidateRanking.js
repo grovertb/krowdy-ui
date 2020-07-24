@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@krowdy-ui/styles'
 import { Typography, Card, CardHeader, Avatar } from '@krowdy-ui/core'
-
+import clsx from 'clsx'
 export const styles = (theme) => ({
   actionContainer: {
     alignItems: 'center',
@@ -63,7 +63,8 @@ const CardCandidateRanking = ({
   action,
   actionHoverable,
   position,
-  paddingLeft
+  paddingLeft,
+  className
 }) => {
   const Container = position || paddingLeft ?
     ({ children }) => (
@@ -77,7 +78,7 @@ const CardCandidateRanking = ({
   return (
     <Container>
       <Card
-        className={classes.root}
+        className={clsx(classes.root,className)}
         hoverable
         variant='outlined'>
         <CardHeader
