@@ -7,6 +7,6 @@
 
 | Name                 |      Type        |  Default | Description                                              |
 |:---------------------|:-----------------|:---------|:---------------------------------------------------------| 
-| label                |    string        |'default' |                                                          |
-| onChange             |    func          |'default' | (newOptions) => void                                     |
-| options              |    Option[]      |'default' |                                                          |
+| label                |    string        |          |                                                          |
+| onChange             |    func          |          | (newOptions) => void                                     |
+| options              |    Option[]      |          |                                                          |

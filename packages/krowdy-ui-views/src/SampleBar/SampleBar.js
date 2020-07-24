@@ -19,7 +19,7 @@ const styles = (theme) => ({
   }
 })
 
-const SampleBar =({ marks = [], classes, template = '{{value}}', mark }) => {
+const SampleBar =({ marks = [], classes, template = (mark) => mark.value || '', mark }) => {
   const maxValue = Math.ceil(
     marks.reduce((max, mark) => Math.max(max, mark.value), 0)
   )
@@ -30,7 +30,7 @@ const SampleBar =({ marks = [], classes, template = '{{value}}', mark }) => {
         {new Array(maxValue - 1).fill(1).map((_, index) => (
           <LineVert index={index + 1} key={index} leftPercent={100/ maxValue * (index + 1)} />
         ))}
-        {marks.map(({ firstName, _id, lastName, value: dataValue, photo }) => {
+        {marks.map(({ firstName, _id, lastName, value, photo }) => {
           const active = mark && _id === mark._id
 
           return (
@@ -39,9 +39,9 @@ const SampleBar =({ marks = [], classes, template = '{{value}}', mark }) => {
               firstName={firstName}
               key={_id}
               lastName={lastName}
-              leftPercent={(dataValue / maxValue) * 100}
+              leftPercent={(value / maxValue) * 100}
               photo={photo}
-              subtitle={template.replace(new RegExp('{{value}}', 'g'), dataValue)} />
+              subtitle={template({ value })} />
           )
         })}
       </div>
@@ -65,7 +65,7 @@ SampleBar.propTypes = {
     photo    : PropTypes.string,
     value    : PropTypes.number
   })),
-  template: PropTypes.string
+  template: PropTypes.func
 }
 
 export default withStyles(styles, { name: 'SampleBar' })(SampleBar)

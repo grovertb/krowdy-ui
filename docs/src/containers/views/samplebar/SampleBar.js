@@ -76,7 +76,7 @@ export default () => {
           <SampleBar
             mark={data[3]}
             marks={data}
-            template='{{value}} anos' />
+            template={({ value }) => `${value} años`} />
         </div>
         <div>
           <div className={classes.subSection}>
@@ -86,7 +86,7 @@ export default () => {
           <SampleBar
             mark={data[3]}
             marks={data}
-            template='{{value}} veces por ano' />
+            template={({ value }) => `${value} veces por año`} />
         </div>
       </Paper>
     </div>

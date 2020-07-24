@@ -1,8 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import clsx from 'clsx'
 import { withStyles } from '@krowdy-ui/styles'
 import { Typography, Card, CardHeader, Avatar } from '@krowdy-ui/core'
-import clsx from 'clsx'
+
 export const styles = (theme) => ({
   actionContainer: {
     alignItems: 'center',
@@ -10,7 +11,7 @@ export const styles = (theme) => ({
   },
   actionHoverableContainer: {
     display    : 'none',
-    marginRight: 8
+    marginRight: theme.spacing(1)
   },
   avatar: {
     border  : `1px solid ${theme.palette.grey[400]}`,
@@ -30,14 +31,14 @@ export const styles = (theme) => ({
     width          : 132
   },
   header: {
-    padding: 8
+    padding: theme.spacing(1)
   },
   headerAction: {
-    marginTop: 1
+    marginTop: theme.spacing(1/8)
   },
   leftContainer: {
     fontSize   : 10,
-    marginRight: 6,
+    marginRight: theme.spacing(.75),
     maxWidth   : 12,
     minWidth   : 12,
     width      : 12
@@ -56,9 +57,9 @@ export const styles = (theme) => ({
 })
 
 const CardCandidateRanking = ({
-  lastName = '',
-  firstName = '',
-  photo = '',
+  lastName= '',
+  firstName= '',
+  photo= '',
   classes,
   action,
   actionHoverable,
@@ -70,7 +71,8 @@ const CardCandidateRanking = ({
     ({ children }) => (
       <div className={classes.container}>
         <Typography className={classes.leftContainer}>{ !paddingLeft && position }</Typography>
-        <div className={classes.rightContainer}>{children}</div></div>
+        <div className={classes.rightContainer}>{children}</div>
+      </div>
     ):
     ({ children }) =>
       <>{children}</>
@@ -84,7 +86,8 @@ const CardCandidateRanking = ({
         <CardHeader
           action={(
             <div className={classes.actionContainer}>
-              <div className={classes.actionHoverableContainer}>{actionHoverable}</div>{action}
+              <div className={classes.actionHoverableContainer}>{actionHoverable}</div>
+              {action}
             </div>
           )}
           avatar={<Avatar alt='Remy Sharp' className={classes.avatar} src={photo}>{!photo && `${firstName[0]} ${lastName[0]}`}</Avatar>}

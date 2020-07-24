@@ -13,13 +13,13 @@ interface Mark {
   value: number
 }
 
-
+type IFuncTemplate = (mark: Mark) => string
 
 export type SampleBarProps = {
   classes?: Classes,
   mark?   : Mark,
   marks?:Mark[],
-  template?: string
+  template?: IFuncTemplate
 }
 
 declare const SampleBar: React.FC<SampleBarProps>;

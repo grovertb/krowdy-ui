@@ -1,15 +1,15 @@
 interface Classes {
-  container: Record<string, string>;
-  leftContainer:Record<string, string>;
-  rightContainer: Record<string, string>;
-  actionContainer: Record<string, string>;
-  actionHoverableContainer: Record<string, string>;
-  headerAction: Record<string,string>;
-  avatar: Record<string, string>;
-  fullName: Record<string, string>;
-  header: Record<string, string>;
-  root : Record<string, string>;
-  title: Record<string, string>
+  container: string;
+  leftContainer:string;
+  rightContainer: string;
+  actionContainer: string;
+  actionHoverableContainer: string;
+  headerAction: string;
+  avatar: string;
+  fullName: string;
+  header: string;
+  root : string;
+  title: string;
 }
 
 export interface CardCandidateRankingProps {

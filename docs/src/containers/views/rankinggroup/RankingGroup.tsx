@@ -13,7 +13,7 @@ import {
 
 const rankingGroup = {
   name  : 'Grupo 1',
-  status: 'draft'
+  status: 'active'
 }
 
 const options = [ {
@@ -186,7 +186,7 @@ export default function () {
         leftActionFooter={<MultiCheckBox label='Revisores' options={options} />}
         rightActionFooter={rankingGroup.status === 'draft' && <Button color='primary' onClick={_handleClickActiveGroup}>Activar</Button>}
         scroll
-        status={rankingGroup.status === 'active'}
+        active={rankingGroup.status === 'active'}
         title={rankingGroup.name}>
         {candidateRankings.map((candidateRanking) => (
           <CardCandidateRanking
@@ -206,7 +206,7 @@ export default function () {
         rightActionFooter={rankingGroup.status === 'draft' && <Button color='primary' onClick={_handleClickActiveGroup}>Activar</Button>}
         scroll
         shadow
-        status={rankingGroup.status === 'active'}
+        active={rankingGroup.status === 'active'}
         subHeader={(
           <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
             <div style={{ alignItems: 'center', display: 'flex' }}>
@@ -234,7 +234,7 @@ export default function () {
         action={<IconButton color='primary' size='small'><FullscreenExitIcon fontSize='small' /></IconButton>}
         rightActionFooter={<Button color='primary' size='small' variant='outlined'>Finalizar Ranking</Button>}
         shadow
-        status={rankingGroup.status === 'active'}
+        active={rankingGroup.status === 'active'}
         title={rankingGroup.name}>
         {candidateRankings.map((candidateRanking, index) => (
           <CardCandidateRanking

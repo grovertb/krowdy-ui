@@ -25,11 +25,11 @@ export const styles = (theme) => ({
     display   : 'flex'
   },
   content: {
-    padding: 12,
+    padding: theme.spacing(1.5),
     width  : 296
   },
   header: {
-    padding: 12
+    padding: theme.spacing(1.5)
   },
   root  : {},
   scroll: {
@@ -40,25 +40,25 @@ export const styles = (theme) => ({
     alignItems: 'center',
     display   : 'flex',
     padding   : theme.spacing(0, 1.5),
-    paddingTop: 12
+    paddingTop: theme.spacing(1.5)
   },
   subtitle: {
     color     : theme.palette.grey[600],
     fontSize  : 14,
-    marginLeft: 20
+    marginLeft: theme.spacing(2.5)
   },
   title: {
     color     : theme.palette.secondary[400],
     fontSize  : 14,
     fontWeight: 'bold',
-    marginLeft: 8
+    marginLeft: theme.spacing(1)
   }
 })
 
 const RankingGroup = props => {
   const {
     classes,
-    status,
+    active,
     title,
     children,
     action,
@@ -78,7 +78,7 @@ const RankingGroup = props => {
         shadow={shadow}
         title={(
           <div className={classes.containerTitle}>
-            { !shadow && <Dot color={status ? 'success' : 'default'} />}
+            { !shadow && <Dot color={active ? 'success' : 'default'} />}
             <Typography className={classes.title}>{title}</Typography>
             {subtitle && <Typography className={classes.subtitle} variant='body2'>{subtitle}</Typography>}
           </div>
@@ -101,13 +101,13 @@ const RankingGroup = props => {
 
 RankingGroup.propTypes = {
   action           : PropTypes.node,
+  active           : PropTypes.bool,
   children         : PropTypes.node,
   classes          : PropTypes.object,
   leftActionFooter : PropTypes.node,
   rightActionFooter: PropTypes.node,
   scroll           : PropTypes.bool,
   shadow           : PropTypes.bool,
-  status           : PropTypes.bool,
   subHeader        : PropTypes.node,
   subtitle         : PropTypes.string,
   title            : PropTypes.string
