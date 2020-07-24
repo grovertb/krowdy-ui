@@ -54,6 +54,9 @@ export * from './RankingGroup';
 export { default as Root } from './Root';
 export * from './Root';
 
+export { default as SampleBar } from './SampleBar'
+export * from './SampleBar'
+
 export { default as Search } from './Search'
 export * from './Search'
 

@@ -208,8 +208,8 @@ export default function () {
         scroll
         shadow
         subHeader={(
-          <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-            <div style={{ alignItems: 'center', display: 'flex' }}>
+          <div className={classes.subHeaderContainer}>
+            <div className={classes.subHeaderTitleContainer}>
               <IconButton color='primary' size='small'><KeyboardArrowLeftIcon fontSize='small' /></IconButton>
               <Typography variant='h6'>Grupo 1</Typography>
               <IconButton color='primary' size='small'><KeyboardArrowRightIcon fontSize='small' /></IconButton>
@@ -256,5 +256,14 @@ export default function () {
 const useStyles = makeStyles({
   cardCandidateRanking: {
     marginBottom: 8
+  },
+  subHeaderContainer: {
+    display       : 'flex',
+    justifyContent: 'space-between',
+    width         : '100%'
+  },
+  subHeaderTitleContainer: {
+    alignItems: 'center',
+    display   : 'flex'
   }
 })

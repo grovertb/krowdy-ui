@@ -195,6 +195,10 @@ const pages: Array<Page> = [
       },
       // S
       {
+        title: 'SampleBar',
+        path: '/views/samplebar'
+      },
+      {
         title: 'Search',
         path: '/views/search'
       },
