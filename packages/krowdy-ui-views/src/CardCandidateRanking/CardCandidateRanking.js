@@ -78,7 +78,7 @@ const CardCandidateRanking = ({
   return (
     <Container>
       <Card
-        className={clsx(classes.root,className)}
+        className={clsx(classes.root, className)}
         hoverable
         variant='outlined'>
         <CardHeader

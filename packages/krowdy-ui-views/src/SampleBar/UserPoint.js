@@ -5,9 +5,8 @@ import { AvatarUser } from '@krowdy-ui/views'
 import { Typography } from '@krowdy-ui/core'
 
 const useStyles = makeStyles({
-  avatar: {
-  },
-  point: {
+  avatar: {},
+  point : {
     backgroundColor: 'white',
     borderRadius   : '50%',
     height         : ({ size }) => size,
@@ -48,6 +47,7 @@ const UserPoint = ({ leftPercent, subtitle, photo, active, firstName, lastName, 
     return (
       <div className={clsx(classes.root)}>
         <Tooltip
+          arrow
           title={(
             <>
               <Typography className={classes.tooltipTitle}>{firstName} {lastName}</Typography>
@@ -63,17 +63,21 @@ const UserPoint = ({ leftPercent, subtitle, photo, active, firstName, lastName, 
 
   return (
     <div className={clsx(classes.root)}>
-      <Tooltip
-        title={(
-          <>
-            <Typography className={classes.tooltipTitle}>{firstName} {lastName}</Typography>
-            <Typography>{subtitle}</Typography>
-          </>
-        )}>
-        <div className={classes.avatar}>
-          <AvatarUser user={{ firstName, lastName, photo }} />
-        </div>
-      </Tooltip>
+      <div className={classes.avatar}>
+        <Tooltip
+          arrow
+          title={(
+            <>
+              <Typography className={classes.tooltipTitle}>{firstName} {lastName}</Typography>
+              <Typography>{subtitle}</Typography>
+            </>
+          )}
+          TransitionProps={{ timeout: 0 }}>
+          <div>
+            <AvatarUser user={{ firstName, lastName, photo }} />
+          </div>
+        </Tooltip>
+      </div>
       <div className={classes.point} />
     </div>
   )

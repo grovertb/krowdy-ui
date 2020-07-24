@@ -292,4 +292,4 @@ Filters.propTypes = {
 
 Filters.muiName = 'KrowdyFilters'
 
-export default withStyles(styles,{ name: 'Filters' })(Filters)
+export default withStyles(styles, { name: 'Filters' })(Filters)

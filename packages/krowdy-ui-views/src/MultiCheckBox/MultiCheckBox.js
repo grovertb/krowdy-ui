@@ -25,7 +25,7 @@ export const styles = {
   }
 }
 
-const MultiCheckBox = ({ options , onChange = () => {} , label, classes }) => {
+const MultiCheckBox = ({ options, onChange = () => {}, label, classes }) => {
   const [ anchorEl, setAnchorEl ] = React.useState(null)
   const _handleClick = (event) => options.length && setAnchorEl(event.currentTarget)
 
@@ -78,16 +78,16 @@ const MultiCheckBox = ({ options , onChange = () => {} , label, classes }) => {
       </div>
       <Popover
         anchorEl={anchorEl}
-        anchorOrigin={{ horizontal: 'right',vertical: 'top' }}
+        anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
         onClose={handleClose}
         open={open}
-        transformOrigin={{ horizontal: 'center',vertical: 'bottom' }}>
+        transformOrigin={{ horizontal: 'center', vertical: 'bottom' }}>
         <Paper className={classes.containerPaper}>
           <TreeView
             defaultCollapseIcon={<ArrowDropDownIcon />}
             defaultExpandIcon={<ArrowDropUpIcon />}>
             {options.map((option) => {
-              const { key,subOptions, label } = option
+              const { key, subOptions, label } = option
 
               return (
                 <TreeItem

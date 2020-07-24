@@ -39,7 +39,7 @@ export const styles = (theme) => ({
   subheaderContent: {
     alignItems: 'center',
     display   : 'flex',
-    padding   : theme.spacing(0,1.5),
+    padding   : theme.spacing(0, 1.5),
     paddingTop: 12
   },
   subtitle: {
@@ -88,7 +88,7 @@ const RankingGroup = props => {
           {subHeader}
         </CardContent>
       )}
-      <CardContent className={clsx(classes.content,{ [classes.scroll]: scroll })}>
+      <CardContent className={clsx(classes.content, { [classes.scroll]: scroll })}>
         {children}
       </CardContent>
       <CardActions className={classes.actions}>
