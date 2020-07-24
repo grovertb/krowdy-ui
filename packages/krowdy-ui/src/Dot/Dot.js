@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { makeStyles, Tooltip } from '@krowdy-ui/core'
+import { makeStyles } from '@material-ui/styles'
+import Tooltip from '@material-ui/core/Tooltip'
 
 const useStyles = makeStyles((theme) => ({
   root: {
