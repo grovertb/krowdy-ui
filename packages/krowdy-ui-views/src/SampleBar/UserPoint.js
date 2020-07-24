@@ -63,7 +63,7 @@ const UserPoint = ({
             </>
           )}>
           <div>
-            <AvatarUser active={active} size='small'   user={{ firstName, lastName, photo }} />
+            <AvatarUser active={active} size='small' user={{ firstName, lastName, photo }} />
           </div>
         </Tooltip>
       </div>
