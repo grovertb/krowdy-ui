@@ -25,7 +25,7 @@ export const styles = {
   }
 }
 
-const MultiCheckBox = ({ options , onChange = () => {} , label, classes }) => {
+const MultiCheckBox = ({ options, onChange = () => {}, label, classes }) => {
   const [ anchorEl, setAnchorEl ] = React.useState(null)
   const _handleClick = (event) => options.length && setAnchorEl(event.currentTarget)
 
@@ -35,10 +35,11 @@ const MultiCheckBox = ({ options , onChange = () => {} , label, classes }) => {
 
   const open = Boolean(anchorEl)
 
-  const _handleClickOption = (key, checked) => {
+  const _handleClickCheckBox = (e) => e.stopPropagation()
+
+  const _handleClickOption = (key) => ({ target: { checked } }) => {
     const newOptions = options
       .map((option) => {
-        const isSubOptionSelected = option.subOptions.some((subOption) => subOption.key === key)
         const isOptionSelected = option.key === key
         if(isOptionSelected)
           return ({
@@ -50,22 +51,24 @@ const MultiCheckBox = ({ options , onChange = () => {} , label, classes }) => {
             }))
           })
 
+        const isSubOptionSelected = option.subOptions.some((subOption) => subOption.key === key)
         if(!isSubOptionSelected) return option
+
+        const newSubOptions = option.subOptions.map((subOption) => {
+          if(subOption.key !== key) return subOption
+
+          return ({
+            ...subOption,
+            checked
+          })
+        })
 
         return {
           ...option,
-          checked   : false,
-          subOptions: option.subOptions.map((subOption) => {
-            if(subOption.key !== key) return subOption
-
-            return ({
-              ...subOption,
-              checked
-            })
-          })
+          checked   : newSubOptions.every(({ checked }) => checked),
+          subOptions: newSubOptions
         }
       })
-      .map((option) => option.subOptions.every(({ checked }) => checked) ? { ...option, checked: true }: option)
 
     onChange(newOptions)
   }
@@ -78,16 +81,16 @@ const MultiCheckBox = ({ options , onChange = () => {} , label, classes }) => {
       </div>
       <Popover
         anchorEl={anchorEl}
-        anchorOrigin={{ horizontal: 'right',vertical: 'top' }}
+        anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
         onClose={handleClose}
         open={open}
-        transformOrigin={{ horizontal: 'center',vertical: 'bottom' }}>
+        transformOrigin={{ horizontal: 'center', vertical: 'bottom' }}>
         <Paper className={classes.containerPaper}>
           <TreeView
             defaultCollapseIcon={<ArrowDropDownIcon />}
             defaultExpandIcon={<ArrowDropUpIcon />}>
             {options.map((option) => {
-              const { key,subOptions, label } = option
+              const { key, subOptions, label } = option
 
               return (
                 <TreeItem
@@ -97,8 +100,8 @@ const MultiCheckBox = ({ options , onChange = () => {} , label, classes }) => {
                       <Checkbox
                         checked={option.checked}
                         color='primary'
-                        onChange={({ target:{ checked } }) => _handleClickOption(option.key, checked)}
-                        onClick={(e) => e.stopPropagation()}
+                        onChange={_handleClickOption(option.key)}
+                        onClick={_handleClickCheckBox}
                         size='small' />
                       <Typography variant='h6'>{label}</Typography>
                     </div>
@@ -115,8 +118,8 @@ const MultiCheckBox = ({ options , onChange = () => {} , label, classes }) => {
                             <Checkbox
                               checked={subOption.checked}
                               color='primary'
-                              onChange={({ target: { checked } }) => _handleClickOption(subOption.key, checked)}
-                              onClick={(e) => e.stopPropagation()}
+                              onChange={_handleClickOption(subOption.key)}
+                              onClick={_handleClickCheckBox}
                               size='small' />
                             <Typography>{label}</Typography>
                           </div>

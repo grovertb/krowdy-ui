@@ -11,7 +11,7 @@ interface Option {
 }
 type IFuncOnChange = (newOptions: Option[]) => void
 interface Classes {
-  containerPaper: Record<string, string>;
+  containerPaper: string;
 }
 
 export type MultiCheckBoxProps = {

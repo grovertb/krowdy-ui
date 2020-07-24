@@ -6,12 +6,12 @@
 
 | Name                 |      Type        |  Default | Description                                              |
 |:---------------------|:-----------------|:---------|:---------------------------------------------------------| 
-| status               |    string        |          |                                                          |
-| title                |    boolean       |          | (newOptions) => void                                     |
+| active               |    boolean       |   false  |                                                          |
+| title                |    string        |          |                                                          |
 | action               |    ReactNode     |          |                                                          |
 | leftActionFooter     |    ReactNode     |          |                                                          |
 | rightActionFooter    |    ReactNode     |          |                                                          |
-| scroll               |    boolean       |          |                                                          |
+| scroll               |    boolean       |   false  |                                                          |
 | subHeader            |    ReactNode     |          |                                                          |
-| shadow               |    boolean       |          |                                                          |
+| shadow               |    boolean       |   false  |                                                          |
 | subtitle             |    string        |          |                                                          |

@@ -13,7 +13,7 @@ import {
 
 const rankingGroup = {
   name  : 'Grupo 1',
-  status: 'draft'
+  status: 'active'
 }
 
 const options = [ {
@@ -24,11 +24,11 @@ const options = [ {
     checked: true,
     key    : '1',
     label  : 'Panchito'
-  },{
+  }, {
     checked: true,
     key    : '2',
     label  : 'Jaimito'
-  },{
+  }, {
     checked: true,
     key    : '3',
     label  : 'Anafleto'
@@ -41,11 +41,11 @@ const options = [ {
     checked: true,
     key    : '4',
     label  : 'Panchito'
-  },{
+  }, {
     checked: true,
     key    : '5',
     label  : 'Jaimito'
-  },{
+  }, {
     checked: true,
     key    : '6',
     label  : 'Anafleto'
@@ -183,10 +183,10 @@ export default function () {
     <div style={{ alignItems: 'baseline', display: 'flex' }}>
       <RankingGroup
         action={<IconButton color='primary' size='small'><MoreHorizIcon fontSize='small' /></IconButton>}
+        active={rankingGroup.status === 'active'}
         leftActionFooter={<MultiCheckBox label='Revisores' options={options} />}
         rightActionFooter={rankingGroup.status === 'draft' && <Button color='primary' onClick={_handleClickActiveGroup}>Activar</Button>}
         scroll
-        status={rankingGroup.status === 'active'}
         title={rankingGroup.name}>
         {candidateRankings.map((candidateRanking) => (
           <CardCandidateRanking
@@ -202,11 +202,11 @@ export default function () {
       </RankingGroup>
       <RankingGroup
         action={<IconButton color='primary' size='small'><FullscreenExitIcon fontSize='small' /></IconButton>}
+        active={rankingGroup.status === 'active'}
         leftActionFooter={<MultiCheckBox label='Revisores' options={options} />}
         rightActionFooter={rankingGroup.status === 'draft' && <Button color='primary' onClick={_handleClickActiveGroup}>Activar</Button>}
         scroll
         shadow
-        status={rankingGroup.status === 'active'}
         subHeader={(
           <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
             <div style={{ alignItems: 'center', display: 'flex' }}>
@@ -232,9 +232,9 @@ export default function () {
       </RankingGroup>
       <RankingGroup
         action={<IconButton color='primary' size='small'><FullscreenExitIcon fontSize='small' /></IconButton>}
+        active={rankingGroup.status === 'active'}
         rightActionFooter={<Button color='primary' size='small' variant='outlined'>Finalizar Ranking</Button>}
         shadow
-        status={rankingGroup.status === 'active'}
         title={rankingGroup.name}>
         {candidateRankings.map((candidateRanking, index) => (
           <CardCandidateRanking
