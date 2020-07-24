@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute'
   },
   rootLabel: {
-    bottom  : -24,
+    bottom  : -theme.spacing(3),
     color   : theme.palette.grey[600],
     fontSize: 12,
     left    : ({ leftPercent }) => `calc(${leftPercent}% - 4px)`
