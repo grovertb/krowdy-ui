@@ -1,15 +1,6 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { makeStyles, Tooltip } from '@krowdy-ui/core'
-
-const StatusDot = ({ color = 'default', title  }) => {
-  const classes = useStyles({ color })
-
-  if(title) return <Tooltip title={title}><div className={classes.root} /></Tooltip>
-
-  return (
-    <div className={classes.root} />
-  )
-}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,4 +24,19 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-export default StatusDot
+const Dot = ({ color = 'default', title  }) => {
+  const classes = useStyles({ color })
+
+  if(title) return <Tooltip title={title}><div className={classes.root} /></Tooltip>
+
+  return (
+    <div className={classes.root} />
+  )
+}
+
+Dot.propTypes = {
+  color: PropTypes.string,
+  title: PropTypes.string
+}
+
+export default Dot
