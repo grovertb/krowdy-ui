@@ -9,6 +9,7 @@ import {
 import { TreeView, TreeItem } from '@material-ui/lab'
 import { ArrowDropDown as ArrowDropDownIcon, ArrowDropUp as ArrowDropUpIcon } from '@material-ui/icons'
 import clsx from 'clsx'
+import PropTypes from 'prop-types'
 
 export const styles = {
   containerPaper: {
@@ -131,6 +132,22 @@ const MultiCheckBox = ({ options , onChange = () => {} , label, classes }) => {
       </Popover>
     </div>
   )
+}
+
+MultiCheckBox.propTypes = {
+  classes : PropTypes.object,
+  label   : PropTypes.string,
+  onChange: PropTypes.func,
+  options : PropTypes.arrayOf(PropTypes.shape({
+    checked   : PropTypes.bool,
+    key       : PropTypes.string,
+    label     : PropTypes.string,
+    subOptions: PropTypes.arrayOf(PropTypes.shape({
+      checked: PropTypes.bool,
+      key    : PropTypes.string,
+      label  : PropTypes.string
+    }))
+  }))
 }
 
 export default withStyles(styles, { name: 'MultiCheckBox' })(MultiCheckBox)

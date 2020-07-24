@@ -1,5 +1,6 @@
 export interface DotProps {
-  color: string
+  color?: 'success' | 'error' | 'default';
+  title?: string;
 }
 declare const Dot: React.ComponentType<DotProps>;
 

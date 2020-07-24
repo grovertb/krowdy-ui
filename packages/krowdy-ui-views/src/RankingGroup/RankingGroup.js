@@ -106,6 +106,7 @@ RankingGroup.propTypes = {
   leftActionFooter : PropTypes.node,
   rightActionFooter: PropTypes.node,
   scroll           : PropTypes.bool,
+  shadow           : PropTypes.bool,
   status           : PropTypes.bool,
   subHeader        : PropTypes.node,
   subtitle         : PropTypes.string,

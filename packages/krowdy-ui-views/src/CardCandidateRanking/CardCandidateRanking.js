@@ -58,7 +58,7 @@ export const styles = (theme) => ({
 const CardCandidateRanking = ({
   lastName = '',
   firstName = '',
-  photo,
+  photo = '',
   classes,
   action,
   actionHoverable,
@@ -104,6 +104,7 @@ const CardCandidateRanking = ({
 CardCandidateRanking.propTypes = {
   action         : PropTypes.node,
   actionHoverable: PropTypes.node,
+  className      : PropTypes.string,
   classes        : PropTypes.object,
   firstName      : PropTypes.string,
   lastName       : PropTypes.string,
