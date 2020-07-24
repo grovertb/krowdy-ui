@@ -105,6 +105,9 @@ export * from './Divider'
 export { default as Drawer } from './Drawer'
 export * from './Drawer'
 
+export { default as Dot } from './Dot'
+export * from './Dot'
+
 export { default as ExpansionPanel } from './ExpansionPanel'
 export * from './ExpansionPanel'
 

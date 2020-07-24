@@ -185,7 +185,7 @@ function DrawerListItem({ menu, classes }) {
         </ListItem>
         <Collapse in={openCollapse} unmountOnExit>
           {
-            renderDrawerList(options.map(option => ({ icon,...option })), classes)
+            renderDrawerList(options.map(option => ({ icon, ...option })), classes)
           }
         </Collapse>
       </>

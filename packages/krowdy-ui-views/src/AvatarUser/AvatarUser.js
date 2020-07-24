@@ -1,36 +1,53 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import clsx from 'clsx'
 import { withStyles } from '@krowdy-ui/styles'
+
 // import clsx from 'clsx'
 
 export const styles = theme => ({
+  big: {
+    height: 44,
+    width : 44
+  },
+  'default': {
+    height: 36,
+    width : 36
+  },
   defaultAvatar: {
     alignItems    : 'center',
     border        : `solid 2px ${theme.palette.primary.main}`,
     borderRadius  : '50%',
     display       : 'flex',
     fontSize      : 14,
-    height        : 36,
-    justifyContent: 'center',
+    justifyContent: 'center'
     // marginRight: theme.spacing(2),
-    width         : 36
   },
   defaultAvatarNothing: {
     background: theme.palette.grey[400]
   },
   image: {
-    border      : `solid 2px ${theme.palette.primary.main}`,
+    border      : `solid 3px ${theme.palette.primary[300]}`,
     borderRadius: '50%',
     height      : 36,
     // marginRight: theme.spacing(2),
     width       : 36
+  },
+  imageActive: {
+    border: `solid 3px ${theme.palette.primary.main}`
+  },
+  small: {
+    height: 28,
+    width : 28
   }
 })
 
 function AvatarUser(props) {
   const {
     user,
-    classes
+    classes,
+    active,
+    size = 'default'
   } = props
 
   return (
@@ -38,7 +55,12 @@ function AvatarUser(props) {
       user.photo ?
         <img
           alt={`${user.firstName} ${user.lastName}`}
-          className={classes.image}
+          className={clsx(classes.image, {
+            [ classes.imageActive]: active,
+            [ classes.default ]   : size === 'default',
+            [ classes.small ]     : size === 'small',
+            [ classes.big ]       : size === 'big'
+          })}
           src={user.photo} /> :
         <div
           className={classes.defaultAvatar}>
@@ -51,7 +73,9 @@ function AvatarUser(props) {
 }
 
 AvatarUser.propTypes = {
+  active : PropTypes.bool,
   classes: PropTypes.object,
+  size   : PropTypes.string,
   user   : PropTypes.shape({
     firstName: PropTypes.string,
     lastName : PropTypes.string,

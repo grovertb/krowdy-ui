@@ -93,6 +93,10 @@ const pages: Array<Page> = [
             title: 'Notify',
             path: '/components/notify'
           },
+          {
+            title: 'Dot',
+            path: '/components/dots'
+          },
         ]
       }
     ]
@@ -132,6 +136,10 @@ const pages: Array<Page> = [
         path: '/views/cardcandidate'
       },
       {
+        title: 'Card Candidate Ranking',
+        path: '/views/cardcandidateranking'
+      },
+      {
         title: 'Counter',
         path: '/views/counter'
       },
@@ -163,6 +171,10 @@ const pages: Array<Page> = [
         title: 'Main',
         path: '/views/main'
       },
+      {
+        title: 'MultiCheckBox',
+        path: '/views/multicheckbox'
+      },
       // P
       {
         title: 'Pagination',
@@ -174,10 +186,18 @@ const pages: Array<Page> = [
         path: '/views/radioLabelGroup'
       },
       {
+        title: 'RankingGroup',
+        path: '/views/rankinggroup'
+      },
+      {
         title: 'Root',
         path: '/views/root'
       },
       // S
+      {
+        title: 'SampleBar',
+        path: '/views/samplebar'
+      },
       {
         title: 'Search',
         path: '/views/search'

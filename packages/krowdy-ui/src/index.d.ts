@@ -61,6 +61,7 @@ export { default as DialogContentText } from './DialogContentText';
 export { default as DialogTitle } from './DialogTitle';
 export { default as Divider } from './Divider';
 export { default as Drawer } from './Drawer';
+export { default as Dot } from './Dot';
 export { default as ExpansionPanel } from './ExpansionPanel';
 export { default as ExpansionPanelActions } from './ExpansionPanelActions';
 export { default as ExpansionPanelDetails } from './ExpansionPanelDetails';
