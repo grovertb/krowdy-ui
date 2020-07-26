@@ -329,7 +329,7 @@ function TopAppBar(props) {
             className={classes.notificationIcon}
             color='inherit'
             onClick={ev => _handleOpenMenu(ev, 'user')}>
-            <AvatarUser user={user} />
+            <AvatarUser size='big' user={user} />
           </IconButton>
           <Menu
             anchorEl={anchorEl[menuActive]}

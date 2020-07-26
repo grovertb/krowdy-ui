@@ -28,10 +28,8 @@ export const styles = theme => ({
   },
   image: {
     border      : `solid 3px ${theme.palette.primary[300]}`,
-    borderRadius: '50%',
-    height      : 36,
+    borderRadius: '50%'
     // marginRight: theme.spacing(2),
-    width       : 36
   },
   imageActive: {
     border: `solid 3px ${theme.palette.primary.main}`
@@ -63,7 +61,11 @@ function AvatarUser(props) {
           })}
           src={user.photo} /> :
         <div
-          className={classes.defaultAvatar}>
+          className={clsx(classes.defaultAvatar, {
+            [ classes.default ]: size === 'default',
+            [ classes.small ]  : size === 'small',
+            [ classes.big ]    : size === 'big'
+          })}>
           {
             `${user.firstName && typeof user.firstName === 'string' ? user.firstName.charAt() : ''}${user.lastName && typeof user.lastName === 'string' ? user.lastName.charAt() : ''}`
           }
