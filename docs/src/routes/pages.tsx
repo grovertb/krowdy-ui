@@ -126,6 +126,11 @@ const pages: Array<Page> = [
         title: 'Avatar user',
         path: '/views/avataruser'
       },
+      // B
+      {
+        title: 'Bubble chart',
+        path: '/views/bubblechart'
+      },
       // C
       {
         title: 'Card Expand',
@@ -179,6 +184,10 @@ const pages: Array<Page> = [
       {
         title: 'Pagination',
         path: '/views/pagination'
+      },
+      {
+        title: 'Profile',
+        path: '/views/profile'
       },
       // R
       {

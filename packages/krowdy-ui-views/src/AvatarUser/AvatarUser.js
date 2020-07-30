@@ -26,6 +26,11 @@ export const styles = theme => ({
   defaultAvatarNothing: {
     background: theme.palette.grey[400]
   },
+  hover: {
+    '&:hover': {
+      border: `solid 3px ${theme.palette.primary[300]}`
+    }
+  },
   image: {
     border      : `solid 3px ${theme.palette.primary[300]}`,
     borderRadius: '50%'
@@ -33,6 +38,9 @@ export const styles = theme => ({
   },
   imageActive: {
     border: `solid 3px ${theme.palette.primary.main}`
+  },
+  imageDefault: {
+    border: `solid 3px ${theme.palette.grey[300]}`
   },
   small: {
     height: 28,
@@ -45,6 +53,7 @@ function AvatarUser(props) {
     user,
     classes,
     active,
+    hover,
     size = 'default'
   } = props
 
@@ -54,10 +63,12 @@ function AvatarUser(props) {
         <img
           alt={`${user.firstName} ${user.lastName}`}
           className={clsx(classes.image, {
-            [ classes.imageActive]: active,
-            [ classes.default ]   : size === 'default',
-            [ classes.small ]     : size === 'small',
-            [ classes.big ]       : size === 'big'
+            [ classes.imageDefault ]: active === undefined,
+            [ classes.imageActive]  : active,
+            [ classes.hover ]       : !active && hover,
+            [ classes.default ]     : size === 'default',
+            [ classes.small ]       : size === 'small',
+            [ classes.big ]         : size === 'big'
           })}
           src={user.photo} /> :
         <div
@@ -77,6 +88,7 @@ function AvatarUser(props) {
 AvatarUser.propTypes = {
   active : PropTypes.bool,
   classes: PropTypes.object,
+  hover  : PropTypes.bool,
   size   : PropTypes.string,
   user   : PropTypes.shape({
     firstName: PropTypes.string,

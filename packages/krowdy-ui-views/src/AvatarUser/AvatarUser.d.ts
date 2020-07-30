@@ -7,6 +7,7 @@ interface user {
 export type AvatarUserProps = {
   user: user;
   active?: boolean;
+  hover: boolean;
   size: 'small' | 'default' | 'big'
 };
 

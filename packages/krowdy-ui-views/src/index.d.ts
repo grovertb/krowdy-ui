@@ -6,6 +6,9 @@ export * from './AudioRecorder'
 export { default as AvatarUser } from './AvatarUser';
 export * from './AvatarUser';
 
+export { default as BubbleChart } from './BubbleChart';
+export * from './BubbleChart';
+
 export { default as CardCandidate } from './CardCandidate'
 export * from './CardCandidate'
 
@@ -44,6 +47,9 @@ export * from './MultiCheckBox';
 
 export { default as Pagination } from './Pagination';
 export * from './Pagination';
+
+export { default as Profile } from './Profile';
+export * from './Profile';
 
 export { default as RadioLabelGroup } from './RadioLabelGroup';
 export * from './RadioLabelGroup';
