@@ -15,12 +15,13 @@ export const styles = theme => ({
     width : 36
   },
   defaultAvatar: {
-    alignItems    : 'center',
-    border        : `solid 2px ${theme.palette.primary.main}`,
-    borderRadius  : '50%',
-    display       : 'flex',
-    fontSize      : 14,
-    justifyContent: 'center'
+    alignItems     : 'center',
+    backgroundColor: 'white',
+    border         : `solid 2px ${theme.palette.primary.main}`,
+    borderRadius   : '50%',
+    display        : 'flex',
+    fontSize       : 14,
+    justifyContent : 'center'
     // marginRight: theme.spacing(2),
   },
   defaultAvatarNothing: {

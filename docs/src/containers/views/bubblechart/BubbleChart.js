@@ -158,6 +158,150 @@ const candidates = [
       }
     ],
     value: 2.3
+  },
+  {
+    firstName: 'Luis Alfredo',
+    lastName : 'Sullca Huaracca',
+    photo    :
+      'https://krowdy.s3.amazonaws.com/assets/profile/5e375a0b71db5e002dc01323/avatar/2020-02-03T12-22-52-143Z.png',
+    selected       : false,
+    skillsCandidate: [
+      {
+        name      : 'Figma',
+        scaleOrder: 2,
+        value     : 'Principiante'
+      },
+      {
+        name      : 'Rhinoceros',
+        scaleOrder: 3,
+        value     : 'Intermedio'
+      }, {
+        name      : 'Ilustrator',
+        scaleOrder: 4,
+        value     : 'Lider'
+      }
+    ],
+    value: 2.3
+  },
+  {
+    firstName: 'Luis Alfredo',
+    lastName : 'Sullca Huaracca',
+    photo    :
+      'https://krowdy.s3.amazonaws.com/assets/profile/5e375a0b71db5e002dc01323/avatar/2020-02-03T12-22-52-143Z.png',
+    selected       : false,
+    skillsCandidate: [
+      {
+        name      : 'Figma',
+        scaleOrder: 2,
+        value     : 'Principiante'
+      },
+      {
+        name      : 'Rhinoceros',
+        scaleOrder: 3,
+        value     : 'Intermedio'
+      }, {
+        name      : 'Ilustrator',
+        scaleOrder: 4,
+        value     : 'Lider'
+      }
+    ],
+    value: 2.3
+  },
+  {
+    firstName: 'Luis Alfredo',
+    lastName : 'Sullca Huaracca',
+    photo    :
+      'https://krowdy.s3.amazonaws.com/assets/profile/5e375a0b71db5e002dc01323/avatar/2020-02-03T12-22-52-143Z.png',
+    selected       : false,
+    skillsCandidate: [
+      {
+        name      : 'Figma',
+        scaleOrder: 2,
+        value     : 'Principiante'
+      },
+      {
+        name      : 'Rhinoceros',
+        scaleOrder: 3,
+        value     : 'Intermedio'
+      }, {
+        name      : 'Ilustrator',
+        scaleOrder: 4,
+        value     : 'Lider'
+      }
+    ],
+    value: 2.3
+  },
+  {
+    firstName: 'Luis Alfredo',
+    lastName : 'Sullca Huaracca',
+    photo    :
+      'https://krowdy.s3.amazonaws.com/assets/profile/5e375a0b71db5e002dc01323/avatar/2020-02-03T12-22-52-143Z.png',
+    selected       : false,
+    skillsCandidate: [
+      {
+        name      : 'Figma',
+        scaleOrder: 2,
+        value     : 'Principiante'
+      },
+      {
+        name      : 'Rhinoceros',
+        scaleOrder: 3,
+        value     : 'Intermedio'
+      }, {
+        name      : 'Ilustrator',
+        scaleOrder: 4,
+        value     : 'Lider'
+      }
+    ],
+    value: 2.3
+  },
+  {
+    firstName: 'Luis Alfredo',
+    lastName : 'Sullca Huaracca',
+    photo    :
+      'https://krowdy.s3.amazonaws.com/assets/profile/5e375a0b71db5e002dc01323/avatar/2020-02-03T12-22-52-143Z.png',
+    selected       : false,
+    skillsCandidate: [
+      {
+        name      : 'Figma',
+        scaleOrder: 2,
+        value     : 'Principiante'
+      },
+      {
+        name      : 'Rhinoceros',
+        scaleOrder: 3,
+        value     : 'Intermedio'
+      }, {
+        name      : 'Ilustrator',
+        scaleOrder: 4,
+        value     : 'Lider'
+      }
+    ],
+    value: 2.3
+  },
+  {
+    firstName: 'Luis Alfredo',
+    lastName : 'Sullca Huaracca',
+    photo    :
+      'https://krowdy.s3.amazonaws.com/assets/profile/5e375a0b71db5e002dc01323/avatar/2020-02-03T12-22-52-143Z.png',
+    selected       : false,
+    skillsCandidate: [
+      {
+        name      : 'Figma',
+        scaleOrder: 2,
+        value     : 'Principiante'
+      },
+      {
+        name      : 'Rhinoceros',
+        scaleOrder: 3,
+        value     : 'Intermedio'
+      }, {
+        name      : 'Ilustrator',
+        scaleOrder: 4,
+        value     : 'Lider'
+      }
+    ],
+    value: 2.3
   }
 ]
 
@@ -167,7 +311,9 @@ export default function() {
   return (
     <div style={{ width: 452 }}>
       <Paper className={classes.container} variant='outlined'>
-        <div>
+        <div style={{
+          width: '100%'
+        }}>
           <div className={classes.subSection}>
             <Typography variant='h6'>Conocimientos</Typography>
             <Tooltip placement='top' title='tooltip'><span><IconButton disabled size='small'><InfoIcon fontSize='small' /></IconButton></span></Tooltip>
@@ -188,6 +334,7 @@ const useStyles = makeStyles(() => ({
   },
   subSection: {
     alignItems: 'center',
-    display   : 'flex'
+    display   : 'flex',
+    width     : '100%'
   }
 }))

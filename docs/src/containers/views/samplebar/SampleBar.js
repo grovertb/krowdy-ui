@@ -5,7 +5,7 @@ import { Info as InfoIcon } from '@material-ui/icons'
 
 const data = [
   {
-    _id      : 1,
+    _id      : '1',
     firstName: 'Luis Alfredo',
     lastName : 'Sullca Huaracca',
     photo    :
@@ -13,7 +13,7 @@ const data = [
     value: 2.3
   },
   {
-    _id      : 2,
+    _id      : '2',
     firstName: 'Luis Alfredo',
     lastName : 'Sullca Huaracca',
     photo    :
@@ -21,7 +21,7 @@ const data = [
     value: 4.5
   },
   {
-    _id      : 3,
+    _id      : '3',
     firstName: 'Luis Alfredo',
     lastName : 'Sullca Huaracca',
     photo    :
@@ -29,7 +29,7 @@ const data = [
     value: 1
   },
   {
-    _id      : 4,
+    _id      : '4',
     firstName: 'Luis Alfredo',
     lastName : 'Sullca Huaracca',
     photo    :
@@ -37,7 +37,7 @@ const data = [
     value: 4
   },
   {
-    _id      : 5,
+    _id      : '5',
     firstName: 'Luis Alfredo',
     lastName : 'Sullca Huaracca',
     photo    :
@@ -45,7 +45,7 @@ const data = [
     value: 3
   },
   {
-    _id      : 6,
+    _id      : '6',
     firstName: 'Luis Alfredo',
     lastName : 'Sullca Huaracca',
     photo    :
@@ -53,7 +53,7 @@ const data = [
     value: 5
   },
   {
-    _id      : 7,
+    _id      : '7',
     firstName: 'Luis Alfredo',
     lastName : 'Sullca Huaracca',
     photo    :
@@ -71,7 +71,7 @@ export default () => {
         <div>
           <div className={classes.subSection}>
             <Typography variant='h6'>Años de experiencia</Typography>
-            <Tooltip title='tooltip'><IconButton disabled size='small'><InfoIcon fontSize='small' /></IconButton></Tooltip>
+            <Tooltip title='tooltip'><span><IconButton disabled size='small'><InfoIcon fontSize='small' /></IconButton></span></Tooltip>
           </div>
           <SampleBar
             mark={data[3]}
@@ -81,7 +81,7 @@ export default () => {
         <div>
           <div className={classes.subSection}>
             <Typography variant='h6'>Promedio de rotación</Typography>
-            <Tooltip title='tooltip'><IconButton disabled size='small'><InfoIcon fontSize='small' /></IconButton></Tooltip>
+            <Tooltip title='tooltip'><span><IconButton disabled size='small'><InfoIcon fontSize='small' /></IconButton></span></Tooltip>
           </div>
           <SampleBar
             mark={data[3]}

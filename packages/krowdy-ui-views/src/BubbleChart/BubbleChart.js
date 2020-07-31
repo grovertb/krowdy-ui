@@ -25,41 +25,43 @@ const BubbleChart = (props) => {
             ))
           }
         </div>
-        {
-          candidates.map(({ firstName, lastName, photo, skillsCandidate, selected }, index) => (
-            <div className={clsx(classes.column, classes.center, classes.candidate, classes.hover)} key={index}>
-              <div className={classes.avatar}>
-                <Avatar
-                  active={selected ? selected : undefined}
-                  classes={{
-                    unselected: classes.avatarUnselected
-                  }}
-                  firstName={firstName}
-                  key={index}
-                  lastName={lastName}
-                  photo={photo}
-                  selected={selected} />
+        <div className={clsx(classes.row, classes.bubblesContainer)}>
+          {
+            candidates.map(({ firstName, lastName, photo, skillsCandidate, selected }, index) => (
+              <div className={clsx(classes.column, classes.center, classes.candidate, classes.hover)} key={index}>
+                <div className={classes.avatar}>
+                  <Avatar
+                    active={selected ? selected : undefined}
+                    classes={{
+                      unselected: classes.avatarUnselected
+                    }}
+                    firstName={firstName}
+                    key={index}
+                    lastName={lastName}
+                    photo={photo}
+                    selected={selected} />
+                </div>
+                <div className={classes.bubbles} key={index}>
+                  {
+                    skills.map(({ name }) =>
+                      skillsCandidate.find(skill => name === skill.name) || { name, scaleOrder: 0, value: '' }
+                    ).map(({ scaleOrder, value }, index) => (
+                      <div className={classes.bubble} key={index}>
+                        <Circle
+                          firstName={firstName}
+                          lastName={lastName}
+                          max={max}
+                          selected={selected}
+                          size={scaleOrder}
+                          subtitle={value} />
+                      </div>
+                    ))
+                  }
+                </div>
               </div>
-              <div className={classes.bubbles} key={index}>
-                {
-                  skills.map(({ name }) =>
-                    skillsCandidate.find(skill => name === skill.name) || { name, scaleOrder: 0, value: '' }
-                  ).map(({ scaleOrder, value }, index) => (
-                    <div className={classes.bubble} key={index}>
-                      <Circle
-                        firstName={firstName}
-                        lastName={lastName}
-                        max={max}
-                        selected={selected}
-                        size={scaleOrder}
-                        subtitle={value} />
-                    </div>
-                  ))
-                }
-              </div>
-            </div>
-          ))
-        }
+            ))
+          }
+        </div>
       </div>
     </div>
   )
@@ -103,6 +105,12 @@ const useStyles = makeStyles((theme) => ({
     height        : '100%',
     justifyContent: 'space-between'
   },
+  bubblesContainer: {
+    justifyContent: 'space-between',
+    overflowX     : 'auto',
+    paddingTop    : theme.spacing(4.75),
+    width         : '74%'
+  },
   candidate: {
     marginRight: theme.spacing(2)
   },
@@ -115,8 +123,9 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column'
   },
   container: {
-    marginTop: theme.spacing(8),
-    minHeight: 150
+    marginTop: theme.spacing(3.25),
+    minHeight: 150,
+    width    : '100%'
   },
   hover: {
     '&:hover': {
@@ -136,7 +145,8 @@ const useStyles = makeStyles((theme) => ({
     alignItems    : 'flex-end',
     justifyContent: 'space-between',
     marginLeft    : theme.spacing(2),
-    marginRight   : theme.spacing(2.5)
+    marginRight   : theme.spacing(2.5),
+    paddingTop    : theme.spacing(4.75)
   },
   title: {
     marginBottom: theme.spacing(1.25),

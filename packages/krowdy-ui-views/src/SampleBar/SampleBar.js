@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@krowdy-ui/core'
+import { UserPoint } from '@krowdy-ui/views'
 import LineVert from './LineVert'
-import UserPoint from './UserPoint'
 
 const styles = (theme) => ({
   bar: {

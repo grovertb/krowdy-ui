@@ -162,6 +162,11 @@ const pages: Array<Page> = [
         title: 'Filters',
         path: '/views/filters'
       },
+      // H
+      {
+        title: 'Histogram',
+        path: '/views/histogram'
+      },
       // J
       {
         title: 'Job Detail',
@@ -235,6 +240,11 @@ const pages: Array<Page> = [
       {
         title: 'Table Group',
         path: '/views/tablegroup'
+      },
+      // U
+      {
+        title: 'User Point',
+        path: '/views/userpoint'
       }
       // V
     ]

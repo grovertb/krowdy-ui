@@ -30,6 +30,9 @@ export * from './DragComponent'
 export { default as Filters } from './Filters'
 export * from './Filters'
 
+export { default as Histogram } from './Histogram'
+export * from './Histogram'
+
 export { default as JobDetail } from './JobDetail'
 export * from './JobDetail'
 
@@ -86,4 +89,7 @@ export * from './ToggleRole';
 
 export { default as TopAppBar } from './TopAppBar';
 export * from './TopAppBar';
+
+export { default as UserPoint } from './UserPoint'
+export * from './UserPoint'
 

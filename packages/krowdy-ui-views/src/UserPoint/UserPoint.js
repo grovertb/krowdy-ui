@@ -1,15 +1,15 @@
 import React from 'react'
-import { makeStyles, Tooltip } from '@material-ui/core'
+import PropTypes from 'prop-types'
+import { Tooltip, Typography, withStyles } from '@material-ui/core'
 import { AvatarUser } from '@krowdy-ui/views'
-import { Typography } from '@krowdy-ui/core'
 
-const useStyles = makeStyles({
+const styles = {
   avatar: {},
   point : {
     backgroundColor: 'white',
     borderRadius   : '50%',
-    height         : ({ size }) => size,
-    width          : ({ size }) => size
+    height         : ({ size = 8 }) => size,
+    width          : ({ size = 8 }) => size
   },
   root: {
     '& $avatar': {
@@ -26,31 +26,28 @@ const useStyles = makeStyles({
       }
     },
     alignItems    : 'center',
+    bottom        : ({ bottom = 0 }) => bottom,
     display       : 'flex',
     height        : 12,
     justifyContent: 'center',
-    left          : ({ leftPercent }) => `calc(${leftPercent}% - 6px)`,
+    left          : ({ leftPercent = 0 }) => `calc(${leftPercent}% - 6px)`,
     position      : 'absolute',
-    top           : 0,
     width         : 12
   },
   tooltipTitle: {
     fontSize  : 12,
     fontWeight: 'bold'
   }
-})
+}
 
 const UserPoint = ({
-  leftPercent= 0,
-  subtitle,
+  classes,
+  subtitle = '',
   photo,
-  active,
-  firstName,
-  lastName,
-  size= 8
+  active = false,
+  firstName = '',
+  lastName = ''
 }) => {
-  const classes = useStyles({ leftPercent, size })
-
   if(active)
     return (
       <div className={classes.root}>
@@ -82,7 +79,7 @@ const UserPoint = ({
           )}
           TransitionProps={{ timeout: 0 }}>
           <div>
-            <AvatarUser size='small' user={{ firstName, lastName, photo }} />
+            <AvatarUser active={false} size='small' user={{ firstName, lastName, photo }} />
           </div>
         </Tooltip>
       </div>
@@ -91,4 +88,14 @@ const UserPoint = ({
   )
 }
 
-export default UserPoint
+UserPoint.propTypes = {
+  active     : PropTypes.bool,
+  firstName  : PropTypes.string,
+  lastName   : PropTypes.string,
+  leftPercent: PropTypes.number,
+  photo      : PropTypes.string,
+  size       : PropTypes.number,
+  subtitle   : PropTypes.string
+}
+
+export default withStyles(styles, { name: 'UserPoint' })(UserPoint)
