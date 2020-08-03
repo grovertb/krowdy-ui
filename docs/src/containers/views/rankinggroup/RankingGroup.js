@@ -245,7 +245,9 @@ export default function () {
             key={candidateRanking._id}
             lastName={candidateRanking.candidate.lastName}
             photo={candidateRanking.candidate.photo}
-            position={index + 1} />
+            position={index + 1}
+            primaryColorNumber={index <= 3}
+            selected={true} />
         ))}
       </RankingGroup>
     </div>

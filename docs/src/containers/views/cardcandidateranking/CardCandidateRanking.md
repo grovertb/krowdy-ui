@@ -14,3 +14,5 @@
 | paddingLeft          |    boolean       |  false   |                                                          |
 | photo                |    string        |          |                                                          |
 | position             |    number        |          |                                                          |
+| selected             |    bool          |  false   |                                                          |
+| primaryColorNumber   |    bool          |  false   |                                                          |

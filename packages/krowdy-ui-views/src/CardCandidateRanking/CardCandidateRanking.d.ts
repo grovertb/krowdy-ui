@@ -22,6 +22,8 @@ export interface CardCandidateRankingProps {
   paddingLeft?: boolean;
   photo?: string | null;
   position?: number;
+  selected?: boolean;
+  primaryColorNumber?: boolean;
 }
 
 declare const CardCandidateRanking: React.ComponentType<CardCandidateRankingProps>;

@@ -37,6 +37,7 @@ export const styles = (theme) => ({
     marginTop: theme.spacing(1/8)
   },
   leftContainer: {
+    color      : ({ primaryColorNumber = false }) => primaryColorNumber ? theme.palette.primary[500] : theme.palette.secondary[900],
     fontSize   : 10,
     marginRight: theme.spacing(.75),
     maxWidth   : 12,
@@ -65,6 +66,7 @@ const CardCandidateRanking = ({
   actionHoverable,
   position,
   paddingLeft,
+  selected = false,
   className
 }) => {
   const Container = position || paddingLeft ?
@@ -82,6 +84,7 @@ const CardCandidateRanking = ({
       <Card
         className={clsx(classes.root, className)}
         hoverable
+        selected={selected}
         variant='outlined'>
         <CardHeader
           action={(
@@ -105,15 +108,17 @@ const CardCandidateRanking = ({
 }
 
 CardCandidateRanking.propTypes = {
-  action         : PropTypes.node,
-  actionHoverable: PropTypes.node,
-  className      : PropTypes.string,
-  classes        : PropTypes.object,
-  firstName      : PropTypes.string,
-  lastName       : PropTypes.string,
-  paddingLeft    : PropTypes.bool,
-  photo          : PropTypes.string,
-  position       : PropTypes.number
+  action            : PropTypes.node,
+  actionHoverable   : PropTypes.node,
+  className         : PropTypes.string,
+  classes           : PropTypes.object,
+  firstName         : PropTypes.string,
+  lastName          : PropTypes.string,
+  paddingLeft       : PropTypes.bool,
+  photo             : PropTypes.string,
+  position          : PropTypes.number,
+  primaryColorNumber: PropTypes.bool,
+  selected          : PropTypes.bool
 }
 
 CardCandidateRanking.muiName = 'CardCandidateRanking'
