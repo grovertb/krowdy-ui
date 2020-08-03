@@ -95,9 +95,9 @@ const useStyles = makeStyles((theme) => ({
   bubble: {
     alignItems    : 'center',
     display       : 'flex',
-    height        : 28,
+    height        : 38,
     justifyContent: 'center',
-    width         : 28
+    width         : 38
   },
   bubbles: {
     display       : 'flex',

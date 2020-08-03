@@ -50,8 +50,8 @@ const useStyles = makeStyles((theme) => ({
   },
   root: {
     borderRadius: '50%',
-    height      : ({ size, max }) => (7 / (max - 1) * (size - 1)) * 4,
-    width       : ({ size, max }) => (7 / (max - 1) * (size - 1)) * 4
+    height      : ({ size, max }) => (6 / (max - 1) * size) * 4,
+    width       : ({ size, max }) => (6 / (max - 1) * size) * 4
   },
   select: {
     backgroundColor: theme.palette.primary[500]
