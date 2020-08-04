@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
   },
   container: {
     height   : '100%',
-    marginTop: theme.spacing(7),
+    marginTop: theme.spacing(1),
     minHeight: 150,
     width    : '100%'
   },
@@ -90,7 +90,7 @@ const useStyles = makeStyles((theme) => ({
   },
   root: {
     display: 'flex',
-    height : 'calc(100% - 80px)'
+    height : 'calc(100% - 32px)'
   },
   row: {
     display      : 'flex',
