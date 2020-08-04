@@ -90,7 +90,7 @@ const useStyles = makeStyles((theme) => ({
   },
   root: {
     display: 'flex',
-    height : 'calc(100% - 115px)'
+    height : 'calc(100% - 80px)'
   },
   row: {
     display      : 'flex',
