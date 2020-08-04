@@ -68,7 +68,7 @@ export default () => {
   return (
     <div style={{ width: '90%' }}>
       <Paper className={classes.container} variant='outlined'>
-        <div>
+        <div style={{ width: 420 }}>
           <div className={classes.subSection}>
             <Typography variant='h6'>Años de experiencia</Typography>
             <Tooltip title='tooltip'><span><IconButton disabled size='small'><InfoIcon fontSize='small' /></IconButton></span></Tooltip>
@@ -78,7 +78,7 @@ export default () => {
             marks={data}
             template={({ value }) => `${value} años`} />
         </div>
-        <div>
+        <div style={{ width: 420 }}>
           <div className={classes.subSection}>
             <Typography variant='h6'>Promedio de rotación</Typography>
             <Tooltip title='tooltip'><span><IconButton disabled size='small'><InfoIcon fontSize='small' /></IconButton></span></Tooltip>

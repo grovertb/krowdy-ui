@@ -9,8 +9,9 @@ const styles = (theme) => ({
     backgroundColor: theme.palette.secondary[100],
     borderRadius   : 8,
     height         : 12,
+    minWidth       : 320,
     position       : 'relative',
-    width          : 344
+    width          : '100%'
   },
   root: {
     alignItems: 'center',
