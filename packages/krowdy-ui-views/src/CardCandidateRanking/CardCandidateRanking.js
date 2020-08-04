@@ -37,12 +37,13 @@ export const styles = (theme) => ({
     marginTop: theme.spacing(1/8)
   },
   leftContainer: {
-    color      : ({ primaryColorNumber = false }) => primaryColorNumber ? theme.palette.primary[500] : theme.palette.secondary[900],
-    fontSize   : 10,
-    marginRight: theme.spacing(.75),
-    maxWidth   : 12,
-    minWidth   : 12,
-    width      : 12
+    color       : ({ primaryColorNumber = false }) => primaryColorNumber ? theme.palette.primary[500] : theme.palette.secondary[900],
+    fontSize    : 10,
+    marginBottom: theme.spacing(1),
+    marginRight : theme.spacing(.75),
+    maxWidth    : 12,
+    minWidth    : 12,
+    width       : 12
   },
   rightContainer: {
     flex: 1
