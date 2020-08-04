@@ -13,7 +13,7 @@ const parsePrice = (price) => Math.ceil(price / 10**(price.toString().length - 1
 const Histogram = ({ multiplier = 1, candidates = [] }) => {
   const divider = candidates.length
   const max = candidates.map(({ salary }) => salary).sort((a, b) => b - a)[0]
-  const prices = [ ...emptyPrices ].map((value, index) => parsePrice(Math.ceil(max - (max / 4 * index))))
+  const prices = Array.from(emptyPrices, (value, index) => parsePrice(Math.ceil(max - (max / 4 * index))))
   const classes = useStyles({ max: prices[0], multiplier })
 
   return (
