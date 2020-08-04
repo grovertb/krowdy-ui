@@ -3,10 +3,15 @@ interface Detail {
   time: number;
 }
 
+interface Work {
+  name: string;
+  count: number;
+}
+
 interface ProfileProps {
   ascent?          : Detail;
   experience?      : number;
-  krowdyExperience?: number;
+  workExperience?  : Work;
   name             : string;
   rating           : number;
   rotation?        : Detail;

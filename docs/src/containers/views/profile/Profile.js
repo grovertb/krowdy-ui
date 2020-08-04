@@ -10,14 +10,17 @@ export default function() {
           time : 10 * 12
         }}
         experience={2}
-        krowdyExperience={1}
         name='Piero Rodríguez'
         rating={4.3}
         rotation={{
           count: 1,
           time : 6
         }}
-        salary={3} />
+        salary={3}
+        workExperience={{
+          count: 1,
+          name : 'Krowdy'
+        }} />
     </div>
   )
 }

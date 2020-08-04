@@ -35,7 +35,7 @@ function ordinal(number) {
   }
 }
 
-const Profile = ({ name, rating, ascent, experience, krowdyExperience, rotation, salary }) => {
+const Profile = ({ name, rating, ascent, experience, workExperience, rotation, salary }) => {
   const classes = useStyles()
 
   return (
@@ -79,15 +79,15 @@ const Profile = ({ name, rating, ascent, experience, krowdyExperience, rotation,
         ) : null
       }
       {
-        krowdyExperience ? (
+        workExperience ? (
           <>
             <div className={classes.row}>
               <div className={classes.icon}>
                 <BusinessIcon color='primary' fontSize='small' />
               </div>
               <div>
-                <Typography className={classes.title} variant='body1'>Trabaja en Krowdy</Typography>
-                <Typography className={classes.subtitle} variant='body1'>Hace {krowdyExperience} año{sufix(krowdyExperience, 's', '')}</Typography>
+                <Typography className={classes.title} variant='body1'>Trabaja en {workExperience.name}</Typography>
+                <Typography className={classes.subtitle} variant='body1'>Hace {workExperience.count} año{sufix(workExperience.count, 's', '')}</Typography>
               </div>
             </div>
             <Divider className={classes.divider} />
@@ -181,15 +181,18 @@ Profile.propTypes = {
     count: PropTypes.number,
     time : PropTypes.number
   }),
-  experience      : PropTypes.number,
-  krowdyExperience: PropTypes.number,
-  name            : PropTypes.string.isRequired,
-  rating          : PropTypes.number.isRequired,
-  rotation        : PropTypes.shape({
+  experience: PropTypes.number,
+  name      : PropTypes.string.isRequired,
+  rating    : PropTypes.number.isRequired,
+  rotation  : PropTypes.shape({
     count: PropTypes.number,
     time : PropTypes.number
   }),
-  salary: PropTypes.number
+  salary        : PropTypes.number,
+  workExperience: PropTypes.shape({
+    count: PropTypes.number,
+    name : PropTypes.string
+  })
 }
 
 export default Profile

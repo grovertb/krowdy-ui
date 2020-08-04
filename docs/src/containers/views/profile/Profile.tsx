@@ -10,7 +10,7 @@ export default function() {
           time : 10 * 12
         }}
         experience={2}
-        krowdyExperience={1}
+        workExperience={1}
         name='Piero Rodríguez'
         rating={4.3}
         rotation={{
