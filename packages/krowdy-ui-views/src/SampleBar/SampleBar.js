@@ -28,7 +28,7 @@ const SampleBar =({ marks = [], classes, template = () => {}, mark: currentMark 
   return (
     <div className={classes.root}>
       <div className={classes.bar}>
-        {new Array(maxValue - 1).fill(1).map((_, index) => (
+        {new Array(maxValue >= 1 ? maxValue - 1 : 0).fill(1).map((_, index) => (
           <LineVert index={index + 1} key={index} leftPercent={100/ maxValue * (index + 1)} />
         ))}
         {marks.map((mark) => {
@@ -41,7 +41,7 @@ const SampleBar =({ marks = [], classes, template = () => {}, mark: currentMark 
               firstName={firstName}
               key={_id}
               lastName={lastName}
-              leftPercent={(value / maxValue) * 100}
+              leftPercent={(value / (maxValue || 1)) * 100}
               photo={photo}
               subtitle={template(mark)} />
           )
