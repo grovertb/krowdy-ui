@@ -13,6 +13,11 @@ export default {
         borderRadius: 8
       }
     },
+    MuiSwitch: {
+      switchBase: {
+        color: grey[400]
+      }
+    },
     MuiTypography: {
       body1: {
         fontSize: '0.75rem'
