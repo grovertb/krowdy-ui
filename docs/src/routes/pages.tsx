@@ -217,6 +217,10 @@ const pages: Array<Page> = [
         path: '/views/search'
       },
       {
+        title: 'SuperFilters',
+        path: '/views/superfilters'
+      },
+      {
         title: 'SwitchButton',
         path: '/views/switchbutton'
       },
