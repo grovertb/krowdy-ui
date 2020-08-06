@@ -14,33 +14,36 @@ function sufix(number, first, second) {
   return number > 1 ? first : second
 }
 
-function ordinal(number) {
-  switch (number) {
-    case 1:
-    case 3:
-      return number + 'er'
-    case 2:
-      return number + 'do'
-    case 4:
-    case 5:
-    case 6:
-      return number + 'to'
-    case 7:
-    case 10:
-      return number + 'mo'
-    case 9:
-      return number + 'no'
-    default:
-      return number + 'vo'
-  }
-}
+// function ordinal(number) {
+//   switch (number) {
+//     case 1:
+//     case 3:
+//       return number + 'er'
+//     case 2:
+//       return number + 'do'
+//     case 4:
+//     case 5:
+//     case 6:
+//       return number + 'to'
+//     case 7:
+//     case 10:
+//       return number + 'mo'
+//     case 9:
+//       return number + 'no'
+//     default:
+//       return number + 'vo'
+//   }
+// }
 
-const Profile = ({ name, rating, ascent, experience, workExperience, rotation, salary }) => {
+const Profile = ({ name, rating, ascent, experience, workExperience, rotation, salaryText, action }) => {
   const classes = useStyles()
 
   return (
     <Paper className={classes.container} variant='outlined'>
-      <Typography className={classes.name} variant='h6'>{name}</Typography>
+      <div className={classes.contentTitle}>
+        <Typography className={classes.name} variant='h6'>{name}</Typography>
+        {action}
+      </div>
       <div className={classes.first}>
         <Typography variant='h6'>{rating}</Typography>
         <GradeIcon className={classes.rating} color='primary' fontSize='small' />
@@ -111,7 +114,7 @@ const Profile = ({ name, rating, ascent, experience, workExperience, rotation, s
         ) : null
       }
       {
-        salary ? (
+        salaryText ? (
           <>
             <div className={classes.row}>
               <div className={classes.icon}>
@@ -119,7 +122,7 @@ const Profile = ({ name, rating, ascent, experience, workExperience, rotation, s
               </div>
               <div>
                 <Typography className={classes.title} variant='body1'>Salario</Typography>
-                <Typography className={classes.subtitle} variant='body1'>{ordinal(salary)} más cómodo</Typography>
+                <Typography className={classes.subtitle} variant='body1'>{salaryText}</Typography>
               </div>
             </div>
             <Divider className={classes.divider} />
@@ -138,6 +141,12 @@ const useStyles = makeStyles((theme) => ({
     overflow     : 'hidden',
     padding      : theme.spacing(1),
     width        : '100%'
+  },
+  contentTitle: {
+    alignItems    : 'center',
+    display       : 'flex',
+    justifyContent: 'space-between',
+    width         : '100%'
   },
   divider: {
     backgroundColor: theme.palette.secondary[0],
@@ -177,6 +186,7 @@ const useStyles = makeStyles((theme) => ({
 }), { name: 'Profile' })
 
 Profile.propTypes = {
+  action: PropTypes.node,
   ascent: PropTypes.shape({
     count: PropTypes.number,
     time : PropTypes.number
@@ -188,7 +198,7 @@ Profile.propTypes = {
     count: PropTypes.number,
     time : PropTypes.number
   }),
-  salary        : PropTypes.number,
+  salaryText    : PropTypes.string,
   workExperience: PropTypes.shape({
     count: PropTypes.number,
     name : PropTypes.string
