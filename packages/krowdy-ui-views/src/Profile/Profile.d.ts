@@ -9,13 +9,14 @@ interface Work {
 }
 
 interface ProfileProps {
+  action?          : React.ReactNode;
   ascent?          : Detail;
   experience?      : number;
   workExperience?  : Work;
   name             : string;
   rating           : number;
   rotation?        : Detail;
-  salary?          : number;
+  salaryText?      : string;
 }
 
 declare const Profile: React.ComponentType<ProfileProps>;
