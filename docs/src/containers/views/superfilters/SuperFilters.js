@@ -76,13 +76,11 @@ export default function () {
   }
 
   const _handleSelectCategoryFilter = (category, values) => {
-    if(values && values.length) {
-      setCurrentCategory(category)
+    setCurrentCategory(category)
+    if(values && values.length)
       setCategoryItems(values)
-    } else if(currenCategory !== category) {
-      setCurrentCategory(category)
+    else if(currenCategory !== category)
       setCategoryItems([])
-    }
   }
 
   const _handleClickCandidate = (candidate) => () => {

@@ -78,11 +78,10 @@ export default function () {
   }
 
   const _handleSelectCategoryFilter = (category: string, values: any[]) => {
+    setCurrentCategory(category)
     if(values && values.length) {
-      setCurrentCategory(category)
       setCategoryItems(values)
     } else if(currenCategory !== category) {
-      setCurrentCategory(category)
       setCategoryItems([])
     }
   }
