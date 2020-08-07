@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center'
   }
 }), {
-  name: 'KrowdyCategoryItem'
+  name: 'KrowdyListItems'
 })
 
 const ListItems = ({

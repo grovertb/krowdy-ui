@@ -10,6 +10,7 @@ import FilterConfig from './FilterConfig'
 import FiltersList from './FiltersList'
 import DividerWithText from './DividerWithText'
 import { mongoObjectId } from '../utils/mongoObjectId'
+import { Delete as DeleteIcon } from '@material-ui/icons'
 
 export const styles = (theme) => ({
   backIcon: {
@@ -17,8 +18,14 @@ export const styles = (theme) => ({
     paddingLeft : theme.spacing(.75),
     paddingRight: 0
   },
-  buttonAddFilter: {
-    marginTop: theme.spacing(1)
+  block: {
+    width: 18
+  },
+  buttonAddContainer: {
+    alignItems    : 'center',
+    display       : 'flex',
+    justifyContent: 'space-between',
+    marginTop     : theme.spacing(1)
   },
   buttonAddGroupFilter: {
     borderStyle: 'dashed',
@@ -204,6 +211,9 @@ const SuperFilters = (props) => {
       type    : 'default'
     }))
   }
+  const _handleClickDeleteGroupFilter = (groupFilterKey) => () => {
+    onChangeFilters(filters.filter((groupFilter) => groupFilter.key !== groupFilterKey))
+  }
 
   const _handleClickEditFilter = (groupFilter) => (appliedFilter) => {
     setGroupFilterCurrent(groupFilter)
@@ -229,7 +239,13 @@ const SuperFilters = (props) => {
           children: treeFilters
         })
       })
-      .filter(({ children }) => children.length)
+      .filter(({ children, type }) =>
+        type === 'default' ||
+      (
+        [ 'include', 'exclude' ].includes(type) &&
+        children.length &&
+        children.every(({ value }) =>value.length)
+      ))
     )
   }
 
@@ -276,7 +292,7 @@ const SuperFilters = (props) => {
           <div className={classes.treeContainer}>
             {excludeFilters
               .map((groupFilter, index) => (
-                <div key={`GroupFilter-${index}`}>
+                <div key={`GroupFilterExclude-${index}`}>
                   <div className={classes.groupFilterContainerBlock}>
                     <FiltersTree
                       dots={dots}
@@ -290,7 +306,7 @@ const SuperFilters = (props) => {
             {Boolean(excludeFilters.length) && <Divider style={{ margin: '12px 0' }} /> }
             {includeFilters
               .map((groupFilter, index) => (
-                <div key={`GroupFilter-${index}`}>
+                <div key={`GroupFilterInclude-${index}`}>
                   <div className={classes.groupFilterContainer}>
                     <FiltersTree
                       dots={dots}
@@ -304,21 +320,31 @@ const SuperFilters = (props) => {
             }
             {defaultFilters
               .map((groupFilter, index) => (
-                <div key={`GroupFilter-${index}`}>
+                <div key={`GroupFilterDefault-${index}`}>
                   <div className={classes.groupFilterContainer}>
                     <FiltersTree
                       dots={dots}
                       onChange={_handleChangeFilterTree(groupFilter.key)}
                       onClickEdit={_handleClickEditFilter(groupFilter)}
                       treeData={groupFilter.children} />
-                    <div className={classes.center}>
+                    <div className={classes.buttonAddContainer}>
+                      <div className={classes.block} />
                       <Button
-                        className={classes.buttonAddFilter}
                         color='primary'
                         onClick={_handleClickAddFilter(groupFilter)}
                         startIcon={<AddIcon />}>
-                      And
+                        And
                       </Button>
+                      {groupFilter.children.length ? (
+                        <div className={classes.block} />
+                      ): (
+                        <IconButton
+                          color='primary'
+                          onClick={_handleClickDeleteGroupFilter(groupFilter.key)}
+                          size='small'>
+                          <DeleteIcon fontSize='small' />
+                        </IconButton>
+                      )}
                     </div>
                   </div>
                   { (index + 1) < defaultFilters.length && <DividerWithText title={'or'} />}
