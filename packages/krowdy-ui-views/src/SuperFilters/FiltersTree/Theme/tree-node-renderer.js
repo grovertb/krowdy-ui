@@ -55,7 +55,7 @@ function TreeNodeRenderer(props) {
         // |  |  |
         // |  |  |
         // +--+--+
-          if(path.length > 2)
+          if(i >= 1)
             lineClass = classes.lineFullVertical
         }
       else if(listIndex === 0)

@@ -123,7 +123,7 @@ const SuperFilters = (props) => {
 
       return ({
         ...groupFilter,
-        children: groupFilter.concat(filter)
+        children: groupFilter.children.concat(filter)
       })
     }))
   }

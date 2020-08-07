@@ -38,7 +38,30 @@ export const filtersData = [ {
       _id     : '5f2c81f03d3b642268b6c52d',
       children: [
         {
-          _id          : '5f2c81f83e6e27c6c00bd8c5',
+          _id     : '5f2c81f83e6e27c6c00bd8c5',
+          children: [
+            {
+              _id          : '5f2c8200a5bab8cb0501b31a',
+              key          : 'estadoproceso',
+              label        : 'Estado del proceso',
+              operator     : '$in',
+              operatorLabel: 'Es cualquiera de',
+              optionIndex  : 0,
+              type         : 'category',
+              value        : [
+                {
+                  _id  : '1043',
+                  count: 12,
+                  label: '1043 - estadoproceso'
+                },
+                {
+                  _id  : '485',
+                  count: 386,
+                  label: '485 - estadoproceso'
+                }
+              ]
+            } ],
+          expanded     : true,
           key          : 'nombreproceso',
           label        : 'Nombre del proceso',
           operator     : '$eq',
@@ -88,7 +111,11 @@ export const filtersData = [ {
   key     : '3',
   operator: 'none',
   type    : 'default'
-}, {
+} ]
+
+/*
+
+, {
   children: [
     {
       _id     : '5f2c81f03d3b642268b6c52d',
@@ -144,8 +171,5 @@ export const filtersData = [ {
   key     : '4',
   operator: 'none',
   type    : 'default'
-} ]
-
-/*
-
+}
 */
