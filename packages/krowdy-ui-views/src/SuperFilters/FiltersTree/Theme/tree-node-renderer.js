@@ -28,73 +28,75 @@ function TreeNodeRenderer(props) {
   const scaffold = []
   const scaffoldBlockCount = lowerSiblingCounts.length
 
-  lowerSiblingCounts.forEach((lowerSiblingCount, i) => {
-    let lineClass = ''
-    if(lowerSiblingCount > 0)
-      if(listIndex === 0) {
+  lowerSiblingCounts
+    .forEach((lowerSiblingCount, i) => {
+      let lineClass = ''
+      if(lowerSiblingCount > 0)
+        if(listIndex === 0) {
         // Top-left corner of the tree
         // +-----+
         // |     |
         // |  +--+
         // |  |  |
         // +--+--+
-        lineClass = `${classes.lineHalfHorizontalRight} ${classes.lineHalfVerticalBottom}`
-      } else if(i === scaffoldBlockCount - 1) {
+          lineClass = `${classes.lineHalfHorizontalRight} ${classes.lineHalfVerticalBottom}`
+        } else if(i === scaffoldBlockCount - 1) {
         // Last scaffold block in the row, right before the row content
         // +--+--+
         // |  |  |
         // |  +--+
         // |  |  |
         // +--+--+
-        lineClass = `${classes.lineHalfHorizontalRight} ${classes.lineFullVertical}`
-      } else {
+          lineClass = `${classes.lineHalfHorizontalRight} ${classes.lineFullVertical}`
+        } else {
         // Simply connecting the line extending down to the next sibling on this level
         // +--+--+
         // |  |  |
         // |  |  |
         // |  |  |
         // +--+--+
-        lineClass = classes.lineFullVertical
-      }
-    else if(listIndex === 0)
+          if(path.length > 2)
+            lineClass = classes.lineFullVertical
+        }
+      else if(listIndex === 0)
       // Top-left corner of the tree, but has no siblings
       // +-----+
       // |     |
       // |  +--+
       // |     |
       // +-----+
-      lineClass = classes.lineHalfHorizontalRight
-    else if(i === scaffoldBlockCount - 1)
+        lineClass = classes.lineHalfHorizontalRight
+      else if(i === scaffoldBlockCount - 1)
       // The last or only node in this level of the tree
       // +--+--+
       // |  |  |
       // |  +--+
       // |     |
       // +-----+
-      lineClass = `${classes.lineHalfVerticalTop} ${classes.lineHalfHorizontalRight}`
+        lineClass = `${classes.lineHalfVerticalTop} ${classes.lineHalfHorizontalRight}`
 
-    if(path.length > 1)
-      scaffold.push(
-        <div
-          className={`${classes.lineBlock} ${lineClass}`}
-          // className={('lineBlock', lineClass, rowDirectionClass)}
-          key={`pre_${1 + i}`}
-          style={{ width: scaffoldBlockPxWidth }} />
-      )
+      if(path.length > 1)
+        scaffold.push(
+          <div
+            className={`${classes.lineBlock} ${lineClass}`}
+            // className={('lineBlock', lineClass, rowDirectionClass)}
+            key={`pre_${1 + i}`}
+            style={{ width: scaffoldBlockPxWidth }} />
+        )
 
-    // if(treeIndex !== listIndex && i === swapDepth) {
-    // let highlightLineClass = ''
+      // if(treeIndex !== listIndex && i === swapDepth) {
+      // let highlightLineClass = ''
 
-    // if(listIndex === swapFrom + swapLength - 1)
-    //   // This block is on the bottom (target) line
-    //   // This block points at the target block (where the row will go when released)
-    //   highlightLineClass = 'rst__highlightBottomLeftCorner'
-    // else if(treeIndex === swapFrom)
-    //   // This block is on the top (source) line
-    //   highlightLineClass = 'rst__highlightTopLeftCorner'
-    // else
-    //   // This block is between the bottom and top
-    //   highlightLineClass = 'rst__highlightLineVertical'
+      // if(listIndex === swapFrom + swapLength - 1)
+      //   // This block is on the bottom (target) line
+      //   // This block points at the target block (where the row will go when released)
+      //   highlightLineClass = 'rst__highlightBottomLeftCorner'
+      // else if(treeIndex === swapFrom)
+      //   // This block is on the top (source) line
+      //   highlightLineClass = 'rst__highlightTopLeftCorner'
+      // else
+      //   // This block is between the bottom and top
+      //   highlightLineClass = 'rst__highlightLineVertical'
 
     // scaffold.push(
     //   <div
@@ -107,7 +109,7 @@ function TreeNodeRenderer(props) {
     //     style={style} />
     // )
     // }
-  })
+    })
 
   return connectDropTarget(
     <div className={classes.root}>
