@@ -1,9 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import XDate from 'xdate'
-import {
-  DragIndicator as DragIndicatorIcon
-} from '@material-ui/icons'
 import useStyles from './node-content-renderer-style'
 import { Chip, Typography, Tooltip } from '@krowdy-ui/core'
 
@@ -93,27 +90,28 @@ function FileThemeNodeContentRenderer(props) {
       {
         connectDragPreview(
           <div className={classes.rowWrapper}>
-            {
+            {/* {
               connectDragSource(
                 <div className={classes.contentDrag}>
                   <DragIndicatorIcon />
                 </div>
               )
-            }
-            <div
-              className={
-                classes.row +
+            } */}
+            {connectDragSource(
+              <div
+                className={
+                  classes.row +
                 (isLandingPadActive ? ` ${classes.rowLandingPad}` : '') +
                 (isLandingPadActive && !canDrop ? ` ${classes.rowCancelPad}` : '') +
                 (className ? ` ${className}` : '')
-              }
-              style={{ opacity: isDraggedDescendant ? 0.5 : 1 }}>
-              {/* <div className={classes.rowContent}> */}
-              <div
-              // className={classes.rowLabel}
-                className={classes.rowPanelLeft}>
-                <div className={classes.rowContentTitle}>
-                  {/* {
+                }
+                style={{ opacity: isDraggedDescendant ? 0.5 : 1 }}>
+                {/* <div className={classes.rowContent}> */}
+                <div
+                  // className={classes.rowLabel}
+                  className={classes.rowPanelLeft}>
+                  <div className={classes.rowContentTitle}>
+                    {/* {
                     typeof nodeTitle === 'string' ?
                       <span className={classes.rowTitle}>{nodeTitle}</span>  :
                       typeof nodeTitle === 'function' ?
@@ -124,46 +122,47 @@ function FileThemeNodeContentRenderer(props) {
                         }) :
                         nodeTitle
                   } */}
-                  <Content
-                    color='body' dots={dots} size={15}
-                    value={node.label}
-                    variant='body2' />
-                  <Content
-                    color='info' dots={dots}
-                    size={20} value={node.operatorLabel}
-                    variant='info1' />
-                </div>
-                {
-                  node.value ?
-                    <div className={classes.rowContentChips}>
-                      {
-                        Array.isArray(node.value) ?
-                          node.value.map((value, indexValue) => {
-                            const label = node.type === 'date' ? new XDate(value.label || value).toString('dd/MM/yyyy') : value.label || value
+                    <Content
+                      color='body' dots={dots} size={15}
+                      value={node.label}
+                      variant='body2' />
+                    <Content
+                      color='info' dots={dots}
+                      size={20} value={node.operatorLabel}
+                      variant='info1' />
+                  </div>
+                  {
+                    node.value ?
+                      <div className={classes.rowContentChips}>
+                        {
+                          Array.isArray(node.value) ?
+                            node.value.map((value, indexValue) => {
+                              const label = node.type === 'date' ? new XDate(value.label || value).toString('dd/MM/yyyy') : value.label || value
 
-                            return (
-                              <ChipContainer
-                                dots={dots}
-                                key={`chip-${1 + indexValue}`}
-                                label={label}
-                                size={10} />
-                            )}) :
-                          <ChipContainer
-                            dots={dots}
-                            label={node.type === 'date' ? new XDate(node.value).toString('dd/MM/yyyy') : node.value}
-                            size={10} />
-                      }
-                    </div> :
-                    null
-                }
+                              return (
+                                <ChipContainer
+                                  dots={dots}
+                                  key={`chip-${1 + indexValue}`}
+                                  label={label}
+                                  size={10} />
+                              )}) :
+                            <ChipContainer
+                              dots={dots}
+                              label={node.type === 'date' ? new XDate(node.value).toString('dd/MM/yyyy') : node.value}
+                              size={10} />
+                        }
+                      </div> :
+                      null
+                  }
+                </div>
+                <div
+                  // className={classes.rowToolbar}
+                  className={classes.rowPanelRight}>
+                  {buttons}
+                </div>
+                {/* </div> */}
               </div>
-              <div
-              // className={classes.rowToolbar}
-                className={classes.rowPanelRight}>
-                {buttons}
-              </div>
-              {/* </div> */}
-            </div>
+            )}
           </div>
         )
       }
