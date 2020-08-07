@@ -72,6 +72,9 @@ export * from './Search'
 export { default as Skeleton } from './Skeleton';
 export * from './Skeleton';
 
+export { default as SuperFilters } from './SuperFilters';
+export * from './SuperFilters';
+
 export { default as SwitchButton } from './SwitchButton';
 export * from './SwitchButton';
 

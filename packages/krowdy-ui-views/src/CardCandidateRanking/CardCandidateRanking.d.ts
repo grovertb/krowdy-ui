@@ -12,10 +12,13 @@ interface Classes {
   title: string;
 }
 
+type IFuncOnClick = () => void
+
 export interface CardCandidateRankingProps {
   action?: React.ReactNode;
   actionHoverable?: React.ReactNode;
   className?: string;
+  onClick: IFuncOnClick;
   classes?: Classes;
   firstName?: string | null;
   lastName?: string | null;
