@@ -10,6 +10,7 @@ import CategoryItems from './CategoryItems'
 import InputChip from './InputChip'
 import useFilterValidator from './useFilterValidator'
 import TagCloudWords from './TagCloudWords'
+import ListItems from './ListItems'
 
 const useStyles = makeStyles((theme) => ({
   and: {
@@ -101,10 +102,12 @@ const FilterConfig = (props) => {
   const [ optionIndex, setOptionIndex ] = useState(filter.optionIndex || 0)
 
   const type = filterTypes.find(f => f.type === filter.type)
+
   const option = type.options[optionIndex]
 
   const [ filterConfig, setFilterConfig ] = useState(() => {
     if(!type) return null
+
     if(filter.value && option.numberOfInputs)
       switch (filter.type) {
         case 'number':
@@ -124,6 +127,7 @@ const FilterConfig = (props) => {
                 second: ''
               }
           }
+        case 'list':
         case 'category':
         case 'keyword':
         case 'generic':
@@ -157,6 +161,7 @@ const FilterConfig = (props) => {
           return [ parseToValidDate(filterConfig.first), parseToValidDate(filterConfig.second) ]
 
         return null
+      case 'list':
       case 'generic':
       case 'category':
       case 'keyword':
@@ -187,6 +192,7 @@ const FilterConfig = (props) => {
           [key]: eventOrValue
         }))
         break
+      case 'list':
       case 'generic':
       case 'category':
       case 'keyword':
@@ -359,6 +365,16 @@ const FilterConfig = (props) => {
             items={categoryItems}
             listWidth={listWidth}
             loadMore={_handleLoadMoreItems(filter.key)}
+            onChangeSelected={_handleChange()}
+            onResetCategoryItems={onSelectCategoryFilter}
+            selectedItems={filterConfig} />
+        )
+      case 'list':
+        return (
+          <ListItems
+            categoryKey={filter.key}
+            items={categoryItems}
+            listWidth={listWidth}
             onChangeSelected={_handleChange()}
             onResetCategoryItems={onSelectCategoryFilter}
             selectedItems={filterConfig} />

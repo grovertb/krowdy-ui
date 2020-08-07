@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import AddIcon from '@material-ui/icons/Add'
-import { IconButton } from '@material-ui/core'
+import { IconButton, Divider } from '@material-ui/core'
 import ArrowBackIcon from '@material-ui/icons/ArrowBackIos'
 import { Button, Card, CardContent, CardHeader, TabPanel, withStyles } from '@krowdy-ui/core'
 import FiltersTree from './FiltersTree' // libreria customizada
@@ -39,15 +39,23 @@ export const styles = (theme) => ({
     flexDirection: 'column'
   },
   groupFilterContainer: {
-    '& > $rootScaffold': {
-      display: 'none'
-    },
     '&:hover': {
       backgroundColor: theme.palette.primary[50],
       border         : `1px solid ${theme.palette.primary[500]}`
     },
     backgroundColor: theme.palette.secondary[0],
     border         : `1px solid ${theme.palette.secondary[0]}`,
+    borderRadius   : theme.spacing(1),
+    overflowX      : 'auto',
+    padding        : theme.spacing(1, 1, 1, 0)
+  },
+  groupFilterContainerBlock: {
+    '&:hover': {
+      backgroundColor: theme.palette.secondary[100],
+      border         : `1px solid ${theme.palette.secondary[200]}`
+    },
+    backgroundColor: theme.palette.secondary[100],
+    border         : `1px solid ${theme.palette.secondary[100]}`,
     borderRadius   : theme.spacing(1),
     overflowX      : 'auto',
     padding        : theme.spacing(1, 1, 1, 0)
@@ -118,14 +126,17 @@ const SuperFilters = (props) => {
   const [ filterToEdit, setFilterToEdit ] = useState()
 
   const addFilter = (filter) => {
-    onChangeFilters(filters.map((groupFilter) => {
-      if(groupFilter.key !== groupFilterCurrent.key) return groupFilter
+    console.log('addFilter')
+    onChangeFilters(filters
+      .map((groupFilter) => {
+        if(groupFilter.key !== groupFilterCurrent.key) return groupFilter
 
-      return ({
-        ...groupFilter,
-        children: groupFilter.children.concat(filter)
+        return ({
+          ...groupFilter,
+          children: groupFilter.children.concat(filter)
+        })
       })
-    }))
+    )
   }
 
   const deepUpdate = (arr, { _id, ...updatedItem } ) => arr.map(item => {
@@ -143,14 +154,24 @@ const SuperFilters = (props) => {
 
   const updateFilter = (filter) => {
     const updatedFilters = deepUpdate(groupFilterCurrent.children, filter)
-    onChangeFilters(filters.map((groupFilter) => {
-      if(groupFilter.key !== groupFilterCurrent.key) return groupFilter
+    onChangeFilters(filters
+      .map((groupFilter) => {
+        if(groupFilter.key !== groupFilterCurrent.key) return groupFilter
 
-      return ({
-        ...groupFilter,
-        children: updatedFilters
+        return ({
+          ...groupFilter,
+          children: updatedFilters
+        })
       })
-    }))
+      .filter(({ children, type }) =>
+        type === 'default' ||
+        (
+          [ 'include', 'exclude' ].includes(type) &&
+          children.length &&
+          children.every(({ value }) =>value.length)
+        )
+      )
+    )
   }
 
   // Aqui es cuando se agrega un filtro
@@ -200,15 +221,27 @@ const SuperFilters = (props) => {
   }
 
   const _handleChangeFilterTree = groupFilterKey => treeFilters => {
-    onChangeFilters(filters.map((groupFilter) => {
-      if(groupFilterKey !== groupFilter.key) return groupFilter
+    onChangeFilters(filters
+      .map((groupFilter) => {
+        if(groupFilterKey !== groupFilter.key) return groupFilter
 
-      return ({
-        ...groupFilter,
-        children: treeFilters
+        return ({
+          ...groupFilter,
+          children: treeFilters
+        })
       })
-    }))
+      .filter(({ children }) => children.length)
+    )
   }
+
+  const defaultFilters = useMemo(() => filters
+    .filter(({ type }) => type === 'default'), [ filters ])
+
+  const includeFilters = useMemo(() => filters
+    .filter(({ type }) => type === 'include'), [ filters ])
+
+  const excludeFilters = useMemo(() => filters
+    .filter(({ type }) => type === 'exclude'), [ filters ])
 
   return (
     <Card className={classes.root} variant='outlined'>
@@ -242,27 +275,56 @@ const SuperFilters = (props) => {
             filters.length === 0 ? HeaderHomeComponent : null
           }
           <div className={classes.treeContainer}>
-            {filters.map((groupFilter, index) => (
-              <div key={`GroupFilter-${index}`}>
-                <div className={classes.groupFilterContainer}>
-                  <FiltersTree
-                    dots={dots}
-                    onChange={_handleChangeFilterTree(groupFilter.key)}
-                    onClickEdit={_handleClickEditFilter(groupFilter)}
-                    treeData={groupFilter.children} />
-                  <div className={classes.center}>
-                    <Button
-                      className={classes.buttonAddFilter}
-                      color='primary'
-                      onClick={_handleClickAddFilter(groupFilter)}
-                      startIcon={<AddIcon />}>
-                      And
-                    </Button>
+            {excludeFilters
+              .map((groupFilter, index) => (
+                <div key={`GroupFilter-${index}`}>
+                  <div className={classes.groupFilterContainerBlock}>
+                    <FiltersTree
+                      dots={dots}
+                      onChange={_handleChangeFilterTree(groupFilter.key)}
+                      onClickEdit={_handleClickEditFilter(groupFilter)}
+                      treeData={groupFilter.children} />
                   </div>
                 </div>
-                { (index + 1) < filters.length && <DividerWithText title={'or'} />}
-              </div>
-            ))}
+              ))
+            }
+            {Boolean(excludeFilters.length) && <Divider style={{ margin: '12px 0' }} /> }
+            {includeFilters
+              .map((groupFilter, index) => (
+                <div key={`GroupFilter-${index}`}>
+                  <div className={classes.groupFilterContainer}>
+                    <FiltersTree
+                      dots={dots}
+                      onChange={_handleChangeFilterTree(groupFilter.key)}
+                      onClickEdit={_handleClickEditFilter(groupFilter)}
+                      treeData={groupFilter.children} />
+                  </div>
+                  { index < includeFilters.length && <DividerWithText title={'or'} />}
+                </div>
+              ))
+            }
+            {defaultFilters
+              .map((groupFilter, index) => (
+                <div key={`GroupFilter-${index}`}>
+                  <div className={classes.groupFilterContainer}>
+                    <FiltersTree
+                      dots={dots}
+                      onChange={_handleChangeFilterTree(groupFilter.key)}
+                      onClickEdit={_handleClickEditFilter(groupFilter)}
+                      treeData={groupFilter.children} />
+                    <div className={classes.center}>
+                      <Button
+                        className={classes.buttonAddFilter}
+                        color='primary'
+                        onClick={_handleClickAddFilter(groupFilter)}
+                        startIcon={<AddIcon />}>
+                      And
+                      </Button>
+                    </div>
+                  </div>
+                  { (index + 1) < defaultFilters.length && <DividerWithText title={'or'} />}
+                </div>
+              ))}
           </div>
           <div className={classes.center}>
             <Button
@@ -282,7 +344,7 @@ const SuperFilters = (props) => {
           value={view.index}>
           <FiltersList
             filterGroups={filterGroups}
-            filters={filters}
+            filters={groupFilterCurrent ? groupFilterCurrent.children : []}
             onClickItem={_handleClickFilterListItem}
             uniqueFilter={uniqueFilter} />
         </TabPanel>
