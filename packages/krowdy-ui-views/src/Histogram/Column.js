@@ -1,11 +1,10 @@
 import React from 'react'
 import clsx from 'clsx'
-import { makeStyles, Tooltip, Typography } from '@krowdy-ui/core'
-import { UserPoint } from '@krowdy-ui/views'
+import { makeStyles } from '@krowdy-ui/core'
+import Bar from './Bar'
 
-const Column = ({ index, divider, max, salary, multiplier, firstName, lastName, photo, selected }) => {
-  const avarage = salary / max / multiplier
-  const classes = useStyles({ avarage, divider, percent: (avarage <= 1 ? avarage : 1) * 100 })
+const Column = ({ candidates, index, divider, maxCandidates }) => {
+  const classes = useStyles({ divider })
 
   return (
     <div className={clsx(classes.columnContainer, {
@@ -13,42 +12,22 @@ const Column = ({ index, divider, max, salary, multiplier, firstName, lastName, 
       [classes.rightLine] : index === divider - 1,
       [classes.centerLine]: index > 0 && index < divider - 1
     })}>
-      <Tooltip
-        arrow
-        placement='top'
-        title={(
-          <>
-            <Typography className={classes.tooltipTitle}>{firstName} {lastName}</Typography>
-            <Typography>{`S/ ${salary}`}</Typography>
-          </>
-        )}>
-        <div className={classes.bar}>
-        </div>
-      </Tooltip>
-      <UserPoint
-        active={selected}
-        bottom={-30}
-        classes={{
-          avatar: classes.avatar,
-          point : classes.point
-        }}
-        firstName={firstName}
-        lastName={lastName}
-        leftPercent={50}
-        photo={photo}
-        subtitle={`S/ ${salary}`} />
+      <div className={classes.containerBar}>
+        {
+          candidates.map((candidate, index) => (
+            <Bar
+              candidate={candidate}
+              key={index}
+              maxCandidates={maxCandidates} />
+          ))
+        }
+      </div>
     </div>
   )
 }
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
-  },
-  bar: {
-    backgroundColor: theme.palette.primary[100],
-    borderTop      : ({ avarage }) => `${avarage <= 1 ? 1 : 0}px solid ${theme.palette.primary[600]}`,
-    height         : ({ percent }) => `${percent}%`,
-    width          : '100%'
   },
   centerLine: {
     borderLeft : `1px solid ${theme.palette.grey[200]}`,
@@ -73,8 +52,11 @@ const useStyles = makeStyles((theme) => ({
     position      : 'relative',
     width         : ({ divider }) => `${100 / divider}%`
   },
-  hide: {
-    display: 'none'
+  containerBar: {
+    display      : 'flex',
+    flexDirection: 'column-reverse',
+    height       : '100%',
+    width        : '100%'
   },
   leftLine: {
     borderLeft : `2px solid ${theme.palette.grey[200]}`,
@@ -85,13 +67,6 @@ const useStyles = makeStyles((theme) => ({
   rightLine: {
     borderLeft : `1px solid ${theme.palette.grey[200]}`,
     borderRight: `2px solid ${theme.palette.grey[200]}`
-  },
-  show: {
-    display: 'block'
-  },
-  tooltipTitle: {
-    fontSize  : 12,
-    fontWeight: 'bold'
   }
 }), { name: 'Column' })
 

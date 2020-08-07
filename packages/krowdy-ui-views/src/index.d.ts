@@ -30,6 +30,9 @@ export * from './DragComponent'
 export { default as Filters } from './Filters'
 export * from './Filters'
 
+export { default as GraphicBar } from './GraphicBar'
+export * from './GraphicBar'
+
 export { default as Histogram } from './Histogram'
 export * from './Histogram'
 

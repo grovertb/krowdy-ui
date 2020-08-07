@@ -1,0 +1,39 @@
+import React from 'react'
+import { makeStyles } from '@krowdy-ui/core'
+import { UserPoint } from '@krowdy-ui/views'
+
+const Bar = ({ candidate, maxCandidates }) => {
+  const percent =  100 / maxCandidates
+  const classes = useStyles({ percent })
+
+  const { firstName, lastName, salary, photo } = candidate
+
+  return (
+    <div className={classes.bar}>
+      <UserPoint
+        active={false}
+        bottom={'50%'}
+        classes={{
+          avatar: classes.avatar,
+          point : classes.point
+        }}
+        firstName={firstName}
+        lastName={lastName}
+        leftPercent={50}
+        photo={photo}
+        subtitle={`S/ ${salary}`} />
+    </div>
+  )
+}
+
+const useStyles = makeStyles((theme) => ({
+  bar: {
+    backgroundColor: theme.palette.primary[100],
+    // borderTop      : ({ avarage }) => `${avarage <= 1 ? 1 : 0}px solid ${theme.palette.primary[600]}`,
+    height         : ({ percent }) => `${percent}%`,
+    position       : 'relative',
+    width          : '100%'
+  }
+}))
+
+export default Bar

@@ -4,46 +4,71 @@ import clsx from 'clsx'
 import { makeStyles } from '@krowdy-ui/core'
 import Column from './Column'
 import Price from './Price'
+import Count from './Count'
 
-let interval = 4
+const groupByObject = function(array, prices, multiplier, keyGetter = (x) => x) {
+  return array.reduce((resultObject, x) => {
+    const match = keyGetter(x)
+    const price = prices.find((price, index) => price * multiplier >= match && prices[index + 1] * multiplier < match)
+    if(price) {
+      resultObject[price] = resultObject[price] || []
+      resultObject[price].push(x)
+    }
+
+    return resultObject
+  }, {})
+}
+
+let interval = 8
 let emptyPrices = new Array(interval)
 
 const parsePrice = (price) => Math.ceil(price / 10**(price.toString().length - 1)) * 10**(price.toString().length - 1)
 
 const Histogram = ({ multiplier = 1, candidates = [] }) => {
-  const divider = candidates.length
-  const max = candidates.map(({ salary }) => salary).sort((a, b) => b - a)[0]
-  const prices = Array.from(emptyPrices, (value, index) => parsePrice(Math.ceil(max - (max / 4 * index))))
+  const max = candidates.reduce((r, { salary }) => Math.max(r, salary), 1)
+
+  const rawPrices = Array.from(emptyPrices, (value, index) => parsePrice(Math.ceil(max - (max / interval * index))))
+  const prices = [ ...rawPrices, 0 ]
+
   const classes = useStyles({ max: prices[0], multiplier })
+
+  const rawData = groupByObject(candidates, prices, multiplier, ({ salary }) => salary)
+
+  const keys = Object.keys(rawData)
+  const maxCandidates = [ ...keys ].sort((a, b) => rawData[b].length - rawData[a].length)[0]
 
   return (
     <div className={classes.root}>
-      <div className={clsx(classes.row, classes.container)}>
-        <div className={clsx(classes.column, classes.prices)}>
+      <div className={clsx(classes.column, classes.countCandidates)}>
+        {
+          (new Array(rawData[maxCandidates].length)).fill(rawData[maxCandidates].length).map((count, index) => (
+            <Count count={count} index={index} key={index} />
+          ))
+        }
+      </div>
+      <div className={clsx(classes.column, classes.container)}>
+        <div className={clsx(classes.containerHistogram, classes.row)}>
           {
-            prices.map((price, index) => (
-              <Price
+            [ ...rawPrices ].sort().map((key, index) => (
+              <Column
+                candidates={rawData[key] || []}
+                divider={rawPrices.length}
+                index={index}
                 key={index}
-                max={prices[0]}
-                multiplier={multiplier}
-                price={price} />
+                maxCandidates={rawData[maxCandidates].length} />
             ))
           }
         </div>
-        <div className={clsx(classes.containerHistogram, classes.row)}>
+        <div className={clsx(classes.row, classes.prices)}>
           {
-            candidates.map(({ salary, selected, firstName, lastName, photo }, index) => (
-              <Column
-                divider={divider}
-                firstName={firstName}
+            prices.map((price, index) => (
+              <Price
                 index={index}
                 key={index}
-                lastName={lastName}
                 max={prices[0]}
+                maxCandidates={rawData[maxCandidates].length}
                 multiplier={multiplier}
-                photo={photo}
-                salary={salary}
-                selected={selected} />
+                price={price} />
             ))
           }
         </div>
@@ -70,7 +95,6 @@ const useStyles = makeStyles((theme) => ({
   },
   container: {
     height   : '100%',
-    marginTop: theme.spacing(1),
     minHeight: 150,
     width    : '100%'
   },
@@ -81,16 +105,22 @@ const useStyles = makeStyles((theme) => ({
     height       : 'inherit',
     width        : 'inherit'
   },
+  countCandidates: {
+    alignItems: 'center'
+  },
   price: {
     color: theme.palette.grey[600]
   },
   prices: {
-    position: 'relative',
-    width   : ({ max, multiplier }) => (max * multiplier).toString().length * 9
+    position: 'relative'
+    // width   : ({ max, multiplier }) => (max * multiplier).toString().length * 9
   },
   root: {
-    display: 'flex',
-    height : 'calc(100% - 32px)'
+    display      : 'flex',
+    height       : 'calc(100% - 32px)',
+    marginTop    : theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+    paddingRight : theme.spacing(1)
   },
   row: {
     display      : 'flex',
