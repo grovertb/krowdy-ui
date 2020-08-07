@@ -24,7 +24,12 @@ export default makeStyles(({ palette, spacing }) => ({
     top     : 0
   },
   collapseButton: {},
-  contentDrag   : {
+  containerCard : {
+    alignItems: 'center',
+    display   : 'flex',
+    width     : '100%'
+  },
+  contentDrag: {
     alignItems: 'center',
     color     : palette.grey[600],
     cursor    : 'grab',
@@ -111,6 +116,9 @@ export default makeStyles(({ palette, spacing }) => ({
     display: 'inline-block',
     height : '100%'
   },
+  lockIcon: {
+    color: palette.secondary[300]
+  },
   nodeContent: {
     '& $collapseButton, & $expandButton': {
       '&::after': {
@@ -168,16 +176,19 @@ export default makeStyles(({ palette, spacing }) => ({
       padding: '0px 6px'
       // flex        : '0 1 auto',
       // paddingRight: 20
-    }
+    },
+    width: '100%'
   },
   row: {
     // '& > *': {
     //   boxSizing: 'border-box'
     // },
     '& $rowContentTitle, & $rowContentChips': {
-      display      : 'flex',
-      flexDirection: 'column',
-      whiteSpace   : 'nowrap'
+      alignItems: 'center',
+      display   : 'flex',
+      whiteSpace: 'nowrap'
+      // flexDirection: 'column',
+      // whiteSpace   : 'nowrap'
     },
     '& $rowIcon, & $rowLabel,& $rowToolbar': {
       alignItems: 'center',
@@ -222,9 +233,10 @@ export default makeStyles(({ palette, spacing }) => ({
     border         : `1px solid ${palette.grey[400]}`,
     borderRadius   : 8,
     display        : 'flex',
-    margin         : 4,
-    padding        : 8,
-    position       : 'relative'
+    margin         : spacing(0.5),
+    padding        : spacing(1),
+    position       : 'relative',
+    width          : '100%'
   },
   rowCancelPad   : {},
   rowContent     : {},
@@ -233,8 +245,10 @@ export default makeStyles(({ palette, spacing }) => ({
       marginTop: spacing(.5)
     }
   },
-  rowContentTitle: {},
-  rowIcon        : {
+  rowContentTitle: {
+
+  },
+  rowIcon: {
     color: '#D9D9D9'
   },
   rowLabel     : {},
@@ -266,7 +280,8 @@ export default makeStyles(({ palette, spacing }) => ({
     // },
     boxSizing: 'border-box',
     display  : 'flex',
-    height   : '100%'
+    height   : '100%',
+    width    : '100%'
     // margin   : '2px 2px 2px 0'
   },
   rowWrapperDragDisabled: {

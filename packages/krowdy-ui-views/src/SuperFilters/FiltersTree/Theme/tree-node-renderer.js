@@ -75,7 +75,7 @@ function TreeNodeRenderer(props) {
       // +-----+
         lineClass = `${classes.lineHalfVerticalTop} ${classes.lineHalfHorizontalRight}`
 
-      if(path.length > 1)
+      if(i >= 1)
         scaffold.push(
           <div
             className={`${classes.lineBlock} ${lineClass}`}

@@ -2,7 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import XDate from 'xdate'
 import useStyles from './node-content-renderer-style'
-import { Chip, Typography, Tooltip } from '@krowdy-ui/core'
+import { Typography, Tooltip, makeStyles, IconButton } from '@krowdy-ui/core'
+import { Lock as LockIcon } from '@material-ui/icons'
 
 function isDescendant(older, younger) {
   return (
@@ -18,43 +19,64 @@ function cutValue(value, size) {
   return value.length > size ? value.slice(0, size) + '...' : value
 }
 
-const ChipContainer = (props) =>{
-  const { label, size, dots } = props
-
+const Value = ({ label, size, dots }) =>{
+  const classes = useContentStyles()
   if(label.length <= size || !dots)
     return (
       <div>
-        <Chip
-          color='primary'
-          label={label}
-          size='small'
-          variant='outlined' />
+        <Typography className={classes.value} variant='caption'>{label}</Typography>
       </div>
     )
   else
     return (
       <Tooltip title={label}>
         <div>
-          <Chip
-            color='primary'
-            label={cutValue(label, size)}
-            size='small'
-            variant='outlined' />
+          <Typography className={classes.value} variant='caption'>{cutValue(label, size)}</Typography>
         </div>
       </Tooltip>
     )
 }
 
-const Content = ({ value, variant, color, size, dots }) => {
+const Label = ({ value, dots, size }) => {
+  const classes = useContentStyles()
   if(value.length <= size || !dots)
-    return <Typography color={color} variant={variant}>{value}</Typography>
+    return <Typography className={classes.label} variant='body1'>{value}</Typography>
   else
     return (
       <Tooltip title={value}>
-        <Typography color={color} variant={variant}>{cutValue(value, size)}</Typography>
+        <Typography className={classes.label} variant='body1'>{cutValue(value, size)}</Typography>
       </Tooltip>
     )
 }
+
+const Span = ({ value, dots, size }) => {
+  const classes = useContentStyles()
+  if(value.length <= size || !dots)
+    return <Typography className={classes.span} variant='body1'>{value}</Typography>
+  else
+    return (
+      <Tooltip title={value}>
+        <Typography className={classes.span} variant='body1'>{cutValue(value, size)}</Typography>
+      </Tooltip>
+    )
+}
+
+const useContentStyles = makeStyles((theme) => ({
+  label: {
+    color   : theme.palette.primary[900],
+    fontSize: 12
+  },
+  span: {
+    color     : theme.palette.grey[600],
+    fontSize  : 10,
+    marginLeft: 4
+  },
+  value: {
+    color     : theme.palette.grey[800],
+    fontSize  : 10,
+    lineHeight: '16px'
+  }
+}))
 
 function FileThemeNodeContentRenderer(props) {
   const {
@@ -63,24 +85,14 @@ function FileThemeNodeContentRenderer(props) {
     isDragging,
     dots,
     canDrop,
-    // canDrag,
     node,
-    // title,
     draggedNode,
-    // path,
-    // treeIndex,
     buttons,
     className,
     didDrop
-    // treeId // Not needed, but preserved for other renderers
-    // isOver, // Not needed, but preserved for other renderers
-    // parentNode, // Needed for dndManager
-    // rowDirection
   } = props
 
   const classes = useStyles()
-
-  // const nodeTitle = title || node.title
 
   const isDraggedDescendant = draggedNode && isDescendant(draggedNode, node)
   const isLandingPadActive = !didDrop && isDragging
@@ -90,77 +102,64 @@ function FileThemeNodeContentRenderer(props) {
       {
         connectDragPreview(
           <div className={classes.rowWrapper}>
-            {/* {
-              connectDragSource(
-                <div className={classes.contentDrag}>
-                  <DragIndicatorIcon />
-                </div>
-              )
-            } */}
             {connectDragSource(
-              <div
-                className={
-                  classes.row +
+              <div className={classes.containerCard}>
+                {(node.type === 'list' && node.operator === '$nin') && (
+                  <IconButton size='small'>
+                    <LockIcon  className={classes.lockIcon} fontSize='small' />
+                  </IconButton>
+                )}
+                <div
+                  className={
+                    classes.row +
                 (isLandingPadActive ? ` ${classes.rowLandingPad}` : '') +
                 (isLandingPadActive && !canDrop ? ` ${classes.rowCancelPad}` : '') +
                 (className ? ` ${className}` : '')
-                }
-                style={{ opacity: isDraggedDescendant ? 0.5 : 1 }}>
-                {/* <div className={classes.rowContent}> */}
-                <div
-                  // className={classes.rowLabel}
-                  className={classes.rowPanelLeft}>
-                  <div className={classes.rowContentTitle}>
-                    {/* {
-                    typeof nodeTitle === 'string' ?
-                      <span className={classes.rowTitle}>{nodeTitle}</span>  :
-                      typeof nodeTitle === 'function' ?
-                        nodeTitle({
-                          node,
-                          path,
-                          treeIndex
-                        }) :
-                        nodeTitle
-                  } */}
-                    <Content
-                      color='body' dots={dots} size={15}
-                      value={node.label}
-                      variant='body2' />
-                    <Content
-                      color='info' dots={dots}
-                      size={20} value={node.operatorLabel}
-                      variant='info1' />
-                  </div>
-                  {
-                    node.value ?
-                      <div className={classes.rowContentChips}>
-                        {
-                          Array.isArray(node.value) ?
-                            node.value.map((value, indexValue) => {
-                              const label = node.type === 'date' ? new XDate(value.label || value).toString('dd/MM/yyyy') : value.label || value
-
-                              return (
-                                <ChipContainer
-                                  dots={dots}
-                                  key={`chip-${1 + indexValue}`}
-                                  label={label}
-                                  size={10} />
-                              )}) :
-                            <ChipContainer
-                              dots={dots}
-                              label={node.type === 'date' ? new XDate(node.value).toString('dd/MM/yyyy') : node.value}
-                              size={10} />
-                        }
-                      </div> :
-                      null
                   }
+                  style={{ opacity: isDraggedDescendant ? 0.5 : 1 }}>
+                  <div
+                    className={classes.rowPanelLeft}>
+                    <div className={classes.rowContentTitle}>
+                      <Label
+                        dots={dots}
+                        size={15}
+                        value={node.label} />
+                      <Span
+                        color='info'
+                        dots={dots}
+                        size={20}
+                        value={node.operatorLabel}
+                        variant='info1' />
+                    </div>
+                    {
+                      node.value ?
+                        <div >
+                          {
+                            Array.isArray(node.value) ?
+                              node.value.map((value, indexValue) => {
+                                const label = node.type === 'date' ? new XDate(value.label || value).toString('dd/MM/yyyy') : value.label || value
+
+                                return (
+                                  <Value
+                                    dots={dots}
+                                    key={`chip-${1 + indexValue}`}
+                                    label={label}
+                                    size={10} />
+                                )}) :
+                              <Value
+                                dots={dots}
+                                label={node.type === 'date' ? new XDate(node.value).toString('dd/MM/yyyy') : node.value}
+                                size={10} />
+                          }
+                        </div> :
+                        null
+                    }
+                  </div>
+                  <div
+                    className={classes.rowPanelRight}>
+                    {buttons}
+                  </div>
                 </div>
-                <div
-                  // className={classes.rowToolbar}
-                  className={classes.rowPanelRight}>
-                  {buttons}
-                </div>
-                {/* </div> */}
               </div>
             )}
           </div>
@@ -170,23 +169,6 @@ function FileThemeNodeContentRenderer(props) {
   )
 
   return nodeContent
-}
-
-FileThemeNodeContentRenderer.defaultProps = {
-  buttons                 : null,
-  canDrag                 : false,
-  canDrop                 : false,
-  className               : '',
-  draggedNode             : null,
-  isSearchFocus           : false,
-  isSearchMatch           : false,
-  label                   : null,
-  parentNode              : null,
-  style                   : {},
-  swapDepth               : null,
-  swapFrom                : null,
-  swapLength              : null,
-  toggleChildrenVisibility: null
 }
 
 FileThemeNodeContentRenderer.propTypes = {
