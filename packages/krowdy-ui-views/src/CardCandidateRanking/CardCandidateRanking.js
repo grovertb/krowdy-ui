@@ -68,7 +68,8 @@ const CardCandidateRanking = ({
   position,
   paddingLeft,
   selected = false,
-  className
+  className,
+  onClick = () => {}
 }) => {
   const Container = position || paddingLeft ?
     ({ children }) => (
@@ -85,6 +86,7 @@ const CardCandidateRanking = ({
       <Card
         className={clsx(classes.root, className)}
         hoverable
+        onClick={onClick}
         selected={selected}
         variant='outlined'>
         <CardHeader
@@ -115,6 +117,7 @@ CardCandidateRanking.propTypes = {
   classes           : PropTypes.object,
   firstName         : PropTypes.string,
   lastName          : PropTypes.string,
+  onClick           : PropTypes.node,
   paddingLeft       : PropTypes.bool,
   photo             : PropTypes.string,
   position          : PropTypes.number,

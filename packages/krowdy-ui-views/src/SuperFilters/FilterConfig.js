@@ -396,6 +396,7 @@ const FilterConfig = (props) => {
             root: classes.select
           }}
           color='primary'
+          disabled={filter.type === 'list'}
           MenuProps={{
             anchorOrigin: {
               horizontal: 'left',

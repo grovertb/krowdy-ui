@@ -1,6 +1,8 @@
 /* , */
 
-export const filtersData = [ {
+import { Filter } from "./interfaces"
+
+export const filtersData: Filter[] = [ {
   children: [ {
     key          : 'email',
     label        : 'Candidato',

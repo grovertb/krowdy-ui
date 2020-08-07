@@ -22,7 +22,7 @@ export const styles = (theme) => ({
   },
   buttonAddGroupFilter: {
     borderStyle: 'dashed',
-    marginTop  : theme.spacing(1)
+    margin     : theme.spacing(1.5, 0)
   },
   cardContent: {
     display       : 'flex',
@@ -126,7 +126,6 @@ const SuperFilters = (props) => {
   const [ filterToEdit, setFilterToEdit ] = useState()
 
   const addFilter = (filter) => {
-    console.log('addFilter')
     onChangeFilters(filters
       .map((groupFilter) => {
         if(groupFilter.key !== groupFilterCurrent.key) return groupFilter

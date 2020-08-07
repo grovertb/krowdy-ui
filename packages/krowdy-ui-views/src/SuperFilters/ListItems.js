@@ -73,13 +73,10 @@ const ListItems = ({
 
 ListItems.propTypes = {
   categoryKey: PropTypes.string,
-  hasNextPage: PropTypes.bool.isRequired,
   items      : PropTypes.arrayOf(PropTypes.shape({
     _id  : PropTypes.string.isRequired,
     label: PropTypes.string.isRequired
   })).isRequired,
-  listWidth           : PropTypes.number,
-  loadMore            : PropTypes.func.isRequired,
   onChangeSelected    : PropTypes.func.isRequired,
   onResetCategoryItems: PropTypes.func,
   selectedItems       : PropTypes.arrayOf(PropTypes.shape({

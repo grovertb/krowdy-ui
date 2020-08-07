@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { makeStyles, FormControlLabel, Checkbox } from '@krowdy-ui/core'
+import { makeStyles, FormControlLabel, Checkbox, IconButton } from '@krowdy-ui/core'
 import { SuperFilters, CardCandidateRanking } from '@krowdy-ui/views'
 import { filtersData, categoryFilters, filterTypes } from './data'
+import { Add as AddIcon, Remove as RemoveIcon } from '@material-ui/icons'
 
 const useStyles = makeStyles({
   root: {
@@ -36,18 +37,22 @@ const getNewCategoryItemsAsync = async (key, time = 1000) => new Promise(resolve
 
 const candidates = [ {
   _id      : 1,
+  email    : 'luis.sullca.h@uni.pe',
   firstName: 'Luis Alfredo',
   lastName : 'Sullca Huaracca'
 }, {
   _id      : 2,
+  email    : 'anderson@gmail.com',
   firstName: 'Anderson',
   lastName : 'Sinche'
 }, {
   _id      : 3,
+  email    : 'mario@gmail.com',
   firstName: 'Mario',
   lastName : 'Fishman'
 }, {
   _id      : 4,
+  email    : 'piero@gmail.com',
   firstName: 'Piero',
   lastName : 'Rodriguez'
 } ]
@@ -75,13 +80,65 @@ export default function () {
   }
 
   const _handleSelectCategoryFilter = (category, values) => {
-    if(category === 'email') {
+    if(values && values.length) {
       setCurrentCategory(category)
       setCategoryItems(values)
     } else if(currenCategory !== category) {
       setCurrentCategory(category)
       setCategoryItems([])
     }
+  }
+
+  const _handleClickCandidate = (candidate) => () => {
+    console.log('_handleClickCandidate', candidate)
+  }
+  const _handleClickIncludeCandidate = (candidate) => (e) => {
+    e.stopPropagation()
+    setFilters(filters => filters.map((groupFilter) => {
+      if(groupFilter.type === 'include') return ({
+        ...groupFilter,
+        children: (groupFilter.children || []).map((filter) => {
+          const { key, value } = filter
+          if(key === 'email' && !value.some(({ _id }) => _id === candidate.email))
+            return ({
+              ...filter,
+              value: value.concat({
+                _id  : candidate.email,
+                count: null,
+                label: candidate.firstName
+              })
+            })
+
+          return filter
+        })
+      })
+
+      return groupFilter
+    }))
+  }
+  const _handleClickExcludeCandidate = (candidate) => (e) => {
+    e.stopPropagation()
+    setFilters(filters => filters.map((groupFilter) => {
+      if(groupFilter.type === 'exclude') return ({
+        ...groupFilter,
+        children: (groupFilter.children || []).map((filter) => {
+          const { key, value } = filter
+          if(key === 'email' && !value.some(({ _id }) => _id === candidate.email))
+            return ({
+              ...filter,
+              value: value.concat({
+                _id  : candidate.email,
+                count: null,
+                label: candidate.firstName
+              })
+            })
+
+          return filter
+        })
+      })
+
+      return groupFilter
+    }))
   }
 
   return (
@@ -104,9 +161,20 @@ export default function () {
       <div style={{ flex: 1 }}>
         {candidates.map((candidate) => (
           <CardCandidateRanking
+            action={(
+              <div>
+                <IconButton onClick={_handleClickExcludeCandidate(candidate)} size='small'>
+                  <RemoveIcon fontSize='small' />
+                </IconButton>
+                <IconButton onClick={_handleClickIncludeCandidate(candidate)} size='small'>
+                  <AddIcon fontSize='small' />
+                </IconButton>
+              </div>
+            )}
             firstName={candidate.firstName}
             key={candidate._id}
-            lastName={candidate.lastName} />
+            lastName={candidate.lastName}
+            onClick={_handleClickCandidate(candidate)} />
         ))}
       </div>
     </div>
