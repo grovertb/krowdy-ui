@@ -73,12 +73,8 @@ export default function () {
   }
 
   const _handleLoadMoreCategoryItems = async (key:string, values: CategoryItem[]) => {
-    if(key === 'email') {
-      setCategoryItems(values)
-    } else {
-      const newItems: CategoryItem[] = await getNewCategoryItemsAsync(key)
-      setCategoryItems(prev => [ ...prev, ...newItems ])
-    }
+    const newItems: CategoryItem[] = await getNewCategoryItemsAsync(key)
+    setCategoryItems(prev => [ ...prev, ...newItems ])
   }
 
   const _handleSelectCategoryFilter = (category: string, values: any[]) => {
