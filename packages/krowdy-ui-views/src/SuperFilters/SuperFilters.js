@@ -9,18 +9,26 @@ import FiltersTree from './FiltersTree' // libreria customizada
 import FilterConfig from './FilterConfig'
 import FiltersList from './FiltersList'
 import DividerWithText from './DividerWithText'
+import { mongoObjectId } from '../utils/mongoObjectId'
 
 export const styles = (theme) => ({
   backIcon: {
     marginRight : theme.spacing(1),
-    paddingLeft : 6,
+    paddingLeft : theme.spacing(.75),
     paddingRight: 0
+  },
+  buttonAddFilter: {
+    marginTop: theme.spacing(1)
+  },
+  buttonAddGroupFilter: {
+    borderStyle: 'dashed',
+    marginTop  : theme.spacing(1)
   },
   cardContent: {
     display       : 'flex',
     flex          : 2,
     justifyContent: 'center',
-    overflowY     : 'hidden'
+    overflowY     : 'auto'
   },
   cardTitle: {
     fontSize: 14
@@ -31,6 +39,9 @@ export const styles = (theme) => ({
     flexDirection: 'column'
   },
   groupFilterContainer: {
+    '& > $rootScaffold': {
+      display: 'none'
+    },
     '&:hover': {
       backgroundColor: theme.palette.primary[50],
       border         : `1px solid ${theme.palette.primary[500]}`
@@ -38,7 +49,8 @@ export const styles = (theme) => ({
     backgroundColor: theme.palette.secondary[0],
     border         : `1px solid ${theme.palette.secondary[0]}`,
     borderRadius   : theme.spacing(1),
-    padding        : theme.spacing(1)
+    overflowX      : 'auto',
+    padding        : theme.spacing(1, 1, 1, 0)
   },
   noPadding: {
     padding: 0
@@ -60,10 +72,8 @@ export const styles = (theme) => ({
     overflowY: 'scroll'
   },
   viewContainer: {
-    height   : '100%',
-    overflowX: 'hidden',
-    overflowY: 'scroll',
-    width    : '100%'
+    height: '100%',
+    width : '100%'
   }
 })
 
@@ -102,12 +112,20 @@ const SuperFilters = (props) => {
     uniqueFilter = false
   }  = props
 
+  const [ groupFilterCurrent, setGroupFilterCurrent ] = useState()
   const [ view, goToView ] = useState(Views.HOME)
   const [ filterSelected, setFilterSelected ] = useState()
   const [ filterToEdit, setFilterToEdit ] = useState()
 
   const addFilter = (filter) => {
-    onChangeFilters([ ...filters, filter ])
+    onChangeFilters(filters.map((groupFilter) => {
+      if(groupFilter.key !== groupFilterCurrent.key) return groupFilter
+
+      return ({
+        ...groupFilter,
+        children: groupFilter.concat(filter)
+      })
+    }))
   }
 
   const deepUpdate = (arr, { _id, ...updatedItem } ) => arr.map(item => {
@@ -124,10 +142,18 @@ const SuperFilters = (props) => {
   })
 
   const updateFilter = (filter) => {
-    const updatedFilters = deepUpdate(filters, filter)
-    onChangeFilters(updatedFilters)
+    const updatedFilters = deepUpdate(groupFilterCurrent.children, filter)
+    onChangeFilters(filters.map((groupFilter) => {
+      if(groupFilter.key !== groupFilterCurrent.key) return groupFilter
+
+      return ({
+        ...groupFilter,
+        children: updatedFilters
+      })
+    }))
   }
 
+  // Aqui es cuando se agrega un filtro
   const _handleClickApplyFilters = (filter) => {
     if(filterToEdit) {
       // Exists, so update it
@@ -137,6 +163,7 @@ const SuperFilters = (props) => {
       addFilter(filter)
     }
     goToView(Views.HOME)
+    setGroupFilterCurrent(null)
   }
 
   const _handleClickFilterListItem = (item) => {
@@ -144,13 +171,22 @@ const SuperFilters = (props) => {
     goToView(Views.FILTER_CONFIG)
   }
 
-  const _handleClickAddFilter = () => goToView(Views.FILTERS_SEARCH)
-
-  const _handleClickAddGroupFilter = () => {
-
+  const _handleClickAddFilter = (groupFilter) => () => {
+    setGroupFilterCurrent(groupFilter)
+    goToView(Views.FILTERS_SEARCH)
   }
 
-  const _handleClickEditFilter = (appliedFilter) => {
+  const _handleClickAddGroupFilter = () => {
+    onChangeFilters(filters.concat({
+      children: [],
+      key     : mongoObjectId(),
+      operator: 'none',
+      type    : 'default'
+    }))
+  }
+
+  const _handleClickEditFilter = (groupFilter) => (appliedFilter) => {
+    setGroupFilterCurrent(groupFilter)
     setFilterToEdit(appliedFilter)
     goToView(Views.FILTER_CONFIG)
   }
@@ -159,11 +195,19 @@ const SuperFilters = (props) => {
     if(view.backIndex) {
       goToView(Views[view.backIndex])
       setFilterToEdit(null)
+      if(view.backIndex === 'HOME') setGroupFilterCurrent(null)
     }
   }
 
-  const _handleChangeFilterTree = treeFilters => {
-    onChangeFilters(treeFilters)
+  const _handleChangeFilterTree = groupFilterKey => treeFilters => {
+    onChangeFilters(filters.map((groupFilter) => {
+      if(groupFilterKey !== groupFilter.key) return groupFilter
+
+      return ({
+        ...groupFilter,
+        children: treeFilters
+      })
+    }))
   }
 
   return (
@@ -198,20 +242,21 @@ const SuperFilters = (props) => {
             filters.length === 0 ? HeaderHomeComponent : null
           }
           <div className={classes.treeContainer}>
-            {filters.map(({ children: filters }, index) => (
+            {filters.map((groupFilter, index) => (
               <div key={`GroupFilter-${index}`}>
                 <div className={classes.groupFilterContainer}>
                   <FiltersTree
                     dots={dots}
-                    onChange={_handleChangeFilterTree}
-                    onClickEdit={_handleClickEditFilter}
-                    treeData={filters} />
+                    onChange={_handleChangeFilterTree(groupFilter.key)}
+                    onClickEdit={_handleClickEditFilter(groupFilter)}
+                    treeData={groupFilter.children} />
                   <div className={classes.center}>
                     <Button
+                      className={classes.buttonAddFilter}
                       color='primary'
-                      onClick={_handleClickAddFilter}
+                      onClick={_handleClickAddFilter(groupFilter)}
                       startIcon={<AddIcon />}>
-                    And
+                      And
                     </Button>
                   </div>
                 </div>
@@ -221,9 +266,12 @@ const SuperFilters = (props) => {
           </div>
           <div className={classes.center}>
             <Button
+              className={classes.buttonAddGroupFilter}
               color='primary'
+              fullWidth
               onClick={_handleClickAddGroupFilter}
-              startIcon={<AddIcon />}>
+              startIcon={<AddIcon />}
+              variant='outlined'>
                 Grupo de filtro
             </Button>
           </div>

@@ -46,8 +46,8 @@ export const filtersData = [ {
           optionIndex  : 0,
           type         : 'keyword',
           value        : [
-            'waadwwa a',
-            'awdwa'
+            'Valor filtro 1',
+            'Valor filtro 2'
           ]
         }
       ],
@@ -102,8 +102,8 @@ export const filtersData = [ {
           optionIndex  : 0,
           type         : 'keyword',
           value        : [
-            'waadwwa a',
-            'awdwa'
+            'Valor filtro 3',
+            'Valor filtro 4'
           ]
         }
       ],
@@ -141,7 +141,7 @@ export const filtersData = [ {
       ]
     }
   ],
-  key     : '3',
+  key     : '4',
   operator: 'none',
   type    : 'default'
 } ]

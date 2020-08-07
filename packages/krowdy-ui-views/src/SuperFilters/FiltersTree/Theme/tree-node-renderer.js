@@ -1,7 +1,7 @@
 import React, { Children, cloneElement } from 'react'
 import PropTypes from 'prop-types'
 import useStyles from './tree-node-renderer-style'
-
+import clsx from 'clsx'
 function TreeNodeRenderer(props) {
   const {
     children,
@@ -14,8 +14,8 @@ function TreeNodeRenderer(props) {
     connectDropTarget,
     isOver,
     draggedNode,
-    canDrop
-    // treeIndex
+    canDrop,
+    path
     // treeId, // Delete from otherProps
     // getPrevRow, // Delete from otherProps
     // node, // Delete from otherProps
@@ -73,13 +73,14 @@ function TreeNodeRenderer(props) {
       // +-----+
       lineClass = `${classes.lineHalfVerticalTop} ${classes.lineHalfHorizontalRight}`
 
-    scaffold.push(
-      <div
-        className={`${classes.lineBlock} ${lineClass}`}
-        // className={('lineBlock', lineClass, rowDirectionClass)}
-        key={`pre_${1 + i}`}
-        style={{ width: scaffoldBlockPxWidth }} />
-    )
+    if(path.length > 1)
+      scaffold.push(
+        <div
+          className={`${classes.lineBlock} ${lineClass}`}
+          // className={('lineBlock', lineClass, rowDirectionClass)}
+          key={`pre_${1 + i}`}
+          style={{ width: scaffoldBlockPxWidth }} />
+      )
 
     // if(treeIndex !== listIndex && i === swapDepth) {
     // let highlightLineClass = ''
@@ -110,7 +111,10 @@ function TreeNodeRenderer(props) {
 
   return connectDropTarget(
     <div className={classes.root}>
-      <div className={classes.rootScaffold}>
+      <div className={clsx({
+        [classes.rootScaffold]    : path.length > 1,
+        [classes.rootScaffoldNone]: path.length <= 1
+      })}>
         {scaffold}
       </div>
       {

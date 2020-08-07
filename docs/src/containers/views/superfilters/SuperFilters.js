@@ -383,6 +383,7 @@ export default function () {
   const [ currenCategory, setCurrentCategory ] = useState()
 
   const _handleChangeFilters = (updatedFilters) => {
+    console.log('_handleChangeFilters -> updatedFilters', updatedFilters)
     setFilters(updatedFilters)
   }
 
@@ -414,7 +415,7 @@ export default function () {
         onChangeFilters={_handleChangeFilters}
         onSelectCategoryFilter={_handleSelectCategoryFilter}
         title='Todos las compras'
-        uniqueFilter={true} />
+        uniqueFilter />
     </div>
   )
 }
