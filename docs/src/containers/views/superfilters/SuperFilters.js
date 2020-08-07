@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { makeStyles, FormControlLabel, Checkbox, IconButton } from '@krowdy-ui/core'
 import { SuperFilters, CardCandidateRanking } from '@krowdy-ui/views'
-import { filtersData, categoryFilters, filterTypes } from './data'
+import { /* filtersData */ categoryFilters, filterTypes } from './data'
 import { Add as AddIcon, Remove as RemoveIcon } from '@material-ui/icons'
 
 const useStyles = makeStyles({
@@ -60,7 +60,8 @@ const candidates = [ {
 export default function () {
   const classes = useStyles()
 
-  const [ filters, setFilters ] = useState(filtersData)
+  const [ filters, setFilters ] = useState([])
+
   // const [ filters, setFilters ] = useState([])
 
   const [ categoryItems, setCategoryItems ] = useState([])
@@ -86,53 +87,65 @@ export default function () {
   const _handleClickCandidate = (candidate) => () => {
     console.log('_handleClickCandidate', candidate)
   }
-  const _handleClickIncludeCandidate = (candidate) => (e) => {
-    e.stopPropagation()
-    setFilters(filters => filters.map((groupFilter) => {
-      if(groupFilter.type === 'include') return ({
-        ...groupFilter,
-        children: (groupFilter.children || []).map((filter) => {
-          const { key, value } = filter
-          if(key === 'email' && !value.some(({ _id }) => _id === candidate.email))
-            return ({
-              ...filter,
-              value: value.concat({
-                _id  : candidate.email,
-                count: null,
-                label: candidate.firstName
-              })
-            })
 
-          return filter
+  const pushValueToFilterList = (filters, candidate, groupFilterType) => {
+    const filterType = 'list'
+    const optionIndex = Number(groupFilterType === 'exclude')
+    const includeFilterType = filterTypes.find(({ type }) => type === filterType)
+    const operatorLabel = includeFilterType.options[optionIndex].label
+    const operator = includeFilterType.options[optionIndex].operator
+
+    if(filters.some((groupFilter) => groupFilter.type === groupFilterType))
+      return filters.map((groupFilter) => {
+        if(groupFilter.type === groupFilterType) return ({
+          ...groupFilter,
+          children: (groupFilter.children || []).map((filter) => {
+            const { key, value } = filter
+            if(key === 'email' && !value.some(({ _id }) => _id === candidate.email))
+              return ({
+                ...filter,
+                value: value.concat({
+                  _id  : candidate.email,
+                  count: null,
+                  label: candidate.firstName
+                })
+              })
+
+            return filter
+          })
         })
+
+        return groupFilter
       })
 
-      return groupFilter
-    }))
+    return filters.concat({
+      children: [ {
+        key  : 'email',
+        label: 'Candidato',
+        operator,
+        operatorLabel,
+        optionIndex,
+        type : 'list',
+        value: [ {
+          _id  : candidate.email,
+          count: null,
+          label: candidate.firstName
+        } ]
+      } ],
+      key     : String(Math.random()),
+      operator: 'none',
+      type    : groupFilterType
+    })
+  }
+
+  const _handleClickIncludeCandidate = (candidate) => (e) => {
+    e.stopPropagation()
+
+    setFilters(filters => pushValueToFilterList(filters, candidate, 'include'))
   }
   const _handleClickExcludeCandidate = (candidate) => (e) => {
     e.stopPropagation()
-    setFilters(filters => filters.map((groupFilter) => {
-      if(groupFilter.type === 'exclude') return ({
-        ...groupFilter,
-        children: (groupFilter.children || []).map((filter) => {
-          const { key, value } = filter
-          if(key === 'email' && !value.some(({ _id }) => _id === candidate.email))
-            return ({
-              ...filter,
-              value: value.concat({
-                _id  : candidate.email,
-                count: null,
-                label: candidate.firstName
-              })
-            })
-
-          return filter
-        })
-      })
-
-      return groupFilter
-    }))
+    setFilters(filters => pushValueToFilterList(filters, candidate, 'exclude'))
   }
 
   return (

@@ -227,12 +227,6 @@ export const categoryFilters = [
         key  : 'reproceso',
         label: 'Reproceso',
         type : 'number'
-      },
-      {
-        _id  : '92689769',
-        key  : 'email',
-        label: 'Candidato',
-        type : 'list'
       }
     ],
     label: 'Sobre el proceso'
