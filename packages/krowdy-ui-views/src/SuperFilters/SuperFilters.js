@@ -5,7 +5,7 @@ import AddIcon from '@material-ui/icons/Add'
 import { IconButton, Divider } from '@material-ui/core'
 import ArrowBackIcon from '@material-ui/icons/ArrowBackIos'
 import { Button, Card, CardContent, CardHeader, TabPanel, withStyles } from '@krowdy-ui/core'
-import FiltersTree from './FiltersTree' // libreria customizada
+import FiltersTree from './FiltersTree'
 import FilterConfig from './FilterConfig'
 import FiltersList from './FiltersList'
 import DividerWithText from './DividerWithText'
@@ -52,9 +52,9 @@ export const styles = (theme) => ({
     },
     backgroundColor: theme.palette.secondary[0],
     border         : `1px solid ${theme.palette.secondary[0]}`,
-    borderRadius   : theme.spacing(1),
+    borderRadius   : 2 * theme.shape.borderRadius,
     overflowX      : 'auto',
-    padding        : theme.spacing(1, 1, 1, 0)
+    padding        : theme.spacing(0.5)
   },
   groupFilterContainerBlock: {
     '&:hover': {
@@ -63,9 +63,9 @@ export const styles = (theme) => ({
     },
     backgroundColor: theme.palette.secondary[100],
     border         : `1px solid ${theme.palette.secondary[100]}`,
-    borderRadius   : theme.spacing(1),
+    borderRadius   : theme.shape.borderRadius,
     overflowX      : 'auto',
-    padding        : theme.spacing(1, 1, 1, 0)
+    padding        : theme.spacing(0.5)
   },
   noPadding: {
     padding: 0
@@ -172,7 +172,7 @@ const SuperFilters = (props) => {
       .filter(({ children, type }) =>
         type === 'default' ||
         (
-          [ 'include', 'exclude' ].includes(type) &&
+          ![ 'default' ].includes(type) &&
           children.length &&
           children.every(({ value }) =>value.length)
         )
@@ -182,13 +182,22 @@ const SuperFilters = (props) => {
 
   // Aqui es cuando se agrega un filtro
   const _handleClickApplyFilters = (filter) => {
-    if(filterToEdit) {
-      // Exists, so update it
-      updateFilter(filter)
-      setFilterToEdit(null)
-    } else {
-      addFilter(filter)
-    }
+    if(filters.some(({ key }) => key ===groupFilterCurrent.key ))
+      if(filterToEdit) {
+        // Exists, so update it
+        updateFilter(filter)
+        setFilterToEdit(null)
+      } else {
+        addFilter(filter)
+      }
+    else
+      onChangeFilters(filters.concat({
+        children: [ filter ],
+        key     : mongoObjectId(),
+        operator: 'none',
+        type    : 'default'
+      }))
+
     goToView(Views.HOME)
     setGroupFilterCurrent(null)
   }
@@ -204,12 +213,13 @@ const SuperFilters = (props) => {
   }
 
   const _handleClickAddGroupFilter = () => {
-    onChangeFilters(filters.concat({
+    setGroupFilterCurrent({
       children: [],
       key     : mongoObjectId(),
       operator: 'none',
       type    : 'default'
-    }))
+    })
+    goToView(Views.FILTERS_SEARCH)
   }
   const _handleClickDeleteGroupFilter = (groupFilterKey) => () => {
     onChangeFilters(filters.filter((groupFilter) => groupFilter.key !== groupFilterKey))
@@ -239,13 +249,7 @@ const SuperFilters = (props) => {
           children: treeFilters
         })
       })
-      .filter(({ children, type }) =>
-        type === 'default' ||
-      (
-        [ 'include', 'exclude' ].includes(type) &&
-        children.length &&
-        children.every(({ value }) =>value.length)
-      ))
+      .filter(({ children }) => children.length)
     )
   }
 
