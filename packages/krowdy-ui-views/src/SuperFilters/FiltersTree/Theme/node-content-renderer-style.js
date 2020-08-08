@@ -1,6 +1,6 @@
 import { makeStyles } from '@krowdy-ui/styles'
 
-export default makeStyles(({ palette, spacing }) => ({
+export default makeStyles(({ palette, spacing, shape }) => ({
   '@keyframes arrow-pulse': {
     '0%': {
       opacity  : 0,
@@ -36,77 +36,15 @@ export default makeStyles(({ palette, spacing }) => ({
     display   : 'flex',
     zoom      : '75%'
   },
-  expandButton: {
-    // '&::after': {
-    //   transform: 'translate3d(-50%, -20%, 0) rotateZ(-90deg)'
-    // }
-  },
+  expandButton             : {},
   highlightBottomLeftCorner: {
-    // '&::after': {
-    //   borderBottom: '7px solid transparent',
-    //   borderLeft  : '7px solid #36c2f6',
-    //   borderTop   : '7px solid transparent',
-    //   content     : '""',
-    //   height      : 0,
-    //   marginTop   : -7,
-    //   position    : 'absolute',
-    //   right       : 0,
-    //   top         : '100%'
-    // },
-    // '&::before': {
-    //   borderBottom: 'solid 6px #36c2f6',
-    //   borderLeft  : 'solid 6px #36c2f6',
-    //   boxSizing   : 'border-box',
-    //   content     : '""',
-    //   height      : 'calc(100% + 3px)',
-    //   position    : 'absolute',
-    //   right       : 7,
-    //   top         : 0,
-    //   width       : 'calc(50% - 4px)'
-    // },
     zIndex: 3
   },
   highlightLineVertical: {
-    // '&::after': {
-    //   animation  : '$arrow-pulse 1s infinite linear both',
-    //   borderLeft : '3px solid transparent',
-    //   borderRight: '3px solid transparent',
-    //   borderTop  : '3px solid white',
-    //   content    : '""',
-    //   height     : 0,
-    //   left       : '50%',
-    //   marginLeft : -3,
-    //   position   : 'absolute',
-    //   top        : 0
-    // },
-    // '&::before': {
-    //   backgroundColor: '#36c2f6',
-    //   content        : '""',
-    //   height         : '100%',
-    //   left           : '50%',
-    //   marginLeft     : -3,
-    //   position       : 'absolute',
-    //   top            : 0,
-    //   width          : 6
-    // },
     zIndex: 3
   },
-  highlightTopLeftCorner: {
-    // '&::before': {
-    //   borderLeft: 'solid 6px #36c2f6',
-    //   borderTop : 'solid 6px #36c2f6',
-    //   boxSizing : 'border-box',
-    //   content   : '""',
-    //   height    : 'calc(50% + 3px)',
-    //   marginTop : -3,
-    //   position  : 'absolute',
-    //   right     : 0,
-    //   top       : '50%',
-    //   width     : 'calc(50% + 3px)',
-    //   zIndex    : 3
-    // }
-  },
-  lineBlock: {
+  highlightTopLeftCorner: {},
+  lineBlock             : {
     display : 'inline-block',
     flex    : '0 0 auto',
     height  : '100%',
@@ -161,34 +99,24 @@ export default makeStyles(({ palette, spacing }) => ({
     '& $rowContent': {
       alignItems     : 'center',
       backgroundColor: 'white',
-      // border         : '1px solid #D9D9D9',
       borderRadius   : '3px',
       color          : '#595959',
       display        : 'flex',
-      // flex           : '1 0 auto',
       height         : '100%',
       justifyContent : 'space-between',
-      // padding        : 10,
       position       : 'relative'
     },
     '& $rowLabel': {
       flex   : 1,
       padding: '0px 6px'
-      // flex        : '0 1 auto',
-      // paddingRight: 20
     },
     width: '100%'
   },
   row: {
-    // '& > *': {
-    //   boxSizing: 'border-box'
-    // },
     '& $rowContentTitle, & $rowContentChips': {
       alignItems: 'center',
       display   : 'flex',
       whiteSpace: 'nowrap'
-      // flexDirection: 'column',
-      // whiteSpace   : 'nowrap'
     },
     '& $rowIcon, & $rowLabel,& $rowToolbar': {
       alignItems: 'center',
@@ -201,13 +129,13 @@ export default makeStyles(({ palette, spacing }) => ({
     },
     '&$rowCancelPad': {
       '&::before': {
-        backgroundColor: '#ffd2d6', // '#e6a8ad'
+        backgroundColor: '#ffd2d6',
         border         : '2px dotted #e6a8ad'
       }
     },
     '&$rowLandingPad': {
       '&::before': {
-        backgroundColor: '#dddddd', // color de fondo cuando es posible draggear
+        backgroundColor: '#dddddd',
         border         : '2px dotted #b5b5b5'
       }
     },
@@ -231,7 +159,7 @@ export default makeStyles(({ palette, spacing }) => ({
     },
     backgroundColor: 'white',
     border         : `1px solid ${palette.grey[400]}`,
-    borderRadius   : 8,
+    borderRadius   : shape.borderRadius * 2,
     display        : 'flex',
     margin         : spacing(0.5),
     padding        : spacing(1),
@@ -245,44 +173,31 @@ export default makeStyles(({ palette, spacing }) => ({
       marginTop: spacing(.5)
     }
   },
-  rowContentTitle: {
-
-  },
-  rowIcon: {
+  rowContentTitle: {},
+  rowIcon        : {
     color: '#D9D9D9'
   },
   rowLabel     : {},
   rowLandingPad: {},
-  rowPanelLeft : {
-    flex: 1
-  },
+  rowPanelLeft : { flex: 1 },
   rowPanelRight: {
-    marginLeft: spacing(.5)
+    marginLeft: spacing(0.5)
   },
   rowSearchFocus: {
-    // boxShadow: 'inset 0 -7px 7px -3px #fc6421',
     outline: 'solid 1px #fc6421'
   },
   rowSearchMatch: {
     outline: 'solid 1px #0080ff'
-    // boxShadow: 'inset 0 -7px 7px -3px #0080ff'
   },
-  rowToolbar: {
-    // display: 'flex',
-    // flex   : '0 1 auto'
-  },
+  rowToolbar: {},
   rowWrapper: {
     '&:active': {
       opacity: 1
     },
-    // '&:hover': {
-    //   opacity: 0.7 // Grover -> Remove opacity
-    // },
     boxSizing: 'border-box',
     display  : 'flex',
     height   : '100%',
     width    : '100%'
-    // margin   : '2px 2px 2px 0'
   },
   rowWrapperDragDisabled: {
     cursor: 'default'

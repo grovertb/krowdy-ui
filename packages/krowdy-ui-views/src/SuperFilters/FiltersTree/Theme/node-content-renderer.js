@@ -69,7 +69,7 @@ const useContentStyles = makeStyles((theme) => ({
   span: {
     color     : theme.palette.grey[600],
     fontSize  : 10,
-    marginLeft: 4
+    marginLeft: theme.spacing(0.5)
   },
   value: {
     color     : theme.palette.grey[800],
@@ -192,17 +192,13 @@ FileThemeNodeContentRenderer.propTypes = {
   path              : PropTypes.arrayOf(
     PropTypes.oneOfType([ PropTypes.string, PropTypes.number ])
   ).isRequired,
-  rowDirection: PropTypes.string.isRequired,
-
-  // Drag and drop API functions
-  // Drag source
+  rowDirection            : PropTypes.string.isRequired,
   scaffoldBlockPxWidth    : PropTypes.number.isRequired,
   style                   : PropTypes.shape({}),
   swapDepth               : PropTypes.number,
   swapFrom                : PropTypes.number,
   swapLength              : PropTypes.number,
-  toggleChildrenVisibility: PropTypes.func, // Needed for dndManager
-  // Drop target
+  toggleChildrenVisibility: PropTypes.func,
   treeId                  : PropTypes.string.isRequired,
   treeIndex               : PropTypes.number.isRequired
 }

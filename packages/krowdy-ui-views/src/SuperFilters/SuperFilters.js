@@ -5,7 +5,7 @@ import AddIcon from '@material-ui/icons/Add'
 import { IconButton, Divider } from '@material-ui/core'
 import ArrowBackIcon from '@material-ui/icons/ArrowBackIos'
 import { Button, Card, CardContent, CardHeader, TabPanel, withStyles } from '@krowdy-ui/core'
-import FiltersTree from './FiltersTree' // libreria customizada
+import FiltersTree from './FiltersTree'
 import FilterConfig from './FilterConfig'
 import FiltersList from './FiltersList'
 import DividerWithText from './DividerWithText'
@@ -52,7 +52,7 @@ export const styles = (theme) => ({
     },
     backgroundColor: theme.palette.secondary[0],
     border         : `1px solid ${theme.palette.secondary[0]}`,
-    borderRadius   : theme.spacing(1),
+    borderRadius   : 2 * theme.shape.borderRadius,
     overflowX      : 'auto',
     padding        : theme.spacing(0.5)
   },
@@ -63,10 +63,9 @@ export const styles = (theme) => ({
     },
     backgroundColor: theme.palette.secondary[100],
     border         : `1px solid ${theme.palette.secondary[100]}`,
-    borderRadius   : theme.spacing(.5),
+    borderRadius   : theme.shape.borderRadius,
     overflowX      : 'auto',
     padding        : theme.spacing(0.5)
-
   },
   noPadding: {
     padding: 0
