@@ -108,7 +108,7 @@ export default makeStyles(({ palette, spacing, shape }) => ({
     },
     '& $rowLabel': {
       flex   : 1,
-      padding: '0px 6px'
+      padding: spacing(0, .75)
     },
     width: '100%'
   },
