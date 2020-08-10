@@ -92,7 +92,7 @@ const candidates = [
 ]
 
 const variance = 0.9
-const limit = 32768
+const limit = 2.5
 
 export default function() {
   const classes = useStyles()
@@ -118,7 +118,7 @@ export default function() {
             <div>
               <IconButton
                 color='primary'
-                disabled={multiplier <= 0.05}
+                disabled={multiplier <= 0.4}
                 onClick={_handleRemoveMultiplier}
                 size='small'>
                 <RemoveIcon fontSize='small' />

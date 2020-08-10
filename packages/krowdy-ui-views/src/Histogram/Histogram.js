@@ -6,10 +6,10 @@ import Column from './Column'
 import Price from './Price'
 import Count from './Count'
 
-const groupByObject = function(array, prices, multiplier, keyGetter = (x) => x) {
+const groupByObject = function(array, prices, keyGetter = (x) => x) {
   return array.reduce((resultObject, x) => {
     const match = keyGetter(x)
-    const price = prices.find((price, index) => price * multiplier >= match && prices[index + 1] * multiplier < match)
+    const price = prices.find((price, index) => price >= match && prices[index + 1] < match)
     if(price) {
       resultObject[price] = resultObject[price] || []
       resultObject[price].push(x)
@@ -22,17 +22,15 @@ const groupByObject = function(array, prices, multiplier, keyGetter = (x) => x) 
 let interval = 8
 let emptyPrices = new Array(interval)
 
-const parsePrice = (price) => Math.ceil(price / 10**(price.toString().length - 1)) * 10**(price.toString().length - 1)
-
 const Histogram = ({ multiplier = 1, candidates = [] }) => {
   const max = candidates.reduce((r, { salary }) => Math.max(r, salary), 1)
 
-  const rawPrices = Array.from(emptyPrices, (value, index) => parsePrice(Math.ceil(max - (max / interval * index))))
+  const rawPrices = Array.from(emptyPrices, (value, index) => Math.round(Math.ceil(max - (max / interval * index)) * multiplier / 250) * 250)
   const prices = [ ...rawPrices, 0 ]
 
-  const classes = useStyles({ max: prices[0], multiplier })
+  const classes = useStyles({ max: prices[0] })
 
-  const rawData = groupByObject(candidates, prices, multiplier, ({ salary }) => salary)
+  const rawData = groupByObject(candidates, prices, ({ salary }) => salary)
 
   const keys = Object.keys(rawData)
   const maxCandidates = [ ...keys ].sort((a, b) => rawData[b].length - rawData[a].length)[0]
@@ -49,7 +47,7 @@ const Histogram = ({ multiplier = 1, candidates = [] }) => {
       <div className={clsx(classes.column, classes.container)}>
         <div className={clsx(classes.containerHistogram, classes.row)}>
           {
-            [ ...rawPrices ].sort().map((key, index) => (
+            [ ...rawPrices ].reverse().map((key, index) => (
               <Column
                 candidates={rawData[key] || []}
                 divider={rawPrices.length}
@@ -67,7 +65,6 @@ const Histogram = ({ multiplier = 1, candidates = [] }) => {
                 key={index}
                 max={prices[0]}
                 maxCandidates={rawData[maxCandidates].length}
-                multiplier={multiplier}
                 price={price} />
             ))
           }
@@ -113,7 +110,6 @@ const useStyles = makeStyles((theme) => ({
   },
   prices: {
     position: 'relative'
-    // width   : ({ max, multiplier }) => (max * multiplier).toString().length * 9
   },
   root: {
     display      : 'flex',
