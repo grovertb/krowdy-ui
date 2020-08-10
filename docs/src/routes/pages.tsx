@@ -162,6 +162,11 @@ const pages: Array<Page> = [
         title: 'Filters',
         path: '/views/filters'
       },
+      // G
+      {
+        title: 'GraphicBar',
+        path: '/views/graphicbar'
+      },
       // H
       {
         title: 'Histogram',

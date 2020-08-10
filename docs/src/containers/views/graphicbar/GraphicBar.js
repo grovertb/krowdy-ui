@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import clsx from 'clsx'
-import { Histogram } from '@krowdy-ui/views'
+import { GraphicBar } from '@krowdy-ui/views'
 import { IconButton, makeStyles, Paper, Tooltip, Typography } from '@krowdy-ui/core'
 import {
   Info as InfoIcon,
@@ -54,7 +54,7 @@ const candidates = [
     lastName : 'Sullca Huaracca',
     photo    :
     'https://krowdy.s3.amazonaws.com/assets/profile/5e375a0b71db5e002dc01323/avatar/2020-02-03T12-22-52-143Z.png',
-    salary  : 5000,
+    salary  : 1500,
     selected: false
   },
   {
@@ -62,7 +62,7 @@ const candidates = [
     lastName : 'Sullca Huaracca',
     photo    :
     'https://krowdy.s3.amazonaws.com/assets/profile/5e375a0b71db5e002dc01323/avatar/2020-02-03T12-22-52-143Z.png',
-    salary  : 5000,
+    salary  : 1000,
     selected: false
   },
   {
@@ -91,7 +91,7 @@ const candidates = [
   }
 ]
 
-const variance = 0.9
+const variance = 0.5
 const limit = 2.5
 
 export default function() {
@@ -118,7 +118,7 @@ export default function() {
             <div>
               <IconButton
                 color='primary'
-                disabled={multiplier <= 0.4}
+                disabled={multiplier <= 0.2}
                 onClick={_handleRemoveMultiplier}
                 size='small'>
                 <RemoveIcon fontSize='small' />
@@ -132,7 +132,7 @@ export default function() {
               </IconButton>
             </div>
           </div>
-          <Histogram candidates={candidates} multiplier={multiplier} />
+          <GraphicBar candidates={candidates} multiplier={multiplier} />
         </div>
       </Paper>
     </div>
