@@ -6,12 +6,12 @@ const Bar = ({ candidate, maxCandidates, index, max }) => {
   const percent =  100 / maxCandidates
   const classes = useStyles({ index, max, percent })
 
-  const { firstName, lastName, salary, photo } = candidate
+  const { firstName, lastName, salary, photo, selected } = candidate
 
   return (
     <div className={classes.bar}>
       <UserPoint
-        active={false}
+        active={selected}
         bottom={'50%'}
         classes={{
           avatar: classes.avatar,
