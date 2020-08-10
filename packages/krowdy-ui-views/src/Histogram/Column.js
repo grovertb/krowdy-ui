@@ -17,7 +17,9 @@ const Column = ({ candidates, index, divider, maxCandidates }) => {
           candidates.map((candidate, index) => (
             <Bar
               candidate={candidate}
+              index={index}
               key={index}
+              max={candidates.length}
               maxCandidates={maxCandidates} />
           ))
         }

@@ -2,9 +2,9 @@ import React from 'react'
 import { makeStyles } from '@krowdy-ui/core'
 import { UserPoint } from '@krowdy-ui/views'
 
-const Bar = ({ candidate, maxCandidates }) => {
+const Bar = ({ candidate, maxCandidates, index, max }) => {
   const percent =  100 / maxCandidates
-  const classes = useStyles({ percent })
+  const classes = useStyles({ index, max, percent })
 
   const { firstName, lastName, salary, photo } = candidate
 
@@ -32,7 +32,8 @@ const useStyles = makeStyles((theme) => ({
     // borderTop      : ({ avarage }) => `${avarage <= 1 ? 1 : 0}px solid ${theme.palette.primary[600]}`,
     height         : ({ percent }) => `${percent}%`,
     position       : 'relative',
-    width          : '100%'
+    width          : '100%',
+    zIndex         : ({ index, max }) => max - index
   }
 }))
 
