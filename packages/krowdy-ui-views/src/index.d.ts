@@ -15,6 +15,9 @@ export * from './CardCandidate'
 export { default as CardCandidateRanking } from './CardCandidateRanking'
 export * from './CardCandidateRanking'
 
+export { default as CardConfig } from './CardConfig'
+export * from './CardConfig'
+
 export { default as CardExpand } from './CardExpand'
 export * from './CardExpand'
 
