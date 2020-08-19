@@ -235,6 +235,10 @@ const pages: Array<Page> = [
       },
       // T
       {
+        title: 'Task Config',
+        path: '/views/taskconfig'
+      },
+      {
         title: 'Table',
         path: '/views/table'
       },

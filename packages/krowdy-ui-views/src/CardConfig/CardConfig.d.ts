@@ -1,9 +1,9 @@
 export type CardConfigProps = {
   action?   : React.ReactNode;
-  className?: string,
-  icon      : React.ReactNode,
-  subtitle? : string,
-  title?    : string
+  className?: string;
+  icon      : React.ReactNode;
+  subtitle? : string;
+  title?    : string;
 };
 
 declare const CardConfig: React.ComponentType<CardConfigProps>;

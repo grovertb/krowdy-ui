@@ -93,6 +93,9 @@ export * from './TableGroup';
 export { default as TableWindow } from './TableWindow';
 export * from './TableWindow';
 
+export { default as TaskConfig } from './TaskConfig';
+export * from './TaskConfig';
+
 export { default as ToggleRole } from './ToggleRole';
 export * from './ToggleRole';
 
