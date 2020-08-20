@@ -234,7 +234,7 @@ const Table = ({
   onHandleSelectAutocomplete = () => false
 }) => {
   const { orderBy = '', sort = 'asc' } = sortTable
-  const { totalPages = 0, totalItems = 0, page, perPage } = pagination
+  const { totalPages = 0, totalItems = 0, page, perPage, rowsPerPageOptions = [ 10, 25, 50, 100 ] } = pagination
   const validateNewCellProps = Object.keys(newCellProps).length
   const classes = useStyles()
   const inputSearch = useRef(null)
@@ -640,7 +640,7 @@ const Table = ({
             onChangeRowsPerPage={onHandleChangeRowsPerPage}
             page={page}
             rowsPerPage={perPage}
-            rowsPerPageOptions={[ 10, 25, 100 ]}
+            rowsPerPageOptions={rowsPerPageOptions}
             totalItems={totalItems}
             totalPages={totalPages} />
         ) : null
@@ -729,7 +729,10 @@ Table.propTypes = {
    */
   pagination                : PropTypes.shape({
     page   : PropTypes.number.isRequired,
-    perPage: PropTypes.number.isRequired
+    perPage: PropTypes.number.isRequired,
+    totalPages: PropTypes.number,
+    totalItems: PropTypes.number,
+    rowsPerPageOptions: PropTypes.arrayOf(PropTypes.number)
     // total  : PropTypes.number.isRequired
   }),
   /**

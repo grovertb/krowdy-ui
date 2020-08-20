@@ -23,9 +23,12 @@ interface ISortTable {
 	sort: 'asc' | 'desc'
 }
 interface IPagination {
-	total: number
-	perPage: number
-	page: number
+	// total: number
+	perPage: number;
+	page: number;
+	totalPages: number;
+	totalItems: number;
+	rowsPerPageOptions: number[];
 }
 interface IFuncSortTable {
 	(sort: ISortTable): void
