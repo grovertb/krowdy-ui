@@ -14,71 +14,7 @@ const candidates = [
     lastName : 'Sullca Huaracca',
     photo    :
     'https://krowdy.s3.amazonaws.com/assets/profile/5e375a0b71db5e002dc01323/avatar/2020-02-03T12-22-52-143Z.png',
-    salary  : 500,
-    selected: false
-  },
-  {
-    firstName: 'Luis Alfredo',
-    lastName : 'Sullca Huaracca',
-    photo    :
-    'https://krowdy.s3.amazonaws.com/assets/profile/5e375a0b71db5e002dc01323/avatar/2020-02-03T12-22-52-143Z.png',
-    salary  : 1400,
-    selected: false
-  },
-  {
-    firstName: 'Luis Alfredo',
-    lastName : 'Sullca Huaracca',
-    photo    :
-    'https://krowdy.s3.amazonaws.com/assets/profile/5e375a0b71db5e002dc01323/avatar/2020-02-03T12-22-52-143Z.png',
-    salary  : 7220,
-    selected: true
-  },
-  {
-    firstName: 'Luis Alfredo',
-    lastName : 'Sullca Huaracca',
-    photo    :
-    'https://krowdy.s3.amazonaws.com/assets/profile/5e375a0b71db5e002dc01323/avatar/2020-02-03T12-22-52-143Z.png',
-    salary  : 7900,
-    selected: false
-  },
-  {
-    firstName: 'Luis Alfredo',
-    lastName : 'Sullca Huaracca',
-    photo    :
-    'https://krowdy.s3.amazonaws.com/assets/profile/5e375a0b71db5e002dc01323/avatar/2020-02-03T12-22-52-143Z.png',
-    salary  : 2300,
-    selected: false
-  },
-  {
-    firstName: 'Luis Alfredo',
-    lastName : 'Sullca Huaracca',
-    photo    :
-    'https://krowdy.s3.amazonaws.com/assets/profile/5e375a0b71db5e002dc01323/avatar/2020-02-03T12-22-52-143Z.png',
-    salary  : 5000,
-    selected: false
-  },
-  {
-    firstName: 'Luis Alfredo',
-    lastName : 'Sullca Huaracca',
-    photo    :
-    'https://krowdy.s3.amazonaws.com/assets/profile/5e375a0b71db5e002dc01323/avatar/2020-02-03T12-22-52-143Z.png',
-    salary  : 5000,
-    selected: false
-  },
-  {
-    firstName: 'Luis Alfredo',
-    lastName : 'Sullca Huaracca',
-    photo    :
-    'https://krowdy.s3.amazonaws.com/assets/profile/5e375a0b71db5e002dc01323/avatar/2020-02-03T12-22-52-143Z.png',
-    salary  : 3000,
-    selected: false
-  },
-  {
-    firstName: 'Luis Alfredo',
-    lastName : 'Sullca Huaracca',
-    photo    :
-    'https://krowdy.s3.amazonaws.com/assets/profile/5e375a0b71db5e002dc01323/avatar/2020-02-03T12-22-52-143Z.png',
-    salary  : 4000,
+    salary  : 2000,
     selected: false
   },
   {
@@ -91,7 +27,7 @@ const candidates = [
   }
 ]
 
-const variance = 0.9
+const variance = 0.5
 const limit = 2.5
 
 export default function() {
@@ -118,7 +54,7 @@ export default function() {
             <div>
               <IconButton
                 color='primary'
-                disabled={multiplier <= 0.4}
+                disabled={multiplier <= 0.05}
                 onClick={_handleRemoveMultiplier}
                 size='small'>
                 <RemoveIcon fontSize='small' />

@@ -35,11 +35,13 @@ const Histogram = ({ multiplier = 1, candidates = [] }) => {
   const keys = Object.keys(rawData)
   const maxCandidates = [ ...keys ].sort((a, b) => rawData[b].length - rawData[a].length)[0]
 
+  const maxCandidatesSize = rawData[maxCandidates] ? rawData[maxCandidates].length : 0
+
   return (
     <div className={classes.root}>
       <div className={clsx(classes.column, classes.countCandidates)}>
         {
-          (new Array(rawData[maxCandidates].length)).fill(rawData[maxCandidates].length).map((count, index) => (
+          (new Array(maxCandidatesSize)).fill(maxCandidatesSize).map((count, index) => (
             <Count count={count} index={index} key={index} />
           ))
         }
@@ -53,7 +55,7 @@ const Histogram = ({ multiplier = 1, candidates = [] }) => {
                 divider={rawPrices.length}
                 index={index}
                 key={index}
-                maxCandidates={rawData[maxCandidates].length} />
+                maxCandidates={maxCandidatesSize} />
             ))
           }
         </div>
@@ -64,7 +66,7 @@ const Histogram = ({ multiplier = 1, candidates = [] }) => {
                 index={index}
                 key={index}
                 max={prices[0]}
-                maxCandidates={rawData[maxCandidates].length}
+                maxCandidates={maxCandidatesSize}
                 price={price} />
             ))
           }
