@@ -96,7 +96,7 @@ const CardCandidateRanking = ({
               {action}
             </div>
           )}
-          avatar={<Avatar alt='Remy Sharp' className={classes.avatar} src={photo}>{!photo && `${firstName[0]} ${lastName[0]}`}</Avatar>}
+          avatar={<Avatar alt='Remy Sharp' className={classes.avatar} src={photo}>{!photo && `${firstName ? firstName[0]: ''} ${lastName ? lastName[0]: ''}`}</Avatar>}
           classes={{ action: classes.headerAction }}
           className={classes.header}
           title={
