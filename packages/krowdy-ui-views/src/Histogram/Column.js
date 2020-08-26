@@ -3,8 +3,8 @@ import clsx from 'clsx'
 import { makeStyles } from '@krowdy-ui/core'
 import Bar from './Bar'
 
-const Column = ({ candidates, index, price, max, min, divider, interval, maxCandidates }) => {
-  const classes = useStyles({ index, interval, max, min, price })
+const Column = ({ candidates, index, divider, maxCandidates, pricePercent }) => {
+  const classes = useStyles({ pricePercent })
 
   return (
     <div className={clsx(classes.columnContainer, {
@@ -52,8 +52,7 @@ const useStyles = makeStyles((theme) => ({
     height        : 'inherit',
     justifyContent: 'center',
     position      : 'relative',
-    width         : ({ price, max, min, index, interval }) =>
-      `${index === 0 ? ((min - price) / max * 100) : (interval / max * 100)}%`
+    width         : ({ pricePercent }) => `${pricePercent}%`
   },
   containerBar: {
     display      : 'flex',

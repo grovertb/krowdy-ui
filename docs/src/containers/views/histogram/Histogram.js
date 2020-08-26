@@ -14,7 +14,7 @@ const candidates = [
     lastName : 'Sullca Huaracca',
     photo    :
     'https://krowdy.s3.amazonaws.com/assets/profile/5e375a0b71db5e002dc01323/avatar/2020-02-03T12-22-52-143Z.png',
-    salary  : 5000,
+    salary  : 500,
     selected: false
   },
   {
@@ -22,7 +22,7 @@ const candidates = [
     lastName : 'Sullca Huaracca',
     photo    :
     'https://krowdy.s3.amazonaws.com/assets/profile/5e375a0b71db5e002dc01323/avatar/2020-02-03T12-22-52-143Z.png',
-    salary  : 3000,
+    salary  : 1400,
     selected: false
   },
   {
@@ -46,7 +46,7 @@ const candidates = [
     lastName : 'Sullca Huaracca',
     photo    :
     'https://krowdy.s3.amazonaws.com/assets/profile/5e375a0b71db5e002dc01323/avatar/2020-02-03T12-22-52-143Z.png',
-    salary  : 5000,
+    salary  : 2300,
     selected: false
   },
   {
@@ -91,9 +91,6 @@ const candidates = [
   }
 ]
 
-// const variance = 0.5
-// const limit = 2.5
-
 export default function() {
   const classes = useStyles()
   const [ multiplier, setMultiplier ] = useState(5)
@@ -118,14 +115,14 @@ export default function() {
             <div>
               <IconButton
                 color='primary'
-                // disabled={multiplier <= 0.05}
+                disabled={multiplier <= 1}
                 onClick={_handleRemoveMultiplier}
                 size='small'>
                 <RemoveIcon fontSize='small' />
               </IconButton>
               <IconButton
                 color='primary'
-                // disabled={multiplier >= limit}
+                disabled={multiplier >= candidates.length}
                 onClick={_handleAddMultiplier}
                 size='small'>
                 <AddIcon fontSize='small' />

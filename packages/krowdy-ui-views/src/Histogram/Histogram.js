@@ -9,7 +9,7 @@ import Count from './Count'
 const groupByObject = function(array, prices, keyGetter = (x) => x) {
   return array.reduce((resultObject, x) => {
     const match = keyGetter(x)
-    const price = prices.find((price, index) => match >= price && match < prices[index + 1])
+    const price = prices.find((price, index) => match >= price && match <= prices[index + 1])
 
     if(price) {
       resultObject[price] = resultObject[price] || []
@@ -23,13 +23,11 @@ const groupByObject = function(array, prices, keyGetter = (x) => x) {
 // let interval = 8
 // let emptyPrices = new Array(interval)
 
-const offset = 10
-
 const Histogram = ({ multiplier = 1, candidates = [] }) => {
   const max = candidates.reduce((r, { salary }) => Math.max(r, salary), 1)
   const min = candidates.reduce((r, { salary }) => Math.min(r, salary), Infinity)
   const interval = (max - min) / multiplier
-  let emptyPrices = new Array(multiplier + 2).fill(min)
+  let emptyPrices = new Array(multiplier + 1).fill(min)
 
   const rawPrices = Array.from(emptyPrices, (value, index) => value + (interval * index))
   const prices = [ 0, ...rawPrices ]
@@ -45,8 +43,7 @@ const Histogram = ({ multiplier = 1, candidates = [] }) => {
 
   const columnPrices = prices.slice(0, prices.length - 1)
 
-  const middlePrices = prices.slice(1)
-  console.log(middlePrices)
+  const pricePercent = 100 / prices.length
 
   return (
     <div className={classes.root}>
@@ -65,26 +62,21 @@ const Histogram = ({ multiplier = 1, candidates = [] }) => {
                 candidates={rawData[key] || []}
                 divider={columnPrices.length}
                 index={index}
-                interval={interval}
                 key={index}
                 max={max}
                 maxCandidates={maxCandidatesSize}
-                min={min}
-                price={key} />
+                pricePercent={pricePercent} />
             ))
           }
         </div>
         <div className={clsx(classes.row, classes.prices)}>
           {
-            middlePrices.map((price, index) => (
+            prices.map((price, index) => (
               <Price
                 index={index}
                 key={index}
-                length={middlePrices.length}
-                max={max}
-                middle
-                offset={offset}
-                price={price} />
+                price={price}
+                pricePercent={pricePercent} />
             ))
           }
         </div>
