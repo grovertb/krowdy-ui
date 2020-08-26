@@ -14,7 +14,71 @@ const candidates = [
     lastName : 'Sullca Huaracca',
     photo    :
     'https://krowdy.s3.amazonaws.com/assets/profile/5e375a0b71db5e002dc01323/avatar/2020-02-03T12-22-52-143Z.png',
-    salary  : 2000,
+    salary  : 500,
+    selected: false
+  },
+  {
+    firstName: 'Luis Alfredo',
+    lastName : 'Sullca Huaracca',
+    photo    :
+    'https://krowdy.s3.amazonaws.com/assets/profile/5e375a0b71db5e002dc01323/avatar/2020-02-03T12-22-52-143Z.png',
+    salary  : 1400,
+    selected: false
+  },
+  {
+    firstName: 'Luis Alfredo',
+    lastName : 'Sullca Huaracca',
+    photo    :
+    'https://krowdy.s3.amazonaws.com/assets/profile/5e375a0b71db5e002dc01323/avatar/2020-02-03T12-22-52-143Z.png',
+    salary  : 7220,
+    selected: true
+  },
+  {
+    firstName: 'Luis Alfredo',
+    lastName : 'Sullca Huaracca',
+    photo    :
+    'https://krowdy.s3.amazonaws.com/assets/profile/5e375a0b71db5e002dc01323/avatar/2020-02-03T12-22-52-143Z.png',
+    salary  : 7900,
+    selected: false
+  },
+  {
+    firstName: 'Luis Alfredo',
+    lastName : 'Sullca Huaracca',
+    photo    :
+    'https://krowdy.s3.amazonaws.com/assets/profile/5e375a0b71db5e002dc01323/avatar/2020-02-03T12-22-52-143Z.png',
+    salary  : 2300,
+    selected: false
+  },
+  {
+    firstName: 'Luis Alfredo',
+    lastName : 'Sullca Huaracca',
+    photo    :
+    'https://krowdy.s3.amazonaws.com/assets/profile/5e375a0b71db5e002dc01323/avatar/2020-02-03T12-22-52-143Z.png',
+    salary  : 5000,
+    selected: false
+  },
+  {
+    firstName: 'Luis Alfredo',
+    lastName : 'Sullca Huaracca',
+    photo    :
+    'https://krowdy.s3.amazonaws.com/assets/profile/5e375a0b71db5e002dc01323/avatar/2020-02-03T12-22-52-143Z.png',
+    salary  : 5000,
+    selected: false
+  },
+  {
+    firstName: 'Luis Alfredo',
+    lastName : 'Sullca Huaracca',
+    photo    :
+    'https://krowdy.s3.amazonaws.com/assets/profile/5e375a0b71db5e002dc01323/avatar/2020-02-03T12-22-52-143Z.png',
+    salary  : 3000,
+    selected: false
+  },
+  {
+    firstName: 'Luis Alfredo',
+    lastName : 'Sullca Huaracca',
+    photo    :
+    'https://krowdy.s3.amazonaws.com/assets/profile/5e375a0b71db5e002dc01323/avatar/2020-02-03T12-22-52-143Z.png',
+    salary  : 4000,
     selected: false
   },
   {
@@ -27,19 +91,16 @@ const candidates = [
   }
 ]
 
-const variance = 0.5
-const limit = 2.5
-
 export default function() {
   const classes = useStyles()
-  const [ multiplier, setMultiplier ] = useState(1)
+  const [ multiplier, setMultiplier ] = useState(5)
 
   const _handleAddMultiplier = () => {
-    setMultiplier(multiplier => multiplier / variance)
+    setMultiplier(multiplier => ++multiplier)
   }
 
   const _handleRemoveMultiplier = () => {
-    setMultiplier(multiplier => multiplier * variance)
+    setMultiplier(multiplier => --multiplier)
   }
 
   return (
@@ -54,14 +115,14 @@ export default function() {
             <div>
               <IconButton
                 color='primary'
-                disabled={multiplier <= 0.05}
+                disabled={multiplier <= 1}
                 onClick={_handleRemoveMultiplier}
                 size='small'>
                 <RemoveIcon fontSize='small' />
               </IconButton>
               <IconButton
                 color='primary'
-                disabled={multiplier >= limit}
+                disabled={multiplier >= candidates.length}
                 onClick={_handleAddMultiplier}
                 size='small'>
                 <AddIcon fontSize='small' />

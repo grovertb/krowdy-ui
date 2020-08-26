@@ -3,12 +3,12 @@ import { makeStyles, Typography } from '@krowdy-ui/core'
 
 const Count = ({ count, index }) => {
   const classes = useStyles({ count })
-  const showNumber = (index) % 2 === 0
+  const showNumber = index % 2 === 0
 
   return (
     <div className={classes.count}>
       {
-        showNumber ?  (
+        showNumber ? (
           <Typography variant='body1'>{count - index}</Typography>
         ) : null
       }
