@@ -9,7 +9,8 @@ import Count from './Count'
 const groupByObject = function(array, prices, keyGetter = (x) => x) {
   return array.reduce((resultObject, x) => {
     const match = keyGetter(x)
-    const price = prices.find((price, index) => price >= match && prices[index + 1] < match)
+    const price = prices.find((price, index) => match >= price && match < prices[index + 1])
+
     if(price) {
       resultObject[price] = resultObject[price] || []
       resultObject[price].push(x)
@@ -19,23 +20,33 @@ const groupByObject = function(array, prices, keyGetter = (x) => x) {
   }, {})
 }
 
-let interval = 8
-let emptyPrices = new Array(interval)
+// let interval = 8
+// let emptyPrices = new Array(interval)
+
+const offset = 10
 
 const Histogram = ({ multiplier = 1, candidates = [] }) => {
   const max = candidates.reduce((r, { salary }) => Math.max(r, salary), 1)
+  const min = candidates.reduce((r, { salary }) => Math.min(r, salary), Infinity)
+  const interval = (max - min) / multiplier
+  let emptyPrices = new Array(multiplier + 2).fill(min)
 
-  const rawPrices = Array.from(emptyPrices, (value, index) => Math.round(Math.ceil(max - (max / interval * index)) * multiplier / 250) * 250)
-  const prices = [ ...rawPrices, 0 ]
+  const rawPrices = Array.from(emptyPrices, (value, index) => value + (interval * index))
+  const prices = [ 0, ...rawPrices ]
 
-  const classes = useStyles({ max: prices[0] })
+  const classes = useStyles({ max })
 
-  const rawData = groupByObject(candidates, prices, ({ salary }) => salary)
+  const rawData = groupByObject(candidates, rawPrices, ({ salary }) => salary)
 
   const keys = Object.keys(rawData)
   const maxCandidates = [ ...keys ].sort((a, b) => rawData[b].length - rawData[a].length)[0]
 
   const maxCandidatesSize = rawData[maxCandidates] ? rawData[maxCandidates].length : 0
+
+  const columnPrices = prices.slice(0, prices.length - 1)
+
+  const middlePrices = prices.slice(1)
+  console.log(middlePrices)
 
   return (
     <div className={classes.root}>
@@ -49,24 +60,30 @@ const Histogram = ({ multiplier = 1, candidates = [] }) => {
       <div className={clsx(classes.column, classes.container)}>
         <div className={clsx(classes.containerHistogram, classes.row)}>
           {
-            [ ...rawPrices ].reverse().map((key, index) => (
+            columnPrices.map((key, index) => (
               <Column
                 candidates={rawData[key] || []}
-                divider={rawPrices.length}
+                divider={columnPrices.length}
                 index={index}
+                interval={interval}
                 key={index}
-                maxCandidates={maxCandidatesSize} />
+                max={max}
+                maxCandidates={maxCandidatesSize}
+                min={min}
+                price={key} />
             ))
           }
         </div>
         <div className={clsx(classes.row, classes.prices)}>
           {
-            prices.map((price, index) => (
+            middlePrices.map((price, index) => (
               <Price
                 index={index}
                 key={index}
-                max={prices[0]}
-                maxCandidates={maxCandidatesSize}
+                length={middlePrices.length}
+                max={max}
+                middle
+                offset={offset}
                 price={price} />
             ))
           }

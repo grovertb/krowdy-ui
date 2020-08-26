@@ -1,14 +1,16 @@
 import React from 'react'
 import { makeStyles, Typography } from '@krowdy-ui/core'
 
-const Price = ({ price, max, index }) => {
-  const classes = useStyles({ max, price })
+const Price = ({ price/* , max */, index, length, middle, offset }) => {
+  const calc = middle ? offset + index / length  * (100 - offset) : offset
+  console.log(calc)
+  const classes = useStyles({ calc, price })
 
-  if((index % 2) === 1) return null
+  // if((index % 2) === 1) return null
 
   return (
     <div className={classes.price}>
-      <Typography variant='body1'>{price}</Typography>
+      <Typography variant='body1'>{Math.round(price)}</Typography>
     </div>
   )
 }
@@ -16,7 +18,7 @@ const Price = ({ price, max, index }) => {
 const useStyles = makeStyles((theme) => ({
   price: {
     color   : theme.palette.grey[600],
-    left    : ({ price, max }) => `calc(${( price / max  * 100)}% - ${price.toString().length * 6.85 / 2}px)`,
+    left    : ({ calc, price }) => `calc(${calc}% - ${Math.round(price).toString().length * 6.85 / 2}px)`,
     position: 'absolute'
   }
 }))
