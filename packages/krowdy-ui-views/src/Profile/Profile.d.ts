@@ -14,7 +14,7 @@ interface ProfileProps {
   experience?      : number;
   workExperience?  : Work;
   name             : string;
-  rating           : number;
+  rating?          : number;
   rotation?        : Detail;
   salaryText?      : string;
 }

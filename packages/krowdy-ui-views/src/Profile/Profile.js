@@ -44,11 +44,17 @@ const Profile = ({ name, rating, ascent, experience, workExperience, rotation, s
         <Typography className={classes.name} variant='h6'>{name}</Typography>
         {action}
       </div>
-      <div className={classes.first}>
-        <Typography variant='h6'>{rating}</Typography>
-        <GradeIcon className={classes.rating} color='primary' fontSize='small' />
-      </div>
-      <Divider className={classes.divider} />
+      {
+        rating ? (
+          <>
+            <div className={classes.first}>
+              <Typography variant='h6'>{rating}</Typography>
+              <GradeIcon className={classes.rating} color='primary' fontSize='small' />
+            </div>
+            <Divider className={classes.divider} />
+          </>
+        ) : null
+      }
       {
         ascent ? (
           <>
@@ -193,7 +199,7 @@ Profile.propTypes = {
   }),
   experience: PropTypes.number,
   name      : PropTypes.string.isRequired,
-  rating    : PropTypes.number.isRequired,
+  rating    : PropTypes.number,
   rotation  : PropTypes.shape({
     count: PropTypes.number,
     time : PropTypes.number

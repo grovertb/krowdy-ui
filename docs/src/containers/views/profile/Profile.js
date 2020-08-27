@@ -13,7 +13,6 @@ export default function() {
         }}
         experience={2}
         name='Piero Rodríguez'
-        rating={4.3}
         rotation={{
           count: 1,
           time : 6
