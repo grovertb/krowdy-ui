@@ -102,6 +102,7 @@ export default function () {
           visible : true
         }}
         expirationDate='2020-01-04T05:00:00.000Z'
+        // hiddenButton /* oculta el boton postular */
         jobId='564c66sd54es545d4584545'
         onClickPostulation={() => {
           console.log('POSTULAR')

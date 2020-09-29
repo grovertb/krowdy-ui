@@ -1,7 +1,13 @@
 import React, { useState } from 'react'
-import { Grid, TextField } from '@krowdy-ui/core'
+import { Grid, TextField, IconButton } from '@krowdy-ui/core'
 import { Table } from '@krowdy-ui/views'
-import AddIcon from '@material-ui/icons/Add'
+import {
+  Add as AddIcon,
+  PhotoCamera as PhotoCameraIcon,
+  MonochromePhotos as MonochromePhotosIcon,
+  Movie as MovieIcon,
+  Refresh as RefreshIcon
+} from '@material-ui/icons'
 import { makeStyles } from '@krowdy-ui/styles'
 
 const useStyles = makeStyles(() => ({
@@ -54,6 +60,13 @@ const responsibleComponent = () => (
       placeholder='Ingrese correo electrónico'></TextField>
   </div >
 )
+
+const RefreshColumn = () => (
+  <IconButton size='small'>
+    <RefreshIcon color='primary' />
+  </IconButton>
+)
+
 const demoColumns = [
   {
     component: Componente,
@@ -69,7 +82,7 @@ const demoColumns = [
     editable : false,
     key      : 'schedule',
     label    : 'Horario',
-    minWidth : 247,
+    minWidth : 150,
     ordering : true,
     type     : 'hours',
     visible  : true
@@ -122,7 +135,15 @@ const demoColumns = [
     minWidth: 90,
     ordering: true,
     type    : 'text'
-  }, {
+  },
+  {
+    columnComponent: RefreshColumn,
+    excludeOfFilter: true,
+    key            : 'refresh',
+    visible        : true,
+    width          : 80
+  },
+  {
     editable: true,
     key     : 'other',
     label   : 'Otro valor',
@@ -208,6 +229,7 @@ export default function () {
       _id          : '0',
       amountPayable: 45,
       amountTasks  : 2,
+      codeCheck    : 'icon1',
       currentTasks : 5,
       extra        : 'Status',
       incharge     : 'Jimena',
@@ -215,14 +237,16 @@ export default function () {
       name         : [ 'Juan Perez', 'Otro dato' ],
       responsible  : 'Carla',
       schedule     : 'En linea',
+      selected     : true,
       type         : [ 'LL', 'Ln', 'VoD', 'VE' ]
     },
     {
       _id          : '1',
       amountPayable: 15,
       amountTasks  : 0,
+      codeCheck    : 'icon2',
       currentTasks : 2,
-      disabled     : false,
+      disabled     : true,
       extra        : 'Status',
       incidents    : 0,
       name         : [ 'Juana de Arco', 'Otro dato' ],
@@ -233,6 +257,7 @@ export default function () {
       _id          : '2',
       amountPayable: 15,
       amountTasks  : 0,
+      codeCheck    : 'icon3',
       currentTasks : 2,
       extra        : 'Status',
       incidents    : 1,
@@ -244,6 +269,7 @@ export default function () {
       _id          : '3',
       amountPayable: 123,
       amountTasks  : 4,
+      codeCheck    : 'icon1',
       currentTasks : 2,
       extra        : 'Status',
       incidents    : 2,
@@ -253,6 +279,21 @@ export default function () {
       type         : [ 'LL', 'Ln' ]
     }
   ]
+  const checkIcons = [
+    {
+      code     : 'icon1',
+      component: <PhotoCameraIcon color='error' />
+    },
+    {
+      code     : 'icon2',
+      component: <MonochromePhotosIcon color='secondary' />
+    },
+    {
+      code     : 'icon3',
+      component: <MovieIcon color='primary' />
+    }
+  ]
+
   const _handleSortTable = (sort) => {
     setSort(sort)
     console.log('TCL: _handleSortTable -> orderby', sort)
@@ -315,10 +356,10 @@ export default function () {
       }}>
       <Table
         addNewCell={addNewCell}
+        checkIcons={checkIcons}
         columns={columns}
         currency='S/'
-        enableAddCell={true}
-        // maxHeight={400}
+        // enableAddCell={true}
         iconButton={<AddIcon />}
         newCellProps={newCellProps}
         onHandleAddNewCell={_handleAddNewCell}
@@ -328,7 +369,6 @@ export default function () {
         onHandleClickRow={_handleClickRow}
         onHandlePaymentButton={_handlePaymentButton}
         onHandleSearch={_handleSearch}
-        // titleTable='Tabla de Krowders'
         onHandleSelectAll={_handleSelectAll}
         onHandleSelectAutocomplete={_handleSelectAutocomplete}
         onHandleSelectItem={_handleSelectItem}
@@ -348,12 +388,13 @@ export default function () {
         sortTable={sort}
         stickyHeader={true}
         titleButton='Agregar Krowder'
+        titleTable='Tabla de Krowders'
         withAutocomplete={true}
         withButton={false}
-        withCheckbox={true}
-        // withFooter={true}
+        withCheckbox
+        withFooter={true}
         withHeader={true}
-        withMenuColumns={true}
+        // withMenuColumns={true}
         withOrder={true}
         withPagination={true}
         withSearch={true} />

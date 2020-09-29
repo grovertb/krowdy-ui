@@ -93,6 +93,10 @@ const pages: Array<Page> = [
             title: 'Notify',
             path: '/components/notify'
           },
+          {
+            title: 'Dot',
+            path: '/components/dots'
+          },
         ]
       }
     ]
@@ -122,6 +126,11 @@ const pages: Array<Page> = [
         title: 'Avatar user',
         path: '/views/avataruser'
       },
+      // B
+      {
+        title: 'Bubble chart',
+        path: '/views/bubblechart'
+      },
       // C
       {
         title: 'Card Expand',
@@ -130,6 +139,14 @@ const pages: Array<Page> = [
       {
         title: 'Card Candidate',
         path: '/views/cardcandidate'
+      },
+      {
+        title: 'Card Candidate Ranking',
+        path: '/views/cardcandidateranking'
+      },
+      {
+        title: 'Card Config',
+        path: '/views/cardconfig'
       },
       {
         title: 'Counter',
@@ -149,6 +166,16 @@ const pages: Array<Page> = [
         title: 'Filters',
         path: '/views/filters'
       },
+      // G
+      {
+        title: 'GraphicBar',
+        path: '/views/graphicbar'
+      },
+      // H
+      {
+        title: 'Histogram',
+        path: '/views/histogram'
+      },
       // J
       {
         title: 'Job Detail',
@@ -163,10 +190,18 @@ const pages: Array<Page> = [
         title: 'Main',
         path: '/views/main'
       },
+      {
+        title: 'MultiCheckBox',
+        path: '/views/multicheckbox'
+      },
       // P
       {
         title: 'Pagination',
         path: '/views/pagination'
+      },
+      {
+        title: 'Profile',
+        path: '/views/profile'
       },
       // R
       {
@@ -174,19 +209,35 @@ const pages: Array<Page> = [
         path: '/views/radioLabelGroup'
       },
       {
+        title: 'RankingGroup',
+        path: '/views/rankinggroup'
+      },
+      {
         title: 'Root',
         path: '/views/root'
       },
       // S
       {
+        title: 'SampleBar',
+        path: '/views/samplebar'
+      },
+      {
         title: 'Search',
         path: '/views/search'
+      },
+      {
+        title: 'SuperFilters',
+        path: '/views/superfilters'
       },
       {
         title: 'SwitchButton',
         path: '/views/switchbutton'
       },
       // T
+      {
+        title: 'Task Config',
+        path: '/views/taskconfig'
+      },
       {
         title: 'Table',
         path: '/views/table'
@@ -196,12 +247,21 @@ const pages: Array<Page> = [
         path: '/views/tablewindow'
       },
       {
+        title: 'Table Infinity',
+        path: '/views/tableInfinity'
+      },
+      {
         title: 'Top AppBar',
         path: '/views/topappbar'
       },
       {
         title: 'Table Group',
         path: '/views/tablegroup'
+      },
+      // U
+      {
+        title: 'User Point',
+        path: '/views/userpoint'
       }
       // V
     ]

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { ToggleRole } from '@krowdy-ui/views'
 
 export default function () {
-  const [ selected , setSelected ] = useState(false)
+  const [ selected, setSelected ] = useState(false)
   const _handleChangeSwich = active => {setSelected(active)}
 
   return (

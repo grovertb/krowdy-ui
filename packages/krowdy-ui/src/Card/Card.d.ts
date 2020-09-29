@@ -5,7 +5,8 @@ import { CardProps } from '@material-ui/core/Card';
 import { PropTypes } from '..';
 
 type PropsCard = {
-  hoverable?: boolean,
+  hoverable?: boolean;
+  selected?: boolean;
 }
 
 export type KrowdyCardProps = Omit<CardProps, keyof PropsCard> & PropsCard;

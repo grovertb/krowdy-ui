@@ -12,6 +12,12 @@ export const styles = theme => ({
       cursor   : 'pointer',
       margin   : props => props.variant !== 'outlined' ?  -1: ''
     }
+  },
+  selected: {
+    border   : `1px solid ${theme.palette.primary.main}`,
+    boxShadow: '0px 4px 5px rgba(0, 39, 102, 0.08), 0px 3px 14px rgba(0, 39, 102, 0.04), 0px 8px 10px rgba(0, 39, 102, 0.05)',
+    cursor   : 'pointer',
+    margin   : props => props.variant !== 'outlined' ?  -1: ''
   }
 })
 
@@ -20,6 +26,7 @@ const Card = React.forwardRef(function Card(props, ref) {
     className: classNameProps,
     classes,
     hoverable = false,
+    selected = false,
     ...otherProps
   } = props
 
@@ -29,7 +36,8 @@ const Card = React.forwardRef(function Card(props, ref) {
         clsx(
           classNameProps,
           {
-            [classes.hoverable]: hoverable
+            [classes.hoverable]: hoverable,
+            [classes.selected] : selected
           }
         )
       }
@@ -55,7 +63,11 @@ Card.propTypes = {
   /**
    * If `true`, the Card will be hover.
    */
-  hoverable: PropTypes.bool
+  hoverable: PropTypes.bool,
+  /**
+   * if `true`, the Card will be selected.
+   */
+  selected : PropTypes.bool
 }
 
 export default withStyles(styles, { name: 'KrowdyCard' })(Card)

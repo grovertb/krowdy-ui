@@ -6,6 +6,15 @@ export { colors }
 export * from './styles'
 export * from './utils'
 
+export { default as Accordion } from './Accordion'
+export * from './Accordion'
+
+export { default as AccordionSummary } from './AccordionSummary'
+export * from './AccordionSummary'
+
+export { default as AccordionDetails } from './AccordionDetails'
+export * from './AccordionDetails'
+
 export { default as AppBar } from './AppBar'
 export * from './AppBar'
 
@@ -101,6 +110,9 @@ export * from './Divider'
 
 export { default as Drawer } from './Drawer'
 export * from './Drawer'
+
+export { default as Dot } from './Dot'
+export * from './Dot'
 
 export { default as ExpansionPanel } from './ExpansionPanel'
 export * from './ExpansionPanel'

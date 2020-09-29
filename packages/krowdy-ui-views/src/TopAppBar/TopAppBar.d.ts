@@ -42,7 +42,8 @@ export type TopAppBarProps = {
   persistMenuIcon?: boolean;
   onHandleToggleDrawer?: () => void;
   user?: Iuser;
-  userMenu?: Array<IUserMenu>
+  userMenu?: Array<IUserMenu>;
+  historyPath?: string
 };
 
 declare const TopAppBar: React.ComponentType<TopAppBarProps>;

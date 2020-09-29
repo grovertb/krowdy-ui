@@ -76,6 +76,7 @@ module.exports = {
    * their own groups.
    */
   rules: {
+    'comma-spacing'                    : [ 'error', { 'before': false, 'after': true }],
     'array-bracket-spacing'            : [ 'error', 'always' ],
     'arrow-body-style'                 : [ 'error', 'as-needed' ],
     'comma-dangle'                     : [ 'error', 'never' ],

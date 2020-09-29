@@ -9,6 +9,9 @@ interface IColumnsTable {
 	align?: string
 	visible: boolean
 	currency?: boolean
+	columnComponent?: React.ReactNode
+	codeCheck?: string
+	excludeOfFilter?: string
 }
 
 interface IRowsTable {
@@ -20,9 +23,12 @@ interface ISortTable {
 	sort: 'asc' | 'desc'
 }
 interface IPagination {
-	total: number
-	perPage: number
-	page: number
+	// total: number
+	perPage: number;
+	page: number;
+	totalPages: number;
+	totalItems: number;
+	rowsPerPageOptions: number[];
 }
 interface IFuncSortTable {
 	(sort: ISortTable): void
@@ -47,8 +53,14 @@ interface IFuncAddNewCell {
 	(newCell: IMultipleProps): void
 }
 
+interface ICheckIcons {
+	code?: string
+	component?: React.ReactNode
+}
+
 export type TableProps = {
-	columns: Array<IColumnsTable>,
+	checkIcons: Array<ICheckIcons>
+	columns: Array<IColumnsTable>
 	rows: Array<IRowsTable>
 	sortTable?: ISortTable
 	titleTable?: string

@@ -76,7 +76,7 @@ function getLineFeed(source) {
 }
 
 function kebabCase(cadena) {
-  return cadena.toLowerCase().replace(/ /,'-')
+  return cadena.toLowerCase().replace(/ /, '-')
 }
 
 module.exports = {
