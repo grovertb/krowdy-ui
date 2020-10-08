@@ -728,11 +728,11 @@ Table.propTypes = {
    * paymentAmount number para mostrar total a pagar
    */
   pagination                : PropTypes.shape({
-    page   : PropTypes.number.isRequired,
-    perPage: PropTypes.number.isRequired,
-    totalPages: PropTypes.number,
-    totalItems: PropTypes.number,
-    rowsPerPageOptions: PropTypes.arrayOf(PropTypes.number)
+    page              : PropTypes.number.isRequired,
+    perPage           : PropTypes.number.isRequired,
+    rowsPerPageOptions: PropTypes.arrayOf(PropTypes.number),
+    totalItems        : PropTypes.number,
+    totalPages        : PropTypes.number
     // total  : PropTypes.number.isRequired
   }),
   /**
