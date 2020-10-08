@@ -58,11 +58,13 @@ function AvatarUser(props) {
     size = 'default'
   } = props
 
+  const acro = `${user.firstName && typeof user.firstName === 'string' ? user.firstName.charAt() : ''}${user.lastName && typeof user.lastName === 'string' ? user.lastName.charAt() : ''}`
+
   return (
     user ?
       user.photo ?
         <img
-          alt={`${user.firstName} ${user.lastName}`}
+          alt={acro}
           className={clsx(classes.image, {
             [ classes.imageDefault ]: active === undefined,
             [ classes.imageActive]  : active,
@@ -78,9 +80,7 @@ function AvatarUser(props) {
             [ classes.small ]  : size === 'small',
             [ classes.big ]    : size === 'big'
           })}>
-          {
-            `${user.firstName && typeof user.firstName === 'string' ? user.firstName.charAt() : ''}${user.lastName && typeof user.lastName === 'string' ? user.lastName.charAt() : ''}`
-          }
+          {acro}
         </div> :
       null // <div className={clsx(classes.defaultAvatar, classes.defaultAvatarNothing )} />
   )
