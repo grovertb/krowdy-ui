@@ -208,7 +208,7 @@ function DrawerListItem({ menu, classes }) {
       className={clsx(
         classes.menuDashboardListItem,
         {
-          [classes.menuDashboardListItemActive]: url ? url.indexOf(location.pathname) === 0 : false
+          [classes.menuDashboardListItemActive]: url ? location.pathname.indexOf(url) === 0 : false
         }
       )}
       disabled={disabled}
