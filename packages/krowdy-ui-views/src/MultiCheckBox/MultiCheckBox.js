@@ -25,7 +25,7 @@ export const styles = {
   }
 }
 
-const MultiCheckBox = ({ options, onChange = () => {}, label, classes }) => {
+const MultiCheckBox = ({ options, onChange = () => {}, label, classes, expandAllDefault }) => {
   const [ anchorEl, setAnchorEl ] = React.useState(null)
   const _handleClick = (event) => options.length && setAnchorEl(event.currentTarget)
 
@@ -88,6 +88,7 @@ const MultiCheckBox = ({ options, onChange = () => {}, label, classes }) => {
         <Paper className={classes.containerPaper}>
           <TreeView
             defaultCollapseIcon={<ArrowDropDownIcon />}
+            defaultExpanded={expandAllDefault ? options.map(({ key }) => key): undefined}
             defaultExpandIcon={<ArrowDropUpIcon />}>
             {options.map((option) => {
               const { key, subOptions, label } = option

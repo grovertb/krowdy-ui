@@ -44,7 +44,11 @@ export default function () {
 
   return (
     <div>
-      <MultiCheckBox label='Revisores' onChange={_handleChange} options={options} />
+      <MultiCheckBox
+        expandAllDefault
+        label='Revisores'
+        onChange={_handleChange}
+        options={options} />
     </div>
   )
 }
