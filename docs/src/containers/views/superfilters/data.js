@@ -55,7 +55,7 @@ export const filtersData = [ {
             {
               _id          : '5f2c8200a5bab8cb0501b31a',
               key          : 'estadoproceso',
-              label        : 'Estado del proceso',
+              label        : 'Estado del proceso Estado del proceso Estado del proceso',
               operator     : '$in',
               operatorLabel: 'Es cualquiera de',
               optionIndex  : 0,
