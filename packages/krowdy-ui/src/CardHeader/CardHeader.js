@@ -12,7 +12,7 @@ export const styles = theme => ({
   root   : {},
   shadow : {
     borderBottom: `1px solid ${theme.palette.grey[300]}`,
-    boxShadow   : '0px 2px 5px rgba(0, 0, 0, 0.05)',
+    boxShadow   : theme.shadows[1],
     padding     : theme.spacing(1.25, 2)
   },
   subheader: {},

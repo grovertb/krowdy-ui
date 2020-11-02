@@ -1,4 +1,5 @@
 import { bluePrimary, blueSecondary, krowdy, grey } from '../colors'
+import shadows from './shadows'
 
 export default {
   overrides: {
@@ -53,5 +54,6 @@ export default {
     krowdy,
     primary  : bluePrimary,
     secondary: blueSecondary
-  }
+  },
+  shadows
 }

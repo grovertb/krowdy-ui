@@ -5,14 +5,16 @@ import clsx from 'clsx'
 import prism from './prism'
 import { textToHash } from './utils'
 
-marked.Lexer.prototype.lex = function lex(src) {
-  src = src
-    .replace(/\r\n|\r/g, '\n')
-    .replace(/\t/g, '    ')
-    .replace(/\u2424/g, '\n')
+// marked.Lexer.prototype.lex = function lex(src) {
+//   var src = src
+//     .replace(/\r\n|\r/g, '\n')
+//     .replace(/\t/g, '    ')
+//     .replace(/\u2424/g, '\n')
 
-  return this.token(src, true)
-}
+//   // return this.token(src, true)
+
+//   return result
+// }
 
 const renderer = new marked.Renderer()
 
