@@ -2,10 +2,8 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import MuiTablePagination from '@material-ui/core/TablePagination'
-import {
-  KeyboardArrowLeft as ArrowLeftIcon,
-  KeyboardArrowRight as ArrowRightIcon
-} from '@material-ui/icons'
+import ArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft'
+import ArrowRightIcon from '@material-ui/icons/KeyboardArrowRight'
 import Box from '../Box'
 import InputBase from '../InputBase'
 import Select from '../Select'
