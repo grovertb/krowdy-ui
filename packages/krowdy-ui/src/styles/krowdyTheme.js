@@ -14,6 +14,11 @@ export default {
         borderRadius: 8
       }
     },
+    MuiSvgIcon: {
+      fontSizeSmall: {
+        fontSize: '1.125rem'
+      }
+    },
     MuiSwitch: {
       switchBase: {
         color: grey[400]

@@ -1,6 +1,6 @@
 import React from 'react'
 import { makeStyles } from '@krowdy-ui/styles'
-import { IconButton } from '@krowdy-ui/core'
+import { IconButton, Theme } from '@krowdy-ui/core'
 import {
   Add as AddIcon,
   Edit as EditIcon,
@@ -10,7 +10,7 @@ import {
   Delete as DeleteIcon
 } from '@material-ui/icons'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme: Theme) => ({
   root: {
     '& > *': {
       margin: theme.spacing(1)
@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
 export default () => {
   const classes = useStyles()
 
-  return (
+  return(
     <div className={classes.root}>
       <IconButton>
         <AddIcon />
@@ -30,13 +30,13 @@ export default () => {
         <EditIcon />
       </IconButton>
       <IconButton color='secondary' >
-        <FavoriteIcon fontSize='small' />
+        <FavoriteIcon />
       </IconButton>
-      <IconButton color='krowdy' size='small' >
-        <AppleIcon fontSize='small' />
+      <IconButton color='krowdy' >
+        <AppleIcon />
       </IconButton>
-      <IconButton color='error'  size='small' >
-        <DeleteIcon fontSize='small' />
+      <IconButton color='error' >
+        <DeleteIcon />
       </IconButton>
       <IconButton disabled >
         <NavigationIcon />
@@ -48,13 +48,13 @@ export default () => {
         <EditIcon />
       </IconButton>
       <IconButton color='secondary' variant='outlined' >
-        <FavoriteIcon fontSize='small' />
+        <FavoriteIcon />
       </IconButton>
-      <IconButton color='krowdy' size='small' variant='outlined' >
-        <AppleIcon fontSize='small' />
+      <IconButton color='krowdy' variant='outlined' >
+        <AppleIcon />
       </IconButton>
-      <IconButton color='error' size='small' variant='outlined' >
-        <DeleteIcon fontSize='small' />
+      <IconButton color='error' variant='outlined' >
+        <DeleteIcon />
       </IconButton>
       <IconButton disabled variant='outlined' >
         <NavigationIcon />
@@ -67,56 +67,43 @@ export default () => {
         <EditIcon />
       </IconButton>
       <IconButton color='secondary' square variant='outlined'>
-        <FavoriteIcon fontSize='small' />
+        <FavoriteIcon />
       </IconButton>
-      <IconButton
-        color='krowdy'
-        size='small'
-        square
-        variant='outlined'>
-        <AppleIcon fontSize='small' />
+      <IconButton color='krowdy' square variant='outlined'>
+        <AppleIcon />
       </IconButton>
       <IconButton color='error' square variant='outlined'>
-        <DeleteIcon fontSize='small' />
+        <DeleteIcon />
       </IconButton>
       <IconButton disabled square variant='outlined'>
         <NavigationIcon />
       </IconButton>
       <br />
-      <IconButton
-        size='small'
-        square
-        variant='outlined'>
+      <IconButton size='small' square variant='outlined'>
         <AddIcon />
       </IconButton>
       <IconButton
-        color='primary'
-        size='small' square
+        color='primary' size='small' square
         variant='outlined'>
         <EditIcon />
       </IconButton>
       <IconButton
-        color='secondary'
-        square
+        color='secondary' size='small' square
         variant='outlined'>
-        <FavoriteIcon fontSize='small' />
+        <FavoriteIcon />
       </IconButton>
       <IconButton
-        color='krowdy'
-        size='small' square
+        color='krowdy' size='small' square
         variant='outlined'>
-        <AppleIcon fontSize='small' />
+        <AppleIcon />
       </IconButton>
       <IconButton
-        color='error'
-        size='small' square
+        color='error' size='small' square
         variant='outlined'>
-        <DeleteIcon fontSize='small' />
+        <DeleteIcon />
       </IconButton>
       <IconButton
-        disabled
-        size='small'
-        square
+        disabled size='small' square
         variant='outlined'>
         <NavigationIcon />
       </IconButton>
