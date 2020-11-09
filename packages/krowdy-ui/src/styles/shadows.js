@@ -13,7 +13,7 @@ function createShadow(...px) {
 // Values from https://github.com/material-components/material-components-web/blob/be8747f94574669cb5e7add1a7c54fa41a89cec7/packages/mdc-elevation/_variables.scss
 const shadows = [
   'none',
-  createShadow(0, 1, 2, 0, 0, 3, 4, 0, 0, 0, 0, 0), // 1
+  createShadow(0, 0, 2, 0, 0, 3, 4, 0, 0, 0, 0, 0), // 1
   createShadow(0, 2, 4, 0, 0, 3, 4, 0, 0, 1, 5, 0), // 2
   createShadow(0, 3, 3, 0, 0, 3, 4, 0, 0, 1, 8, 0), // 3
   createShadow(0, 2, 4, 0, 0, 4, 5, 0, 0, 1, 10, 0), // 4
