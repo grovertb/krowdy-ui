@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import { withStyles } from '@krowdy-ui/styles'
-import { Typography, Card, CardHeader, Avatar } from '@krowdy-ui/core'
+import { Typography, Card, CardHeader, Avatar, Tooltip } from '@krowdy-ui/core'
 
 export const styles = (theme) => ({
   actionContainer: {
@@ -96,13 +96,15 @@ const CardCandidateRanking = ({
               {action}
             </div>
           )}
-          avatar={<Avatar alt='Remy Sharp' className={classes.avatar} src={photo}>{!photo && `${firstName ? firstName[0]: ''} ${lastName ? lastName[0]: ''}`}</Avatar>}
+          avatar={<Avatar alt={`${firstName} ${lastName}`} className={classes.avatar} src={photo}>{!photo && `${firstName ? firstName[0]: ''} ${lastName ? lastName[0]: ''}`}</Avatar>}
           classes={{ action: classes.headerAction }}
           className={classes.header}
           title={
-            <Typography component='span' >
-              {firstName} {lastName}
-            </Typography >
+            <Tooltip placement='top' title={`${firstName} ${lastName}`}>
+              <Typography component='span' >
+                {firstName} {lastName}
+              </Typography >
+            </Tooltip>
           }
           titleTypographyProps={{ className: classes.fullName }} />
       </Card>
