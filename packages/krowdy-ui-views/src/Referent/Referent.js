@@ -8,7 +8,7 @@ export const styles = (theme) => ({
     display            : 'grid',
     gap                : '4px',
     gridTemplateColumns: '1fr 1fr',
-    marginTop          : 4
+    marginTop          : theme.spacing(.5)
   },
   personIcon: {
     fontSize: 13
@@ -24,10 +24,10 @@ export const styles = (theme) => ({
   },
   refContent: {
     '&:last-child': {
-      paddingBottom: 8
+      paddingBottom: theme.spacing(1)
     },
     display: 'flex',
-    padding: 8
+    padding: theme.spacing(1)
   },
   refInfoContent: {
     flex      : 1,
@@ -95,64 +95,3 @@ Referent.propTypes = {
 }
 
 export default withStyles(styles, { name: 'Referent' })(Referent)
-
-// import React, { useMemo } from 'react'
-// import { Typography, CardContent, Card } from '@krowdy-ui/core'
-// import { Person as PersonIcon } from '@material-ui/icons'
-
-// import { useDebouncedCallback } from 'use-debounce'
-
-// import { mongoObjectId, validateEmail } from 'utils'
-
-// import InputCustomized from './InputCustomized'
-// // import AutoComplete from './AutoComplete'
-
-// import { useStyles } from './styles'
-
-// const Referent = ({ referent, onChange,disabled,setError, error }) => {
-//   const classes = useStyles()
-
-//   const referentTemp = useMemo(() => ({
-//     _id           : referent ? referent._id : mongoObjectId(),
-//     actualCompany : referent ? referent.actualCompany : '',
-//     actualPosition: referent ? referent.actualPosition : '',
-//     email         : referent ? referent.email : '',
-//     fullName      : referent ? referent.fullName : '',
-//     phone         : referent ? referent.phone : ''
-//   }),[ referent ])
-
-//   const [ validFields ] = useDebouncedCallback((value,name) => {
-//     switch (name) {
-//       case 'email': {
-//         const errorText = value && value !== '' && validateEmail(value) ? '' : value === '' ?  '' : 'Email incorrecto'
-//         setError(state => ({ ...state, referent: { ...state.referent ,[name]: errorText } }))
-//         break
-//       }
-//       case 'phone': {
-//         break
-//       }
-//       default: {
-//         break
-//       }
-//     }
-//   },250)
-//   const _handleChange = ({ target: { value, name } }) => {
-//     /*  else {
-//       setError(state => ({ ...state, referent: { ...state.referent ,[name]: value ? '' : 'Campo requerido' } }))
-//     } */
-//     validFields(value,name)
-//     onChange(({ referent: { ...referentTemp , [name]: value } }))
-//   }
-//   // const _handleChangeAutoComplete = (value,name) => {
-//   //   onChange(({ referent: { ...referentTemp , [name]: value } }))
-//   // }
-
-//   return (
-//     <div>
-//       <Typography className={classes.subtitle} variant='h6'>Contacto de un referente:</Typography>
-
-//     </div>
-//   )
-// }
-
-// export default Referent
