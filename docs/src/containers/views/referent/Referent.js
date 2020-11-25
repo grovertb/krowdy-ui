@@ -12,8 +12,7 @@ export default function () {
             size='medium'
             unPadding
             value='Luis Alfredo' />
-        )}
-        photo='https://static1.abc.es/media/estilo/2017/02/08/cara-kwm-U202521250342CmC-620x650@abc.jpg'>
+        )}>
         <ReferentInput
           filled
           name='phone'

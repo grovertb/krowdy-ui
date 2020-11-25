@@ -43,12 +43,11 @@ export const styles = (theme) => ({
 const Referent = ({
   classes,
   children,
-  header,
-  photo
+  header
 }) => (
   <Card className={classes.root} variant='outlined'>
     <CardContent className={classes.container}>
-      <Avatar className={classes.avatar} src={photo}>
+      <Avatar className={classes.avatar}>
         <PersonIcon className={classes.personIcon} />
       </Avatar>
       <div className={classes.content}>
@@ -64,8 +63,7 @@ const Referent = ({
 Referent.propTypes = {
   children: PropTypes.element,
   classes : PropTypes.object,
-  header  : PropTypes.node,
-  photo   : PropTypes.string
+  header  : PropTypes.node
 }
 
 export default withStyles(styles, { name: 'Referent' })(Referent)

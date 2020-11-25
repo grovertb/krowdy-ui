@@ -5,7 +5,6 @@ export default function () {
   return (
     <div>
       <Referent
-        photo='https://static1.abc.es/media/estilo/2017/02/08/cara-kwm-U202521250342CmC-620x650@abc.jpg'
         header={(
           <ReferentInput
             name='phone'

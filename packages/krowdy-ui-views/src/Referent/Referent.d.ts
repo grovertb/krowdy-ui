@@ -10,7 +10,6 @@ interface Classes {
 export type ReferentProps = {
   classes?: Classes;
   children?: React.ReactNode;
-  photo?: string;
   header?: string | React.ReactNode;
 };
 
