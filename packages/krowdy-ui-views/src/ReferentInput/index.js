@@ -1,1 +1,1 @@
-export { default } from './ReferentInput.js'
+export { default } from './ReferentInput'

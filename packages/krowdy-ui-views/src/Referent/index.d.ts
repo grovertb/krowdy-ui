@@ -1,2 +1,2 @@
-export { default } from './Referent.js';
-export * from './Referent.js';
+export { default } from './Referent';
+export * from './Referent';
