@@ -69,6 +69,9 @@ export * from './RankingGroup';
 export { default as Referent } from './Referent';
 export * from './Referent';
 
+export { default as ReferentInput } from './ReferentInput';
+export * from './ReferentInput';
+
 export { default as Root } from './Root';
 export * from './Root';
 
