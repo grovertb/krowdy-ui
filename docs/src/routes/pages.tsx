@@ -213,6 +213,14 @@ const pages: Array<Page> = [
         path: '/views/rankinggroup'
       },
       {
+        title: 'Referent',
+        path: '/views/referent'
+      },
+      {
+        title: 'ReferentInput',
+        path: '/views/referentinput'
+      },
+      {
         title: 'Root',
         path: '/views/root'
       },
