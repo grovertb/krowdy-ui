@@ -6,7 +6,5 @@
 
 | Name                 |      Type                                |  Default | Description                                              |
 |:---------------------|:-----------------------------------------|:---------|:---------------------------------------------------------| 
-| title                |                string                    |    ''    |                                                          |
-| url                  |                string                    |    ''    |                                                          |
-| items                |  { placeholder: string; name: string; }  |    ''    |                                                          |
-| onChange             |  (name: string, value: string) => {}     |    ''    |                                                          |
+| photo                |                string                    |    ''    |                                                          |
+| header               |             string | node                |    ''    |                                                          |

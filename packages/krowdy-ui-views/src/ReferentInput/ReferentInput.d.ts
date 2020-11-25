@@ -1,12 +1,9 @@
 import { TextFieldClassKey, TextFieldProps } from '@material-ui/core'
 
 interface Classes {
-  root: string;
-  container: string;
-  content: string;
-  avatar: string;
-  personIcon: string;
-  list: string;
+  filled: string;
+  unPadding: string;
+  unPaddingInput: string;
 }
 
 export type ReferentInputProps = TextFieldProps & {

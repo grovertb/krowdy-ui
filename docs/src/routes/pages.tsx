@@ -217,6 +217,10 @@ const pages: Array<Page> = [
         path: '/views/referent'
       },
       {
+        title: 'ReferentInput',
+        path: '/views/referentinput'
+      },
+      {
         title: 'Root',
         path: '/views/root'
       },

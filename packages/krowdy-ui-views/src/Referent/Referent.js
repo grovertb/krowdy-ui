@@ -2,7 +2,6 @@ import React from 'react'
 import { withStyles, Card, CardContent, Avatar } from '@material-ui/core'
 import { Person as PersonIcon } from '@material-ui/icons'
 import PropTypes from 'prop-types'
-import ReferentInput from '../ReferentInput/ReferentInput'
 
 export const styles = (theme) => ({
   avatar: {
@@ -46,26 +45,21 @@ const Referent = ({
   children,
   header,
   photo
-}) =>
-// const _handleChange = ({ target: { value, name } }) => {
-//   onChange(name, value)
-// }
-
-  (
-    <Card className={classes.root} variant='outlined'>
-      <CardContent className={classes.container}>
-        <Avatar className={classes.avatar} src={photo}>
-          <PersonIcon className={classes.personIcon} />
-        </Avatar>
-        <div className={classes.content}>
-          {header}
-          <div className={classes.list}>
-            {children}
-          </div>
+}) => (
+  <Card className={classes.root} variant='outlined'>
+    <CardContent className={classes.container}>
+      <Avatar className={classes.avatar} src={photo}>
+        <PersonIcon className={classes.personIcon} />
+      </Avatar>
+      <div className={classes.content}>
+        {header}
+        <div className={classes.list}>
+          {children}
         </div>
-      </CardContent>
-    </Card>
-  )
+      </div>
+    </CardContent>
+  </Card>
+)
 
 Referent.propTypes = {
   children: PropTypes.element,
@@ -73,7 +67,5 @@ Referent.propTypes = {
   header  : PropTypes.node,
   photo   : PropTypes.string
 }
-
-Referent.Input = ReferentInput
 
 export default withStyles(styles, { name: 'Referent' })(Referent)
