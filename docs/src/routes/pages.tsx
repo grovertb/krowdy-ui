@@ -181,6 +181,11 @@ const pages: Array<Page> = [
         title: 'Job Detail',
         path: '/views/jobdetail'
       },
+      // l
+      {
+        title: 'List Info',
+        path: '/views/listinfo'
+      },
       // M
       {
         title: 'Modal',

@@ -42,6 +42,9 @@ export * from './Histogram'
 export { default as JobDetail } from './JobDetail'
 export * from './JobDetail'
 
+export { default as ListInfo } from './ListInfo';
+export * from './ListInfo';
+
 export { default as ListWindow } from './ListWindow';
 export * from './ListWindow';
 
