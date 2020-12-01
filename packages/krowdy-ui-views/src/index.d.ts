@@ -42,6 +42,9 @@ export * from './Histogram'
 export { default as JobDetail } from './JobDetail'
 export * from './JobDetail'
 
+export { default as ListInfo } from './ListInfo';
+export * from './ListInfo';
+
 export { default as ListWindow } from './ListWindow';
 export * from './ListWindow';
 
@@ -80,6 +83,9 @@ export * from './SampleBar'
 
 export { default as Search } from './Search'
 export * from './Search'
+
+export { default as SelectInfo } from './SelectInfo'
+export * from './SelectInfo'
 
 export { default as Skeleton } from './Skeleton';
 export * from './Skeleton';

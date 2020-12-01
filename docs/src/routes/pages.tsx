@@ -6,274 +6,283 @@ export interface Page {
 
 const pages: Array<Page> = [
   {
-    title: 'Getting Started',
     routes: [
       {
-        title: 'Installation',
-        path: '/getting-started/installation'
+        path : '/getting-started/installation',
+        title: 'Installation'
       },
       {
-        title: 'Usage',
-        path: '/getting-started/usage'
-      },
-    ]
-  },
-  {
-    title: 'Components',
-    routes: [
-      {
-        title: 'Layout',
-        routes: [
-          {
-            title: 'Box',
-            path: '/components/box'
-          },
-          {
-            title: 'Container',
-            path: '/components/container'
-          },
-          {
-            title: 'Grid',
-            path: '/components/grid'
-          },
-          {
-            title: 'Hidden',
-            path: '/components/hidden'
-          }
-        ]
-      },
-      {
-        title: 'Inputs',
-        routes: [
-          {
-            title: 'Buttons',
-            path: '/components/buttons'
-          },
-          {
-            title: 'Checkboxes',
-            path: '/components/checkboxes'
-          },
-        ]
-      },
-      {
-        title: 'Data Display',
-        routes: [
-          {
-            title: 'Typography',
-            path: '/components/typography'
-          },
-          {
-            title: 'Table',
-            path: '/components/tables'
-          }
-        ]
-      },
-      {
-        title: 'Navigation',
-        routes: [
-          {
-            title: 'Tabs',
-            path: '/components/tabs'
-          }
-        ]
-      },
-      {
-        title: 'Surfaces',
-        routes: [
-          {
-            title: 'Card',
-            path: '/components/cards'
-          },
-        ]
-      },
-      {
-        title: 'Utils',
-        routes: [
-          {
-            title: 'Notify',
-            path: '/components/notify'
-          },
-          {
-            title: 'Dot',
-            path: '/components/dots'
-          },
-        ]
+        path : '/getting-started/usage',
+        title: 'Usage'
       }
-    ]
+    ],
+    title: 'Getting Started'
   },
   {
-    title: 'Component API',
     routes: [
       {
-        title: 'Button',
-        path: '/api/button'
+        routes: [
+          {
+            path : '/components/box',
+            title: 'Box'
+          },
+          {
+            path : '/components/container',
+            title: 'Container'
+          },
+          {
+            path : '/components/grid',
+            title: 'Grid'
+          },
+          {
+            path : '/components/hidden',
+            title: 'Hidden'
+          }
+        ],
+        title: 'Layout'
       },
       {
-        title: 'Checkbox',
-        path: '/api/checkbox'
+        routes: [
+          {
+            path : '/components/buttons',
+            title: 'Buttons'
+          },
+          {
+            path : '/components/checkboxes',
+            title: 'Checkboxes'
+          }
+        ],
+        title: 'Inputs'
+      },
+      {
+        routes: [
+          {
+            path : '/components/typography',
+            title: 'Typography'
+          },
+          {
+            path : '/components/tables',
+            title: 'Table'
+          }
+        ],
+        title: 'Data Display'
+      },
+      {
+        routes: [
+          {
+            path : '/components/tabs',
+            title: 'Tabs'
+          }
+        ],
+        title: 'Navigation'
+      },
+      {
+        routes: [
+          {
+            path : '/components/cards',
+            title: 'Card'
+          }
+        ],
+        title: 'Surfaces'
+      },
+      {
+        routes: [
+          {
+            path : '/components/notify',
+            title: 'Notify'
+          },
+          {
+            path : '/components/dots',
+            title: 'Dot'
+          }
+        ],
+        title: 'Utils'
       }
-    ]
+    ],
+    title: 'Components'
   },
   {
-    title: 'Views',
+    routes: [
+      {
+        path : '/api/button',
+        title: 'Button'
+      },
+      {
+        path : '/api/checkbox',
+        title: 'Checkbox'
+      }
+    ],
+    title: 'Component API'
+  },
+  {
     routes: [
       // A
       {
-        title: 'Audio Recorder',
-        path: '/views/audioRecorder'
+        path : '/views/audioRecorder',
+        title: 'Audio Recorder'
       },
       {
-        title: 'Avatar user',
-        path: '/views/avataruser'
+        path : '/views/avataruser',
+        title: 'Avatar user'
       },
       // B
       {
-        title: 'Bubble chart',
-        path: '/views/bubblechart'
+        path : '/views/bubblechart',
+        title: 'Bubble chart'
       },
       // C
       {
-        title: 'Card Expand',
-        path: '/views/cardexpand'
+        path : '/views/cardexpand',
+        title: 'Card Expand'
       },
       {
-        title: 'Card Candidate',
-        path: '/views/cardcandidate'
+        path : '/views/cardcandidate',
+        title: 'Card Candidate'
       },
       {
-        title: 'Card Candidate Ranking',
-        path: '/views/cardcandidateranking'
+        path : '/views/cardcandidateranking',
+        title: 'Card Candidate Ranking'
       },
       {
-        title: 'Card Config',
-        path: '/views/cardconfig'
+        path : '/views/cardconfig',
+        title: 'Card Config'
       },
       {
-        title: 'Counter',
-        path: '/views/counter'
+        path : '/views/counter',
+        title: 'Counter'
       },
       // D
       {
-        title: 'Dashboard',
-        path: '/views/dashboard'
+        path : '/views/dashboard',
+        title: 'Dashboard'
       },
       {
-        title: 'Drag',
-        path: '/views/dragcomponent'
+        path : '/views/dragcomponent',
+        title: 'Drag'
       },
       // F
       {
-        title: 'Filters',
-        path: '/views/filters'
+        path : '/views/filters',
+        title: 'Filters'
       },
       // G
       {
-        title: 'GraphicBar',
-        path: '/views/graphicbar'
+        path : '/views/graphicbar',
+        title: 'GraphicBar'
       },
       // H
       {
-        title: 'Histogram',
-        path: '/views/histogram'
+        path : '/views/histogram',
+        title: 'Histogram'
       },
       // J
       {
-        title: 'Job Detail',
-        path: '/views/jobdetail'
+        path : '/views/jobdetail',
+        title: 'Job Detail'
+      },
+      // l
+      {
+        path : '/views/listinfo',
+        title: 'List Info'
       },
       // M
       {
-        title: 'Modal',
-        path: '/views/modalkrowder'
+        path : '/views/modalkrowder',
+        title: 'Modal'
       },
       {
-        title: 'Main',
-        path: '/views/main'
+        path : '/views/main',
+        title: 'Main'
       },
       {
-        title: 'MultiCheckBox',
-        path: '/views/multicheckbox'
+        path : '/views/multicheckbox',
+        title: 'MultiCheckBox'
       },
       // P
       {
-        title: 'Pagination',
-        path: '/views/pagination'
+        path : '/views/pagination',
+        title: 'Pagination'
       },
       {
-        title: 'Profile',
-        path: '/views/profile'
+        path : '/views/profile',
+        title: 'Profile'
       },
       // R
       {
-        title: 'RadioLabelGroup',
-        path: '/views/radioLabelGroup'
+        path : '/views/radioLabelGroup',
+        title: 'RadioLabelGroup'
       },
       {
-        title: 'RankingGroup',
-        path: '/views/rankinggroup'
+        path : '/views/rankinggroup',
+        title: 'RankingGroup'
       },
       {
-        title: 'Referent',
-        path: '/views/referent'
+        path : '/views/referent',
+        title: 'Referent'
       },
       {
-        title: 'ReferentInput',
-        path: '/views/referentinput'
+        path : '/views/referentinput',
+        title: 'ReferentInput'
       },
       {
-        title: 'Root',
-        path: '/views/root'
+        path : '/views/root',
+        title: 'Root'
       },
       // S
       {
-        title: 'SampleBar',
-        path: '/views/samplebar'
+        path : '/views/samplebar',
+        title: 'SampleBar'
       },
       {
-        title: 'Search',
-        path: '/views/search'
+        path : '/views/search',
+        title: 'Search'
       },
       {
-        title: 'SuperFilters',
-        path: '/views/superfilters'
+        path : '/views/selectinfo',
+        title: 'SelectInfo'
       },
       {
-        title: 'SwitchButton',
-        path: '/views/switchbutton'
+        path : '/views/superfilters',
+        title: 'SuperFilters'
+      },
+      {
+        path : '/views/switchbutton',
+        title: 'SwitchButton'
       },
       // T
       {
-        title: 'Task Config',
-        path: '/views/taskconfig'
+        path : '/views/taskconfig',
+        title: 'Task Config'
       },
       {
-        title: 'Table',
-        path: '/views/table'
+        path : '/views/table',
+        title: 'Table'
       },
       {
-        title: 'Table Window',
-        path: '/views/tablewindow'
+        path : '/views/tablewindow',
+        title: 'Table Window'
       },
       {
-        title: 'Table Infinity',
-        path: '/views/tableInfinity'
+        path : '/views/tableInfinity',
+        title: 'Table Infinity'
       },
       {
-        title: 'Top AppBar',
-        path: '/views/topappbar'
+        path : '/views/topappbar',
+        title: 'Top AppBar'
       },
       {
-        title: 'Table Group',
-        path: '/views/tablegroup'
+        path : '/views/tablegroup',
+        title: 'Table Group'
       },
       // U
       {
-        title: 'User Point',
-        path: '/views/userpoint'
+        path : '/views/userpoint',
+        title: 'User Point'
       }
       // V
-    ]
-  },
+    ],
+    title: 'Views'
+  }
 ]
 
 export const apiRoutes = [
