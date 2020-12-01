@@ -5,13 +5,6 @@ import {
 } from '@material-ui/icons'
 import { ListInfo } from '@krowdy-ui/views'
 
-// const useStyles = makeStyles((theme) => ({
-//   formControl: {
-//     margin  : theme.spacing(1),
-//     minWidth: 200
-//   }
-// }))
-
 const list = [
   {
     _id  : '1',
@@ -19,7 +12,6 @@ const list = [
   },
   {
     _id     : '2',
-    selected: true,
     subtitle: 'Alicorp',
     title   : 'Diseñador UX'
   },
@@ -31,16 +23,22 @@ const list = [
 ]
 
 export default function () {
-  // const classes = useStyles()
+  const [ id, setId ] = React.useState(null)
 
   const _handleChange = (id) => () => {
-    console.log(id)
+    setId(id)
   }
 
   return (
     <Grid container>
       <ListInfo
         header={<Button color='primary' startIcon={<AddIcon />}>Agregar puesto</Button>}
+        hover
+        list={list}
+        onChange={_handleChange}
+        selectedId={id} />
+      <ListInfo
+        hover
         list={list}
         onChange={_handleChange} />
     </Grid>

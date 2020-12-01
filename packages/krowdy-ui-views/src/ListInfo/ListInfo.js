@@ -1,52 +1,27 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {
   Card,
   List,
-  ListItem,
-  ListItemAvatar,
-  Avatar,
-  ListItemText,
+  Divider,
   withStyles
 } from '@krowdy-ui/core'
-import {
-  Done as DoneIcon,
-  Domain as DomainIcon
-} from '@material-ui/icons'
-import { Divider } from '../../../krowdy-ui/src/index'
+import Item from './Item'
 
 const styles = (theme) => ({
-  avatar: {
-    backgroundColor: theme.palette.secondary[10],
-    color          : theme.palette.secondary[200]
-  },
-  button: {
-    '&:hover': {
-      backgroundColor: theme.palette.primary[10]
-    }
-  },
   container: {
     padding: theme.spacing(1.5),
     width  : 298
-  },
-  gutters: {
-    paddingLeft : theme.spacing(1),
-    paddingRight: theme.spacing(1)
   },
   header: {
     alignItems    : 'center',
     display       : 'flex',
     justifyContent: 'center',
     margin        : theme.spacing(1.625)
-  },
-  image: {
-    color: theme.palette.secondary[200]
-  },
-  secondary: {
-    fontSize: 12
   }
 })
 
-const ListInfo = ({ classes, header, list, onChange }) => (
+const ListInfo = ({ classes, header, list, hover, onChange, selectedId }) => (
   <Card className={classes.container}>
     {
       header ? (
@@ -63,32 +38,17 @@ const ListInfo = ({ classes, header, list, onChange }) => (
       {
         list.length ? (
           <List>
-            {list.map(({ icon: Icon, src, title, subtitle, selected, _id }) => (
-              <ListItem
-                button
-                classes={{
-                  button : classes.button,
-                  gutters: classes.gutters
-                }}
+            {list.map(({ icon, src, title, subtitle, _id }) => (
+              <Item
+                _id={_id}
+                hover={hover}
+                icon={icon}
                 key={_id}
-                onClick={onChange ? onChange(_id) : undefined}>
-                <ListItemAvatar>
-                  <Avatar
-                    alt={title}
-                    className={classes.avatar}
-                    src={src}
-                    variant='rounded' >
-                    {Icon ? <Icon className={classes.image} /> : <DomainIcon className={classes.image} />}
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText
-                  classes={{
-                    secondary: classes.secondary
-                  }}
-                  primary={title}
-                  secondary={subtitle} />
-                {selected ? <DoneIcon color='primary' /> : null}
-              </ListItem>
+                onChange={onChange}
+                selected={selectedId === _id}
+                src={src}
+                subtitle={subtitle}
+                title={title} />
             ))}
           </List>
         ) : null
@@ -96,5 +56,20 @@ const ListInfo = ({ classes, header, list, onChange }) => (
     </div>
   </Card>
 )
+
+ListInfo.propTypes = {
+  classes: PropTypes.object,
+  header : PropTypes.element,
+  hover  : PropTypes.bool,
+  list   : PropTypes.arrayOf(PropTypes.shape({
+    _id     : PropTypes.string.isRequired,
+    icon    : PropTypes.element,
+    src     : PropTypes.string,
+    subtitle: PropTypes.string,
+    title   : PropTypes.string
+  })),
+  onChange  : PropTypes.func,
+  selectedId: PropTypes.string
+}
 
 export default withStyles(styles, { name: 'ListInfo' })(ListInfo)
