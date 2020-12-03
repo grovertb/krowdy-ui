@@ -16,6 +16,7 @@ export type ListInfoItemProps = {
     root?: string;
     secondary?: string;
     variantHover?: string;
+    listItemAvatar?: string;
   };
   disabled?: boolean;
   hover?: boolean;

@@ -51,7 +51,8 @@ const styles = theme => ({
     height: theme.spacing(7),
     width : theme.spacing(7)
   },
-  medium: {
+  listItemAvatar: {},
+  medium        : {
 
   },
   outlined: {
@@ -102,7 +103,9 @@ const ListInfoItem = ({
     }}
     disabled={disabled}
     onClick={onChange ? onChange(_id) : undefined}>
-    <ListItemAvatar>
+    <ListItemAvatar classes={{
+      root: classes.listItemAvatar
+    }}>
       <Avatar
         alt={title}
         className={clsx(classes.avatar, classes[avatarSize], {
