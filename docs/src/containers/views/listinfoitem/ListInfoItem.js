@@ -19,6 +19,7 @@ export default function () {
   return (
     <Grid container>
       <ListInfoItem
+        avatarSize='small'
         iconColor='green'
         primaryTypographyProps={{
           variant: 'h6'

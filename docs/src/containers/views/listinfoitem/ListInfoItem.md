@@ -20,3 +20,6 @@
 | title                    | string  |         | titulo                                                       |
 | variant                  | Enum    | default | las variantes sirven para el border, tienes: default, dashed y outlined |
 | variantHover             | boolean |         | con este prop podras hacer que el variant aparezca cuando pases el mouse |
+| avatarSize             | Enum | medium | setea el tamanio del icono del avatar en 3 tamaños: small, medium, large |
+| iconColor             | string |         | coloca el color al icono de la izquierda |
+| width             | number |         | ancho del contenedor |

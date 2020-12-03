@@ -18,6 +18,9 @@ const styles = theme => ({
     backgroundColor: theme.palette.secondary[10],
     color          : theme.palette.secondary[200]
   },
+  color: ({ iconColor }) => ({
+    backgroundColor: iconColor || 'transparent'
+  }),
   dashed: {
     border      : `1px dashed ${theme.palette.grey[300]}`,
     borderRadius: theme.shape.borderRadius
@@ -44,6 +47,13 @@ const styles = theme => ({
   image: {
     color: theme.palette.secondary[200]
   },
+  large: {
+    height: theme.spacing(7),
+    width : theme.spacing(7)
+  },
+  medium: {
+
+  },
   outlined: {
     border      : `1px solid ${theme.palette.grey[300]}`,
     borderRadius: theme.shape.borderRadius * 2
@@ -59,6 +69,11 @@ const styles = theme => ({
   secondary: {
     fontSize: 12
   },
+  small: {
+    height    : theme.spacing(4),
+    marginLeft: theme.spacing(.5),
+    width     : theme.spacing(4)
+  },
   variantHover: ({ variantHover }) => ({
     '&:hover': {
       backgroundColor: variantHover ? 'transparent' : undefined,
@@ -70,10 +85,11 @@ const styles = theme => ({
 const ListInfoItem = ({
   classes, _id, hover, onChange, icon: Icon, title, src,
   subtitle, selected, rightIcon, variant = 'default', disabled,
-  primaryTypographyProps, secondaryTypographyProps, rightIconHover, variantHover
+  primaryTypographyProps, secondaryTypographyProps, rightIconHover,
+  variantHover, avatarSize = 'medium'
 }) => (
   <ListItem
-    button={onChange}
+    button={Boolean(onChange)}
     classes={{
       button: clsx(classes.root, classes[variant],  {
         [classes.hover]       : hover,
@@ -89,7 +105,9 @@ const ListInfoItem = ({
     <ListItemAvatar>
       <Avatar
         alt={title}
-        className={classes.avatar}
+        className={clsx(classes.avatar, classes[avatarSize], {
+          [classes.color]: src
+        })}
         src={src}
         variant={src ? 'circle' : 'rounded'}>
         {Icon ? <Icon className={classes.image} /> : <DomainIcon className={classes.image} />}
@@ -115,10 +133,12 @@ const ListInfoItem = ({
 
 ListInfoItem.propTypes = {
   _id                     : PropTypes.string,
+  avatarSize              : PropTypes.oneOf([ 'small', 'medium', 'large' ]),
   classes                 : PropTypes.object,
   disabled                : PropTypes.bool,
   hover                   : PropTypes.bool,
   icon                    : PropTypes.element,
+  iconColor               : PropTypes.string,
   onChange                : PropTypes.func,
   primaryTypographyProps  : PropTypes.object,
   rightIcon               : PropTypes.element,
@@ -129,7 +149,8 @@ ListInfoItem.propTypes = {
   subtitle                : PropTypes.string,
   title                   : PropTypes.string,
   variant                 : PropTypes.oneOf([ 'default', 'dashed', 'outlined' ]),
-  variantHover            : PropTypes.bool
+  variantHover            : PropTypes.bool,
+  width                   : PropTypes.number
 }
 
 export default withStyles(styles, { name: 'ListInfo-item' })(ListInfoItem)

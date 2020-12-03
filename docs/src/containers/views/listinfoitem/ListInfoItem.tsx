@@ -35,7 +35,7 @@ export default function () {
         width={400} />
       <ListInfoItem
         iconColor='green'
-        onChange={() => {}}
+        onChange={() => () => {}}
         primaryTypographyProps={{
           variant: 'h6'
         }}

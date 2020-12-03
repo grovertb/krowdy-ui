@@ -21,16 +21,19 @@ export type ListInfoItemProps = {
   hover?: boolean;
   icon?: React.ReactNode;
   onChange?: (id: string) => (e: React.ChangeEvent<HTMLInputElement>) => void;
-  primaryTypographyProps: KrowdyTypographyProps;
+  primaryTypographyProps?: KrowdyTypographyProps;
   rightIcon?: React.ReactNode;
-  rightIconHover: boolean;
-  secondaryTypographyProps: KrowdyTypographyProps;
-  selected: boolean;
-  src: string;
-  subtitle: string;
-  title: string;
-  variant: 'default' | 'dashed' | 'outlined';
-  variantHover: boolean;
+  rightIconHover?: boolean;
+  secondaryTypographyProps?: KrowdyTypographyProps;
+  selected?: boolean;
+  src?: string;
+  subtitle?: string;
+  title?: string;
+  iconColor?: string;
+  variant?: 'default' | 'dashed' | 'outlined';
+  avatarSize?: 'small' | 'medium' | 'large';
+  variantHover?: boolean;
+  width?: number;
 }
 
 declare const ListInfoItem: React.ComponentType<ListInfoItemProps>;
