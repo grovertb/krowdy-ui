@@ -23,3 +23,4 @@
 | avatarSize             | Enum | medium | setea el tamanio del icono del avatar en 3 tamaños: small, medium, large |
 | iconColor             | string |         | coloca el color al icono de la izquierda |
 | width             | number |         | ancho del contenedor |
+| input             | element |         | reemplaza el icono por un componente custom |

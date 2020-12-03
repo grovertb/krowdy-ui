@@ -87,7 +87,7 @@ const ListInfoItem = ({
   classes, _id, hover, onChange, icon: Icon, title, src,
   subtitle, selected, rightIcon, variant = 'default', disabled,
   primaryTypographyProps, secondaryTypographyProps, rightIconHover,
-  variantHover, avatarSize = 'medium'
+  variantHover, avatarSize = 'medium', input
 }) => (
   <ListItem
     button={Boolean(onChange)}
@@ -103,19 +103,21 @@ const ListInfoItem = ({
     }}
     disabled={disabled}
     onClick={onChange ? onChange(_id) : undefined}>
-    <ListItemAvatar classes={{
-      root: classes.listItemAvatar
-    }}>
-      <Avatar
-        alt={title}
-        className={clsx(classes.avatar, classes[avatarSize], {
-          [classes.color]: src
-        })}
-        src={src}
-        variant={src ? 'circle' : 'rounded'}>
-        {Icon ? <Icon className={classes.image} /> : <DomainIcon className={classes.image} />}
-      </Avatar>
-    </ListItemAvatar>
+    {input || (
+      <ListItemAvatar classes={{
+        root: classes.listItemAvatar
+      }}>
+        <Avatar
+          alt={title}
+          className={clsx(classes.avatar, classes[avatarSize], {
+            [classes.color]: src
+          })}
+          src={src}
+          variant={src ? 'circle' : 'rounded'}>
+          {Icon ? <Icon className={classes.image} /> : <DomainIcon className={classes.image} />}
+        </Avatar>
+      </ListItemAvatar>
+    )}
     <ListItemText
       classes={{
         primary  : classes.primary,

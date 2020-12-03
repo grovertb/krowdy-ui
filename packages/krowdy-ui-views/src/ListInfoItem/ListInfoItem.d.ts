@@ -35,6 +35,7 @@ export type ListInfoItemProps = {
   avatarSize?: 'small' | 'medium' | 'large';
   variantHover?: boolean;
   width?: number;
+  input?: React.ReactNode;
 }
 
 declare const ListInfoItem: React.ComponentType<ListInfoItemProps>;
