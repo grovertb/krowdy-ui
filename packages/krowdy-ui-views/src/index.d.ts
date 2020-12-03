@@ -45,6 +45,9 @@ export * from './JobDetail'
 export { default as ListInfo } from './ListInfo';
 export * from './ListInfo';
 
+export { default as ListInfoItem } from './ListInfoItem';
+export * from './ListInfo';
+
 export { default as ListWindow } from './ListWindow';
 export * from './ListWindow';
 

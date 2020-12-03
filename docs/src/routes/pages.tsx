@@ -185,6 +185,10 @@ const pages: Array<Page> = [
         path : '/views/listinfo',
         title: 'List Info'
       },
+      {
+        path : '/views/listinfoitem',
+        title: 'List Info Item'
+      },
       // M
       {
         path : '/views/modalkrowder',

@@ -23,9 +23,9 @@ const list = [
 ]
 
 export default function () {
-  const [ id, setId ] = React.useState<string>()
+  const [ id, setId ] = React.useState()
 
-  const _handleChange = (id: string) => () => {
+  const _handleChange = (id) => () => {
     setId(id)
   }
 

@@ -6,7 +6,7 @@ import {
   Divider,
   withStyles
 } from '@krowdy-ui/core'
-import Item from './Item'
+import { ListInfoItem } from '@krowdy-ui/views'
 
 const styles = (theme) => ({
   container: {
@@ -39,7 +39,7 @@ const ListInfo = ({ classes, header, list, hover, onChange, selectedId }) => (
         list.length ? (
           <List>
             {list.map(({ icon, src, title, subtitle, _id }) => (
-              <Item
+              <ListInfoItem
                 _id={_id}
                 hover={hover}
                 icon={icon}
