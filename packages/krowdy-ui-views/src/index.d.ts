@@ -66,6 +66,9 @@ export * from './Pagination';
 export { default as Profile } from './Profile';
 export * from './Profile';
 
+export { default as ProfileCandidate } from './ProfileCandidate';
+export * from './ProfileCandidate';
+
 export { default as RadioLabelGroup } from './RadioLabelGroup';
 export * from './RadioLabelGroup';
 

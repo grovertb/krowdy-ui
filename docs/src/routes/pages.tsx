@@ -211,6 +211,10 @@ const pages: Array<Page> = [
         path : '/views/profile',
         title: 'Profile'
       },
+      {
+        path : '/views/profilecandidate',
+        title: 'Profile Candidate'
+      },
       // R
       {
         path : '/views/radioLabelGroup',
