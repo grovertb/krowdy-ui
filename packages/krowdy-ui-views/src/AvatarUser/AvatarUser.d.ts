@@ -9,9 +9,9 @@ type IFunOnDeleted = () => void
 export type AvatarUserProps = {
   user: user;
   active?: boolean;
-  hover: boolean;
-  size: 'small' | 'default' | 'big';
-  onDelete: IFunOnDeleted
+  hover?: boolean;
+  size?: 'small' | 'default' | 'big';
+  onDelete?: IFunOnDeleted
 };
 
 declare const AvatarUser: React.ComponentType<AvatarUserProps>;

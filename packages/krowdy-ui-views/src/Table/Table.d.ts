@@ -3,15 +3,16 @@ interface IMultipleProps {
 }
 interface IColumnsTable {
 	key: string
-	label: string
-	ordering: boolean
+	label?: string
+	ordering?: boolean
 	minWidth?: number
 	align?: string
-	visible: boolean
+	visible?: boolean
 	currency?: boolean
 	columnComponent?: React.ReactNode
+	component?: React.ReactNode
 	codeCheck?: string
-	excludeOfFilter?: string
+	excludeOfFilter?: boolean
 }
 
 interface IRowsTable {
@@ -26,9 +27,9 @@ interface IPagination {
 	// total: number
 	perPage: number;
 	page: number;
-	totalPages: number;
+	totalPages?: number;
 	totalItems: number;
-	rowsPerPageOptions: number[];
+	rowsPerPageOptions?: number[];
 }
 interface IFuncSortTable {
 	(sort: ISortTable): void
@@ -40,7 +41,7 @@ interface IFuncBtnAction {
 	(e: Event): void
 }
 interface IFuncPagination {
-	(num: number): void
+	(e: React.ChangeEvent<HTMLInputElement>, num: number): void
 }
 interface IFuncId {
 	(value: string, e?: Event): void

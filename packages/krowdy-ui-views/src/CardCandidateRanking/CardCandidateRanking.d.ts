@@ -18,7 +18,7 @@ export interface CardCandidateRankingProps {
   action?: React.ReactNode;
   actionHoverable?: React.ReactNode;
   className?: string;
-  onClick: IFuncOnClick;
+  onClick?: IFuncOnClick;
   classes?: Classes;
   firstName?: string | null;
   lastName?: string | null;

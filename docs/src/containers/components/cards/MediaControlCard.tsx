@@ -1,6 +1,5 @@
 import React from 'react'
-import { makeStyles, useTheme } from '@krowdy-ui/styles'
-import { Card, CardContent, CardMedia, IconButton, Typography } from '@krowdy-ui/core'
+import { Card, CardContent, CardMedia, IconButton, Typography, makeStyles, useTheme } from '@krowdy-ui/core'
 import {
   SkipPrevious as SkipPreviousIcon,
   PlayArrow as PlayArrowIcon,

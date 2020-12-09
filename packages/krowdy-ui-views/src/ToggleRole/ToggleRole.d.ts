@@ -1,5 +1,5 @@
 interface IFuncVoid {
-  (): void
+  (active: boolean): void
 }
 
 export type ToggleRoleProps = {

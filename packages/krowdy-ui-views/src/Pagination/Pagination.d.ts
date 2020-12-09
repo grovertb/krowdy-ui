@@ -22,16 +22,16 @@ type IFunNextPage = (event: React.MouseEventHandler) => void
 type IFunKeyInputPages = (event: React.KeyboardEventHandler) => void
 
 export type PaginationProps = {
-  classes: Classes,
-  limits: number[],
-  onChangeInputPages: IFunInputPages,
-  onChangeSelect: IFuncLimit,
-  onClickBackPage: IFunBackPage,
-  onClickNextPage: IFunNextPage,
-  onKeyDownInputPages: IFunKeyInputPages,
-  totalPages: number,
-  valueInputPages: number,
-  valueLimitSelect: number
+  classes?: Classes,
+  limits?: number[],
+  onChangeInputPages?: IFunInputPages,
+  onChangeSelect?: IFuncLimit,
+  onClickBackPage?: IFunBackPage,
+  onClickNextPage?: IFunNextPage,
+  onKeyDownInputPages?: IFunKeyInputPages,
+  totalPages?: number,
+  valueInputPages?: number,
+  valueLimitSelect?: number
 };
 
 declare const Pagination: React.ComponentType<PaginationProps>;

@@ -10,7 +10,7 @@ export default function () {
   const max = 15
   const [number, setNumber] = React.useState(initialCounterValue)
 
-  const onChange = (event) => {
+  const onChange = (event: any) => {
     setNumber(event)
   }
 
