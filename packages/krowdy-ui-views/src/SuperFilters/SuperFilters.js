@@ -50,8 +50,8 @@ export const styles = (theme) => ({
       backgroundColor: theme.palette.primary[50],
       border         : `1px solid ${theme.palette.primary[500]}`
     },
-    backgroundColor: theme.palette.secondary[0],
-    border         : `1px solid ${theme.palette.secondary[0]}`,
+    backgroundColor: theme.palette.secondary[10],
+    border         : `1px solid ${theme.palette.secondary[10]}`,
     borderRadius   : 2 * theme.shape.borderRadius,
     overflowX      : 'auto',
     padding        : theme.spacing(0.5)
