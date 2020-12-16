@@ -155,7 +155,7 @@ const useStyles = makeStyles((theme) => ({
     width         : '100%'
   },
   divider: {
-    backgroundColor: theme.palette.secondary[0],
+    backgroundColor: theme.palette.secondary[10],
     marginLeft     : -theme.spacing(1),
     marginRight    : -theme.spacing(1)
   },
