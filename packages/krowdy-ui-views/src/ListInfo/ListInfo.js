@@ -18,6 +18,10 @@ const styles = (theme) => ({
     display       : 'flex',
     justifyContent: 'center',
     margin        : theme.spacing(1.625)
+  },
+  list: {
+    maxHeight: 200,
+    overflowY: 'auto'
   }
 })
 
@@ -37,7 +41,7 @@ const ListInfo = ({ classes, header, list, hover, onChange, selectedId }) => (
     <div>
       {
         list.length ? (
-          <List>
+          <List className={classes.list}>
             {list.map(({ icon, src, title, subtitle, _id }) => (
               <ListInfoItem
                 _id={_id}

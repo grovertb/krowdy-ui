@@ -11,6 +11,9 @@ const styles = () => ({
   color: ({ iconColor }) => ({
     backgroundColor: iconColor || 'transparent'
   }),
+  popper: {
+    zIndex: 1200
+  },
   primary: {
 
   },
@@ -57,6 +60,7 @@ const SelectInfo = ({
       {children ? (
         <Popper
           anchorEl={anchorEl}
+          className={classes.popper}
           disablePortal={true}
           open={open}
           placement='bottom'

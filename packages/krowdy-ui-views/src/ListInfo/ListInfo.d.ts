@@ -10,6 +10,7 @@ export type ListInfoProps = {
   classes?: {
     header?: string;
     container?: string;
+    list?: string;
   };
   header?: React.ReactNode;
   hover?: boolean;
