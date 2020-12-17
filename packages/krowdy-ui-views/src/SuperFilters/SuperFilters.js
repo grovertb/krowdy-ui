@@ -71,6 +71,9 @@ export const styles = (theme) => ({
     padding: 0
   },
   root: {
+    '& *, & *::after, & *::before': {
+      boxSizing: 'content-box'
+    },
     display : 'flex',
     flexFlow: 'column',
     height  : '100%'
@@ -87,6 +90,9 @@ export const styles = (theme) => ({
     overflowY: 'scroll'
   },
   viewContainer: {
+    '& *, & *::after, & *::before': {
+      boxSizing: 'border-box'
+    },
     height: '100%',
     width : '100%'
   }
