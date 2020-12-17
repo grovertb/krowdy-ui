@@ -78,6 +78,11 @@ export const styles = (theme) => ({
     flexFlow: 'column',
     height  : '100%'
   },
+  rootFilerConfig: {
+    '& *, & *::after, & *::before': {
+      boxSizing: 'border-box'
+    }
+  },
   titleBack: {
     fontSize: 14
   },
@@ -90,9 +95,6 @@ export const styles = (theme) => ({
     overflowY: 'scroll'
   },
   viewContainer: {
-    '& *, & *::after, & *::before': {
-      boxSizing: 'border-box'
-    },
     height: '100%',
     width : '100%'
   }
@@ -384,7 +386,7 @@ const SuperFilters = (props) => {
             uniqueFilter={uniqueFilter} />
         </TabPanel>
         <TabPanel
-          className={classes.viewContainer}
+          className={clsx(classes.rootFilerConfig, classes.viewContainer)}
           index={Views.FILTER_CONFIG.index}
           value={view.index}>
           <FilterConfig
