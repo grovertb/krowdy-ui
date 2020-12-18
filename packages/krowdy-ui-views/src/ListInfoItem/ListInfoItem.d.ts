@@ -28,7 +28,7 @@ export type ListInfoItemProps = {
   secondaryTypographyProps?: KrowdyTypographyProps;
   selected?: boolean;
   src?: string;
-  subtitle?: string;
+  subtitle?: string | React.ReactNode;
   title?: string;
   iconColor?: string;
   variant?: 'default' | 'dashed' | 'outlined';
@@ -38,6 +38,6 @@ export type ListInfoItemProps = {
   input?: React.ReactNode;
 }
 
-declare const ListInfoItem: React.ComponentType<ListInfoItemProps>;
+declare const ListInfoItem: React.ComponentType<ListInfoItemProps>
 
 export default ListInfoItem;

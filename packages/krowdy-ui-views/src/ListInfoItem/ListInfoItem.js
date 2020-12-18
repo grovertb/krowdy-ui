@@ -151,7 +151,7 @@ ListInfoItem.propTypes = {
   secondaryTypographyProps: PropTypes.object,
   selected                : PropTypes.bool,
   src                     : PropTypes.string,
-  subtitle                : PropTypes.string,
+  subtitle                : PropTypes.oneOfType([ PropTypes.string, PropTypes.element ]),
   title                   : PropTypes.string,
   variant                 : PropTypes.oneOf([ 'default', 'dashed', 'outlined' ]),
   variantHover            : PropTypes.bool,

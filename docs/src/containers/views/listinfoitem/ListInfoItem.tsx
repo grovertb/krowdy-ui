@@ -28,7 +28,11 @@ export default function () {
           variant: 'body2'
         }}
         src='https://s3.amazonaws.com/cdn.krowdy.com/media/images/Krowdy_isotipo_sin_fondo.svg'
-        subtitle='0 realizados | 0 en ejecución | 0 pendientes'
+        subtitle={
+          <div>
+            0 realizados | 0 en ejecución | 0 pendientes
+          </div>
+        }
         title='5 krowders'
         variant='outlined'
         variantHover
