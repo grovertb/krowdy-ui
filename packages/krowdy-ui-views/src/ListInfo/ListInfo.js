@@ -26,7 +26,7 @@ const styles = (theme) => ({
 })
 
 const ListInfo = ({ classes, header, list, hover, onChange, selectedId }) => (
-  <Card className={classes.container}>
+  <Card className={classes.container} elevation={4}>
     {
       header ? (
         <>

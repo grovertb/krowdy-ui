@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
-import { Popper, withStyles } from '@krowdy-ui/core'
+import { Popover, withStyles } from '@krowdy-ui/core'
 import {
   ArrowDropDown as ArrowDropDownIcon
 } from '@material-ui/icons'
@@ -11,6 +11,9 @@ const styles = () => ({
   color: ({ iconColor }) => ({
     backgroundColor: iconColor || 'transparent'
   }),
+  container: {
+    position: 'relative'
+  },
   popper: {
     zIndex: 1200
   },
@@ -33,10 +36,16 @@ const SelectInfo = ({
     setAnchorEl(anchorEl ? null : event.currentTarget)
   }
 
+  const _handleClose = () => {
+    setAnchorEl(null)
+  }
+
   const open = Boolean(anchorEl)
 
+  const id = open ? 'simple-popover' : undefined
+
   return (
-    <div>
+    <div className={classes.container}>
       <ListInfoItem
         classes={{
           avatar: clsx({
@@ -58,15 +67,23 @@ const SelectInfo = ({
         variant={variant}
         width={width} />
       {children ? (
-        <Popper
+        <Popover
           anchorEl={anchorEl}
-          className={classes.popper}
-          disablePortal={true}
+          anchorOrigin={{
+            horizontal: 'center',
+            vertical  : 'center'
+          }}
+          disablePortal
+          id={id}
+          keepMounted={false}
+          onClose={_handleClose}
           open={open}
-          placement='bottom'
-          transition>
+          transformOrigin={{
+            horizontal: 'center',
+            vertical  : 'center'
+          }}>
           {children}
-        </Popper>
+        </Popover>
       ) : null}
     </div>
   )
