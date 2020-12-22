@@ -24,16 +24,26 @@ const list = [
 ]
 
 export default function () {
+  const _handleClick = (e) => {
+    e.stopPropagation()
+  }
+
+  const _handleChange = (id) => () => {
+    console.log(id)
+  }
+
   return (
     <Grid container>
       <SelectInfo
+        clickAndClose
         subtitle='Alicorp'
         title='Diseñador UX'
         width={290} >
         <ListInfo
-          header={<Button color='primary' startIcon={<AddIcon />}>Agregar puesto</Button>}
+          header={<Button color='primary' onClick={_handleClick} startIcon={<AddIcon />}>Agregar puesto</Button>}
           hover
-          list={list} />
+          list={list}
+          onChange={_handleChange} />
       </SelectInfo>
       <SelectInfo
         disabled

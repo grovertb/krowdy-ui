@@ -12,6 +12,7 @@ export type SelectInfoProps = {
     primary?: string;
     secondary?: string;
   };
+  clickAndClose?: boolean;
 }
 
 declare const SelectInfo: React.ComponentType<SelectInfoProps>;

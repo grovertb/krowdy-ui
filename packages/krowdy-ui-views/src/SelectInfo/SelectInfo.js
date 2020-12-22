@@ -28,7 +28,7 @@ const styles = () => ({
 const SelectInfo = ({
   children, title, subtitle, icon, src, rightIcon = <ArrowDropDownIcon />,
   width, disabled, variant = 'outlined', classes, secondaryTypographyProps,
-  primaryTypographyProps, rightIconHover
+  primaryTypographyProps, rightIconHover, clickAndClose
 }) => {
   const [ anchorEl, setAnchorEl ] = React.useState(null)
 
@@ -76,6 +76,7 @@ const SelectInfo = ({
           disablePortal
           id={id}
           keepMounted={false}
+          onClick={clickAndClose ? _handleClose : undefined}
           onClose={_handleClose}
           open={open}
           transformOrigin={{
