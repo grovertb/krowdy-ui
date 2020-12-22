@@ -15,7 +15,7 @@ const CardKnowledge = ({ knowledgeName, level }) => {
 
 CardKnowledge.propTypes = {
   knowledgeName: PropTypes.string,
-  level        : PropTypes.number
+  level        : PropTypes.string
 }
 
 export default React.memo(CardKnowledge)
