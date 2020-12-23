@@ -20,6 +20,7 @@ interface BubbleChartProps {
   max: number;
   skills: Skill[];
   candidates: Candidate[];
+  skillWidth?: number | 'auto';
 }
 
 declare const BubbleChart: React.ComponentType<BubbleChartProps>;
