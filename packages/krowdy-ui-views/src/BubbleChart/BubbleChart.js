@@ -162,6 +162,7 @@ const useStyles = makeStyles((theme) => ({
     display       : 'flex',
     height        : 28,
     justifyContent: 'flex-end',
+    textAlign     : 'end',
     width         : ({ skillWidth }) => skillWidth
   }
 }), { name: 'BubbleChart' })
