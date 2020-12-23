@@ -9,13 +9,13 @@ export default function() {
         action={<InsertDriveFileIcon color='primary' fontSize='small' />}
         ascent={{
           count: 2,
-          time : 10 * 12
+          time : 3
         }}
         experience={2}
         name='Piero Rodríguez'
         rotation={{
           count: 1,
-          time : 6
+          time : 30
         }}
         salaryText={'3/10 (de mas caro a mas barato)'}
         workExperience={{

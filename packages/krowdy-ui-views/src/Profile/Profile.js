@@ -10,30 +10,124 @@ import {
   AttachMoney as AttachMoneyIcon
 } from '@material-ui/icons'
 
-function sufix(number, first, second) {
-  return number > 1 ? first : second
+function sufix(number) {
+  if(number >= 12) {
+    const year = Math.floor(number / 12)
+
+    return `${year} ${year > 1 ? 'años' : 'año'}`
+  }
+
+  return `${number} ${number > 1 ? 'meses' : 'mes'}`
 }
 
-// function ordinal(number) {
-//   switch (number) {
-//     case 1:
-//     case 3:
-//       return number + 'er'
-//     case 2:
-//       return number + 'do'
-//     case 4:
-//     case 5:
-//     case 6:
-//       return number + 'to'
-//     case 7:
-//     case 10:
-//       return number + 'mo'
-//     case 9:
-//       return number + 'no'
-//     default:
-//       return number + 'vo'
-//   }
-// }
+const Rating = ({ rating }) => {
+  const classes = useStyles()
+
+  return (
+    <>
+      <div className={classes.first}>
+        <Typography variant='h6'>{rating}</Typography>
+        <GradeIcon className={classes.rating} color='primary' fontSize='small' />
+      </div>
+      <Divider className={classes.divider} />
+    </>
+  )
+}
+
+const Ascent = ({ count, time }) => {
+  const classes = useStyles()
+
+  return (
+    <>
+      <div className={classes.row}>
+        <div className={classes.icon}>
+          <TrendingUpIcon color='primary' fontSize='small' />
+        </div>
+        <div>
+          <Typography className={classes.title} variant='body1'>{count} Ascenso{count > 1 ? 's' : ''}</Typography>
+          <Typography className={classes.subtitle} variant='body1'>En {sufix(time)}</Typography>
+        </div>
+      </div>
+      <Divider className={classes.divider} />
+    </>
+  )
+}
+
+const Experience = ({ experience }) => {
+  const classes = useStyles()
+
+  return (
+    <>
+      <div className={classes.row}>
+        <div className={classes.icon}>
+          <WorkIcon color='primary' fontSize='small' />
+        </div>
+        <div>
+          <Typography className={classes.title} variant='body1'>Experiencia</Typography>
+          <Typography className={classes.subtitle} variant='body1'>{sufix(experience)}</Typography>
+        </div>
+      </div>
+      <Divider className={classes.divider} />
+    </>
+  )
+}
+
+const WorkExperience = ({ name, count }) => {
+  const classes = useStyles()
+
+  return (
+    <>
+      <div className={classes.row}>
+        <div className={classes.icon}>
+          <BusinessIcon color='primary' fontSize='small' />
+        </div>
+        <div>
+          <Typography className={classes.title} variant='body1'>Trabaja en {name}</Typography>
+          <Typography className={classes.subtitle} variant='body1'>Hace {sufix(count)}</Typography>
+        </div>
+      </div>
+      <Divider className={classes.divider} />
+    </>
+  )
+}
+
+const Rotation = ({ count, time }) => {
+  const classes = useStyles()
+
+  return (
+    <>
+      <div className={classes.row}>
+        <div className={classes.icon}>
+          <LoopIcon color='primary' fontSize='small' />
+        </div>
+        <div>
+          <Typography className={classes.title} variant='body1'>Rotación</Typography>
+          <Typography className={classes.subtitle} variant='body1'>{count} ve{count > 1 ? 'ces' : 'z'} cada {sufix(time)}</Typography>
+        </div>
+      </div>
+      <Divider className={classes.divider} />
+    </>
+  )
+}
+
+const SalaryText = ({ salaryText }) => {
+  const classes = useStyles()
+
+  return (
+    <>
+      <div className={classes.row}>
+        <div className={classes.icon}>
+          <AttachMoneyIcon color='primary' fontSize='small' />
+        </div>
+        <div>
+          <Typography className={classes.title} variant='body1'>Salario</Typography>
+          <Typography className={classes.subtitle} variant='body1'>{salaryText}</Typography>
+        </div>
+      </div>
+      <Divider className={classes.divider} />
+    </>
+  )
+}
 
 const Profile = ({ name, rating, ascent, experience, workExperience, rotation, salaryText, action }) => {
   const classes = useStyles()
@@ -45,95 +139,22 @@ const Profile = ({ name, rating, ascent, experience, workExperience, rotation, s
         {action}
       </div>
       {
-        rating ? (
-          <>
-            <div className={classes.first}>
-              <Typography variant='h6'>{rating}</Typography>
-              <GradeIcon className={classes.rating} color='primary' fontSize='small' />
-            </div>
-            <Divider className={classes.divider} />
-          </>
-        ) : null
+        rating ? <Rating rating={rating} /> : null
       }
       {
-        ascent ? (
-          <>
-            <div className={classes.row}>
-              <div className={classes.icon}>
-                <TrendingUpIcon color='primary' fontSize='small' />
-              </div>
-              <div>
-                <Typography className={classes.title} variant='body1'>{ascent.count} Ascenso{sufix(ascent.count, 's', '')}</Typography>
-                <Typography className={classes.subtitle} variant='body1'>En {ascent.time} año{sufix(ascent.time, 's', '')}</Typography>
-              </div>
-            </div>
-            <Divider className={classes.divider} />
-          </>
-        ) : null
+        ascent ? <Ascent count={ascent.count} time={ascent.time} />: null
       }
       {
-        experience ? (
-          <>
-            <div className={classes.row}>
-              <div className={classes.icon}>
-                <WorkIcon color='primary' fontSize='small' />
-              </div>
-              <div>
-                <Typography className={classes.title} variant='body1'>Experiencia</Typography>
-                <Typography className={classes.subtitle} variant='body1'>{experience} año{sufix(experience, 's', '')}</Typography>
-              </div>
-            </div>
-            <Divider className={classes.divider} />
-          </>
-        ) : null
+        experience ? <Experience experience={experience} /> : null
       }
       {
-        workExperience ? (
-          <>
-            <div className={classes.row}>
-              <div className={classes.icon}>
-                <BusinessIcon color='primary' fontSize='small' />
-              </div>
-              <div>
-                <Typography className={classes.title} variant='body1'>Trabaja en {workExperience.name}</Typography>
-                <Typography className={classes.subtitle} variant='body1'>Hace {workExperience.count} año{sufix(workExperience.count, 's', '')}</Typography>
-              </div>
-            </div>
-            <Divider className={classes.divider} />
-          </>
-        ) : null
+        workExperience ? <WorkExperience count={workExperience.count} name={workExperience.name} /> : null
       }
       {
-        rotation ? (
-          <>
-            <div className={classes.row}>
-              <div className={classes.icon}>
-                <LoopIcon color='primary' fontSize='small' />
-              </div>
-              <div>
-                <Typography className={classes.title} variant='body1'>Rotación</Typography>
-                <Typography className={classes.subtitle} variant='body1'>{rotation.count} ve{sufix(rotation.count, 'ces', 'z')} cada {rotation.time} me{sufix(rotation.time, 'ses', 's')}</Typography>
-              </div>
-            </div>
-            <Divider className={classes.divider} />
-          </>
-        ) : null
+        rotation ? <Rotation count={rotation.count} time={rotation.time} /> : null
       }
       {
-        salaryText ? (
-          <>
-            <div className={classes.row}>
-              <div className={classes.icon}>
-                <AttachMoneyIcon color='primary' fontSize='small' />
-              </div>
-              <div>
-                <Typography className={classes.title} variant='body1'>Salario</Typography>
-                <Typography className={classes.subtitle} variant='body1'>{salaryText}</Typography>
-              </div>
-            </div>
-            <Divider className={classes.divider} />
-          </>
-        ) : null
+        salaryText ? <SalaryText salaryText={salaryText} /> : null
       }
     </Paper>
   )

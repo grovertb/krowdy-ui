@@ -6,6 +6,8 @@
 
 {{"demo": "containers/views/profile/Profile.js", "bg": true}}
 
+### Todos los parametros de fecha deben de llegar en cantidad de meses
+
 | Name           | Type   | Default | Description                                                  |
 | :------------- | :----- | :------ | :----------------------------------------------------------- |
 | action         | Node   |         | Componente personalizado                                     |
