@@ -1,3 +1,5 @@
+import { KrowdyCardProps } from "@krowdy-ui/core/Card";
+
 interface Classes {
   actions: string;
   containerTitle:string;
@@ -9,7 +11,7 @@ interface Classes {
 
 
 
-export type RankingGroupProps = {
+export type RankingGroupProps = KrowdyCardProps & {
   classes?: Classes;
   active?: boolean;
   title?: string;

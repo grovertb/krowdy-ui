@@ -67,11 +67,12 @@ const RankingGroup = props => {
     subtitle,
     subHeader,
     scroll,
-    shadow
+    shadow,
+    ...rest
   } = props
 
   return (
-    <Card className={classes.root} elevation={3}>
+    <Card className={classes.root} elevation={3} {...rest}>
       <CardHeader
         action={action}
         className={classes.header}
