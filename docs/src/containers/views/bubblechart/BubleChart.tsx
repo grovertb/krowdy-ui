@@ -175,6 +175,19 @@ export default function() {
           <BubbleChart candidates={candidates} max={4} skills={skills} />
         </div>
       </Paper>
+      <Paper className={classes.container} variant='outlined'>
+        <div>
+          <div className={classes.subSection}>
+            <Typography variant='h6'>Conocimientos</Typography>
+            <Tooltip placement='top' title='tooltip'><span><IconButton disabled size='small'><InfoIcon fontSize='small' /></IconButton></span></Tooltip>
+          </div>
+          <BubbleChart
+            candidates={candidates}
+            max={4}
+            skills={skills}
+            skillWidth={200} />
+        </div>
+      </Paper>
     </div>
   )
 }

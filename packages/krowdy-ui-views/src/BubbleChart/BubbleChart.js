@@ -9,9 +9,10 @@ const BubbleChart = (props) => {
   const {
     skills,
     candidates,
-    max = 4
+    max = 4,
+    skillWidth = 'auto'
   } = props
-  const classes = useStyles()
+  const classes = useStyles({ skillWidth })
 
   return (
     <div className={classes.root}>
@@ -79,7 +80,11 @@ BubbleChart.propTypes = {
       value     : PropTypes.string
     }))
   })),
-  max   : PropTypes.number,
+  max       : PropTypes.number,
+  skillWidth: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]),
   skills: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string
   }))
@@ -106,10 +111,10 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between'
   },
   bubblesContainer: {
+    flex          : 1,
     justifyContent: 'space-between',
     overflowX     : 'auto',
-    paddingTop    : theme.spacing(4.75),
-    width         : '74%'
+    paddingTop    : theme.spacing(4.75)
   },
   candidate: {
     marginRight: theme.spacing(2)
@@ -153,9 +158,11 @@ const useStyles = makeStyles((theme) => ({
     marginTop   : theme.spacing(1.25)
   },
   titleContainer: {
-    alignItems: 'center',
-    display   : 'flex',
-    height    : 28
+    alignItems    : 'center',
+    display       : 'flex',
+    height        : 28,
+    justifyContent: 'flex-end',
+    width         : ({ skillWidth }) => skillWidth
   }
 }), { name: 'BubbleChart' })
 
