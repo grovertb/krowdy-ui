@@ -83,7 +83,7 @@ BubbleChart.propTypes = {
   max       : PropTypes.number,
   skillWidth: PropTypes.oneOfType([
     PropTypes.string,
-    PropTypes.number
+    PropTypes.oneOf([ 'auto' ])
   ]),
   skills: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string
