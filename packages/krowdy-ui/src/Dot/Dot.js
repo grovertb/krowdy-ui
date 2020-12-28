@@ -13,6 +13,9 @@ const useStyles = makeStyles((theme) => ({
         case 'error': {
           return theme.palette.error.main
         }
+        case 'primary': {
+          return theme.palette.primary.main
+        }
         default: {
           return theme.palette.grey[500]
         }

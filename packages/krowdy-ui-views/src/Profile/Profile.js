@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Paper, makeStyles, Typography, Divider } from '@krowdy-ui/core'
+import { Paper, makeStyles, Typography, Divider, Dot, Avatar, Button } from '@krowdy-ui/core'
 import {
   Grade as GradeIcon,
   TrendingUp as TrendingUpIcon,
@@ -9,6 +9,17 @@ import {
   Loop as LoopIcon,
   AttachMoney as AttachMoneyIcon
 } from '@material-ui/icons'
+import clsx from 'clsx'
+import dayjs from 'dayjs'
+
+import 'dayjs/locale/es'
+
+const compare = (a, b) => {
+  if(b.workHere || dayjs(a.endDate).isBefore(b.endDate))
+    return 1
+
+  return -1
+}
 
 function sufix(number) {
   if(number >= 12) {
@@ -129,8 +140,39 @@ const SalaryText = ({ salaryText }) => {
   )
 }
 
-const Profile = ({ name, rating, ascent, experience, workExperience, rotation, salaryText, action }) => {
+const Company = ({ company }) => {
+  const { imgUrl, companyName, workHere, startDate, endDate } = company
   const classes = useStyles()
+
+  const interval = endDate ? dayjs(endDate).month() : dayjs().month() - dayjs(startDate).month()
+
+  return (
+    <>
+      <div className={clsx(classes.experience, {
+        [classes.left]: workHere
+      })}>
+        {workHere ? (
+          <Dot color='primary' />
+        ) : null}
+        <div className={classes.row}>
+          <Avatar className={classes.small} src={imgUrl} variant='rounded'>{companyName.charAt(0)}</Avatar>
+          <div>
+            <Typography className={classes.title} variant='body1'>{companyName}</Typography>
+            <Typography className={classes.subtitle} variant='body1'>{sufix(interval)} . {dayjs(startDate).format('MMM YYYY')} - {endDate ? dayjs(endDate).format('MMM YYYY') : 'Actualidad'}</Typography>
+          </div>
+        </div>
+      </div>
+      <Divider className={classes.divider} />
+    </>
+  )
+}
+
+const Profile = ({ name, rating, ascent, experience, workExperience, rotation, salaryText, action, experiences, onCV, slice = 2 }) => {
+  const classes = useStyles()
+
+  const parsedExperiences = [ ...experiences ].sort(compare)
+
+  const difference = parsedExperiences.length - slice
 
   return (
     <Paper className={classes.container} variant='outlined'>
@@ -156,6 +198,19 @@ const Profile = ({ name, rating, ascent, experience, workExperience, rotation, s
       {
         salaryText ? <SalaryText salaryText={salaryText} /> : null
       }
+      {
+        parsedExperiences ? (difference ? parsedExperiences.slice(0, slice) : parsedExperiences).map((company, index) => <Company company={company} key={index} />) :
+          null
+      }
+      {
+        difference ? (
+          <div className={classes.difference}>
+            <Button color='inherit' onClick={onCV}>
+              + {difference} experience
+            </Button>
+          </div>
+        ) : null
+      }
     </Paper>
   )
 }
@@ -175,10 +230,20 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
     width         : '100%'
   },
+  difference: {
+    color        : theme.palette.grey[600],
+    display      : 'flex',
+    flexDirection: 'row-reverse'
+  },
   divider: {
     backgroundColor: theme.palette.secondary[10],
     marginLeft     : -theme.spacing(1),
     marginRight    : -theme.spacing(1)
+  },
+  experience: {
+    alignItems   : 'center',
+    display      : 'flex',
+    flexDirection: 'row'
   },
   first: {
     alignItems   : 'center',
@@ -190,6 +255,9 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     marginLeft : theme.spacing(1),
     marginRight: theme.spacing(2)
+  },
+  left: {
+    marginLeft: theme.spacing(1.5)
   },
   name: {
     color: theme.palette.secondary[600]
@@ -203,6 +271,12 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     marginBottom : theme.spacing(0.5),
     marginTop    : theme.spacing(0.5)
+  },
+  small: {
+    height     : theme.spacing(3),
+    marginLeft : theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width      : theme.spacing(3)
   },
   subtitle: {
     color: theme.palette.grey[600]
