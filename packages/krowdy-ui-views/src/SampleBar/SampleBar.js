@@ -33,7 +33,8 @@ const SampleBar =({
   classes,
   template = () => {},
   mark: currentMark,
-  IconComponent
+  IconComponent,
+  customLabel
 }) => {
   const maxValue = Math.ceil(
     marks.reduce((max, mark) => Math.max(max, mark.value), 0)
@@ -46,7 +47,11 @@ const SampleBar =({
       ) :null}
       <div className={classes.bar}>
         {new Array(maxValue >= 1 ? maxValue - 1 : 0).fill(1).map((_, index) => (
-          <LineVert index={index + 1} key={index} leftPercent={100/ maxValue * (index + 1)} />
+          <LineVert
+            customLabel={customLabel}
+            index={index + 1}
+            key={index}
+            leftPercent={100/ maxValue * (index + 1)} />
         ))}
         {marks.map((mark) => {
           const { firstName, _id, lastName, value, photo } = mark
@@ -78,6 +83,7 @@ const SampleBar =({
 SampleBar.propTypes = {
   IconComponent: PropTypes.elementType,
   classes      : PropTypes.object,
+  customLabel  : PropTypes.func,
   mark         : PropTypes.shape({
     _id      : PropTypes.string,
     firstName: PropTypes.string,
