@@ -1,3 +1,5 @@
+import { ComponentType } from "react";
+
 interface Classes {
   bar: string;
   mark: string;
@@ -19,7 +21,8 @@ export type SampleBarProps = {
   classes?: Classes,
   mark?   : Mark,
   marks?:Mark[],
-  template?: IFuncTemplate
+  template?: IFuncTemplate,
+  IconComponent?: ComponentType
 }
 
 declare const SampleBar: React.FC<SampleBarProps>;

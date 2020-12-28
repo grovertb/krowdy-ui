@@ -74,6 +74,7 @@ export default () => {
             <Tooltip title='tooltip'><span><IconButton disabled size='small'><InfoIcon fontSize='small' /></IconButton></span></Tooltip>
           </div>
           <SampleBar
+            IconComponent={InfoIcon}
             mark={data[3]}
             marks={data}
             template={({ value }) => `${value} años`} />
