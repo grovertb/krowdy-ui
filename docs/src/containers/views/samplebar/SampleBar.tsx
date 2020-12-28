@@ -85,6 +85,7 @@ export default () => {
             <Tooltip title='tooltip'><IconButton disabled size='small'><InfoIcon fontSize='small' /></IconButton></Tooltip>
           </div>
           <SampleBar
+            customLabel={(index) => index * 2}
             mark={data[3]}
             marks={data}
             template={({ value }) => `${value} veces por año`} />

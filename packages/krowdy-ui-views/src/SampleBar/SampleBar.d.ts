@@ -17,12 +17,15 @@ interface Mark {
 
 type IFuncTemplate = (mark: Mark) => string
 
+type IFuncCustomLabel = (index: number) => number | string
+
 export type SampleBarProps = {
   classes?: Classes,
   mark?   : Mark,
   marks?:Mark[],
   template?: IFuncTemplate,
-  IconComponent?: ComponentType
+  IconComponent?: ComponentType,
+  customLabel?: IFuncCustomLabel
 }
 
 declare const SampleBar: React.FC<SampleBarProps>;

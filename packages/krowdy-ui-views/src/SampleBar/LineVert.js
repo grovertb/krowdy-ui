@@ -21,13 +21,13 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const LineVert = ({ leftPercent = 0, index }) => {
+const LineVert = ({ leftPercent = 0, index, customLabel }) => {
   const classes = useStyles({ leftPercent })
 
   return (
     <>
       <div className={clsx(classes.root, classes.bar)} />
-      <div className={clsx(classes.root, classes.rootLabel)}>{index}</div>
+      <div className={clsx(classes.root, classes.rootLabel)}>{customLabel ? customLabel(index): index}</div>
     </>
   )
 }
