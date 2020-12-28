@@ -167,7 +167,7 @@ const Company = ({ company }) => {
   )
 }
 
-const Profile = ({ name, rating, ascent, experience, workExperience, rotation, salaryText, action, experiences, onCV, slice = 2 }) => {
+const Profile = ({ name, rating, ascent, experience, workExperience, rotation, salaryText, action, experiences = [], onCV, slice = 2 }) => {
   const classes = useStyles()
 
   const parsedExperiences = [ ...experiences ].sort(compare)
@@ -199,11 +199,11 @@ const Profile = ({ name, rating, ascent, experience, workExperience, rotation, s
         salaryText ? <SalaryText salaryText={salaryText} /> : null
       }
       {
-        parsedExperiences ? (difference ? parsedExperiences.slice(0, slice) : parsedExperiences).map((company, index) => <Company company={company} key={index} />) :
+        parsedExperiences ? (difference > 0 ? parsedExperiences.slice(0, slice) : parsedExperiences).map((company, index) => <Company company={company} key={index} />) :
           null
       }
       {
-        difference ? (
+        difference > 0 ? (
           <div className={classes.difference}>
             <Button color='inherit' onClick={onCV}>
               + {difference} experience
