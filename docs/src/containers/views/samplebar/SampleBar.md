@@ -14,3 +14,6 @@
 | paddingLeft          |    boolean       |  false   |                                                          |
 | photo                |    string        |          |                                                          |
 | position             |    number        |          |                                                          |
+| IconComponent        |    ComponentType |          |                                                          |
+
+

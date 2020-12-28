@@ -74,6 +74,7 @@ export default () => {
             <Tooltip title='tooltip'><span><IconButton disabled size='small'><InfoIcon fontSize='small' /></IconButton></span></Tooltip>
           </div>
           <SampleBar
+            IconComponent={InfoIcon}
             mark={data[3]}
             marks={data}
             template={({ value }) => `${value} años`} />
@@ -93,11 +94,11 @@ export default () => {
   )
 }
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   container: {
     display       : 'flex',
     justifyContent: 'space-between',
-    padding       : 12,
+    padding       : theme.spacing(1.5),
     width         : '100%'
   },
   subSection: {
