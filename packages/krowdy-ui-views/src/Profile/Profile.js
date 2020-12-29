@@ -155,10 +155,17 @@ const Company = ({ company }) => {
           <Dot color='primary' />
         ) : null}
         <div className={classes.row}>
-          <Avatar className={classes.small} src={imgUrl} variant='rounded'>{companyName.charAt(0)}</Avatar>
+          <Avatar
+            className={classes.small}
+            src={imgUrl}
+            variant='rounded'>
+            {companyName ? companyName.charAt(0) : <BusinessIcon color='primary' fontSize='small' />}
+          </Avatar>
           <div>
             <Typography className={classes.title} variant='body1'>{companyName}</Typography>
-            <Typography className={classes.subtitle} variant='body1'>{sufix(interval)} . {dayjs(startDate).format('MMM YYYY')} - {endDate ? dayjs(endDate).format('MMM YYYY') : 'Actualidad'}</Typography>
+            <Typography className={classes.subtitle} variant='body1'>
+              {sufix(interval)} • {dayjs(startDate).format('MMM YYYY')} - {endDate ? dayjs(endDate).format('MMM YYYY') : 'Actualidad'}
+            </Typography>
           </div>
         </div>
       </div>
@@ -170,7 +177,7 @@ const Company = ({ company }) => {
 const Profile = ({ name, rating, ascent, experience, workExperience, rotation, salaryText, action, experiences = [], onCV, slice = 2 }) => {
   const classes = useStyles()
 
-  const parsedExperiences = [ ...experiences ].sort(compare)
+  const parsedExperiences = experiences.filter(({ jobPosition }) => jobPosition).sort(compare)
 
   const difference = parsedExperiences.length - slice
 
@@ -206,7 +213,7 @@ const Profile = ({ name, rating, ascent, experience, workExperience, rotation, s
         difference > 0 ? (
           <div className={classes.difference}>
             <Button color='inherit' onClick={onCV}>
-              + {difference} experience
+              + {difference} experiencia{difference > 1 ? 's' : ''}
             </Button>
           </div>
         ) : null
