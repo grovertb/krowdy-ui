@@ -233,10 +233,10 @@ const Profile = ({ name, rating, ascent, experience, workExperience, rotation, s
         {action}
       </div>
       {
-        education ? <Education education={education} /> : null
+        rating ? <Rating rating={rating} /> : null
       }
       {
-        rating ? <Rating rating={rating} /> : null
+        education ? <Education education={education} /> : null
       }
       {
         ascent ? <Ascent count={ascent.count} time={ascent.time} />: null
