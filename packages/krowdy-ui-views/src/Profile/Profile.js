@@ -7,7 +7,8 @@ import {
   Work as WorkIcon,
   Business as BusinessIcon,
   Loop as LoopIcon,
-  AttachMoney as AttachMoneyIcon
+  AttachMoney as AttachMoneyIcon,
+  School as SchoolIcon
 } from '@material-ui/icons'
 import clsx from 'clsx'
 import dayjs from 'dayjs'
@@ -76,7 +77,7 @@ const Education = ({ education }) => {
     <>
       <div className={classes.row}>
         <div className={classes.icon}>
-          <TrendingUpIcon color='primary' fontSize='small' />
+          <SchoolIcon color='primary' fontSize='small' />
         </div>
         <div>
           <Typography className={classes.title} variant='body1'>{education.career} | {education.institutionName}</Typography>
