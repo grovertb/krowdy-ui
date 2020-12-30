@@ -16,10 +16,10 @@ const CardEducation = ({ condition, description, institutionName, career, endDat
         </div>
         <Typography variant='h6'>{institutionName}</Typography>
       </div>
-      <Typography variant='body2'>{startDate} - {studyingHere ? 'Actual' : endDate }</Typography>
-      <Typography color='info' variant='body1'>Nivel: {degree}</Typography>
-      <Typography color='info' variant='body1'>Condición: {condition}</Typography>
-      <Typography variant='body2'>{description}</Typography>
+      {startDate || studyingHere || endDate ? <Typography variant='body2'>{startDate} - {studyingHere ? 'Actual' : endDate }</Typography> : null}
+      {degree ? <Typography color='info' variant='body1'>Nivel: {degree}</Typography> : null}
+      {condition ? <Typography color='info' variant='body1'>Condición: {condition}</Typography> : null}
+      {description ? <Typography variant='body2'>{description}</Typography> : null}
     </div>
   )
 }

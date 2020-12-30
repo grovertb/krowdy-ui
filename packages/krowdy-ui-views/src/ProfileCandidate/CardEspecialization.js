@@ -16,8 +16,8 @@ const CardEspecialization = ({ especializationName, especializationPlace, endDat
         </div>
         <Typography variant='h6'>{especializationPlace}</Typography>
       </div>
-      <Typography variant='body2'>{startDate} - {studyingHere ? 'Actual' : endDate }</Typography>
-      <Typography variant='body2'>{description}</Typography>
+      {startDate || studyingHere || endDate ? <Typography variant='body2'>{startDate} - {studyingHere ? 'Actual' : endDate }</Typography> : null}
+      {description ? <Typography variant='body2'>{description}</Typography> : null}
     </div>
   )
 }

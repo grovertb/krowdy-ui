@@ -16,11 +16,11 @@ const CardExperiencie = ({ area, description, companyName, jobPosition, endDate,
         </div>
         <Typography variant='h6'>{companyName}</Typography>
       </div>
-      <Typography variant='body2'>{startDate} - {workHere ? 'Actual' : endDate }</Typography>
-      <Typography color='info' variant='body1'>Jerarquía: {hierarchy}</Typography>
-      <Typography color='info' variant='body1'>Área: {area}</Typography>
-      <Typography color='info' variant='body1'>Ubicación: {location}</Typography>
-      <Typography variant='body2'>{description}</Typography>
+      {startDate || workHere || endDate ? <Typography variant='body2'>{startDate} - {workHere ? 'Actual' : endDate }</Typography> : null}
+      {hierarchy ? <Typography color='info' variant='body1'>Jerarquía: {hierarchy}</Typography> : null}
+      {area ? <Typography color='info' variant='body1'>Área: {area}</Typography> : null}
+      {location ? <Typography color='info' variant='body1'>Ubicación: {location}</Typography> : null}
+      {description ? <Typography variant='body2'>{description}</Typography> : null}
     </div>
   )
 }
