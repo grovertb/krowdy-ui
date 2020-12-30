@@ -14,6 +14,28 @@ import dayjs from 'dayjs'
 
 import 'dayjs/locale/es'
 
+const legendDegree = {
+  Doctorado    : 4,
+  Master       : 3,
+  Secundaria   : 0,
+  Técnico      : 1,
+  Universitario: 2
+}
+
+const getEducation = (educations) => {
+  if(!educations.length)
+    return null
+
+  const parsedEducation = educations.map(education => ({ ...education, degree: legendDegree[education.degree] })).sort((a, b) => {
+    if(a.degree > b.degree)
+      return -1
+
+    return 1
+  })
+
+  return parsedEducation[0]
+}
+
 const compare = (a, b) => {
   if(b.workHere || dayjs(a.endDate).isBefore(b.endDate))
     return 1
@@ -39,6 +61,27 @@ const Rating = ({ rating }) => {
       <div className={classes.first}>
         <Typography variant='h6'>{rating}</Typography>
         <GradeIcon className={classes.rating} color='primary' fontSize='small' />
+      </div>
+      <Divider className={classes.divider} />
+    </>
+  )
+}
+
+const Education = ({ education }) => {
+  const classes = useStyles()
+
+  const interval = education.endDate ? dayjs().month() - dayjs(education.endDate).month() : null
+
+  return (
+    <>
+      <div className={classes.row}>
+        <div className={classes.icon}>
+          <TrendingUpIcon color='primary' fontSize='small' />
+        </div>
+        <div>
+          <Typography className={classes.title} variant='body1'>{education.career} | {education.institutionName}</Typography>
+          <Typography className={classes.subtitle} variant='body1'>{interval ? `Hace ${sufix(interval)}` : ''}</Typography>
+        </div>
       </div>
       <Divider className={classes.divider} />
     </>
@@ -174,12 +217,14 @@ const Company = ({ company }) => {
   )
 }
 
-const Profile = ({ name, rating, ascent, experience, workExperience, rotation, salaryText, action, experiences = [], onCV, slice = 2 }) => {
+const Profile = ({ name, rating, ascent, experience, workExperience, rotation, salaryText, action, experiences = [], educations = [], onCV, slice = 2 }) => {
   const classes = useStyles()
 
-  const parsedExperiences = experiences.filter(({ jobPosition }) => jobPosition).sort(compare)
+  const parsedExperiences = experiences.filter(({ jobPosition, startDate }) => jobPosition && startDate).sort(compare)
 
-  const difference = parsedExperiences.length - slice
+  const difference = experiences.length - slice
+
+  const education = getEducation(educations)
 
   return (
     <Paper className={classes.container} variant='outlined'>
@@ -188,19 +233,22 @@ const Profile = ({ name, rating, ascent, experience, workExperience, rotation, s
         {action}
       </div>
       {
+        education ? <Education education={education} /> : null
+      }
+      {
         rating ? <Rating rating={rating} /> : null
       }
       {
         ascent ? <Ascent count={ascent.count} time={ascent.time} />: null
       }
       {
+        rotation ? <Rotation count={rotation.count} time={rotation.time} /> : null
+      }
+      {
         experience ? <Experience experience={experience} /> : null
       }
       {
         workExperience ? <WorkExperience count={workExperience.count} name={workExperience.name} /> : null
-      }
-      {
-        rotation ? <Rotation count={rotation.count} time={rotation.time} /> : null
       }
       {
         salaryText ? <SalaryText salaryText={salaryText} /> : null

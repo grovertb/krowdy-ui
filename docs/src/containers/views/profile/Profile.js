@@ -26,7 +26,7 @@ const experiences = [ {
   imgUrl     : null,
   jobPosition: 'Agile Coach',
   location   : 'Lima, Perú',
-  startDate  : '2020-03-27T23:50:00.000Z',
+  startDate  : null,
   workHere   : true
 }, {
   __typename : 'Experience',
@@ -43,6 +43,32 @@ const experiences = [ {
   workHere   : false
 } ]
 
+const educations = [ {
+  __typename     : 'Education',
+  _id            : '5fec796a8833623b637a6523',
+  academicArea   : null,
+  career         : 'Educación 2',
+  condition      : 'Completo',
+  degree         : 'Universitario',
+  description    : null,
+  endDate        : '2020-03-30T18:57:44.000Z',
+  imgUrl         : null,
+  institutionName: 'Educación 2',
+  startDate      : '2020-01-30T18:57:42.000Z'
+}, {
+  __typename     : 'Education',
+  _id            : '5fec796a8833623b637a6524',
+  academicArea   : null,
+  career         : 'Educación 1',
+  condition      : 'Estudiando',
+  degree         : 'Técnico',
+  description    : 'Educación 1 Educación 1',
+  endDate        : '2019-03-30T18:57:44.000Z',
+  imgUrl         : null,
+  institutionName: 'Educación 1',
+  startDate      : '2018-01-30T18:57:42.000Z'
+} ]
+
 export default function() {
   return (
     <div style={{ alignItems: 'baseline', display: 'flex', width: 452 }}>
@@ -52,6 +78,7 @@ export default function() {
           count: 2,
           time : 3
         }}
+        educations={educations}
         experience={2}
         experiences={experiences}
         name='Piero Rodríguez'
