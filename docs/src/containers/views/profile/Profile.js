@@ -61,11 +61,23 @@ const educations = [ {
   academicArea   : null,
   career         : 'Educación 1',
   condition      : 'Estudiando',
-  degree         : 'Técnico',
+  degree         : 'Master',
   description    : 'Educación 1 Educación 1',
   endDate        : '2019-03-30T18:57:44.000Z',
   imgUrl         : null,
   institutionName: 'Educación 1',
+  startDate      : '2018-01-30T18:57:42.000Z'
+}, {
+  __typename     : 'Education',
+  _id            : '5fec796a8833623b637a6524',
+  academicArea   : null,
+  career         : 'nuevo',
+  condition      : 'Estudiando',
+  degree         : 'Master',
+  description    : 'nuevo nuevo',
+  endDate        : '2018-03-30T18:57:44.000Z',
+  imgUrl         : null,
+  institutionName: 'nuevo',
   startDate      : '2018-01-30T18:57:42.000Z'
 } ]
 

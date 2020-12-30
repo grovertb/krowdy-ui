@@ -28,10 +28,24 @@ const getEducation = (educations) => {
     return null
 
   const parsedEducation = educations.map(education => ({ ...education, degree: legendDegree[education.degree] })).sort((a, b) => {
-    if(a.degree > b.degree)
-      return -1
+    const n = b.degree - a.degree
+    if(n !== 0)
+      return n
 
-    return 1
+    if(!b.endDate)
+      return 1
+    if(!a.endDate)
+      return 1
+    const o = dayjs(b.endDate).diff(dayjs(a.endDate))
+    if(o !== 0)
+      return o
+
+    if(!b.startDate)
+      return 1
+    if(!a.startDate)
+      return 1
+
+    return dayjs(b.startDate).diff(dayjs(a.startDate))
   })
 
   return parsedEducation[0]
@@ -71,7 +85,7 @@ const Rating = ({ rating }) => {
 const Education = ({ education }) => {
   const classes = useStyles()
 
-  const interval = education.endDate ? dayjs().month() - dayjs(education.endDate).month() : null
+  const interval = education.endDate ? dayjs().diff(dayjs(education.endDate), 'month') : null
 
   return (
     <>
@@ -81,7 +95,7 @@ const Education = ({ education }) => {
         </div>
         <div>
           <Typography className={classes.title} variant='body1'>{education.career} | {education.institutionName}</Typography>
-          <Typography className={classes.subtitle} variant='body1'>{interval ? `Hace ${sufix(interval)}` : ''}</Typography>
+          <Typography className={classes.subtitle} variant='body1'>{education.endDate ? `Hace ${sufix(interval)}` : 'A la fecha'}</Typography>
         </div>
       </div>
       <Divider className={classes.divider} />
@@ -188,12 +202,13 @@ const Company = ({ company }) => {
   const { imgUrl, companyName, workHere, startDate, endDate } = company
   const classes = useStyles()
 
-  const interval = endDate ? dayjs(endDate).month() : dayjs().month() - dayjs(startDate).month()
+  const interval = endDate ? dayjs(endDate).month() : dayjs().diff(dayjs(startDate), 'month')
 
   return (
     <>
       <div className={clsx(classes.experience, {
-        [classes.left]: workHere
+        [classes.left]          : workHere,
+        [classes.experienceLeft]: !workHere
       })}>
         {workHere ? (
           <Dot color='primary' />
@@ -207,9 +222,13 @@ const Company = ({ company }) => {
           </Avatar>
           <div>
             <Typography className={classes.title} variant='body1'>{companyName}</Typography>
-            <Typography className={classes.subtitle} variant='body1'>
-              {sufix(interval)} • {dayjs(startDate).format('MMM YYYY')} - {endDate ? dayjs(endDate).format('MMM YYYY') : 'Actualidad'}
-            </Typography>
+            {
+              startDate ? (
+                <Typography className={classes.subtitle} variant='body1'>
+                  {sufix(interval)} • {dayjs(startDate).format('MMM YYYY')} - {endDate ? dayjs(endDate).format('MMM YYYY') : 'Actualidad'}
+                </Typography>
+              ) : null
+            }
           </div>
         </div>
       </div>
@@ -221,7 +240,7 @@ const Company = ({ company }) => {
 const Profile = ({ name, rating, ascent, experience, workExperience, rotation, salaryText, action, experiences = [], educations = [], onCV, slice = 2 }) => {
   const classes = useStyles()
 
-  const parsedExperiences = experiences.filter(({ jobPosition, startDate }) => jobPosition && startDate).sort(compare)
+  const parsedExperiences = experiences.filter(({ jobPosition }) => jobPosition).sort(compare)
 
   const difference = experiences.length - slice
 
@@ -300,6 +319,9 @@ const useStyles = makeStyles((theme) => ({
     alignItems   : 'center',
     display      : 'flex',
     flexDirection: 'row'
+  },
+  experienceLeft: {
+    marginLeft: theme.spacing(2.5)
   },
   first: {
     alignItems   : 'center',
