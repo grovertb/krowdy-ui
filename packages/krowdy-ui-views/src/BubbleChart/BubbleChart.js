@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
-import { makeStyles, Typography } from '@krowdy-ui/core'
+import { makeStyles, Tooltip, Typography } from '@krowdy-ui/core'
 import Circle from './Circle'
 import Avatar from './Avatar'
 
@@ -21,7 +21,15 @@ const BubbleChart = (props) => {
           {
             skills.map(({ name }, index) => (
               <div className={classes.titleContainer} key={index}>
-                <Typography variant='caption'>{name}</Typography>
+                {!isNaN(skillWidth) ? (
+                  <Tooltip title={name}>
+                    <Typography className={classes.textTitle} variant='caption'>{name}</Typography>
+                  </Tooltip>
+                ): (
+                  <Typography
+                    variant='caption'>{name}</Typography>
+                )}
+
               </div>
             ))
           }
@@ -152,6 +160,11 @@ const useStyles = makeStyles((theme) => ({
     marginLeft    : theme.spacing(2),
     marginRight   : theme.spacing(2.5),
     paddingTop    : theme.spacing(4.75)
+  },
+  textTitle: {
+    overflow    : 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace  : 'nowrap'
   },
   title: {
     marginBottom: theme.spacing(1.25),

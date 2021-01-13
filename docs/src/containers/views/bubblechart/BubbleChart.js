@@ -8,10 +8,10 @@ import {
 const skills = [
   {
     id  : 1,
-    name: 'Figma'
+    name: 'Este es un texto bn pero bn perron, tan largo como no te lo puedes imaginar ... a ver si a ti se te ocurre un texto mas largo :v'
   }, {
     id  : 2,
-    name: 'After Effects'
+    name: 'Este es un texto bn pero bn perron, tan largo como no te lo puedes imaginar ... a ver si a ti se te ocurre un texto mas largo :v ... asi de facil le gane al de arriba'
   },
   {
     id  : 3,
@@ -31,11 +31,11 @@ const candidates = [
     selected       : false,
     skillsCandidate: [
       {
-        name      : 'Figma',
+        name      : 'Este es un texto bn pero bn perron, tan largo como no te lo puedes imaginar ... a ver si a ti se te ocurre un texto mas largo :v',
         scaleOrder: 2,
         value     : 'Principiante'
       }, {
-        name      : 'After Effects',
+        name      : 'Este es un texto bn pero bn perron, tan largo como no te lo puedes imaginar ... a ver si a ti se te ocurre un texto mas largo :v ... asi de facil le gane al de arriba',
         scaleOrder: 3,
         value     : 'Intermedio'
       },
@@ -59,11 +59,11 @@ const candidates = [
     selected       : true,
     skillsCandidate: [
       {
-        name      : 'Figma',
+        name      : 'Este es un texto bn pero bn perron, tan largo como no te lo puedes imaginar ... a ver si a ti se te ocurre un texto mas largo :v',
         scaleOrder: 1,
         value     : 'Principiante'
       }, {
-        name      : 'After Effects',
+        name      : 'Este es un texto bn pero bn perron, tan largo como no te lo puedes imaginar ... a ver si a ti se te ocurre un texto mas largo :v ... asi de facil le gane al de arriba',
         scaleOrder: 3,
         value     : 'Intermedio'
       },
@@ -87,11 +87,11 @@ const candidates = [
     selected       : false,
     skillsCandidate: [
       {
-        name      : 'Figma',
+        name      : 'Este es un texto bn pero bn perron, tan largo como no te lo puedes imaginar ... a ver si a ti se te ocurre un texto mas largo :v',
         scaleOrder: 1,
         value     : 'Principiante'
       }, {
-        name      : 'After Effects',
+        name      : 'Este es un texto bn pero bn perron, tan largo como no te lo puedes imaginar ... a ver si a ti se te ocurre un texto mas largo :v ... asi de facil le gane al de arriba',
         scaleOrder: 3,
         value     : 'Intermedio'
       },
@@ -115,11 +115,11 @@ const candidates = [
     selected       : false,
     skillsCandidate: [
       {
-        name      : 'Figma',
+        name      : 'Este es un texto bn pero bn perron, tan largo como no te lo puedes imaginar ... a ver si a ti se te ocurre un texto mas largo :v',
         scaleOrder: 1,
         value     : 'Principiante'
       }, {
-        name      : 'After Effects',
+        name      : 'Este es un texto bn pero bn perron, tan largo como no te lo puedes imaginar ... a ver si a ti se te ocurre un texto mas largo :v ... asi de facil le gane al de arriba',
         scaleOrder: 3,
         value     : 'Intermedio'
       },
@@ -143,7 +143,7 @@ const candidates = [
     selected       : false,
     skillsCandidate: [
       {
-        name      : 'Figma',
+        name      : 'Este es un texto bn pero bn perron, tan largo como no te lo puedes imaginar ... a ver si a ti se te ocurre un texto mas largo :v',
         scaleOrder: 2,
         value     : 'Principiante'
       },
@@ -167,7 +167,7 @@ const candidates = [
     selected       : false,
     skillsCandidate: [
       {
-        name      : 'Figma',
+        name      : 'Este es un texto bn pero bn perron, tan largo como no te lo puedes imaginar ... a ver si a ti se te ocurre un texto mas largo :v',
         scaleOrder: 2,
         value     : 'Principiante'
       },
@@ -191,7 +191,7 @@ const candidates = [
     selected       : false,
     skillsCandidate: [
       {
-        name      : 'Figma',
+        name      : 'Este es un texto bn pero bn perron, tan largo como no te lo puedes imaginar ... a ver si a ti se te ocurre un texto mas largo :v',
         scaleOrder: 2,
         value     : 'Principiante'
       },
@@ -215,7 +215,7 @@ const candidates = [
     selected       : false,
     skillsCandidate: [
       {
-        name      : 'Figma',
+        name      : 'Este es un texto bn pero bn perron, tan largo como no te lo puedes imaginar ... a ver si a ti se te ocurre un texto mas largo :v',
         scaleOrder: 2,
         value     : 'Principiante'
       },
@@ -239,7 +239,7 @@ const candidates = [
     selected       : false,
     skillsCandidate: [
       {
-        name      : 'Figma',
+        name      : 'Este es un texto bn pero bn perron, tan largo como no te lo puedes imaginar ... a ver si a ti se te ocurre un texto mas largo :v',
         scaleOrder: 2,
         value     : 'Principiante'
       },
@@ -263,7 +263,7 @@ const candidates = [
     selected       : false,
     skillsCandidate: [
       {
-        name      : 'Figma',
+        name      : 'Este es un texto bn pero bn perron, tan largo como no te lo puedes imaginar ... a ver si a ti se te ocurre un texto mas largo :v',
         scaleOrder: 2,
         value     : 'Principiante'
       },
@@ -287,7 +287,7 @@ const candidates = [
     selected       : false,
     skillsCandidate: [
       {
-        name      : 'Figma',
+        name      : 'Este es un texto bn pero bn perron, tan largo como no te lo puedes imaginar ... a ver si a ti se te ocurre un texto mas largo :v',
         scaleOrder: 2,
         value     : 'Principiante'
       },
