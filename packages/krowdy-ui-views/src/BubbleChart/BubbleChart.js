@@ -22,7 +22,7 @@ const BubbleChart = (props) => {
             skills.map(({ name }, index) => (
               <div className={classes.titleContainer} key={index}>
                 {!isNaN(skillWidth) ? (
-                  <Tooltip title={name}>
+                  <Tooltip placement='right' title={name}>
                     <Typography className={classes.textTitle} variant='caption'>{name.length >= skillWidth / 3 ? `${name.slice(0, skillWidth / 3)}...`: name }</Typography>
                   </Tooltip>
                 ): (
