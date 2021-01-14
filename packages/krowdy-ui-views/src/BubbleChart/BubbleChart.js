@@ -22,8 +22,8 @@ const BubbleChart = (props) => {
             skills.map(({ name }, index) => (
               <div className={classes.titleContainer} key={index}>
                 {!isNaN(skillWidth) ? (
-                  <Tooltip title={name}>
-                    <Typography className={classes.textTitle} variant='caption'>{name}</Typography>
+                  <Tooltip placement='right' title={name}>
+                    <Typography className={classes.textTitle} variant='caption'>{name.length >= skillWidth / 3 ? `${name.slice(0, skillWidth / 3)}...`: name }</Typography>
                   </Tooltip>
                 ): (
                   <Typography
@@ -162,9 +162,10 @@ const useStyles = makeStyles((theme) => ({
     paddingTop    : theme.spacing(4.75)
   },
   textTitle: {
-    overflow    : 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace  : 'nowrap'
+    '-webkit-box-orient': 'vertical',
+    '-webkit-line-clamp': 2,
+    display             : '-webkit-box',
+    overflow            : 'hidden'
   },
   title: {
     marginBottom: theme.spacing(1.25),
