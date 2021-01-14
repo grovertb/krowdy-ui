@@ -8,10 +8,10 @@ import {
 const skills = [
   {
     id  : 1,
-    name: 'Este es un texto bn pero bn perron, tan largo como no te lo puedes imaginar ... a ver si a ti se te ocurre un texto mas largo :v'
+    name: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using "Content here, content here", making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for'
   }, {
     id  : 2,
-    name: 'Este es un texto bn pero bn perron, tan largo como no te lo puedes imaginar ... a ver si a ti se te ocurre un texto mas largo :v ... asi de facil le gane al de arriba'
+    name: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using "Content here, content here", making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for ... asi de facil le gane al de arriba'
   },
   {
     id  : 3,
@@ -31,11 +31,11 @@ const candidates = [
     selected       : false,
     skillsCandidate: [
       {
-        name      : 'Este es un texto bn pero bn perron, tan largo como no te lo puedes imaginar ... a ver si a ti se te ocurre un texto mas largo :v',
+        name      : 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using "Content here, content here", making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for',
         scaleOrder: 2,
         value     : 'Principiante'
       }, {
-        name      : 'Este es un texto bn pero bn perron, tan largo como no te lo puedes imaginar ... a ver si a ti se te ocurre un texto mas largo :v ... asi de facil le gane al de arriba',
+        name      : 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using "Content here, content here", making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for ... asi de facil le gane al de arriba',
         scaleOrder: 3,
         value     : 'Intermedio'
       },
@@ -59,11 +59,11 @@ const candidates = [
     selected       : true,
     skillsCandidate: [
       {
-        name      : 'Este es un texto bn pero bn perron, tan largo como no te lo puedes imaginar ... a ver si a ti se te ocurre un texto mas largo :v',
+        name      : 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using "Content here, content here", making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for',
         scaleOrder: 1,
         value     : 'Principiante'
       }, {
-        name      : 'Este es un texto bn pero bn perron, tan largo como no te lo puedes imaginar ... a ver si a ti se te ocurre un texto mas largo :v ... asi de facil le gane al de arriba',
+        name      : 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using "Content here, content here", making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for ... asi de facil le gane al de arriba',
         scaleOrder: 3,
         value     : 'Intermedio'
       },
@@ -87,11 +87,11 @@ const candidates = [
     selected       : false,
     skillsCandidate: [
       {
-        name      : 'Este es un texto bn pero bn perron, tan largo como no te lo puedes imaginar ... a ver si a ti se te ocurre un texto mas largo :v',
+        name      : 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using "Content here, content here", making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for',
         scaleOrder: 1,
         value     : 'Principiante'
       }, {
-        name      : 'Este es un texto bn pero bn perron, tan largo como no te lo puedes imaginar ... a ver si a ti se te ocurre un texto mas largo :v ... asi de facil le gane al de arriba',
+        name      : 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using "Content here, content here", making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for ... asi de facil le gane al de arriba',
         scaleOrder: 3,
         value     : 'Intermedio'
       },
@@ -115,11 +115,11 @@ const candidates = [
     selected       : false,
     skillsCandidate: [
       {
-        name      : 'Este es un texto bn pero bn perron, tan largo como no te lo puedes imaginar ... a ver si a ti se te ocurre un texto mas largo :v',
+        name      : 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using "Content here, content here", making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for',
         scaleOrder: 1,
         value     : 'Principiante'
       }, {
-        name      : 'Este es un texto bn pero bn perron, tan largo como no te lo puedes imaginar ... a ver si a ti se te ocurre un texto mas largo :v ... asi de facil le gane al de arriba',
+        name      : 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using "Content here, content here", making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for ... asi de facil le gane al de arriba',
         scaleOrder: 3,
         value     : 'Intermedio'
       },
@@ -143,7 +143,7 @@ const candidates = [
     selected       : false,
     skillsCandidate: [
       {
-        name      : 'Este es un texto bn pero bn perron, tan largo como no te lo puedes imaginar ... a ver si a ti se te ocurre un texto mas largo :v',
+        name      : 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using "Content here, content here", making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for',
         scaleOrder: 2,
         value     : 'Principiante'
       },
@@ -167,7 +167,7 @@ const candidates = [
     selected       : false,
     skillsCandidate: [
       {
-        name      : 'Este es un texto bn pero bn perron, tan largo como no te lo puedes imaginar ... a ver si a ti se te ocurre un texto mas largo :v',
+        name      : 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using "Content here, content here", making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for',
         scaleOrder: 2,
         value     : 'Principiante'
       },
@@ -191,7 +191,7 @@ const candidates = [
     selected       : false,
     skillsCandidate: [
       {
-        name      : 'Este es un texto bn pero bn perron, tan largo como no te lo puedes imaginar ... a ver si a ti se te ocurre un texto mas largo :v',
+        name      : 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using "Content here, content here", making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for',
         scaleOrder: 2,
         value     : 'Principiante'
       },
@@ -215,7 +215,7 @@ const candidates = [
     selected       : false,
     skillsCandidate: [
       {
-        name      : 'Este es un texto bn pero bn perron, tan largo como no te lo puedes imaginar ... a ver si a ti se te ocurre un texto mas largo :v',
+        name      : 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using "Content here, content here", making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for',
         scaleOrder: 2,
         value     : 'Principiante'
       },
@@ -239,7 +239,7 @@ const candidates = [
     selected       : false,
     skillsCandidate: [
       {
-        name      : 'Este es un texto bn pero bn perron, tan largo como no te lo puedes imaginar ... a ver si a ti se te ocurre un texto mas largo :v',
+        name      : 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using "Content here, content here", making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for',
         scaleOrder: 2,
         value     : 'Principiante'
       },
@@ -263,7 +263,7 @@ const candidates = [
     selected       : false,
     skillsCandidate: [
       {
-        name      : 'Este es un texto bn pero bn perron, tan largo como no te lo puedes imaginar ... a ver si a ti se te ocurre un texto mas largo :v',
+        name      : 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using "Content here, content here", making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for',
         scaleOrder: 2,
         value     : 'Principiante'
       },
@@ -287,7 +287,7 @@ const candidates = [
     selected       : false,
     skillsCandidate: [
       {
-        name      : 'Este es un texto bn pero bn perron, tan largo como no te lo puedes imaginar ... a ver si a ti se te ocurre un texto mas largo :v',
+        name      : 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using "Content here, content here", making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for',
         scaleOrder: 2,
         value     : 'Principiante'
       },
@@ -309,7 +309,7 @@ export default function() {
   const classes = useStyles()
 
   return (
-    <div style={{ width: 452 }}>
+    <div>
       <Paper className={classes.container} variant='outlined'>
         <div style={{
           width: '100%'
@@ -334,6 +334,21 @@ export default function() {
             max={4}
             skills={skills}
             skillWidth={200} />
+        </div>
+      </Paper>
+      <Paper className={classes.container} variant='outlined'>
+        <div style={{
+          width: '100%'
+        }}>
+          <div className={classes.subSection}>
+            <Typography variant='h6'>Conocimientos</Typography>
+            <Tooltip placement='top' title='tooltip'><span><IconButton disabled size='small'><InfoIcon fontSize='small' /></IconButton></span></Tooltip>
+          </div>
+          <BubbleChart
+            candidates={candidates}
+            max={4}
+            skills={skills}
+            skillWidth={400} />
         </div>
       </Paper>
     </div>
