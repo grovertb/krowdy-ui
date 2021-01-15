@@ -89,14 +89,7 @@ export default function () {
     setFilters(ref.current.spliceCandidateInFilters(candidate, 'exclude'))
   }
 
-  const _handleDeleteCandidate = useCallback((candidateId, candidateFilterType) => {
-    console.log('candidateFilterType', candidateFilterType)
-    console.log('candidateId', candidateId)
-  }, [])
-
   const _handleChangeFilterCandidate = useCallback((candidateGroupFilterType, newCandidates) => {
-    console.log('candidateGroupFilterType', candidateGroupFilterType)
-    console.log('newCandidates', newCandidates)
     if(candidateGroupFilterType === 'excluded') setExcludedCandidates(newCandidates)
     else setIncludedCandidates(newCandidates)
   }, [])
@@ -118,7 +111,6 @@ export default function () {
         loadMoreCategoryItems={_handleLoadMoreCategoryItems}
         onChangeFilterCandidate={_handleChangeFilterCandidate}
         onChangeFilters={_handleChangeFilters}
-        onDeleteCandidate={_handleDeleteCandidate}
         onSelectCategoryFilter={_handleSelectCategoryFilter}
         ref={ref}
         title='Todos las compras'
