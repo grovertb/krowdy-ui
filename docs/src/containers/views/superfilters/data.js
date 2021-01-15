@@ -21,49 +21,28 @@ export const candidates = [ {
   lastName : 'Rodriguez'
 } ]
 
+// {
+//   children: [ {
+//     _id          : 131312,
+//     key          : '_id',
+//     label        : 'Candidato',
+//     operator     : '$nin',
+//     operatorLabel: 'no es',
+//     optionIndex  : 1,
+//     reference    : null,
+//     type         : 'list',
+//     value        : [ {
+//       _id  : 3,
+//       count: null,
+//       label: 'Mario'
+//     } ]
+//   } ],
+//   key     : '2',
+//   operator: 'none',
+//   type    : 'exclude'
+// },
+
 export const filtersData = [ {
-  children: [ {
-    _id          : 131344,
-    key          : '_id',
-    label        : 'Candidato',
-    operator     : '$in',
-    operatorLabel: 'es',
-    optionIndex  : 0,
-    reference    : null,
-    type         : 'list',
-    value        : [ {
-      _id  : 1,
-      count: null,
-      label: 'Luis Alfredo'
-    }, {
-      _id  : 2,
-      count: null,
-      label: 'Anderson'
-    } ]
-  } ],
-  key     : '1',
-  operator: 'none',
-  type    : 'include'
-}, {
-  children: [ {
-    _id          : 131312,
-    key          : '_id',
-    label        : 'Candidato',
-    operator     : '$nin',
-    operatorLabel: 'no es',
-    optionIndex  : 1,
-    reference    : null,
-    type         : 'list',
-    value        : [ {
-      _id  : 3,
-      count: null,
-      label: 'Mario'
-    } ]
-  } ],
-  key     : '2',
-  operator: 'none',
-  type    : 'exclude'
-}, {
   children: [
     {
       _id     : '5f2c81f03d3b642268b6c52d',

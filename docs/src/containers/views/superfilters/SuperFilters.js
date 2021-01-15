@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 import { makeStyles, FormControlLabel, Checkbox, IconButton } from '@krowdy-ui/core'
 import { SuperFilters, CardCandidateRanking } from '@krowdy-ui/views'
 import { filtersData, categoryFilters, filterTypes, candidates } from './data'
@@ -41,6 +41,17 @@ export default function () {
   const ref = useRef()
 
   const [ filters, setFilters ] = useState(filtersData)
+  const [ includedCandidates, setIncludedCandidates ] = useState([ {
+    _id  : 1,
+    label: 'Luis Alfredo'
+  }, {
+    _id  : 2,
+    label: 'Anderson'
+  }  ])
+  const [ excludedCandidates, setExcludedCandidates ] = useState([ {
+    _id  : 2,
+    label: 'Anderson'
+  } ])
 
   // const [ filters, setFilters ] = useState([])
 
@@ -71,12 +82,24 @@ export default function () {
   const _handleClickIncludeCandidate = (candidate) => (e) => {
     e.stopPropagation()
 
-    setFilters(filters => ref.current.spliceCandidateInFilters(filters, candidate, 'include'))
+    setFilters(ref.current.spliceCandidateInFilters(candidate, 'include'))
   }
   const _handleClickExcludeCandidate = (candidate) => (e) => {
     e.stopPropagation()
-    setFilters(filters => ref.current.spliceCandidateInFilters(filters, candidate, 'exclude'))
+    setFilters(ref.current.spliceCandidateInFilters(candidate, 'exclude'))
   }
+
+  const _handleDeleteCandidate = useCallback((candidateId, candidateFilterType) => {
+    console.log('candidateFilterType', candidateFilterType)
+    console.log('candidateId', candidateId)
+  }, [])
+
+  const _handleChangeFilterCandidate = useCallback((candidateGroupFilterType, newCandidates) => {
+    console.log('candidateGroupFilterType', candidateGroupFilterType)
+    console.log('newCandidates', newCandidates)
+    if(candidateGroupFilterType === 'excluded') setExcludedCandidates(newCandidates)
+    else setIncludedCandidates(newCandidates)
+  }, [])
 
   return (
     <div style={{ display: 'flex', maxHeight: 700, width: '100%' }}>
@@ -85,13 +108,17 @@ export default function () {
         classes={{
           root: classes.root
         }}
+        excludedCandidates={excludedCandidates}
         filterGroups={categoryFilters}
         filters={filters}
         filterTypes={filterTypes}
         hasNextPage={categoryItems.length < 100 ? true : false}
         headerHomeComponent={<HeaderHomeComponent />}
+        includedCandidates={includedCandidates}
         loadMoreCategoryItems={_handleLoadMoreCategoryItems}
+        onChangeFilterCandidate={_handleChangeFilterCandidate}
         onChangeFilters={_handleChangeFilters}
+        onDeleteCandidate={_handleDeleteCandidate}
         onSelectCategoryFilter={_handleSelectCategoryFilter}
         ref={ref}
         title='Todos las compras'

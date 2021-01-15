@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useImperativeHandle, forwardRef } from 'react'
+import React, { useCallback, useState } from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import AddIcon from '@material-ui/icons/Add'
@@ -124,7 +124,12 @@ const Views = {
   }
 }
 
-const SuperFilters = forwardRef((props, ref) => {
+const CandidateGroupFilterType = {
+  Excluded: 'excluded',
+  Included: 'included'
+}
+
+const SuperFilters = (props) => {
   const {
     classes,
     title = 'Todos las compras',
@@ -141,9 +146,9 @@ const SuperFilters = forwardRef((props, ref) => {
     dots = false,
     uniqueFilter = false,
     totalItems,
-    candidateKeyFilter = '_id',
-    candidatePathFilter = '_id',
-    candidateFilterType = 'list'
+    onChangeFilterCandidate = () => {},
+    excludedCandidates = [],
+    includedCandidates = []
   }  = props
 
   const [ groupFilterCurrent, setGroupFilterCurrent ] = useState()
@@ -151,7 +156,7 @@ const SuperFilters = forwardRef((props, ref) => {
   const [ filterSelected, setFilterSelected ] = useState()
   const [ filterToEdit, setFilterToEdit ] = useState()
 
-  const addFilter = (filter) => {
+  const addFilter = useCallback((filter) => {
     onChangeFilters(filters
       .map((groupFilter) => {
         if(groupFilter.key !== groupFilterCurrent.key) return groupFilter
@@ -162,9 +167,9 @@ const SuperFilters = forwardRef((props, ref) => {
         })
       })
     )
-  }
+  }, [ filters, groupFilterCurrent.key, onChangeFilters ])
 
-  const deepUpdate = (arr, { _id, ...updatedItem } ) => arr.map(item => {
+  const deepUpdate = useCallback((arr, { _id, ...updatedItem } ) => arr.map(item => {
     if(item._id === _id)
       return Object.assign({}, item, updatedItem)
 
@@ -175,9 +180,9 @@ const SuperFilters = forwardRef((props, ref) => {
       }
 
     return item
-  })
+  }), [])
 
-  const updateFilter = (filter) => {
+  const updateFilter = useCallback((filter) => {
     const updatedFilters = deepUpdate(groupFilterCurrent.children, filter)
     onChangeFilters(filters
       .map((groupFilter) => {
@@ -188,20 +193,14 @@ const SuperFilters = forwardRef((props, ref) => {
           children: updatedFilters
         })
       })
-      .filter(({ children, type }) =>
-        type === 'default' ||
-        (
-          ![ 'default' ].includes(type) &&
-          children.length &&
-          children.every(({ value }) =>value.length)
-        )
-      )
     )
-  }
+  }, [ deepUpdate, filters, groupFilterCurrent.children, groupFilterCurrent.key, onChangeFilters ])
 
   // Aqui es cuando se agrega un filtro
-  const _handleClickApplyFilters = (filter) => {
-    if(filters.some(({ key }) => key === groupFilterCurrent.key ))
+  const _handleClickApplyFilters = useCallback((filter) => {
+    if(Object.values(CandidateGroupFilterType).includes(groupFilterCurrent.key))
+      onChangeFilterCandidate(groupFilterCurrent.key, filter.value)
+    else if(filters.some(({ key }) => key === groupFilterCurrent.key ))
       if(filterToEdit) {
         // Exists, so update it
         updateFilter(filter)
@@ -219,19 +218,19 @@ const SuperFilters = forwardRef((props, ref) => {
 
     goToView(Views.HOME)
     setGroupFilterCurrent(null)
-  }
+  }, [ addFilter, filterToEdit, filters, groupFilterCurrent.key, onChangeFilterCandidate, onChangeFilters, updateFilter ])
 
-  const _handleClickFilterListItem = (item) => {
+  const _handleClickFilterListItem = useCallback((item) => {
     setFilterSelected(item)
     goToView(Views.FILTER_CONFIG)
-  }
+  }, [])
 
-  const _handleClickAddFilter = (groupFilter) => () => {
+  const _handleClickAddFilter = useCallback((groupFilter) => () => {
     setGroupFilterCurrent(groupFilter)
     goToView(Views.FILTERS_SEARCH)
-  }
+  }, [])
 
-  const _handleClickAddGroupFilter = () => {
+  const _handleClickAddGroupFilter = useCallback(() => {
     setGroupFilterCurrent({
       children: [],
       key     : mongoObjectId(),
@@ -239,26 +238,21 @@ const SuperFilters = forwardRef((props, ref) => {
       type    : 'default'
     })
     goToView(Views.FILTERS_SEARCH)
-  }
-  const _handleClickDeleteGroupFilter = (groupFilterKey) => () => {
+  }, [])
+
+  const _handleClickDeleteGroupFilter = useCallback((groupFilterKey) => () => {
     onChangeFilters(filters.filter((groupFilter) => groupFilter.key !== groupFilterKey))
-  }
+  }, [ filters, onChangeFilters ])
 
-  const _handleClickEditFilter = (groupFilter) => (appliedFilter) => {
-    setGroupFilterCurrent(groupFilter)
-    setFilterToEdit(appliedFilter)
-    goToView(Views.FILTER_CONFIG)
-  }
-
-  const _handleClickBack = () => {
+  const _handleClickBack = useCallback(() => {
     if(view.backIndex) {
       goToView(Views[view.backIndex])
       setFilterToEdit(null)
       if(view.backIndex === 'HOME') setGroupFilterCurrent(null)
     }
-  }
+  }, [ view.backIndex ])
 
-  const _handleChangeFilterTree = groupFilterKey => treeFilters => {
+  const _handleChangeFilterTree = useCallback(groupFilterKey => treeFilters => {
     onChangeFilters(filters
       .map((groupFilter) => {
         if(groupFilterKey !== groupFilter.key) return groupFilter
@@ -270,68 +264,25 @@ const SuperFilters = forwardRef((props, ref) => {
       })
       .filter(({ children }) => children.length)
     )
-  }
+  }, [ filters, onChangeFilters ])
 
-  useImperativeHandle(ref, () =>  ({
-    spliceCandidateInFilters: (filters, candidate, groupFilterType) => {
-      const optionIndex = Number(groupFilterType === 'exclude')
+  const _handleClickEditFilter = useCallback((groupFilter) => (appliedFilter) => {
+    setGroupFilterCurrent(groupFilter)
+    setFilterToEdit(appliedFilter)
+    goToView(Views.FILTER_CONFIG)
+  }, [])
 
-      const includeFilterType = filterTypes.find(({ type }) => type === candidateFilterType)
+  const _handleChangeFilterCandidates = useCallback((candidateGroupFilterType) => () => {
+    onChangeFilterCandidate(candidateGroupFilterType, [])
+  }, [ onChangeFilterCandidate ])
 
-      const operatorLabel = includeFilterType.options[optionIndex].label
-      const operator = includeFilterType.options[optionIndex].operator
-
-      if(filters.some((groupFilter) => groupFilter.type === groupFilterType))
-        return filters.map((groupFilter) => {
-          if(groupFilter.type !== groupFilterType) return groupFilter
-
-          return ({
-            ...groupFilter,
-            children: (groupFilter.children || []).map((filter) => {
-              const { key, value } = filter
-              if(key !== candidateKeyFilter || value.some(({ _id }) => _id === candidate[candidatePathFilter])) return filter
-
-              return ({
-                ...filter,
-                value: value.concat({
-                  _id  : candidate[candidatePathFilter],
-                  count: null,
-                  label: candidate.firstName || candidate.email
-                })
-              })
-            })
-          })
-        })
-
-      return filters.concat({
-        children: [ {
-          key  : candidateKeyFilter,
-          label: 'Candidato',
-          operator,
-          operatorLabel,
-          optionIndex,
-          type : 'list',
-          value: [ {
-            _id  : candidate[candidatePathFilter],
-            count: null,
-            label: candidate.firstName || candidate.email
-          } ]
-        } ],
-        key     : generateRandomId(),
-        operator: 'none',
-        type    : groupFilterType
-      })
-    }
-  }))
-
-  const defaultFilters = useMemo(() => filters
-    .filter(({ type }) => type === 'default'), [ filters ])
-
-  const includeFilters = useMemo(() => filters
-    .filter(({ type }) => type === 'include'), [ filters ])
-
-  const excludeFilters = useMemo(() => filters
-    .filter(({ type }) => type === 'exclude'), [ filters ])
+  const _handleClickEditFilterCandidates = useCallback((candidateGroupFilterType) => (treeFilters) => {
+    setGroupFilterCurrent({
+      key: candidateGroupFilterType
+    })
+    setFilterToEdit(treeFilters)
+    goToView(Views.FILTER_CONFIG)
+  }, [])
 
   return (
     <Card className={classes.root} variant='outlined'>
@@ -362,53 +313,67 @@ const SuperFilters = forwardRef((props, ref) => {
           index={Views.HOME.index}
           value={view.index}>
           {
-            filters.length === 0 ? HeaderHomeComponent : (
-              <div className={clsx(classes.flex, classes.spaceBetween)}>
-                <IconButton color='primary' size='small'>
-                  <AddToPhotosIcon fontSize='small' onClick={_handleClickAddGroupFilter} />
-                </IconButton>
-                { !isNaN(totalItems) ? (
-                  <div className={classes.flex}>
-                    <FaceIcon color='disabled' />
-                    <Typography variant='body1'>
-                      {totalItems} resultado{totalItems > 1 ? 's': ''}
-                    </Typography>
-                  </div>
-                ): null}
-
-              </div>
-            )
+            filters.length === 0 ? HeaderHomeComponent : null
           }
+          <div className={clsx(classes.flex, classes.spaceBetween)}>
+            <IconButton color='primary' size='small'>
+              <AddToPhotosIcon fontSize='small' onClick={_handleClickAddGroupFilter} />
+            </IconButton>
+            { !isNaN(totalItems) ? (
+              <div className={classes.flex}>
+                <FaceIcon color='disabled' />
+                <Typography variant='body1'>
+                  {totalItems} resultado{totalItems > 1 ? 's': ''}
+                </Typography>
+              </div>
+            ): null}
+          </div>
           <div className={clsx(classes.marginTop, classes.treeContainer)}>
-            {excludeFilters
-              .map((groupFilter, index) => (
-                <div key={`GroupFilterExclude-${index}`}>
-                  <div className={classes.groupFilterContainerBlock}>
-                    <FiltersTree
-                      dots={dots}
-                      onChange={_handleChangeFilterTree(groupFilter.key)}
-                      onClickEdit={_handleClickEditFilter(groupFilter)}
-                      treeData={groupFilter.children} />
-                  </div>
+            {excludedCandidates.length ? (
+              <>
+                <div className={classes.groupFilterContainerBlock}>
+                  <FiltersTree
+                    dots={dots}
+                    onChange={_handleChangeFilterCandidates(CandidateGroupFilterType.Excluded)}
+                    onClickEdit={_handleClickEditFilterCandidates(CandidateGroupFilterType.Excluded)}
+                    treeData={[ {
+                      _id          : generateRandomId(),
+                      key          : '_id',
+                      label        : 'Candidato',
+                      operator     : '$nin',
+                      operatorLabel: 'no es',
+                      optionIndex  : 1,
+                      reference    : null,
+                      type         : 'list',
+                      value        : excludedCandidates
+                    } ]} />
                 </div>
-              ))
-            }
-            {Boolean(excludeFilters.length) && <Divider style={{ margin: '12px 0' }} /> }
-            {includeFilters
-              .map((groupFilter, index) => (
-                <div key={`GroupFilterInclude-${index}`}>
-                  <div className={classes.groupFilterContainer}>
-                    <FiltersTree
-                      dots={dots}
-                      onChange={_handleChangeFilterTree(groupFilter.key)}
-                      onClickEdit={_handleClickEditFilter(groupFilter)}
-                      treeData={groupFilter.children} />
-                  </div>
-                  { index < includeFilters.length && <DividerWithText title={'or'} />}
+                { includedCandidates.length || filters.length ? <Divider className={classes.marginTop} />: null}
+              </>
+            ): null}
+            {includedCandidates.length ? (
+              <>
+                <div className={clsx(classes.marginTop, classes.groupFilterContainer)}>
+                  <FiltersTree
+                    dots={dots}
+                    onChange={_handleChangeFilterCandidates(CandidateGroupFilterType.Included)}
+                    onClickEdit={_handleClickEditFilterCandidates(CandidateGroupFilterType.Included)}
+                    treeData={[ {
+                      _id          : generateRandomId(),
+                      key          : '_id',
+                      label        : 'Candidato',
+                      operator     : '$in',
+                      operatorLabel: 'es',
+                      optionIndex  : 0,
+                      reference    : null,
+                      type         : 'list',
+                      value        : includedCandidates
+                    } ]} />
                 </div>
-              ))
-            }
-            {defaultFilters
+                { filters.length ? <DividerWithText title={'or'} />: null}
+              </>
+            ): null}
+            {filters
               .map((groupFilter, index) => (
                 <div key={`GroupFilterDefault-${index}`}>
                   <div className={classes.groupFilterContainer}>
@@ -437,7 +402,7 @@ const SuperFilters = forwardRef((props, ref) => {
                       )}
                     </div>
                   </div>
-                  { (index + 1) < defaultFilters.length && <DividerWithText title={'or'} />}
+                  { (index + 1) < filters.length && <DividerWithText title={'or'} />}
                 </div>
               ))}
           </div>
@@ -470,17 +435,21 @@ const SuperFilters = forwardRef((props, ref) => {
       </CardContent>
     </Card>
   )
-})
+}
 
 SuperFilters.propTypes = {
-  candidateFilterType: PropTypes.string,
-  candidateKeyFilter : PropTypes.string,
-  candidatePathFilter: PropTypes.string,
-  categoryItems      : PropTypes.arrayOf(PropTypes.shape({
+  categoryItems: PropTypes.arrayOf(PropTypes.shape({
     _id  : PropTypes.string.isRequired,
     label: PropTypes.string.isRequired
   })).isRequired,
-  classes     : PropTypes.object,
+  classes           : PropTypes.object,
+  excludedCandidates: PropTypes.arrayOf(PropTypes.shape({
+    _id: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
+    ]).isRequired,
+    label: PropTypes.string
+  })),
   filterGroups: PropTypes.arrayOf(
     PropTypes.shape({
       _id     : PropTypes.string.isRequired,
@@ -526,17 +495,23 @@ SuperFilters.propTypes = {
       ])
     })
   ),
-  hasNextPage           : PropTypes.bool,
-  headerHomeComponent   : PropTypes.node,
-  listWidth             : PropTypes.number,
-  loadMoreCategoryItems : PropTypes.func,
-  onChangeFilters       : PropTypes.func.isRequired,
-  onFetchFilterGroups   : PropTypes.func,
-  onSelectCategoryFilter: PropTypes.func,
-  title                 : PropTypes.string.isRequired,
-  uniqueFilter          : PropTypes.bool
+  hasNextPage        : PropTypes.bool,
+  headerHomeComponent: PropTypes.node,
+  includedCandidates : PropTypes.arrayOf(PropTypes.shape({
+    _id: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
+    ]).isRequired,
+    label: PropTypes.string
+  })),
+  listWidth              : PropTypes.number,
+  loadMoreCategoryItems  : PropTypes.func,
+  onChangeFilterCandidate: PropTypes.func,
+  onChangeFilters        : PropTypes.func.isRequired,
+  onFetchFilterGroups    : PropTypes.func,
+  onSelectCategoryFilter : PropTypes.func,
+  title                  : PropTypes.string.isRequired,
+  uniqueFilter           : PropTypes.bool
 }
-
-SuperFilters.muiName = 'KrowdySuperFilters'
 
 export default withStyles(styles, { name: 'SuperFilters' })(SuperFilters)
