@@ -1,16 +1,16 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useImperativeHandle, forwardRef } from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import AddIcon from '@material-ui/icons/Add'
 import { IconButton, Divider } from '@material-ui/core'
 import ArrowBackIcon from '@material-ui/icons/ArrowBackIos'
-import { Button, Card, CardContent, CardHeader, TabPanel, withStyles } from '@krowdy-ui/core'
+import { Button, Card, CardContent, CardHeader, TabPanel, Typography, withStyles } from '@krowdy-ui/core'
 import FiltersTree from './FiltersTree'
 import FilterConfig from './FilterConfig'
 import FiltersList from './FiltersList'
 import DividerWithText from './DividerWithText'
 import { mongoObjectId } from '../utils/mongoObjectId'
-import { Delete as DeleteIcon } from '@material-ui/icons'
+import { AddToPhotos as AddToPhotosIcon, Delete as DeleteIcon, Face as FaceIcon } from '@material-ui/icons'
 
 export const styles = (theme) => ({
   backIcon: {
@@ -45,6 +45,10 @@ export const styles = (theme) => ({
     display      : 'flex',
     flexDirection: 'column'
   },
+  flex: {
+    alignItems: 'center',
+    display   : 'flex'
+  },
   groupFilterContainer: {
     '&:hover': {
       backgroundColor: theme.palette.primary[50],
@@ -67,21 +71,20 @@ export const styles = (theme) => ({
     overflowX      : 'auto',
     padding        : theme.spacing(0.5)
   },
+  marginTop: {
+    marginTop: theme.spacing(1.5)
+  },
   noPadding: {
     padding: 0
   },
   root: {
-    '& *, & *::after, & *::before': {
-      boxSizing: 'content-box'
-    },
     display : 'flex',
     flexFlow: 'column',
     height  : '100%'
   },
-  rootFilerConfig: {
-    '& *, & *::after, & *::before': {
-      boxSizing: 'border-box'
-    }
+  spaceBetween: {
+    justifyContent: 'space-between',
+    width         : '100%'
   },
   titleBack: {
     fontSize: 14
@@ -92,6 +95,9 @@ export const styles = (theme) => ({
     height    : 20
   },
   treeContainer: {
+    '& *, & *::after, & *::before': {
+      boxSizing: 'content-box'
+    },
     overflowY: 'scroll'
   },
   viewContainer: {
@@ -117,7 +123,7 @@ const Views = {
   }
 }
 
-const SuperFilters = (props) => {
+const SuperFilters = forwardRef((props, ref) => {
   const {
     classes,
     title = 'Todos las compras',
@@ -132,7 +138,11 @@ const SuperFilters = (props) => {
     listWidth,
     filterGroups = [],
     dots = false,
-    uniqueFilter = false
+    uniqueFilter = false,
+    totalItems,
+    candidateKeyFilter = '_id',
+    candidatePathFilter = '_id',
+    candidateFilterType = 'list'
   }  = props
 
   const [ groupFilterCurrent, setGroupFilterCurrent ] = useState()
@@ -190,7 +200,7 @@ const SuperFilters = (props) => {
 
   // Aqui es cuando se agrega un filtro
   const _handleClickApplyFilters = (filter) => {
-    if(filters.some(({ key }) => key ===groupFilterCurrent.key ))
+    if(filters.some(({ key }) => key === groupFilterCurrent.key ))
       if(filterToEdit) {
         // Exists, so update it
         updateFilter(filter)
@@ -261,6 +271,58 @@ const SuperFilters = (props) => {
     )
   }
 
+  useImperativeHandle(ref, () =>  ({
+    spliceCandidateInFilters: (filters, candidate, groupFilterType) => {
+      const optionIndex = Number(groupFilterType === 'exclude')
+
+      const includeFilterType = filterTypes.find(({ type }) => type === candidateFilterType)
+
+      const operatorLabel = includeFilterType.options[optionIndex].label
+      const operator = includeFilterType.options[optionIndex].operator
+
+      if(filters.some((groupFilter) => groupFilter.type === groupFilterType))
+        return filters.map((groupFilter) => {
+          if(groupFilter.type !== groupFilterType) return groupFilter
+
+          return ({
+            ...groupFilter,
+            children: (groupFilter.children || []).map((filter) => {
+              const { key, value } = filter
+              if(key !== candidateKeyFilter || value.some(({ _id }) => _id === candidate[candidatePathFilter])) return filter
+
+              return ({
+                ...filter,
+                value: value.concat({
+                  _id  : candidate[candidatePathFilter],
+                  count: null,
+                  label: candidate.firstName || candidate.email
+                })
+              })
+            })
+          })
+        })
+
+      return filters.concat({
+        children: [ {
+          key  : candidateKeyFilter,
+          label: 'Candidato',
+          operator,
+          operatorLabel,
+          optionIndex,
+          type : 'list',
+          value: [ {
+            _id  : candidate[candidatePathFilter],
+            count: null,
+            label: candidate.firstName || candidate.email
+          } ]
+        } ],
+        key     : String(Math.random()),
+        operator: 'none',
+        type    : groupFilterType
+      })
+    }
+  }))
+
   const defaultFilters = useMemo(() => filters
     .filter(({ type }) => type === 'default'), [ filters ])
 
@@ -299,9 +361,24 @@ const SuperFilters = (props) => {
           index={Views.HOME.index}
           value={view.index}>
           {
-            filters.length === 0 ? HeaderHomeComponent : null
+            filters.length === 0 ? HeaderHomeComponent : (
+              <div className={clsx(classes.flex, classes.spaceBetween)}>
+                <IconButton color='primary' size='small'>
+                  <AddToPhotosIcon fontSize='small' onClick={_handleClickAddGroupFilter} />
+                </IconButton>
+                { !isNaN(totalItems) ? (
+                  <div className={classes.flex}>
+                    <FaceIcon color='disabled' />
+                    <Typography variant='body1'>
+                      {totalItems} resultado{totalItems > 1 ? 's': ''}
+                    </Typography>
+                  </div>
+                ): null}
+
+              </div>
+            )
           }
-          <div className={classes.treeContainer}>
+          <div className={clsx(classes.marginTop, classes.treeContainer)}>
             {excludeFilters
               .map((groupFilter, index) => (
                 <div key={`GroupFilterExclude-${index}`}>
@@ -345,7 +422,7 @@ const SuperFilters = (props) => {
                         color='primary'
                         onClick={_handleClickAddFilter(groupFilter)}
                         startIcon={<AddIcon />}>
-                        And
+                        Filtro
                       </Button>
                       {groupFilter.children.length ? (
                         <div className={classes.block} />
@@ -363,17 +440,6 @@ const SuperFilters = (props) => {
                 </div>
               ))}
           </div>
-          <div className={classes.center}>
-            <Button
-              className={classes.buttonAddGroupFilter}
-              color='primary'
-              fullWidth
-              onClick={_handleClickAddGroupFilter}
-              startIcon={<AddIcon />}
-              variant='outlined'>
-                Grupo de filtro
-            </Button>
-          </div>
         </TabPanel>
         <TabPanel
           className={classes.viewContainer}
@@ -386,7 +452,7 @@ const SuperFilters = (props) => {
             uniqueFilter={uniqueFilter} />
         </TabPanel>
         <TabPanel
-          className={clsx(classes.rootFilerConfig, classes.viewContainer)}
+          className={classes.viewContainer}
           index={Views.FILTER_CONFIG.index}
           value={view.index}>
           <FilterConfig
@@ -403,7 +469,7 @@ const SuperFilters = (props) => {
       </CardContent>
     </Card>
   )
-}
+})
 
 SuperFilters.propTypes = {
   categoryItems: PropTypes.arrayOf(PropTypes.shape({
@@ -442,12 +508,12 @@ SuperFilters.propTypes = {
   ).isRequired,
   filters: PropTypes.arrayOf(
     PropTypes.shape({
-      _id          : PropTypes.string.isRequired,
+      _id          : PropTypes.string,
       key          : PropTypes.string.isRequired,
-      label        : PropTypes.string.isRequired,
+      label        : PropTypes.string,
       operator     : PropTypes.string.isRequired,
-      operatorLabel: PropTypes.string.isRequired,
-      optionIndex  : PropTypes.number.isRequired,
+      operatorLabel: PropTypes.string,
+      optionIndex  : PropTypes.number,
       type         : PropTypes.string.isRequired,
       value        : PropTypes.oneOfType([
         PropTypes.string,

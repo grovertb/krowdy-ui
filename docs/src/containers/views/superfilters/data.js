@@ -1,8 +1,30 @@
 /* , */
+export const candidates = [ {
+  _id      : 1,
+  email    : 'luis.sullca.h@uni.pe',
+  firstName: 'Luis Alfredo',
+  lastName : 'Sullca Huaracca'
+}, {
+  _id      : 2,
+  email    : 'anderson@gmail.com',
+  firstName: 'Anderson',
+  lastName : 'Sinche'
+}, {
+  _id      : 3,
+  email    : 'mario@gmail.com',
+  firstName: 'Mario',
+  lastName : 'Fishman'
+}, {
+  _id      : 4,
+  email    : 'piero@gmail.com',
+  firstName: 'Piero',
+  lastName : 'Rodriguez'
+} ]
 
 export const filtersData = [ {
   children: [ {
-    key          : 'email',
+    _id          : 131344,
+    key          : '_id',
     label        : 'Candidato',
     operator     : '$in',
     operatorLabel: 'es',
@@ -10,13 +32,13 @@ export const filtersData = [ {
     reference    : null,
     type         : 'list',
     value        : [ {
-      _id  : 'francisco_irrivari@hotmail.com',
+      _id  : 1,
       count: null,
-      label: 'Francisco Irrivari'
+      label: 'Luis Alfredo'
     }, {
-      _id  : 'luis.sullca.h@uni.pe',
+      _id  : 2,
       count: null,
-      label: 'Luis Sullca'
+      label: 'Anderson'
     } ]
   } ],
   key     : '1',
@@ -24,7 +46,8 @@ export const filtersData = [ {
   type    : 'include'
 }, {
   children: [ {
-    key          : 'email',
+    _id          : 131312,
+    key          : '_id',
     label        : 'Candidato',
     operator     : '$nin',
     operatorLabel: 'no es',
@@ -32,14 +55,10 @@ export const filtersData = [ {
     reference    : null,
     type         : 'list',
     value        : [ {
-      _id  : 'jps_sinarahua@hotmail.com',
+      _id  : 3,
       count: null,
-      label: 'Juan Segundo'
-    }, {
-      _id  : 'Juanito@gmail.com',
-      count: null,
-      label: 'Juanito rodriguez'
-    }  ]
+      label: 'Mario'
+    } ]
   } ],
   key     : '2',
   operator: 'none',
@@ -50,10 +69,10 @@ export const filtersData = [ {
       _id     : '5f2c81f03d3b642268b6c52d',
       children: [
         {
-          _id     : '5f2c81f83e6e27c6c00bd8c5',
+          _id     : '5f2c81f83e6e27c6c00bd8c445',
           children: [
             {
-              _id          : '5f2c8200a5bab8cb0501b31a',
+              _id          : '5f2c8200a5bab8cb0501b31a444',
               key          : 'estadoproceso',
               label        : 'Estado del proceso Estado del proceso Estado del proceso',
               operator     : '$in',
@@ -126,7 +145,7 @@ export const filtersData = [ {
 }, {
   children: [
     {
-      _id     : '5f2c81f03d3b642268b6c52d',
+      _id     : '5f2c81f03d3b642268b6c52d2222',
       children: [
         {
           _id          : '5f2c81f83e6e27c6c00bd8c5',
@@ -155,7 +174,7 @@ export const filtersData = [ {
       ]
     },
     {
-      _id          : '5f2c8200a5bab8cb0501b31a',
+      _id          : '5f2c8200a5bab8cb0501b131312312',
       key          : 'estadoproceso',
       label        : 'Estado del proceso',
       operator     : '$in',
@@ -541,3 +560,4 @@ export const filterTypes = [
     updatedAt: '2020-02-14T19:02:22.137Z'
   }
 ]
+

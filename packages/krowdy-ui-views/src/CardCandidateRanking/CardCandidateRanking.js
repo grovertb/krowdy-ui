@@ -119,7 +119,7 @@ CardCandidateRanking.propTypes = {
   classes           : PropTypes.object,
   firstName         : PropTypes.string,
   lastName          : PropTypes.string,
-  onClick           : PropTypes.node,
+  onClick           : PropTypes.func,
   paddingLeft       : PropTypes.bool,
   photo             : PropTypes.string,
   position          : PropTypes.number,
