@@ -11,6 +11,7 @@ import FiltersList from './FiltersList'
 import DividerWithText from './DividerWithText'
 import { mongoObjectId } from '../utils/mongoObjectId'
 import { AddToPhotos as AddToPhotosIcon, Delete as DeleteIcon, Face as FaceIcon } from '@material-ui/icons'
+import { generateRandomId } from '../utils'
 
 export const styles = (theme) => ({
   backIcon: {
@@ -316,7 +317,7 @@ const SuperFilters = forwardRef((props, ref) => {
             label: candidate.firstName || candidate.email
           } ]
         } ],
-        key     : String(Math.random()),
+        key     : generateRandomId(),
         operator: 'none',
         type    : groupFilterType
       })
