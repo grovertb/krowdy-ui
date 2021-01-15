@@ -37,6 +37,10 @@ type CategoryItem = {
   label: string
 }
 
+type CandidateValue = {
+  _id: string | number;
+  label: string
+}
 export interface FiltersProps {
   classes?: Classes;
   filterGroups: FilterGroup[];
@@ -50,9 +54,9 @@ export interface FiltersProps {
   onSelectCategoryFilter: (categoryKey: string) => void;
   title: string;
   categoryItems: CategoryItem[];
-  candidateKeyFilter?: String;
-  candidatePathFilter?: String;
-  candidateFilterType?: String;
+  onChangeFilterCandidate: (candidateGroupFilterType: 'included' | 'excluded', candidateValues: CandidateValue[]) => void;
+  excludedCandidates: CandidateValue[];
+  includedCandidates: CandidateValue[];
 } 
 
 declare const Filters: React.ComponentType<FiltersProps>;
