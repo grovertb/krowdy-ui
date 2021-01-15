@@ -472,7 +472,10 @@ const SuperFilters = forwardRef((props, ref) => {
 })
 
 SuperFilters.propTypes = {
-  categoryItems: PropTypes.arrayOf(PropTypes.shape({
+  candidateFilterType: PropTypes.string,
+  candidateKeyFilter : PropTypes.string,
+  candidatePathFilter: PropTypes.string,
+  categoryItems      : PropTypes.arrayOf(PropTypes.shape({
     _id  : PropTypes.string.isRequired,
     label: PropTypes.string.isRequired
   })).isRequired,
