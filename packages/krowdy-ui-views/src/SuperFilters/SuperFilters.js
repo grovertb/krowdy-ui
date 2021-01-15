@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import AddIcon from '@material-ui/icons/Add'
@@ -151,15 +151,20 @@ const SuperFilters = (props) => {
     includedCandidates = []
   }  = props
 
-  const [ groupFilterCurrent, setGroupFilterCurrent ] = useState()
+  const [ groupFilterCurrent, setGroupFilterCurrent ] = useState(null)
   const [ view, goToView ] = useState(Views.HOME)
   const [ filterSelected, setFilterSelected ] = useState()
   const [ filterToEdit, setFilterToEdit ] = useState()
 
+  const { groupFilterCurrentKey, groupFilterCurrentChildren } = useMemo(() => ({
+    groupFilterCurrentChildren: groupFilterCurrent ? groupFilterCurrent.children: null,
+    groupFilterCurrentKey     : groupFilterCurrent ? groupFilterCurrent.key: null
+  }), [ groupFilterCurrent ])
+
   const addFilter = useCallback((filter) => {
     onChangeFilters(filters
       .map((groupFilter) => {
-        if(groupFilter.key !== groupFilterCurrent.key) return groupFilter
+        if(groupFilter.key !== groupFilterCurrentKey) return groupFilter
 
         return ({
           ...groupFilter,
@@ -167,7 +172,7 @@ const SuperFilters = (props) => {
         })
       })
     )
-  }, [ filters, groupFilterCurrent?.key, onChangeFilters ])
+  }, [ filters, groupFilterCurrentKey, onChangeFilters ])
 
   const deepUpdate = useCallback((arr, { _id, ...updatedItem } ) => arr.map(item => {
     if(item._id === _id)
@@ -183,10 +188,10 @@ const SuperFilters = (props) => {
   }), [])
 
   const updateFilter = useCallback((filter) => {
-    const updatedFilters = deepUpdate(groupFilterCurrent.children, filter)
+    const updatedFilters = deepUpdate(groupFilterCurrentChildren, filter)
     onChangeFilters(filters
       .map((groupFilter) => {
-        if(groupFilter.key !== groupFilterCurrent.key) return groupFilter
+        if(groupFilter.key !== groupFilterCurrentKey) return groupFilter
 
         return ({
           ...groupFilter,
@@ -194,13 +199,14 @@ const SuperFilters = (props) => {
         })
       })
     )
-  }, [ deepUpdate, filters, groupFilterCurrent?.children, groupFilterCurrent?.key, onChangeFilters ])
+  }, [ deepUpdate, filters, groupFilterCurrentChildren, groupFilterCurrentKey, onChangeFilters ])
 
   // Aqui es cuando se agrega un filtro
+
   const _handleClickApplyFilters = useCallback((filter) => {
-    if(Object.values(CandidateGroupFilterType).includes(groupFilterCurrent.key))
-      onChangeFilterCandidate(groupFilterCurrent.key, filter.value)
-    else if(filters.some(({ key }) => key === groupFilterCurrent.key ))
+    if(Object.values(CandidateGroupFilterType).includes(groupFilterCurrentKey))
+      onChangeFilterCandidate(groupFilterCurrentKey, filter.value)
+    else if(filters.some(({ key }) => key === groupFilterCurrentKey ))
       if(filterToEdit) {
         // Exists, so update it
         updateFilter(filter)
@@ -218,7 +224,7 @@ const SuperFilters = (props) => {
 
     goToView(Views.HOME)
     setGroupFilterCurrent(null)
-  }, [ addFilter, filterToEdit, filters, groupFilterCurrent?.key, onChangeFilterCandidate, onChangeFilters, updateFilter ])
+  }, [ addFilter, filterToEdit, filters, groupFilterCurrentKey, onChangeFilterCandidate, onChangeFilters, updateFilter ])
 
   const _handleClickFilterListItem = useCallback((item) => {
     setFilterSelected(item)
