@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { makeStyles, FormControlLabel, Checkbox, IconButton } from '@krowdy-ui/core'
 import { SuperFilters, CardCandidateRanking } from '@krowdy-ui/views'
-import { filtersData, categoryFilters, filterTypes } from './data'
+import { filtersData, categoryFilters, filterTypes, candidates } from './data'
 import { Add as AddIcon, Remove as RemoveIcon } from '@material-ui/icons'
 
 const useStyles = makeStyles({
@@ -35,30 +35,10 @@ const getNewCategoryItemsAsync = async (key, time = 1000) => new Promise(resolve
   }, time)
 })
 
-const candidates = [ {
-  _id      : 1,
-  email    : 'luis.sullca.h@uni.pe',
-  firstName: 'Luis Alfredo',
-  lastName : 'Sullca Huaracca'
-}, {
-  _id      : 2,
-  email    : 'anderson@gmail.com',
-  firstName: 'Anderson',
-  lastName : 'Sinche'
-}, {
-  _id      : 3,
-  email    : 'mario@gmail.com',
-  firstName: 'Mario',
-  lastName : 'Fishman'
-}, {
-  _id      : 4,
-  email    : 'piero@gmail.com',
-  firstName: 'Piero',
-  lastName : 'Rodriguez'
-} ]
-
 export default function () {
   const classes = useStyles()
+
+  const ref = useRef()
 
   const [ filters, setFilters ] = useState(filtersData)
 
@@ -88,64 +68,14 @@ export default function () {
     console.log('_handleClickCandidate', candidate)
   }
 
-  const pushValueToFilterList = (filters, candidate, groupFilterType) => {
-    const filterType = 'list'
-    const optionIndex = Number(groupFilterType === 'exclude')
-    const includeFilterType = filterTypes.find(({ type }) => type === filterType)
-    const operatorLabel = includeFilterType.options[optionIndex].label
-    const operator = includeFilterType.options[optionIndex].operator
-
-    if(filters.some((groupFilter) => groupFilter.type === groupFilterType))
-      return filters.map((groupFilter) => {
-        if(groupFilter.type === groupFilterType) return ({
-          ...groupFilter,
-          children: (groupFilter.children || []).map((filter) => {
-            const { key, value } = filter
-            if(key === 'email' && !value.some(({ _id }) => _id === candidate.email))
-              return ({
-                ...filter,
-                value: value.concat({
-                  _id  : candidate.email,
-                  count: null,
-                  label: candidate.firstName
-                })
-              })
-
-            return filter
-          })
-        })
-
-        return groupFilter
-      })
-
-    return filters.concat({
-      children: [ {
-        key  : 'email',
-        label: 'Candidato',
-        operator,
-        operatorLabel,
-        optionIndex,
-        type : 'list',
-        value: [ {
-          _id  : candidate.email,
-          count: null,
-          label: candidate.firstName
-        } ]
-      } ],
-      key     : String(Math.random()),
-      operator: 'none',
-      type    : groupFilterType
-    })
-  }
-
   const _handleClickIncludeCandidate = (candidate) => (e) => {
     e.stopPropagation()
 
-    setFilters(filters => pushValueToFilterList(filters, candidate, 'include'))
+    setFilters(filters => ref.current.spliceCandidateInFilters(filters, candidate, 'include'))
   }
   const _handleClickExcludeCandidate = (candidate) => (e) => {
     e.stopPropagation()
-    setFilters(filters => pushValueToFilterList(filters, candidate, 'exclude'))
+    setFilters(filters => ref.current.spliceCandidateInFilters(filters, candidate, 'exclude'))
   }
 
   return (
@@ -163,7 +93,9 @@ export default function () {
         loadMoreCategoryItems={_handleLoadMoreCategoryItems}
         onChangeFilters={_handleChangeFilters}
         onSelectCategoryFilter={_handleSelectCategoryFilter}
+        ref={ref}
         title='Todos las compras'
+        totalItems={3}
         uniqueFilter />
       <div style={{ flex: 1 }}>
         {candidates.map((candidate) => (
