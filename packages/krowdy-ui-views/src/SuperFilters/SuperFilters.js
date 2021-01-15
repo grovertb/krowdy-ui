@@ -167,7 +167,7 @@ const SuperFilters = (props) => {
         })
       })
     )
-  }, [ filters, groupFilterCurrent.key, onChangeFilters ])
+  }, [ filters, groupFilterCurrent?.key, onChangeFilters ])
 
   const deepUpdate = useCallback((arr, { _id, ...updatedItem } ) => arr.map(item => {
     if(item._id === _id)
@@ -194,7 +194,7 @@ const SuperFilters = (props) => {
         })
       })
     )
-  }, [ deepUpdate, filters, groupFilterCurrent.children, groupFilterCurrent.key, onChangeFilters ])
+  }, [ deepUpdate, filters, groupFilterCurrent?.children, groupFilterCurrent?.key, onChangeFilters ])
 
   // Aqui es cuando se agrega un filtro
   const _handleClickApplyFilters = useCallback((filter) => {
@@ -218,7 +218,7 @@ const SuperFilters = (props) => {
 
     goToView(Views.HOME)
     setGroupFilterCurrent(null)
-  }, [ addFilter, filterToEdit, filters, groupFilterCurrent.key, onChangeFilterCandidate, onChangeFilters, updateFilter ])
+  }, [ addFilter, filterToEdit, filters, groupFilterCurrent?.key, onChangeFilterCandidate, onChangeFilters, updateFilter ])
 
   const _handleClickFilterListItem = useCallback((item) => {
     setFilterSelected(item)
