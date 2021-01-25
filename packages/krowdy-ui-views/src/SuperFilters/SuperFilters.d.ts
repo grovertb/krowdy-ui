@@ -1,3 +1,6 @@
+import { PaperProps as CorePaperProps } from '@krowdy-ui/core/Paper'
+import { KrowdyButtonProps } from '@krowdy-ui/core/Button'
+
 interface Classes {
   backIcon: Record<string, string>,
   root: Record<string, string>,
@@ -41,7 +44,16 @@ type CandidateValue = {
   _id: string | number;
   label: string
 }
+
+type DataUserFlow = {
+  'data-userflow': string;
+}
+type ChildProps = {
+  PaperProps: CorePaperProps | DataUserFlow,
+  AddFiltersButtonProps: KrowdyButtonProps | DataUserFlow
+}
 export interface FiltersProps {
+  childProps: ChildProps;
   classes?: Classes;
   filterGroups: FilterGroup[];
   filters: AppliedFilter[];

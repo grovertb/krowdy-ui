@@ -94,7 +94,9 @@ const FilterConfig = (props) => {
     listWidth,
     edit = false,
     onSelectCategoryFilter,
-    loadMoreCategoryItems
+    loadMoreCategoryItems,
+    PaperProps,
+    AddFiltersButtonProps = {}
   } = props
 
   const classes = useStyles()
@@ -280,6 +282,7 @@ const FilterConfig = (props) => {
             loadMore={_handleLoadMoreItems(filter.key)}
             onChangeSelected={_handleChange()}
             onResetCategoryItems={onSelectCategoryFilter}
+            PaperProps={PaperProps}
             selectedItems={filterConfig} />
         )
       case 'generic':
@@ -434,7 +437,8 @@ const FilterConfig = (props) => {
           className={classes.applyFilterButton}
           color='primary'
           disabled={Boolean(errors)}
-          onClick={_handleClickApply}>
+          onClick={_handleClickApply}
+          {...AddFiltersButtonProps}>
           Aplicar filtros
         </Button>
       </div>

@@ -98,6 +98,14 @@ export default function () {
     <div style={{ display: 'flex', maxHeight: 700, width: '100%' }}>
       <SuperFilters
         categoryItems={categoryItems}
+        childProps={{
+          AddFiltersButtonProps: {
+            'data-userflow': 'button-prop'
+          },
+          PaperProps: {
+            'data-userflow': 'prueba'
+          }
+        }}
         classes={{
           root: classes.root
         }}

@@ -49,7 +49,8 @@ const TagCloudWords = ({
   loadMore = () => {},
   categoryKey,
   selectedItems = [],
-  items = []
+  items = [],
+  PaperProps = {}
 }) => {
   const [ open, setOpen ] = useState(false)
   const classes = useStyles()
@@ -90,7 +91,9 @@ const TagCloudWords = ({
 
   return (
     <div>
-      <Dialog fullWidth onClose={_handleClose} open={open}>
+      <Dialog
+        fullWidth onClose={_handleClose} open={open}
+        PaperProps={PaperProps}>
         <DialogTitle className={classes.dialogTitleContainer} disableTypography>
           <Typography variant='h6'>Nube de palabras</Typography>
           <IconButton
@@ -132,6 +135,7 @@ const CloudTag = ({ tag, onClick }) => {
 }
 
 TagCloudWords.propTypes = {
+  PaperProps : PropTypes.object,
   categoryKey: PropTypes.string,
   hasNextPage: PropTypes.bool.isRequired,
   items      : PropTypes.arrayOf(PropTypes.shape({
