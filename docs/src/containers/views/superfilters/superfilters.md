@@ -24,4 +24,5 @@
 | <span class="prop-name">onChangeFilterCandidate</span> | <span class="prop-type">func</span>            |                                         | campo para actualizar los array de candidatos                                          |
 | <span class="prop-name">excludedCandidates</span>      | <span class="prop-type">{_id, label}[]</span>  |                                         | array de candidatos excluidos                                    |
 | <span class="prop-name">includedCandidates</span>      | <span class="prop-type">{_id, label}[]</span>  |                                         | array de candidatos incluidos                                    |
+| <span class="prop-name">childProps</span>      | <span class="prop-type">{PaperProps,AddFiltersButtonProps}</span>  |                                         | Acceso a los props de los componentes internos                                    |
 

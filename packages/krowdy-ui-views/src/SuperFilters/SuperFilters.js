@@ -148,8 +148,11 @@ const SuperFilters = (props) => {
     totalItems,
     onChangeFilterCandidate = () => {},
     excludedCandidates = [],
+    childProps = {},
     includedCandidates = []
   }  = props
+
+  const { PaperProps, AddFiltersButtonProps } = childProps
 
   const [ groupFilterCurrent, setGroupFilterCurrent ] = useState(null)
   const [ view, goToView ] = useState(Views.HOME)
@@ -428,6 +431,7 @@ const SuperFilters = (props) => {
           index={Views.FILTER_CONFIG.index}
           value={view.index}>
           <FilterConfig
+            AddFiltersButtonProps={AddFiltersButtonProps}
             categoryItems={categoryItems}
             edit={filterToEdit ? true : false}
             filter={filterToEdit || filterSelected}
@@ -436,7 +440,8 @@ const SuperFilters = (props) => {
             listWidth={listWidth}
             loadMoreCategoryItems={loadMoreCategoryItems}
             onClickApply={_handleClickApplyFilters}
-            onSelectCategoryFilter={onSelectCategoryFilter} />
+            onSelectCategoryFilter={onSelectCategoryFilter}
+            PaperProps={PaperProps} />
         </TabPanel>
       </CardContent>
     </Card>
