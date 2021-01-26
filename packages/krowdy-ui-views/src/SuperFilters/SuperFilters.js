@@ -453,6 +453,7 @@ SuperFilters.propTypes = {
     _id  : PropTypes.string.isRequired,
     label: PropTypes.string.isRequired
   })).isRequired,
+  childProps        : PropTypes.object,
   classes           : PropTypes.object,
   excludedCandidates: PropTypes.arrayOf(PropTypes.shape({
     _id: PropTypes.oneOfType([

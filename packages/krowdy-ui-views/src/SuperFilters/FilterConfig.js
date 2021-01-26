@@ -447,7 +447,8 @@ const FilterConfig = (props) => {
 }
 
 FilterConfig.propTypes = {
-  categoryItems: PropTypes.arrayOf(PropTypes.shape({
+  AddFiltersButtonProps: PropTypes.object,
+  categoryItems        : PropTypes.arrayOf(PropTypes.shape({
     _id  : PropTypes.string.isRequired,
     label: PropTypes.string.isRequired
   })).isRequired,
