@@ -5,7 +5,6 @@ import { filtersData, categoryFilters, filterTypes } from './data'
 import { Add as AddIcon, Remove as RemoveIcon } from '@material-ui/icons'
 import { CategoryItem, Filter, Candidate, Event } from './interfaces'
 
-
 const useStyles = makeStyles({
   root: {
     maxWidth: 300
@@ -79,11 +78,10 @@ export default function () {
 
   const _handleSelectCategoryFilter = (category: string, values: any[]) => {
     setCurrentCategory(category)
-    if(values && values.length) {
+    if(values && values.length)
       setCategoryItems(values)
-    } else if(currenCategory !== category) {
+    else if(currenCategory !== category)
       setCategoryItems([])
-    }
   }
 
   const _handleClickCandidate = (candidate: Candidate) => () => {
@@ -142,6 +140,14 @@ export default function () {
     <div style={{ display: 'flex', maxHeight: 700, width: '100%' }}>
       <SuperFilters
         categoryItems={categoryItems}
+        childProps={{
+          AddFiltersButtonProps: {
+            'data-userflow': 'button-prop'
+          },
+          PaperProps: {
+            'data-userflow': 'prueba'
+          }
+        }}
         classes={{
           root: classes.root
         }}
