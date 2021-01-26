@@ -72,6 +72,9 @@ export const styles = (theme) => ({
     overflowX      : 'auto',
     padding        : theme.spacing(0.5)
   },
+  littleMarginLeft: {
+    marginLeft: theme.spacing(.5)
+  },
   marginTop: {
     marginTop: theme.spacing(1.5)
   },
@@ -251,12 +254,18 @@ const SuperFilters = (props) => {
   }, [ filters, onChangeFilters ])
 
   const _handleClickBack = useCallback(() => {
-    if(view.backIndex) {
-      goToView(Views[view.backIndex])
+    if([ CandidateGroupFilterType.Included, CandidateGroupFilterType.Excluded ].includes(groupFilterCurrentKey)) {
+      goToView(Views.HOME)
       setFilterToEdit(null)
-      if(view.backIndex === 'HOME') setGroupFilterCurrent(null)
+      setGroupFilterCurrent(null)
+
+      return
     }
-  }, [ view.backIndex ])
+
+    goToView(Views[view.backIndex])
+    setFilterToEdit(null)
+    if(view.backIndex === 'HOME') setGroupFilterCurrent(null)
+  }, [ groupFilterCurrentKey, view.backIndex ])
 
   const _handleChangeFilterTree = useCallback(groupFilterKey => treeFilters => {
     onChangeFilters(filters
@@ -321,19 +330,29 @@ const SuperFilters = (props) => {
           {
             filters.length === 0 ? HeaderHomeComponent : null
           }
-          <div className={clsx(classes.flex, classes.spaceBetween)}>
-            <IconButton color='primary' size='small'>
-              <AddToPhotosIcon fontSize='small' onClick={_handleClickAddGroupFilter} />
-            </IconButton>
-            { !isNaN(totalItems) ? (
-              <div className={classes.flex}>
-                <FaceIcon color='disabled' />
-                <Typography variant='body1'>
-                  {totalItems} resultado{totalItems > 1 ? 's': ''}
-                </Typography>
-              </div>
-            ): null}
-          </div>
+          { !filters.length && !includedCandidates.length && !excludedCandidates.length ? (
+            <Button
+              color='primary'
+              fullWidth
+              onClick={_handleClickAddGroupFilter}
+              startIcon={<AddIcon />}>
+              Añadir Filtro
+            </Button>
+          ): (
+            <div className={clsx(classes.flex, classes.spaceBetween)}>
+              <IconButton color='primary' size='small'>
+                <AddToPhotosIcon fontSize='small' onClick={_handleClickAddGroupFilter} />
+              </IconButton>
+              { !isNaN(totalItems) ? (
+                <div className={classes.flex}>
+                  <FaceIcon color='disabled' />
+                  <Typography className={classes.littleMarginLeft} variant='body1'>
+                    {totalItems} resultado{totalItems > 1 ? 's': ''}
+                  </Typography>
+                </div>
+              ): null}
+            </div>
+          ) }
           <div className={clsx(classes.marginTop, classes.treeContainer)}>
             {excludedCandidates.length ? (
               <>
