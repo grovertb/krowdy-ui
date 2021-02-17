@@ -1,6 +1,6 @@
 {
   "name": "@krowdy-ui/views",
-  "version": "0.0.80",
+  "version": "0.0.81",
   "private": false,
   "author": "Krowdy Team",
   "description": "React components that implement Google's Material Design.",
@@ -37,7 +37,7 @@
     "@devexpress/dx-react-grid": "^2.5.1",
     "@devexpress/dx-react-grid-material-ui": "^2.5.1",
     "@loadable/component": "5.13.2",
-    "@material-ui/icons": "4.9.1",
+    "@material-ui/icons": "4.11.2",
     "@material-ui/lab": "4.0.0-alpha.56",
     "@material-ui/pickers": "^3.2.10",
     "dayjs": "^1.8.20",
@@ -51,7 +51,7 @@
     "xdate": "0.8.2"
   },
   "devDependencies": {
-    "@krowdy-ui/core": "^0.0.74"
+    "@krowdy-ui/core": "^0.0.75"
   },
   "sideEffects": false,
   "publishConfig": {

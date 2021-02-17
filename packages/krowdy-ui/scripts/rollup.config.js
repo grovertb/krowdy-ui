@@ -1,5 +1,6 @@
 import nodeResolve from 'rollup-plugin-node-resolve'
-import commonjs from 'rollup-plugin-commonjs'
+// import commonjs from 'rollup-plugin-commonjs'
+import commonjs from '@rollup/plugin-commonjs'
 import babel from 'rollup-plugin-babel'
 import replace from '@rollup/plugin-replace'
 import nodeGlobals from 'rollup-plugin-node-globals'
@@ -22,25 +23,26 @@ const babelOptions = {
 
 const commonjsOptions = {
   ignoreGlobal: true,
-  include     : /node_modules/,
-  namedExports: {
-    '../../node_modules/prop-types/index.js': [
-      'elementType',
-      'bool',
-      'func',
-      'object',
-      'oneOfType',
-      'element'
-    ],
-    '../../node_modules/react-is/index.js': [
-      'ForwardRef',
-      'isFragment',
-      'isLazy',
-      'isMemo',
-      'Memo',
-      'isValidElementType'
-    ]
-  }
+  include     : /node_modules/
+  // namedExports: {
+  //   'prop-types': [
+  //     'elementType',
+  //     'bool',
+  //     'func',
+  //     'object',
+  //     'oneOfType',
+  //     'element'
+  //   ],
+  //   'react-is': [
+  //     'isForwardRef',
+  //     // 'ForwardRef',
+  //     'isFragment',
+  //     'isLazy',
+  //     'isMemo',
+  //     'Memo',
+  //     'isValidElementType'
+  //   ]
+  // }
 }
 
 function onwarn(warning) {
