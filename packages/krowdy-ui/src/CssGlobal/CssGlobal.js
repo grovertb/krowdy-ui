@@ -7,7 +7,7 @@ const styles = ({ palette, typography }) => ({
     },
     '::-webkit-scrollbar': {
       height: 6,
-      width : 6
+      width : 7
     },
     '::-webkit-scrollbar-thumb': {
       backgroundColor: 'rgba(0, 0, 0, 0.3)',
