@@ -15,7 +15,7 @@ export default {
           width: 7
         },
         '*::-webkit-scrollbar-thumb': {
-          backgroundColor: blueSecondary[300],
+          backgroundColor: '#D8D8D8',
           borderRadius   : 4
         },
         '*::-webkit-scrollbar-track': {
