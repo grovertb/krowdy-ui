@@ -9,20 +9,6 @@ export default {
         textTransform: 'initial'
       }
     },
-    MuiCssBaseline: {
-      '@global': {
-        '*::-webkit-scrollbar': {
-          width: 7
-        },
-        '*::-webkit-scrollbar-thumb': {
-          backgroundColor: '#D8D8D8',
-          borderRadius   : 4
-        },
-        '*::-webkit-scrollbar-track': {
-          // '-webkit-box-shadow': 'inset 0 0 6px rgba(0,0,0,0.00)'
-        }
-      }
-    },
     MuiPaper: {
       rounded: {
         borderRadius: 8
