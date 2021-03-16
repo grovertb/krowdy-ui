@@ -29,7 +29,7 @@
     "build:umd": "cross-env BABEL_ENV=production-umd rollup -c scripts/rollup.config.js",
     "build:copy-files": "node ../../scripts/copy-files.js",
     "prebuild": "rimraf build",
-    "release": "yarn build && npm publish build --tag latest"
+    "release": "yarn build && npm publish ./build --tag latest"
   },
   "peerDependencies": {},
   "dependencies": {
