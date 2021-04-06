@@ -10,6 +10,7 @@ import withStyles from '../styles/withStyles'
 import { fade, alpha } from '../styles/colorManipulator'
 
 export const styles = theme => ({
+  disabled: {},
   outlined: {
     '&$disabled': {
       border: `1px solid ${theme.palette.action.disabledBackground}`
@@ -71,6 +72,7 @@ const IconButton = React.forwardRef(function IconButton({ color = 'default', ...
     classes,
     tooltip,
     square,
+    disabled,
     ...otherProps
   } = props
 
@@ -79,7 +81,8 @@ const IconButton = React.forwardRef(function IconButton({ color = 'default', ...
     classes[variant],
     {
       // [classes[`color${capitalize(color)}`]]: color !== 'default',
-      [classes.typeSquare]: square
+      [classes.typeSquare]: square,
+      [classes.disabled]  : disabled
     },
     classes[`${variant}${capitalize(color)}`] ? {
       [classes[`${variant}${capitalize(color)}`]]: color !== 'default'
@@ -92,11 +95,13 @@ const IconButton = React.forwardRef(function IconButton({ color = 'default', ...
     tooltip ?
       <Tooltip title={tooltip}>
         <MuiIconButton
-          className={className} color={color} ref={ref}
+          className={className} color={color} disabled={disabled}
+          ref={ref}
           {...otherProps} />
       </Tooltip> :
       <MuiIconButton
-        className={className} color={color} ref={ref}
+        className={className} color={color} disabled={disabled}
+        ref={ref}
         {...otherProps} />
 
   )

@@ -41,7 +41,11 @@ export default () => {
       <IconButton disabled >
         <NavigationIcon />
       </IconButton>
-      <br /> <IconButton>
+      <IconButton color='primary' disabled >
+        <NavigationIcon />
+      </IconButton>
+      <br />
+      <IconButton>
         <AddIcon />
       </IconButton>
       <IconButton color='primary' variant='outlined' >
@@ -57,6 +61,9 @@ export default () => {
         <DeleteIcon fontSize='small' />
       </IconButton>
       <IconButton disabled variant='outlined' >
+        <NavigationIcon />
+      </IconButton>
+      <IconButton color='primary' disabled variant='outlined' >
         <NavigationIcon />
       </IconButton>
       <br />
@@ -80,6 +87,11 @@ export default () => {
         <DeleteIcon fontSize='small' />
       </IconButton>
       <IconButton disabled square variant='outlined'>
+        <NavigationIcon />
+      </IconButton>
+      <IconButton
+        color='primary' disabled square
+        variant='outlined'>
         <NavigationIcon />
       </IconButton>
       <br />
@@ -114,6 +126,14 @@ export default () => {
         <DeleteIcon fontSize='small' />
       </IconButton>
       <IconButton
+        disabled
+        size='small'
+        square
+        variant='outlined'>
+        <NavigationIcon />
+      </IconButton>
+      <IconButton
+        color='primary'
         disabled
         size='small'
         square
