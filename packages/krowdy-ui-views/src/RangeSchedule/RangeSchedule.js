@@ -55,12 +55,34 @@ const JobRangePickers = ({
     setAnchorElRangePicker(null)
   }
 
+  const renderDay = (day, selectedDate, dayInCurrentMonth) => {
+    const isBackground = new Date(rangeDateValue?.minDate) < new Date(day) &&
+  new Date(rangeDateValue?.maxDate) > new Date(day)
+
+    const isBackgroundLeft = !(new Date(rangeDateValue?.minDate) < new Date(day) || new Date(rangeDateValue?.minDate) > new Date(day))
+    const isBackgroundRight = !(new Date(rangeDateValue?.maxDate) > new Date(day) || new Date(rangeDateValue?.maxDate) < new Date(day))
+
+    return (<span className={clsx(classes.sizePickers,
+      {
+        [classes.isAnotherMonth]     : !dayInCurrentMonth,
+        [classes.backgroundDay]      : isBackground,
+        [classes.selectedRadiusLeft] : rangeDateValue?.maxDate && isBackgroundLeft,
+        [classes.selectedRadiusRight]: isBackgroundRight
+      })
+    }><span
+        className={clsx({
+          [classes.selectedDate]: isBackgroundLeft || isBackgroundRight })
+        }>{day.$D}</span>
+    </span>)
+  }
+
   return (
-    <MuiPickersUtilsProvider locale={esLocale} utils={DayJsUtils}>
-      <div>
-        <IconButton onClick={_handleToggleRangePicker} size='small' square>
-          {IconToOpen}
-        </IconButton>
+    <>
+      <IconButton
+        onClick={_handleToggleRangePicker} size='small' square>
+        {IconToOpen}
+      </IconButton>
+      <MuiPickersUtilsProvider locale={esLocale} utils={DayJsUtils}>
         <Popover
           anchorEl={anchorElRangePicker}
           anchorOrigin={{
@@ -82,26 +104,7 @@ const JobRangePickers = ({
             onChange={_handleChangeDate}
             openTo='date'
             orientation='landscape'
-            renderDay={(day, selectedDate, dayInCurrentMonth) => {
-              const isBackground = new Date(rangeDateValue?.minDate) < new Date(day) &&
-              new Date(rangeDateValue?.maxDate) > new Date(day)
-
-              const isBackgroundLeft = !(new Date(rangeDateValue?.minDate) < new Date(day) || new Date(rangeDateValue?.minDate) > new Date(day))
-              const isBackgroundRight = !(new Date(rangeDateValue?.maxDate) > new Date(day) || new Date(rangeDateValue?.maxDate) < new Date(day))
-
-              return (<span className={clsx(classes.sizePickers,
-                {
-                  [classes.isAnotherMonth]     : !dayInCurrentMonth,
-                  [classes.backgroundDay]      : isBackground,
-                  [classes.selectedRadiusLeft] : rangeDateValue?.maxDate && isBackgroundLeft,
-                  [classes.selectedRadiusRight]: isBackgroundRight
-                })
-              }><span
-                  className={clsx({
-                    [classes.selectedDate]: isBackgroundLeft || isBackgroundRight })
-                  }>{day.$D}</span>
-              </span>)
-            }}
+            renderDay={renderDay}
             showTodayButton
             variant='static' >
           </DatePicker>
@@ -146,8 +149,8 @@ const JobRangePickers = ({
             </div>
           </div>
         </Popover>
-      </div>
-    </MuiPickersUtilsProvider>
+      </MuiPickersUtilsProvider>
+    </>
   )
 }
 
