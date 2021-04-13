@@ -3,6 +3,7 @@ import clsx from 'clsx'
 import DayJsUtils from '@date-io/dayjs'
 import esLocale from 'dayjs/locale/es'
 import dayjs from 'dayjs'
+import PropTypes from 'prop-types'
 import { MuiPickersUtilsProvider, DatePicker } from '@ghondar/pickers'
 import { Button, FormControlLabel, IconButton, Menu, MenuItem, Popover, TextField, Typography } from '@krowdy-ui/core'
 import { makeStyles } from '@krowdy-ui/styles'
@@ -307,5 +308,17 @@ const useStyles = makeStyles((theme) => ({
     width     : 120
   }
 }), { name: 'JobRangePickers' })
+
+JobRangePickers.propTypes = {
+  IconToOpen  : PropTypes.node,
+  initialRange: PropTypes.shape({
+    maxDate: PropTypes.any,
+    minDate: PropTypes.any
+  }),
+  onCancelSchedule : PropTypes.func,
+  onPublishSchedule: PropTypes.func,
+  onSchedule       : PropTypes.func,
+  showInput        : PropTypes.bool
+}
 
 export default React.memo(JobRangePickers)
