@@ -49,18 +49,19 @@ const JobRangePickers = ({
   }
 
   const _handleSchedule = () => {
-    onSchedule()
+    onSchedule(rangeDateValue)
     setAnchorElRangePicker(null)
   }
 
   const _handlePublishSchedule = () => {
-    onPublishSchedule()
+    onPublishSchedule(rangeDateValue)
     setOpenMenu(null)
     setAnchorElRangePicker(null)
   }
 
   const _handleCancelSchedule = () => {
-    onCancelSchedule()
+    setRangeValue(initialRange)
+    onCancelSchedule(initialRange)
     setOpenMenu(null)
     setAnchorElRangePicker(null)
   }
