@@ -26,7 +26,7 @@ const JobRangePickers = ({
   onSchedule = () => {},
   IconToOpen = <ArrowDropDownIcon />,
   onPublishSchedule = () => {},
-  initialRange,
+  initialRange = { maxDate: null, minDate: null },
   onCancelSchedule = () => {},
   showInput
 }) => {
@@ -74,6 +74,7 @@ const JobRangePickers = ({
   }
 
   const renderDay = (day, _, dayInCurrentMonth) => {
+    console.log(day)
     const isBackground = new Date(rangeDateValue?.minDate) < new Date(day) &&
   new Date(rangeDateValue?.maxDate) > new Date(day)
 
