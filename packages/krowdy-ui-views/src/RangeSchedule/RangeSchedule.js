@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import clsx from 'clsx'
-import moment from 'moment'
 import DayJsUtils from '@date-io/dayjs'
 import esLocale from 'dayjs/locale/es'
+import dayjs from 'dayjs'
 import { MuiPickersUtilsProvider, DatePicker } from '@ghondar/pickers'
 import { Button, FormControlLabel, IconButton, Menu, MenuItem, Popover, TextField, Typography } from '@krowdy-ui/core'
 import { makeStyles } from '@krowdy-ui/styles'
@@ -12,10 +12,10 @@ const getCorrectMomentDate = (date) => {
   if(date) {
     const dateJs = new Date(date)
 
-    return moment(dateJs.toString() === 'Invalid Date' ? Number(date) : dateJs.getTime())
+    return dateJs.toString() === 'Invalid Date' ? dayjs(Number(date)) : dayjs(date)
   }
 
-  return moment()
+  return dayjs()
 }
 
 const format = 'DD/MM/YYYY'
@@ -155,7 +155,7 @@ const JobRangePickers = ({
                     }
                   }}
                   value={rangeDateValue.minDate ?
-                    getCorrectMomentDate(rangeDateValue.minDate).format(format).toString() : ''}
+                    correctDate(rangeDateValue.minDate) : ''}
                   variant='outlined' />} label={
                   <Typography color='secondary'>Desde :</Typography>
                 } labelPlacement='start' />
@@ -171,7 +171,7 @@ const JobRangePickers = ({
                     }
                   }}
                   value={rangeDateValue.maxDate ?
-                    getCorrectMomentDate(rangeDateValue.maxDate).format(format) : ''}
+                    correctDate(rangeDateValue.maxDate) : ''}
                   variant='outlined' />} label={
                   <Typography color='secondary'>Hasta :</Typography>} labelPlacement='start' />
             </div>
