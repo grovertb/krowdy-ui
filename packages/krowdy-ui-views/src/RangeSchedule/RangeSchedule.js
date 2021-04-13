@@ -4,7 +4,7 @@ import moment from 'moment'
 import DayJsUtils from '@date-io/dayjs'
 import esLocale from 'dayjs/locale/es'
 import { MuiPickersUtilsProvider, DatePicker } from '@ghondar/pickers'
-import { Button, FormControlLabel, IconButton, Popover, TextField, Typography } from '@krowdy-ui/core'
+import { Button, FormControlLabel, IconButton, Menu, MenuItem, Popover, TextField, Typography } from '@krowdy-ui/core'
 import { makeStyles } from '@krowdy-ui/styles'
 import { ArrowDropDown as ArrowDropDownIcon } from '@material-ui/icons'
 
@@ -21,28 +21,26 @@ const getCorrectMomentDate = (date) => {
 const format = 'DD/MM/YY'
 
 const JobRangePickers = ({
-  onChangeRangeDate = () => {},
   onSchedule = () => {},
-  IconToOpen = <ArrowDropDownIcon />
+  IconToOpen = <ArrowDropDownIcon />,
+  onPublishSchedule = ()=>{},
+  initialRange,
+  onCancelSchedule = () => {}
 }) => {
   const classes = useStyles()
-  // const [ updateJobField ] = useMutation(UPDATE_JOB)
   const [ anchorElRangePicker, setAnchorElRangePicker ] = useState(false)
-  const [ rangeDateValue, setRangeValue ] = useState({ maxDate: null, minDate: null } || {})
+  const [ rangeDateValue, setRangeValue ] = useState(initialRange || { maxDate: null, minDate: null })
+  const [ openMenu, setOpenMenu ] = useState(null)
 
   const _handleChangeDate = (date) => {
     setRangeValue(prev => {
-      let result = {}
       const parseDate = getCorrectMomentDate(date).format('MM/DD/YYYY').toString()
       if(new Date(parseDate) < new Date(prev.minDate))
-        result = { maxDate: null, minDate: parseDate }
+        return { maxDate: null, minDate: parseDate }
       else
-        result = prev.minDate ?
+        return prev.minDate ?
           { maxDate: parseDate, minDate: prev.minDate } :
           { maxDate: null, minDate: parseDate }
-      onChangeRangeDate(result)
-
-      return result
     })
   }
 
@@ -55,7 +53,23 @@ const JobRangePickers = ({
     setAnchorElRangePicker(null)
   }
 
-  const renderDay = (day, selectedDate, dayInCurrentMonth) => {
+  const _handlePublishSchedule =() => {
+    onPublishSchedule()
+    setOpenMenu(null)
+    setAnchorElRangePicker(null)
+  }
+
+  const _handleCancelSchedule = () => {
+    onCancelSchedule()
+    setOpenMenu(null)
+    setAnchorElRangePicker(null)
+  }
+
+  const _handleOpenMenu = ({ currentTarget }) => {
+    setOpenMenu(prev=>prev ? null : currentTarget)
+  }
+
+  const renderDay = (day, _, dayInCurrentMonth) => {
     const isBackground = new Date(rangeDateValue?.minDate) < new Date(day) &&
   new Date(rangeDateValue?.maxDate) > new Date(day)
 
@@ -144,8 +158,36 @@ const JobRangePickers = ({
                   <Typography color='secondary'>Hasta :</Typography>} labelPlacement='start' />
             </div>
             <div className={classes.actionsContainer}>
-              <Button color='primary' onClick={_handleToggleRangePicker} >Cancelar</Button>
-              <Button color='primary' onClick={_handleSchedule} variant='contained'>Programar</Button>
+              <Button
+                className={classes.scheduleButton} color='primary'
+                onClick={_handleSchedule}
+                variant='contained'>Programar</Button>
+              <Button
+                className={classes.selectButton}
+                color='primary'
+                onClick={_handleOpenMenu}
+                variant='contained'>
+                <ArrowDropDownIcon className={classes.arrowIcon} />
+              </Button>
+              <Menu
+                anchorEl={openMenu}
+                anchorOrigin={{
+                  horizontal: 'center',
+                  vertical  : 'bottom'
+                }}
+                onClose={_handleOpenMenu}
+                open={Boolean(openMenu)}
+                transformOrigin={{
+                  horizontal: 'center',
+                  vertical  : 'top'
+                }} >
+                <MenuItem
+                  ListItemClasses={{ button: classes.listItem }}
+                  onClick={_handlePublishSchedule}>Publicar ahora</MenuItem>
+                <MenuItem
+                  ListItemClasses={{ button: classes.listItem }}
+                  onClick={_handleCancelSchedule}>Cancelar programación</MenuItem>
+              </Menu>
             </div>
           </div>
         </Popover>
@@ -156,8 +198,11 @@ const JobRangePickers = ({
 
 const useStyles = makeStyles((theme) => ({
   actionsContainer: {
-    display       : 'flex',
-    justifyContent: 'space-between'
+    display: 'flex',
+    width  : '100%'
+  },
+  arrowIcon: {
+    color: 'white'
   },
   backgroundDay: {
     background  : theme.palette.primary[50],
@@ -183,8 +228,23 @@ const useStyles = makeStyles((theme) => ({
   labelPlacement: {
     margin: theme.spacing(1, 0)
   },
+  listItem: {
+    '&:hover': {
+      backgroundColor: theme.palette.primary[10]
+    }
+  },
   rangeDateContainer: {
     display: 'flex'
+  },
+  scheduleButton: {
+    borderRadius: theme.spacing(.5, 0, 0, .5),
+    width       : '100%'
+  },
+  selectButton: {
+    borderRadius: theme.spacing(0, .5, .5, 0),
+    marginLeft  : theme.spacing(.25),
+    minWidth    : 20,
+    padding     : theme.spacing(.75)
   },
   selectedDate: {
     alignItems    : 'center',
@@ -221,4 +281,5 @@ const useStyles = makeStyles((theme) => ({
     width     : 120
   }
 }))
+
 export default React.memo(JobRangePickers)
