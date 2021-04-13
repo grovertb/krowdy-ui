@@ -11,6 +11,7 @@ export type RangeScheduleProps = {
     initialRange?: InitialRangeDate;
     onCancelSchedule?: Function;
     onPublishSchedule?: Function;
+    showInput?: Boolean;
 }
 
 declare const RangeSchedule : React.ComponentType<RangeScheduleProps>

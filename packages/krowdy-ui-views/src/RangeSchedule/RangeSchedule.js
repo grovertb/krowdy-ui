@@ -6,7 +6,7 @@ import esLocale from 'dayjs/locale/es'
 import { MuiPickersUtilsProvider, DatePicker } from '@ghondar/pickers'
 import { Button, FormControlLabel, IconButton, Menu, MenuItem, Popover, TextField, Typography } from '@krowdy-ui/core'
 import { makeStyles } from '@krowdy-ui/styles'
-import { ArrowDropDown as ArrowDropDownIcon } from '@material-ui/icons'
+import { ArrowDropDown as ArrowDropDownIcon, Event as EventIcon } from '@material-ui/icons'
 
 const getCorrectMomentDate = (date) => {
   if(date) {
@@ -18,14 +18,17 @@ const getCorrectMomentDate = (date) => {
   return moment()
 }
 
-const format = 'DD/MM/YY'
+const format = 'DD/MM/YYYY'
+
+const correctDate = (date, formatCustom) => getCorrectMomentDate(date).format(formatCustom || format).toString()
 
 const JobRangePickers = ({
   onSchedule = () => {},
   IconToOpen = <ArrowDropDownIcon />,
   onPublishSchedule = () => {},
   initialRange,
-  onCancelSchedule = () => {}
+  onCancelSchedule = () => {},
+  showInput
 }) => {
   const classes = useStyles()
   const [ anchorElRangePicker, setAnchorElRangePicker ] = useState(false)
@@ -34,7 +37,7 @@ const JobRangePickers = ({
 
   const _handleChangeDate = (date) => {
     setRangeValue(prev => {
-      const parseDate = getCorrectMomentDate(date).format('MM/DD/YYYY').toString()
+      const parseDate = correctDate(date, 'MM/DD/YY')
       if(new Date(parseDate) < new Date(prev.minDate))
         return { maxDate: null, minDate: parseDate }
       else
@@ -61,7 +64,7 @@ const JobRangePickers = ({
 
   const _handleCancelSchedule = () => {
     setRangeValue(initialRange)
-    onCancelSchedule(initialRange)
+    onCancelSchedule()
     setOpenMenu(null)
     setAnchorElRangePicker(null)
   }
@@ -93,6 +96,20 @@ const JobRangePickers = ({
 
   return (
     <>
+      {
+        showInput ?
+          <TextField
+            InputProps={{
+              endAdornment: <EventIcon className={classes.adorment} color='inherit' fontSize='small' />
+            }}
+            inputProps={{
+              className: classes.inputClass
+            }}
+            label='Vencimiento'
+            onClick={_handleToggleRangePicker}
+            value={`${correctDate(rangeDateValue.minDate)} - ${correctDate(rangeDateValue.maxDate)}`} /> :
+          null
+      }
       <IconButton
         onClick={_handleToggleRangePicker} size='small' square>
         {IconToOpen}
@@ -202,6 +219,9 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     width  : '100%'
   },
+  adorment: {
+    margin: theme.spacing(0, 1.5, 0, 2)
+  },
   arrowIcon: {
     color: 'white'
   },
@@ -215,6 +235,10 @@ const useStyles = makeStyles((theme) => ({
     flexDirection : 'column',
     justifyContent: 'space-between',
     padding       : theme.spacing(1.5)
+  },
+  inputClass: {
+    fontSize: 14,
+    minWidth: 160
   },
   inputsContainer: {
     display      : 'flex',
