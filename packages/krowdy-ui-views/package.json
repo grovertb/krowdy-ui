@@ -43,7 +43,6 @@
     "@material-ui/pickers": "^3.2.10",
     "dayjs": "^1.8.20",
     "mic-recorder-to-mp3": "^2.2.1",
-    "moment": "^2.29.1",
     "react-beautiful-dnd": "12.2.0",
     "react-compound-timer": "^1.1.15",
     "react-sortable-tree": "2.6.2",
