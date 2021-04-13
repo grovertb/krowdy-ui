@@ -19,8 +19,9 @@ const getCorrectMomentDate = (date) => {
 }
 
 const format = 'DD/MM/YYYY'
+const formatInternal='MM/DD/YYYY'
 
-const correctDate = (date, formatCustom) => getCorrectMomentDate(date).format(formatCustom || format).toString()
+const correctDate = (date, formatCustom) => getCorrectMomentDate(date).format(formatCustom || format)
 
 const JobRangePickers = ({
   onSchedule = () => {},
@@ -37,7 +38,7 @@ const JobRangePickers = ({
 
   const _handleChangeDate = (date) => {
     setRangeValue(prev => {
-      const parseDate = correctDate(date, 'MM/DD/YY')
+      const parseDate = correctDate(date, formatInternal)
       if(new Date(parseDate) < new Date(prev.minDate))
         return { maxDate: null, minDate: parseDate }
       else
@@ -90,7 +91,7 @@ const JobRangePickers = ({
     }><span
         className={clsx({
           [classes.selectedDate]: isBackgroundLeft || isBackgroundRight })
-        }>{day.$D}</span>
+        }>{new Date(day).getDate()}</span>
     </span>)
   }
 
@@ -114,7 +115,7 @@ const JobRangePickers = ({
         onClick={_handleToggleRangePicker} size='small' square>
         {IconToOpen}
       </IconButton>
-      <MuiPickersUtilsProvider locale={esLocale} utils={DayJsUtils}>
+      <MuiPickersUtilsProvider locale={esLocale} utils={DayJsUtils} >
         <Popover
           anchorEl={anchorElRangePicker}
           anchorOrigin={{
@@ -137,7 +138,7 @@ const JobRangePickers = ({
             openTo='date'
             orientation='landscape'
             renderDay={renderDay}
-            showTodayButton
+            value={correctDate(rangeDateValue.minDate, formatInternal)}
             variant='static' >
           </DatePicker>
           <div className={classes.detailContainer}>
@@ -294,9 +295,9 @@ const useStyles = makeStyles((theme) => ({
     alignItems    : 'center',
     cursor        : 'pointer',
     display       : 'flex',
-    height        : 40,
+    height        : 30,
     justifyContent: 'center',
-    padding       : theme.spacing(1.5),
+    margin        : theme.spacing(.25, 0),
     width         : 40
   },
   textField: {
