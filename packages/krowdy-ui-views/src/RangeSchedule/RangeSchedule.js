@@ -105,7 +105,7 @@ const JobRangePickers = ({
             inputProps={{
               className: classes.inputClass
             }}
-            label='Vencimiento'
+            label='Aviso programado'
             onClick={_handleToggleRangePicker}
             value={`${correctDate(rangeDateValue.minDate)} - ${correctDate(rangeDateValue.maxDate)}`} /> :
           null
