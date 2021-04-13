@@ -221,6 +221,10 @@ const pages: Array<Page> = [
         title: 'RadioLabelGroup'
       },
       {
+        path : '/views/rangeschedule',
+        title: 'RangeSchedule'
+      },
+      {
         path : '/views/rankinggroup',
         title: 'RankingGroup'
       },
