@@ -305,6 +305,6 @@ const useStyles = makeStyles((theme) => ({
     padding   : theme.spacing(1),
     width     : 120
   }
-}))
+}), { name: 'JobRangePickers' })
 
 export default React.memo(JobRangePickers)
