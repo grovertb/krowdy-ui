@@ -23,7 +23,7 @@ const format = 'DD/MM/YY'
 const JobRangePickers = ({
   onSchedule = () => {},
   IconToOpen = <ArrowDropDownIcon />,
-  onPublishSchedule = ()=>{},
+  onPublishSchedule = () => {},
   initialRange,
   onCancelSchedule = () => {}
 }) => {
@@ -53,7 +53,7 @@ const JobRangePickers = ({
     setAnchorElRangePicker(null)
   }
 
-  const _handlePublishSchedule =() => {
+  const _handlePublishSchedule = () => {
     onPublishSchedule()
     setOpenMenu(null)
     setAnchorElRangePicker(null)
@@ -66,7 +66,7 @@ const JobRangePickers = ({
   }
 
   const _handleOpenMenu = ({ currentTarget }) => {
-    setOpenMenu(prev=>prev ? null : currentTarget)
+    setOpenMenu(prev => prev ? null : currentTarget)
   }
 
   const renderDay = (day, _, dayInCurrentMonth) => {
