@@ -321,7 +321,7 @@ const JobDetail = props => {
         }
       </Grid>
       {
-        basicEdition.filter(({ visible }) => visible).map((item, key) => (
+        basicEdition.filter(({ visible, description }) => visible && description).map((item, key) => (
           <section className={classes.sectionInformation} key={`information-${key}`}>
             <Typography className={classes.titleSection} variant='h4'>{item.title}</Typography>
             {
@@ -331,16 +331,7 @@ const JobDetail = props => {
                   component='div'
                   dangerouslySetInnerHTML={{ __html: item.description }}
                   variant='body2' />
-              ) : (
-                <div className={classes.descriptionEmpty}>
-                  <img
-                    alt='without-description'
-                    src='https://s3.amazonaws.com/cdn.krowdy.com/media/images/empty-job.png' />
-                  <Typography align='center' color='info' variant='body3'>
-                      Sin descripción
-                  </Typography>
-                </div>
-              )
+              ) : null
             }
 
           </section>

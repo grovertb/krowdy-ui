@@ -1,42 +1,250 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Paper, makeStyles, Typography, Divider } from '@krowdy-ui/core'
+import { Paper, makeStyles, Typography, Divider, Dot, Avatar, Button } from '@krowdy-ui/core'
 import {
   Grade as GradeIcon,
   TrendingUp as TrendingUpIcon,
   Work as WorkIcon,
   Business as BusinessIcon,
   Loop as LoopIcon,
-  AttachMoney as AttachMoneyIcon
+  AttachMoney as AttachMoneyIcon,
+  School as SchoolIcon
 } from '@material-ui/icons'
+import clsx from 'clsx'
+import dayjs from 'dayjs'
 
-function sufix(number, first, second) {
-  return number > 1 ? first : second
+import 'dayjs/locale/es'
+
+const legendDegree = {
+  Doctorado    : 4,
+  Master       : 3,
+  Secundaria   : 0,
+  Técnico      : 1,
+  Universitario: 2
 }
 
-// function ordinal(number) {
-//   switch (number) {
-//     case 1:
-//     case 3:
-//       return number + 'er'
-//     case 2:
-//       return number + 'do'
-//     case 4:
-//     case 5:
-//     case 6:
-//       return number + 'to'
-//     case 7:
-//     case 10:
-//       return number + 'mo'
-//     case 9:
-//       return number + 'no'
-//     default:
-//       return number + 'vo'
-//   }
-// }
+const getEducation = (educations) => {
+  if(!educations.length)
+    return null
 
-const Profile = ({ name, rating, ascent, experience, workExperience, rotation, salaryText, action }) => {
+  const parsedEducation = educations.map(education => ({ ...education, degree: legendDegree[education.degree] })).sort((a, b) => {
+    const n = b.degree - a.degree
+    if(n !== 0)
+      return n
+
+    if(!b.endDate)
+      return 1
+    if(!a.endDate)
+      return 1
+    const o = dayjs(b.endDate).diff(dayjs(a.endDate))
+    if(o !== 0)
+      return o
+
+    if(!b.startDate)
+      return 1
+    if(!a.startDate)
+      return 1
+
+    return dayjs(b.startDate).diff(dayjs(a.startDate))
+  })
+
+  return parsedEducation[0]
+}
+
+const compare = (a, b) => {
+  if(b.workHere || dayjs(a.endDate).isBefore(b.endDate))
+    return 1
+
+  return -1
+}
+
+function sufix(number) {
+  if(number >= 12) {
+    const year = Math.floor(number / 12)
+
+    return `${year} ${year > 1 ? 'años' : 'año'}`
+  }
+
+  return `${number} ${number > 1 ? 'meses' : 'mes'}`
+}
+
+const Rating = ({ rating }) => {
   const classes = useStyles()
+
+  return (
+    <>
+      <div className={classes.first}>
+        <Typography variant='h6'>{rating}</Typography>
+        <GradeIcon className={classes.rating} color='primary' fontSize='small' />
+      </div>
+      <Divider className={classes.divider} />
+    </>
+  )
+}
+
+const Education = ({ education }) => {
+  const classes = useStyles()
+
+  const interval = education.endDate ? dayjs().diff(dayjs(education.endDate), 'month') : null
+
+  return (
+    <>
+      <div className={classes.row}>
+        <div className={classes.icon}>
+          <SchoolIcon color='primary' fontSize='small' />
+        </div>
+        <div>
+          <Typography className={classes.title} variant='body1'>{education.career} | {education.institutionName}</Typography>
+          <Typography className={classes.subtitle} variant='body1'>{education.endDate ? `Hace ${sufix(interval)}` : 'A la fecha'}</Typography>
+        </div>
+      </div>
+      <Divider className={classes.divider} />
+    </>
+  )
+}
+
+const Ascent = ({ count, time }) => {
+  const classes = useStyles()
+
+  return (
+    <>
+      <div className={classes.row}>
+        <div className={classes.icon}>
+          <TrendingUpIcon color='primary' fontSize='small' />
+        </div>
+        <div>
+          <Typography className={classes.title} variant='body1'>{count} Ascenso{count > 1 ? 's' : ''}</Typography>
+          <Typography className={classes.subtitle} variant='body1'>En {sufix(time)}</Typography>
+        </div>
+      </div>
+      <Divider className={classes.divider} />
+    </>
+  )
+}
+
+const Experience = ({ experience }) => {
+  const classes = useStyles()
+
+  return (
+    <>
+      <div className={classes.row}>
+        <div className={classes.icon}>
+          <WorkIcon color='primary' fontSize='small' />
+        </div>
+        <div>
+          <Typography className={classes.title} variant='body1'>Experiencia</Typography>
+          <Typography className={classes.subtitle} variant='body1'>{sufix(experience)}</Typography>
+        </div>
+      </div>
+      <Divider className={classes.divider} />
+    </>
+  )
+}
+
+const WorkExperience = ({ name, count }) => {
+  const classes = useStyles()
+
+  return (
+    <>
+      <div className={classes.row}>
+        <div className={classes.icon}>
+          <BusinessIcon color='primary' fontSize='small' />
+        </div>
+        <div>
+          <Typography className={classes.title} variant='body1'>Trabaja en {name}</Typography>
+          <Typography className={classes.subtitle} variant='body1'>Hace {sufix(count)}</Typography>
+        </div>
+      </div>
+      <Divider className={classes.divider} />
+    </>
+  )
+}
+
+const Rotation = ({ count, time }) => {
+  const classes = useStyles()
+
+  return (
+    <>
+      <div className={classes.row}>
+        <div className={classes.icon}>
+          <LoopIcon color='primary' fontSize='small' />
+        </div>
+        <div>
+          <Typography className={classes.title} variant='body1'>Rotación</Typography>
+          <Typography className={classes.subtitle} variant='body1'>{count} ve{count > 1 ? 'ces' : 'z'} cada {sufix(time)}</Typography>
+        </div>
+      </div>
+      <Divider className={classes.divider} />
+    </>
+  )
+}
+
+const SalaryText = ({ salaryText }) => {
+  const classes = useStyles()
+
+  return (
+    <>
+      <div className={classes.row}>
+        <div className={classes.icon}>
+          <AttachMoneyIcon color='primary' fontSize='small' />
+        </div>
+        <div>
+          <Typography className={classes.title} variant='body1'>Salario</Typography>
+          <Typography className={classes.subtitle} variant='body1'>{salaryText}</Typography>
+        </div>
+      </div>
+      <Divider className={classes.divider} />
+    </>
+  )
+}
+
+const Company = ({ company }) => {
+  const { imgUrl, companyName, workHere, startDate, endDate } = company
+  const classes = useStyles()
+
+  const interval = endDate ? dayjs(endDate).month() : dayjs().diff(dayjs(startDate), 'month')
+
+  return (
+    <>
+      <div className={clsx(classes.experience, {
+        [classes.left]          : workHere,
+        [classes.experienceLeft]: !workHere
+      })}>
+        {workHere ? (
+          <Dot color='primary' />
+        ) : null}
+        <div className={classes.row}>
+          <Avatar
+            className={classes.small}
+            src={imgUrl}
+            variant='rounded'>
+            {companyName ? companyName.charAt(0) : <BusinessIcon color='primary' fontSize='small' />}
+          </Avatar>
+          <div>
+            <Typography className={classes.title} variant='body1'>{companyName}</Typography>
+            {
+              startDate ? (
+                <Typography className={classes.subtitle} variant='body1'>
+                  {sufix(interval)} • {dayjs(startDate).format('MMM YYYY')} - {endDate ? dayjs(endDate).format('MMM YYYY') : 'Actualidad'}
+                </Typography>
+              ) : null
+            }
+          </div>
+        </div>
+      </div>
+      <Divider className={classes.divider} />
+    </>
+  )
+}
+
+const Profile = ({ name, rating, ascent, experience, workExperience, rotation, salaryText, action, experiences = [], educations = [], onCV, slice = 2 }) => {
+  const classes = useStyles()
+
+  const parsedExperiences = experiences.filter(({ jobPosition }) => jobPosition).sort(compare)
+
+  const difference = experiences.length - slice
+
+  const education = getEducation(educations)
 
   return (
     <Paper className={classes.container} variant='outlined'>
@@ -45,94 +253,37 @@ const Profile = ({ name, rating, ascent, experience, workExperience, rotation, s
         {action}
       </div>
       {
-        rating ? (
-          <>
-            <div className={classes.first}>
-              <Typography variant='h6'>{rating}</Typography>
-              <GradeIcon className={classes.rating} color='primary' fontSize='small' />
-            </div>
-            <Divider className={classes.divider} />
-          </>
-        ) : null
+        rating ? <Rating rating={rating} /> : null
       }
       {
-        ascent ? (
-          <>
-            <div className={classes.row}>
-              <div className={classes.icon}>
-                <TrendingUpIcon color='primary' fontSize='small' />
-              </div>
-              <div>
-                <Typography className={classes.title} variant='body1'>{ascent.count} Ascenso{sufix(ascent.count, 's', '')}</Typography>
-                <Typography className={classes.subtitle} variant='body1'>En {ascent.time} año{sufix(ascent.time, 's', '')}</Typography>
-              </div>
-            </div>
-            <Divider className={classes.divider} />
-          </>
-        ) : null
+        education ? <Education education={education} /> : null
       }
       {
-        experience ? (
-          <>
-            <div className={classes.row}>
-              <div className={classes.icon}>
-                <WorkIcon color='primary' fontSize='small' />
-              </div>
-              <div>
-                <Typography className={classes.title} variant='body1'>Experiencia</Typography>
-                <Typography className={classes.subtitle} variant='body1'>{experience} año{sufix(experience, 's', '')}</Typography>
-              </div>
-            </div>
-            <Divider className={classes.divider} />
-          </>
-        ) : null
+        ascent ? <Ascent count={ascent.count} time={ascent.time} />: null
       }
       {
-        workExperience ? (
-          <>
-            <div className={classes.row}>
-              <div className={classes.icon}>
-                <BusinessIcon color='primary' fontSize='small' />
-              </div>
-              <div>
-                <Typography className={classes.title} variant='body1'>Trabaja en {workExperience.name}</Typography>
-                <Typography className={classes.subtitle} variant='body1'>Hace {workExperience.count} año{sufix(workExperience.count, 's', '')}</Typography>
-              </div>
-            </div>
-            <Divider className={classes.divider} />
-          </>
-        ) : null
+        rotation ? <Rotation count={rotation.count} time={rotation.time} /> : null
       }
       {
-        rotation ? (
-          <>
-            <div className={classes.row}>
-              <div className={classes.icon}>
-                <LoopIcon color='primary' fontSize='small' />
-              </div>
-              <div>
-                <Typography className={classes.title} variant='body1'>Rotación</Typography>
-                <Typography className={classes.subtitle} variant='body1'>{rotation.count} ve{sufix(rotation.count, 'ces', 'z')} cada {rotation.time} me{sufix(rotation.time, 'ses', 's')}</Typography>
-              </div>
-            </div>
-            <Divider className={classes.divider} />
-          </>
-        ) : null
+        experience ? <Experience experience={experience} /> : null
       }
       {
-        salaryText ? (
-          <>
-            <div className={classes.row}>
-              <div className={classes.icon}>
-                <AttachMoneyIcon color='primary' fontSize='small' />
-              </div>
-              <div>
-                <Typography className={classes.title} variant='body1'>Salario</Typography>
-                <Typography className={classes.subtitle} variant='body1'>{salaryText}</Typography>
-              </div>
-            </div>
-            <Divider className={classes.divider} />
-          </>
+        workExperience ? <WorkExperience count={workExperience.count} name={workExperience.name} /> : null
+      }
+      {
+        salaryText ? <SalaryText salaryText={salaryText} /> : null
+      }
+      {
+        parsedExperiences ? (difference > 0 ? parsedExperiences.slice(0, slice) : parsedExperiences).map((company, index) => <Company company={company} key={index} />) :
+          null
+      }
+      {
+        difference > 0 ? (
+          <div className={classes.difference}>
+            <Button color='inherit' onClick={onCV}>
+              + {difference} experiencia{difference > 1 ? 's' : ''}
+            </Button>
+          </div>
         ) : null
       }
     </Paper>
@@ -154,10 +305,23 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
     width         : '100%'
   },
+  difference: {
+    color        : theme.palette.grey[600],
+    display      : 'flex',
+    flexDirection: 'row-reverse'
+  },
   divider: {
-    backgroundColor: theme.palette.secondary[0],
+    backgroundColor: theme.palette.secondary[10],
     marginLeft     : -theme.spacing(1),
     marginRight    : -theme.spacing(1)
+  },
+  experience: {
+    alignItems   : 'center',
+    display      : 'flex',
+    flexDirection: 'row'
+  },
+  experienceLeft: {
+    marginLeft: theme.spacing(2.5)
   },
   first: {
     alignItems   : 'center',
@@ -169,6 +333,9 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     marginLeft : theme.spacing(1),
     marginRight: theme.spacing(2)
+  },
+  left: {
+    marginLeft: theme.spacing(1.5)
   },
   name: {
     color: theme.palette.secondary[600]
@@ -182,6 +349,12 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     marginBottom : theme.spacing(0.5),
     marginTop    : theme.spacing(0.5)
+  },
+  small: {
+    height     : theme.spacing(3),
+    marginLeft : theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width      : theme.spacing(3)
   },
   subtitle: {
     color: theme.palette.grey[600]

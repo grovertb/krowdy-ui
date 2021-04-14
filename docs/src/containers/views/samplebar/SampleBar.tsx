@@ -62,7 +62,6 @@ const data = [
   }
 ]
 
-
 export default () => {
   const classes = useStyles()
 
@@ -75,6 +74,7 @@ export default () => {
             <Tooltip title='tooltip'><IconButton disabled size='small'><InfoIcon fontSize='small' /></IconButton></Tooltip>
           </div>
           <SampleBar
+            IconComponent={InfoIcon}
             mark={data[3]}
             marks={data}
             template={({ value }) => `${value} años`} />
@@ -85,6 +85,7 @@ export default () => {
             <Tooltip title='tooltip'><IconButton disabled size='small'><InfoIcon fontSize='small' /></IconButton></Tooltip>
           </div>
           <SampleBar
+            customLabel={(index) => index * 2}
             mark={data[3]}
             marks={data}
             template={({ value }) => `${value} veces por año`} />
@@ -94,11 +95,11 @@ export default () => {
   )
 }
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   container: {
     display       : 'flex',
-    justifyContent: 'space-between', 
-    padding       : 12, 
+    justifyContent: 'space-between',
+    padding       : theme.spacing(1.5),
     width         : '100%'
   },
   subSection: {

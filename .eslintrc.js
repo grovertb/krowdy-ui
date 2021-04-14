@@ -198,7 +198,7 @@ module.exports = {
       }
     ],
     'react/jsx-equals-spacing'     : [ 'error', 'never' ],
-    'react/jsx-filename-extension' : [ 'error', { extensions: [ '.js' ] } ],
+    'react/jsx-filename-extension' : [ 'error', { extensions: [ '.js', '.tsx' ] } ],
     // 'react/no-danger': 'error',
     // Strict, airbnb is using off
     'react/jsx-first-prop-new-line': [ 'error', 'multiline-multiprop' ],

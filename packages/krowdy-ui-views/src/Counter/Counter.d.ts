@@ -4,11 +4,11 @@ interface Classes {
 }
 
 export type CounterProps = {
-  addIcon: React.ReactNode,
-  max: number,
-  min: number,
-  removeIcon: React.ReactNode,
-  onChange: (event: { target: { name: string, value: number }}) => void,
+  addIcon?: React.ReactNode,
+  max?: number,
+  min?: number,
+  removeIcon?: React.ReactNode,
+  onChange?: (event: { target: { name: string, value: number }}) => void,
   name?: string,
   classes?: Classes,
   color?: string,

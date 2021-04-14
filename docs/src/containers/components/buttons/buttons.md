@@ -50,6 +50,11 @@ or a higher emphasis alternative to text buttons.
 
 {{"demo": "containers/components/buttons/OutlinedButtons.js"}}
 
+
+## Dashed Buttons
+
+{{"demo": "containers/components/buttons/DashedButtons.js"}}
+
 ## Grouped Buttons
 
 The ButtonGroup component can be used to group outlined (the default) or contained buttons.

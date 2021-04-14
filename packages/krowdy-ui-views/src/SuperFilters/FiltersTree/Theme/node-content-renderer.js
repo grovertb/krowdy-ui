@@ -24,15 +24,15 @@ const Value = ({ label, size, dots }) =>{
   if(label.length <= size || !dots)
     return (
       <div>
-        <Typography className={classes.value} variant='caption'>{label}</Typography>
+        <Typography className={classes.value} component='span' variant='caption'>{label}</Typography>
       </div>
     )
   else
     return (
       <Tooltip title={label}>
-        <div>
-          <Typography className={classes.value} variant='caption'>{cutValue(label, size)}</Typography>
-        </div>
+        <span>
+          <Typography className={classes.value} component='span' variant='caption'>{cutValue(label, size)}</Typography>
+        </span>
       </Tooltip>
     )
 }
@@ -40,11 +40,11 @@ const Value = ({ label, size, dots }) =>{
 const Label = ({ value, dots, size }) => {
   const classes = useContentStyles()
   if(value.length <= size || !dots)
-    return <Typography className={classes.label} variant='body1'>{value}</Typography>
+    return <Typography className={classes.label} component='span' variant='body1'>{value}</Typography>
   else
     return (
       <Tooltip title={value}>
-        <Typography className={classes.label} variant='body1'>{cutValue(value, size)}</Typography>
+        <Typography className={classes.label} component='span' variant='body1'>{cutValue(value, size)}</Typography>
       </Tooltip>
     )
 }
@@ -52,11 +52,11 @@ const Label = ({ value, dots, size }) => {
 const Span = ({ value, dots, size }) => {
   const classes = useContentStyles()
   if(value.length <= size || !dots)
-    return <Typography className={classes.span} variant='body1'>{value}</Typography>
+    return <Typography className={classes.span} component='span' variant='body1'>{value}</Typography>
   else
     return (
       <Tooltip title={value}>
-        <Typography className={classes.span} variant='body1'>{cutValue(value, size)}</Typography>
+        <Typography className={classes.span} component='span' variant='body1'>{cutValue(value, size)}</Typography>
       </Tooltip>
     )
 }

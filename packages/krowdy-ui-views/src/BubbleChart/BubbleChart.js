@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
-import { makeStyles, Typography } from '@krowdy-ui/core'
+import { makeStyles, Tooltip, Typography } from '@krowdy-ui/core'
 import Circle from './Circle'
 import Avatar from './Avatar'
 
@@ -9,9 +9,10 @@ const BubbleChart = (props) => {
   const {
     skills,
     candidates,
-    max = 4
+    max = 4,
+    skillWidth = 'auto'
   } = props
-  const classes = useStyles()
+  const classes = useStyles({ skillWidth })
 
   return (
     <div className={classes.root}>
@@ -20,7 +21,15 @@ const BubbleChart = (props) => {
           {
             skills.map(({ name }, index) => (
               <div className={classes.titleContainer} key={index}>
-                <Typography variant='caption'>{name}</Typography>
+                {!isNaN(skillWidth) ? (
+                  <Tooltip placement='right' title={name}>
+                    <Typography className={classes.textTitle} variant='caption'>{name.length >= skillWidth / 3 ? `${name.slice(0, skillWidth / 3)}...`: name }</Typography>
+                  </Tooltip>
+                ): (
+                  <Typography
+                    variant='caption'>{name}</Typography>
+                )}
+
               </div>
             ))
           }
@@ -79,7 +88,11 @@ BubbleChart.propTypes = {
       value     : PropTypes.string
     }))
   })),
-  max   : PropTypes.number,
+  max       : PropTypes.number,
+  skillWidth: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.oneOf([ 'auto' ])
+  ]),
   skills: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string
   }))
@@ -106,10 +119,10 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between'
   },
   bubblesContainer: {
+    flex          : 1,
     justifyContent: 'space-between',
     overflowX     : 'auto',
-    paddingTop    : theme.spacing(4.75),
-    width         : '74%'
+    paddingTop    : theme.spacing(4.75)
   },
   candidate: {
     marginRight: theme.spacing(2)
@@ -148,14 +161,23 @@ const useStyles = makeStyles((theme) => ({
     marginRight   : theme.spacing(2.5),
     paddingTop    : theme.spacing(4.75)
   },
+  textTitle: {
+    '-webkit-box-orient': 'vertical',
+    '-webkit-line-clamp': 2,
+    display             : '-webkit-box',
+    overflow            : 'hidden'
+  },
   title: {
     marginBottom: theme.spacing(1.25),
     marginTop   : theme.spacing(1.25)
   },
   titleContainer: {
-    alignItems: 'center',
-    display   : 'flex',
-    height    : 28
+    alignItems    : 'center',
+    display       : 'flex',
+    height        : 28,
+    justifyContent: 'flex-end',
+    textAlign     : 'end',
+    width         : ({ skillWidth }) => skillWidth
   }
 }), { name: 'BubbleChart' })
 

@@ -431,9 +431,12 @@ TopAppBar.propTypes = {
   }),
   menuTopLeft: PropTypes.arrayOf(
     PropTypes.shape({
-      color  : PropTypes.string,
-      target : PropTypes.string,
-      title  : PropTypes.string.isRequired,
+      color : PropTypes.string,
+      target: PropTypes.string,
+      title : PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.element
+      ]).isRequired,
       type   : PropTypes.string,
       url    : PropTypes.string,
       variant: PropTypes.string
@@ -441,9 +444,12 @@ TopAppBar.propTypes = {
   ),
   menuTopRight: PropTypes.arrayOf(
     PropTypes.shape({
-      color  : PropTypes.string,
-      target : PropTypes.string,
-      title  : PropTypes.string.isRequired,
+      color : PropTypes.string,
+      target: PropTypes.string,
+      title : PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.element
+      ]).isRequired,
       type   : PropTypes.string,
       url    : PropTypes.string,
       variant: PropTypes.string

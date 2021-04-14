@@ -114,9 +114,7 @@ export default makeStyles(({ palette, spacing, shape }) => ({
   },
   row: {
     '& $rowContentTitle, & $rowContentChips': {
-      alignItems: 'center',
-      display   : 'flex',
-      whiteSpace: 'nowrap'
+      minWidth: 190
     },
     '& $rowIcon, & $rowLabel,& $rowToolbar': {
       alignItems: 'center',

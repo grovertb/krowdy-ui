@@ -1,4 +1,5 @@
 import { bluePrimary, blueSecondary, krowdy, grey } from '../colors'
+import shadows from './shadows'
 
 export default {
   overrides: {
@@ -11,6 +12,11 @@ export default {
     MuiPaper: {
       rounded: {
         borderRadius: 8
+      }
+    },
+    MuiSvgIcon: {
+      fontSizeSmall: {
+        fontSize: '1.125rem'
       }
     },
     MuiSwitch: {
@@ -53,5 +59,6 @@ export default {
     krowdy,
     primary  : bluePrimary,
     secondary: blueSecondary
-  }
+  },
+  shadows
 }

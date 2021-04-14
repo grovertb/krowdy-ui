@@ -1,3 +1,5 @@
+import { ComponentType } from "react";
+
 interface Classes {
   bar: string;
   mark: string;
@@ -15,11 +17,15 @@ interface Mark {
 
 type IFuncTemplate = (mark: Mark) => string
 
+type IFuncCustomLabel = (index: number) => number | string
+
 export type SampleBarProps = {
   classes?: Classes,
   mark?   : Mark,
   marks?:Mark[],
-  template?: IFuncTemplate
+  template?: IFuncTemplate,
+  IconComponent?: ComponentType,
+  customLabel?: IFuncCustomLabel
 }
 
 declare const SampleBar: React.FC<SampleBarProps>;

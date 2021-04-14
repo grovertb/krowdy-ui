@@ -1,6 +1,6 @@
 {
   "name": "@krowdy-ui/styles",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "private": false,
   "author": "Krowdy Team",
   "description": "React components that implement Google's Material Design.",
@@ -28,11 +28,11 @@
     "build:es": "cross-env NODE_ENV=production BABEL_ENV=es babel --config-file ../../babel.config.js ./src --out-dir ./build/es --ignore \"**/*.test.js\"",
     "build:copy-files": "node ../../scripts/copy-files.js",
     "prebuild": "rimraf build",
-    "release": "yarn build && npm publish build --tag latest"
+    "release": "yarn build && npm publish ./build --tag latest"
   },
   "peerDependencies": {},
   "dependencies": {
-    "@material-ui/styles": "^4.10.0"
+    "@material-ui/styles": "^4.11.3"
   },
   "sideEffects": false,
   "publishConfig": {

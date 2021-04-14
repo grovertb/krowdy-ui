@@ -136,7 +136,7 @@ const useStyles = makeStyles((theme) => ({
     '& > div': {
       height: '100%'
     },
-    backgroundColor: theme.palette.secondary[0],
+    backgroundColor: theme.palette.secondary[10],
     height         : 'calc(100% - 112px)'
   },
   groupActionTitle: {

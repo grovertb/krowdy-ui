@@ -35,7 +35,7 @@ function ToggleRole(props) {
 
   React.useEffect(() => {
     setActive(checked)
-  }, [checked])
+  }, [ checked ])
 
   const _handleChange = () => {
     setActive(prevState => {

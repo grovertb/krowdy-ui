@@ -1,3 +1,6 @@
+import { PaperProps as CorePaperProps } from '@krowdy-ui/core/Paper'
+import { KrowdyButtonProps } from '@krowdy-ui/core/Button'
+
 interface Classes {
   backIcon: Record<string, string>,
   root: Record<string, string>,
@@ -22,34 +25,50 @@ type FilterGroup = {
 
 // Applied filter
 type AppliedFilter = {
-  _id: string,
-  key: string,
-  label: string,
-  operator: string,
-  operatorLabel: string,
-  optionIndex  : number, 
-  type         : FilterType
+  _id: string;
+  key: string;
+  label: string;
+  operator: string;
+  operatorLabel: string;
+  optionIndex  : number; 
+  type         : FilterType;
   value?: string | number | any[]
 }
 
 type CategoryItem = {
-  _id: string
+  _id: string;
   label: string
 }
 
+type CandidateValue = {
+  _id: string | number;
+  label: string
+}
+
+type DataUserFlow = {
+  'data-userflow': string;
+}
+type ChildProps = {
+  PaperProps: CorePaperProps | DataUserFlow,
+  AddFiltersButtonProps: KrowdyButtonProps | DataUserFlow
+}
 export interface FiltersProps {
-  classes?: Classes,
-  filterGroups: FilterGroup[],
-  filters: AppliedFilter[],
-  uniqueFilter: boolean,
-  headerHomeComponent?: React.ReactNode,
-  listWidth?: number,
-  onChangeFilters: (appliedFilters: AppliedFilter[]) => void,
-  hasNextPage?: boolean,
-  loadMoreCategoryItems: (categoryKey: string) => void,
-  onSelectCategoryFilter: (categoryKey: string) => void,
-  title: string,
-  categoryItems: CategoryItem[]
+  childProps: ChildProps;
+  classes?: Classes;
+  filterGroups: FilterGroup[];
+  filters: AppliedFilter[];
+  uniqueFilter: boolean;
+  headerHomeComponent?: React.ReactNode;
+  listWidth?: number;
+  onChangeFilters: (appliedFilters: AppliedFilter[]) => void;
+  hasNextPage?: boolean;
+  loadMoreCategoryItems: (categoryKey: string) => void;
+  onSelectCategoryFilter: (categoryKey: string) => void;
+  title: string;
+  categoryItems: CategoryItem[];
+  onChangeFilterCandidate: (candidateGroupFilterType: 'included' | 'excluded', candidateValues: CandidateValue[]) => void;
+  excludedCandidates: CandidateValue[];
+  includedCandidates: CandidateValue[];
 } 
 
 declare const Filters: React.ComponentType<FiltersProps>;
