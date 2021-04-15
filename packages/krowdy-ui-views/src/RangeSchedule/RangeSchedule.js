@@ -299,7 +299,8 @@ const useStyles = makeStyles((theme) => ({
     height        : '100%',
     justifyContent: 'center',
     padding       : theme.spacing(2.5),
-    width         : '100%'
+    width         : '100%',
+    zIndex        : 1
   },
   selectedRadiusLeft: {
     background  : theme.palette.primary[50],
