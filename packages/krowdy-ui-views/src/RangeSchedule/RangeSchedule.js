@@ -78,18 +78,19 @@ const JobRangePickers = ({
   }
 
   const renderDay = (day, _, dayInCurrentMonth) => {
-    const isBackground = new Date(rangeDateValue?.minDate) < new Date(day) &&
-  new Date(rangeDateValue?.maxDate) > new Date(day)
+    const { minDate, maxDate } = rangeDateValue || {}
+    const isBackground = new Date(minDate) < new Date(day) &&
+  new Date(maxDate) > new Date(day)
 
-    const isBackgroundLeft = !(new Date(rangeDateValue?.minDate) < new Date(day) || new Date(rangeDateValue?.minDate) > new Date(day))
-    const isBackgroundRight = !(new Date(rangeDateValue?.maxDate) > new Date(day) || new Date(rangeDateValue?.maxDate) < new Date(day))
+    const isBackgroundLeft = !(new Date(minDate) < new Date(day) || new Date(minDate) > new Date(day))
+    const isBackgroundRight = !(new Date(maxDate) > new Date(day) || new Date(maxDate) < new Date(day))
 
     return (<button
       className={clsx(classes.sizePickers, classes.buttonHidden,
         {
           [classes.disabled]           : new Date(day) < new Date(),
           [classes.dayBackground]      : isBackground,
-          [classes.selectedRadiusLeft] : rangeDateValue?.maxDate && isBackgroundLeft,
+          [classes.selectedRadiusLeft] : maxDate && isBackgroundLeft,
           [classes.selectedRadiusRight]: isBackgroundRight
         })
       } disabled={new Date(day) < new Date()}><button
