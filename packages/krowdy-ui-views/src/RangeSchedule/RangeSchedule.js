@@ -40,7 +40,9 @@ const JobRangePickers = ({
   const _handleChangeDate = (date) => {
     setRangeValue(prev => {
       const parseDate = correctDate(date, formatInternal)
-      if(new Date(parseDate) < new Date(prev.minDate))
+      if(parseDate === correctDate(prev.minDate, formatInternal) )
+        return { maxDate: null, minDate: null }
+      else if(new Date(parseDate) < new Date(prev.minDate))
         return { maxDate: null, minDate: parseDate }
       else
         return prev.minDate ?
@@ -82,18 +84,23 @@ const JobRangePickers = ({
     const isBackgroundLeft = !(new Date(rangeDateValue?.minDate) < new Date(day) || new Date(rangeDateValue?.minDate) > new Date(day))
     const isBackgroundRight = !(new Date(rangeDateValue?.maxDate) > new Date(day) || new Date(rangeDateValue?.maxDate) < new Date(day))
 
-    return (<span className={clsx(classes.sizePickers,
-      {
-        [classes.isAnotherMonth]     : !dayInCurrentMonth,
-        [classes.backgroundDay]      : isBackground,
-        [classes.selectedRadiusLeft] : rangeDateValue?.maxDate && isBackgroundLeft,
-        [classes.selectedRadiusRight]: isBackgroundRight
-      })
-    }><span
-        className={clsx({
-          [classes.selectedDate]: isBackgroundLeft || isBackgroundRight })
-        }>{new Date(day).getDate()}</span>
-    </span>)
+    return (<button
+      className={clsx(classes.sizePickers, classes.buttonHidden,
+        {
+          [classes.disabled]           : new Date(day) < new Date(),
+          [classes.dayBackground]      : isBackground,
+          [classes.selectedRadiusLeft] : rangeDateValue?.maxDate && isBackgroundLeft,
+          [classes.selectedRadiusRight]: isBackgroundRight
+        })
+      } disabled={new Date(day) < new Date()}><button
+        className={clsx(classes.buttonHidden, {
+          [classes.isAnotherMonth]: !dayInCurrentMonth,
+          [classes.disabled]      : new Date(day) < new Date(),
+          [classes.selectedDate]  : isBackgroundLeft || isBackgroundRight
+        })
+        }
+        disabled={new Date(day) < new Date()}>{new Date(day).getDate()}</button>
+    </button>)
   }
 
   return (
@@ -227,7 +234,12 @@ const useStyles = makeStyles((theme) => ({
   arrowIcon: {
     color: 'white'
   },
-  backgroundDay: {
+  buttonHidden: {
+    background: 'none',
+    border    : 'hidden',
+    outline   : 'inherit'
+  },
+  dayBackground: {
     background  : theme.palette.primary[50],
     borderRadius: 0
   },
@@ -237,6 +249,11 @@ const useStyles = makeStyles((theme) => ({
     flexDirection : 'column',
     justifyContent: 'space-between',
     padding       : theme.spacing(1.5)
+  },
+  disabled: {
+    color        : theme.palette.grey[500],
+    cursor       : 'not-allowed !important',
+    pointerEvents: 'inherit !important'
   },
   inputClass: {
     fontSize: 14,
@@ -282,7 +299,8 @@ const useStyles = makeStyles((theme) => ({
     height        : '100%',
     justifyContent: 'center',
     padding       : theme.spacing(2.5),
-    width         : '100%'
+    width         : '100%',
+    zIndex        : 1
   },
   selectedRadiusLeft: {
     background  : theme.palette.primary[50],
@@ -296,7 +314,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems    : 'center',
     cursor        : 'pointer',
     display       : 'flex',
-    height        : 30,
+    height        : 28,
     justifyContent: 'center',
     margin        : theme.spacing(.25, 0),
     width         : 40
