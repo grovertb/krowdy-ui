@@ -7,7 +7,7 @@ export default function () {
     <Grid
       alignContent='center' alignItems='center'
       container>
-      <RangeSchedule initialRange={{ maxDate: '03/25/2021', minDate: '03/20/2021' }} showInput />
+      <RangeSchedule initialRange={{ maxDate: '04/25/2021', minDate: '04/20/2021' }} showInput />
     </Grid>
   )
 }
