@@ -287,7 +287,7 @@ const JobDetail = props => {
             ) : (
               <>
                 <Typography className={classes.titleCompany}>{company.company_name}</Typography>
-                <Typography className={classes.seeMoreCompany} onClick={onViewCompany}>Ver más</Typography>
+                {onViewCompany ? <Typography className={classes.seeMoreCompany} onClick={onViewCompany}>Ver más</Typography>: null}
               </>
             )
           }
