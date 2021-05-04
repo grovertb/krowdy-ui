@@ -200,8 +200,8 @@ const JobDetail = props => {
       accepted: acceptedDisabled
     } = {},
     requirements = [],
-    onClickPostulation = () => { },
-    onViewCompany = () => { },
+    onClickPostulation = () => {},
+    onViewCompany,
     visibleInformation = false
   } = props
 
