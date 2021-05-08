@@ -93,14 +93,16 @@ const JobRangePickers = ({
           [classes.selectedRadiusLeft] : maxDate && isBackgroundLeft,
           [classes.selectedRadiusRight]: isBackgroundRight
         })
-      } disabled={new Date(day) < new Date()}><button
+      } disabled={new Date(day) < new Date()}>
+      <span
         className={clsx(classes.buttonHidden, {
           [classes.isAnotherMonth]: !dayInCurrentMonth,
           [classes.disabled]      : new Date(day) < new Date(),
           [classes.selectedDate]  : isBackgroundLeft || isBackgroundRight
         })
-        }
-        disabled={new Date(day) < new Date()}>{new Date(day).getDate()}</button>
+        }>
+        {new Date(day).getDate()}
+      </span>
     </button>)
   }
 
@@ -213,8 +215,12 @@ const JobRangePickers = ({
                   ListItemClasses={{ button: classes.listItem }}
                   onClick={_handlePublishSchedule}>Publicar ahora</MenuItem>
                 <MenuItem
-                  ListItemClasses={{ button: classes.listItem }}
-                  onClick={_handleCancelSchedule}>Cancelar programación</MenuItem>
+                  ListItemClasses={{
+                    button: classes.listItem
+                  }}
+                  onClick={_handleCancelSchedule}>
+                    Cancelar programación
+                </MenuItem>
               </Menu>
             </div>
           </div>
