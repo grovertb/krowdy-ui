@@ -81,6 +81,7 @@ const JobRangePickers = ({
     const { minDate, maxDate } = rangeDateValue || {}
     const isBackground = new Date(minDate) < new Date(day) &&
   new Date(maxDate) > new Date(day)
+    const beforeToday = dayjs(day).diff(new Date(), 'day') < 0
 
     const isBackgroundLeft = !(new Date(minDate) < new Date(day) || new Date(minDate) > new Date(day))
     const isBackgroundRight = !(new Date(maxDate) > new Date(day) || new Date(maxDate) < new Date(day))
@@ -88,16 +89,16 @@ const JobRangePickers = ({
     return (<button
       className={clsx(classes.sizePickers, classes.buttonHidden,
         {
-          [classes.disabled]           : new Date(day) < new Date(),
+          [classes.disabled]           : beforeToday,
           [classes.dayBackground]      : isBackground,
           [classes.selectedRadiusLeft] : maxDate && isBackgroundLeft,
           [classes.selectedRadiusRight]: isBackgroundRight
         })
-      } disabled={new Date(day) < new Date()}>
+      } disabled={beforeToday}>
       <span
         className={clsx(classes.buttonHidden, {
           [classes.isAnotherMonth]: !dayInCurrentMonth,
-          [classes.disabled]      : new Date(day) < new Date(),
+          [classes.disabled]      : beforeToday,
           [classes.selectedDate]  : isBackgroundLeft || isBackgroundRight
         })
         }>
