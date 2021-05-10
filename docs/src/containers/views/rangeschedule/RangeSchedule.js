@@ -4,9 +4,9 @@ import { RangeSchedule } from '@krowdy-ui/views'
 
 const getDay = (days) => {
   const date = new Date()
-  date.setDate(new Date().getDate() + days)
+  date.setDate(date.getDate() + days)
   const day = date.getDate()
-  const month = date.getMonth()
+  const month = date.getMonth() + 1
   const year = date.getFullYear()
 
   return `${month}/${day}/${year}`
@@ -14,8 +14,8 @@ const getDay = (days) => {
 
 export default function () {
   const initialRange = useMemo(()=>{
-    const minDate = getDay(31)
-    const maxDate = getDay(60)
+    const minDate = getDay(1)
+    const maxDate = getDay(20)
 
     return { maxDate, minDate }
   }, [])
