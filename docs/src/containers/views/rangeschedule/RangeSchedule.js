@@ -13,7 +13,7 @@ const getDay = (days) => {
 }
 
 export default function () {
-  const initialRange = useMemo(()=>{
+  const initialRange = useMemo(() => {
     const minDate = getDay(1)
     const maxDate = getDay(20)
 
