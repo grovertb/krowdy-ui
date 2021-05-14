@@ -63,5 +63,10 @@ export default {
     primary  : bluePrimary,
     secondary: blueSecondary
   },
+  shadow: {
+    krowdy   : `0 0 8px ${krowdy[500]}`,
+    primary  : `0 0 8px ${bluePrimary[500]}`,
+    secondary: `0 0 8px ${blueSecondary[500]}`
+  },
   shadows
 }
