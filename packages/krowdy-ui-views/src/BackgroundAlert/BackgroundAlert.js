@@ -54,19 +54,19 @@ const useStyles = makeStyles(({ palette, spacing }) => ({
     color: palette.secondary[10]
   },
   'tooltipPlacement-bottom': {
-    marginTop      : spacing(3),
+    marginTop      : spacing(1),
     transformOrigin: 'center top'
   },
   'tooltipPlacement-left': {
-    marginRight    : spacing(3),
+    marginRight    : spacing(1),
     transformOrigin: 'right center'
   },
   'tooltipPlacement-right': {
-    marginLeft     : spacing(3),
+    marginLeft     : spacing(1),
     transformOrigin: 'left center'
   },
   'tooltipPlacement-top': {
-    marginBottom   : spacing(3),
+    marginBottom   : spacing(1),
     transformOrigin: 'center bottom'
   }
 }), { name: 'BackgroundAlert' })
