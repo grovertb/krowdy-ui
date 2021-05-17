@@ -16,7 +16,6 @@ export default () =>{
         anchorEl={anchorEl}
         arrow
         color='primary'
-        open={Boolean(anchorEl)}
         placement='top-start'>
         <div>
           <CardHeader title='Primero debes llenar tu aviso. ' />

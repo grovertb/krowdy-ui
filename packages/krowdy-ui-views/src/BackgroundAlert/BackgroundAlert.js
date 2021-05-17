@@ -77,7 +77,6 @@ const BackgroundAlert = ({
   children,
   color,
   anchorEl,
-  open,
   placement = 'bottom',
   arrow
 }) =>{
@@ -91,7 +90,7 @@ const BackgroundAlert = ({
         classes.poperArrow,
         classes[`tooltipPlacement-${placement.split('-')[0]}`],
       )}
-      open={open}
+      open={Boolean(anchorEl)}
       placement={placement}
       popperOptions={{
         modifiers: {
@@ -124,7 +123,6 @@ BackgroundAlert.propTypes = {
   ]),
   arrow    : PropTypes.bool,
   color    : PropTypes.string,
-  open     : PropTypes.bool,
   placement: PropTypes.string
 }
 
