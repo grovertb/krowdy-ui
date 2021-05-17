@@ -11,4 +11,4 @@
 | anchorEl  | Node         |  Required    |                |
 | color        | String           |    primary         | Color de fondo para el card |
 | arrow        | Boolean           |    false         | Flecha |
-| placement | 	  | 'bottom' | |
+| placement | 	  | bottom | |

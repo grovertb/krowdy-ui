@@ -120,7 +120,7 @@ BackgroundAlert.propTypes = {
     PropTypes.func
   ]),
   arrow    : PropTypes.bool,
-  color    : PropTypes.string,
+  color    : PropTypes.oneOf([ 'default', 'inherit', 'primary', 'secondary', 'krowdy', 'error' ]),
   placement: PropTypes.string
 }
 

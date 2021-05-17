@@ -15,7 +15,6 @@ export default () => {
       <BackgroundAlert
         anchorEl={anchorEl}
         arrow
-        color='secondary'
         placement='top-start'>
         <div>
           <CardHeader title='Primero debes llenar tu aviso.' />
