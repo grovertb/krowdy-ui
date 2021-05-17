@@ -6,6 +6,7 @@ interface BackgroundAlertProps {
   anchorEl?:  null | Element | ((element: Element) => Element);
   placement?: string;
   arrow?: boolean;
+  className?: string
 }
 
 declare const BackgroundAlert: React.ComponentType<BackgroundAlertProps>;

@@ -76,7 +76,8 @@ const BackgroundAlert = ({
   color = 'primary',
   anchorEl,
   placement = 'bottom',
-  arrow = false
+  arrow = false,
+  className
 }) =>{
   const classes = useStyles({ background: color })
   const [ arrowRef, setArrowRef ] = useState(null)
@@ -85,6 +86,7 @@ const BackgroundAlert = ({
     <Popper
       anchorEl={anchorEl}
       className={clsx(
+        className,
         classes.poperArrow,
         classes[`tooltipPlacement-${placement.split('-')[0]}`],
       )}
@@ -120,6 +122,10 @@ BackgroundAlert.propTypes = {
     PropTypes.func
   ]),
   arrow    : PropTypes.bool,
+  className: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.any
+  ]),
   color    : PropTypes.oneOf([ 'default', 'inherit', 'primary', 'secondary', 'krowdy', 'error' ]),
   placement: PropTypes.string
 }
