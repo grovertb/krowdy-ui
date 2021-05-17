@@ -1,10 +1,9 @@
 
-
 interface BackgroundAlertProps {
-  color     : string | undefined;
-  anchorEl: null | Object;
-  placement: string | undefined;
-  arrow: boolean | false
+  color?     : string;
+  anchorEl?:  null | Element | ((element: Element) => Element);
+  placement?: string;
+  arrow?: boolean;
 }
 
 declare const BackgroundAlert: React.ComponentType<BackgroundAlertProps>;

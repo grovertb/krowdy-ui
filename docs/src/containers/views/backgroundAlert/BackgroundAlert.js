@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { BackgroundAlert } from '@krowdy-ui/views'
 import { Button, CardContent, CardHeader } from '@krowdy-ui/core'
 
-export default () =>{
+export default () => {
   const [ anchorEl, setAnchorEl ] = useState(null)
 
   const _handleAnchorEl = ({ currentTarget }) => {

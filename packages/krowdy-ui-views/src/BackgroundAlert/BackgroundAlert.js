@@ -71,14 +71,12 @@ const useStyles = makeStyles(({ palette, spacing }) => ({
   }
 }), { name: 'BackgroundAlert' })
 
-// const Arrow = () => <div styles={{ background: 'green', height: 20, width: 20 }} ></div>
-
 const BackgroundAlert = ({
   children,
-  color,
+  color = 'primary',
   anchorEl,
   placement = 'bottom',
-  arrow
+  arrow = false
 }) =>{
   const classes = useStyles({ background: color })
   const [ arrowRef, setArrowRef ] = useState(null)
@@ -118,7 +116,7 @@ const BackgroundAlert = ({
 BackgroundAlert.propTypes = {
   anchorEl: PropTypes.oneOfType([
     PropTypes.element,
-    PropTypes.object,
+    PropTypes.any,
     PropTypes.func
   ]),
   arrow    : PropTypes.bool,

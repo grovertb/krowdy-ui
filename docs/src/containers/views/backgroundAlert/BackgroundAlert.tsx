@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { BackgroundAlert } from '@krowdy-ui/views'
 import { Button, CardContent, CardHeader } from '@krowdy-ui/core'
 
-export default () =>{
+export default () => {
   const [ anchorEl, setAnchorEl ] = useState(null)
 
   const _handleAnchorEl = ({ currentTarget } : { currentTarget: any }) => {
@@ -18,7 +18,7 @@ export default () =>{
         color='secondary'
         placement='top-start'>
         <div>
-          <CardHeader title='Primero debes llenar tu aviso. ' />
+          <CardHeader title='Primero debes llenar tu aviso.' />
           <CardContent>
     Luego, haz click en el botón “Publicar en bolsas”.
           </CardContent>
