@@ -127,6 +127,10 @@ const pages: Array<Page> = [
       },
       // B
       {
+        path : '/views/backgroundAlert',
+        title: 'Background Alert'
+      },
+      {
         path : '/views/bubblechart',
         title: 'Bubble chart'
       },

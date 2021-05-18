@@ -125,3 +125,6 @@ export * from './UserPoint'
 
 export { default as RangeSchedule } from './RangeSchedule'
 export * from './RangeSchedule'
+
+export { default as BackgroundAlert } from './BackgroundAlert'
+export * from './BackgroundAlert'
