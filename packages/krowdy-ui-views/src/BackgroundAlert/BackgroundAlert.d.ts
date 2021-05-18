@@ -1,9 +1,8 @@
-
-type Colors =  'default'| 'inherit'| 'primary'| 'secondary'| 'krowdy'| 'error' 
+import { PropTypes } from '@krowdy-ui/core';
 
 interface BackgroundAlertProps {
-  color?     : Colors;
-  anchorEl?:  null | Element | ((element: Element) => Element);
+  color?     : PropTypes.Color;
+  anchorEl?:  null | Element;
   placement?: string;
   arrow?: boolean;
   className?: string
