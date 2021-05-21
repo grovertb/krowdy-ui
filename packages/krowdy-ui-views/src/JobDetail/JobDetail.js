@@ -1,32 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import XDate from 'xdate'
-import { Typography, Button, Grid, Divider, List, ListItem, ListItemText, Chip } from '@krowdy-ui/core'
+import { Typography, Button, Grid, Divider, List, ListItem, ListItemText, Chip, Paper } from '@krowdy-ui/core'
 import BusinessIcon from '@material-ui/icons/Business'
 import { withStyles } from '@krowdy-ui/styles'
+import clsx from 'clsx'
 
 export const styles = theme => ({
   btnPostular: {
-    [theme.breakpoints.down('xs')]: {
-      backgroundColor: 'white',
-      bottom         : 0,
-      flex           : '1 1 0',
-      left           : 0,
-      padding        : theme.spacing(2),
-      position       : 'fixed',
-      right          : 0,
-      width          : '100%',
-      zIndex         : 1
-    },
-    '& button': {
-      [theme.breakpoints.down('xs')]: {
-        width: '100%'
-      }
-    },
-    alignItems   : 'flex-end',
-    display      : 'flex',
-    flex         : '1 0 1',
-    flexDirection: 'column'
   },
   chips: {
     '&:nth-last-child(1)': {
@@ -51,7 +32,7 @@ export const styles = theme => ({
       width  : '100%'
     },
     alignItems     : 'center',
-    backgroundColor: '#EFEFEF',
+    backgroundColor: theme.palette.secondary[10] || '#F2F4F7',
     border         : '1px solid rgb(234, 234, 234)',
     borderRadius   : 6,
     display        : 'flex',
@@ -68,7 +49,8 @@ export const styles = theme => ({
       marginRight  : theme.spacing(2),
       paddingBottom: theme.spacing(5)
     },
-    margin: theme.spacing(0, 5)
+    margin : theme.spacing(0, 5),
+    padding: theme.spacing(1.5)
   },
   contentOptions: {
     '& > div': {
@@ -82,6 +64,39 @@ export const styles = theme => ({
   contentTitle: {
     display: 'flex'
   },
+  custom: {
+    backgroundColor: 'white',
+    bottom         : 0,
+    display        : 'none',
+    flex           : '1 1 0',
+    left           : 0,
+    position       : 'fixed',
+    right          : 0,
+    width          : '100%',
+    zIndex         : 1
+  },
+  defaultBtnPostular: {
+    [theme.breakpoints.down('xs')]: {
+      backgroundColor: 'white',
+      bottom         : 0,
+      flex           : '1 1 0',
+      left           : 0,
+      padding        : theme.spacing(2),
+      position       : 'fixed',
+      right          : 0,
+      width          : '100%',
+      zIndex         : 1
+    },
+    '& button': {
+      [theme.breakpoints.down('xs')]: {
+        width: '100%'
+      }
+    },
+    alignItems   : 'flex-end',
+    display      : 'flex',
+    flex         : '1 0 1',
+    flexDirection: 'column'
+  },
   descriptionEmpty: {
     '& > img': {
       maxWidth: '100%'
@@ -89,6 +104,16 @@ export const styles = theme => ({
     alignItems   : 'center',
     display      : 'flex',
     flexDirection: 'column'
+  },
+  fixedCard: {
+    [theme.breakpoints.down('xs')]: {
+      '& $custom': {
+        display: 'block'
+      },
+      '& $defaultBtnPostular': {
+        display: 'none'
+      }
+    }
   },
   headerJob: {
     display                     : 'flex',
@@ -101,10 +126,11 @@ export const styles = theme => ({
     flex: '1'
   },
   iconCompany: {
-    color: '#595959'
+    // color: '#595959'
+    color: theme.palette.secondary[200] || '#99A9C2'
   },
   iconDetail: {
-    marginRight: 8
+    marginRight: theme.spacing(1)
   },
   itemList: {
     '& > div': {
@@ -114,24 +140,24 @@ export const styles = theme => ({
     display   : 'list-item',
     fontSize  : '.8rem',
     fontWeight: 'bold',
-    padding   : 6,
+    padding   : theme.spacing(.75),
     wordBreak : 'break-word'
   },
   itemOptions: {
-    marginRight: 20,
-    marginTop  : 8
+    marginRight: theme.spacing(2.5),
+    marginTop  : theme.spacing(1)
   },
   list: {
     display      : 'block',
     listStyleType: 'disc',
     margin       : 0,
-    paddingLeft  : 40
+    paddingLeft  : theme.spacing(5)
   },
   listCompetitions: {
     display   : 'list-item',
     fontSize  : '.8rem',
     fontWeight: 'normal',
-    padding   : 6,
+    padding   : theme.spacing(.75),
     wordBreak : 'break-word'
   },
   sectionInformation: {
@@ -141,11 +167,11 @@ export const styles = theme => ({
     color     : theme.palette.primary.main,
     cursor    : 'pointer',
     fontSize  : '.8rem',
-    marginLeft: 10
+    marginLeft: theme.spacing(1.25)
   },
   textDescription: {
     fontSize : '.8rem',
-    marginTop: theme.spacing(4),
+    marginTop: theme.spacing(1.5),
     wordBreak: 'break-word'
   },
   textDetail: {
@@ -172,7 +198,7 @@ export const styles = theme => ({
     fontSize                      : '2.5rem',
     textTransform                 : 'lowercase',
     [theme.breakpoints.down('xs')]: {
-      fontSize: '1.75rem'
+      fontSize: 44
     },
     wordBreak: 'break-word'
   },
@@ -202,7 +228,9 @@ const JobDetail = props => {
     requirements = [],
     onClickPostulation = () => {},
     onViewCompany,
-    visibleInformation = false
+    visibleInformation = false,
+    variant,
+    fixedCard
   } = props
 
   const [ imageFailed, setImageFailed ] = React.useState(false)
@@ -249,25 +277,39 @@ const JobDetail = props => {
   }
 
   return (
-    <div className={classes.contentJobDetail}>
+    <Paper className={classes.contentJobDetail} variant={variant}>
       <Grid container>
         <Grid item xs={12}>
           <div className={classes.headerJob}>
             <div className={classes.headerLeft}>
               <Typography className={classes.titleJob} variant='h1'>{title}</Typography>
             </div>
-            <div className={classes.btnPostular}>
-              {
-                !hiddenButton && <Button
-                  color='primary' disabled={timeToDown < 0} onClick={onClickPostulation}
-                  size='large' variant='contained'>{userInJob ? 'Ver postulación' : 'Postular'}</Button>
-              }
-              {
-                (timeToDown >= 0 && timeToDown <= 14) ?
-                  <Typography className={classes.textEndJob} component='span'>
+            <div className={clsx({
+              [classes.fixedCard]: fixedCard
+            })}>
+              <div className={classes.defaultBtnPostular}>
+                {
+                  !hiddenButton && (
+                    <Button
+                      color='primary'
+                      disabled={timeToDown < 0}
+                      onClick={onClickPostulation}
+                      size='large'
+                      variant='contained'>
+                      {userInJob ? 'Ver postulación' : 'Postular'}
+                    </Button>
+                  )
+                }
+                {
+                  (timeToDown >= 0 && timeToDown <= 14) ?
+                    <Typography className={classes.textEndJob} component='span'>
                     Finaliza {timeToDown === 0 ? 'Hoy' : `en ${timeToDown} día${timeToDown === 1 ? '' : 's'}`}.
-                  </Typography> : null
-              }
+                    </Typography> : null
+                }
+              </div>
+              <div className={classes.custom}>
+                {fixedCard}
+              </div>
             </div>
           </div>
         </Grid>
@@ -411,7 +453,7 @@ const JobDetail = props => {
           </>
         ) : null
       }
-    </div>
+    </Paper>
   )
 }
 
@@ -433,6 +475,7 @@ JobDetail.propTypes = {
   detailJob         : PropTypes.array,
   disabledPerson    : PropTypes.object,
   expirationDate    : PropTypes.string,
+  fixedCard         : PropTypes.node,
   hiddenButton      : PropTypes.bool,
   jobId             : PropTypes.string,
   onClickPostulation: PropTypes.func,
@@ -441,6 +484,7 @@ JobDetail.propTypes = {
   requirements      : PropTypes.array,
   title             : PropTypes.string,
   userInJob         : PropTypes.bool,
+  variant           : PropTypes.string,
   visibleInformation: PropTypes.bool
 }
 

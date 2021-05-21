@@ -1,3 +1,5 @@
+import { PaperProps } from "@material-ui/core";
+
 export type JobDetailProps = {
   jobId?: string,
   basicEdition?: object[];
@@ -15,6 +17,8 @@ export type JobDetailProps = {
   disabledPerson?: object;
   hiddenButton?: boolean;
   onViewCompany?: Function;
+  fixedCard?: React.ReactNode;
+  variant?: PaperProps['variant'];
 };
 
 declare const JobDetail: React.ComponentType<JobDetailProps>;
