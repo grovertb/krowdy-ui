@@ -15,6 +15,7 @@ export type JobDetailProps = {
   disabledPerson?: object;
   hiddenButton?: boolean;
   onViewCompany?: Function;
+  fixedCard?: React.ReactNode;
 };
 
 declare const JobDetail: React.ComponentType<JobDetailProps>;
