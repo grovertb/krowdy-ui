@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import XDate from 'xdate'
-import { Typography, Button, Grid, Divider, List, ListItem, ListItemText, Chip, Paper } from '@krowdy-ui/core'
+import { Typography, Button, Grid, Divider, List, ListItem, ListItemText, Chip, Paper, HideOnScroll } from '@krowdy-ui/core'
 import BusinessIcon from '@material-ui/icons/Business'
 import { withStyles } from '@krowdy-ui/styles'
 import clsx from 'clsx'
@@ -307,9 +307,11 @@ const JobDetail = props => {
                     </Typography> : null
                 }
               </div>
-              <div className={classes.custom}>
-                {fixedCard}
-              </div>
+              <HideOnScroll direction='down'>
+                <div className={classes.custom}>
+                  {fixedCard}
+                </div>
+              </HideOnScroll>
             </div>
           </div>
         </Grid>

@@ -168,6 +168,9 @@ export * from './Grow'
 export { default as Hidden } from './Hidden'
 export * from './Hidden'
 
+export { default as HideOnScroll } from './HideOnScroll'
+export * from './HideOnScroll'
+
 export { default as IconButton } from './IconButton'
 export * from './IconButton'
 
@@ -357,8 +360,8 @@ export * from './Typography'
 export { default as useMediaQuery } from './useMediaQuery'
 export * from './useMediaQuery'
 
-// export { default as useScrollTrigger } from './useScrollTrigger';
-// export * from './useScrollTrigger';
+export { default as useScrollTrigger } from './useScrollTrigger'
+export * from './useScrollTrigger'
 
 // export { default as withMobileDialog } from './withMobileDialog';
 // export * from './withMobileDialog';

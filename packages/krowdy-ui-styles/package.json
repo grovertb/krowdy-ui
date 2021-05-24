@@ -32,7 +32,7 @@
   },
   "peerDependencies": {},
   "dependencies": {
-    "@material-ui/styles": "^4.11.3"
+    "@material-ui/styles": "^4.11.4"
   },
   "sideEffects": false,
   "publishConfig": {
