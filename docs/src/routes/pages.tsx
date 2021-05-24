@@ -94,6 +94,10 @@ const pages: Array<Page> = [
           {
             path : '/components/dots',
             title: 'Dot'
+          },
+          {
+            path : '/components/hideonscroll',
+            title: 'HideOnScroll'
           }
         ],
         title: 'Utils'
