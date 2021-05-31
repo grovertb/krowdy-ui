@@ -1,6 +1,6 @@
 {
   "name": "@krowdy-ui/icons",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "private": false,
   "author": "Krowdy Team",
   "description": "React components that implement Google's Material Design.",
