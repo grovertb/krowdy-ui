@@ -14,9 +14,12 @@ export const styles = theme => ({
     width          : 26
   },
   benefitList: {
-    display            : 'grid',
-    gap                : theme.spacing(1),
-    gridTemplateColumns: '1fr 1fr'
+    display                     : 'grid',
+    gap                         : theme.spacing(1),
+    gridTemplateColumns         : '1fr',
+    [theme.breakpoints.up('sm')]: {
+      gridTemplateColumns: '1fr 1fr'
+    }
   },
   btnPostular: {
   },
