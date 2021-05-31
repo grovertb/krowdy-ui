@@ -18,7 +18,7 @@ import {
   LanguageThin as LanguageThinIcon,
   PayrollThin as PayrollThinIcon,
   PetsOutlinedThin as PetsOutlinedThinIcon
-} from '@krowdy-ui/icons/src'
+} from '@krowdy-ui/icons'
 
 export default function () {
   const classes = useStyles()
