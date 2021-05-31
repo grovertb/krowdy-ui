@@ -33,6 +33,7 @@ module.exports = override(
   addWebpackAlias({
     ...aliases,
     '@krowdy-ui/core'  : path.resolve(__dirname, '../packages/krowdy-ui/src'),
+    '@krowdy-ui/icons' : path.resolve(__dirname, '../packages/krowdy-ui-icons/src'),
     '@krowdy-ui/styles': path.resolve(__dirname, '../packages/krowdy-ui-styles/src'),
     '@krowdy-ui/views' : path.resolve(__dirname, '../packages/krowdy-ui-views/src'),
     'react-dom'        : '@hot-loader/react-dom'
@@ -42,6 +43,7 @@ module.exports = override(
       // "root": ["./src"],
       alias: {
         '@krowdy-ui/core'  : path.resolve(__dirname, '../packages/krowdy-ui/src'),
+        '@krowdy-ui/icons' : path.resolve(__dirname, '../packages/krowdy-ui-icons/src'),
         '@krowdy-ui/styles': path.resolve(__dirname, '../packages/krowdy-ui-styles/src'),
         '@krowdy-ui/views' : path.resolve(__dirname, '../packages/krowdy-ui-views/src')
       },
