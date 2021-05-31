@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid } from '@krowdy-ui/core'
+import { Grid, makeStyles } from '@krowdy-ui/core'
 import { JobDetail } from '@krowdy-ui/views'
 import {
   Schedule as ScheduleIcon,
@@ -8,8 +8,21 @@ import {
   Work as WorkIcon,
   Business as BusinessIcon
 } from '@material-ui/icons'
+import {
+  AccessTimeThin as AccessTimeThinIcon,
+  AddCircleOutlinedThin as AddCircleOutlinedThinIcon,
+  ComputerThin as ComputerThinIcon,
+  DressHookThin as DressHookIcon,
+  DriveEtaOutlinedThin as DriveEtaOutlinedThinIcon,
+  EmojiPeopleOutlinedThin as EmojiPeopleOutlinedThinIcon,
+  LanguageThin as LanguageThinIcon,
+  PayrollThin as PayrollThinIcon,
+  PetsOutlinedThin as PetsOutlinedThinIcon
+} from '@krowdy-ui/icons/src'
 
 export default function () {
+  const classes = useStyles()
+
   return (
     <Grid container>
       <JobDetail
@@ -30,32 +43,85 @@ export default function () {
             visible    : true
           }
         ]}
-        benefits={[
-          {
-            description: 'b1',
-            title      : 'Planilla'
-          },
-          {
-            description: '12',
-            title      : 'EPS'
-          },
-          {
-            description: 'b3',
-            title      : 'Otros seguros'
-          },
-          {
-            description: 'b4',
-            title      : 'Convenios'
-          },
-          {
-            description: 'b5',
-            title      : 'Capacitaciones'
-          },
-          {
-            description: 'b6',
-            title      : 'Otros'
-          }
-        ]}
+        // benefits={[
+        //   {
+        //     description: 'b1',
+        //     title      : 'Planilla'
+        //   },
+        //   {
+        //     description: '12',
+        //     title      : 'EPS'
+        //   },
+        //   {
+        //     description: 'b3',
+        //     title      : 'Otros seguros'
+        //   },
+        //   {
+        //     description: 'b4',
+        //     title      : 'Convenios'
+        //   },
+        //   {
+        //     description: 'b5',
+        //     title      : 'Capacitaciones'
+        //   },
+        //   {
+        //     description: 'b6',
+        //     title      : 'Otros'
+        //   }
+        // ]}
+        benefits={[ {
+          icon: (
+            <LanguageThinIcon className={classes.svgIcon} />
+          ),
+          title: 'Trabajo remoto'
+        }, {
+          icon: (
+            <PayrollThinIcon className={classes.svgIcon} />
+          ),
+          title: 'Planilla'
+        }, {
+          icon: (
+            <AddCircleOutlinedThinIcon className={classes.svgIcon} />
+          ),
+          title: 'Seguro de Salud'
+        }, {
+          icon: (
+            <AccessTimeThinIcon className={classes.svgIcon} />
+          ),
+          title: 'Horario flexible'
+        }, {
+          icon: (
+            <ComputerThinIcon className={classes.svgIcon} />
+          ),
+          title: 'Computadora'
+        }, {
+          icon : null, /* (
+            <SvgIcon className={classes.svgIcon}>
+              <path d={Paths.Training} />
+            </SvgIcon>
+          ), */
+          title: 'Capacitaciones'
+        }, {
+          icon: (
+            <DressHookIcon className={classes.svgIcon} />
+          ),
+          title: 'Vestimenta informal'
+        }, {
+          icon: (
+            <DriveEtaOutlinedThinIcon className={classes.svgIcon} />
+          ),
+          title: 'Estacionamiento'
+        }, {
+          icon: (
+            <EmojiPeopleOutlinedThinIcon className={classes.svgIcon} />
+          ),
+          title: 'Actividades recreativas'
+        }, {
+          icon: (
+            <PetsOutlinedThinIcon className={classes.svgIcon} />
+          ),
+          title: 'Empresa pet friendly'
+        } ]}
         company={{
           company_id  : '5df94c923e5ee30034fe1859',
           // "company_logo": "https://s3.amazonaws.com/test.krowdy.apps/company/5df94c923e5ee30034fe1859/2019-12-17T16-53-22-199Z71a50283e8ab9334ccf054d2caa3760a_%281%29.jpeg",
@@ -288,3 +354,9 @@ export default function () {
     </Grid>
   )
 }
+
+const useStyles = makeStyles((theme) => ({
+  svgIcon: {
+    color: theme.palette.secondary[200]
+  }
+}))
