@@ -31,14 +31,15 @@
     "release": "yarn build && npm publish ./build --tag latest"
   },
   "peerDependencies": {},
-  "dependencies": {
-    "@material-ui/icons": "4.11.2"
-  },
+  "dependencies": {},
   "sideEffects": false,
   "publishConfig": {
     "access": "public"
   },
   "engines": {
     "node": ">=8.0.0"
+  },
+  "devDependencies": {
+    "@material-ui/core": "^4.11.4"
   }
 }

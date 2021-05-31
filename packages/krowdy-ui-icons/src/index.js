@@ -1,6 +1,4 @@
 /* eslint-disable import/export */
-export * from '@material-ui/icons'
-
 export { default as AccessTimeThin } from './AccessTimeThin'
 export * from './AccessTimeThin'
 
