@@ -23,6 +23,8 @@
       "@krowdy-ui/styles/*": ["./packages/krowdy-ui-styles/src/*"],
       "@krowdy-ui/views": ["./packages/krowdy-ui-views/src"],
       "@krowdy-ui/views/*": ["./packages/krowdy-ui-views/src/*"],
+      "@krowdy-ui/icons": ["./packages/krowdy-ui-icons/src"],
+      "@krowdy-ui/icons/*": ["./packages/krowdy-ui-icons/src/*"],
       "test/*": ["./test/*"]
     }
   },
