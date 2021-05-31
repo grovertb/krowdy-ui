@@ -1,5 +1,6 @@
 import React from 'react'
-import { Slide, useScrollTrigger } from '@krowdy-ui/core'
+import Slide from '../Slide'
+import useScrollTrigger from '../useScrollTrigger'
 
 const AlterDirection = {
   down : 'up',
