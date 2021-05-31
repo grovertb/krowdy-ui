@@ -1,12 +1,26 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import XDate from 'xdate'
-import { Typography, Button, Grid, Divider, List, ListItem, ListItemText, Chip, Paper, HideOnScroll } from '@krowdy-ui/core'
+import { Typography, Button, Grid, Divider, List, ListItem, ListItemText, Chip, Paper, HideOnScroll, ListItemAvatar, Avatar } from '@krowdy-ui/core'
 import BusinessIcon from '@material-ui/icons/Business'
 import { withStyles } from '@krowdy-ui/styles'
 import clsx from 'clsx'
 
 export const styles = theme => ({
+  avatar: {
+    backgroundColor: 'transparent',
+    color          : theme.palette.secondary[200],
+    height         : 26,
+    width          : 26
+  },
+  benefitList: {
+    display                     : 'grid',
+    gap                         : theme.spacing(1),
+    gridTemplateColumns         : '1fr',
+    [theme.breakpoints.up('sm')]: {
+      gridTemplateColumns: '1fr 1fr'
+    }
+  },
   btnPostular: {
   },
   chips: {
@@ -159,6 +173,14 @@ export const styles = theme => ({
     fontWeight: 'normal',
     padding   : theme.spacing(.75),
     wordBreak : 'break-word'
+  },
+  listItem: {
+    border      : `1px solid ${theme.palette.secondary[50]}`,
+    borderRadius: theme.shape.borderRadius,
+    padding     : theme.spacing(1.5)
+  },
+  listItemAvatar: {
+    minWidth: 36
   },
   sectionInformation: {
     margin: theme.spacing(5, 0)
@@ -337,7 +359,6 @@ const JobDetail = props => {
           }
         </div>
       </Grid>
-
       {
         description ? (
           <Grid item>
@@ -353,7 +374,6 @@ const JobDetail = props => {
           </Grid>
         ) : null
       }
-
       <Grid className={classes.contentOptions} item xs={12}>
         {
           detailJob.map(({ icon, text }, index) => (
@@ -406,18 +426,16 @@ const JobDetail = props => {
             <Divider />
             <section className={classes.sectionInformation}>
               <Typography className={classes.titleSection} variant='h5'>Beneficios</Typography>
-              <List className={classes.list}>
+              <List className={classes.benefitList}>
                 {
-                  benefits.map(({ title: titleBenefits, description: descriptionBenefits }, index) => (
-                    <ListItem className={classes.itemList} key={`benefit-${index}`}>
-                      {titleBenefits}
-                      <ListItemText
-                        secondary={
-                          titleBenefits === 'EPS' ?
-                            descriptionBenefits ? `${descriptionBenefits}%` :
-                              '' :
-                            descriptionBenefits
-                        } />
+                  benefits.map(({ title, icon }, index) => (
+                    <ListItem className={classes.listItem} key={`benefit-${index}`}>
+                      <ListItemAvatar className={classes.listItemAvatar}>
+                        <Avatar className={classes.avatar}>
+                          {icon}
+                        </Avatar>
+                      </ListItemAvatar>
+                      <ListItemText primary={title} primaryTypographyProps={{ variant: 'body2' }} />
                     </ListItem>
                   ))
                 }

@@ -32,3 +32,9 @@ export * from './PayrollThin'
 export { default as PetsOutlinedThin } from './PetsOutlinedThin'
 export * from './PetsOutlinedThin'
 
+export { default as TrainingThin } from './TrainingThin'
+export * from './TrainingThin'
+
+export { default as WindowClose } from './WindowClose'
+export * from './WindowClose'
+
