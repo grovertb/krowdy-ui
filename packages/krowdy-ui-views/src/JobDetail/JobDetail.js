@@ -143,6 +143,12 @@ export const styles = theme => ({
       }
     }
   },
+  gridDescription: {
+    '@media (min-width: 767px)': {
+      marginTop: theme.spacing(7.5)
+    },
+    marginTop: theme.spacing(3.5)
+  },
   headerJob: {
     display                     : 'flex',
     flexDirection               : 'column',
@@ -378,6 +384,10 @@ const JobDetail = props => {
     isPreview ? Div : Paper,
   [ isPreview ])
 
+  const basicEditionFiltered = React.useMemo(() => basicEdition
+    .filter(({ visible, description }) => visible && description)
+  , [ basicEdition ])
+
   return (
     <ContainerRoot className={classes.contentJobDetail} variant={variant}>
       <Grid container>
@@ -471,23 +481,35 @@ const JobDetail = props => {
           ))
         }
       </Grid>
-      {
-        basicEdition.filter(({ visible, description }) => visible && description).map((item, key) => (
-          <section className={classes.sectionInformation} key={`information-${key}`}>
-            <Typography className={classes.titleSection} variant='h4'>{item.title}</Typography>
-            {
-              item.description ? (
-                <Typography
-                  className={classes.textDescription}
-                  component='div'
-                  dangerouslySetInnerHTML={{ __html: item.description }}
-                  variant='body2' />
-              ) : null
-            }
+      <Grid className={classes.gridDescription} item xs={12}>
+        {
+          basicEditionFiltered.length > 0 ?
+            basicEditionFiltered
+              .map((item, key) => (
+                <section className={classes.sectionInformation} key={`information-${key}`}>
+                  <Typography className={classes.titleSection} variant='h4'>{item.title}</Typography>
+                  {
+                    item.description ? (
+                      <Typography
+                        className={classes.textDescription}
+                        component='div'
+                        dangerouslySetInnerHTML={{ __html: item.description }}
+                        variant='body2' />
+                    ) : null
+                  }
 
-          </section>
-        ))
-      }
+                </section>
+              )): (
+              <div className={classes.descriptionEmpty}>
+                <img
+                  alt='without-description'
+                  src='//s3.amazonaws.com/cdn.krowdy.com/media/images/empty-job.png' />
+                <Typography align='center' color='info' variant='body3'>
+                  Sin descripción
+                </Typography>
+              </div>)
+        }
+      </Grid>
       {
         competencies.length ? (
           <>
@@ -496,9 +518,9 @@ const JobDetail = props => {
               <Typography className={classes.titleSection} variant='h5'>Competencias</Typography>
               <List className={classes.list}>
                 {
-                  competencies.map((competencie, index) => (
-                    <ListItem className={classes.listCompetitions} key={`competencie-${index}`}>
-                      {competencie.title}
+                  competencies.map((competency, index) => (
+                    <ListItem className={classes.listCompetitions} key={`competency-${index}`}>
+                      {competency.title}
                     </ListItem>
                   ))
                 }

@@ -10,3 +10,8 @@
 
 ## Job Detail Closed
 {{"demo": "containers/views/jobdetail/JobDetailClosed.js", "hideHeader": false, "bg": true, "bgColor": "white", "iframe": true }}
+
+## Job Detail Sin Basic Editions
+{{"demo": "containers/views/jobdetail/JobDetailWithOutBasicEdition.js", "hideHeader": false, "bg": true, "bgColor": "white", "iframe": true }}
+
+
