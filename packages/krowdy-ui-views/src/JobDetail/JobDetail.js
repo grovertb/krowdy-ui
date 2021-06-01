@@ -5,6 +5,19 @@ import { Typography, Button, Grid, Divider, List, ListItem, ListItemText, Chip, 
 import BusinessIcon from '@material-ui/icons/Business'
 import { withStyles } from '@krowdy-ui/styles'
 import clsx from 'clsx'
+import keyBy from '../utils/keyBy'
+import {
+  AccessTimeThin as AccessTimeThinIcon,
+  AddCircleOutlinedThin as AddCircleOutlinedThinIcon,
+  ComputerThin as ComputerThinIcon,
+  DressHookThin as DressHookIcon,
+  DriveEtaOutlinedThin as DriveEtaOutlinedThinIcon,
+  EmojiPeopleOutlinedThin as EmojiPeopleOutlinedThinIcon,
+  LanguageThin as LanguageThinIcon,
+  PayrollThin as PayrollThinIcon,
+  PetsOutlinedThin as PetsOutlinedThinIcon,
+  TrainingThin as TrainingThinIcon
+} from '@krowdy-ui/icons'
 
 export const styles = theme => ({
   avatar: {
@@ -63,8 +76,9 @@ export const styles = theme => ({
       marginRight  : theme.spacing(2),
       paddingBottom: theme.spacing(5)
     },
-    margin : theme.spacing(0, 5),
-    padding: theme.spacing(1.5)
+    backgroundColor: 'white',
+    margin         : theme.spacing(0, 5),
+    padding        : theme.spacing(1.5)
   },
   contentOptions: {
     '& > div': {
@@ -191,6 +205,9 @@ export const styles = theme => ({
     fontSize  : '.8rem',
     marginLeft: theme.spacing(1.25)
   },
+  svgIcon: {
+    color: theme.palette.secondary[200]
+  },
   textDescription: {
     fontSize : '.8rem',
     marginTop: theme.spacing(1.5),
@@ -229,6 +246,8 @@ export const styles = theme => ({
   }
 })
 
+const Div = ({ children, ...props }) => <div {...props}>{children}</div>
+
 const JobDetail = props => {
   const {
     hiddenButton,
@@ -236,6 +255,7 @@ const JobDetail = props => {
     classes,
     title,
     competencies = [],
+    closed,
     description,
     basicEdition = [],
     benefits = [],
@@ -252,7 +272,8 @@ const JobDetail = props => {
     onViewCompany,
     visibleInformation = false,
     variant,
-    fixedCard
+    fixedCard,
+    isPreview
   } = props
 
   const [ imageFailed, setImageFailed ] = React.useState(false)
@@ -266,6 +287,7 @@ const JobDetail = props => {
   const today = new XDate() // DEVUELVE 2019-12-30 10:38:20
   const todayFormat = new XDate(today.getFullYear(), today.getMonth(), today.getDate()) // DEVUELVE 2019-12-30
   const timeToDown = todayFormat.diffDays(expDateFormat)
+  const isFinalized = expirationDate ? new XDate().getTime() >= new XDate(Number(expirationDate)).getTime() : false
 
   const renderItemRequirement = requirement => {
     switch (requirement.title.toLowerCase()) {
@@ -298,43 +320,108 @@ const JobDetail = props => {
     setImageFailed(true)
   }
 
+  const iconByTitle = React.useMemo(()=> (
+    keyBy([ {
+      icon: (
+        <LanguageThinIcon className={classes.svgIcon} />
+      ),
+      title: 'Trabajo remoto'
+    }, {
+      icon: (
+        <PayrollThinIcon className={classes.svgIcon} />
+      ),
+      title: 'Planilla'
+    }, {
+      icon: (
+        <AddCircleOutlinedThinIcon className={classes.svgIcon} />
+      ),
+      title: 'Seguro de Salud'
+    }, {
+      icon: (
+        <AccessTimeThinIcon className={classes.svgIcon} />
+      ),
+      title: 'Horario flexible'
+    }, {
+      icon: (
+        <ComputerThinIcon className={classes.svgIcon} />
+      ),
+      title: 'Computadora'
+    }, {
+      icon: (
+        <TrainingThinIcon className={classes.svgIcon} />
+      ),
+      title: 'Capacitaciones'
+    }, {
+      icon: (
+        <DressHookIcon className={classes.svgIcon} />
+      ),
+      title: 'Vestimenta informal'
+    }, {
+      icon: (
+        <DriveEtaOutlinedThinIcon className={classes.svgIcon} />
+      ),
+      title: 'Estacionamiento'
+    }, {
+      icon: (
+        <EmojiPeopleOutlinedThinIcon className={classes.svgIcon} />
+      ),
+      title: 'Actividades recreativas'
+    }, {
+      icon: (
+        <PetsOutlinedThinIcon className={classes.svgIcon} />
+      ),
+      title: 'Empresa pet friendly'
+    } ], 'title')
+  ), [ classes.svgIcon ])
+
+  const ContainerRoot = React.useMemo(() =>
+    isPreview ? Div : Paper,
+  [ isPreview ])
+
   return (
-    <Paper className={classes.contentJobDetail} variant={variant}>
+    <ContainerRoot className={classes.contentJobDetail} variant={variant}>
       <Grid container>
         <Grid item xs={12}>
           <div className={classes.headerJob}>
             <div className={classes.headerLeft}>
               <Typography className={classes.titleJob} variant='h1'>{title}</Typography>
             </div>
-            <div className={clsx({
-              [classes.fixedCard]: fixedCard
-            })}>
-              <div className={classes.defaultBtnPostular}>
-                {
-                  !hiddenButton && (
-                    <Button
-                      color='primary'
-                      disabled={timeToDown < 0}
-                      onClick={onClickPostulation}
-                      size='large'
-                      variant='contained'>
-                      {userInJob ? 'Ver postulación' : 'Postular'}
-                    </Button>
-                  )
-                }
-                {
-                  (timeToDown >= 0 && timeToDown <= 14) ?
-                    <Typography className={classes.textEndJob} component='span'>
-                    Finaliza {timeToDown === 0 ? 'Hoy' : `en ${timeToDown} día${timeToDown === 1 ? '' : 's'}`}.
-                    </Typography> : null
-                }
-              </div>
-              <HideOnScroll direction='down'>
-                <div className={classes.custom}>
-                  {fixedCard}
+            {!isPreview ? (
+              <div className={clsx({
+                [classes.fixedCard]: fixedCard
+              })}>
+                <div className={classes.defaultBtnPostular}>
+                  {
+                    (!hiddenButton) && (
+                      <Button
+                        color='primary'
+                        disabled={isFinalized || closed}
+                        onClick={onClickPostulation}
+                        size='large'
+                        variant='contained'>
+                        {(closed || isFinalized)? 'Finalizado': userInJob ? 'Ver postulación' : 'Postular'}
+                      </Button>
+                    )
+                  }
+                  {
+                    (timeToDown > 0 && timeToDown <= 14) ?
+                      <Typography className={classes.textEndJob} component='span'>
+                      Finaliza {timeToDown === 0 ? 'Hoy' : `en ${timeToDown} día${timeToDown === 1 ? '' : 's'}`}.
+                      </Typography> :
+                      (timeToDown === 0 && !isFinalized) ?
+                        <Typography className={classes.textEndJob} variant='subtitle2'>
+                              Finaliza hoy
+                        </Typography> :
+                        null
+                  }
                 </div>
-              </HideOnScroll>
-            </div>
+                <HideOnScroll direction='down'>
+                  <div className={classes.custom}>
+                    {fixedCard}
+                  </div>
+                </HideOnScroll>
+              </div>
+            ): null}
           </div>
         </Grid>
       </Grid>
@@ -353,7 +440,7 @@ const JobDetail = props => {
             ) : (
               <>
                 <Typography className={classes.titleCompany}>{company.company_name}</Typography>
-                {onViewCompany ? <Typography className={classes.seeMoreCompany} onClick={onViewCompany}>Ver más</Typography>: null}
+                {(onViewCompany && !isPreview) ? <Typography className={classes.seeMoreCompany} onClick={onViewCompany}>Ver más</Typography>: null}
               </>
             )
           }
@@ -428,11 +515,11 @@ const JobDetail = props => {
               <Typography className={classes.titleSection} variant='h5'>Beneficios</Typography>
               <List className={classes.benefitList}>
                 {
-                  benefits.map(({ title, icon }, index) => (
+                  benefits.map(({ title }, index) => (
                     <ListItem className={classes.listItem} key={`benefit-${index}`}>
                       <ListItemAvatar className={classes.listItemAvatar}>
                         <Avatar className={classes.avatar}>
-                          {icon}
+                          {iconByTitle[title]?.icon}
                         </Avatar>
                       </ListItemAvatar>
                       <ListItemText primary={title} primaryTypographyProps={{ variant: 'body2' }} />
@@ -473,7 +560,7 @@ const JobDetail = props => {
           </>
         ) : null
       }
-    </Paper>
+    </ContainerRoot>
   )
 }
 
@@ -485,6 +572,7 @@ JobDetail.propTypes = {
    * See [CSS API](#css) below for more details.
    */
   classes     : PropTypes.object,
+  closed      : PropTypes.bool,
   company     : PropTypes.object,
   competencies: PropTypes.array,
   description : PropTypes.oneOfType([
@@ -492,12 +580,14 @@ JobDetail.propTypes = {
     PropTypes.object
   ]),
   // _id
-  detailJob         : PropTypes.array,
-  disabledPerson    : PropTypes.object,
-  expirationDate    : PropTypes.string,
-  fixedCard         : PropTypes.node,
-  hiddenButton      : PropTypes.bool,
-  jobId             : PropTypes.string,
+  detailJob     : PropTypes.array,
+  disabledPerson: PropTypes.object,
+  expirationDate: PropTypes.string,
+  fixedCard     : PropTypes.node,
+  hiddenButton  : PropTypes.bool,
+  isPreview     : PropTypes.bool,
+  jobId         : PropTypes.string,
+
   onClickPostulation: PropTypes.func,
   // status: PropTypes.string
   onViewCompany     : PropTypes.func,
