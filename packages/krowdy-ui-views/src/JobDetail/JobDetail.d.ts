@@ -19,6 +19,8 @@ export type JobDetailProps = {
   onViewCompany?: Function;
   fixedCard?: React.ReactNode;
   variant?: PaperProps['variant'];
+  closed?: boolean;
+  isPreview?: boolean;
 };
 
 declare const JobDetail: React.ComponentType<JobDetailProps>;
