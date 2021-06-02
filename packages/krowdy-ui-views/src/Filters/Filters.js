@@ -92,7 +92,7 @@ const Filters = (props) => {
     viewDefault = 'HOME'
   }  = props
 
-  const [ view, goToView ] = useState(Views[viewDefault] || Views['HOME'] )
+  const [ view, goToView ] = useState(Views[viewDefault])
   const [ filterSelected, setFilterSelected ] = useState()
   const [ filterToEdit, setFilterToEdit ] = useState()
 
