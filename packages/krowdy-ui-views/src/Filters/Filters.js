@@ -289,7 +289,7 @@ Filters.propTypes = {
   onSelectCategoryFilter: PropTypes.func,
   title                 : PropTypes.string.isRequired,
   uniqueFilter          : PropTypes.bool,
-  viewDefault           : PropTypes.oneOf([ 'HOME', 'FILTERS_SEARCH', 'HOME' ])
+  viewDefault           : PropTypes.oneOf([ 'HOME', 'FILTERS_SEARCH', 'FILTER_CONFIG' ])
 }
 
 Filters.muiName = 'KrowdyFilters'
