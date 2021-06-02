@@ -49,7 +49,8 @@ export interface FiltersProps {
   loadMoreCategoryItems: (categoryKey: string) => void,
   onSelectCategoryFilter: (categoryKey: string) => void,
   title: string,
-  categoryItems: CategoryItem[]
+  categoryItems: CategoryItem[],
+  viewDefault?: string
 } 
 
 declare const Filters: React.ComponentType<FiltersProps>;

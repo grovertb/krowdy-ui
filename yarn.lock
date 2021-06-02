@@ -1384,6 +1384,30 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
+"@krowdy-ui/views@0.0.94":
+  version "0.0.94"
+  resolved "https://registry.yarnpkg.com/@krowdy-ui/views/-/views-0.0.94.tgz#f6b5127fcc4b6ad9d25edb3b190a18f55a0bb7dd"
+  integrity sha512-wJFH65zPB83NmLcc+FetpyFp2xjXra3bMXcB4MWUqBV3dLwjmjCQW3MY4ahTNsRjzJbyxXVvMjiuRAveNL32Hg==
+  dependencies:
+    "@date-io/dayjs" "1.3.13"
+    "@devexpress/dx-react-core" "^2.5.1"
+    "@devexpress/dx-react-grid" "^2.5.1"
+    "@devexpress/dx-react-grid-material-ui" "^2.5.1"
+    "@ghondar/pickers" "^3.3.2"
+    "@loadable/component" "5.13.2"
+    "@material-ui/icons" "4.11.2"
+    "@material-ui/lab" "4.0.0-alpha.56"
+    "@material-ui/pickers" "^3.2.10"
+    dayjs "^1.8.20"
+    mic-recorder-to-mp3 "^2.2.1"
+    react-beautiful-dnd "12.2.0"
+    react-compound-timer "^1.1.15"
+    react-sortable-tree "2.6.2"
+    react-virtualized "^9.21.2"
+    react-window "^1.8.5"
+    react-window-infinite-loader "^1.0.5"
+    xdate "0.8.2"
+
 "@loadable/component@5.13.2":
   version "5.13.2"
   resolved "https://registry.yarnpkg.com/@loadable/component/-/component-5.13.2.tgz#219b679c9e76bb5dd247923a3195ad3ef92cf977"
