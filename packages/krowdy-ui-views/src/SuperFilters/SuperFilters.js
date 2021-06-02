@@ -152,13 +152,14 @@ const SuperFilters = (props) => {
     onChangeFilterCandidate = () => {},
     excludedCandidates = [],
     childProps = {},
-    includedCandidates = []
+    includedCandidates = [],
+    viewDefault
   }  = props
 
   const { PaperProps, AddFiltersButtonProps } = childProps
 
   const [ groupFilterCurrent, setGroupFilterCurrent ] = useState(null)
-  const [ view, goToView ] = useState(Views.HOME)
+  const [ view, goToView ] = useState(Views[viewDefault] || Views.HOME)
   const [ filterSelected, setFilterSelected ] = useState()
   const [ filterToEdit, setFilterToEdit ] = useState()
 
@@ -542,7 +543,8 @@ SuperFilters.propTypes = {
   onFetchFilterGroups    : PropTypes.func,
   onSelectCategoryFilter : PropTypes.func,
   title                  : PropTypes.string.isRequired,
-  uniqueFilter           : PropTypes.bool
+  uniqueFilter           : PropTypes.bool,
+  viewDefault            : PropTypes.oneOf([ 'HOME', 'FILTERS_SEARCH', 'FILTER_CONFIG' ])
 }
 
 export default withStyles(styles, { name: 'SuperFilters' })(SuperFilters)

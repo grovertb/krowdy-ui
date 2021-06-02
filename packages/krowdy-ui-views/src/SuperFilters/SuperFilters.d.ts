@@ -30,7 +30,7 @@ type AppliedFilter = {
   label: string;
   operator: string;
   operatorLabel: string;
-  optionIndex  : number; 
+  optionIndex  : number;
   type         : FilterType;
   value?: string | number | any[]
 }
@@ -69,8 +69,9 @@ export interface FiltersProps {
   onChangeFilterCandidate: (candidateGroupFilterType: 'included' | 'excluded', candidateValues: CandidateValue[]) => void;
   excludedCandidates: CandidateValue[];
   includedCandidates: CandidateValue[];
-} 
+  viewDefault?: string;
+}
 
 declare const Filters: React.ComponentType<FiltersProps>;
 
-export default Filters;
+export default Filters

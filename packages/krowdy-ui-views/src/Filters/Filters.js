@@ -88,11 +88,10 @@ const Filters = (props) => {
     listWidth,
     filterGroups = [],
     dots = false,
-    uniqueFilter = false,
-    viewDefault = 'HOME'
+    uniqueFilter = false
   }  = props
 
-  const [ view, goToView ] = useState(Views[viewDefault])
+  const [ view, goToView ] = useState(Views.HOME)
   const [ filterSelected, setFilterSelected ] = useState()
   const [ filterToEdit, setFilterToEdit ] = useState()
 
@@ -288,8 +287,7 @@ Filters.propTypes = {
   onFetchFilterGroups   : PropTypes.func,
   onSelectCategoryFilter: PropTypes.func,
   title                 : PropTypes.string.isRequired,
-  uniqueFilter          : PropTypes.bool,
-  viewDefault           : PropTypes.oneOf([ 'HOME', 'FILTERS_SEARCH', 'FILTER_CONFIG' ])
+  uniqueFilter          : PropTypes.bool
 }
 
 Filters.muiName = 'KrowdyFilters'
