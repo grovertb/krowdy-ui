@@ -69,6 +69,7 @@ export interface FiltersProps {
   onChangeFilterCandidate: (candidateGroupFilterType: 'included' | 'excluded', candidateValues: CandidateValue[]) => void;
   excludedCandidates: CandidateValue[];
   includedCandidates: CandidateValue[];
+  viewDefault?: string
 } 
 
 declare const Filters: React.ComponentType<FiltersProps>;
