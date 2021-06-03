@@ -9,7 +9,7 @@ const AlterDirection = {
   up   : 'down'
 }
 
-const HideOnScroll = ({ direction = 'down', ...props }) => {
+const HideOnScroll = React.forwardRef(({ direction = 'down', ...props }, ref) => {
   const { children, window } = props
   // Note that you normally won't need to set the window ref as useScrollTrigger
   // will default to window.
@@ -17,10 +17,14 @@ const HideOnScroll = ({ direction = 'down', ...props }) => {
   const trigger = useScrollTrigger({ target: window ? window() : undefined })
 
   return (
-    <Slide appear={false} direction={direction ? AlterDirection[direction]: undefined} in={!trigger}>
+    <Slide
+      appear={false}
+      direction={direction ? AlterDirection[direction]: undefined}
+      in={!trigger}
+      ref={ref}>
       {children}
     </Slide>
   )
-}
+})
 
 export default HideOnScroll
