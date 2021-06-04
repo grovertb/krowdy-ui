@@ -71,7 +71,7 @@ export default function () {
     setFilters(updatedFilters)
   }
 
-  const _handleLoadMoreCategoryItems = async (key:string, values: CategoryItem[]) => {
+  const _handleLoadMoreCategoryItems = async (key:string) => {
     const newItems: CategoryItem[] = await getNewCategoryItemsAsync(key)
     setCategoryItems(prev => [ ...prev, ...newItems ])
   }
