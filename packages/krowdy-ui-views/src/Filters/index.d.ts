@@ -1,2 +1,2 @@
-export {default } from './Filters'
+export { default } from './Filters'
 export * from './Filters'

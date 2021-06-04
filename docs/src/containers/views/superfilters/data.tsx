@@ -1,6 +1,6 @@
 /* , */
 
-import { Filter } from "./interfaces"
+import { Filter } from './interfaces'
 
 export const filtersData: Filter[] = [ {
   children: [ {
