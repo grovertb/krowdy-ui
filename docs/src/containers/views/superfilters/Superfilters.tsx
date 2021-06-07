@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import { makeStyles, FormControlLabel, Checkbox, IconButton } from '@krowdy-ui/core'
-import { CardCandidateRanking } from '@krowdy-ui/views'
-import { categoryFilters, filterTypes } from './data'
+import { SuperFilters, CardCandidateRanking } from '@krowdy-ui/views'
+import { filtersData, categoryFilters, filterTypes } from './data'
 import { Add as AddIcon, Remove as RemoveIcon } from '@material-ui/icons'
 import { CategoryItem, Filter, Candidate, Event } from './interfaces'
-import SuperFilters from '../../../../../packages/krowdy-ui-views/src/SuperFilters'
 
 const useStyles = makeStyles({
   root: {
@@ -62,7 +61,7 @@ const candidates = [ {
 export default function () {
   const classes = useStyles()
 
-  const [ filters, setFilters ] = useState<Filter[]>([])
+  const [ filters, setFilters ] = useState<Filter[]>(filtersData)
   // const [ filters, setFilters ] = useState([])
 
   const [ categoryItems, setCategoryItems ] = useState<CategoryItem[]>([])
