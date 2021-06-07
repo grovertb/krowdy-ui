@@ -29,7 +29,7 @@ const KeywordFilter = ({
 
   useEffect(() => {
     onResetCategoryItems(filter.key)
-    loadMore()
+    loadMore(filter.key)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -176,18 +176,22 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 KeywordFilter.propTypes = {
-  PaperProps : PropTypes.object,
-  categoryKey: PropTypes.string,
-  hasNextPage: PropTypes.bool.isRequired,
-  items      : PropTypes.arrayOf(PropTypes.shape({
+  PaperProps: PropTypes.object,
+  edit      : PropTypes.bool,
+  filter    : PropTypes.shape({
+    _id  : PropTypes.string.isRequired,
+    key  : PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+    type : PropTypes.string.isRequired
+  }),
+  items: PropTypes.arrayOf(PropTypes.shape({
     _id  : PropTypes.string.isRequired,
     count: PropTypes.number.isRequired,
     label: PropTypes.string
   })).isRequired,
   loadMore            : PropTypes.func.isRequired,
-  onChangeSelected    : PropTypes.func.isRequired,
-  onResetCategoryItems: PropTypes.func.isRequired,
-  selectedItems       : PropTypes.arrayOf(PropTypes.string).isRequired
+  onClickApply        : PropTypes.func.isRequired,
+  onResetCategoryItems: PropTypes.func.isRequired
 }
 
 export default KeywordFilter

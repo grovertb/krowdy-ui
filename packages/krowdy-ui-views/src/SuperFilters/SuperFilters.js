@@ -476,11 +476,8 @@ const SuperFilters = (props) => {
         {isKeywordFilter ? <KeywordFilter
           edit={!!filterToEdit}
           filter={filterToEdit || filterSelected}
-          filterTypes={filterTypes}
-          hasNextPage={hasNextPage}
           items={categoryItems}
-          listWidth={listWidth}
-          loadMore={() => {loadMoreCategoryItems(filterSelected.key)}}
+          loadMore={loadMoreCategoryItems}
           onClickApply={_handleClickApplyFilters}
           onResetCategoryItems={onSelectCategoryFilter}
           PaperProps={PaperProps} /> : null}
