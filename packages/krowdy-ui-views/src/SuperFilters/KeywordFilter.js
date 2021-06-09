@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import clsx from 'clsx'
-import { Dialog, DialogContent, makeStyles, DialogTitle, Typography, IconButton, Button } from '@krowdy-ui/core'
+import { Dialog, DialogContent, makeStyles, DialogTitle, Typography, IconButton, Button, DialogActions } from '@krowdy-ui/core'
 import { Close as CloseIcon } from '@material-ui/icons'
 import InputChip from './InputChip'
 import PropTypes from 'prop-types'
@@ -14,24 +14,27 @@ const KeywordFilter = ({
   loadMore = () => {},
   items = [],
   PaperProps = {},
-  filter,
+  filter = {},
   edit,
-  onClickApply
+  onClickApply,
+  isOpen,
+  onClose
 }) => {
   const classes = useStyles()
 
-  const [ open, setOpen ] = useState(true)
   const [ selectedItems, setSelectedItems ] = useState(filter.value || [])
 
   const _handleClose = () => {
-    setOpen(false)
+    onClose()
   }
 
   useEffect(() => {
-    onResetCategoryItems(filter.key)
-    loadMore(filter.key)
+    if(isOpen) {
+      onResetCategoryItems(filter.key)
+      loadMore(filter.key)
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [ isOpen ])
 
   const tags = useMemo(() => {
     const max = items.reduce((r, a) => Math.max(r, a.count), 1)
@@ -81,7 +84,7 @@ const KeywordFilter = ({
     <Dialog
       fullWidth
       onClose={_handleClose}
-      open={open}
+      open={isOpen}
       PaperProps={PaperProps}>
       <DialogTitle className={classes.dialogTitleContainer} disableTypography>
         <Typography variant='h6'>Nube de palabras</Typography>
@@ -104,17 +107,15 @@ const KeywordFilter = ({
               tag={tag} />
           ))}
         </div>
-        {
-          tags.length ?
-            <Button
-              className={classes.applyButton}
-              color='primary'
-              onClick={_handleClickApply}
-              size='large'
-              variant='outlined'>Aplicar filtro</Button> :
-            null
-        }
       </DialogContent>
+      <DialogActions className={classes.dialogActionsContainer}>
+        <Button
+          className={classes.applyButton}
+          color='primary'
+          onClick={_handleClickApply}
+          size='large'
+          variant='outlined'>Aplicar filtro</Button>
+      </DialogActions>
     </Dialog>
   )
 }
@@ -157,6 +158,9 @@ const useStyles = makeStyles((theme) => ({
     // color   : ({ color }) => color,
     fontWeight: 300,
     margin    : theme.spacing(0, .5)
+  },
+  dialogActionsContainer: {
+    justifyContent: 'center'
   },
   dialogTitleContainer: {
     margin : 0,
