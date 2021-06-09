@@ -163,7 +163,7 @@ const SuperFilters = (props) => {
   const [ view, goToView ] = useState(Views[viewDefault] || Views.HOME)
   const [ filterSelected, setFilterSelected ] = useState()
   const [ filterToEdit, setFilterToEdit ] = useState()
-  const [ isKeywordFilter, setIsKeywordFilter ] = useState(false)
+  const [ openKeywordFilter, setOpenKeywordFilter ] = useState(false)
 
   const { groupFilterCurrentKey, groupFilterCurrentChildren } = useMemo(() => ({
     groupFilterCurrentChildren: groupFilterCurrent ? groupFilterCurrent.children: null,
@@ -233,13 +233,13 @@ const SuperFilters = (props) => {
 
     goToView(Views.HOME)
     setGroupFilterCurrent(null)
-    setIsKeywordFilter(false)
+    setOpenKeywordFilter(false)
   }, [ addFilter, filterToEdit, filters, groupFilterCurrentKey, onChangeFilterCandidate, onChangeFilters, updateFilter ])
 
   const _handleClickFilterListItem = useCallback((item) => {
     setFilterSelected(item)
     if(item.type === 'keyword')
-      setIsKeywordFilter(true)
+      setOpenKeywordFilter(true)
     else
       goToView(Views.FILTER_CONFIG)
   }, [])
@@ -296,7 +296,7 @@ const SuperFilters = (props) => {
     setFilterToEdit(appliedFilter)
 
     if(appliedFilter.type === 'keyword')
-      setIsKeywordFilter(true)
+      setOpenKeywordFilter(true)
     else
       goToView(Views.FILTER_CONFIG)
   }, [])
@@ -311,6 +311,10 @@ const SuperFilters = (props) => {
     })
     setFilterToEdit(treeFilters)
     goToView(Views.FILTER_CONFIG)
+  }, [])
+
+  const _handleCloseKeywordFilter = useCallback(() => {
+    setOpenKeywordFilter(false)
   }, [])
 
   return (
@@ -473,14 +477,16 @@ const SuperFilters = (props) => {
             onSelectCategoryFilter={onSelectCategoryFilter}
             PaperProps={PaperProps} />
         </TabPanel>
-        {isKeywordFilter ? <KeywordFilter
+        <KeywordFilter
           edit={!!filterToEdit}
           filter={filterToEdit || filterSelected}
+          isOpen={openKeywordFilter}
           items={categoryItems}
           loadMore={loadMoreCategoryItems}
           onClickApply={_handleClickApplyFilters}
+          onClose={_handleCloseKeywordFilter}
           onResetCategoryItems={onSelectCategoryFilter}
-          PaperProps={PaperProps} /> : null}
+          PaperProps={PaperProps} />
       </CardContent>
     </Card>
   )
