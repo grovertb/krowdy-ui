@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import XDate from 'xdate'
-import { Typography, Button, Grid, Divider, List, ListItem, ListItemText, Chip, Paper, HideOnScroll, ListItemAvatar, Avatar } from '@krowdy-ui/core'
+import { Typography, Button, Grid, Divider, List, ListItem, ListItemText, Chip, Paper, ListItemAvatar, Avatar } from '@krowdy-ui/core'
 import BusinessIcon from '@material-ui/icons/Business'
 import { withStyles } from '@krowdy-ui/styles'
 import clsx from 'clsx'
@@ -425,11 +425,9 @@ const JobDetail = props => {
                         null
                   }
                 </div>
-                <HideOnScroll direction='down'>
-                  <div className={classes.custom}>
-                    {fixedCard}
-                  </div>
-                </HideOnScroll>
+                <div className={classes.custom}>
+                  {fixedCard}
+                </div>
               </div>
             ): null}
           </div>
@@ -541,7 +539,7 @@ const JobDetail = props => {
                     <ListItem className={classes.listItem} key={`benefit-${index}`}>
                       <ListItemAvatar className={classes.listItemAvatar}>
                         <Avatar className={classes.avatar}>
-                          {iconByTitle[title]?.icon}
+                          {iconByTitle[title] ? iconByTitle[title].icon : null}
                         </Avatar>
                       </ListItemAvatar>
                       <ListItemText primary={title} primaryTypographyProps={{ variant: 'body2' }} />
