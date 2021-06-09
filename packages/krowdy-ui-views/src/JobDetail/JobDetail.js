@@ -279,6 +279,8 @@ const JobDetail = props => {
     visibleInformation = false,
     variant,
     fixedCard,
+    fixedCardCustomComponent,
+    fixedCardCustomStyle = {},
     isPreview
   } = props
 
@@ -325,6 +327,8 @@ const JobDetail = props => {
   const handleErrorImage = () => {
     setImageFailed(true)
   }
+
+  const CustomComponent = React.useMemo(() => fixedCardCustomComponent ? fixedCardCustomComponent : 'div', [ fixedCardCustomComponent ])
 
   const iconByTitle = React.useMemo(()=> (
     keyBy([ {
@@ -425,9 +429,9 @@ const JobDetail = props => {
                         null
                   }
                 </div>
-                <div className={classes.custom}>
+                <CustomComponent className={classes.custom} style={fixedCardCustomStyle}>
                   {fixedCard}
-                </div>
+                </CustomComponent>
               </div>
             ): null}
           </div>
@@ -600,13 +604,15 @@ JobDetail.propTypes = {
     PropTypes.object
   ]),
   // _id
-  detailJob     : PropTypes.array,
-  disabledPerson: PropTypes.object,
-  expirationDate: PropTypes.string,
-  fixedCard     : PropTypes.node,
-  hiddenButton  : PropTypes.bool,
-  isPreview     : PropTypes.bool,
-  jobId         : PropTypes.string,
+  detailJob               : PropTypes.array,
+  disabledPerson          : PropTypes.object,
+  expirationDate          : PropTypes.string,
+  fixedCard               : PropTypes.node,
+  fixedCardCustomComponent: PropTypes.node,
+  fixedCardCustomStyle    : PropTypes.object,
+  hiddenButton            : PropTypes.bool,
+  isPreview               : PropTypes.bool,
+  jobId                   : PropTypes.string,
 
   onClickPostulation: PropTypes.func,
   // status: PropTypes.string
