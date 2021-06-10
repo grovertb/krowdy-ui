@@ -547,7 +547,7 @@ const JobDetail = props => {
                     <ListItem className={classes.listItem} key={`benefit-${index}`}>
                       <ListItemAvatar className={classes.listItemAvatar}>
                         <Avatar className={classes.avatar}>
-                          {iconByTitle[title]?.icon || <LanguageThinIcon className={classes.svgIcon} />}
+                          {iconByTitle[title] ? iconByTitle[title].icon : <LanguageThinIcon className={classes.svgIcon} />}
                         </Avatar>
                       </ListItemAvatar>
                       <ListItemText primary={title} primaryTypographyProps={{ variant: 'body2' }} />
