@@ -60,6 +60,15 @@ export default function () {
         }, {
           description: 'Empresa pet friendly',
           title      : 'Empresa pet friendly'
+        }, {
+          description: 'adawdwda',
+          title      : ''
+        }, {
+          description: 'Empresa pet friendly',
+          title      : 'Otros'
+        }, {
+          description: 'Empresa pet friendly',
+          title      : 'EPS'
         } ]}
         company={{
           company_id  : '5df94c923e5ee30034fe1859',
