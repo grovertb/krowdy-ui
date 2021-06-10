@@ -388,6 +388,10 @@ const JobDetail = props => {
     .filter(({ visible, description }) => visible && description)
   , [ basicEdition ])
 
+  const filteredBenefits = React.useMemo(() => benefits
+    .filter(({ title }) => title)
+  , [ benefits ])
+
   return (
     <ContainerRoot className={classes.contentJobDetail} variant={variant}>
       <Grid container>
@@ -530,18 +534,18 @@ const JobDetail = props => {
         ) : null
       }
       {
-        benefits.length ? (
+        filteredBenefits.length ? (
           <>
             <Divider />
             <section className={classes.sectionInformation}>
               <Typography className={classes.titleSection} variant='h5'>Beneficios</Typography>
               <List className={classes.benefitList}>
                 {
-                  benefits.map(({ title }, index) => (
+                  filteredBenefits.map(({ title }, index) => (
                     <ListItem className={classes.listItem} key={`benefit-${index}`}>
                       <ListItemAvatar className={classes.listItemAvatar}>
                         <Avatar className={classes.avatar}>
-                          {iconByTitle[title]?.icon}
+                          {iconByTitle[title]?.icon || <LanguageThinIcon className={classes.svgIcon} />}
                         </Avatar>
                       </ListItemAvatar>
                       <ListItemText primary={title} primaryTypographyProps={{ variant: 'body2' }} />
