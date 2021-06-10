@@ -18,6 +18,8 @@ export type JobDetailProps = {
   hiddenButton?: boolean;
   onViewCompany?: Function;
   fixedCard?: React.ReactNode;
+  fixedCardCustomComponent?: React.ReactNode;
+  fixedCardCustomStyle?: object;
   variant?: PaperProps['variant'];
   closed?: boolean;
   isPreview?: boolean;

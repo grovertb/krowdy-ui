@@ -12,6 +12,7 @@ import DividerWithText from './DividerWithText'
 import { mongoObjectId } from '../utils/mongoObjectId'
 import { AddToPhotos as AddToPhotosIcon, Delete as DeleteIcon, Face as FaceIcon } from '@material-ui/icons'
 import { generateRandomId } from '../utils'
+import KeywordFilter from './KeywordFilter'
 
 export const styles = (theme) => ({
   backIcon: {
@@ -162,6 +163,7 @@ const SuperFilters = (props) => {
   const [ view, goToView ] = useState(Views[viewDefault] || Views.HOME)
   const [ filterSelected, setFilterSelected ] = useState()
   const [ filterToEdit, setFilterToEdit ] = useState()
+  const [ openKeywordFilter, setOpenKeywordFilter ] = useState(false)
 
   const { groupFilterCurrentKey, groupFilterCurrentChildren } = useMemo(() => ({
     groupFilterCurrentChildren: groupFilterCurrent ? groupFilterCurrent.children: null,
@@ -231,11 +233,15 @@ const SuperFilters = (props) => {
 
     goToView(Views.HOME)
     setGroupFilterCurrent(null)
+    setOpenKeywordFilter(false)
   }, [ addFilter, filterToEdit, filters, groupFilterCurrentKey, onChangeFilterCandidate, onChangeFilters, updateFilter ])
 
   const _handleClickFilterListItem = useCallback((item) => {
     setFilterSelected(item)
-    goToView(Views.FILTER_CONFIG)
+    if(item.type === 'keyword')
+      setOpenKeywordFilter(true)
+    else
+      goToView(Views.FILTER_CONFIG)
   }, [])
 
   const _handleClickAddFilter = useCallback((groupFilter) => () => {
@@ -288,7 +294,11 @@ const SuperFilters = (props) => {
   const _handleClickEditFilter = useCallback((groupFilter) => (appliedFilter) => {
     setGroupFilterCurrent(groupFilter)
     setFilterToEdit(appliedFilter)
-    goToView(Views.FILTER_CONFIG)
+
+    if(appliedFilter.type === 'keyword')
+      setOpenKeywordFilter(true)
+    else
+      goToView(Views.FILTER_CONFIG)
   }, [])
 
   const _handleChangeFilterCandidates = useCallback((candidateGroupFilterType) => () => {
@@ -301,6 +311,10 @@ const SuperFilters = (props) => {
     })
     setFilterToEdit(treeFilters)
     goToView(Views.FILTER_CONFIG)
+  }, [])
+
+  const _handleCloseKeywordFilter = useCallback(() => {
+    setOpenKeywordFilter(false)
   }, [])
 
   return (
@@ -463,6 +477,16 @@ const SuperFilters = (props) => {
             onSelectCategoryFilter={onSelectCategoryFilter}
             PaperProps={PaperProps} />
         </TabPanel>
+        <KeywordFilter
+          edit={!!filterToEdit}
+          filter={filterToEdit || filterSelected}
+          isOpen={openKeywordFilter}
+          items={categoryItems}
+          loadMore={loadMoreCategoryItems}
+          onClickApply={_handleClickApplyFilters}
+          onClose={_handleCloseKeywordFilter}
+          onResetCategoryItems={onSelectCategoryFilter}
+          PaperProps={PaperProps} />
       </CardContent>
     </Card>
   )

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import XDate from 'xdate'
-import { Typography, Button, Grid, Divider, List, ListItem, ListItemText, Chip, Paper, HideOnScroll, ListItemAvatar, Avatar } from '@krowdy-ui/core'
+import { Typography, Button, Grid, Divider, List, ListItem, ListItemText, Chip, Paper, ListItemAvatar, Avatar } from '@krowdy-ui/core'
 import BusinessIcon from '@material-ui/icons/Business'
 import { withStyles } from '@krowdy-ui/styles'
 import clsx from 'clsx'
@@ -279,6 +279,8 @@ const JobDetail = props => {
     visibleInformation = false,
     variant,
     fixedCard,
+    fixedCardCustomComponent,
+    fixedCardCustomStyle = {},
     isPreview
   } = props
 
@@ -325,6 +327,8 @@ const JobDetail = props => {
   const handleErrorImage = () => {
     setImageFailed(true)
   }
+
+  const CustomComponent = React.useMemo(() => fixedCardCustomComponent ? fixedCardCustomComponent : 'div', [ fixedCardCustomComponent ])
 
   const iconByTitle = React.useMemo(()=> (
     keyBy([ {
@@ -429,11 +433,9 @@ const JobDetail = props => {
                         null
                   }
                 </div>
-                <HideOnScroll direction='down'>
-                  <div className={classes.custom}>
-                    {fixedCard}
-                  </div>
-                </HideOnScroll>
+                <CustomComponent className={classes.custom} style={fixedCardCustomStyle}>
+                  {fixedCard}
+                </CustomComponent>
               </div>
             ): null}
           </div>
@@ -606,13 +608,15 @@ JobDetail.propTypes = {
     PropTypes.object
   ]),
   // _id
-  detailJob     : PropTypes.array,
-  disabledPerson: PropTypes.object,
-  expirationDate: PropTypes.string,
-  fixedCard     : PropTypes.node,
-  hiddenButton  : PropTypes.bool,
-  isPreview     : PropTypes.bool,
-  jobId         : PropTypes.string,
+  detailJob               : PropTypes.array,
+  disabledPerson          : PropTypes.object,
+  expirationDate          : PropTypes.string,
+  fixedCard               : PropTypes.node,
+  fixedCardCustomComponent: PropTypes.node,
+  fixedCardCustomStyle    : PropTypes.object,
+  hiddenButton            : PropTypes.bool,
+  isPreview               : PropTypes.bool,
+  jobId                   : PropTypes.string,
 
   onClickPostulation: PropTypes.func,
   // status: PropTypes.string
