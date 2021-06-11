@@ -25,13 +25,19 @@ const KeywordFilter = ({
   const [ selectedItems, setSelectedItems ] = useState(filter.value || [])
 
   const _handleClose = () => {
+    setSelectedItems([])
     onClose()
   }
 
   useEffect(() => {
     if(isOpen) {
-      onResetCategoryItems(filter.key)
-      loadMore(filter.key)
+      const { key, value } = filter
+
+      if(value)
+        setSelectedItems(value)
+
+      onResetCategoryItems(key)
+      loadMore(key)
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ isOpen ])
@@ -70,7 +76,7 @@ const KeywordFilter = ({
       _id,
       key          : filter.key,
       label        : filter.label,
-      operator     : '$eq',
+      operator     : '$regex',
       operatorLabel: 'Contiene exactamente',
       optionIndex  : filter.optionIndex,
       queryBase    : filter.queryBase,
@@ -78,6 +84,8 @@ const KeywordFilter = ({
       type         : filter.type,
       value        : configValue
     })
+
+    setSelectedItems([])
   }
 
   return (
