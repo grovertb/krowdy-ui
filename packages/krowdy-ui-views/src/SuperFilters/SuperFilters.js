@@ -154,7 +154,8 @@ const SuperFilters = (props) => {
     excludedCandidates = [],
     childProps = {},
     includedCandidates = [],
-    viewDefault
+    viewDefault,
+    shortcuts
   }  = props
 
   const { PaperProps, AddFiltersButtonProps } = childProps
@@ -166,8 +167,8 @@ const SuperFilters = (props) => {
   const [ openKeywordFilter, setOpenKeywordFilter ] = useState(false)
 
   const { groupFilterCurrentKey, groupFilterCurrentChildren } = useMemo(() => ({
-    groupFilterCurrentChildren: groupFilterCurrent ? groupFilterCurrent.children: null,
-    groupFilterCurrentKey     : groupFilterCurrent ? groupFilterCurrent.key: null
+    groupFilterCurrentChildren: groupFilterCurrent ? groupFilterCurrent.children : null,
+    groupFilterCurrentKey     : groupFilterCurrent ? groupFilterCurrent.key : null
   }), [ groupFilterCurrent ])
 
   const addFilter = useCallback((filter) => {
@@ -183,7 +184,7 @@ const SuperFilters = (props) => {
     )
   }, [ filters, groupFilterCurrentKey, onChangeFilters ])
 
-  const deepUpdate = useCallback((arr, { _id, ...updatedItem } ) => arr.map(item => {
+  const deepUpdate = useCallback((arr, { _id, ...updatedItem }) => arr.map(item => {
     if(item._id === _id)
       return Object.assign({}, item, updatedItem)
 
@@ -215,9 +216,9 @@ const SuperFilters = (props) => {
   const _handleClickApplyFilters = useCallback((filter) => {
     if(Object.values(CandidateGroupFilterType).includes(groupFilterCurrentKey))
       onChangeFilterCandidate(groupFilterCurrentKey, filter.value)
-    else if(filters.some(({ key }) => key === groupFilterCurrentKey ))
+    else if(filters.some(({ key }) => key === groupFilterCurrentKey))
       if(filterToEdit) {
-        // Exists, so update it
+      // Exists, so update it
         updateFilter(filter)
         setFilterToEdit(null)
       } else {
@@ -237,12 +238,18 @@ const SuperFilters = (props) => {
   }, [ addFilter, filterToEdit, filters, groupFilterCurrentKey, onChangeFilterCandidate, onChangeFilters, updateFilter ])
 
   const _handleClickFilterListItem = useCallback((item) => {
-    setFilterSelected(item)
-    if(item.type === 'keyword')
-      setOpenKeywordFilter(true)
-    else
-      goToView(Views.FILTER_CONFIG)
-  }, [])
+    if(item.type === 'shortcut') {
+      setFilterSelected(item.treeData)
+      const [ tree ] = item.treeData
+      _handleClickApplyFilters(tree)
+    }  else {
+      setFilterSelected(item)
+      if(item.type === 'keyword')
+        setOpenKeywordFilter(true)
+      else
+        goToView(Views.FILTER_CONFIG)
+    }
+  }, [ _handleClickApplyFilters ])
 
   const _handleClickAddFilter = useCallback((groupFilter) => () => {
     setGroupFilterCurrent(groupFilter)
@@ -356,7 +363,7 @@ const SuperFilters = (props) => {
               startIcon={<AddIcon />}>
               Añadir Filtro
             </Button>
-          ): (
+          ) : (
             <div className={clsx(classes.flex, classes.spaceBetween)}>
               <IconButton color='primary' size='small'>
                 <AddToPhotosIcon fontSize='small' onClick={_handleClickAddGroupFilter} />
@@ -365,10 +372,10 @@ const SuperFilters = (props) => {
                 <div className={classes.flex}>
                   <FaceIcon color='disabled' />
                   <Typography className={classes.littleMarginLeft} variant='body1'>
-                    {totalItems} resultado{totalItems > 1 ? 's': ''}
+                    {totalItems} resultado{totalItems > 1 ? 's' : ''}
                   </Typography>
                 </div>
-              ): null}
+              ) : null}
             </div>
           ) }
           <div className={clsx(classes.marginTop, classes.treeContainer)}>
@@ -391,9 +398,9 @@ const SuperFilters = (props) => {
                       value        : excludedCandidates
                     } ]} />
                 </div>
-                { includedCandidates.length || filters.length ? <Divider className={classes.marginTop} />: null}
+                { includedCandidates.length || filters.length ? <Divider className={classes.marginTop} /> : null}
               </>
-            ): null}
+            ) : null}
             {includedCandidates.length ? (
               <>
                 <div className={clsx(classes.marginTop, classes.groupFilterContainer)}>
@@ -413,9 +420,9 @@ const SuperFilters = (props) => {
                       value        : includedCandidates
                     } ]} />
                 </div>
-                { filters.length ? <DividerWithText title={'or'} />: null}
+                { filters.length ? <DividerWithText title={'or'} /> : null}
               </>
-            ): null}
+            ) : null}
             {filters
               .map((groupFilter, index) => (
                 <div key={`GroupFilterDefault-${index}`}>
@@ -435,7 +442,7 @@ const SuperFilters = (props) => {
                       </Button>
                       {groupFilter.children.length ? (
                         <div className={classes.block} />
-                      ): (
+                      ) : (
                         <IconButton
                           color='primary'
                           onClick={_handleClickDeleteGroupFilter(groupFilter.key)}
@@ -455,7 +462,7 @@ const SuperFilters = (props) => {
           index={Views.FILTERS_SEARCH.index}
           value={view.index}>
           <FiltersList
-            filterGroups={filterGroups}
+            filterGroups={shortcuts && shortcuts.length ? filterGroups.concat(shortcuts) : filterGroups}
             filters={groupFilterCurrent ? groupFilterCurrent.children : []}
             onClickItem={_handleClickFilterListItem}
             uniqueFilter={uniqueFilter} />
@@ -566,9 +573,17 @@ SuperFilters.propTypes = {
   onChangeFilters        : PropTypes.func.isRequired,
   onFetchFilterGroups    : PropTypes.func,
   onSelectCategoryFilter : PropTypes.func,
-  title                  : PropTypes.string.isRequired,
-  uniqueFilter           : PropTypes.bool,
-  viewDefault            : PropTypes.oneOf([ 'HOME', 'FILTERS_SEARCH', 'FILTER_CONFIG' ])
+  shortcuts              : PropTypes.arrayOf(
+    PropTypes.shape({
+      _id     : PropTypes.string,
+      children: PropTypes.array,
+      label   : PropTypes.string,
+      type    : PropTypes.string.isRequired
+    })
+  ),
+  title       : PropTypes.string.isRequired,
+  uniqueFilter: PropTypes.bool,
+  viewDefault : PropTypes.oneOf([ 'HOME', 'FILTERS_SEARCH', 'FILTER_CONFIG' ])
 }
 
 export default withStyles(styles, { name: 'SuperFilters' })(SuperFilters)
