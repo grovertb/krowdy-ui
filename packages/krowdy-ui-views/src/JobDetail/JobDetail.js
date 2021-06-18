@@ -211,6 +211,13 @@ export const styles = theme => ({
     fontSize  : '.8rem',
     marginLeft: theme.spacing(1.25)
   },
+  subTitle: {
+    color    : theme.palette.grey[600],
+    fontSize : 10,
+    marginTop: theme.spacing(1),
+    textAlign: 'center',
+    width    : 145
+  },
   svgIcon: {
     color: theme.palette.secondary[200]
   },
@@ -274,13 +281,15 @@ const JobDetail = props => {
       accepted: acceptedDisabled
     } = {},
     requirements = [],
-    onClickPostulation = () => {},
+    onClickPostulation = () => { },
     onViewCompany,
     visibleInformation = false,
     variant,
     fixedCard,
     fixedCardCustomComponent,
     fixedCardCustomStyle = {},
+    customTitleButton,
+    subTitle,
     isPreview
   } = props
 
@@ -330,7 +339,7 @@ const JobDetail = props => {
 
   const CustomComponent = React.useMemo(() => fixedCardCustomComponent ? fixedCardCustomComponent : 'div', [ fixedCardCustomComponent ])
 
-  const iconByTitle = React.useMemo(()=> (
+  const iconByTitle = React.useMemo(() => (
     keyBy([ {
       icon: (
         <LanguageThinIcon className={classes.svgIcon} />
@@ -417,18 +426,25 @@ const JobDetail = props => {
                         onClick={onClickPostulation}
                         size='large'
                         variant='contained'>
-                        {(closed || isFinalized)? 'Finalizado': userInJob ? 'Ver postulación' : 'Postular'}
+                        {customTitleButton ? customTitleButton : (closed || isFinalized) ? 'Finalizado' : userInJob ? 'Ver postulación' : 'Postular'}
                       </Button>
                     )
                   }
                   {
+                    subTitle ? (
+                      <Typography className={classes.subTitle}>
+                        {subTitle}
+                      </Typography>
+                    ) : null
+                  }
+                  {
                     (timeToDown > 0 && timeToDown <= 14) ?
                       <Typography className={classes.textEndJob} component='span'>
-                      Finaliza {timeToDown === 0 ? 'Hoy' : `en ${timeToDown} día${timeToDown === 1 ? '' : 's'}`}.
+                        Finaliza {`en ${timeToDown} día${timeToDown === 1 ? '' : 's'}`}.
                       </Typography> :
                       (timeToDown === 0 && !isFinalized) ?
                         <Typography className={classes.textEndJob} variant='subtitle2'>
-                              Finaliza hoy
+                          Finaliza hoy
                         </Typography> :
                         null
                   }
@@ -437,7 +453,7 @@ const JobDetail = props => {
                   {fixedCard}
                 </CustomComponent>
               </div>
-            ): null}
+            ) : null}
           </div>
         </Grid>
       </Grid>
@@ -456,7 +472,7 @@ const JobDetail = props => {
             ) : (
               <>
                 <Typography className={classes.titleCompany}>{company.company_name}</Typography>
-                {(onViewCompany && !isPreview) ? <Typography className={classes.seeMoreCompany} onClick={onViewCompany}>Ver más</Typography>: null}
+                {(onViewCompany && !isPreview) ? <Typography className={classes.seeMoreCompany} onClick={onViewCompany}>Ver más</Typography> : null}
               </>
             )
           }
@@ -505,7 +521,7 @@ const JobDetail = props => {
                   }
 
                 </section>
-              )): (
+              )) : (
               <div className={classes.descriptionEmpty}>
                 <img
                   alt='without-description'
@@ -593,17 +609,19 @@ const JobDetail = props => {
 }
 
 JobDetail.propTypes = {
-  basicEdition: PropTypes.array,
-  benefits    : PropTypes.array,
+  basicEdition     : PropTypes.array,
+  benefits         : PropTypes.array,
   /**
    * Override or extend the styles applied to the component.
    * See [CSS API](#css) below for more details.
    */
-  classes     : PropTypes.object,
-  closed      : PropTypes.bool,
-  company     : PropTypes.object,
-  competencies: PropTypes.array,
-  description : PropTypes.oneOfType([
+  classes          : PropTypes.object,
+  closed           : PropTypes.bool,
+  company          : PropTypes.object,
+  competencies     : PropTypes.array,
+  customTitleButton: PropTypes.string,
+
+  description: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.object
   ]),
@@ -617,11 +635,13 @@ JobDetail.propTypes = {
   hiddenButton            : PropTypes.bool,
   isPreview               : PropTypes.bool,
   jobId                   : PropTypes.string,
+  onClickPostulation      : PropTypes.func,
 
-  onClickPostulation: PropTypes.func,
   // status: PropTypes.string
-  onViewCompany     : PropTypes.func,
+  onViewCompany: PropTypes.func,
+
   requirements      : PropTypes.array,
+  subTitle          : PropTypes.string,
   title             : PropTypes.string,
   userInJob         : PropTypes.bool,
   variant           : PropTypes.string,

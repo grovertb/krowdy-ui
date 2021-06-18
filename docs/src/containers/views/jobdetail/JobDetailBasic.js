@@ -87,6 +87,7 @@ export default function () {
             title: 'Comunicación'
           }
         ]}
+        customTitleButton='Custom button'
         description='· Grado académico mínimo de Bachiller en Contabilidad o fines· Manejo de Excel Intermedio -avanzado y dominio del entorno de Windows Office.· Conocimientos de ERP o sistemas contables· Contar con experiencia mínima de un año como asistente contable· Organizado y ordenado en su ambiente de trabajo· Tener actitud crítica, reflexiva y creativa· Habilidades comunicativas, capacidad de trabajo en equipo y espíritu proactivo· Participar de manera activa en actividades y labores de la empresa· Carecer de Antecedentes Policiales y Penales· Disponibilidad para laborar en el Distrito de la Perla Callao<br><b><br>CONOCIMIENTOS</b>Cursos o especialización en finanzas.Excel Intermedio - AvanzadoConocimiento y aplicación en Tributación y liquidación de impuestosManejo de CostosDeclaración DJ (Jurídica y Natural)Manejo de Flujo de CajaManejo de ERP (Libro de Contabilidad y Caja)<span>Contabilidad General<br><br></span><b>FUNCIONES PRINCIPALES</b>· Registros y egresos bancarios· Declaración de Libros Electrónicos y TXT.· Llenado y presentación mensual del PDT 621 y PLAME· Presentación y pago mensual de AFP Net· Verificación de planilla, gratificación, vacaciones y cts. Mensualmente· Análisis de Asientos Contables· Conciliación Bancaria· Registro de las Rendiciones· Registro de documentos a los sistemas· Elaboración de estados Financieros· Elaboración y presentación de impuestos mensuales· Seguimiento y cuadre de IGV teniendo en cuenta los registros de compras, ventas y libro mayor· Realizar las conciliaciones bancarias diariamente de todas las cuentas bancarias y actualizar el tipo de cambio de cierre de cada mes las cuentas en M.E· Efectuar el control y registrar mensual la provisión de alquileres· Realizar a fin de mes el asiento contable de Retenciones y Percepciones para aplicación como crédito fiscal.· Analizar y presentar las declaraciones de los libros electrónicos (Registro de ventas, registro compras).· Otras funciones asignadas por el Jefe Inmediato<span><br><br></span><br>'
         detailJob={[
           {
@@ -110,19 +111,19 @@ export default function () {
             text: 'Gerente'
           }
         ]}
+        // description='Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry`s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'
         disabledPerson={{
           accepted: true,
           visible : true
         }}
-        // description='Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry`s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'
         expirationDate='2020-01-04T05:00:00.000Z'
         fixedCard={(
           <div>
             Diseñador
           </div>
         )}
-        // hiddenButton /* oculta el boton postular */
         jobId='564c66sd54es545d4584545'
+        // hiddenButton /* oculta el boton postular */
         onClickPostulation={() => {
           console.log('POSTULAR')
         }}
@@ -158,6 +159,7 @@ export default function () {
             value: 'Si'
           }
         ]}
+        subTitle='Enviar tus datos de contacto a Colectivo 23'
         title='Analista UI Designer Senior'
         userInJob={false}
         visibleInformation={true} />

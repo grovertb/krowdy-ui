@@ -10,13 +10,7 @@ module.exports = {
   // globals: {
   //   preval: false, // Used in the documentation
   // },
-  'extends': [
-    // 'plugin:import/recommended',
-    'react-app'
-    // 'airbnb',
-    // 'prettier',
-    // 'prettier/react'
-  ],
+  'extends': 'react-app',
   overrides: [
     {
       env: {
