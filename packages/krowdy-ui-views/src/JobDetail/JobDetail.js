@@ -299,12 +299,16 @@ const JobDetail = props => {
     setImageFailed(false)
   }, [ jobId ])
 
-  const expDate = new XDate(expirationDate) // DEVUELVE 2019-12-29 10:38:20
-  const expDateFormat = new XDate(expDate.getFullYear(), expDate.getMonth(), expDate.getDate()) // DEVUELVE 2019-12-29
-  const today = new XDate() // DEVUELVE 2019-12-30 10:38:20
-  const todayFormat = new XDate(today.getFullYear(), today.getMonth(), today.getDate()) // DEVUELVE 2019-12-30
-  const timeToDown = todayFormat.diffDays(expDateFormat)
-  const isFinalized = expirationDate ? new XDate().getTime() >= new XDate(Number(expirationDate)).getTime() : false
+  let timeToDown, isFinalized
+
+  if(expirationDate) {
+    const expDate = new XDate(expirationDate) // DEVUELVE 2019-12-29 10:38:20
+    const expDateFormat = new XDate(expDate.getFullYear(), expDate.getMonth(), expDate.getDate()) // DEVUELVE 2019-12-29
+    const today = new XDate() // DEVUELVE 2019-12-30 10:38:20
+    const todayFormat = new XDate(today.getFullYear(), today.getMonth(), today.getDate()) // DEVUELVE 2019-12-30
+    timeToDown = todayFormat.diffDays(expDateFormat)
+    isFinalized = expirationDate ? new XDate().getTime() >= new XDate(Number(expirationDate)).getTime() : false
+  }
 
   const renderItemRequirement = requirement => {
     switch (requirement.title.toLowerCase()) {
@@ -422,7 +426,7 @@ const JobDetail = props => {
                     (!hiddenButton) && (
                       <Button
                         color='primary'
-                        disabled={isFinalized || closed}
+                        disabled={isFinalized === undefined ? closed : isFinalized || closed}
                         onClick={onClickPostulation}
                         size='large'
                         variant='contained'>
@@ -438,15 +442,16 @@ const JobDetail = props => {
                     ) : null
                   }
                   {
-                    (timeToDown > 0 && timeToDown <= 14) ?
-                      <Typography className={classes.textEndJob} component='span'>
+                    isFinalized === undefined ? null :
+                      (timeToDown > 0 && timeToDown <= 14) ?
+                        <Typography className={classes.textEndJob} component='span'>
                         Finaliza {`en ${timeToDown} día${timeToDown === 1 ? '' : 's'}`}.
-                      </Typography> :
-                      (timeToDown === 0 && !isFinalized) ?
-                        <Typography className={classes.textEndJob} variant='subtitle2'>
-                          Finaliza hoy
                         </Typography> :
-                        null
+                        (timeToDown === 0 && !isFinalized) ?
+                          <Typography className={classes.textEndJob} variant='subtitle2'>
+                          Finaliza hoy
+                          </Typography> :
+                          null
                   }
                 </div>
                 <CustomComponent className={classes.custom} style={fixedCardCustomStyle}>
@@ -486,9 +491,9 @@ const JobDetail = props => {
                 description :
                 <Typography
                   className={classes.textDescription}
-                  variant='body3' >
-                  {description}
-                </Typography>
+                  component='div'
+                  dangerouslySetInnerHTML={{ __html: description }}
+                  variant='body3' />
             }
           </Grid>
         ) : null
@@ -503,35 +508,38 @@ const JobDetail = props => {
           ))
         }
       </Grid>
-      <Grid className={classes.gridDescription} item xs={12}>
-        {
-          basicEditionFiltered.length > 0 ?
-            basicEditionFiltered
-              .map((item, key) => (
-                <section className={classes.sectionInformation} key={`information-${key}`}>
-                  <Typography className={classes.titleSection} variant='h4'>{item.title}</Typography>
-                  {
-                    item.description ? (
-                      <Typography
-                        className={classes.textDescription}
-                        component='div'
-                        dangerouslySetInnerHTML={{ __html: item.description }}
-                        variant='body2' />
-                    ) : null
-                  }
+      {
+        !basicEditionFiltered ? null :
+          <Grid className={classes.gridDescription} item xs={12}>
+            {
+              basicEditionFiltered.length > 0 ?
+                basicEditionFiltered
+                  .map((item, key) => (
+                    <section className={classes.sectionInformation} key={`information-${key}`}>
+                      <Typography className={classes.titleSection} variant='h4'>{item.title}</Typography>
+                      {
+                        item.description ? (
+                          <Typography
+                            className={classes.textDescription}
+                            component='div'
+                            dangerouslySetInnerHTML={{ __html: item.description }}
+                            variant='body2' />
+                        ) : null
+                      }
 
-                </section>
-              )) : (
-              <div className={classes.descriptionEmpty}>
-                <img
-                  alt='without-description'
-                  src='//s3.amazonaws.com/cdn.krowdy.com/media/images/empty-job.png' />
-                <Typography align='center' color='info' variant='body3'>
+                    </section>
+                  )) : (
+                  <div className={classes.descriptionEmpty}>
+                    <img
+                      alt='without-description'
+                      src='//s3.amazonaws.com/cdn.krowdy.com/media/images/empty-job.png' />
+                    <Typography align='center' color='info' variant='body3'>
                   Sin descripción
-                </Typography>
-              </div>)
-        }
-      </Grid>
+                    </Typography>
+                  </div>)
+            }
+          </Grid>
+      }
       {
         competencies.length ? (
           <>
