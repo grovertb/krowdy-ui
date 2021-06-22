@@ -401,7 +401,7 @@ const JobDetail = props => {
     isPreview ? Div : Paper,
   [ isPreview ])
 
-  const basicEditionFiltered = React.useMemo(() => basicEdition?.filter(({ visible, description }) => visible && description)
+  const basicEditionFiltered = React.useMemo(() => !basicEdition ? null : basicEdition.filter(({ visible, description }) => visible && description)
     , [ basicEdition ])
 
   const filteredBenefits = React.useMemo(() => benefits
