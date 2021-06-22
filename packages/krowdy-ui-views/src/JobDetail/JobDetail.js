@@ -426,7 +426,7 @@ const JobDetail = props => {
                     (!hiddenButton) && (
                       <Button
                         color='primary'
-                        disabled={isFinalized === undefined ? false : isFinalized || closed}
+                        disabled={isFinalized === undefined ? closed : isFinalized || closed}
                         onClick={onClickPostulation}
                         size='large'
                         variant='contained'>
