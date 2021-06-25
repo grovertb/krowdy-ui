@@ -145,6 +145,7 @@ const SuperFilters = (props) => {
     hasNextPage = false,
     filterTypes = [],
     loadMoreCategoryItems = () => {},
+    isLoadingMoreCategoryItems = false,
     listWidth,
     filterGroups = [],
     dots = false,
@@ -480,6 +481,7 @@ const SuperFilters = (props) => {
         <KeywordFilter
           edit={!!filterToEdit}
           filter={filterToEdit || filterSelected}
+          isLoading={isLoadingMoreCategoryItems}
           isOpen={openKeywordFilter}
           items={categoryItems}
           loadMore={loadMoreCategoryItems}
@@ -560,15 +562,16 @@ SuperFilters.propTypes = {
     ]).isRequired,
     label: PropTypes.string
   })),
-  listWidth              : PropTypes.number,
-  loadMoreCategoryItems  : PropTypes.func,
-  onChangeFilterCandidate: PropTypes.func,
-  onChangeFilters        : PropTypes.func.isRequired,
-  onFetchFilterGroups    : PropTypes.func,
-  onSelectCategoryFilter : PropTypes.func,
-  title                  : PropTypes.string.isRequired,
-  uniqueFilter           : PropTypes.bool,
-  viewDefault            : PropTypes.oneOf([ 'HOME', 'FILTERS_SEARCH', 'FILTER_CONFIG' ])
+  isLoadingMoreCategoryItems: PropTypes.bool,
+  listWidth                 : PropTypes.number,
+  loadMoreCategoryItems     : PropTypes.func,
+  onChangeFilterCandidate   : PropTypes.func,
+  onChangeFilters           : PropTypes.func.isRequired,
+  onFetchFilterGroups       : PropTypes.func,
+  onSelectCategoryFilter    : PropTypes.func,
+  title                     : PropTypes.string.isRequired,
+  uniqueFilter              : PropTypes.bool,
+  viewDefault               : PropTypes.oneOf([ 'HOME', 'FILTERS_SEARCH', 'FILTER_CONFIG' ])
 }
 
 export default withStyles(styles, { name: 'SuperFilters' })(SuperFilters)

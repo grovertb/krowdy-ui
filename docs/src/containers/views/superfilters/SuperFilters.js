@@ -57,14 +57,17 @@ export default function () {
 
   const [ categoryItems, setCategoryItems ] = useState([])
   const [ currenCategory, setCurrentCategory ] = useState()
+  const [ loadingCategoryItems, setLoadingCategoryItems ] = useState(false)
 
   const _handleChangeFilters = (updatedFilters) => {
     setFilters(updatedFilters)
   }
 
   const _handleLoadMoreCategoryItems = async (key) => {
+    setLoadingCategoryItems(true)
     const newItems = await getNewCategoryItemsAsync(key)
     setCategoryItems(prev => [ ...prev, ...newItems ])
+    setLoadingCategoryItems(false)
   }
 
   const _handleSelectCategoryFilter = (category, values) => {
@@ -116,6 +119,7 @@ export default function () {
         hasNextPage={categoryItems.length < 100 ? true : false}
         headerHomeComponent={<HeaderHomeComponent />}
         includedCandidates={includedCandidates}
+        isLoadingMoreCategoryItems={loadingCategoryItems}
         loadMoreCategoryItems={_handleLoadMoreCategoryItems}
         onChangeFilterCandidate={_handleChangeFilterCandidate}
         onChangeFilters={_handleChangeFilters}
