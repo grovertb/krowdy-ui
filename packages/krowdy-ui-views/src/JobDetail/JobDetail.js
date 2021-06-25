@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import XDate from 'xdate'
-import { Typography, Button, Grid, Divider, List, ListItem, ListItemText, Chip, Paper, HideOnScroll, ListItemAvatar, Avatar } from '@krowdy-ui/core'
+import { Typography, Button, Grid, Divider, List, ListItem, ListItemText, Chip, Paper, ListItemAvatar, Avatar } from '@krowdy-ui/core'
 import BusinessIcon from '@material-ui/icons/Business'
 import { withStyles } from '@krowdy-ui/styles'
 import clsx from 'clsx'
@@ -211,6 +211,13 @@ export const styles = theme => ({
     fontSize  : '.8rem',
     marginLeft: theme.spacing(1.25)
   },
+  subTitle: {
+    color    : theme.palette.grey[600],
+    fontSize : 10,
+    marginTop: theme.spacing(1),
+    textAlign: 'center',
+    width    : 145
+  },
   svgIcon: {
     color: theme.palette.secondary[200]
   },
@@ -263,7 +270,7 @@ const JobDetail = props => {
     competencies = [],
     closed,
     description,
-    basicEdition = [],
+    basicEdition,
     benefits = [],
     userInJob = false,
     company = {},
@@ -274,11 +281,15 @@ const JobDetail = props => {
       accepted: acceptedDisabled
     } = {},
     requirements = [],
-    onClickPostulation = () => {},
+    onClickPostulation = () => { },
     onViewCompany,
     visibleInformation = false,
     variant,
     fixedCard,
+    fixedCardCustomComponent,
+    fixedCardCustomStyle = {},
+    customTitleButton,
+    subTitle,
     isPreview
   } = props
 
@@ -288,12 +299,16 @@ const JobDetail = props => {
     setImageFailed(false)
   }, [ jobId ])
 
-  const expDate = new XDate(expirationDate) // DEVUELVE 2019-12-29 10:38:20
-  const expDateFormat = new XDate(expDate.getFullYear(), expDate.getMonth(), expDate.getDate()) // DEVUELVE 2019-12-29
-  const today = new XDate() // DEVUELVE 2019-12-30 10:38:20
-  const todayFormat = new XDate(today.getFullYear(), today.getMonth(), today.getDate()) // DEVUELVE 2019-12-30
-  const timeToDown = todayFormat.diffDays(expDateFormat)
-  const isFinalized = expirationDate ? new XDate().getTime() >= new XDate(Number(expirationDate)).getTime() : false
+  let timeToDown, isFinalized
+
+  if(expirationDate) {
+    const expDate = new XDate(expirationDate) // DEVUELVE 2019-12-29 10:38:20
+    const expDateFormat = new XDate(expDate.getFullYear(), expDate.getMonth(), expDate.getDate()) // DEVUELVE 2019-12-29
+    const today = new XDate() // DEVUELVE 2019-12-30 10:38:20
+    const todayFormat = new XDate(today.getFullYear(), today.getMonth(), today.getDate()) // DEVUELVE 2019-12-30
+    timeToDown = todayFormat.diffDays(expDateFormat)
+    isFinalized = expirationDate ? new XDate().getTime() >= new XDate(Number(expirationDate)).getTime() : false
+  }
 
   const renderItemRequirement = requirement => {
     switch (requirement.title.toLowerCase()) {
@@ -326,7 +341,9 @@ const JobDetail = props => {
     setImageFailed(true)
   }
 
-  const iconByTitle = React.useMemo(()=> (
+  const CustomComponent = React.useMemo(() => fixedCardCustomComponent ? fixedCardCustomComponent : 'div', [ fixedCardCustomComponent ])
+
+  const iconByTitle = React.useMemo(() => (
     keyBy([ {
       icon: (
         <LanguageThinIcon className={classes.svgIcon} />
@@ -384,9 +401,12 @@ const JobDetail = props => {
     isPreview ? Div : Paper,
   [ isPreview ])
 
-  const basicEditionFiltered = React.useMemo(() => basicEdition
-    .filter(({ visible, description }) => visible && description)
-  , [ basicEdition ])
+  const basicEditionFiltered = React.useMemo(() => !basicEdition ? null : basicEdition.filter(({ visible, description }) => visible && description)
+    , [ basicEdition ])
+
+  const filteredBenefits = React.useMemo(() => benefits
+    .filter(({ title }) => title)
+  , [ benefits ])
 
   return (
     <ContainerRoot className={classes.contentJobDetail} variant={variant}>
@@ -405,33 +425,39 @@ const JobDetail = props => {
                     (!hiddenButton) && (
                       <Button
                         color='primary'
-                        disabled={isFinalized || closed}
+                        disabled={isFinalized === undefined ? closed : isFinalized || closed}
                         onClick={onClickPostulation}
                         size='large'
                         variant='contained'>
-                        {(closed || isFinalized)? 'Finalizado': userInJob ? 'Ver postulación' : 'Postular'}
+                        {customTitleButton ? customTitleButton : (closed || isFinalized) ? 'Finalizado' : userInJob ? 'Ver postulación' : 'Postular'}
                       </Button>
                     )
                   }
                   {
-                    (timeToDown > 0 && timeToDown <= 14) ?
-                      <Typography className={classes.textEndJob} component='span'>
-                      Finaliza {timeToDown === 0 ? 'Hoy' : `en ${timeToDown} día${timeToDown === 1 ? '' : 's'}`}.
-                      </Typography> :
-                      (timeToDown === 0 && !isFinalized) ?
-                        <Typography className={classes.textEndJob} variant='subtitle2'>
-                              Finaliza hoy
+                    subTitle ? (
+                      <Typography className={classes.subTitle}>
+                        {subTitle}
+                      </Typography>
+                    ) : null
+                  }
+                  {
+                    isFinalized === undefined ? null :
+                      (timeToDown > 0 && timeToDown <= 14) ?
+                        <Typography className={classes.textEndJob} component='span'>
+                        Finaliza {`en ${timeToDown} día${timeToDown === 1 ? '' : 's'}`}.
                         </Typography> :
-                        null
+                        (timeToDown === 0 && !isFinalized) ?
+                          <Typography className={classes.textEndJob} variant='subtitle2'>
+                          Finaliza hoy
+                          </Typography> :
+                          null
                   }
                 </div>
-                <HideOnScroll direction='down'>
-                  <div className={classes.custom}>
-                    {fixedCard}
-                  </div>
-                </HideOnScroll>
+                <CustomComponent className={classes.custom} style={fixedCardCustomStyle}>
+                  {fixedCard}
+                </CustomComponent>
               </div>
-            ): null}
+            ) : null}
           </div>
         </Grid>
       </Grid>
@@ -450,7 +476,7 @@ const JobDetail = props => {
             ) : (
               <>
                 <Typography className={classes.titleCompany}>{company.company_name}</Typography>
-                {(onViewCompany && !isPreview) ? <Typography className={classes.seeMoreCompany} onClick={onViewCompany}>Ver más</Typography>: null}
+                {(onViewCompany && !isPreview) ? <Typography className={classes.seeMoreCompany} onClick={onViewCompany}>Ver más</Typography> : null}
               </>
             )
           }
@@ -464,9 +490,9 @@ const JobDetail = props => {
                 description :
                 <Typography
                   className={classes.textDescription}
-                  variant='body3' >
-                  {description}
-                </Typography>
+                  component='div'
+                  dangerouslySetInnerHTML={{ __html: description }}
+                  variant='body3' />
             }
           </Grid>
         ) : null
@@ -481,35 +507,38 @@ const JobDetail = props => {
           ))
         }
       </Grid>
-      <Grid className={classes.gridDescription} item xs={12}>
-        {
-          basicEditionFiltered.length > 0 ?
-            basicEditionFiltered
-              .map((item, key) => (
-                <section className={classes.sectionInformation} key={`information-${key}`}>
-                  <Typography className={classes.titleSection} variant='h4'>{item.title}</Typography>
-                  {
-                    item.description ? (
-                      <Typography
-                        className={classes.textDescription}
-                        component='div'
-                        dangerouslySetInnerHTML={{ __html: item.description }}
-                        variant='body2' />
-                    ) : null
-                  }
+      {
+        !basicEditionFiltered ? null :
+          <Grid className={classes.gridDescription} item xs={12}>
+            {
+              basicEditionFiltered.length > 0 ?
+                basicEditionFiltered
+                  .map((item, key) => (
+                    <section className={classes.sectionInformation} key={`information-${key}`}>
+                      <Typography className={classes.titleSection} variant='h4'>{item.title}</Typography>
+                      {
+                        item.description ? (
+                          <Typography
+                            className={classes.textDescription}
+                            component='div'
+                            dangerouslySetInnerHTML={{ __html: item.description }}
+                            variant='body2' />
+                        ) : null
+                      }
 
-                </section>
-              )): (
-              <div className={classes.descriptionEmpty}>
-                <img
-                  alt='without-description'
-                  src='//s3.amazonaws.com/cdn.krowdy.com/media/images/empty-job.png' />
-                <Typography align='center' color='info' variant='body3'>
+                    </section>
+                  )) : (
+                  <div className={classes.descriptionEmpty}>
+                    <img
+                      alt='without-description'
+                      src='//s3.amazonaws.com/cdn.krowdy.com/media/images/empty-job.png' />
+                    <Typography align='center' color='info' variant='body3'>
                   Sin descripción
-                </Typography>
-              </div>)
-        }
-      </Grid>
+                    </Typography>
+                  </div>)
+            }
+          </Grid>
+      }
       {
         competencies.length ? (
           <>
@@ -530,18 +559,18 @@ const JobDetail = props => {
         ) : null
       }
       {
-        benefits.length ? (
+        filteredBenefits.length ? (
           <>
             <Divider />
             <section className={classes.sectionInformation}>
               <Typography className={classes.titleSection} variant='h5'>Beneficios</Typography>
               <List className={classes.benefitList}>
                 {
-                  benefits.map(({ title }, index) => (
+                  filteredBenefits.map(({ title }, index) => (
                     <ListItem className={classes.listItem} key={`benefit-${index}`}>
                       <ListItemAvatar className={classes.listItemAvatar}>
                         <Avatar className={classes.avatar}>
-                          {iconByTitle[title]?.icon}
+                          {iconByTitle[title] ? iconByTitle[title].icon : <LanguageThinIcon className={classes.svgIcon} />}
                         </Avatar>
                       </ListItemAvatar>
                       <ListItemText primary={title} primaryTypographyProps={{ variant: 'body2' }} />
@@ -587,33 +616,39 @@ const JobDetail = props => {
 }
 
 JobDetail.propTypes = {
-  basicEdition: PropTypes.array,
-  benefits    : PropTypes.array,
+  basicEdition     : PropTypes.array,
+  benefits         : PropTypes.array,
   /**
    * Override or extend the styles applied to the component.
    * See [CSS API](#css) below for more details.
    */
-  classes     : PropTypes.object,
-  closed      : PropTypes.bool,
-  company     : PropTypes.object,
-  competencies: PropTypes.array,
-  description : PropTypes.oneOfType([
+  classes          : PropTypes.object,
+  closed           : PropTypes.bool,
+  company          : PropTypes.object,
+  competencies     : PropTypes.array,
+  customTitleButton: PropTypes.string,
+
+  description: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.object
   ]),
   // _id
-  detailJob     : PropTypes.array,
-  disabledPerson: PropTypes.object,
-  expirationDate: PropTypes.string,
-  fixedCard     : PropTypes.node,
-  hiddenButton  : PropTypes.bool,
-  isPreview     : PropTypes.bool,
-  jobId         : PropTypes.string,
+  detailJob               : PropTypes.array,
+  disabledPerson          : PropTypes.object,
+  expirationDate          : PropTypes.string,
+  fixedCard               : PropTypes.node,
+  fixedCardCustomComponent: PropTypes.node,
+  fixedCardCustomStyle    : PropTypes.object,
+  hiddenButton            : PropTypes.bool,
+  isPreview               : PropTypes.bool,
+  jobId                   : PropTypes.string,
+  onClickPostulation      : PropTypes.func,
 
-  onClickPostulation: PropTypes.func,
   // status: PropTypes.string
-  onViewCompany     : PropTypes.func,
+  onViewCompany: PropTypes.func,
+
   requirements      : PropTypes.array,
+  subTitle          : PropTypes.string,
   title             : PropTypes.string,
   userInJob         : PropTypes.bool,
   variant           : PropTypes.string,

@@ -16,8 +16,12 @@ export type JobDetailProps = {
   expirationDate?: string;
   disabledPerson?: object;
   hiddenButton?: boolean;
+  customTitleButton?: string;
+  subTitle?: string;
   onViewCompany?: Function;
   fixedCard?: React.ReactNode;
+  fixedCardCustomComponent?: React.ReactNode;
+  fixedCardCustomStyle?: object;
   variant?: PaperProps['variant'];
   closed?: boolean;
   isPreview?: boolean;
