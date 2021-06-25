@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import clsx from 'clsx'
-import { Dialog, DialogContent, makeStyles, DialogTitle, Typography, IconButton, Button, DialogActions } from '@krowdy-ui/core'
+import { Dialog, DialogContent, makeStyles, DialogTitle, Typography, IconButton, Button, DialogActions, CircularProgress } from '@krowdy-ui/core'
 import { Close as CloseIcon } from '@material-ui/icons'
 import InputChip from './InputChip'
 import PropTypes from 'prop-types'
@@ -18,6 +18,7 @@ const KeywordFilter = ({
   edit,
   onClickApply,
   isOpen,
+  isLoading,
   onClose
 }) => {
   const classes = useStyles()
@@ -107,13 +108,19 @@ const KeywordFilter = ({
       <DialogContent className={classes.tagCloudWordsContainer}>
         <InputChip onChange={_handleChangeInput} values={selectedItems} />
         <div className={classes.tagsContainer}>
-          {tags.map((tag) => (
-            <CloudTag
-              key={tag._id}
-              onClick={_handleClickTag}
-              selectedTags={selectedItems}
-              tag={tag} />
-          ))}
+          {
+            isLoading ? (
+              <CircularProgress className={classes.loading} size={40} />
+            ) : (
+              tags.map((tag) => (
+                <CloudTag
+                  key={tag._id}
+                  onClick={_handleClickTag}
+                  selectedTags={selectedItems}
+                  tag={tag} />
+              ))
+            )
+          }
         </div>
       </DialogContent>
       <DialogActions className={classes.dialogActionsContainer}>
@@ -173,6 +180,9 @@ const useStyles = makeStyles((theme) => ({
   dialogTitleContainer: {
     margin : 0,
     padding: theme.spacing(2)
+  },
+  loading: {
+    marginTop: theme.spacing(1)
   },
   selected: {
     color     : theme.palette.primary.main,
