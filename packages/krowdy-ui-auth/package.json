@@ -31,15 +31,18 @@
     "release": "yarn build && npm publish ./build --tag latest"
   },
   "peerDependencies": {},
-  "dependencies": {},
+  "dependencies": {
+    "react-google-login": "^5.2.2",
+    "react-linkedin-login-oauth2": "^1.0.9"
+  },
+  "devDependencies": {
+    "@krowdy-ui/core": "0.0.84"
+  },
   "sideEffects": false,
   "publishConfig": {
     "access": "public"
   },
   "engines": {
     "node": ">=8.0.0"
-  },
-  "devDependencies": {
-    "@krowdy-ui/core": "0.0.84"
   }
 }
