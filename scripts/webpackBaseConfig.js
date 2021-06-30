@@ -31,6 +31,7 @@ module.exports = {
   },
   resolve: {
     alias: {
+      '@krowdy-ui/auth'  : path.resolve(__dirname, '../packages/krowdy-ui-auth/src'),
       '@krowdy-ui/core'  : path.resolve(__dirname, '../packages/krowdy-ui/src'),
       '@krowdy-ui/icons' : path.resolve(__dirname, '../packages/krowdy-ui-icons/src'),
       '@krowdy-ui/styles': path.resolve(__dirname, '../packages/krowdy-ui-styles/src'),

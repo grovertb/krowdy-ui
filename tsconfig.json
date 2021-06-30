@@ -25,6 +25,8 @@
       "@krowdy-ui/views/*": ["./packages/krowdy-ui-views/src/*"],
       "@krowdy-ui/icons": ["./packages/krowdy-ui-icons/src"],
       "@krowdy-ui/icons/*": ["./packages/krowdy-ui-icons/src/*"],
+      "@krowdy-ui/auth": ["./packages/krowdy-ui-auth/src"],
+      "@krowdy-ui/auth/*": ["./packages/krowdy-ui-auth/src/*"],
       "test/*": ["./test/*"]
     }
   },
