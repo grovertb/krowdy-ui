@@ -12,11 +12,7 @@ const initialState = {
 const reducer = (state, action)=> {
   switch (action.type) {
     case 'UPDATE_FIELD':
-      for (let k in state) state[k] = action.payload.value
-      break
-
-    case 'ADD_FIELD':
-      state[action.payload.key] = action.payload.value
+      console.log('🚀 ~ file: AuthContext.js ~ line 14 ~ reducer ~ state', state)
       break
 
     default:
