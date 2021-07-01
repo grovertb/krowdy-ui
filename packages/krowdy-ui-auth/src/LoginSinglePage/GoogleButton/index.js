@@ -29,8 +29,6 @@ const useStyles = makeStyles(({ spacing, palette }) => ({
   }
 }), { name: 'GoogleButton' })
 
-const cdnLink = 'https://cdn.krowdy.com/auth'
-
 const GoogleButton = () => {
   const classes = useStyles()
 
@@ -50,7 +48,7 @@ const GoogleButton = () => {
           <img
             alt={'googleSocial'}
             className={classes.iconGoogle}
-            src={IMAGES_SOCIAL(cdnLink, 'google')} />
+            src={IMAGES_SOCIAL['google']} />
           <Typography variant='body2'>
         Ingresa con Google
           </Typography>

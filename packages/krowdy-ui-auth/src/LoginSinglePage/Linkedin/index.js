@@ -3,8 +3,6 @@ import { makeStyles, Button, Typography } from '@krowdy-ui/core'
 import { LinkedIn } from 'react-linkedin-login-oauth2'
 import { IMAGES_SOCIAL } from '../constants'
 
-const cdnLink = 'https://cdn.krowdy.com/auth'
-const iconLinkedin = IMAGES_SOCIAL(cdnLink, 'linkedin')
 const uriRedirect = `${window.location.origin}/login`
 
 const useStyles = makeStyles(({ spacing, palette }) => ({
@@ -42,7 +40,7 @@ const Linkedin = () => {
           <img
             alt='Log in with Linked In'
             className={classes.iconLinkedin}
-            src={iconLinkedin} />
+            src={IMAGES_SOCIAL['linkedin']} />
           <Typography variant='body2'>
           Ingresa con LinkedIn
           </Typography>
