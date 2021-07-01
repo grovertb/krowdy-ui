@@ -1,8 +1,6 @@
 import React from 'react'
 
 export type OnetapAuthProps = {
-  // onClose?: Function;
-  // onAfterLogin?: Function;
   children?: any
 };
 

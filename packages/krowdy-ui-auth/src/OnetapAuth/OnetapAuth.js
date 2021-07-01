@@ -53,89 +53,12 @@ const useStyles = makeStyles(({ zIndex, spacing, breakpoints }) => ({
   }
 }), { name: 'OnetapAuth' })
 
-// const redirectToExternal = (accountUrl, externalView) => {
-//   const urlAuth = `${accountUrl}/${externalView}`
-//   const urlRedirect = window.location.href
-//   const urlCallback = `${window.location.origin}/callback`
-//   const urlToRegister = `${urlAuth}?urlRedirect=${urlRedirect}&urlCallback=${urlCallback}`
-//   window.open(urlToRegister, 'Recuperar contraseña', 'width=500, height=500')
-
-//   return
-// }
-
-// const useToggleAuthModal = () => {
-//   const [ open, setOpen ] = useState(false)
-
-//   return []
-// }
-
 const OnetapAuth = ({
-  // onAfterLogin = () => {},
-  // variant = 'localStorage',
-  // accountUrl,
   children,
   AuthContextProps
 }) => {
   const classes = useStyles()
   const [ openBackdrop, setBackdrop ] = useState(false)
-  // const [client] = useState(
-  //   () => new Auth0Client(toAuth0ClientOptions(clientOpts))
-  // )
-
-  // const loginService = useCallback((userInfo) => {
-  //   const {
-  //     success,
-  //     accessToken,
-  //     refreshToken,
-  //     iduser
-  //   } = userInfo
-
-  //   if(success) {
-  //     if(variant === 'localStorage' ) {
-  //       localStorage.setItem('accessToken', accessToken)
-  //       localStorage.setItem('iduser', iduser)
-  //       localStorage.setItem('refreshToken', refreshToken)
-  //     }
-
-  //     onAfterLogin(userInfo)
-  //   }
-  // }, [ onAfterLogin, variant ])
-
-  // const resolveMessage = useCallback(({ data }) => {
-  //   const { event_id, userInfo } = data
-  //   console.log('🚀 ~ file: OnetapAuth.js ~ line 93 ~ resolveMessage ~ event_id', event_id)
-
-  //   if(event_id === 'googleOneTapClosed')
-  //     setIsOnetapGoogle(false)
-
-  //   if(event_id === 'anotherViewAction')
-  //     setRegister(false)
-
-  //   if(event_id === 'onetabSyncRegister')
-  //     setRegister(true)
-
-  //   if(event_id === 'authStatus') {
-  //     setRegister(false)
-  //     loginService(userInfo)
-  //   }
-
-  //   if(event_id === 'onetabSync') {
-  //     setRegister(false)
-  //     loginService(userInfo)
-  //   }
-
-  //   if(event_id === 'onetabSyncRememberSession')
-  //     redirectToExternal(accountUrl, 'usernamerecovery')
-
-  // // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [])
-
-  // useEffect(() => {
-  //   const mesageListener = window.addEventListener('message', resolveMessage)
-
-  //   return () => window.removeEventListener(mesageListener)
-  // // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [])
 
   const _handleCloseModal = () => {
     setBackdrop(false)

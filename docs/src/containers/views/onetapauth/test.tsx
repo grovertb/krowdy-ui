@@ -1,12 +1,17 @@
 import React from 'react'
-import { OnetapAuth, useAuth } from '@krowdy-ui/auth'
+import { useAuth } from '@krowdy-ui/auth'
+import { Button } from '@krowdy-ui/core'
 
 const Test =  () => {
-  const res = useAuth()
-  console.log('🚀 ~ file: test.js ~ line 6 ~ Test ~ res', res)
+  const { onOpen = () => {} } = useAuth()
 
   return (
-    <OnetapAuth />
+    <Button
+      color='primary'
+      onClick={onOpen}
+      variant='contained'>
+CLICK ME!
+    </Button>
   )
 }
 
