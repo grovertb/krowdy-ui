@@ -1,7 +1,7 @@
 import React from 'react'
 import GoogleLogin from 'react-google-login'
 import { makeStyles, Button, Typography } from '@krowdy-ui/core'
-import { IMAGES_SOCIAL } from '../constants'
+import { IMAGES_SOCIAL } from './constants'
 
 const responseGoogle = (response) => {
   console.log('Failure response ->', response)
@@ -57,5 +57,5 @@ const GoogleButton = () => {
   )
 }
 
-export default GoogleButton
+export default React.memo(GoogleButton)
 

@@ -1,6 +1,6 @@
 import React, { useReducer } from 'react'
 import PropTypes from 'prop-types'
-import LoginContext from '../AuthContext/LoginContext'
+import LoginContext from './LoginContext'
 
 const initialState = {
   accessToken : '',
@@ -20,7 +20,7 @@ const reducer = (state, action)=> {
   }
 }
 
-const AuthContext = ({
+const AuthProvider = ({
   children,
   stateContext
 }) => {
@@ -44,7 +44,8 @@ const AuthContext = ({
     </LoginContext.Provider>
   )
 }
-AuthContext.propTypes = {
+
+AuthProvider.propTypes = {
   children    : PropTypes.any,
   clientId    : PropTypes.string,
   domain      : PropTypes.string,
@@ -52,4 +53,4 @@ AuthContext.propTypes = {
   stateContext: PropTypes.any
 }
 
-export default React.memo(AuthContext)
+export default React.memo(AuthProvider)

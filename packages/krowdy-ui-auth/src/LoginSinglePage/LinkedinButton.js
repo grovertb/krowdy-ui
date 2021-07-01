@@ -1,7 +1,7 @@
 import React from 'react'
 import { makeStyles, Button, Typography } from '@krowdy-ui/core'
 import { LinkedIn } from 'react-linkedin-login-oauth2'
-import { IMAGES_SOCIAL } from '../constants'
+import { IMAGES_SOCIAL } from './constants'
 
 const uriRedirect = `${window.location.origin}/login`
 
@@ -51,4 +51,4 @@ const Linkedin = () => {
   )
 }
 
-export default Linkedin
+export default React.memo(Linkedin)

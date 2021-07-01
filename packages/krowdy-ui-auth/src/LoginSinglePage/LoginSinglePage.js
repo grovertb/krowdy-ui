@@ -1,14 +1,10 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { Button, makeStyles, Typography, useTheme } from '@krowdy-ui/core'
 import { ArrowBackIos as ArrowBackIosIcon } from '@material-ui/icons'
 import GoogleButton from './GoogleButton'
-import Linkedin from './Linkedin'
+import Linkedin from './LinkedinButton'
 import KrowdyOneTap from './KrowdyOneTap'
 import Footer from './Footer'
-
-const IMAGES = {
-  krowdy: '//cdn.krowdy.com/media/images/KrowdyLogo2.svg'
-}
 
 const getTitleByView = (type, text) => {
   switch (type) {
@@ -38,14 +34,22 @@ const LoginSinglePage = () => {
   const [ typeView, setTypeView ] = useState('main')
   const [ currentUser, setCurrentUser ] = useState('')
 
-  const _handleChangeView = (view) => () => {
+  const _handleChangeView = useCallback((view) => {
     setPrevView(typeView)
     setTypeView(view)
-  }
+  }, [ typeView ])
 
-  const _handleCurrentUser = (text) => {
+  const _handleCurrentUser = useCallback((text) => {
     setCurrentUser(text)
-  }
+  }, [])
+
+  const _handleChangePrevView = useCallback(() => {
+    setTypeView(prevView)
+  }, [ prevView ])
+
+  const _handleChangeLogin = useCallback(() => {
+    _handleChangeView('login')
+  }, [ _handleChangeView ])
 
   return (
     <div>
@@ -53,7 +57,7 @@ const LoginSinglePage = () => {
         typeView !== 'main' ? (
           <Button
             className={classes.buttonBack}
-            onClick={_handleChangeView(prevView)}
+            onClick={_handleChangePrevView}
             startIcon={<ArrowBackIosIcon fontSize='small' />}>
           Atrás
           </Button>
@@ -61,7 +65,7 @@ const LoginSinglePage = () => {
       }
       <div className={classes.imageContainer}>
         <a className={classes.headerImage} href={'http://'}>
-          <img alt='abeja-img' height='100%'  src={logo?.source || IMAGES['krowdy']} />
+          <img alt='abeja-img' height='100%'  src={logo?.source || '//cdn.krowdy.com/media/images/KrowdyLogo2.svg'} />
         </a>
         <Typography className={classes.titleCenter} variant='h5'>
           {getTitleByView(typeView, currentUser)}
@@ -104,7 +108,7 @@ const LoginSinglePage = () => {
                 className={classes.buttonKrowdy}
                 color='primary'
                 fullWidth
-                onClick={_handleChangeView('login')}
+                onClick={_handleChangeLogin}
                 variant='outlined' >
               Ingresa con otro correo o celular
               </Button>

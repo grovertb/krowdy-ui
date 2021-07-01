@@ -13,7 +13,7 @@ import {
   Visibility as VisibilityIcon,
   VisibilityOff as VisibilityOffIcon
 } from '@material-ui/icons'
-import GoogleButton from '../GoogleButton'
+import GoogleButton from './GoogleButton'
 // import { useVerifyPassword } from '../../../hooks/authentication'
 
 const inputLabels = {
@@ -84,7 +84,7 @@ const KrowdyOneTap = ({
     switch (typeView) {
       case 'login':
         onChangeUserLogin(valueInput)
-        onChangeView(hasPassword ? 'password' : 'verify')()
+        onChangeView(hasPassword ? 'password' : 'verify')
         setValueInput('')
         setLoginKey(null)
         break
@@ -92,14 +92,14 @@ const KrowdyOneTap = ({
         const isPasswordValid = verifyPasswordOrCode(valueInput)
         setErrorLogin(isPasswordValid)
         if(isPasswordValid)
-          onChangeView('success')()
+          onChangeView('success')
         break
       case 'verify':
 
         const isCodeValid = verifyPasswordOrCode(valueInput)
         setErrorLogin(!isCodeValid)
         if(isCodeValid)
-          onChangeView(isFirstTime ? 'register' : 'success')()
+          onChangeView(isFirstTime ? 'register' : 'success')
         break
       case 'register':
         console.log('register', register)
@@ -340,4 +340,4 @@ const useStyles = makeStyles(({ spacing, palette }) => ({
   }
 }), { name: 'KrowdyOneTap' })
 
-export default KrowdyOneTap
+export default React.memo(KrowdyOneTap)
