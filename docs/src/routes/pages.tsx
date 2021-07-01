@@ -214,6 +214,11 @@ const pages: Array<Page> = [
         path : '/views/multicheckbox',
         title: 'MultiCheckBox'
       },
+      // O
+      {
+        path : '/views/onetapauth',
+        title: 'Onetap Auth'
+      },
       // P
       {
         path : '/views/pagination',

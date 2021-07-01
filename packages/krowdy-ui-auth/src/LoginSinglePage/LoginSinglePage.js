@@ -31,7 +31,7 @@ const getTitleByView = (type, text) => {
   }
 }
 
-const OnetapBody = () => {
+const LoginSinglePage = () => {
   const classes = useStyles()
   const { template:{ header:{ logo } = {} } = {} } = useTheme()
   const [ prevView, setPrevView ] = useState('')
@@ -150,6 +150,6 @@ const useStyles = makeStyles(({ spacing }) => ({
     textAlign: 'center'
 
   }
-}), { name: 'OnetapBody' })
+}), { name: 'LoginSinglePage' })
 
-export default React.memo(OnetapBody)
+export default React.memo(LoginSinglePage)

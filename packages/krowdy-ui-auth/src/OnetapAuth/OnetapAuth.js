@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {  Backdrop, Card, CardContent, IconButton, makeStyles } from '@krowdy-ui/core'
 import { Close as CloseIcon } from '@material-ui/icons'
 import OnetapBody from '../LoginSinglePage'
-import LoginContext from './LoginContext'
+import AuthContext from '../AuthContext'
 
 const useStyles = makeStyles(({ zIndex, spacing, breakpoints }) => ({
   cardContent: {
@@ -69,16 +69,12 @@ const useStyles = makeStyles(({ zIndex, spacing, breakpoints }) => ({
 //   return []
 // }
 
-const state = {
-  isLoading: false
-}
-
 const OnetapAuth = ({
   // onAfterLogin = () => {},
   // variant = 'localStorage',
   // accountUrl,
   children,
-  isModal
+  AuthContextProps
 }) => {
   const classes = useStyles()
   const [ openBackdrop, setBackdrop ] = useState(false)
@@ -149,64 +145,43 @@ const OnetapAuth = ({
   }
 
   return (
-    <LoginContext.Provider
-      value={{
-        ...state,
-        ...isModal? {
-          onClose: _handleCloseModal,
-          onOpen : _handleOpenModal
-        } : {}
+    <AuthContext
+      {...AuthContextProps}
+      stateContext={{
+        onClose: _handleCloseModal,
+        onOpen : _handleOpenModal
       }}>
       {children}
-      {
-        isModal ? (
-          <Backdrop
-            className={classes.container}
+      <Backdrop
+        className={classes.container}
+        onClose={_handleCloseModal}
+        open={openBackdrop}>
+        <Card className={classes.mainContainer}>
+          <IconButton
+            className={classes.closeButton}
             onClick={_handleCloseModal}
-            open={openBackdrop}>
-            <Card className={classes.mainContainer}>
-              <IconButton className={classes.closeButton} size='small'>
-                <CloseIcon color='disabled' fontSize='small' />
-              </IconButton>
-              <CardContent className={classes.cardContent}>
-                <OnetapBody />
-              </CardContent>
-            </Card>
-          </Backdrop>
-        ) : (
-          <Card
-            className={classes.containerWithoutBorder}>
-            <CardContent className={classes.cardContent}>
-              <OnetapBody />
-            </CardContent>
-          </Card>
-        )
-      }
-    </LoginContext.Provider>
+            size='small'>
+            <CloseIcon
+              color='disabled'
+              fontSize='small' />
+          </IconButton>
+          <CardContent className={classes.cardContent}>
+            <OnetapBody />
+          </CardContent>
+        </Card>
+      </Backdrop>
+    </AuthContext >
   )
 }
 
 OnetapAuth.propTypes = {
-  accountUrl  : PropTypes.string,
-  children    : PropTypes.any,
-  isModal     : PropTypes.bool,
-  onAfterLogin: PropTypes.func,
-  onClose     : PropTypes.func,
-  queries     : PropTypes.arrayOf(
-    PropTypes.shape({
-      key  : PropTypes.string.isRequired,
-      value: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.bool,
-        PropTypes.number
-      ]).isRequired
-    })
-  ),
-  title: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.node
-  ]),
-  variant: PropTypes.string
+  AuthContextProps: PropTypes.shape({
+    baseUrl     : PropTypes.string,
+    clientId    : PropTypes.string,
+    domain      : PropTypes.string,
+    redirectUri : PropTypes.string,
+    stateContext: PropTypes.any
+  })
 }
 
 export default React.memo(OnetapAuth)

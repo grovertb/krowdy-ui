@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import LoginContext from '../OnetapAuth/LoginContext'
+import LoginContext from '../AuthContext/LoginContext'
 
 const useAuth = () => useContext(LoginContext)
 

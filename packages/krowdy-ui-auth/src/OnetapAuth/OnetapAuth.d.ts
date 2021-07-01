@@ -1,13 +1,15 @@
 import React from "react";
 
-export type OnetapAuthProps = {
+type AuthContextProps= {
   clientId?: string;
-  isModal?: boolean;
-  onClose?: Function;
-  onAfterLogin?: Function;
   domain?: string;
   redirectUri?: string;
-  children?: any
+  stateContext?: any;
+}
+
+export type OnetapAuthProps = {
+  children?: any;
+  AuthContextProps?: AuthContextProps
 };
 
 declare const OnetapAuth: React.ComponentType<OnetapAuthProps>;

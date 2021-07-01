@@ -1,16 +1,13 @@
 import React from 'react'
-import { OnetapAuth, LoginSinglePage } from '@krowdy-ui/auth'
+import { AuthContext, LoginSinglePage } from '@krowdy-ui/auth'
 
 export default function () {
   return (
-    <div>
-      <OnetapAuth
-        clientId='YOUR_AUTH0_CLIENT_ID'
-        domain='YOUR_AUTH0_DOMAIN'
-        isModal
-        redirectUri={window.location.origin}>
-        <LoginSinglePage />
-      </OnetapAuth>
-    </div>
+    <AuthContext
+      clientId='YOUR_AUTH0_CLIENT_ID'
+      domain='YOUR_AUTH0_DOMAIN'
+      redirectUri={window.location.origin}>
+      <LoginSinglePage />
+    </AuthContext>
   )
 }
