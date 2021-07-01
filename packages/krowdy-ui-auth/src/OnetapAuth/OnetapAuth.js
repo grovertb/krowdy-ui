@@ -1,9 +1,54 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import PropTypes from 'prop-types'
-import {  Backdrop, Card, CardContent, IconButton, makeStyles } from '@krowdy-ui/core'
+import { Backdrop, Card, CardContent, IconButton, makeStyles } from '@krowdy-ui/core'
 import { Close as CloseIcon } from '@material-ui/icons'
 import LoginSinglePage from '../LoginSinglePage'
 import AuthContext from '../AuthContext'
+
+const OnetapAuth = ({
+  children,
+  AuthContextProps
+}) => {
+  const classes = useStyles()
+  const [ openBackdrop, setBackdrop ] = useState(false)
+
+  const _handleCloseModal = useCallback(() => {
+    setBackdrop(false)
+  }, [])
+
+  const _handleOpenModal = useCallback(() => {
+    setBackdrop(true)
+  }, [])
+
+  return (
+    <AuthContext
+      {...AuthContextProps}
+      stateContext={{
+        onClose: _handleCloseModal,
+        onOpen : _handleOpenModal
+      }}>
+      {children}
+      <Backdrop
+        className={classes.container}
+        onClose={_handleCloseModal}
+        open={openBackdrop}>
+        <Card className={classes.mainContainer}>
+          <IconButton
+            className={classes.closeButton}
+            onClick={_handleCloseModal}
+            size='small'>
+            <CloseIcon
+              color='disabled'
+              fontSize='small' />
+          </IconButton>
+          <CardContent className={classes.cardContent}>
+            <LoginSinglePage />
+          </CardContent>
+        </Card>
+      </Backdrop>
+    </AuthContext >
+  )
+}
 
 const useStyles = makeStyles(({ zIndex, spacing, breakpoints }) => ({
   cardContent: {
@@ -52,50 +97,6 @@ const useStyles = makeStyles(({ zIndex, spacing, breakpoints }) => ({
     }
   }
 }), { name: 'OnetapAuth' })
-
-const OnetapAuth = ({
-  children,
-  AuthContextProps
-}) => {
-  const classes = useStyles()
-  const [ openBackdrop, setBackdrop ] = useState(false)
-
-  const _handleCloseModal = () => {
-    setBackdrop(false)
-  }
-  const _handleOpenModal = () => {
-    setBackdrop(true)
-  }
-
-  return (
-    <AuthContext
-      {...AuthContextProps}
-      stateContext={{
-        onClose: _handleCloseModal,
-        onOpen : _handleOpenModal
-      }}>
-      {children}
-      <Backdrop
-        className={classes.container}
-        onClose={_handleCloseModal}
-        open={openBackdrop}>
-        <Card className={classes.mainContainer}>
-          <IconButton
-            className={classes.closeButton}
-            onClick={_handleCloseModal}
-            size='small'>
-            <CloseIcon
-              color='disabled'
-              fontSize='small' />
-          </IconButton>
-          <CardContent className={classes.cardContent}>
-            <LoginSinglePage />
-          </CardContent>
-        </Card>
-      </Backdrop>
-    </AuthContext >
-  )
-}
 
 OnetapAuth.propTypes = {
   AuthContextProps: PropTypes.shape({

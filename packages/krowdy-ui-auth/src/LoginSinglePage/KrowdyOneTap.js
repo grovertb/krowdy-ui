@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import clsx from 'clsx'
 import {
   Button,
@@ -56,9 +56,10 @@ const KrowdyOneTap = ({
     }
   }, [ typeView, valueInput, register ])
 
-  useEffect(() => {
-    if(valueInput) {
-      const res = valueInput.split(new RegExp('[ @ | . ]'))
+  const _handleChangeInput = useCallback(({ target:{ value, name } }) => {
+    setValueInput(value)
+    if(name === 'login' && value) {
+      const res = value.split(new RegExp('[ @ | . ]'))
 
       const [ , domain ] = res
 
@@ -67,20 +68,16 @@ const KrowdyOneTap = ({
       else
         setLoginKey(null)
     }
-  }, [ valueInput ])
+  }, [])
 
-  const _handleChangeInput = ({ target:{ value } }) => {
-    setValueInput(value)
-  }
-
-  const _handleChangeRegister = ({ target:{ value, name } }) => {
+  const _handleChangeRegister = useCallback(({ target:{ value, name } }) => {
     setRegister(prev => ({
       ...prev,
       [name]: value
     }))
-  }
+  }, [])
 
-  const _handleNext = () => {
+  const _handleNext = useCallback(() => {
     switch (typeView) {
       case 'login':
         onChangeUserLogin(valueInput)
@@ -88,34 +85,37 @@ const KrowdyOneTap = ({
         setValueInput('')
         setLoginKey(null)
         break
+
       case 'password':
         const isPasswordValid = verifyPasswordOrCode(valueInput)
         setErrorLogin(isPasswordValid)
         if(isPasswordValid)
           onChangeView('success')
         break
-      case 'verify':
 
+      case 'verify':
         const isCodeValid = verifyPasswordOrCode(valueInput)
         setErrorLogin(!isCodeValid)
         if(isCodeValid)
           onChangeView(isFirstTime ? 'register' : 'success')
         break
+
       case 'register':
         console.log('register', register)
         break
+
       default:
         break
     }
-  }
+  }, [ typeView, onChangeUserLogin, valueInput, onChangeView, verifyPasswordOrCode, register ])
 
-  const _handleClickShowPassword = () => {
+  const _handleClickShowPassword = useCallback(() => {
     setShowPassword(prev => !prev)
-  }
+  }, [])
 
-  const _handleActiveSession = () => {
+  const _handleActiveSession = useCallback(() => {
     setActiveSession(prev => !prev)
-  }
+  }, [])
 
   return (
     <>
@@ -147,14 +147,14 @@ const KrowdyOneTap = ({
                     onClick={_handleClickShowPassword}
                     size='small'>
                     { showPassword ?
-                      <VisibilityIcon color={'inherit'} fontSize={'inherit'} /> :
-                      <VisibilityOffIcon color={'inherit'} fontSize={'inherit'} />
+                      <VisibilityIcon color='inherit' fontSize='inherit' /> :
+                      <VisibilityOffIcon color='inherit' fontSize='inherit' />
                     }
                   </IconButton> : null
               )
             }}
             onChange={_handleChangeInput}
-            placeholder={'Contraseña'}
+            placeholder='Contraseña'
             type={showPassword || [ 'verify', 'recovery' ].includes(typeView) ? 'text' : 'password'}
             value={valueInput}
             variant='outlined' />
@@ -174,6 +174,7 @@ const KrowdyOneTap = ({
               }
             }}
             label={inputLabels[typeView]}
+            name='login'
             onChange={_handleChangeInput}
             value={valueInput}
             variant='outlined' />
@@ -197,8 +198,8 @@ const KrowdyOneTap = ({
                 root : classes.textfield
               }
             }}
-            label={'Nombre'}
-            name={'name'}
+            label='Nombre'
+            name='name'
             onChange={_handleChangeRegister}
             value={register?.name || ''}
             variant='outlined' />
@@ -216,8 +217,8 @@ const KrowdyOneTap = ({
                 root : classes.textfield
               }
             }}
-            label={'Apellidos'}
-            name={'lastName'}
+            label='Apellidos'
+            name='lastName'
             onChange={_handleChangeRegister}
             value={register?.lastName || ''}
             variant='outlined' />
@@ -231,9 +232,9 @@ const KrowdyOneTap = ({
           <GoogleButton
             setAuthStatus={() => {}}
             signupBarba={() => {}}
-            typeEventView={''}
-            urlCallback={''}
-            urlRedirect={''} />
+            typeEventView=''
+            urlCallback=''
+            urlRedirect='' />
         ) : null
       }
 

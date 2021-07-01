@@ -5,26 +5,6 @@ import { IMAGES_SOCIAL } from './constants'
 
 const uriRedirect = `${window.location.origin}/login`
 
-const useStyles = makeStyles(({ spacing, palette }) => ({
-  iconLinkedin: {
-    marginRight: spacing(1.5),
-    marginTop  : spacing(-.75)
-  },
-  linkedinButton: {
-    alignItems    : 'center',
-    // color de boton de linkedin
-    background    : '#007AB9',
-    borderRadius  : spacing(.5),
-    color         : palette.common.white,
-    display       : 'flex',
-    flex          : 1,
-    height        : 40,
-    justifyContent: 'center',
-    marginTop     : spacing(2),
-    width         : '100%'
-  }
-}), { name: 'Linkedin' })
-
 const Linkedin = () => {
   // const isMobile = useMediaQuery(theme.breakpoints.down(324))
   const classes = useStyles()
@@ -50,5 +30,25 @@ const Linkedin = () => {
       state='34232423' />
   )
 }
+
+const useStyles = makeStyles(({ spacing, palette }) => ({
+  iconLinkedin: {
+    marginRight: spacing(1.5),
+    marginTop  : spacing(-.75)
+  },
+  linkedinButton: {
+    alignItems    : 'center',
+    // color de boton de linkedin
+    background    : '#007AB9',
+    borderRadius  : spacing(.5),
+    color         : palette.common.white,
+    display       : 'flex',
+    flex          : 1,
+    height        : 40,
+    justifyContent: 'center',
+    marginTop     : spacing(2),
+    width         : '100%'
+  }
+}), { name: 'Linkedin' })
 
 export default React.memo(Linkedin)
