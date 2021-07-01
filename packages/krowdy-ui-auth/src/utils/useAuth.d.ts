@@ -1,1 +1,1 @@
-export default function useAuth(): Function
+export default function useAuth(): any {}

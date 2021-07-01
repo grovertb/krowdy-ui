@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 export type AuthContextProps = {
   clientId?: string;
@@ -7,6 +7,6 @@ export type AuthContextProps = {
   stateContext?: any;
 };
 
-declare const AuthContext: React.ComponentType<AuthContextProps>;
+declare var AuthContext: React.ComponentType<AuthContextProps>;
 
-export default AuthContext;
+export default AuthContext

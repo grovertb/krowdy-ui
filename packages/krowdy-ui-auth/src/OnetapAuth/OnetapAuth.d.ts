@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 type AuthContextProps= {
   clientId?: string;
@@ -12,6 +12,6 @@ export type OnetapAuthProps = {
   AuthContextProps?: AuthContextProps
 };
 
-declare const OnetapAuth: React.ComponentType<OnetapAuthProps>;
+declare var OnetapAuth: React.ComponentType<OnetapAuthProps>;
 
-export default OnetapAuth;
+export default OnetapAuth

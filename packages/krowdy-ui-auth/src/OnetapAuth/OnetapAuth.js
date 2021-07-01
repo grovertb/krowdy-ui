@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import {  Backdrop, Card, CardContent, IconButton, makeStyles } from '@krowdy-ui/core'
 import { Close as CloseIcon } from '@material-ui/icons'
-import OnetapBody from '../LoginSinglePage'
+import LoginSinglePage from '../LoginSinglePage'
 import AuthContext from '../AuthContext'
 
 const useStyles = makeStyles(({ zIndex, spacing, breakpoints }) => ({
@@ -166,7 +166,7 @@ const OnetapAuth = ({
               fontSize='small' />
           </IconButton>
           <CardContent className={classes.cardContent}>
-            <OnetapBody />
+            <LoginSinglePage />
           </CardContent>
         </Card>
       </Backdrop>
