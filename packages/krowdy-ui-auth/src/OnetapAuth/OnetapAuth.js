@@ -46,7 +46,7 @@ const OnetapAuth = ({
           </CardContent>
         </Card>
       </Backdrop>
-    </AuthContext >
+    </AuthContext>
   )
 }
 
