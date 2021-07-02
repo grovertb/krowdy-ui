@@ -37,6 +37,20 @@ class AuthClient {
 
     return response
   }
+
+  async updateAccount(body) {
+    const response = await this.postData(`${this.urlApi}/update/account`, body)
+    console.log('🚀 ~ file: index.js ~ line 43 ~ AuthClient ~ updateAccount ~ response', response)
+
+    return response
+  }
+
+  async updatePassword(password) {
+    const response = await this.postData(`${this.urlApi}/update/password`, { password })
+    console.log('🚀 ~ file: index.js ~ line 43 ~ AuthClient ~ updateAccount ~ response', response)
+
+    return response
+  }
 }
 
 export default AuthClient
