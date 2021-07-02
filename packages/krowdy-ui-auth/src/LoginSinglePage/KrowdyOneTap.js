@@ -14,6 +14,7 @@ import {
   VisibilityOff as VisibilityOffIcon
 } from '@material-ui/icons'
 import GoogleButton from './GoogleButton'
+import { useAuth } from '../utils'
 // import { useVerifyPassword } from '../../../hooks/authentication'
 
 const inputLabels = {
@@ -28,7 +29,7 @@ const errorMessages = {
   verify     : 'Código de verificación erróneo.'
 }
 
-const hasPassword = false
+// const hasPassword = false
 const isFirstTime = true
 
 const KrowdyOneTap = ({
@@ -38,13 +39,14 @@ const KrowdyOneTap = ({
   currentUser
 }) => {
   const classes = useStyles()
+  const { verifyAccount } = useAuth()
   const [ loginkey, setLoginKey ] = useState(null)
   const [ valueInput, setValueInput ] = useState(typeView === 'login' ? currentUser : '')
   const [ isErrorLogin, setErrorLogin ] = useState(false)
   const [ showPassword, setShowPassword ] = useState(false)
   const [ activeSession, setActiveSession ] = useState(true)
   const [ register, setRegister ] = useState({})
-  const [ verifyPasswordOrCode ] = [ ()=>{} ]
+  // const [ verifyPasswordOrCode ] = [ ()=>{} ]
 
   const isNextDisabled = useMemo(() => {
     if(typeView === 'register') {
@@ -77,24 +79,28 @@ const KrowdyOneTap = ({
     }))
   }, [])
 
-  const _handleNext = useCallback(() => {
+  const _handleNext = useCallback(async () => {
     switch (typeView) {
       case 'login':
-        onChangeUserLogin(valueInput)
-        onChangeView(hasPassword ? 'password' : 'verify')
-        setValueInput('')
-        setLoginKey(null)
+        const { hasPassword, success, value, type } = await verifyAccount(valueInput)
+        console.log('🚀 ~ file: KrowdyOneTap.js ~ line 87 ~ const_handleNext=useCallback ~ hasPassword', hasPassword)
+        if(success) {
+          onChangeUserLogin(type === 'phone' ? value : valueInput)
+          onChangeView(hasPassword ? 'password' : 'verify')
+          setValueInput('')
+          setLoginKey(null)
+        }
         break
 
       case 'password':
-        const isPasswordValid = verifyPasswordOrCode(valueInput)
+        const isPasswordValid = false
         setErrorLogin(isPasswordValid)
         if(isPasswordValid)
           onChangeView('success')
         break
 
       case 'verify':
-        const isCodeValid = verifyPasswordOrCode(valueInput)
+        const isCodeValid = false
         setErrorLogin(!isCodeValid)
         if(isCodeValid)
           onChangeView(isFirstTime ? 'register' : 'success')
@@ -107,7 +113,8 @@ const KrowdyOneTap = ({
       default:
         break
     }
-  }, [ typeView, onChangeUserLogin, valueInput, onChangeView, verifyPasswordOrCode, register ])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ typeView, onChangeUserLogin, valueInput, onChangeView, register, verifyAccount ])
 
   const _handleClickShowPassword = useCallback(() => {
     setShowPassword(prev => !prev)
@@ -154,7 +161,7 @@ const KrowdyOneTap = ({
               )
             }}
             onChange={_handleChangeInput}
-            placeholder='Contraseña'
+            placeholder={[ 'verify', 'recovery' ].includes(typeView) ? 'Código de verificación':'Contraseña'}
             type={showPassword || [ 'verify', 'recovery' ].includes(typeView) ? 'text' : 'password'}
             value={valueInput}
             variant='outlined' />

@@ -1,6 +1,8 @@
-import React, { useReducer } from 'react'
+import React, { useCallback, useReducer } from 'react'
 import PropTypes from 'prop-types'
 import LoginContext from './LoginContext'
+import AuthClient from '../Client'
+// import { createMuiTheme, krowdyTheme } from '@krowdy-ui/core'
 
 const initialState = {
   accessToken : '',
@@ -20,13 +22,46 @@ const reducer = (state, action)=> {
   }
 }
 
+// const theme = createMuiTheme({
+//   ...krowdyTheme,
+//   template: {
+//     header: {
+//       logo: {
+//         source: '//cdn.krowdy.com/media/images/KrowdyLogo2.svg'
+//       }
+//     }
+//   }
+// })
+
+// export const useGetThemeByDomain = (themeProvider) => {
+//   if(themeProvider)
+//     return {
+//       ...theme,
+//       ...themeProvider,
+//       palette: {
+//         ...theme.palette,
+//         ...themeProvider.palette
+//       }
+//     }
+//   else
+//     return themeProvider
+// }
+
 const AuthProvider = ({
   children,
-  stateContext
+  stateContext,
+  baseUrl = 'http://localhost:9876'
 }) => {
+  const Auth = new AuthClient(baseUrl)
+
   const [ state ] = useReducer(reducer, initialState)
 
   // Verificar sesion y setear al state
+
+  // useEffect(()=>{
+
+  // // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [])
 
   // const _handleUpdateState = useCallback(() => {
   //   dispatch({
@@ -34,11 +69,22 @@ const AuthProvider = ({
   //   })
   // }, [])
 
+  const _handleVerifyAccount = useCallback((source)=> Auth.validateAccount(source)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+    , [])
+
+  const _handleSendVerifyCode = useCallback((source)=>{
+    Auth.sendVerifyCode(source)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <LoginContext.Provider
       value={{
         ...state,
-        ...stateContext
+        ...stateContext,
+        sendVerifyOrCode: _handleSendVerifyCode,
+        verifyAccount   : _handleVerifyAccount
       }}>
       {children}
     </LoginContext.Provider>
@@ -46,6 +92,7 @@ const AuthProvider = ({
 }
 
 AuthProvider.propTypes = {
+  baseUrl     : PropTypes.string,
   children    : PropTypes.any,
   clientId    : PropTypes.string,
   domain      : PropTypes.string,
