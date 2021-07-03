@@ -14,6 +14,23 @@ class AuthClient {
     }).then((res) => res.json())
   }
 
+  postDataEncoded(url, body) {
+    let formBody = []
+    for (const property in body) {
+      const encodedKey = encodeURIComponent(property)
+      const encodedValue = encodeURIComponent(body[property])
+      formBody.push(encodedKey + '=' + encodedValue)
+    }
+
+    return fetch(url, {
+      body   : formBody.join('&'),
+      headers: {
+        'Content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'POST'
+    }).then((res) => res.json())
+  }
+
   async validateAccount(source) {
     try {
       const response = await this.postData(`${this.urlApi}/validate`, {
@@ -29,9 +46,14 @@ class AuthClient {
     }
   }
 
-  async verifyCode() {
-    const response = await this.postData(`${this.urlApi}/verifycode`, {
-      // source
+  async verifyCode({ code, value, type, clientId }) {
+    const response = await this.postDataEncoded(`${this.urlApi}/verifycode`, {
+      client_id    : clientId,
+      client_secret: 'nuevo',
+      code,
+      grant_type   : 'authorization_code',
+      type,
+      value
     })
     console.log('🚀 ~ file: index.js ~ line 21 ~ AuthClient ~ sendVerifyCode ~ response', response)
 
