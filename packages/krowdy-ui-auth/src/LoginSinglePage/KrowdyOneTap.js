@@ -7,7 +7,8 @@ import {
   TextField,
   FormControlLabel,
   IconButton,
-  Typography
+  Typography,
+  CircularProgress
 } from '@krowdy-ui/core'
 import {
   Visibility as VisibilityIcon,
@@ -29,9 +30,6 @@ const errorMessages = {
   verify     : 'Código de verificación erróneo.'
 }
 
-// const hasPassword = false
-const isFirstTime = true
-
 const KrowdyOneTap = ({
   onChangeUserLogin = () => {},
   onChangeView = () => {},
@@ -39,20 +37,27 @@ const KrowdyOneTap = ({
   currentUser
 }) => {
   const classes = useStyles()
-  const { verifyAccount, loginByPassword, verifyCode, typeCode, onSuccessLogin } = useAuth()
+  const {
+    verifyAccount,
+    loginByPassword,
+    loginByCode,
+    typeCode,
+    onSuccessLogin,
+    updateAccount,
+    loading
+  } = useAuth()
   const [ loginkey, setLoginKey ] = useState(null)
   const [ valueInput, setValueInput ] = useState(typeView === 'login' ? currentUser : '')
   const [ isErrorLogin, setErrorLogin ] = useState(false)
   const [ showPassword, setShowPassword ] = useState(false)
   const [ activeSession, setActiveSession ] = useState(true)
   const [ register, setRegister ] = useState({})
-  // const [ verifyPasswordOrCode ] = [ ()=>{} ]
 
   const isNextDisabled = useMemo(() => {
     if(typeView === 'register') {
-      const { name, lastName } = register
+      const { firstName, lastName } = register
 
-      return !(name && lastName)
+      return !(firstName && lastName)
     } else {
       return !valueInput
     }
@@ -92,30 +97,31 @@ const KrowdyOneTap = ({
         break
 
       case 'password':
-        const { success : isPasswordValid, accessToken } = await loginByPassword({
+        const { success : isPasswordValid } = await loginByPassword({
           email   : currentUser,
           password: valueInput
         })
         setErrorLogin(isPasswordValid)
-        if(isPasswordValid && accessToken)
-          onSuccessLogin(true)
 
         break
 
       case 'verify':
-        const isCodeValid = await verifyCode({
+        const { success: isCodeValid, isNew: isFirstTime = true } = await loginByCode({
           code : valueInput,
           type : typeCode,
           value: currentUser
         })
-        console.log('🚀 ~ file: KrowdyOneTap.js ~ line 111 ~ const_handleNext=useCallback ~ isCodeValid', isCodeValid)
         setErrorLogin(!isCodeValid)
         if(isCodeValid)
-          onChangeView(isFirstTime ? 'register' : 'success')
+          if(isFirstTime)
+            onChangeView('register')
+          else onSuccessLogin(true)
+
         break
 
       case 'register':
-        console.log('register', register)
+        updateAccount(register)
+
         break
 
       default:
@@ -214,9 +220,9 @@ const KrowdyOneTap = ({
               }
             }}
             label='Nombre'
-            name='name'
+            name='firstName'
             onChange={_handleChangeRegister}
-            value={register?.name || ''}
+            value={register?.firstName || ''}
             variant='outlined' />
           <TextField
             className={classes.fieldEmail}
@@ -270,9 +276,12 @@ const KrowdyOneTap = ({
       <Button
         className={classes.nextButton}
         color='primary'
-        disabled={isNextDisabled}
+        disabled={isNextDisabled || loading}
         fullWidth
         onClick={_handleNext}
+        startIcon={
+          loading ? <CircularProgress disableShrink size={18} /> : null
+        }
         variant='contained' >
       Continuar
       </Button>

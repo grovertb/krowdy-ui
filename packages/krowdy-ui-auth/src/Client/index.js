@@ -15,6 +15,17 @@ class AuthClient {
     }).then((res) => res.json())
   }
 
+  postWithCredentials(url, headers ={}, body) {
+    return fetch(url, {
+      body   : JSON.stringify(body),
+      headers: {
+        Authorization : `Bearer ${headers.accessToken}`,
+        'Content-type': 'application/json'
+      },
+      method: 'POST'
+    }).then((res) => res.json())
+  }
+
   postDataEncoded(url, body) {
     let formBody = []
     for (const property in body) {
@@ -83,18 +94,16 @@ class AuthClient {
     }
   }
 
-  async updateAccount(body) {
-    const response = await this.postData(`${this.urlApi}/onetap/update/account`, body)
-    console.log('🚀 ~ file: index.js ~ line 43 ~ AuthClient ~ updateAccount ~ response', response)
-
-    return response
+  updateAccount(accessToken, body) {
+    return this.postWithCredentials(
+      `${this.urlApi}/onetap/update/account`,
+      { accessToken },
+      body
+    )
   }
 
-  async updatePassword(password) {
-    const response = await this.postData(`${this.urlApi}/onetap/update/password`, { password })
-    console.log('🚀 ~ file: index.js ~ line 43 ~ AuthClient ~ updateAccount ~ response', response)
-
-    return response
+  updatePassword(password) {
+    return this.postData(`${this.urlApi}/onetap/update/password`, { password })
   }
 }
 
