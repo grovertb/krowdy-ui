@@ -1,7 +1,8 @@
 
 class AuthClient {
   constructor(baseUrl) {
-    this.urlApi = `${baseUrl}/api/onetap`
+    this.urlApi = `${baseUrl}/api`
+    // this.urlAccount = `${}`
   }
 
   postData(url, body) {
@@ -33,7 +34,7 @@ class AuthClient {
 
   async validateAccount(source) {
     try {
-      const response = await this.postData(`${this.urlApi}/validate`, {
+      const response = await this.postData(`${this.urlApi}/onetap/validate`, {
         source
       })
       if(!response || !response?.success) return { success: false }
@@ -46,29 +47,51 @@ class AuthClient {
     }
   }
 
-  async verifyCode({ code, value, type, clientId }) {
-    const response = await this.postDataEncoded(`${this.urlApi}/verifycode`, {
-      client_id    : clientId,
-      client_secret: 'nuevo',
-      code,
-      grant_type   : 'authorization_code',
-      type,
-      value
-    })
-    console.log('🚀 ~ file: index.js ~ line 21 ~ AuthClient ~ sendVerifyCode ~ response', response)
+  async verifyCode({ code, value, type, clientId ='candidate' }) {
+    try {
+      const response = await this.postDataEncoded(`${this.urlApi}/onetap/verifycode`, {
+        client_id    : clientId,
+        client_secret: 'nuevo',
+        code,
+        grant_type   : 'authorization_code',
+        type,
+        value
+      })
+      if(!response || !response?.success) return { success: false }
 
-    return response
+      return response
+    } catch (error) {
+      return { error: error.message, success: false }
+    }
+  }
+
+  async loginByPassword({ email, password, clientId = 'candidate' }) {
+    try {
+      const response = await this.postDataEncoded(`${this.urlApi}/oauth/token`, {
+        client_id    : clientId,
+        client_secret: 'nuevo',
+        grant_type   : 'password',
+        password,
+        username     : email.trim()
+      })
+
+      if(!response || !response?.success) return { success: false }
+
+      return response
+    } catch (error) {
+      return { error: error.message, success: false }
+    }
   }
 
   async updateAccount(body) {
-    const response = await this.postData(`${this.urlApi}/update/account`, body)
+    const response = await this.postData(`${this.urlApi}/onetap/update/account`, body)
     console.log('🚀 ~ file: index.js ~ line 43 ~ AuthClient ~ updateAccount ~ response', response)
 
     return response
   }
 
   async updatePassword(password) {
-    const response = await this.postData(`${this.urlApi}/update/password`, { password })
+    const response = await this.postData(`${this.urlApi}/onetap/update/password`, { password })
     console.log('🚀 ~ file: index.js ~ line 43 ~ AuthClient ~ updateAccount ~ response', response)
 
     return response

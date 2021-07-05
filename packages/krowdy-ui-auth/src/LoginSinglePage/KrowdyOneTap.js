@@ -39,7 +39,7 @@ const KrowdyOneTap = ({
   currentUser
 }) => {
   const classes = useStyles()
-  const { verifyAccount } = useAuth()
+  const { verifyAccount, loginByPassword, verifyCode, typeCode, onSuccessLogin } = useAuth()
   const [ loginkey, setLoginKey ] = useState(null)
   const [ valueInput, setValueInput ] = useState(typeView === 'login' ? currentUser : '')
   const [ isErrorLogin, setErrorLogin ] = useState(false)
@@ -83,7 +83,6 @@ const KrowdyOneTap = ({
     switch (typeView) {
       case 'login':
         const { hasPassword, success, value, type } = await verifyAccount(valueInput)
-        console.log('🚀 ~ file: KrowdyOneTap.js ~ line 87 ~ const_handleNext=useCallback ~ hasPassword', hasPassword)
         if(success) {
           onChangeUserLogin(type === 'phone' ? value : valueInput)
           onChangeView(hasPassword ? 'password' : 'verify')
@@ -93,14 +92,23 @@ const KrowdyOneTap = ({
         break
 
       case 'password':
-        const isPasswordValid = false
+        const { success : isPasswordValid, accessToken } = await loginByPassword({
+          email   : currentUser,
+          password: valueInput
+        })
         setErrorLogin(isPasswordValid)
-        if(isPasswordValid)
-          onChangeView('success')
+        if(isPasswordValid && accessToken)
+          onSuccessLogin(true)
+
         break
 
       case 'verify':
-        const isCodeValid = false
+        const isCodeValid = await verifyCode({
+          code : valueInput,
+          type : typeCode,
+          value: currentUser
+        })
+        console.log('🚀 ~ file: KrowdyOneTap.js ~ line 111 ~ const_handleNext=useCallback ~ isCodeValid', isCodeValid)
         setErrorLogin(!isCodeValid)
         if(isCodeValid)
           onChangeView(isFirstTime ? 'register' : 'success')
