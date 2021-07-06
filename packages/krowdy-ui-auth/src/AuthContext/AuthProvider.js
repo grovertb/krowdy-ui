@@ -257,7 +257,7 @@ const AuthProvider = ({
 }
 
 AuthProvider.propTypes = {
-  baseUrl     : PropTypes.string,
+  baseUrl     : PropTypes.string.isRequired,
   children    : PropTypes.any,
   clientId    : PropTypes.string,
   domain      : PropTypes.string,
