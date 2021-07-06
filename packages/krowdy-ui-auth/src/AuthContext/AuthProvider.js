@@ -1,4 +1,4 @@
-import React, { useCallback, useReducer } from 'react'
+import React, { useCallback, useEffect, useReducer } from 'react'
 import PropTypes from 'prop-types'
 import LoginContext from './LoginContext'
 import AuthClient from '../Client'
@@ -51,7 +51,7 @@ const reducer = (state, action)=> {
 //     return themeProvider
 // }
 
-const updateLocalStorage = (storage, objUpd) => {
+const updateStorage = (storage, objUpd) => {
   if(storage ==='localStorage')
     for (const key in objUpd)
       localStorage.setItem(key, objUpd[key])
@@ -71,6 +71,19 @@ const AuthProvider = ({
   const [ state, dispatch ] = useReducer(reducer, initialState)
 
   // Verificar sesion y setear al state
+  useEffect(()=>{
+    Auth.verifySession(res => {
+      if(res?.success)
+        dispatch({
+          type : 'UPDATE_FIELD',
+          value: {
+            successLogin: true,
+            userId      : res.userId
+          }
+        })
+    })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const _handleVerifyAccount = useCallback(async (source)=> {
     dispatch({
@@ -126,7 +139,7 @@ const AuthProvider = ({
     if(data.success) {
       const { accessToken, refreshToken, userId } = data
 
-      updateLocalStorage(storage, { accessToken, idUser: userId, refreshToken })
+      updateStorage(storage, { accessToken, idUser: userId, refreshToken })
 
       dispatch({
         type : 'UPDATE_FIELD',
@@ -167,7 +180,7 @@ const AuthProvider = ({
     if(data.success) {
       const { accessToken, refreshToken, userId, isNew } = data
 
-      updateLocalStorage(storage, { accessToken, idUser: userId, refreshToken })
+      updateStorage(storage, { accessToken, idUser: userId, refreshToken })
 
       dispatch({
         type : 'UPDATE_FIELD',

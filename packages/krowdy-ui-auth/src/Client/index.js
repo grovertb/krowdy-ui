@@ -5,6 +5,16 @@ class AuthClient {
     // this.urlAccount = `${}`
   }
 
+  getData(url, headers = {}) {
+    return fetch(url, {
+      headers: {
+        Authorization : `Bearer ${headers.accessToken}`,
+        'Content-type': 'application/json'
+      },
+      method: 'GET'
+    }).then((res) => res.json())
+  }
+
   postData(url, body) {
     return fetch(url, {
       body   : JSON.stringify(body),
@@ -15,7 +25,7 @@ class AuthClient {
     }).then((res) => res.json())
   }
 
-  postWithCredentials(url, headers ={}, body) {
+  postWithCredentials(url, headers = {}, body) {
     return fetch(url, {
       body   : JSON.stringify(body),
       headers: {
@@ -41,6 +51,19 @@ class AuthClient {
       },
       method: 'POST'
     }).then((res) => res.json())
+  }
+
+  async verifySession() {
+    try {
+      const accessToken = localStorage.getItem('accessToken')
+      const response = await this.getData(`${this.urlApi}/authenticate`, { accessToken })
+
+      if(!response) throw Error('Error al verificar cuenta.')
+
+      return response
+    } catch (error) {
+      return { error: error.message, success: false }
+    }
   }
 
   async validateAccount(source) {
