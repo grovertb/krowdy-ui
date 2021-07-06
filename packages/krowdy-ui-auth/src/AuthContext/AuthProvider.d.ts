@@ -5,6 +5,8 @@ export type AuthContextProps = {
   domain?: string;
   redirectUri?: string;
   stateContext?: any;
+  storage?: string;
+  baseUrl: string;
 };
 
 declare var AuthContext: React.ComponentType<AuthContextProps>;

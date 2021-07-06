@@ -7,13 +7,15 @@ import {
   TextField,
   FormControlLabel,
   IconButton,
-  Typography
+  Typography,
+  CircularProgress
 } from '@krowdy-ui/core'
 import {
   Visibility as VisibilityIcon,
   VisibilityOff as VisibilityOffIcon
 } from '@material-ui/icons'
 import GoogleButton from './GoogleButton'
+import { useAuth } from '../utils'
 // import { useVerifyPassword } from '../../../hooks/authentication'
 
 const inputLabels = {
@@ -28,9 +30,6 @@ const errorMessages = {
   verify     : 'Código de verificación erróneo.'
 }
 
-const hasPassword = false
-const isFirstTime = true
-
 const KrowdyOneTap = ({
   onChangeUserLogin = () => {},
   onChangeView = () => {},
@@ -38,19 +37,27 @@ const KrowdyOneTap = ({
   currentUser
 }) => {
   const classes = useStyles()
+  const {
+    verifyAccount,
+    loginByPassword,
+    loginByCode,
+    typeCode,
+    onSuccessLogin,
+    updateAccount,
+    loading
+  } = useAuth()
   const [ loginkey, setLoginKey ] = useState(null)
   const [ valueInput, setValueInput ] = useState(typeView === 'login' ? currentUser : '')
   const [ isErrorLogin, setErrorLogin ] = useState(false)
   const [ showPassword, setShowPassword ] = useState(false)
   const [ activeSession, setActiveSession ] = useState(true)
   const [ register, setRegister ] = useState({})
-  const [ verifyPasswordOrCode ] = [ ()=>{} ]
 
   const isNextDisabled = useMemo(() => {
     if(typeView === 'register') {
-      const { name, lastName } = register
+      const { firstName, lastName } = register
 
-      return !(name && lastName)
+      return !(firstName && lastName)
     } else {
       return !valueInput
     }
@@ -77,37 +84,51 @@ const KrowdyOneTap = ({
     }))
   }, [])
 
-  const _handleNext = useCallback(() => {
+  const _handleNext = useCallback(async () => {
     switch (typeView) {
       case 'login':
-        onChangeUserLogin(valueInput)
-        onChangeView(hasPassword ? 'password' : 'verify')
-        setValueInput('')
-        setLoginKey(null)
+        const { hasPassword, success, value, type } = await verifyAccount(valueInput)
+        if(success) {
+          onChangeUserLogin(type === 'phone' ? value : valueInput)
+          onChangeView(hasPassword ? 'password' : 'verify')
+          setValueInput('')
+          setLoginKey(null)
+        }
         break
 
       case 'password':
-        const isPasswordValid = verifyPasswordOrCode(valueInput)
+        const { success : isPasswordValid } = await loginByPassword({
+          email   : currentUser,
+          password: valueInput
+        })
         setErrorLogin(isPasswordValid)
-        if(isPasswordValid)
-          onChangeView('success')
+
         break
 
       case 'verify':
-        const isCodeValid = verifyPasswordOrCode(valueInput)
+        const { success: isCodeValid, isNew: isFirstTime } = await loginByCode({
+          code : valueInput,
+          type : typeCode,
+          value: currentUser
+        })
         setErrorLogin(!isCodeValid)
         if(isCodeValid)
-          onChangeView(isFirstTime ? 'register' : 'success')
+          if(isFirstTime)
+            onChangeView('register')
+          else onSuccessLogin(true)
+
         break
 
       case 'register':
-        console.log('register', register)
+        updateAccount(register)
+
         break
 
       default:
         break
     }
-  }, [ typeView, onChangeUserLogin, valueInput, onChangeView, verifyPasswordOrCode, register ])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ typeView, onChangeUserLogin, valueInput, onChangeView, register, verifyAccount ])
 
   const _handleClickShowPassword = useCallback(() => {
     setShowPassword(prev => !prev)
@@ -154,7 +175,7 @@ const KrowdyOneTap = ({
               )
             }}
             onChange={_handleChangeInput}
-            placeholder='Contraseña'
+            placeholder={[ 'verify', 'recovery' ].includes(typeView) ? 'Código de verificación':'Contraseña'}
             type={showPassword || [ 'verify', 'recovery' ].includes(typeView) ? 'text' : 'password'}
             value={valueInput}
             variant='outlined' />
@@ -199,9 +220,9 @@ const KrowdyOneTap = ({
               }
             }}
             label='Nombre'
-            name='name'
+            name='firstName'
             onChange={_handleChangeRegister}
-            value={register?.name || ''}
+            value={register?.firstName || ''}
             variant='outlined' />
           <TextField
             className={classes.fieldEmail}
@@ -255,9 +276,12 @@ const KrowdyOneTap = ({
       <Button
         className={classes.nextButton}
         color='primary'
-        disabled={isNextDisabled}
+        disabled={isNextDisabled || loading}
         fullWidth
         onClick={_handleNext}
+        startIcon={
+          loading ? <CircularProgress disableShrink size={18} /> : null
+        }
         variant='contained' >
       Continuar
       </Button>

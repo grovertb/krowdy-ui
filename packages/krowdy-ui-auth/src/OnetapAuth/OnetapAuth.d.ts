@@ -5,6 +5,7 @@ type AuthContextProps= {
   domain?: string;
   redirectUri?: string;
   stateContext?: any;
+  baseUrl: string
 }
 
 export type OnetapAuthProps = {
