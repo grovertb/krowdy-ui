@@ -30,7 +30,6 @@ const getTitleByView = (type, text) => {
 const LoginSinglePage = () => {
   const classes = useStyles()
   const { template:{ header:{ logo } = {} } = {} } = useTheme()
-  // console.log('🚀 ~ file: LoginSinglePage.js ~ line 35 ~ LoginSinglePage ~ state', state)
   const [ prevView, setPrevView ] = useState('')
   const [ typeView, setTypeView ] = useState('main')
   const [ currentUser, setCurrentUser ] = useState('')

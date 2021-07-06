@@ -106,7 +106,7 @@ const KrowdyOneTap = ({
         break
 
       case 'verify':
-        const { success: isCodeValid, isNew: isFirstTime = true } = await loginByCode({
+        const { success: isCodeValid, isNew: isFirstTime } = await loginByCode({
           code : valueInput,
           type : typeCode,
           value: currentUser
