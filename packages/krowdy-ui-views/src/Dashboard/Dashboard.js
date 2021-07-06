@@ -345,7 +345,7 @@ function Dashboard(props) {
           <Link className={classes.logoCompany} component={RouterLink} to='/'>
             <img
               alt='Logo Main'
-              src={logo ? logo.source : ''} />
+              src={logo && logo.source ? logo.source : ''} />
           </Link>
           <div className={classes.toolbarCenter}>
             <div className={classes.toolbarCenterLeft}>

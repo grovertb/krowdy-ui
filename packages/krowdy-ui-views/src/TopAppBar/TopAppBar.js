@@ -213,7 +213,7 @@ function TopAppBar(props) {
         <Link className={classes.logoCompany} component={RouterLink} to={urlLogo}>
           <img
             alt={logo.alt || 'Logo Main'}
-            src={logo ? logo.source : ''} />
+            src={logo && logo.source ? logo.source : ''} />
         </Link>
         <div className={classes.toolbarCenter}>
           <div className={classes.toolbarCenterLeft}>
