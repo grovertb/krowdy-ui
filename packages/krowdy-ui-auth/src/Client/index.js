@@ -71,7 +71,7 @@ class AuthClient {
       const response = await this.postData(`${this.urlApi}/onetap/validate`, {
         source
       })
-      if(!response || !response?.success) return { success: false }
+      if(!response || !response.success) return { success: false }
 
       const { authMode, type, value, success } = response
 
@@ -91,7 +91,7 @@ class AuthClient {
         type,
         value
       })
-      if(!response || !response?.success) return { success: false }
+      if(!response || !response.success) return { success: false }
 
       return response
     } catch (error) {
@@ -109,7 +109,7 @@ class AuthClient {
         username     : email.trim()
       })
 
-      if(!response || !response?.success) return { success: false }
+      if(!response || !response.success) return { success: false }
 
       return response
     } catch (error) {
