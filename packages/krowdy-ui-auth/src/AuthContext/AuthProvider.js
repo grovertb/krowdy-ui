@@ -63,7 +63,7 @@ const updateStorage = (storage, objUpd) => {
 const AuthProvider = ({
   children,
   stateContext,
-  baseUrl = 'http://localhost:9876',
+  baseUrl,
   storage = 'localStorage'
 }) => {
   const Auth = new AuthClient(baseUrl)
