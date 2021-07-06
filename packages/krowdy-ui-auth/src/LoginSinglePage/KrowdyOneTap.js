@@ -101,7 +101,7 @@ const KrowdyOneTap = ({
           email   : currentUser,
           password: valueInput
         })
-        setErrorLogin(isPasswordValid)
+        setErrorLogin(!isPasswordValid)
 
         break
 
@@ -222,7 +222,7 @@ const KrowdyOneTap = ({
             label='Nombre'
             name='firstName'
             onChange={_handleChangeRegister}
-            value={register?.firstName || ''}
+            value={register.firstName || ''}
             variant='outlined' />
           <TextField
             className={classes.fieldEmail}
@@ -241,7 +241,7 @@ const KrowdyOneTap = ({
             label='Apellidos'
             name='lastName'
             onChange={_handleChangeRegister}
-            value={register?.lastName || ''}
+            value={register.lastName || ''}
             variant='outlined' />
           </>
         ) : null

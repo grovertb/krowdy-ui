@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useReducer } from 'react'
+import React, { useCallback, useEffect, useReducer, useRef } from 'react'
 import PropTypes from 'prop-types'
 import LoginContext from './LoginContext'
 import AuthClient from '../Client'
@@ -66,38 +66,50 @@ const AuthProvider = ({
   baseUrl,
   storage = 'localStorage'
 }) => {
-  const Auth = new AuthClient(baseUrl)
-
+  const authClient  = useRef()
   const [ state, dispatch ] = useReducer(reducer, initialState)
 
+  useEffect(() => {
+    if(baseUrl) authClient.current = new AuthClient(baseUrl)
+  }, [ baseUrl ])
+
   // Verificar sesion y setear al state
-  useEffect(()=>{
-    Auth.verifySession(res => {
-      if(res?.success)
+  useEffect(() => {
+    if(authClient && authClient.current)
+      authClient.current.verifySession().then(res => {
+        if(res.success)
+          dispatch({
+            type : 'UPDATE_FIELD',
+            value: {
+              successLogin: true,
+              userId      : res.userId
+            }
+          })
+      }).catch(()=>{
         dispatch({
           type : 'UPDATE_FIELD',
           value: {
-            successLogin: true,
-            userId      : res.userId
+            error: true
           }
         })
-    })
+      })
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const _handleVerifyAccount = useCallback(async (source)=> {
+  const _handleVerifyAccount = useCallback(async (source) => {
     dispatch({
       type : 'UPDATE_FIELD',
       value: {
         loading: true
       }
     })
-
-    const data = await Auth.validateAccount(source)
+    let data
+    if(authClient && authClient.current)
+      data = await authClient.current.validateAccount(source)
 
     let result = data
 
-    if(data?.success) {
+    if(data && data.success) {
       const { hasPassword, success, value, type } = data
       dispatch({
         type : 'UPDATE_FIELD',
@@ -120,10 +132,11 @@ const AuthProvider = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const _handleSendVerifyCode = useCallback((source)=>{
-    Auth.sendVerifyCode(source)
+  const _handleSendVerifyCode = useCallback((source) => {
+    if(authClient && authClient.current)
+      authClient.current.sendVerifyCode(source)
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [ authClient ])
 
   const _handleLoginByPassword = useCallback(async ({ email, password }) => {
     dispatch({
@@ -132,7 +145,10 @@ const AuthProvider = ({
         loading: true
       }
     })
-    const data = await Auth.loginByPassword({ email, password })
+    let data
+
+    if(authClient && authClient.current)
+      data = await authClient.current.loginByPassword({ email, password })
 
     let result = data
 
@@ -163,9 +179,9 @@ const AuthProvider = ({
 
     return result
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [ authClient ])
 
-  const _handleLoginByCode = useCallback(async ({ code, value, type })=>{
+  const _handleLoginByCode = useCallback(async ({ code, value, type }) => {
     dispatch({
       type : 'UPDATE_FIELD',
       value: {
@@ -173,7 +189,9 @@ const AuthProvider = ({
       }
     })
 
-    const data = await Auth.verifyCode({ code, type, value })
+    let data
+    if(authClient && authClient.current)
+      data = await authClient.current.verifyCode({ code, type, value })
 
     let result = data
 
@@ -206,7 +224,7 @@ const AuthProvider = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const _handleSuccessLogin = useCallback((successLogin)=>{
+  const _handleSuccessLogin = useCallback((successLogin) => {
     dispatch({
       type : 'UPDATE_FIELD',
       value: {
@@ -216,7 +234,7 @@ const AuthProvider = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const _handleUpdateAccount = useCallback(async (body)=>{
+  const _handleUpdateAccount = useCallback(async (body) => {
     dispatch({
       type : 'UPDATE_FIELD',
       value: {
@@ -224,20 +242,22 @@ const AuthProvider = ({
       }
     })
 
-    const data = await Auth.updateAccount(state.accessToken, body)
+    let data
+    if(authClient && authClient.current)
+      data = await authClient.current.updateAccount(state.accessToken, body)
 
     dispatch({
       type : 'UPDATE_FIELD',
       value: {
         loading     : false,
-        successLogin: Boolean(data?.success)
+        successLogin: Boolean(data && data.success)
       }
     })
 
     return data
   }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  , [ state?.accessToken ])
+  , [ state.accessToken ])
 
   return (
     <LoginContext.Provider

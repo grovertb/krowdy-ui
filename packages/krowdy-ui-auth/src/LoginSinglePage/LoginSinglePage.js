@@ -65,7 +65,7 @@ const LoginSinglePage = () => {
       }
       <div className={classes.imageContainer}>
         <a className={classes.headerImage} href={'http://'}>
-          <img alt='abeja-img' height='100%'  src={logo?.source || '//cdn.krowdy.com/media/images/KrowdyLogo2.svg'} />
+          <img alt='abeja-img' height='100%'  src={logo ? logo.source : '//cdn.krowdy.com/media/images/KrowdyLogo2.svg'} />
         </a>
         <Typography className={classes.titleCenter} variant='h5'>
           {getTitleByView(typeView, currentUser)}
