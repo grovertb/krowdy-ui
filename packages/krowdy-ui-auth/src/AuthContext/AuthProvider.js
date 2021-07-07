@@ -78,9 +78,9 @@ const AuthProvider = ({
   }, [])
 
   useEffect(() => {
-    const serviceListener = window.addEventListener('message', _handleMessage, false)
+    window.addEventListener('message', _handleMessage, false)
 
-    return () => window.removeEventListener('message', serviceListener)
+    return () => window.removeEventListener('message', _handleMessage)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
