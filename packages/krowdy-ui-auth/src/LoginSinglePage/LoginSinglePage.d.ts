@@ -1,7 +1,7 @@
 import React from 'react'
 
 export type LoginSinglePageProps = {
-  children?: any
+  children?: unknown
 };
 
 declare var LoginSinglePage: React.ComponentType<LoginSinglePageProps>;
