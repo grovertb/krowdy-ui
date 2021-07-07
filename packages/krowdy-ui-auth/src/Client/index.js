@@ -2,7 +2,6 @@
 class AuthClient {
   constructor(baseUrl) {
     this.urlApi = `${baseUrl}/api`
-    // this.urlAccount = `${}`
   }
 
   getData(url, headers = {}) {

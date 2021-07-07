@@ -1,9 +1,9 @@
 import React from 'react'
 
-export type OnetapAuthProps = {
+export type LoginSinglePageProps = {
   children?: any
 };
 
-declare var OnetapAuth: React.ComponentType<OnetapAuthProps>;
+declare var LoginSinglePage: React.ComponentType<LoginSinglePageProps>;
 
-export default OnetapAuth
+export default LoginSinglePage
