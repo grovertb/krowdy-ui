@@ -52,14 +52,15 @@ class AuthClient {
     }).then((res) => res.json())
   }
 
-  async verifySession() {
+  async verifySession({ accessToken, refreshToken, iduser }) {
     try {
-      const accessToken = localStorage.getItem('accessToken')
+      if(!accessToken) throw Error('No tiene sesión abierta.')
+
       const response = await this.getData(`${this.urlApi}/authenticate`, { accessToken })
 
-      if(!response) throw Error('Error al verificar cuenta.')
+      if(!response || !response.success) throw Error('Error al verificar cuenta.')
 
-      return response
+      return { ...response, accessToken, iduser, refreshToken }
     } catch (error) {
       return { error: error.message, success: false }
     }

@@ -6,7 +6,11 @@ declare class AuthClient {
   postData(url: string, body: unknown): unknown;
   postWithCredentials(url: string, headers ?: { accessToken: string }, body ?: unknown): unknown;
   postDataEncoded(url: string, body : unknown): unknown;
-  verifySession(): { success?: boolean } | unknown;
+  verifySession(params?: {
+    accessToken?: string ,
+    refreshToken?: string,
+    iduser?: string
+  }): { success?: boolean } | unknown;
   validateAccount(source: string): unknown;
   verifyCode(params: {
     code?: string,

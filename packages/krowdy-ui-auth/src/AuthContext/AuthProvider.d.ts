@@ -7,6 +7,8 @@ export type AuthContextProps = {
   stateContext?: any;
   storage?: string;
   baseUrl: string;
+  urlLogin?: string;
+  theme?: unknown
 };
 
 declare var AuthContext: React.ComponentType<AuthContextProps>;

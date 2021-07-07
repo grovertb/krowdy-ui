@@ -104,7 +104,8 @@ OnetapAuth.propTypes = {
     clientId    : PropTypes.string,
     domain      : PropTypes.string,
     redirectUri : PropTypes.string,
-    stateContext: PropTypes.any
+    stateContext: PropTypes.any,
+    theme       : PropTypes.any
   })
 }
 

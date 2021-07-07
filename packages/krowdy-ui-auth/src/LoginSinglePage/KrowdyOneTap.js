@@ -144,6 +144,7 @@ const KrowdyOneTap = ({
       {
         [ 'password', 'verify', 'recovery', 'newPassword' ].includes(typeView) ? (
           <TextField
+            autofocus
             error={isErrorLogin}
             FormHelperTextProps={{
               classes: {
@@ -181,6 +182,7 @@ const KrowdyOneTap = ({
             variant='outlined' />
         ) : typeView === 'login' ? (
           <TextField
+            autofocus
             className={classes.fieldEmail}
             fullWidth
             InputLabelProps={{
@@ -206,6 +208,7 @@ const KrowdyOneTap = ({
       {
         typeView === 'register' ? (
           <> <TextField
+            autofocus
             className={classes.fieldEmail}
             fullWidth
             InputLabelProps={{

@@ -1,108 +1,94 @@
-import React, { useCallback, useEffect, useReducer, useRef } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
+import { ThemeProvider } from '@krowdy-ui/core'
 import LoginContext from './LoginContext'
 import AuthClient from '../Client'
-// import { createMuiTheme, krowdyTheme } from '@krowdy-ui/core'
-
-const initialState = {
-  accessToken : '',
-  idUser      : '',
-  isNew       : false,
-  loading     : false,
-  refreshToken: '',
-  successLogin: false
-}
-
-const reducer = (state, action)=> {
-  switch (action.type) {
-    case 'UPDATE_FIELD':
-      return {
-        ...state,
-        ...action.value
-      }
-
-    default:
-      break
-  }
-}
-
-// const theme = createMuiTheme({
-//   ...krowdyTheme,
-//   template: {
-//     header: {
-//       logo: {
-//         source: '//cdn.krowdy.com/media/images/KrowdyLogo2.svg'
-//       }
-//     }
-//   }
-// })
-
-// export const useGetThemeByDomain = (themeProvider) => {
-//   if(themeProvider)
-//     return {
-//       ...theme,
-//       ...themeProvider,
-//       palette: {
-//         ...theme.palette,
-//         ...themeProvider.palette
-//       }
-//     }
-//   else
-//     return themeProvider
-// }
-
-const updateStorage = (storage, objUpd) => {
-  if(storage ==='localStorage')
-    for (const key in objUpd)
-      localStorage.setItem(key, objUpd[key])
-  else if(storage ==='cookies')
-    for (const key in objUpd)
-      document.cookie = `${key}=${objUpd[key]}`
-}
+import { initialState, updateStorage, defaultTheme } from './utils'
 
 const AuthProvider = ({
   children,
   stateContext,
   baseUrl,
-  storage = 'localStorage'
+  storage = 'localStorage',
+  urlLogin,
+  theme
 }) => {
   const authClient  = useRef()
-  const [ state, dispatch ] = useReducer(reducer, initialState)
+  const iframeRef = useRef()
+  const [ state, setState ] = useState(initialState)
 
   useEffect(() => {
     if(baseUrl) authClient.current = new AuthClient(baseUrl)
   }, [ baseUrl ])
 
-  // Verificar sesion y setear al state
+  const sendMessageToLoginApp = useCallback((eventId, credentials) => {
+    const iframe = iframeRef ? iframeRef.current : null
+    if(iframe)
+      iframe.contentWindow.postMessage(
+        {
+          credentials,
+          eventId
+        },
+        `${urlLogin}/set-credentials`
+      )
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ urlLogin, iframeRef, iframeRef.current ])
+
+  const _handleVerifySession = useCallback((credentials) =>
+
+    authClient.current.verifySession(credentials).then(res => {
+      if(res.success) {
+        setState(prev => ({
+          ...prev,
+          ...credentials
+        }))
+        updateStorage(storage, credentials)
+      }
+
+      return res.success
+    }).catch(() => {
+      setState(prev => ({
+        ...prev,
+        error: true
+      }))
+
+      return false
+    })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  , [ authClient, authClient.current ])
+
+  const _handleMessage = useCallback(async ({ data }) => {
+    const { success, eventId, credentials } = data
+
+    if(success && eventId === 'authStatus') {
+      const successLogin = await _handleVerifySession(credentials)
+
+      setState(prev => ({
+        ...prev,
+        loadingAuth: false,
+        successLogin
+      }))
+    } else {
+      setState(prev => ({
+        ...prev,
+        loadingAuth: false
+      }))
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   useEffect(() => {
-    if(authClient && authClient.current)
-      authClient.current.verifySession().then(res => {
-        if(res.success)
-          dispatch({
-            type : 'UPDATE_FIELD',
-            value: {
-              successLogin: true,
-              userId      : res.userId
-            }
-          })
-      }).catch(()=>{
-        dispatch({
-          type : 'UPDATE_FIELD',
-          value: {
-            error: true
-          }
-        })
-      })
+    const serviceListener = window.addEventListener('message', _handleMessage, false)
+
+    return () => window.removeEventListener('message', serviceListener)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const _handleVerifyAccount = useCallback(async (source) => {
-    dispatch({
-      type : 'UPDATE_FIELD',
-      value: {
-        loading: true
-      }
-    })
+    setState(prev=>({
+      ...prev,
+      loading: true
+    }))
     let data
     if(authClient && authClient.current)
       data = await authClient.current.validateAccount(source)
@@ -111,22 +97,18 @@ const AuthProvider = ({
 
     if(data && data.success) {
       const { hasPassword, success, value, type } = data
-      dispatch({
-        type : 'UPDATE_FIELD',
-        value: {
-          typeCode: type
-        }
-      })
+      setState(prev => ({
+        ...prev,
+        typeCode: type
+      }))
 
       result = { hasPassword, success, type, value }
     }
 
-    dispatch({
-      type : 'UPDATE_FIELD',
-      value: {
-        loading: false
-      }
-    })
+    setState(prev => ({
+      ...prev,
+      loading: false
+    }))
 
     return result
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -139,12 +121,11 @@ const AuthProvider = ({
   }, [ authClient ])
 
   const _handleLoginByPassword = useCallback(async ({ email, password }) => {
-    dispatch({
-      type : 'UPDATE_FIELD',
-      value: {
-        loading: true
-      }
-    })
+    setState(prev => ({
+      ...prev,
+      loading: true
+    }))
+
     let data
 
     if(authClient && authClient.current)
@@ -155,39 +136,35 @@ const AuthProvider = ({
     if(data.success) {
       const { accessToken, refreshToken, userId } = data
 
-      updateStorage(storage, { accessToken, idUser: userId, refreshToken })
+      updateStorage(storage, { accessToken, iduser: userId, refreshToken })
 
-      dispatch({
-        type : 'UPDATE_FIELD',
-        value: {
-          accessToken,
-          refreshToken,
-          successLogin: true,
-          userId
-        }
-      })
+      setState(prev => ({
+        ...prev,
+        accessToken,
+        refreshToken,
+        successLogin: true,
+        userId
+      }))
 
-      result= { accessToken, refreshToken, success: true, userId }
+      sendMessageToLoginApp('logged', { accessToken, iduser: userId, refreshToken })
+
+      result = { accessToken, refreshToken, success: true, userId }
     }
 
-    dispatch({
-      type : 'UPDATE_FIELD',
-      value: {
-        loading: false
-      }
-    })
+    setState(prev => ({
+      ...prev,
+      loading: false
+    }))
 
     return result
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ authClient ])
 
   const _handleLoginByCode = useCallback(async ({ code, value, type }) => {
-    dispatch({
-      type : 'UPDATE_FIELD',
-      value: {
-        loading: true
-      }
-    })
+    setState(prev => ({
+      ...prev,
+      loading: true
+    }))
 
     let data
     if(authClient && authClient.current)
@@ -198,61 +175,53 @@ const AuthProvider = ({
     if(data.success) {
       const { accessToken, refreshToken, userId, isNew } = data
 
-      updateStorage(storage, { accessToken, idUser: userId, refreshToken })
+      updateStorage(storage, { accessToken, iduser: userId, refreshToken })
 
-      dispatch({
-        type : 'UPDATE_FIELD',
-        value: {
-          accessToken,
-          isNew,
-          refreshToken,
-          userId
-        }
-      })
+      setState(prev => ({
+        ...prev,
+        accessToken,
+        isNew,
+        refreshToken,
+        userId
+      }))
 
-      result= { accessToken, isNew, refreshToken, success: true, userId }
+      sendMessageToLoginApp('logged', { accessToken, iduser: userId, refreshToken })
+
+      result = { accessToken, isNew, refreshToken, success: true, userId }
     }
 
-    dispatch({
-      type : 'UPDATE_FIELD',
-      value: {
-        loading: false
-      }
-    })
+    setState(prev => ({
+      ...prev,
+      loading: false
+    }))
 
     return result
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const _handleSuccessLogin = useCallback((successLogin) => {
-    dispatch({
-      type : 'UPDATE_FIELD',
-      value: {
-        successLogin
-      }
-    })
+    setState(prev => ({
+      ...prev,
+      successLogin
+    }))
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const _handleUpdateAccount = useCallback(async (body) => {
-    dispatch({
-      type : 'UPDATE_FIELD',
-      value: {
-        loading: true
-      }
-    })
+    setState(prev => ({
+      ...prev,
+      loading: true
+    }))
 
     let data
     if(authClient && authClient.current)
       data = await authClient.current.updateAccount(state.accessToken, body)
 
-    dispatch({
-      type : 'UPDATE_FIELD',
-      value: {
-        loading     : false,
-        successLogin: Boolean(data && data.success)
-      }
-    })
+    setState(prev => ({
+      ...prev,
+      loading     : false,
+      successLogin: Boolean(data && data.success)
+    }))
 
     return data
   }
@@ -260,19 +229,32 @@ const AuthProvider = ({
   , [ state.accessToken ])
 
   return (
-    <LoginContext.Provider
-      value={{
-        ...state,
-        ...stateContext,
-        loginByCode     : _handleLoginByCode,
-        loginByPassword : _handleLoginByPassword,
-        onSuccessLogin  : _handleSuccessLogin,
-        sendVerifyOrCode: _handleSendVerifyCode,
-        updateAccount   : _handleUpdateAccount,
-        verifyAccount   : _handleVerifyAccount
-      }}>
-      {children}
-    </LoginContext.Provider>
+    <ThemeProvider theme={theme || defaultTheme}>
+      <LoginContext.Provider
+        value={{
+          ...state,
+          ...stateContext,
+          loginByCode     : _handleLoginByCode,
+          loginByPassword : _handleLoginByPassword,
+          onSuccessLogin  : _handleSuccessLogin,
+          sendVerifyOrCode: _handleSendVerifyCode,
+          updateAccount   : _handleUpdateAccount,
+          verifyAccount   : _handleVerifyAccount
+        }}>
+        {
+          urlLogin ?
+            <iframe
+              height='0px'
+              ref={iframeRef}
+              src={`${urlLogin}/set-credentials`}
+              style={{ display: 'none' }}
+              title='Alternative login'
+              width='0px' /> :
+            null
+        }
+        {children}
+      </LoginContext.Provider>
+    </ThemeProvider>
   )
 }
 
@@ -281,9 +263,11 @@ AuthProvider.propTypes = {
   children    : PropTypes.any,
   clientId    : PropTypes.string,
   domain      : PropTypes.string,
-  redirectUri : PropTypes.bool,
+  redirectUri : PropTypes.string,
   stateContext: PropTypes.any,
-  storage     : PropTypes.string
+  storage     : PropTypes.string,
+  theme       : PropTypes.any,
+  urlLogin    : PropTypes.string
 }
 
 export default React.memo(AuthProvider)
