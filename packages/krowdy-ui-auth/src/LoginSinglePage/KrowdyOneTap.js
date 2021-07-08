@@ -251,6 +251,7 @@ const KrowdyOneTap = ({
       }
 
       {/* VERIFICA DOMINIO DE EMAIL LOGIN Y MUESTRA BOTON EN CASO SEA GOOGLE */}
+      {/* VERIFICAR MICROSOFT */}
       {
         loginkey === 'google' ? (
           <GoogleButton

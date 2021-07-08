@@ -94,6 +94,7 @@ const LoginSinglePage = () => {
             <>
               <GoogleButton />
               <Linkedin />
+              {/* AQUI MICROSOFT */}
               <Button
                 className={classes.buttonKrowdy}
                 color='primary'
