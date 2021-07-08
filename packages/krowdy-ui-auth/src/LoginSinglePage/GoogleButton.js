@@ -16,7 +16,7 @@ const GoogleButton = () => {
     googleCredentials && googleCredentials.clientId ?
       <GoogleLogin
         clientId={googleCredentials.clientId}
-        cookiePolicy={'single_host_origin'}
+        cookiePolicy='single_host_origin'
         onFailure={responseGoogle}
         onSuccess={()=>{}}
         render={(props) => (
@@ -24,7 +24,7 @@ const GoogleButton = () => {
             {...props}
             className={classes.googleButton}>
             <img
-              alt={'googleSocial'}
+              alt='googleSocial'
               className={classes.iconGoogle}
               src={IMAGES_SOCIAL['google']} />
             <Typography variant='body2'>

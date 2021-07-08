@@ -8,12 +8,8 @@ export default function () {
       AuthContextProps={{
         baseUrl: 'http://localhost:9876',
         social : {
-          google: {
-
-          },
-          linkedin: {
-
-          }
+          google  : {},
+          linkedin: {}
         },
         urlLogin: 'http://localhost:3001'
       }}>
