@@ -1,9 +1,19 @@
 import React from 'react'
 
-export type AuthContextProps = {
+type SocialNetworkProps = {
   clientId?: string;
-  domain?: string;
   redirectUri?: string;
+  scope?: string;
+  state?: string
+}
+
+type SocialProps = {
+  google?: SocialNetworkProps;
+  linkedin?: SocialNetworkProps;
+}
+
+export type AuthContextProps = {
+  social?: SocialProps,
   stateContext?: any;
   storage?: string;
   baseUrl: string;

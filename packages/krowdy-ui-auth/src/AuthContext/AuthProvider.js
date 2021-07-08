@@ -7,11 +7,15 @@ import { initialState, updateStorage, defaultTheme } from './utils'
 
 const AuthProvider = ({
   children,
-  stateContext,
+  stateContext = {},
   baseUrl,
   storage = 'localStorage',
   urlLogin,
-  theme
+  theme,
+  social:{
+    google,
+    linkedin
+  } = {}
 }) => {
   const authClient  = useRef()
   const iframeRef = useRef()
@@ -233,12 +237,14 @@ const AuthProvider = ({
         value={{
           ...state,
           ...stateContext,
-          loginByCode     : _handleLoginByCode,
-          loginByPassword : _handleLoginByPassword,
-          onSuccessLogin  : _handleSuccessLogin,
-          sendVerifyOrCode: _handleSendVerifyCode,
-          updateAccount   : _handleUpdateAccount,
-          verifyAccount   : _handleVerifyAccount
+          googleCredentials  : google,
+          linkedinCredentials: linkedin,
+          loginByCode        : _handleLoginByCode,
+          loginByPassword    : _handleLoginByPassword,
+          onSuccessLogin     : _handleSuccessLogin,
+          sendVerifyOrCode   : _handleSendVerifyCode,
+          updateAccount      : _handleUpdateAccount,
+          verifyAccount      : _handleVerifyAccount
         }}>
         {
           urlLogin ?
@@ -258,11 +264,18 @@ const AuthProvider = ({
 }
 
 AuthProvider.propTypes = {
-  baseUrl     : PropTypes.string.isRequired,
-  children    : PropTypes.any,
-  clientId    : PropTypes.string,
-  domain      : PropTypes.string,
-  redirectUri : PropTypes.string,
+  baseUrl : PropTypes.string.isRequired,
+  children: PropTypes.any,
+  social  : PropTypes.shape({
+    google: PropTypes.shape({
+      clientId   : PropTypes.string,
+      redirectUri: PropTypes.string
+    }),
+    linkedin: PropTypes.shape({
+      clientId   : PropTypes.string,
+      redirectUri: PropTypes.string
+    })
+  }),
   stateContext: PropTypes.any,
   storage     : PropTypes.string,
   theme       : PropTypes.any,

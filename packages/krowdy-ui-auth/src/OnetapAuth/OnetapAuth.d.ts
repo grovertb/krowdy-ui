@@ -1,14 +1,5 @@
 import React from 'react'
-
-type AuthContextProps= {
-  clientId?: string;
-  domain?: string;
-  redirectUri?: string;
-  stateContext?: any;
-  baseUrl: string;
-  urlLogin?: string;
-  theme?: unknown
-}
+import { AuthContextProps } from '../AuthContext'
 
 export type OnetapAuthProps = {
   children?: any;

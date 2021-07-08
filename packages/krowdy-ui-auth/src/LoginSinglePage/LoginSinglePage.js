@@ -92,18 +92,8 @@ const LoginSinglePage = () => {
         {
           typeView === 'main' ? (
             <>
-              <GoogleButton
-                setAuthStatus={() => {}}
-                signupBarba={() => {}}
-                typeEventView={''}
-                urlCallback={''}
-                urlRedirect={''} />
-              <Linkedin
-                setAuthStatus={() => {}}
-                signupBarba={() => {}}
-                typeEventView={''}
-                urlCallback={''}
-                urlRedirect={''} />
+              <GoogleButton />
+              <Linkedin />
               <Button
                 className={classes.buttonKrowdy}
                 color='primary'

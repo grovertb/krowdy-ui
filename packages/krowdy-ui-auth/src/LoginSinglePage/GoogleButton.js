@@ -2,6 +2,7 @@ import React from 'react'
 import GoogleLogin from 'react-google-login'
 import { makeStyles, Button, Typography } from '@krowdy-ui/core'
 import { IMAGES_SOCIAL } from './constants'
+import { useAuth } from '../utils'
 
 const responseGoogle = (response) => {
   console.log('Failure response ->', response)
@@ -9,29 +10,29 @@ const responseGoogle = (response) => {
 
 const GoogleButton = () => {
   const classes = useStyles()
+  const { googleCredentials = {} }=useAuth()
 
   return (
-    <GoogleLogin
-      // className={classes.btnSocialGoogle}
-      clientId={''}
-      cookiePolicy={'single_host_origin'}
-      onFailure={responseGoogle}
-      onSuccess={()=>{}}
-      /* {!isMobile ? 'Ingresa con Google' : undefined} */
-      render={() => (
-        <Button
-        // onClick={renderProps.onClick}
-        // disabled={renderProps.disabled}
-          className={classes.googleButton}>
-          <img
-            alt={'googleSocial'}
-            className={classes.iconGoogle}
-            src={IMAGES_SOCIAL['google']} />
-          <Typography variant='body2'>
+    googleCredentials && googleCredentials.clientId ?
+      <GoogleLogin
+        clientId={googleCredentials.clientId}
+        cookiePolicy={'single_host_origin'}
+        onFailure={responseGoogle}
+        onSuccess={()=>{}}
+        render={(props) => (
+          <Button
+            {...props}
+            className={classes.googleButton}>
+            <img
+              alt={'googleSocial'}
+              className={classes.iconGoogle}
+              src={IMAGES_SOCIAL['google']} />
+            <Typography variant='body2'>
         Ingresa con Google
-          </Typography>
-        </Button>
-      )} />
+            </Typography>
+          </Button>
+        )} /> :
+      null
   )
 }
 

@@ -6,9 +6,16 @@ export default function () {
   return (
     <AuthContext
       baseUrl='http://localhost:9876'
-      clientId='YOUR_AUTH0_CLIENT_ID'
-      domain='YOUR_AUTH0_DOMAIN'
-      redirectUri={window.location.origin}>
+      social={{
+        google: {
+          clientId   : '612106570053-ke4agjifh4j78e4od0i5l3duh85u6tl7.apps.googleusercontent.com',
+          redirectUri: ''
+        },
+        linkedin: {
+          clientId   : '7745ijxvz0u4gq',
+          redirectUri: ''
+        }
+      }}>
       <Card >
         <CardContent>
           <LoginSinglePage />
