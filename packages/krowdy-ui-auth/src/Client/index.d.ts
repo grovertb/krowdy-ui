@@ -16,15 +16,24 @@ declare class AuthClient {
     code?: string,
     value?: string,
     type?: string,
-    clientId?: string
+    clientId?: string,
+    clientSecret?: string
   }): unknown;
   loginByPassword(params : {
     email?: string,
     password?: string,
-    clientId?: string
+    clientId?: string,
+    clientSecret?: string
   }): unknown;
   updateAccount(accessToken: string, body: unknown): unknown;
   updatePassword(password: string): unknown;
+  loginSocialNetwork(args: {
+    tokenId?: string, 
+    network?: string, 
+    authorizationCode?: string, 
+    clientId?: string, 
+    clientSecret?: string
+  } ,referrer : string): unknown;
 }
 
 export default AuthClient

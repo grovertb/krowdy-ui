@@ -1,24 +1,29 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import GoogleLogin from 'react-google-login'
 import { makeStyles, Button, Typography } from '@krowdy-ui/core'
 import { IMAGES_SOCIAL } from './constants'
 import { useAuth } from '../utils'
 
-const responseGoogle = (response) => {
-  console.log('Failure response ->', response)
-}
-
 const GoogleButton = () => {
   const classes = useStyles()
-  const { googleCredentials = {} }=useAuth()
+  const { googleCredentials = {}, validateSocialNetwork }=useAuth()
+
+  const _handleSuccess = useCallback((response)=>{
+    if(response && response.tokenId) {
+      const { tokenId } = response
+      const { clientId, clientsecret } = googleCredentials
+      validateSocialNetwork('google', { clientId, clientsecret, tokenId } )
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ validateSocialNetwork, googleCredentials ])
 
   return (
     googleCredentials && googleCredentials.clientId ?
       <GoogleLogin
         clientId={googleCredentials.clientId}
         cookiePolicy='single_host_origin'
-        onFailure={responseGoogle}
-        onSuccess={()=>{}}
+        // onFailure={}
+        onSuccess={_handleSuccess}
         render={(props) => (
           <Button
             {...props}

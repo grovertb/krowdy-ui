@@ -81,11 +81,11 @@ class AuthClient {
     }
   }
 
-  async verifyCode({ code, value, type, clientId ='candidate' }) {
+  async verifyCode({ code, value, type, clientId ='candidate', clientSecret }) {
     try {
       const response = await this.postDataEncoded(`${this.urlApi}/onetap/verifycode`, {
         client_id    : clientId,
-        client_secret: 'nuevo',
+        client_secret: clientSecret,
         code,
         grant_type   : 'authorization_code',
         type,
@@ -99,11 +99,11 @@ class AuthClient {
     }
   }
 
-  async loginByPassword({ email, password, clientId = 'candidate' }) {
+  async loginByPassword({ email, password, clientId = 'candidate', clientSecret }) {
     try {
       const response = await this.postDataEncoded(`${this.urlApi}/oauth/token`, {
         client_id    : clientId,
-        client_secret: 'nuevo',
+        client_secret: clientSecret,
         grant_type   : 'password',
         password,
         username     : email.trim()
@@ -127,6 +127,29 @@ class AuthClient {
 
   updatePassword(password) {
     return this.postData(`${this.urlApi}/onetap/update/password`, { password })
+  }
+
+  async loginSocialNetwork(args, referrer = 'auth') {
+    try {
+      const { tokenId, network, clientId, clientSecret } = args
+      const response = await this.postDataEncoded(
+        `${this.urlApi}/oauth/token`,
+        {
+          client_id    : clientId,
+          client_secret: clientSecret,
+          code         : `${network ||''}-data-${referrer || ''}-krowdy-${tokenId}`,
+          grant_type   : 'authorization_code',
+          social       : network,
+          socialId     : tokenId
+        }
+      )
+      if(!response || !response.success) throw Error('Error al loguearse con redes sociales.')
+
+      return response
+    }
+    catch (error) {
+      return { error: error.message, success: false }
+    }
   }
 }
 

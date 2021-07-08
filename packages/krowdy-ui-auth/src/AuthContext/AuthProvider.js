@@ -15,7 +15,9 @@ const AuthProvider = ({
   social:{
     google,
     linkedin
-  } = {}
+  } = {},
+  referrer,
+  clientSecret
 }) => {
   const authClient  = useRef()
   const iframeRef = useRef()
@@ -132,7 +134,7 @@ const AuthProvider = ({
     let data
 
     if(authClient && authClient.current)
-      data = await authClient.current.loginByPassword({ email, password })
+      data = await authClient.current.loginByPassword({ clientSecret, email, password })
 
     let result = data
 
@@ -171,7 +173,7 @@ const AuthProvider = ({
 
     let data
     if(authClient && authClient.current)
-      data = await authClient.current.verifyCode({ code, type, value })
+      data = await authClient.current.verifyCode({ clientSecret, code, type, value })
 
     let result = data
 
@@ -231,20 +233,35 @@ const AuthProvider = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   , [ state.accessToken ])
 
+  const _handleValidateSocial = useCallback(async (network, response) => {
+    const { clientId, tokenId } = response
+    if(authClient && authClient.current)
+      return await authClient.current.loginSocialNetwork({
+        clientId,
+        clientSecret,
+        network,
+        tokenId
+      },
+      referrer)
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ authClient, authClient.current ])
+
   return (
     <ThemeProvider theme={theme || defaultTheme}>
       <LoginContext.Provider
         value={{
           ...state,
           ...stateContext,
-          googleCredentials  : google,
-          linkedinCredentials: linkedin,
-          loginByCode        : _handleLoginByCode,
-          loginByPassword    : _handleLoginByPassword,
-          onSuccessLogin     : _handleSuccessLogin,
-          sendVerifyOrCode   : _handleSendVerifyCode,
-          updateAccount      : _handleUpdateAccount,
-          verifyAccount      : _handleVerifyAccount
+          googleCredentials    : google,
+          linkedinCredentials  : linkedin,
+          loginByCode          : _handleLoginByCode,
+          loginByPassword      : _handleLoginByPassword,
+          onSuccessLogin       : _handleSuccessLogin,
+          sendVerifyOrCode     : _handleSendVerifyCode,
+          updateAccount        : _handleUpdateAccount,
+          validateSocialNetwork: _handleValidateSocial,
+          verifyAccount        : _handleVerifyAccount
         }}>
         {
           urlLogin ?
@@ -264,9 +281,11 @@ const AuthProvider = ({
 }
 
 AuthProvider.propTypes = {
-  baseUrl : PropTypes.string.isRequired,
-  children: PropTypes.any,
-  social  : PropTypes.shape({
+  baseUrl     : PropTypes.string.isRequired,
+  children    : PropTypes.any,
+  clientSecret: PropTypes.string,
+  referrer    : PropTypes.string,
+  social      : PropTypes.shape({
     google: PropTypes.shape({
       clientId   : PropTypes.string,
       redirectUri: PropTypes.string

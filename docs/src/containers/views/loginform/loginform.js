@@ -6,6 +6,7 @@ export default function () {
   return (
     <AuthContext
       baseUrl='http://localhost:9876'
+      clientSecret='nuevo'
       social={{
         google: {
           clientId   : '612106570053-ke4agjifh4j78e4od0i5l3duh85u6tl7.apps.googleusercontent.com',
