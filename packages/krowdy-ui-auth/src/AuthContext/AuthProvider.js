@@ -35,7 +35,6 @@ const AuthProvider = ({
   }, [ urlLogin, iframeRef, iframeRef.current ])
 
   const _handleVerifySession = useCallback((credentials) =>
-
     authClient.current.verifySession(credentials).then(res => {
       if(res.success) {
         setState(prev => ({
