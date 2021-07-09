@@ -14,7 +14,8 @@ const AuthProvider = ({
   theme,
   social:{
     google,
-    linkedin
+    linkedin,
+    microsoft
   } = {},
   referrer,
   clientSecret
@@ -257,6 +258,7 @@ const AuthProvider = ({
           linkedinCredentials  : linkedin,
           loginByCode          : _handleLoginByCode,
           loginByPassword      : _handleLoginByPassword,
+          microsoftCredentials : microsoft,
           onSuccessLogin       : _handleSuccessLogin,
           sendVerifyOrCode     : _handleSendVerifyCode,
           updateAccount        : _handleUpdateAccount,
@@ -291,6 +293,10 @@ AuthProvider.propTypes = {
       redirectUri: PropTypes.string
     }),
     linkedin: PropTypes.shape({
+      clientId   : PropTypes.string,
+      redirectUri: PropTypes.string
+    }),
+    microsoft: PropTypes.shape({
       clientId   : PropTypes.string,
       redirectUri: PropTypes.string
     })

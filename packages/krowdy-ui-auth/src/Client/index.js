@@ -131,7 +131,7 @@ class AuthClient {
 
   async loginSocialNetwork(args, referrer = 'auth') {
     try {
-      const { tokenId, network, clientId, clientSecret } = args
+      const { tokenId, network, clientId = 'candidate', clientSecret = 'nuevo' } = args
       const response = await this.postDataEncoded(
         `${this.urlApi}/oauth/token`,
         {

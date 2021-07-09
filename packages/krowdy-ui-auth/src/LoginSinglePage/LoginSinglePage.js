@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react'
 import { Button, makeStyles, Typography, useTheme } from '@krowdy-ui/core'
 import { ArrowBackIos as ArrowBackIosIcon } from '@material-ui/icons'
 import GoogleButton from './GoogleButton'
+import MicrosoftButton from './MicrosoftButton'
 import Linkedin from './LinkedinButton'
 import KrowdyOneTap from './KrowdyOneTap'
 import Footer from './Footer'
@@ -94,7 +95,7 @@ const LoginSinglePage = () => {
             <>
               <GoogleButton />
               <Linkedin />
-              {/* AQUI MICROSOFT */}
+              <MicrosoftButton />
               <Button
                 className={classes.buttonKrowdy}
                 color='primary'

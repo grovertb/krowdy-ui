@@ -33,7 +33,8 @@
   "peerDependencies": {},
   "dependencies": {
     "react-google-login": "^5.2.2",
-    "react-linkedin-login-oauth2": "^1.0.9"
+    "react-linkedin-login-oauth2": "^1.0.9",
+    "react-microsoft-login": "^1.15.0"
   },
   "devDependencies": {
     "@krowdy-ui/core": "0.0.84"
