@@ -237,7 +237,7 @@ const AuthProvider = ({
   const _handleValidateSocial = useCallback(async (network, response) => {
     const { clientId, tokenId } = response
     if(authClient && authClient.current)
-      return await authClient.current.loginSocialNetwork({
+      await authClient.current.loginSocialNetwork({
         clientId,
         clientSecret,
         network,
