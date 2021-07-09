@@ -12,7 +12,7 @@ const getTitleByView = (type, text) => {
     case 'main':
       return '¡Te damos la bienvenida!'
     case 'login':
-      return 'Ingresa tu correo o  celular '
+      return 'Ingresa tu correo electrónico'
     case 'password':
       return `Ingresa tu contraseña para ${text}`
     case 'register':
@@ -102,7 +102,7 @@ const LoginSinglePage = () => {
                 fullWidth
                 onClick={_handleChangeLogin}
                 variant='outlined' >
-              Ingresa con otro correo o celular
+              Ingresa con otro correo electrónico
               </Button>
             </>
           ) : (

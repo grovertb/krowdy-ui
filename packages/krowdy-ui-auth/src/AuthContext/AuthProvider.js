@@ -18,7 +18,8 @@ const AuthProvider = ({
     microsoft
   } = {},
   referrer,
-  clientSecret
+  clientSecret,
+  loginWith = 'only-email'
 }) => {
   const authClient  = useRef()
   const iframeRef = useRef()
@@ -84,9 +85,11 @@ const AuthProvider = ({
   }, [])
 
   useEffect(() => {
-    window.addEventListener('message', _handleMessage, false)
+    if(urlLogin) {
+      window.addEventListener('message', _handleMessage, false)
 
-    return () => window.removeEventListener('message', _handleMessage)
+      return () => window.removeEventListener('message', _handleMessage)
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -236,14 +239,19 @@ const AuthProvider = ({
 
   const _handleValidateSocial = useCallback(async (network, response) => {
     const { clientId, tokenId } = response
-    if(authClient && authClient.current)
-      await authClient.current.loginSocialNetwork({
+    if(authClient && authClient.current) {
+      const { success } = await authClient.current.loginSocialNetwork({
         clientId,
         clientSecret,
         network,
         tokenId
-      },
-      referrer)
+      }, referrer)
+      if(success)
+        setState(prev => ({
+          ...prev,
+          successLogin: true
+        }))
+    }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ authClient, authClient.current ])
@@ -258,6 +266,7 @@ const AuthProvider = ({
           linkedinCredentials  : linkedin,
           loginByCode          : _handleLoginByCode,
           loginByPassword      : _handleLoginByPassword,
+          loginWith,
           microsoftCredentials : microsoft,
           onSuccessLogin       : _handleSuccessLogin,
           sendVerifyOrCode     : _handleSendVerifyCode,
@@ -286,6 +295,7 @@ AuthProvider.propTypes = {
   baseUrl     : PropTypes.string.isRequired,
   children    : PropTypes.any,
   clientSecret: PropTypes.string,
+  loginWith   : PropTypes.oneOf([ 'only-email', 'only-phone', 'phone-and-email' ]),
   referrer    : PropTypes.string,
   social      : PropTypes.shape({
     google: PropTypes.shape({

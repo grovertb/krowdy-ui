@@ -32,9 +32,9 @@ const useStyles = makeStyles(({ spacing, shape, palette }) => ({
   }
 }))
 
-const Microsoft = () => {
+const MicrosoftButton = () => {
   const classes = useStyles()
-  const { microsoftCredentials: { clientId, redirectUri } = {}, validateSocialNetwork, onSuccessLogin } = useAuth()
+  const { microsoftCredentials: { clientId, redirectUri } = {}, validateSocialNetwork } = useAuth()
 
   const handleResponseMicrosoft = (err, response) => {
     if(err) {
@@ -46,7 +46,6 @@ const Microsoft = () => {
     const { accessToken } = response
 
     validateSocialNetwork('microsoft', { clientId, tokenId: accessToken })
-    onSuccessLogin(true)
   }
 
   return (
@@ -62,5 +61,5 @@ const Microsoft = () => {
   )
 }
 
-export default Microsoft
+export default MicrosoftButton
 
