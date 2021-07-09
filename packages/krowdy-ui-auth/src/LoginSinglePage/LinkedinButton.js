@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { LinkedIn } from 'react-linkedin-login-oauth2'
 import { makeStyles, Button, Typography } from '@krowdy-ui/core'
 import { IMAGES_SOCIAL } from './constants'
@@ -6,14 +6,22 @@ import { useAuth } from '../utils'
 
 const Linkedin = () => {
   const classes = useStyles()
-  const { linkedinCredentials = {} } = useAuth()
+  const { linkedinCredentials = {}, validateSocialNetwork } = useAuth()
+
+  const _handleSuccess = useCallback((response)=>{
+    if(response && response.tokenId) {
+      const { tokenId } = response
+      validateSocialNetwork('linkedin', { tokenId } )
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ validateSocialNetwork, linkedinCredentials ])
 
   return (
     linkedinCredentials && linkedinCredentials.clientId ?
       <LinkedIn
         clientId={linkedinCredentials.clientId}
         onFailure={() => {}}
-        onSuccess={() => {}}
+        onSuccess={_handleSuccess}
         redirectUri={linkedinCredentials.redirectUri}
         renderElement={(props)=>(
           <Button

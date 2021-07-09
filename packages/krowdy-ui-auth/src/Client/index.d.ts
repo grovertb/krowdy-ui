@@ -17,13 +17,17 @@ declare class AuthClient {
     value?: string,
     type?: string,
     clientId?: string,
-    clientSecret?: string
+    clientSecret?: string,
+    allowAds?: boolean,
+    keepSession?: boolean,
   }): unknown;
   loginByPassword(params : {
     email?: string,
     password?: string,
     clientId?: string,
-    clientSecret?: string
+    clientSecret?: string,
+    allowAds?: boolean,
+    keepSession?: boolean,
   }): unknown;
   updateAccount(accessToken: string, body: unknown): unknown;
   updatePassword(password: string): unknown;

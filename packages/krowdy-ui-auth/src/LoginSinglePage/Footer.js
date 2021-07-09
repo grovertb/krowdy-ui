@@ -1,5 +1,6 @@
-import React, { useCallback, useState } from 'react'
+import React from 'react'
 import { Typography, makeStyles } from '@krowdy-ui/core'
+import { useAuth } from '../utils'
 
 const urlsRef = {
   conditionsAndTerms: 'https://cdn.laborum.pe/public/laborum-condiciones-generales-de-uso.pdf?_ga=2.123654923.1496876818.1537374997-1836386932.1537374997',
@@ -10,11 +11,7 @@ const Footer = ({
   typeView
 }) => {
   const classes = useStyles()
-  const [ hasPermissions, setHasPermissions ] = useState(true)
-
-  const _handleNoPermissions = useCallback(() => {
-    setHasPermissions(false)
-  }, [])
+  const { allowAds, onAllowAds } = useAuth()
 
   return (
     <div className={classes.containerFooter}>
@@ -34,7 +31,7 @@ Recuerda que al usar Krowdy aceptas los {' '}
         Política de privacidad.
         </a>
         {
-          typeView === 'main' && hasPermissions ? (
+          typeView === 'main' && allowAds ? (
             <>
               {' '}
                Asimismo, si no deseas que usemos tus datos con fines publicitarios,
@@ -42,14 +39,14 @@ Recuerda que al usar Krowdy aceptas los {' '}
               <Typography
 
                 className={classes.textNoPermission}
-                onClick={_handleNoPermissions}>
+                onClick={onAllowAds}>
             ingresa aquí.
               </Typography>.
             </>
           ) : null
         }
         {
-          typeView === 'main' && !hasPermissions ? (
+          typeView === 'main' && !allowAds ? (
             <>
               {' '}
              Asimismo, no estás aceptando nuestras políticas de publicidad.

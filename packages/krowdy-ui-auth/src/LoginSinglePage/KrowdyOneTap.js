@@ -15,13 +15,16 @@ import {
   VisibilityOff as VisibilityOffIcon
 } from '@material-ui/icons'
 import GoogleButton from './GoogleButton'
+import MicrosoftButton from './MicrosoftButton'
 import { useAuth } from '../utils'
-// import { useVerifyPassword } from '../../../hooks/authentication'
 
 const inputLabels = {
-  login   : 'Correo o celular',
-  password: 'Contraseña',
-  verify  : 'Código de verificación'
+  login            : 'Correo o celular',
+  'only-email'     : 'Correo electrónico',
+  'only-phone'     : 'Número de celular',
+  password         : 'Contraseña',
+  'phone-and-email': 'Correo o celular',
+  verify           : 'Código de verificación'
 }
 
 const errorMessages = {
@@ -44,26 +47,37 @@ const KrowdyOneTap = ({
     typeCode,
     onSuccessLogin,
     updateAccount,
-    loading
+    loading,
+    loginWith
   } = useAuth()
   const [ loginkey, setLoginKey ] = useState(null)
   const [ valueInput, setValueInput ] = useState(typeView === 'login' ? currentUser : '')
   const [ isErrorLogin, setErrorLogin ] = useState(false)
   const [ showPassword, setShowPassword ] = useState(false)
-  const [ activeSession, setActiveSession ] = useState(true)
+  const [ keepSession, setKeepSession ] = useState(true)
   const [ register, setRegister ] = useState({})
 
   const isNextDisabled = useMemo(() => {
-    if(typeView === 'register') {
-      const { firstName, lastName } = register
+    switch (typeView) {
+      case 'register':
+        const { firstName, lastName } = register
 
-      return !(firstName && lastName)
-    } else {
-      return !valueInput
+        return !(firstName && lastName)
+      case 'login':
+        if(loginWith === 'only-email') {
+          const emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i
+
+          return !valueInput || !emailRegex.test(valueInput)
+        } else {
+          return !valueInput
+        }
+
+      default:
+        return !valueInput
     }
-  }, [ typeView, valueInput, register ])
+  }, [ typeView, valueInput, register, loginWith ])
 
-  const _handleChangeInput = useCallback(({ target:{ value, name } }) => {
+  const _handleChangeInput = useCallback(({ target: { value, name } }) => {
     setValueInput(value)
     if(name === 'login' && value) {
       const res = value.split(new RegExp('[ @ | . ]'))
@@ -72,6 +86,10 @@ const KrowdyOneTap = ({
 
       if(domain && 'gmail'.indexOf(domain) !== -1)
         setLoginKey('google')
+
+      if(domain && ('outlook'.indexOf(domain) !== -1 || 'hotmail'.indexOf(domain) !== -1))
+        setLoginKey('microsoft')
+
       else
         setLoginKey(null)
     }
@@ -99,6 +117,7 @@ const KrowdyOneTap = ({
       case 'password':
         const { success : isPasswordValid } = await loginByPassword({
           email   : currentUser,
+          keepSession,
           password: valueInput
         })
         setErrorLogin(!isPasswordValid)
@@ -108,6 +127,7 @@ const KrowdyOneTap = ({
       case 'verify':
         const { success: isCodeValid, isNew: isFirstTime } = await loginByCode({
           code : valueInput,
+          keepSession,
           type : typeCode,
           value: currentUser
         })
@@ -136,8 +156,8 @@ const KrowdyOneTap = ({
     setShowPassword(prev => !prev)
   }, [])
 
-  const _handleActiveSession = useCallback(() => {
-    setActiveSession(prev => !prev)
+  const _handleKeepSession = useCallback(() => {
+    setKeepSession(prev => !prev)
   }, [])
 
   const _handleResendPassword = useCallback(async ()=>{
@@ -207,7 +227,7 @@ const KrowdyOneTap = ({
                 root : classes.textfield
               }
             }}
-            label={inputLabels[typeView]}
+            label={inputLabels[loginWith]}
             name='login'
             onChange={_handleChangeInput}
             value={valueInput}
@@ -282,16 +302,12 @@ const KrowdyOneTap = ({
         ) : null
       }
 
-      {/* VERIFICA DOMINIO DE EMAIL LOGIN Y MUESTRA BOTON EN CASO SEA GOOGLE */}
-      {/* VERIFICAR MICROSOFT */}
+      {/* VERIFICA DOMINIO DE EMAIL LOGIN Y MUESTRA BOTON EN CASO SEA GOOGLE O MICROSOFT */}
       {
         loginkey === 'google' ? (
-          <GoogleButton
-            setAuthStatus={() => {}}
-            signupBarba={() => {}}
-            typeEventView=''
-            urlCallback=''
-            urlRedirect='' />
+          <GoogleButton />
+        ) : loginkey === 'microsoft' ? (
+          <MicrosoftButton />
         ) : null
       }
 
@@ -301,9 +317,9 @@ const KrowdyOneTap = ({
           <FormControlLabel
             className={classes.labelCheckbox}
             control={<Checkbox
-              checked={activeSession}
+              checked={keepSession}
               color='primary'
-              onChange={_handleActiveSession} />}
+              onChange={_handleKeepSession} />}
             label='Mantener mi sesión abierta' />
 
         ) : null
