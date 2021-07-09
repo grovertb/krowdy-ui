@@ -54,7 +54,7 @@ const KrowdyOneTap = ({
   const [ valueInput, setValueInput ] = useState(typeView === 'login' ? currentUser : '')
   const [ isErrorLogin, setErrorLogin ] = useState(false)
   const [ showPassword, setShowPassword ] = useState(false)
-  const [ activeSession, setActiveSession ] = useState(true)
+  const [ keepSession, setKeepSession ] = useState(true)
   const [ register, setRegister ] = useState({})
 
   const isNextDisabled = useMemo(() => {
@@ -117,6 +117,7 @@ const KrowdyOneTap = ({
       case 'password':
         const { success : isPasswordValid } = await loginByPassword({
           email   : currentUser,
+          keepSession,
           password: valueInput
         })
         setErrorLogin(!isPasswordValid)
@@ -126,6 +127,7 @@ const KrowdyOneTap = ({
       case 'verify':
         const { success: isCodeValid, isNew: isFirstTime } = await loginByCode({
           code : valueInput,
+          keepSession,
           type : typeCode,
           value: currentUser
         })
@@ -154,8 +156,8 @@ const KrowdyOneTap = ({
     setShowPassword(prev => !prev)
   }, [])
 
-  const _handleActiveSession = useCallback(() => {
-    setActiveSession(prev => !prev)
+  const _handleKeepSession = useCallback(() => {
+    setKeepSession(prev => !prev)
   }, [])
 
   const _handleResendPassword = useCallback(async ()=>{
@@ -315,9 +317,9 @@ const KrowdyOneTap = ({
           <FormControlLabel
             className={classes.labelCheckbox}
             control={<Checkbox
-              checked={activeSession}
+              checked={keepSession}
               color='primary'
-              onChange={_handleActiveSession} />}
+              onChange={_handleKeepSession} />}
             label='Mantener mi sesión abierta' />
 
         ) : null

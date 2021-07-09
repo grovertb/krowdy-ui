@@ -129,16 +129,16 @@ const AuthProvider = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ authClient ])
 
-  const _handleLoginByPassword = useCallback(async ({ email, password }) => {
+  const _handleLoginByPassword = useCallback(async ({ email, password, keepSession }) => {
     setState(prev => ({
       ...prev,
       loading: true
     }))
 
-    let data
+    let data = {}
 
     if(authClient && authClient.current)
-      data = await authClient.current.loginByPassword({ clientSecret, email, password })
+      data = await authClient.current.loginByPassword({ allowAds: state.allowAds, clientSecret, email,  keepSession, password })
 
     let result = data
 
@@ -169,7 +169,7 @@ const AuthProvider = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ authClient ])
 
-  const _handleLoginByCode = useCallback(async ({ code, value, type }) => {
+  const _handleLoginByCode = useCallback(async ({ code, value, type, keepSession }) => {
     setState(prev => ({
       ...prev,
       loading: true
@@ -177,7 +177,7 @@ const AuthProvider = ({
 
     let data
     if(authClient && authClient.current)
-      data = await authClient.current.verifyCode({ clientSecret, code, type, value })
+      data = await authClient.current.verifyCode({ allowAds: state.allowAds, clientSecret, code, keepSession, type, value })
 
     let result = data
 
@@ -240,16 +240,13 @@ const AuthProvider = ({
   const _handleValidateSocial = useCallback(async (network, response) => {
     const { clientId, tokenId } = response
     if(authClient && authClient.current) {
-      const {
-        error,
-        refreshToken,
-        accessToken,
-        userId } = await authClient.current.loginSocialNetwork({
+      const { error, refreshToken, accessToken, userId } = await authClient.current.loginSocialNetwork({
         clientId,
         clientSecret,
         network,
         tokenId
       }, referrer)
+
       if(!error) {
         updateStorage(storage, { accessToken, iduser: userId, refreshToken })
         setState(prev => ({
@@ -265,6 +262,13 @@ const AuthProvider = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ authClient, authClient.current ])
 
+  const _handleAllowAds = useCallback(()=>{
+    setState(prev => ({
+      ...prev,
+      allowAds: !prev.allowAds
+    }))
+  }, [])
+
   return (
     <ThemeProvider theme={theme || defaultTheme}>
       <LoginContext.Provider
@@ -277,6 +281,7 @@ const AuthProvider = ({
           loginByPassword      : _handleLoginByPassword,
           loginWith,
           microsoftCredentials : microsoft,
+          onAllowAds           : _handleAllowAds,
           onSuccessLogin       : _handleSuccessLogin,
           sendVerifyOrCode     : _handleSendVerifyCode,
           updateAccount        : _handleUpdateAccount,

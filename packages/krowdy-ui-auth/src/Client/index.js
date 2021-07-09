@@ -99,12 +99,14 @@ class AuthClient {
     }
   }
 
-  async loginByPassword({ email, password, clientId = 'candidate', clientSecret }) {
+  async loginByPassword({ email, password, clientId = 'candidate', clientSecret, allowAds, keepSession }) {
     try {
       const response = await this.postDataEncoded(`${this.urlApi}/oauth/token`, {
+        allowAds,
         client_id    : clientId,
         client_secret: clientSecret,
         grant_type   : 'password',
+        keepSession,
         password,
         username     : email.trim()
       })
@@ -139,13 +141,13 @@ class AuthClient {
 
   async loginSocialNetwork(args, referrer = 'auth') {
     try {
-      const { tokenId, network, clientId = 'candidate', clientSecret = 'nuevo' } = args
+      const { tokenId, network, clientId = 'candidate', clientSecret = 'nuevo', allowAds, keepSession } = args
       const response = await this.postDataEncoded(
         `${this.urlApi}/oauth/token`,
         {
           client_id    : clientId,
           client_secret: clientSecret,
-          code         : `${network ||''}-data-${referrer || ''}-krowdy-${tokenId}`,
+          code         : `${allowAds}-${keepSession}-${network ||''}-${referrer || ''}-krowdy-${tokenId}`,
           grant_type   : 'authorization_code',
           social       : network,
           socialId     : tokenId
