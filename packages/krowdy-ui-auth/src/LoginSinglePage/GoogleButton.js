@@ -1,37 +1,41 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import GoogleLogin from 'react-google-login'
 import { makeStyles, Button, Typography } from '@krowdy-ui/core'
 import { IMAGES_SOCIAL } from './constants'
-
-const responseGoogle = (response) => {
-  console.log('Failure response ->', response)
-}
+import { useAuth } from '../utils'
 
 const GoogleButton = () => {
   const classes = useStyles()
+  const { googleCredentials = {}, validateSocialNetwork, onSuccessLogin } = useAuth()
+
+  const _handleSuccess = useCallback((response)=>{
+    if(response && response.tokenId) {
+      const { tokenId } = response
+      validateSocialNetwork('google', { tokenId } )
+      onSuccessLogin(true)
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ validateSocialNetwork, googleCredentials ])
 
   return (
-    <GoogleLogin
-      // className={classes.btnSocialGoogle}
-      clientId={''}
-      cookiePolicy={'single_host_origin'}
-      onFailure={responseGoogle}
-      onSuccess={()=>{}}
-      /* {!isMobile ? 'Ingresa con Google' : undefined} */
-      render={() => (
-        <Button
-        // onClick={renderProps.onClick}
-        // disabled={renderProps.disabled}
-          className={classes.googleButton}>
-          <img
-            alt={'googleSocial'}
-            className={classes.iconGoogle}
-            src={IMAGES_SOCIAL['google']} />
-          <Typography variant='body2'>
-        Ingresa con Google
-          </Typography>
-        </Button>
-      )} />
+    googleCredentials && googleCredentials.clientId ?
+      <GoogleLogin
+        clientId={googleCredentials.clientId}
+        cookiePolicy='single_host_origin'
+        // onFailure={}
+        onSuccess={_handleSuccess}
+        render={(props) => (
+          <Button
+            {...props}
+            className={classes.googleButton}>
+            <img
+              alt='googleSocial'
+              className={classes.iconGoogle}
+              src={IMAGES_SOCIAL['google']} />
+            <Typography variant='body2'>Ingresa con Google</Typography>
+          </Button>
+        )} /> :
+      null
   )
 }
 

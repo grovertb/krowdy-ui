@@ -1,33 +1,36 @@
 import React from 'react'
-import { makeStyles, Button, Typography } from '@krowdy-ui/core'
 import { LinkedIn } from 'react-linkedin-login-oauth2'
+import { makeStyles, Button, Typography } from '@krowdy-ui/core'
 import { IMAGES_SOCIAL } from './constants'
-
-const uriRedirect = `${window.location.origin}/login`
+import { useAuth } from '../utils'
 
 const Linkedin = () => {
-  // const isMobile = useMediaQuery(theme.breakpoints.down(324))
   const classes = useStyles()
+  const { linkedinCredentials = {} } = useAuth()
 
   return (
-    <LinkedIn
-      clientId={''}
-      onFailure={() => {}}
-      onSuccess={() => {}}
-      redirectUri={uriRedirect}
-      renderElement={()=>(
-        <Button className={classes.linkedinButton} variant='contained'>
-          <img
-            alt='Log in with Linked In'
-            className={classes.iconLinkedin}
-            src={IMAGES_SOCIAL['linkedin']} />
-          <Typography variant='body2'>
+    linkedinCredentials && linkedinCredentials.clientId ?
+      <LinkedIn
+        clientId={linkedinCredentials.clientId}
+        onFailure={() => {}}
+        onSuccess={() => {}}
+        redirectUri={linkedinCredentials.redirectUri}
+        renderElement={(props)=>(
+          <Button
+            {...props}
+            className={classes.linkedinButton}
+            variant='contained'>
+            <img
+              alt='Log in with Linked In'
+              className={classes.iconLinkedin}
+              src={IMAGES_SOCIAL['linkedin']} />
+            <Typography variant='body2'>
           Ingresa con LinkedIn
-          </Typography>
-        </Button>
-      )}
-      scope='r_liteprofile r_emailaddress w_member_social'
-      state='34232423' />
+            </Typography>
+          </Button>
+        )}
+        scope={linkedinCredentials.scope || 'r_liteprofile r_emailaddress w_member_social'}
+        state={linkedinCredentials.state ||'34232423'} /> : null
   )
 }
 

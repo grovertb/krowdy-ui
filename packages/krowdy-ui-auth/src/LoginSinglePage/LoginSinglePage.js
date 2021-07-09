@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react'
 import { Button, makeStyles, Typography, useTheme } from '@krowdy-ui/core'
 import { ArrowBackIos as ArrowBackIosIcon } from '@material-ui/icons'
 import GoogleButton from './GoogleButton'
+import MicrosoftButton from './MicrosoftButton'
 import Linkedin from './LinkedinButton'
 import KrowdyOneTap from './KrowdyOneTap'
 import Footer from './Footer'
@@ -92,18 +93,9 @@ const LoginSinglePage = () => {
         {
           typeView === 'main' ? (
             <>
-              <GoogleButton
-                setAuthStatus={() => {}}
-                signupBarba={() => {}}
-                typeEventView={''}
-                urlCallback={''}
-                urlRedirect={''} />
-              <Linkedin
-                setAuthStatus={() => {}}
-                signupBarba={() => {}}
-                typeEventView={''}
-                urlCallback={''}
-                urlRedirect={''} />
+              <GoogleButton />
+              <Linkedin />
+              <MicrosoftButton />
               <Button
                 className={classes.buttonKrowdy}
                 color='primary'

@@ -7,11 +7,18 @@ import { initialState, updateStorage, defaultTheme } from './utils'
 
 const AuthProvider = ({
   children,
-  stateContext,
+  stateContext = {},
   baseUrl,
   storage = 'localStorage',
   urlLogin,
-  theme
+  theme,
+  social:{
+    google,
+    linkedin,
+    microsoft
+  } = {},
+  referrer,
+  clientSecret
 }) => {
   const authClient  = useRef()
   const iframeRef = useRef()
@@ -35,7 +42,6 @@ const AuthProvider = ({
   }, [ urlLogin, iframeRef, iframeRef.current ])
 
   const _handleVerifySession = useCallback((credentials) =>
-
     authClient.current.verifySession(credentials).then(res => {
       if(res.success) {
         setState(prev => ({
@@ -129,7 +135,7 @@ const AuthProvider = ({
     let data
 
     if(authClient && authClient.current)
-      data = await authClient.current.loginByPassword({ email, password })
+      data = await authClient.current.loginByPassword({ clientSecret, email, password })
 
     let result = data
 
@@ -168,7 +174,7 @@ const AuthProvider = ({
 
     let data
     if(authClient && authClient.current)
-      data = await authClient.current.verifyCode({ code, type, value })
+      data = await authClient.current.verifyCode({ clientSecret, code, type, value })
 
     let result = data
 
@@ -228,18 +234,36 @@ const AuthProvider = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   , [ state.accessToken ])
 
+  const _handleValidateSocial = useCallback(async (network, response) => {
+    const { clientId, tokenId } = response
+    if(authClient && authClient.current)
+      await authClient.current.loginSocialNetwork({
+        clientId,
+        clientSecret,
+        network,
+        tokenId
+      },
+      referrer)
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ authClient, authClient.current ])
+
   return (
     <ThemeProvider theme={theme || defaultTheme}>
       <LoginContext.Provider
         value={{
           ...state,
           ...stateContext,
-          loginByCode     : _handleLoginByCode,
-          loginByPassword : _handleLoginByPassword,
-          onSuccessLogin  : _handleSuccessLogin,
-          sendVerifyOrCode: _handleSendVerifyCode,
-          updateAccount   : _handleUpdateAccount,
-          verifyAccount   : _handleVerifyAccount
+          googleCredentials    : google,
+          linkedinCredentials  : linkedin,
+          loginByCode          : _handleLoginByCode,
+          loginByPassword      : _handleLoginByPassword,
+          microsoftCredentials : microsoft,
+          onSuccessLogin       : _handleSuccessLogin,
+          sendVerifyOrCode     : _handleSendVerifyCode,
+          updateAccount        : _handleUpdateAccount,
+          validateSocialNetwork: _handleValidateSocial,
+          verifyAccount        : _handleVerifyAccount
         }}>
         {
           urlLogin ?
@@ -261,9 +285,22 @@ const AuthProvider = ({
 AuthProvider.propTypes = {
   baseUrl     : PropTypes.string.isRequired,
   children    : PropTypes.any,
-  clientId    : PropTypes.string,
-  domain      : PropTypes.string,
-  redirectUri : PropTypes.string,
+  clientSecret: PropTypes.string,
+  referrer    : PropTypes.string,
+  social      : PropTypes.shape({
+    google: PropTypes.shape({
+      clientId   : PropTypes.string,
+      redirectUri: PropTypes.string
+    }),
+    linkedin: PropTypes.shape({
+      clientId   : PropTypes.string,
+      redirectUri: PropTypes.string
+    }),
+    microsoft: PropTypes.shape({
+      clientId   : PropTypes.string,
+      redirectUri: PropTypes.string
+    })
+  }),
   stateContext: PropTypes.any,
   storage     : PropTypes.string,
   theme       : PropTypes.any,

@@ -28,24 +28,27 @@ const OnetapAuth = ({
         onOpen : _handleOpenModal
       }}>
       {children}
-      <Backdrop
-        className={classes.container}
-        onClose={_handleCloseModal}
-        open={openBackdrop}>
-        <Card className={classes.mainContainer}>
-          <IconButton
-            className={classes.closeButton}
-            onClick={_handleCloseModal}
-            size='small'>
-            <CloseIcon
-              color='disabled'
-              fontSize='small' />
-          </IconButton>
-          <CardContent className={classes.cardContent}>
-            <LoginSinglePage />
-          </CardContent>
-        </Card>
-      </Backdrop>
+      {
+        openBackdrop ?
+          <Backdrop
+            className={classes.container}
+            onClose={_handleCloseModal}
+            open>
+            <Card className={classes.mainContainer}>
+              <IconButton
+                className={classes.closeButton}
+                onClick={_handleCloseModal}
+                size='small'>
+                <CloseIcon
+                  color='disabled'
+                  fontSize='small' />
+              </IconButton>
+              <CardContent className={classes.cardContent}>
+                <LoginSinglePage />
+              </CardContent>
+            </Card>
+          </Backdrop> : null
+      }
     </AuthContext>
   )
 }
