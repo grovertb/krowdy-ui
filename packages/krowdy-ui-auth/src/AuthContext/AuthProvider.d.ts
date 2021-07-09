@@ -21,7 +21,8 @@ export type AuthContextProps = {
   urlLogin?: string;
   theme?: unknown;
   referrer?: string;
-  clientSecret?: string
+  clientSecret?: string;
+  loginWith?: string
 };
 
 declare var AuthContext: React.ComponentType<AuthContextProps>;
