@@ -26,7 +26,7 @@ const useStyles = makeStyles(({ spacing, shape, palette }) => ({
     display       : 'flex',
     height        : 40,
     justifyContent: 'center',
-    margin        : spacing(.5, 0),
+    marginTop     : spacing(2),
     position      : 'relative',
     width         : '100%'
   }

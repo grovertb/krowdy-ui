@@ -21,8 +21,9 @@ const GoogleButton = () => {
       <GoogleLogin
         clientId={googleCredentials.clientId}
         cookiePolicy='single_host_origin'
-        // onFailure={}
         onSuccess={_handleSuccess}
+        // onFailure={}
+        redirectUri={googleCredentials.redirectUri}
         render={(props) => (
           <Button
             {...props}

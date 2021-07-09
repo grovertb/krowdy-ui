@@ -15,8 +15,13 @@ export default function () {
         linkedin: {
           clientId   : '7745ijxvz0u4gq',
           redirectUri: ''
+        },
+        microsoft: {
+          client_id  : '8a78aebe-f6c7-4371-9974-c72d6cd019bc',
+          redirectUri: 'http://localhost:3001'
         }
-      }}>
+      }}
+      urlLogin='http://localhost:3001'>
       <Card >
         <CardContent>
           <LoginSinglePage />

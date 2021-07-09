@@ -240,17 +240,26 @@ const AuthProvider = ({
   const _handleValidateSocial = useCallback(async (network, response) => {
     const { clientId, tokenId } = response
     if(authClient && authClient.current) {
-      const { success } = await authClient.current.loginSocialNetwork({
+      const {
+        error,
+        refreshToken,
+        accessToken,
+        userId } = await authClient.current.loginSocialNetwork({
         clientId,
         clientSecret,
         network,
         tokenId
       }, referrer)
-      if(success)
+      if(!error) {
+        updateStorage(storage, { accessToken, iduser: userId, refreshToken })
         setState(prev => ({
           ...prev,
-          successLogin: true
+          accessToken,
+          refreshToken,
+          successLogin: true,
+          userId
         }))
+      }
     }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
