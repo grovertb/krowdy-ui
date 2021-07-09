@@ -120,7 +120,9 @@ const KrowdyOneTap = ({
         break
 
       case 'register':
-        updateAccount(register)
+        const { success: successRegister } = await updateAccount(register) || {}
+        if(successRegister)
+          onSuccessLogin(true)
 
         break
 
@@ -137,6 +139,14 @@ const KrowdyOneTap = ({
   const _handleActiveSession = useCallback(() => {
     setActiveSession(prev => !prev)
   }, [])
+
+  const _handleResendPassword = useCallback(async ()=>{
+    const { success } = await verifyAccount(currentUser)
+    if(success)
+      setErrorLogin(false)
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ currentUser, verifyAccount ])
 
   return (
     <>
@@ -175,8 +185,9 @@ const KrowdyOneTap = ({
                   </IconButton> : null
               )
             }}
+            label={[ 'verify', 'recovery' ].includes(typeView) ? 'Código de verificación':'Contraseña'}
             onChange={_handleChangeInput}
-            placeholder={[ 'verify', 'recovery' ].includes(typeView) ? 'Código de verificación':'Contraseña'}
+            required
             type={showPassword || [ 'verify', 'recovery' ].includes(typeView) ? 'text' : 'password'}
             value={valueInput}
             variant='outlined' />
@@ -225,6 +236,7 @@ const KrowdyOneTap = ({
             label='Nombre'
             name='firstName'
             onChange={_handleChangeRegister}
+            required
             value={register.firstName || ''}
             variant='outlined' />
           <TextField
@@ -244,7 +256,27 @@ const KrowdyOneTap = ({
             label='Apellidos'
             name='lastName'
             onChange={_handleChangeRegister}
+            required
             value={register.lastName || ''}
+            variant='outlined' />
+          <TextField
+            className={classes.fieldEmail}
+            fullWidth
+            InputLabelProps={{
+              classes: {
+                root: classes.labelOutlined
+              }
+            }}
+            InputProps={{
+              classes: {
+                input: classes.emailInput,
+                root : classes.textfield
+              }
+            }}
+            label={currentUser.indexOf('@') !== -1 ? 'Celular (opcional)': 'Correo electrónico (opcional)'}
+            name={currentUser.indexOf('@') !== -1 ? 'phone': 'email'}
+            onChange={_handleChangeRegister}
+            value={register[currentUser.indexOf('@') !== -1 ? 'phone': 'email'] || ''}
             variant='outlined' />
           </>
         ) : null
@@ -309,6 +341,7 @@ const KrowdyOneTap = ({
                   <Button
                     className={classes.capitalizeText}
                     color='primary'
+                    onClick={_handleResendPassword}
                     size='small'>
                    Reenviar
                   </Button>

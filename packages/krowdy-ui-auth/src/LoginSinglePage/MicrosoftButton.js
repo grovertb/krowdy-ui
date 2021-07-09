@@ -4,30 +4,29 @@ import { makeStyles, Typography } from '@krowdy-ui/core'
 import { IMAGES_SOCIAL } from './constants'
 import { useAuth } from '../utils'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(({ spacing, shape, palette }) => ({
   btnSocialMicrosoft: {
     '& img': {
-      marginLeft : 5,
-      marginRight: 15
+      marginLeft : spacing(.75),
+      marginRight: spacing(2)
     },
     '& span': {
-      fontSize: '14px',
+      fontSize: 14,
       margin  : 'auto'
-
     },
     '&:hover': {
       background: '#1b1b1b'
     },
     alignItems    : 'center',
-    background    : '#000000',
+    background    : palette.common.black,
     border        : 0,
-    borderRadius  : '4px',
-    color         : '#fff',
+    borderRadius  : shape.borderRadius,
+    color         : palette.common.white,
     cursor        : 'pointer',
     display       : 'flex',
-    height        : '40px',
+    height        : 40,
     justifyContent: 'center',
-    margin        : '4px 0px',
+    margin        : spacing(.5, 0),
     position      : 'relative',
     width         : '100%'
   }
@@ -35,7 +34,7 @@ const useStyles = makeStyles(() => ({
 
 const Microsoft = () => {
   const classes = useStyles()
-  const { microsoftCredentials: { clientId, redirectUri } = {}, validateSocialNetwork } = useAuth()
+  const { microsoftCredentials: { clientId, redirectUri } = {}, validateSocialNetwork, onSuccessLogin } = useAuth()
 
   const handleResponseMicrosoft = (err, response) => {
     if(err) {
@@ -47,6 +46,7 @@ const Microsoft = () => {
     const { accessToken } = response
 
     validateSocialNetwork('microsoft', { clientId, tokenId: accessToken })
+    onSuccessLogin(true)
   }
 
   return (
@@ -55,7 +55,7 @@ const Microsoft = () => {
       clientId={clientId}
       redirectUri={redirectUri}>
       <button className={classes.btnSocialMicrosoft}>
-        <img alt={'microsoftSocial'} src={IMAGES_SOCIAL.microsoft} />
+        <img alt='microsoftSocial' src={IMAGES_SOCIAL.microsoft} />
         <Typography variant='body2'>Ingresa con Microsoft</Typography>
       </button>
     </MicrosoftLogin>

@@ -117,12 +117,16 @@ class AuthClient {
     }
   }
 
-  updateAccount(accessToken, body) {
-    return this.postWithCredentials(
-      `${this.urlApi}/onetap/update/account`,
-      { accessToken },
-      body
-    )
+  async updateAccount(accessToken, body) {
+    try {
+      return await this.postWithCredentials(
+        `${this.urlApi}/onetap/update/account`,
+        { accessToken },
+        body
+      )
+    } catch (error) {
+      return { error: error.message, success: false }
+    }
   }
 
   updatePassword(password) {

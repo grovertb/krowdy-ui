@@ -6,12 +6,13 @@ import { useAuth } from '../utils'
 
 const GoogleButton = () => {
   const classes = useStyles()
-  const { googleCredentials = {}, validateSocialNetwork } = useAuth()
+  const { googleCredentials = {}, validateSocialNetwork, onSuccessLogin } = useAuth()
 
   const _handleSuccess = useCallback((response)=>{
     if(response && response.tokenId) {
       const { tokenId } = response
       validateSocialNetwork('google', { tokenId } )
+      onSuccessLogin(true)
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ validateSocialNetwork, googleCredentials ])
