@@ -67,7 +67,7 @@ const KrowdyOneTap = ({
         if(loginWith === 'only-email') {
           const emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i
 
-          return !valueInput && emailRegex.test(valueInput)
+          return !valueInput || !emailRegex.test(valueInput)
         } else {
           return !valueInput
         }
@@ -86,8 +86,10 @@ const KrowdyOneTap = ({
 
       if(domain && 'gmail'.indexOf(domain) !== -1)
         setLoginKey('google')
+
       if(domain && ('outlook'.indexOf(domain) !== -1 || 'hotmail'.indexOf(domain) !== -1))
         setLoginKey('microsoft')
+
       else
         setLoginKey(null)
     }
@@ -302,7 +304,7 @@ const KrowdyOneTap = ({
       {
         loginkey === 'google' ? (
           <GoogleButton />
-        ) : loginkey === 'google' ? (
+        ) : loginkey === 'microsoft' ? (
           <MicrosoftButton />
         ) : null
       }
