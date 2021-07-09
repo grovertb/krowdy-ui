@@ -119,11 +119,15 @@ class AuthClient {
 
   async updateAccount(accessToken, body) {
     try {
-      return await this.postWithCredentials(
+      const response = await this.postWithCredentials(
         `${this.urlApi}/onetap/update/account`,
         { accessToken },
         body
       )
+
+      if(!response || !response.success) throw Error('Error al actualizar cuenta.')
+
+      return response
     } catch (error) {
       return { error: error.message, success: false }
     }
