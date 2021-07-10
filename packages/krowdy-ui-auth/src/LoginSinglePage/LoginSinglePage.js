@@ -23,6 +23,8 @@ const getTitleByView = (type, text) => {
       return 'Restablecer contraseña'
     case 'custom ':
       return String(text)
+    case 'newPassword':
+      return 'Elige una nueva contraseña'
     default:
       return ''
   }
