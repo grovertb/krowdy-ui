@@ -87,7 +87,7 @@ const KrowdyOneTap = ({
       if(domain && 'gmail'.indexOf(domain) !== -1)
         setLoginKey('google')
 
-      if(domain && ('outlook'.indexOf(domain) !== -1 || 'hotmail'.indexOf(domain) !== -1))
+      else if(domain && ('outlook'.indexOf(domain) !== -1 || 'hotmail'.indexOf(domain) !== -1))
         setLoginKey('microsoft')
 
       else
