@@ -173,7 +173,7 @@ const AuthProvider = ({
         }))
 
         return result
-      }).catch(()=>{
+      }).catch(() => {
         setState(prev => ({
           ...prev,
           loading: false
@@ -227,7 +227,7 @@ const AuthProvider = ({
         }))
 
         return result
-      }).catch(()=>{
+      }).catch(() => {
         setState(prev => ({
           ...prev,
           loading: false
