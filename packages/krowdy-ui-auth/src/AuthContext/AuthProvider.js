@@ -254,6 +254,7 @@ const AuthProvider = ({
         setState(prev => ({
           ...prev,
           accessToken,
+          flowFinished: true,
           refreshToken,
           successLogin: true,
           userId
