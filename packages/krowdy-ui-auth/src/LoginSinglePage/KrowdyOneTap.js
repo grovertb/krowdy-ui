@@ -51,7 +51,8 @@ const KrowdyOneTap = ({
     updateAccount,
     loading,
     loginWith,
-    isNew
+    isNew,
+    onUpdatePassword
   } = useAuth()
   const [ loginkey, setLoginKey ] = useState(null)
   const [ valueInput, setValueInput ] = useState(typeView === 'login' ? currentUser : '')
@@ -63,6 +64,8 @@ const KrowdyOneTap = ({
 
   const isNextDisabled = useMemo(() => {
     switch (typeView) {
+      case 'newPassword':
+        return valueInput.length < 8
       case 'register':
         const { firstName, lastName } = register
 
@@ -145,15 +148,14 @@ const KrowdyOneTap = ({
 
       case 'register':
         const { success: successRegister } = await updateAccount(register) || {}
-        if(successRegister)
-          onSuccessLogin(true)
-        if(isNew)
+        if(successRegister && isNew) {
           setOpenNotify(true)
-
+          setValueInput('')
+        }
         break
 
       case 'newPassword':
-        console.log('NEW PASSWORD CREATE')
+        onUpdatePassword(valueInput)
         break
 
       default:
@@ -180,6 +182,7 @@ const KrowdyOneTap = ({
 
   const _handlePasswordCreate = useCallback(()=>{
     onChangeView('newPassword')
+    setOpenNotify(false)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

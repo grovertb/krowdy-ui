@@ -135,8 +135,8 @@ class AuthClient {
     }
   }
 
-  updatePassword(password) {
-    return this.postData(`${this.urlApi}/onetap/update/password`, { password })
+  updatePassword({ password, accessToken }) {
+    return this.postWithCredentials(`${this.urlApi}/onetap/update/password`, { accessToken }, { password })
   }
 
   async loginSocialNetwork(args, referrer = 'auth') {

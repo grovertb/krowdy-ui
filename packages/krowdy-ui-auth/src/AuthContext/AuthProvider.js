@@ -269,6 +269,30 @@ const AuthProvider = ({
     }))
   }, [])
 
+  const _handleCreatePassword = useCallback(async (password)=>{
+    if(authClient && authClient.current) {
+      setState(prev => ({
+        ...prev,
+        loading: true
+      }))
+
+      const res = await authClient.current.updatePassword({ accessToken: state.accessToken, password })
+
+      if(!res || !res.success)
+        return setState(prev => ({
+          ...prev,
+          loading: false
+        }))
+
+      setState(prev => ({
+        ...prev,
+        loading     : false,
+        successLogin: true
+      }))
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ authClient, authClient.current, state.accessToken ])
+
   return (
     <ThemeProvider theme={theme || defaultTheme}>
       <LoginContext.Provider
@@ -283,6 +307,7 @@ const AuthProvider = ({
           microsoftCredentials : microsoft,
           onAllowAds           : _handleAllowAds,
           onSuccessLogin       : _handleSuccessLogin,
+          onUpdatePassword     : _handleCreatePassword,
           sendVerifyOrCode     : _handleSendVerifyCode,
           updateAccount        : _handleUpdateAccount,
           validateSocialNetwork: _handleValidateSocial,
