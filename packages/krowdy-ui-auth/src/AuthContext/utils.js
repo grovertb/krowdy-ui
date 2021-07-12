@@ -3,6 +3,7 @@ import { krowdyTheme, createMuiTheme } from '@krowdy-ui/core'
 export const initialState = {
   accessToken : '',
   allowAds    : true,
+  flowFinished: false,
   iduser      : '',
   isNew       : false,
   loading     : false,

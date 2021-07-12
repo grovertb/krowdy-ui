@@ -150,6 +150,7 @@ const AuthProvider = ({
       setState(prev => ({
         ...prev,
         accessToken,
+        flowFinished: true,
         refreshToken,
         successLogin: true,
         userId
@@ -189,6 +190,7 @@ const AuthProvider = ({
       setState(prev => ({
         ...prev,
         accessToken,
+        flowFinished: !isNew,
         isNew,
         refreshToken,
         userId
@@ -269,7 +271,14 @@ const AuthProvider = ({
     }))
   }, [])
 
-  const _handleCreatePassword = useCallback(async (password)=>{
+  const _handleFlowFinished = useCallback((flowFinished)=>{
+    setState(prev => ({
+      ...prev,
+      flowFinished
+    }))
+  }, [])
+
+  const createPassword = useCallback(async (password)=>{
     if(authClient && authClient.current) {
       setState(prev => ({
         ...prev,
@@ -278,18 +287,27 @@ const AuthProvider = ({
 
       const res = await authClient.current.updatePassword({ accessToken: state.accessToken, password })
 
-      if(!res || !res.success)
-        return setState(prev => ({
+      if(!res || !res.success) {
+        setState(prev => ({
           ...prev,
           loading: false
         }))
 
+        return { success: false }
+      }
+
       setState(prev => ({
         ...prev,
+        flowFinished: true,
         loading     : false,
         successLogin: true
       }))
+
+      return { success: true }
+    } else {
+      return { success: false }
     }
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ authClient, authClient.current, state.accessToken ])
 
@@ -306,8 +324,9 @@ const AuthProvider = ({
           loginWith,
           microsoftCredentials : microsoft,
           onAllowAds           : _handleAllowAds,
+          onFlowFinished       : _handleFlowFinished,
           onSuccessLogin       : _handleSuccessLogin,
-          onUpdatePassword     : _handleCreatePassword,
+          onUpdatePassword     : createPassword,
           sendVerifyOrCode     : _handleSendVerifyCode,
           updateAccount        : _handleUpdateAccount,
           validateSocialNetwork: _handleValidateSocial,

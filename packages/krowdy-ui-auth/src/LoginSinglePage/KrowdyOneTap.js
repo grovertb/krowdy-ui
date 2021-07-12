@@ -51,8 +51,8 @@ const KrowdyOneTap = ({
     updateAccount,
     loading,
     loginWith,
-    isNew,
-    onUpdatePassword
+    onUpdatePassword,
+    onFlowFinished
   } = useAuth()
   const [ loginkey, setLoginKey ] = useState(null)
   const [ valueInput, setValueInput ] = useState(typeView === 'login' ? currentUser : '')
@@ -148,14 +148,17 @@ const KrowdyOneTap = ({
 
       case 'register':
         const { success: successRegister } = await updateAccount(register) || {}
-        if(successRegister && isNew) {
+        if(successRegister) {
           setOpenNotify(true)
           setValueInput('')
         }
         break
 
       case 'newPassword':
-        onUpdatePassword(valueInput)
+        const { success: successPasswword } = await onUpdatePassword(valueInput)
+
+        if(!successPasswword)
+          setErrorLogin(true)
         break
 
       default:
@@ -186,9 +189,10 @@ const KrowdyOneTap = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const _handlePasswordNotify = useCallback(()=>{
+  const _handleClosePasswordNotify = useCallback(()=>{
     setOpenNotify(false)
-  }, [])
+    onFlowFinished(true)
+  }, [ onFlowFinished ])
 
   return (
     <>
@@ -407,7 +411,7 @@ evitar cualquier inconveniente más adelante.
       {
         openPasswordNotify ? (
           <PasswordNotify
-            onClose={_handlePasswordNotify}
+            onClose={_handleClosePasswordNotify}
             onCreate={_handlePasswordCreate} />
         ) : null
       }
