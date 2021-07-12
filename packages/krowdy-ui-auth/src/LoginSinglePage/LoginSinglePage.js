@@ -3,9 +3,11 @@ import { Button, makeStyles, Typography, useTheme } from '@krowdy-ui/core'
 import { ArrowBackIos as ArrowBackIosIcon } from '@material-ui/icons'
 import GoogleButton from './GoogleButton'
 import MicrosoftButton from './MicrosoftButton'
-import Linkedin from './LinkedinButton'
+import LinkedInPopUp from './LinkedInPopUp'
+import LinkedInButton from './LinkedinButton'
 import KrowdyOneTap from './KrowdyOneTap'
 import Footer from './Footer'
+import { useAuth, parseQueryString } from '../utils'
 
 const getTitleByView = (type, text) => {
   switch (type) {
@@ -30,12 +32,22 @@ const getTitleByView = (type, text) => {
   }
 }
 
+const loginButtonLabels = {
+  'only-email'     : 'Ingresa con otro correo',
+  'only-phone'     : 'Ingresa con celular',
+  'phone-and-email': 'Ingresa con otro correo o celular'
+}
+
 const LoginSinglePage = () => {
   const classes = useStyles()
   const { template:{ header:{ logo } = {} } = {} } = useTheme()
   const [ prevView, setPrevView ] = useState('')
   const [ typeView, setTypeView ] = useState('main')
   const [ currentUser, setCurrentUser ] = useState('')
+
+  const { loginWith } = useAuth()
+
+  const paramsLinkedin =parseQueryString(window.location.search)
 
   const _handleChangeView = useCallback((view) => {
     setPrevView(typeView)
@@ -96,7 +108,11 @@ const LoginSinglePage = () => {
           typeView === 'main' ? (
             <>
               <GoogleButton />
-              <Linkedin />
+              {paramsLinkedin.code || paramsLinkedin.error ? (
+                <LinkedInPopUp />
+              ) : (
+                <LinkedInButton />
+              )}
               <MicrosoftButton />
               <Button
                 className={classes.buttonKrowdy}
@@ -104,7 +120,7 @@ const LoginSinglePage = () => {
                 fullWidth
                 onClick={_handleChangeLogin}
                 variant='outlined' >
-              Ingresa con otro correo electrónico
+                {loginButtonLabels[loginWith]}
               </Button>
             </>
           ) : (
