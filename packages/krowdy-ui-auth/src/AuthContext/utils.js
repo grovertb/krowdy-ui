@@ -6,6 +6,7 @@ export const initialState = {
   flowFinished: false,
   iduser      : '',
   isNew       : false,
+  keepSession : true,
   loading     : false,
   loadingAuth : true,
   refreshToken: '',

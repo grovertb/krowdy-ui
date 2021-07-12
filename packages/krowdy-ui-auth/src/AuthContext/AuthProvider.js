@@ -138,7 +138,7 @@ const AuthProvider = ({
     let data = {}
 
     if(authClient && authClient.current)
-      data = await authClient.current.loginByPassword({ allowAds: state.allowAds, clientSecret, email,  keepSession, password })
+      data = await authClient.current.loginByPassword({ allowAds: state.allowAds, clientSecret, email, keepSession, password })
 
     let result = data
 
@@ -243,8 +243,10 @@ const AuthProvider = ({
     const { clientId, tokenId } = response
     if(authClient && authClient.current) {
       const { error, refreshToken, accessToken, userId } = await authClient.current.loginSocialNetwork({
+        allowAds   : state.allowAds ? 1 : 0,
         clientId,
         clientSecret,
+        keepSession: state.keepSession ? 1 : 0,
         network,
         tokenId
       }, referrer)
@@ -312,6 +314,13 @@ const AuthProvider = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ authClient, authClient.current, state.accessToken ])
 
+  const _handleUpdateState = useCallback((data)=>{
+    setState(prev=>({
+      ...prev,
+      ...data
+    }))
+  }, [])
+
   return (
     <ThemeProvider theme={theme || defaultTheme}>
       <LoginContext.Provider
@@ -328,6 +337,7 @@ const AuthProvider = ({
           onFlowFinished       : _handleFlowFinished,
           onSuccessLogin       : _handleSuccessLogin,
           onUpdatePassword     : createPassword,
+          onUpdateState        : _handleUpdateState,
           sendVerifyOrCode     : _handleSendVerifyCode,
           updateAccount        : _handleUpdateAccount,
           validateSocialNetwork: _handleValidateSocial,

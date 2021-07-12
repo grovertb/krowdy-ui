@@ -52,7 +52,8 @@ const KrowdyOneTap = ({
     loading,
     loginWith,
     onUpdatePassword,
-    onFlowFinished
+    onFlowFinished,
+    onUpdateState
   } = useAuth()
   const [ loginkey, setLoginKey ] = useState(null)
   const [ valueInput, setValueInput ] = useState(typeView === 'login' ? currentUser : '')
@@ -172,8 +173,13 @@ const KrowdyOneTap = ({
   }, [])
 
   const _handleKeepSession = useCallback(() => {
-    setKeepSession(prev => !prev)
-  }, [])
+    setKeepSession(prev =>{
+      onUpdateState({ keepSession: !prev })
+
+      return !prev
+    })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ onUpdateState ])
 
   const _handleResendPassword = useCallback(async ()=>{
     const { success } = await verifyAccount(currentUser)
