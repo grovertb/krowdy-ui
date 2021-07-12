@@ -18,6 +18,20 @@
 
 ##### This project based on [Material-UI](https://material-ui.com)
 
+## Deploy
+
+### Nuevas versiones de los proyectos
+
+Para deployar las nuevas version de krowdy-ui/xxx se necesita situarte en la ruta del proyecto a deployar, que se encuentran normalmente en packages/krowdy-ui-xxx, modificar el version del package.json y posterior a eso ejecutar el siguiente comando:
+
+```sh
+// with npm
+npm run release
+```
+### Nuevas versiones de la documentacion
+
+Las nuevas versiones de la documentacion se tagean desde gitlab y automaticamente se deployaran
+
 ## Installation
 
 Krowyd-UI is available as an [npm package](https://www.npmjs.com/package/@krowdy-ui/core).
