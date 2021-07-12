@@ -72,7 +72,8 @@ const AuthProvider = ({
 
       setState(prev => ({
         ...prev,
-        loadingAuth: false,
+        flowFinished: successLogin,
+        loadingAuth : false,
         successLogin
       }))
     } else {
