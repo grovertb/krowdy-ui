@@ -19,7 +19,8 @@ const AuthProvider = ({
   } = {},
   referrer,
   clientSecret,
-  loginWith = 'only-email'
+  loginWith = 'only-email',
+  clientId
 }) => {
   const authClient  = useRef()
   const iframeRef = useRef()
@@ -72,7 +73,8 @@ const AuthProvider = ({
 
       setState(prev => ({
         ...prev,
-        loadingAuth: false,
+        flowFinished: successLogin,
+        loadingAuth : false,
         successLogin
       }))
     } else {
@@ -129,86 +131,114 @@ const AuthProvider = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ authClient ])
 
-  const _handleLoginByPassword = useCallback(async ({ email, password, keepSession }) => {
-    setState(prev => ({
-      ...prev,
-      loading: true
-    }))
-
-    let data = {}
-
-    if(authClient && authClient.current)
-      data = await authClient.current.loginByPassword({ allowAds: state.allowAds, clientSecret, email, keepSession, password })
-
-    let result = data
-
-    if(data.success) {
-      const { accessToken, refreshToken, userId } = data
-
-      updateStorage(storage, { accessToken, iduser: userId, refreshToken })
-
+  const _handleLoginByPassword = useCallback(({ email, password, keepSession }) => {
+    if(authClient && authClient.current) {
       setState(prev => ({
         ...prev,
-        accessToken,
-        flowFinished: true,
-        refreshToken,
-        successLogin: true,
-        userId
+        loading: true
       }))
 
-      sendMessageToLoginApp('logged', { accessToken, iduser: userId, refreshToken })
+      return authClient.current.loginByPassword({
+        allowAds: state.allowAds,
+        clientId,
+        clientSecret,
+        email,
+        keepSession,
+        password
+      }).then((data)=>{
+        let result = {}
 
-      result = { accessToken, refreshToken, success: true, userId }
+        if(data.success) {
+          const { accessToken, refreshToken, userId } = data
+
+          updateStorage(storage, { accessToken, iduser: userId, refreshToken })
+
+          setState(prev => ({
+            ...prev,
+            accessToken,
+            flowFinished: true,
+            refreshToken,
+            successLogin: true,
+            userId
+          }))
+
+          sendMessageToLoginApp('logged', { accessToken, iduser: userId, refreshToken })
+
+          result = { accessToken, refreshToken, success: true, userId }
+        }
+
+        setState(prev => ({
+          ...prev,
+          loading: false
+        }))
+
+        return result
+      }).catch(() => {
+        setState(prev => ({
+          ...prev,
+          loading: false
+        }))
+
+        return {}
+      })
     }
 
-    setState(prev => ({
-      ...prev,
-      loading: false
-    }))
-
-    return result
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ authClient ])
+  }, [ authClient, authClient.current ])
 
   const _handleLoginByCode = useCallback(async ({ code, value, type, keepSession }) => {
-    setState(prev => ({
-      ...prev,
-      loading: true
-    }))
-
-    let data
-    if(authClient && authClient.current)
-      data = await authClient.current.verifyCode({ allowAds: state.allowAds, clientSecret, code, keepSession, type, value })
-
-    let result = data
-
-    if(data.success) {
-      const { accessToken, refreshToken, userId, isNew } = data
-
-      updateStorage(storage, { accessToken, iduser: userId, refreshToken })
-
+    if(authClient && authClient.current) {
       setState(prev => ({
         ...prev,
-        accessToken,
-        flowFinished: !isNew,
-        isNew,
-        refreshToken,
-        userId
+        loading: true
       }))
 
-      sendMessageToLoginApp('logged', { accessToken, iduser: userId, refreshToken })
+      return authClient.current.verifyCode({
+        allowAds: state.allowAds,
+        clientId,
+        clientSecret,
+        code,
+        keepSession,
+        type,
+        value }).then((data)=>{
+        let result = {}
+        if(data.success) {
+          const { accessToken, refreshToken, userId, isNew } = data
 
-      result = { accessToken, isNew, refreshToken, success: true, userId }
+          updateStorage(storage, { accessToken, iduser: userId, refreshToken })
+
+          setState(prev => ({
+            ...prev,
+            accessToken,
+            flowFinished: !isNew,
+            isNew,
+            refreshToken,
+            userId
+          }))
+
+          sendMessageToLoginApp('logged', { accessToken, iduser: userId, refreshToken })
+
+          result = { accessToken, isNew, refreshToken, success: true, userId }
+        }
+
+        setState(prev => ({
+          ...prev,
+          loading: false
+        }))
+
+        return result
+      }).catch(() => {
+        setState(prev => ({
+          ...prev,
+          loading: false
+        }))
+
+        return {}
+      })
     }
 
-    setState(prev => ({
-      ...prev,
-      loading: false
-    }))
-
-    return result
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [ authClient, authClient.current ])
 
   const _handleSuccessLogin = useCallback((successLogin) => {
     setState(prev => ({
@@ -240,7 +270,7 @@ const AuthProvider = ({
   , [ state.accessToken ])
 
   const _handleValidateSocial = useCallback(async (network, response) => {
-    const { clientId, tokenId } = response
+    const { tokenId } = response
     if(authClient && authClient.current) {
       const { error, refreshToken, accessToken, userId } = await authClient.current.loginSocialNetwork({
         allowAds   : state.allowAds ? 1 : 0,
@@ -363,6 +393,7 @@ const AuthProvider = ({
 AuthProvider.propTypes = {
   baseUrl     : PropTypes.string.isRequired,
   children    : PropTypes.any,
+  clientId    : PropTypes.string,
   clientSecret: PropTypes.string,
   loginWith   : PropTypes.oneOf([ 'only-email', 'only-phone', 'phone-and-email' ]),
   referrer    : PropTypes.string,

@@ -57,6 +57,7 @@ const KrowdyOneTap = ({
   } = useAuth()
   const [ loginkey, setLoginKey ] = useState(null)
   const [ valueInput, setValueInput ] = useState(typeView === 'login' ? currentUser : '')
+  const [ passwordValue, setPasswordValue ] = useState('')
   const [ isErrorLogin, setErrorLogin ] = useState(false)
   const [ showPassword, setShowPassword ] = useState(false)
   const [ keepSession, setKeepSession ] = useState(true)
@@ -66,7 +67,7 @@ const KrowdyOneTap = ({
   const isNextDisabled = useMemo(() => {
     switch (typeView) {
       case 'newPassword':
-        return valueInput.length < 8
+        return passwordValue.length < 8
       case 'register':
         const { firstName, lastName } = register
 
@@ -81,9 +82,9 @@ const KrowdyOneTap = ({
         }
 
       default:
-        return !valueInput
+        return false
     }
-  }, [ typeView, valueInput, register, loginWith ])
+  }, [ typeView, valueInput, register, loginWith, passwordValue ])
 
   const _handleChangeInput = useCallback(({ target: { value, name } }) => {
     setValueInput(value)
@@ -103,6 +104,10 @@ const KrowdyOneTap = ({
     }
   }, [])
 
+  const _handleChangePassword = useCallback(({ target:{ value } })=>{
+    setPasswordValue(value)
+  }, [])
+
   const _handleChangeRegister = useCallback(({ target:{ value, name } }) => {
     setRegister(prev => ({
       ...prev,
@@ -119,7 +124,6 @@ const KrowdyOneTap = ({
         if(success) {
           onChangeUserLogin(type === 'phone' ? value : valueInput)
           onChangeView(hasPassword ? 'password' : 'verify')
-          setValueInput('')
           setLoginKey(null)
         }
         break
@@ -128,15 +132,15 @@ const KrowdyOneTap = ({
         const { success : isPasswordValid } = await loginByPassword({
           email   : currentUser,
           keepSession,
-          password: valueInput
+          password: passwordValue
         })
         setErrorLogin(!isPasswordValid)
-
+        setPasswordValue('')
         break
 
       case 'verify':
         const { success: isCodeValid, isNew: isFirstTime } = await loginByCode({
-          code : valueInput,
+          code : passwordValue,
           keepSession,
           type : typeCode,
           value: currentUser
@@ -158,7 +162,7 @@ const KrowdyOneTap = ({
         break
 
       case 'newPassword':
-        const { success: successPasswword } = await onUpdatePassword(valueInput)
+        const { success: successPasswword } = await onUpdatePassword(passwordValue)
 
         if(!successPasswword)
           setErrorLogin(true)
@@ -168,7 +172,7 @@ const KrowdyOneTap = ({
         break
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ typeView, onChangeUserLogin, valueInput, onChangeView, register, verifyAccount, isNextDisabled, loading ])
+  }, [ typeView, onChangeUserLogin, valueInput, onChangeView, register, verifyAccount, isNextDisabled, loading, passwordValue ])
 
   const _handleClickShowPassword = useCallback(() => {
     setShowPassword(prev => !prev)
@@ -245,11 +249,11 @@ const KrowdyOneTap = ({
               )
             }}
             label={[ 'verify', 'recovery' ].includes(typeView) ? 'Código de verificación': inputLabels[typeView]}
-            onChange={_handleChangeInput}
+            onChange={_handleChangePassword}
             onKeyPress={_handleNext}
             required
             type={showPassword || [ 'verify', 'recovery' ].includes(typeView) ? 'text' : 'password'}
-            value={valueInput}
+            value={passwordValue}
             variant='outlined' />
         ) : typeView === 'login' ? (
           <TextField

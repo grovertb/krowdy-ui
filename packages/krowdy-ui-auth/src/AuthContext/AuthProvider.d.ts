@@ -22,6 +22,7 @@ export type AuthContextProps = {
   theme?: unknown;
   referrer?: string;
   clientSecret?: string;
+  clientId?: string;
   loginWith?: string
 };
 
