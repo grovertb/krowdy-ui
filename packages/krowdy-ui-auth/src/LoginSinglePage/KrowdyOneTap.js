@@ -172,7 +172,7 @@ const KrowdyOneTap = ({
         break
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ typeView, onChangeUserLogin, valueInput, onChangeView, register, verifyAccount, isNextDisabled, loading ])
+  }, [ typeView, onChangeUserLogin, valueInput, onChangeView, register, verifyAccount, isNextDisabled, loading, passwordValue ])
 
   const _handleClickShowPassword = useCallback(() => {
     setShowPassword(prev => !prev)

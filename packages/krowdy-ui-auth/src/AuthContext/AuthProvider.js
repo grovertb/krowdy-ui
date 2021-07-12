@@ -132,51 +132,59 @@ const AuthProvider = ({
   }, [ authClient ])
 
   const _handleLoginByPassword = useCallback(async ({ email, password, keepSession }) => {
-    setState(prev => ({
-      ...prev,
-      loading: true
-    }))
+    if(authClient && authClient.current) {
+      setState(prev => ({
+        ...prev,
+        loading: true
+      }))
 
-    let data = {}
-
-    if(authClient && authClient.current)
-      data = await authClient.current.loginByPassword({
+      return authClient.current.loginByPassword({
         allowAds: state.allowAds,
         clientId,
         clientSecret,
         email,
         keepSession,
-        password })
+        password
+      }).then((data)=>{
+        let result = {}
 
-    let result = data
+        if(data.success) {
+          const { accessToken, refreshToken, userId } = data
 
-    if(data.success) {
-      const { accessToken, refreshToken, userId } = data
+          updateStorage(storage, { accessToken, iduser: userId, refreshToken })
 
-      updateStorage(storage, { accessToken, iduser: userId, refreshToken })
+          setState(prev => ({
+            ...prev,
+            accessToken,
+            flowFinished: true,
+            refreshToken,
+            successLogin: true,
+            userId
+          }))
 
-      setState(prev => ({
-        ...prev,
-        accessToken,
-        flowFinished: true,
-        refreshToken,
-        successLogin: true,
-        userId
-      }))
+          sendMessageToLoginApp('logged', { accessToken, iduser: userId, refreshToken })
 
-      sendMessageToLoginApp('logged', { accessToken, iduser: userId, refreshToken })
+          result = { accessToken, refreshToken, success: true, userId }
+        }
 
-      result = { accessToken, refreshToken, success: true, userId }
+        setState(prev => ({
+          ...prev,
+          loading: false
+        }))
+
+        return result
+      }).catch(()=>{
+        setState(prev => ({
+          ...prev,
+          loading: false
+        }))
+
+        return {}
+      })
     }
 
-    setState(prev => ({
-      ...prev,
-      loading: false
-    }))
-
-    return result
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ authClient ])
+  }, [ authClient, authClient.current ])
 
   const _handleLoginByCode = useCallback(async ({ code, value, type, keepSession }) => {
     setState(prev => ({
