@@ -131,7 +131,7 @@ const AuthProvider = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ authClient ])
 
-  const _handleLoginByPassword = useCallback(async ({ email, password, keepSession }) => {
+  const _handleLoginByPassword = useCallback(({ email, password, keepSession }) => {
     if(authClient && authClient.current) {
       setState(prev => ({
         ...prev,
