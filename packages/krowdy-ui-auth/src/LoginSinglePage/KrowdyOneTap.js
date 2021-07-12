@@ -17,9 +17,11 @@ import {
 import GoogleButton from './GoogleButton'
 import MicrosoftButton from './MicrosoftButton'
 import { useAuth } from '../utils'
+import PasswordNotify from './PasswordNotify'
 
 const inputLabels = {
   login            : 'Correo o celular',
+  newPassword      : 'Nueva contraseña',
   'only-email'     : 'Correo electrónico',
   'only-phone'     : 'Número de celular',
   password         : 'Contraseña',
@@ -48,7 +50,10 @@ const KrowdyOneTap = ({
     onSuccessLogin,
     updateAccount,
     loading,
-    loginWith
+    loginWith,
+    onUpdatePassword,
+    onFlowFinished,
+    onUpdateState
   } = useAuth()
   const [ loginkey, setLoginKey ] = useState(null)
   const [ valueInput, setValueInput ] = useState(typeView === 'login' ? currentUser : '')
@@ -56,9 +61,12 @@ const KrowdyOneTap = ({
   const [ showPassword, setShowPassword ] = useState(false)
   const [ keepSession, setKeepSession ] = useState(true)
   const [ register, setRegister ] = useState({})
+  const [ openPasswordNotify, setOpenNotify ] = useState(false)
 
   const isNextDisabled = useMemo(() => {
     switch (typeView) {
+      case 'newPassword':
+        return valueInput.length < 8
       case 'register':
         const { firstName, lastName } = register
 
@@ -87,7 +95,7 @@ const KrowdyOneTap = ({
       if(domain && 'gmail'.indexOf(domain) !== -1)
         setLoginKey('google')
 
-      if(domain && ('outlook'.indexOf(domain) !== -1 || 'hotmail'.indexOf(domain) !== -1))
+      else if(domain && ('outlook'.indexOf(domain) !== -1 || 'hotmail'.indexOf(domain) !== -1))
         setLoginKey('microsoft')
 
       else
@@ -141,9 +149,17 @@ const KrowdyOneTap = ({
 
       case 'register':
         const { success: successRegister } = await updateAccount(register) || {}
-        if(successRegister)
-          onSuccessLogin(true)
+        if(successRegister) {
+          setOpenNotify(true)
+          setValueInput('')
+        }
+        break
 
+      case 'newPassword':
+        const { success: successPasswword } = await onUpdatePassword(valueInput)
+
+        if(!successPasswword)
+          setErrorLogin(true)
         break
 
       default:
@@ -157,8 +173,13 @@ const KrowdyOneTap = ({
   }, [])
 
   const _handleKeepSession = useCallback(() => {
-    setKeepSession(prev => !prev)
-  }, [])
+    setKeepSession(prev =>{
+      onUpdateState({ keepSession: !prev })
+
+      return !prev
+    })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ onUpdateState ])
 
   const _handleResendPassword = useCallback(async ()=>{
     const { success } = await verifyAccount(currentUser)
@@ -167,6 +188,17 @@ const KrowdyOneTap = ({
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ currentUser, verifyAccount ])
+
+  const _handlePasswordCreate = useCallback(()=>{
+    onChangeView('newPassword')
+    setOpenNotify(false)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const _handleClosePasswordNotify = useCallback(()=>{
+    setOpenNotify(false)
+    onFlowFinished(true)
+  }, [ onFlowFinished ])
 
   return (
     <>
@@ -183,7 +215,12 @@ const KrowdyOneTap = ({
             }}
             // disabled={loadingValidIntegrations}
             fullWidth
-            helperText={isErrorLogin || typeView === 'recovery' ? errorMessages[typeView] : null}
+            helperText={isErrorLogin || [ 'recovery', 'newPassword' ].includes(typeView) ? errorMessages[typeView] : null}
+            InputLabelProps={{
+              classes: {
+                outlined: classes.outlinedLabel
+              }
+            }}
             InputProps={{
               className: classes.inputStyle,
               classes  : {
@@ -193,7 +230,7 @@ const KrowdyOneTap = ({
                 })
               },
               endAdornment: (
-                typeView === 'password' ?
+                [ 'password', 'newPassword' ].includes(typeView) ?
                   <IconButton
                     className={classes.iconShowPassword}
                     onClick={_handleClickShowPassword}
@@ -205,7 +242,7 @@ const KrowdyOneTap = ({
                   </IconButton> : null
               )
             }}
-            label={[ 'verify', 'recovery' ].includes(typeView) ? 'Código de verificación':'Contraseña'}
+            label={[ 'verify', 'recovery' ].includes(typeView) ? 'Código de verificación': inputLabels[typeView]}
             onChange={_handleChangeInput}
             required
             type={showPassword || [ 'verify', 'recovery' ].includes(typeView) ? 'text' : 'password'}
@@ -313,7 +350,7 @@ const KrowdyOneTap = ({
 
       {/* CHECKBOX PARA MANTENER SESION ABIERTA */}
       {
-        [ 'password', 'verify' ].includes(typeView) ? (
+        [ 'password', 'verify', 'newPassword' ].includes(typeView) ? (
           <FormControlLabel
             className={classes.labelCheckbox}
             control={<Checkbox
@@ -325,6 +362,17 @@ const KrowdyOneTap = ({
         ) : null
       }
 
+      {
+        typeView === 'newPassword'? (
+          <Typography
+            align='center'
+            className={clsx(classes.textfield, classes.textEnd)}
+            color='disabled'>
+      No olvides revisar tu contraseña antes de establecerla para
+evitar cualquier inconveniente más adelante.
+          </Typography>
+        ):null
+      }
       <Button
         className={classes.nextButton}
         color='primary'
@@ -364,6 +412,13 @@ const KrowdyOneTap = ({
                 </>
             }
           </div>
+        ) : null
+      }
+      {
+        openPasswordNotify ? (
+          <PasswordNotify
+            onClose={_handleClosePasswordNotify}
+            onCreate={_handlePasswordCreate} />
         ) : null
       }
     </>
@@ -409,6 +464,9 @@ const useStyles = makeStyles(({ spacing, palette }) => ({
   },
   nextButton: {
     marginTop: spacing(1)
+  },
+  outlinedLabel: {
+    top: -8
   },
   textEnd: {
     color: palette.grey[600]

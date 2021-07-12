@@ -138,7 +138,7 @@ const AuthProvider = ({
     let data = {}
 
     if(authClient && authClient.current)
-      data = await authClient.current.loginByPassword({ allowAds: state.allowAds, clientSecret, email,  keepSession, password })
+      data = await authClient.current.loginByPassword({ allowAds: state.allowAds, clientSecret, email, keepSession, password })
 
     let result = data
 
@@ -150,6 +150,7 @@ const AuthProvider = ({
       setState(prev => ({
         ...prev,
         accessToken,
+        flowFinished: true,
         refreshToken,
         successLogin: true,
         userId
@@ -189,6 +190,7 @@ const AuthProvider = ({
       setState(prev => ({
         ...prev,
         accessToken,
+        flowFinished: !isNew,
         isNew,
         refreshToken,
         userId
@@ -241,8 +243,10 @@ const AuthProvider = ({
     const { clientId, tokenId } = response
     if(authClient && authClient.current) {
       const { error, refreshToken, accessToken, userId } = await authClient.current.loginSocialNetwork({
+        allowAds   : state.allowAds ? 1 : 0,
         clientId,
         clientSecret,
+        keepSession: state.keepSession ? 1 : 0,
         network,
         tokenId
       }, referrer)
@@ -252,6 +256,7 @@ const AuthProvider = ({
         setState(prev => ({
           ...prev,
           accessToken,
+          flowFinished: true,
           refreshToken,
           successLogin: true,
           userId
@@ -269,6 +274,53 @@ const AuthProvider = ({
     }))
   }, [])
 
+  const _handleFlowFinished = useCallback((flowFinished)=>{
+    setState(prev => ({
+      ...prev,
+      flowFinished
+    }))
+  }, [])
+
+  const createPassword = useCallback(async (password)=>{
+    if(authClient && authClient.current) {
+      setState(prev => ({
+        ...prev,
+        loading: true
+      }))
+
+      const res = await authClient.current.updatePassword({ accessToken: state.accessToken, password })
+
+      if(!res || !res.success) {
+        setState(prev => ({
+          ...prev,
+          loading: false
+        }))
+
+        return { success: false }
+      }
+
+      setState(prev => ({
+        ...prev,
+        flowFinished: true,
+        loading     : false,
+        successLogin: true
+      }))
+
+      return { success: true }
+    } else {
+      return { success: false }
+    }
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ authClient, authClient.current, state.accessToken ])
+
+  const _handleUpdateState = useCallback((data)=>{
+    setState(prev=>({
+      ...prev,
+      ...data
+    }))
+  }, [])
+
   return (
     <ThemeProvider theme={theme || defaultTheme}>
       <LoginContext.Provider
@@ -282,7 +334,10 @@ const AuthProvider = ({
           loginWith,
           microsoftCredentials : microsoft,
           onAllowAds           : _handleAllowAds,
+          onFlowFinished       : _handleFlowFinished,
           onSuccessLogin       : _handleSuccessLogin,
+          onUpdatePassword     : createPassword,
+          onUpdateState        : _handleUpdateState,
           sendVerifyOrCode     : _handleSendVerifyCode,
           updateAccount        : _handleUpdateAccount,
           validateSocialNetwork: _handleValidateSocial,

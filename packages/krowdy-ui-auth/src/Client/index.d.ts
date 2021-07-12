@@ -30,7 +30,7 @@ declare class AuthClient {
     keepSession?: boolean,
   }): unknown;
   updateAccount(accessToken: string, body: unknown): unknown;
-  updatePassword(password: string): unknown;
+  updatePassword(args: {accessToken: string, password: string}): unknown;
   loginSocialNetwork(args: {
     tokenId?: string, 
     network?: string, 
