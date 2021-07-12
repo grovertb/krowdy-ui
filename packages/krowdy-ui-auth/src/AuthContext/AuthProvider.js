@@ -19,7 +19,8 @@ const AuthProvider = ({
   } = {},
   referrer,
   clientSecret,
-  loginWith = 'only-email'
+  loginWith = 'only-email',
+  clientId
 }) => {
   const authClient  = useRef()
   const iframeRef = useRef()
@@ -139,7 +140,13 @@ const AuthProvider = ({
     let data = {}
 
     if(authClient && authClient.current)
-      data = await authClient.current.loginByPassword({ allowAds: state.allowAds, clientSecret, email, keepSession, password })
+      data = await authClient.current.loginByPassword({
+        allowAds: state.allowAds,
+        clientId,
+        clientSecret,
+        email,
+        keepSession,
+        password })
 
     let result = data
 
@@ -179,7 +186,14 @@ const AuthProvider = ({
 
     let data
     if(authClient && authClient.current)
-      data = await authClient.current.verifyCode({ allowAds: state.allowAds, clientSecret, code, keepSession, type, value })
+      data = await authClient.current.verifyCode({
+        allowAds: state.allowAds,
+        clientId,
+        clientSecret,
+        code,
+        keepSession,
+        type,
+        value })
 
     let result = data
 
@@ -241,7 +255,7 @@ const AuthProvider = ({
   , [ state.accessToken ])
 
   const _handleValidateSocial = useCallback(async (network, response) => {
-    const { clientId, tokenId } = response
+    const { tokenId } = response
     if(authClient && authClient.current) {
       const { error, refreshToken, accessToken, userId } = await authClient.current.loginSocialNetwork({
         allowAds   : state.allowAds ? 1 : 0,
@@ -364,6 +378,7 @@ const AuthProvider = ({
 AuthProvider.propTypes = {
   baseUrl     : PropTypes.string.isRequired,
   children    : PropTypes.any,
+  clientId    : PropTypes.string,
   clientSecret: PropTypes.string,
   loginWith   : PropTypes.oneOf([ 'only-email', 'only-phone', 'phone-and-email' ]),
   referrer    : PropTypes.string,
