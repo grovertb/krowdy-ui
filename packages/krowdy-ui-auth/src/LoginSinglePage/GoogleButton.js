@@ -24,10 +24,10 @@ const GoogleButton = () => {
         onSuccess={_handleSuccess}
         // onFailure={}
         redirectUri={googleCredentials.redirectUri}
-        render={(props) => (
+        render={({ onClick }) => (
           <Button
-            {...props}
-            className={classes.googleButton}>
+            className={classes.googleButton}
+            onClick={onClick}>
             <img
               alt='googleSocial'
               className={classes.iconGoogle}

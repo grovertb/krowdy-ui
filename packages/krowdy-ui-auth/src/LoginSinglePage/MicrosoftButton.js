@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import MicrosoftLogin from 'react-microsoft-login'
 import { makeStyles, Typography } from '@krowdy-ui/core'
 import { IMAGES_SOCIAL } from './constants'
@@ -36,7 +36,7 @@ const MicrosoftButton = () => {
   const classes = useStyles()
   const { microsoftCredentials: { clientId, redirectUri } = {}, validateSocialNetwork } = useAuth()
 
-  const handleResponseMicrosoft = (err, response) => {
+  const handleResponseMicrosoft = useCallback((err, response) => {
     if(err) {
       console.log(err)
 
@@ -45,8 +45,8 @@ const MicrosoftButton = () => {
 
     const { accessToken } = response
 
-    validateSocialNetwork('microsoft', { clientId, tokenId: accessToken })
-  }
+    validateSocialNetwork('microsoft', { tokenId: accessToken })
+  }, [ validateSocialNetwork ])
 
   return (
     <MicrosoftLogin

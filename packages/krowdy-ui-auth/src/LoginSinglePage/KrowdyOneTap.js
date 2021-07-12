@@ -115,7 +115,9 @@ const KrowdyOneTap = ({
     }))
   }, [])
 
-  const _handleNext = useCallback(async () => {
+  const _handleNext = useCallback(async (e) => {
+    if((e.charCode && e.charCode !== 13) || (isNextDisabled || loading)) return
+
     switch (typeView) {
       case 'login':
         const { hasPassword, success, value, type } = await verifyAccount(valueInput)
@@ -170,7 +172,7 @@ const KrowdyOneTap = ({
         break
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ typeView, onChangeUserLogin, valueInput, onChangeView, register, verifyAccount ])
+  }, [ typeView, onChangeUserLogin, valueInput, onChangeView, register, verifyAccount, isNextDisabled, loading ])
 
   const _handleClickShowPassword = useCallback(() => {
     setShowPassword(prev => !prev)
@@ -248,6 +250,7 @@ const KrowdyOneTap = ({
             }}
             label={[ 'verify', 'recovery' ].includes(typeView) ? 'Código de verificación': inputLabels[typeView]}
             onChange={_handleChangePassword}
+            onKeyPress={_handleNext}
             required
             type={showPassword || [ 'verify', 'recovery' ].includes(typeView) ? 'text' : 'password'}
             value={passwordValue}
@@ -271,6 +274,7 @@ const KrowdyOneTap = ({
             label={inputLabels[loginWith]}
             name='login'
             onChange={_handleChangeInput}
+            onKeyPress={_handleNext}
             value={valueInput}
             variant='outlined' />
         ) : null
