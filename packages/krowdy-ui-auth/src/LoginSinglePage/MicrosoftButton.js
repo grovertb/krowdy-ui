@@ -34,9 +34,13 @@ const useStyles = makeStyles(({ spacing, shape, palette }) => ({
 
 const MicrosoftButton = () => {
   const classes = useStyles()
-  const { microsoftCredentials: { clientId, redirectUri } = {}, validateSocialNetwork } = useAuth()
+  const {
+    microsoftCredentials: { clientId, redirectUri } = {},
+    validateSocialNetwork,
+    onMsalInstanceChange
+  } = useAuth()
 
-  const handleResponseMicrosoft = useCallback((err, response) => {
+  const handleResponseMicrosoft = useCallback((err, response, msal) => {
     if(err) {
       console.log(err)
 
@@ -45,8 +49,9 @@ const MicrosoftButton = () => {
 
     const { accessToken } = response
 
+    onMsalInstanceChange(msal)
     validateSocialNetwork('microsoft', { tokenId: accessToken })
-  }, [ validateSocialNetwork ])
+  }, [ validateSocialNetwork, onMsalInstanceChange ])
 
   return (
     <MicrosoftLogin
