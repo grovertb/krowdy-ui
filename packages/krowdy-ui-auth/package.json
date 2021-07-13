@@ -1,6 +1,6 @@
 {
   "name": "@krowdy-ui/auth",
-  "version": "0.0.15",
+  "version": "0.0.17",
   "private": false,
   "author": "Krowdy Team",
   "description": "React components that implement Google's Material Design.",
@@ -37,7 +37,7 @@
     "react-microsoft-login": "^1.15.0"
   },
   "devDependencies": {
-    "@krowdy-ui/core": "0.0.84"
+    "@krowdy-ui/core": "0.0.87"
   },
   "sideEffects": false,
   "publishConfig": {
