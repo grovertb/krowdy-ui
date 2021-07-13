@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useState } from 'react'
 import MicrosoftLogin from 'react-microsoft-login'
 import { makeStyles, Typography } from '@krowdy-ui/core'
 import { IMAGES_SOCIAL } from './constants'
@@ -40,18 +40,24 @@ const MicrosoftButton = () => {
     onMsalInstanceChange
   } = useAuth()
 
+  const [ verifying, setVerifying ] = useState(false)
+
   const handleResponseMicrosoft = useCallback((err, response, msal) => {
     if(err) {
+      verifying(false)
       console.log(err)
 
       return
     }
 
-    const { accessToken } = response
+    if((response && msal) && !verifying) {
+      const { accessToken } = response
 
-    onMsalInstanceChange(msal)
-    validateSocialNetwork('microsoft', { tokenId: accessToken })
-  }, [ validateSocialNetwork, onMsalInstanceChange ])
+      setVerifying(true)
+      onMsalInstanceChange(msal)
+      validateSocialNetwork('microsoft', { tokenId: accessToken })
+    }
+  }, [ onMsalInstanceChange, validateSocialNetwork, verifying ])
 
   return (
     <MicrosoftLogin
