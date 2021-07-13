@@ -44,6 +44,7 @@ const MicrosoftButton = () => {
 
   const handleResponseMicrosoft = useCallback((err, response, msal) => {
     if(err) {
+      verifying(false)
       console.log(err)
 
       return
