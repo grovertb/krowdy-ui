@@ -197,6 +197,10 @@ const pages: Array<Page> = [
         path : '/views/listinfoitem',
         title: 'List Info Item'
       },
+      {
+        path : '/views/loginform',
+        title: 'Login Form'
+      },
       // M
       {
         path : '/views/modalkrowder',
@@ -209,6 +213,11 @@ const pages: Array<Page> = [
       {
         path : '/views/multicheckbox',
         title: 'MultiCheckBox'
+      },
+      // O
+      {
+        path : '/views/onetapauth',
+        title: 'Onetap Auth'
       },
       // P
       {
