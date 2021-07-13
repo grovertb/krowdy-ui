@@ -41,26 +41,29 @@ const loginButtonLabels = {
 const LoginSinglePage = () => {
   const classes = useStyles()
   const { template:{ header:{ logo } = {} } = {} } = useTheme()
-  const [ prevView, setPrevView ] = useState('')
+  const [ prevViews, setPrevViews ] = useState([])
   const [ typeView, setTypeView ] = useState('main')
   const [ currentUser, setCurrentUser ] = useState('')
 
   const { loginWith } = useAuth()
 
-  const paramsLinkedin =parseQueryString(window.location.search)
+  const paramsLinkedin = parseQueryString(window.location.search)
 
   const _handleChangeView = useCallback((view) => {
-    setPrevView(typeView)
+    setPrevViews([ ...prevViews, typeView ])
     setTypeView(view)
-  }, [ typeView ])
+  }, [ prevViews, typeView ])
 
   const _handleCurrentUser = useCallback((text) => {
     setCurrentUser(text)
   }, [])
 
   const _handleChangePrevView = useCallback(() => {
-    setTypeView(prevView)
-  }, [ prevView ])
+    const lastView = prevViews[prevViews.length - 1]
+
+    setPrevViews(prevViews.slice(0, prevViews.length - 1))
+    setTypeView(lastView)
+  }, [ prevViews ])
 
   const _handleChangeLogin = useCallback(() => {
     _handleChangeView('login')
