@@ -8,6 +8,9 @@ export default function () {
       baseUrl='http://localhost:9876'
       clientSecret='nuevo'
       social={{
+        facebook: {
+          clientId: 292592304684453
+        },
         google: {
           clientId   : '612106570053-ke4agjifh4j78e4od0i5l3duh85u6tl7.apps.googleusercontent.com',
           redirectUri: ''

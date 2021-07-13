@@ -1,9 +1,8 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
-import { ThemeProvider } from '@krowdy-ui/core'
 import LoginContext from './LoginContext'
 import AuthClient from '../Client'
-import { initialState, updateStorage, defaultTheme } from './utils'
+import { initialState, updateStorage } from './utils'
 
 const AuthProvider = ({
   children,
@@ -11,11 +10,11 @@ const AuthProvider = ({
   baseUrl,
   storage = 'localStorage',
   urlLogin,
-  theme,
   social:{
     google,
     linkedin,
-    microsoft
+    microsoft,
+    facebook
   } = {},
   referrer,
   clientSecret,
@@ -352,41 +351,41 @@ const AuthProvider = ({
   }, [])
 
   return (
-    <ThemeProvider theme={theme || defaultTheme}>
-      <LoginContext.Provider
-        value={{
-          ...state,
-          ...stateContext,
-          googleCredentials    : google,
-          linkedinCredentials  : linkedin,
-          loginByCode          : _handleLoginByCode,
-          loginByPassword      : _handleLoginByPassword,
-          loginWith,
-          microsoftCredentials : microsoft,
-          onAllowAds           : _handleAllowAds,
-          onFlowFinished       : _handleFlowFinished,
-          onSuccessLogin       : _handleSuccessLogin,
-          onUpdatePassword     : createPassword,
-          onUpdateState        : _handleUpdateState,
-          sendVerifyOrCode     : _handleSendVerifyCode,
-          updateAccount        : _handleUpdateAccount,
-          validateSocialNetwork: _handleValidateSocial,
-          verifyAccount        : _handleVerifyAccount
-        }}>
-        {
-          urlLogin ?
-            <iframe
-              height='0px'
-              ref={iframeRef}
-              src={`${urlLogin}/set-credentials`}
-              style={{ display: 'none' }}
-              title='Alternative login'
-              width='0px' /> :
-            null
-        }
-        {children}
-      </LoginContext.Provider>
-    </ThemeProvider>
+    <LoginContext.Provider
+      value={{
+        ...state,
+        ...stateContext,
+        facebookCredentials  : facebook,
+        googleCredentials    : google,
+        linkedinCredentials  : linkedin,
+        loginByCode          : _handleLoginByCode,
+        loginByPassword      : _handleLoginByPassword,
+        loginWith,
+        microsoftCredentials : microsoft,
+        onAllowAds           : _handleAllowAds,
+        onFlowFinished       : _handleFlowFinished,
+        onSuccessLogin       : _handleSuccessLogin,
+        onUpdatePassword     : createPassword,
+        onUpdateState        : _handleUpdateState,
+        referrer,
+        sendVerifyOrCode     : _handleSendVerifyCode,
+        updateAccount        : _handleUpdateAccount,
+        validateSocialNetwork: _handleValidateSocial,
+        verifyAccount        : _handleVerifyAccount
+      }}>
+      {
+        urlLogin ?
+          <iframe
+            height='0px'
+            ref={iframeRef}
+            src={`${urlLogin}/set-credentials`}
+            style={{ display: 'none' }}
+            title='Alternative login'
+            width='0px' /> :
+          null
+      }
+      {children}
+    </LoginContext.Provider>
   )
 }
 
@@ -398,6 +397,10 @@ AuthProvider.propTypes = {
   loginWith   : PropTypes.oneOf([ 'only-email', 'only-phone', 'phone-and-email' ]),
   referrer    : PropTypes.string,
   social      : PropTypes.shape({
+    facebook: PropTypes.shape({
+      clientId   : PropTypes.string,
+      redirectUri: PropTypes.string
+    }),
     google: PropTypes.shape({
       clientId   : PropTypes.string,
       redirectUri: PropTypes.string
@@ -413,7 +416,6 @@ AuthProvider.propTypes = {
   }),
   stateContext: PropTypes.any,
   storage     : PropTypes.string,
-  theme       : PropTypes.any,
   urlLogin    : PropTypes.string
 }
 

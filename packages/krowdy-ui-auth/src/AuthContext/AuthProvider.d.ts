@@ -19,7 +19,6 @@ export type AuthContextProps = {
   storage?: string;
   baseUrl: string;
   urlLogin?: string;
-  theme?: unknown;
   referrer?: string;
   clientSecret?: string;
   clientId?: string;
