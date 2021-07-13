@@ -4,6 +4,12 @@ class AuthClient {
     this.urlApi = `${baseUrl}/api`
   }
 
+  buildUrlUri(data) {
+    const keys = Object.keys(data)
+
+    return keys.map(key => `${key}=${data[key]}`).join('&')
+  }
+
   getData(url, headers = {}) {
     return fetch(url, {
       headers: {
@@ -36,15 +42,8 @@ class AuthClient {
   }
 
   postDataEncoded(url, body) {
-    let formBody = []
-    for (const property in body) {
-      const encodedKey = encodeURIComponent(property)
-      const encodedValue = encodeURIComponent(body[property])
-      formBody.push(encodedKey + '=' + encodedValue)
-    }
-
     return fetch(url, {
-      body   : formBody.join('&'),
+      body   : this.buildUrlUri(body),
       headers: {
         'Content-type': 'application/x-www-form-urlencoded'
       },
@@ -137,6 +136,14 @@ class AuthClient {
 
   updatePassword({ password, accessToken }) {
     return this.postWithCredentials(`${this.urlApi}/onetap/update/password`, { accessToken }, { password })
+  }
+
+  async logout(args) {
+    try {
+      return this.getData(`${this.urlApi}/logout?${this.buildUrlUri(args)}`)
+    } catch (error) {
+      throw error
+    }
   }
 
   async loginSocialNetwork(args, referrer = 'auth') {

@@ -9,9 +9,9 @@ const Linkedin = () => {
   const { linkedinCredentials = {}, validateSocialNetwork } = useAuth()
 
   const _handleSuccess = useCallback((response)=>{
-    if(response && response.tokenId) {
-      const { tokenId } = response
-      validateSocialNetwork('linkedin', { tokenId } )
+    if(response && response.code) {
+      const { code } = response
+      validateSocialNetwork('linkedin', { tokenId: code } )
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ validateSocialNetwork, linkedinCredentials ])

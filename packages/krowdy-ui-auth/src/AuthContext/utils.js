@@ -36,3 +36,15 @@ export const updateStorage = (storage, objUpd) => {
     for (const key in objUpd)
       document.cookie = `${key}=${objUpd[key]}`
 }
+
+export const clearStorage = (storage, arrKeys) => {
+  if(storage ==='localStorage')
+    arrKeys.forEach((key) => {
+      localStorage.removeItem(key)
+    })
+
+  else if(storage ==='cookies')
+    arrKeys.forEach((key) => {
+      document.cookie = `${key}=; expires=Thu, 01 Jan 1970 00:00:00 GMT`
+    })
+}
