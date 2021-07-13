@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { ThemeProvider } from '@krowdy-ui/core'
 import LoginContext from './LoginContext'
 import AuthClient from '../Client'
-import { initialState, updateStorage, defaultTheme } from './utils'
+import { initialState, updateStorage, clearStorage, defaultTheme } from './utils'
 
 const AuthProvider = ({
   children,
@@ -25,6 +25,7 @@ const AuthProvider = ({
   const authClient  = useRef()
   const iframeRef = useRef()
   const [ state, setState ] = useState(initialState)
+  const [ msalInstance, setMsalInstance ] = useState(null)
 
   useEffect(() => {
     if(baseUrl) authClient.current = new AuthClient(baseUrl)
@@ -344,6 +345,32 @@ const AuthProvider = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ authClient, authClient.current, state.accessToken ])
 
+  const _handleLogOut = useCallback(() => {
+    const deleteSession = () => {
+      clearStorage(storage, [ 'accessToken', 'iduser', 'refreshToken' ])
+      msalInstance && msalInstance.logout()
+    }
+
+    const { accessToken, refreshToken } = state
+
+    if(accessToken || refreshToken)
+      authClient.current.logout({ accessToken, refreshToken })
+        .then((res) => {
+          const { data: { success = null } = {} } = res
+          if(!success) return console.error('Error when user closing session')
+          deleteSession()
+        })
+        .catch(() => {
+          deleteSession()
+        })
+    else
+      deleteSession()
+  }, [ msalInstance, state, storage ])
+
+  const _handleMsalInstanceChange = useCallback((msal) => {
+    setMsalInstance(msal)
+  }, [])
+
   const _handleUpdateState = useCallback((data)=>{
     setState(prev=>({
       ...prev,
@@ -362,9 +389,11 @@ const AuthProvider = ({
           loginByCode          : _handleLoginByCode,
           loginByPassword      : _handleLoginByPassword,
           loginWith,
+          logout               : _handleLogOut,
           microsoftCredentials : microsoft,
           onAllowAds           : _handleAllowAds,
           onFlowFinished       : _handleFlowFinished,
+          onMsalInstanceChange : _handleMsalInstanceChange,
           onSuccessLogin       : _handleSuccessLogin,
           onUpdatePassword     : createPassword,
           onUpdateState        : _handleUpdateState,
