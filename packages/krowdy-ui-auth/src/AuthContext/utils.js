@@ -1,4 +1,4 @@
-import { krowdyTheme, createMuiTheme } from '@krowdy-ui/core'
+// import { krowdyTheme, createMuiTheme } from '@krowdy-ui/core'
 
 export const initialState = {
   accessToken : '',
@@ -13,7 +13,7 @@ export const initialState = {
   successLogin: false
 }
 
-export const defaultTheme = createMuiTheme(krowdyTheme)
+// export const defaultTheme = createMuiTheme(krowdyTheme)
 
 export const getStorageData = (storage) => {
   const keys = [ 'accessToken', 'refreshToken', 'iduser' ]

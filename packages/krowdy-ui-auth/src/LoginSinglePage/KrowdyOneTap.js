@@ -53,7 +53,8 @@ const KrowdyOneTap = ({
     loginWith,
     onUpdatePassword,
     onFlowFinished,
-    onUpdateState
+    onUpdateState,
+    referrer
   } = useAuth()
   const [ loginkey, setLoginKey ] = useState(null)
   const [ valueInput, setValueInput ] = useState(typeView === 'login' ? currentUser : '')
@@ -80,7 +81,9 @@ const KrowdyOneTap = ({
         } else {
           return !valueInput
         }
-
+      case 'password':
+      case 'recovery':
+        return !passwordValue
       default:
         return false
     }
@@ -135,7 +138,6 @@ const KrowdyOneTap = ({
           password: passwordValue
         })
         setErrorLogin(!isPasswordValid)
-        setPasswordValue('')
         break
 
       case 'verify':
@@ -158,6 +160,7 @@ const KrowdyOneTap = ({
         if(successRegister) {
           setOpenNotify(true)
           setValueInput('')
+          setPasswordValue('')
         }
         break
 
@@ -205,6 +208,11 @@ const KrowdyOneTap = ({
     setOpenNotify(false)
     onFlowFinished(true)
   }, [ onFlowFinished ])
+
+  const _handleForgotPassword = useCallback(()=>{
+    onChangeView('recovery')
+    // ENVIAR CODIGO A USUARIO
+  }, [ onChangeView ])
 
   return (
     <>
@@ -351,7 +359,7 @@ const KrowdyOneTap = ({
       {
         loginkey === 'google' ? (
           <GoogleButton />
-        ) : loginkey === 'microsoft' ? (
+        ) : loginkey === 'microsoft' && referrer !== 'portales'  ? (
           <MicrosoftButton />
         ) : null
       }
@@ -401,6 +409,7 @@ evitar cualquier inconveniente más adelante.
               typeView === 'password' ?
                 <Button
                   color='primary'
+                  onClick={_handleForgotPassword}
                   size='small'>
                  ¿Olvidaste tu contraseña?
                 </Button> :
@@ -451,9 +460,6 @@ const useStyles = makeStyles(({ spacing, palette }) => ({
     justifyContent: 'center',
     marginTop     : spacing(3)
   },
-  fieldEmail: {
-    marginBottom: spacing(2.5)
-  },
   helperText: {
     marginLeft: 0
   },
@@ -465,13 +471,13 @@ const useStyles = makeStyles(({ spacing, palette }) => ({
       fontSize: 14,
       padding : spacing(1, 1, 1, 0)
     },
-    margin: spacing(2, 0, 3, 0)
+    margin: spacing(2, 0, 0, 0)
   },
   labelOutlined: {
     transform: 'translate(14px, 14px)'
   },
   nextButton: {
-    marginTop: spacing(1)
+    marginTop: spacing(4)
   },
   outlinedLabel: {
     top: -8

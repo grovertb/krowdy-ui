@@ -48,8 +48,11 @@ const useStyles = makeStyles(({ spacing, palette }) => ({
     marginTop  : spacing(-.75)
   },
   linkedinButton: {
-    alignItems    : 'center',
     // color de boton de linkedin
+    '&:hover': {
+      background: '#007AB9'
+    },
+    alignItems    : 'center',
     background    : '#007AB9',
     borderRadius  : spacing(.5),
     color         : palette.common.white,

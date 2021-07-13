@@ -8,6 +8,7 @@ import LinkedInButton from './LinkedinButton'
 import KrowdyOneTap from './KrowdyOneTap'
 import Footer from './Footer'
 import { useAuth, parseQueryString } from '../utils'
+import FacebookButton from './FacebookButton'
 
 const getTitleByView = (type, text) => {
   switch (type) {
@@ -45,7 +46,7 @@ const LoginSinglePage = () => {
   const [ typeView, setTypeView ] = useState('main')
   const [ currentUser, setCurrentUser ] = useState('')
 
-  const { loginWith } = useAuth()
+  const { loginWith, referrer } = useAuth()
 
   const paramsLinkedin = parseQueryString(window.location.search)
 
@@ -116,7 +117,11 @@ const LoginSinglePage = () => {
               ) : (
                 <LinkedInButton />
               )}
-              <MicrosoftButton />
+              {
+                referrer !== 'portales' ?
+                  <MicrosoftButton /> : null
+              }
+              <FacebookButton />
               <Button
                 className={classes.buttonKrowdy}
                 color='primary'
