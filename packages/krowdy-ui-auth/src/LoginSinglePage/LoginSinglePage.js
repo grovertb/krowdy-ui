@@ -61,7 +61,7 @@ const LoginSinglePage = () => {
   const _handleChangePrevView = useCallback(() => {
     const lastView = prevViews[prevViews.length - 1]
 
-    setPrevViews(prevViews => prevViews.slice(0, prevViews.length - 1))
+    setPrevViews(prevViews.slice(0, prevViews.length - 1))
     setTypeView(lastView)
   }, [ prevViews ])
 
