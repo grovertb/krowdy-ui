@@ -1,8 +1,8 @@
-export * from './colorManipulator';
+export * from './colorManipulator'
 
 export {
   createGenerateClassName,
-  // createMuiTheme,
+  // createTheme,
   createStyles,
   jssPreset,
   ServerStyleSheets,
@@ -19,7 +19,7 @@ export {
   WithTheme
 } from '@material-ui/core'
 
-export { default as createMuiTheme } from './createMuiTheme'
+export { default as createTheme } from './createTheme'
 export { default as krowdyTheme } from './krowdyTheme'
 export { default as makeStyles } from './makeStyles'
 export { default as responsiveFontSizes } from './responsiveFontSizes'

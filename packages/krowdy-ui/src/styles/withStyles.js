@@ -1,8 +1,8 @@
 import { withStyles as withStylesWithoutDefault } from '@krowdy-ui/styles'
-import createMuiTheme from './createMuiTheme'
+import createTheme from './createTheme'
 import krowdyTheme from './krowdyTheme'
 
-const defaultTheme = createMuiTheme(krowdyTheme)
+const defaultTheme = createTheme(krowdyTheme)
 
 function withStyles(stylesOrCreator, options) {
   return withStylesWithoutDefault(stylesOrCreator, {

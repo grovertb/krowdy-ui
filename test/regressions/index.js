@@ -2,11 +2,11 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 // import vrtest from 'vrtest/client';
 // import webfontloader from 'webfontloader';
-import { createMuiTheme } from '@material-ui/core/styles'
+import { createTheme } from '@material-ui/core/styles'
 import { ThemeProvider } from '@material-ui/styles'
 import TestViewer from './TestViewer'
 
-const theme = createMuiTheme()
+const theme = createTheme()
 
 // Get all the tests specifically written for preventing regressions.
 const requireRegression = require.context('./tests', true, /js$/)

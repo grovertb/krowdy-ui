@@ -55,12 +55,12 @@ Here is a quick example to get you started, **it's all you need**:
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { ThemeProvider } from '@krowdy-ui/styles';
-import { Button, createMuiTheme, krowdyTheme } from '@krowdy-ui/core';
+import { Button, createTheme, krowdyTheme } from '@krowdy-ui/core';
 
 
 function App() {
   return (
-    <ThemeProvider theme={createMuiTheme(krowdyTheme)}>
+    <ThemeProvider theme={createTheme(krowdyTheme)}>
       <Button variant="contained" color="krowdy">
         Hello World
       </Button>

@@ -8,11 +8,11 @@ function jsDemo(demoData) {
       'index.js': `
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ThemeProvider, createMuiTheme, krowdyTheme } from "@krowdy-ui/core";
+import { ThemeProvider, createTheme, krowdyTheme } from "@krowdy-ui/core";
 import Demo from './demo';
 
 ReactDOM.render(
-  <ThemeProvider theme={createMuiTheme(krowdyTheme)}>
+  <ThemeProvider theme={createTheme(krowdyTheme)}>
     <Demo />
   </ThemeProvider>, 
   document.querySelector('#root')
@@ -29,11 +29,11 @@ function tsDemo(demoData) {
       'index.tsx': `
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ThemeProvider, createMuiTheme, krowdyTheme } from "@krowdy-ui/core";
+import { ThemeProvider, createTheme, krowdyTheme } from "@krowdy-ui/core";
 import Demo from './demo';
 
 ReactDOM.render(
-  <ThemeProvider theme={createMuiTheme(krowdyTheme)}>
+  <ThemeProvider theme={createTheme(krowdyTheme)}>
     <Demo />
   </ThemeProvider>, 
   document.querySelector('#root')

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom'
 import { ThemeProvider, makeStyles } from '@krowdy-ui/styles'
-import { CssGlobal, createMuiTheme, krowdyTheme, Container } from '@krowdy-ui/core'
+import { CssGlobal, createTheme, krowdyTheme, Container } from '@krowdy-ui/core'
 import Header from '../components/Header'
 
 const useStyles = makeStyles({
@@ -17,7 +17,7 @@ const useStyles = makeStyles({
 }, { name: 'Main' })
 
 export default function Main({ children }) {
-  const theme  = createMuiTheme({
+  const theme  = createTheme({
     ...krowdyTheme,
     palette: {
       ...krowdyTheme.palette,

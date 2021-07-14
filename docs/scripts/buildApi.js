@@ -6,7 +6,7 @@ import { findPagesMarkdown, findComponents, getLineFeed, kebabCase } from './uti
 import { getHeaders } from 'docs/src/components/MarkDowns/utils'
 import parseTest from './parseTest'
 import generateMarkdown from './generateMarkdown'
-import { createMuiTheme } from '../../packages/krowdy-ui/src/styles'
+import { createTheme } from '../../packages/krowdy-ui/src/styles'
 import getStylesCreator from '../../packages/krowdy-ui-styles/src/getStylesCreator'
 import createGenerateClassName from '../../packages/krowdy-ui-styles/src/createGenerateClassName'
 
@@ -39,7 +39,7 @@ if(args.length < 4)
 
 const rootDirectory = path.resolve(__dirname, '../../')
 const docsApiDirectory = path.resolve(rootDirectory, args[3])
-const theme = createMuiTheme()
+const theme = createTheme()
 
 const inheritedComponentRegexp = /\/\/ @inheritedComponent (.*)/
 

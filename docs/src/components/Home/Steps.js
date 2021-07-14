@@ -141,10 +141,10 @@ export default function Steps() {
   \`\`\`jsx
   import React from 'react';
   import { ThemeProvider } from '@krowdy-ui/styles';
-  import { createMuiTheme, krowdyTheme, Button } from '@krowdy-ui/core';
+  import { createTheme, krowdyTheme, Button } from '@krowdy-ui/core';
 
   const App = () => (
-    <ThemeProvider theme={createMuiTheme(krowdyTheme)}>
+    <ThemeProvider theme={createTheme(krowdyTheme)}>
       <Button variant="contained" color="krowdy">
         Hello World
       </Button>
