@@ -50,7 +50,7 @@ const MicrosoftButton = () => {
       return
     }
 
-    if((response && msal) && !verifying) {
+    if(response && msal && !verifying) {
       const { accessToken } = response
 
       setVerifying(true)
