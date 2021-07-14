@@ -22,7 +22,7 @@ const PasswordNotify = ({
     </Paper>
   )
 }
-const useStyles = makeStyles(({ palette, spacing, zIndex })=>({
+const useStyles = makeStyles(({ palette, spacing, zIndex, breakpoints })=>({
   closeButton: {
     '&:hover': {
       background: palette.grey[800]
@@ -34,16 +34,21 @@ const useStyles = makeStyles(({ palette, spacing, zIndex })=>({
     top       : -12
   },
   paper: {
+    [breakpoints.up('md')]: {
+      maxWidth: 324,
+      right   : 54,
+      top     : 90
+    },
     background: palette.grey[800],
     color     : palette.common.white,
     display   : 'flex',
     maxWidth  : 324,
     padding   : spacing(1.5, 2),
     position  : 'fixed',
-    right     : 54,
-    top       : 90,
+    right     : 16,
+    top       : 32,
     zIndex    : zIndex.modal
   }
-}))
+}), { name: 'PasswordNotify' })
 
 export default React.memo(PasswordNotify)

@@ -11,6 +11,8 @@ type SocialNetworkProps = {
 type SocialProps = {
   google?: SocialNetworkProps;
   linkedin?: SocialNetworkProps;
+  microsoft?: SocialNetworkProps;
+  facebook?: SocialNetworkProps;
 }
 
 export type AuthContextProps = {
