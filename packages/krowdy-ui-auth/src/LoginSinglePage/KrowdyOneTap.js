@@ -17,7 +17,6 @@ import {
 import GoogleButton from './GoogleButton'
 import MicrosoftButton from './MicrosoftButton'
 import { useAuth } from '../utils'
-import PasswordNotify from './PasswordNotify'
 
 const inputLabels = {
   login            : 'Correo o celular',
@@ -37,7 +36,6 @@ const errorMessages = {
 
 const KrowdyOneTap = ({
   onChangeUserLogin = () => {},
-  onChangeView = () => {},
   typeView,
   currentUser
 }) => {
@@ -52,9 +50,10 @@ const KrowdyOneTap = ({
     loading,
     loginWith,
     onUpdatePassword,
-    onFlowFinished,
     onUpdateState,
-    referrer
+    referrer,
+    onPasswordNotify,
+    onChangeView
   } = useAuth()
   const [ loginkey, setLoginKey ] = useState(null)
   const [ valueInput, setValueInput ] = useState(typeView === 'login' ? currentUser : '')
@@ -63,7 +62,6 @@ const KrowdyOneTap = ({
   const [ showPassword, setShowPassword ] = useState(false)
   const [ keepSession, setKeepSession ] = useState(true)
   const [ register, setRegister ] = useState({})
-  const [ openPasswordNotify, setOpenNotify ] = useState(false)
 
   const isNextDisabled = useMemo(() => {
     switch (typeView) {
@@ -158,7 +156,7 @@ const KrowdyOneTap = ({
       case 'register':
         const { success: successRegister } = await updateAccount(register) || {}
         if(successRegister) {
-          setOpenNotify(true)
+          onPasswordNotify(true)
           setValueInput('')
           setPasswordValue('')
         }
@@ -169,6 +167,19 @@ const KrowdyOneTap = ({
 
         if(!successPasswword)
           setErrorLogin(true)
+        break
+      case 'recovery' :
+        const { success: isRecoveryValid } = await loginByCode({
+          code : passwordValue,
+          keepSession,
+          type : typeCode,
+          value: currentUser
+        })
+        setErrorLogin(!isRecoveryValid)
+        if(isRecoveryValid) {
+          setPasswordValue('')
+          onChangeView('newPassword')
+        }
         break
 
       default:
@@ -198,21 +209,11 @@ const KrowdyOneTap = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ currentUser, verifyAccount ])
 
-  const _handlePasswordCreate = useCallback(()=>{
-    onChangeView('newPassword')
-    setOpenNotify(false)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  const _handleClosePasswordNotify = useCallback(()=>{
-    setOpenNotify(false)
-    onFlowFinished(true)
-  }, [ onFlowFinished ])
-
   const _handleForgotPassword = useCallback(()=>{
     onChangeView('recovery')
-    // ENVIAR CODIGO A USUARIO
-  }, [ onChangeView ])
+    verifyAccount(valueInput, true)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ verifyAccount, valueInput ])
 
   return (
     <>
@@ -227,7 +228,6 @@ const KrowdyOneTap = ({
                 contained: classes.helperText
               }
             }}
-            // disabled={loadingValidIntegrations}
             fullWidth
             helperText={isErrorLogin || [ 'recovery', 'newPassword' ].includes(typeView) ? errorMessages[typeView] : null}
             InputLabelProps={{
@@ -293,7 +293,6 @@ const KrowdyOneTap = ({
         typeView === 'register' ? (
           <> <TextField
             autoFocus
-            className={classes.fieldEmail}
             fullWidth
             InputLabelProps={{
               classes: {
@@ -358,9 +357,13 @@ const KrowdyOneTap = ({
       {/* VERIFICA DOMINIO DE EMAIL LOGIN Y MUESTRA BOTON EN CASO SEA GOOGLE O MICROSOFT */}
       {
         loginkey === 'google' ? (
-          <GoogleButton />
+          <div className={classes.margintop}>
+            <GoogleButton />
+          </div>
         ) : loginkey === 'microsoft' && referrer !== 'portales'  ? (
-          <MicrosoftButton />
+          <div className={classes.margintop}>
+            <MicrosoftButton />
+          </div>
         ) : null
       }
 
@@ -390,7 +393,7 @@ evitar cualquier inconveniente más adelante.
         ):null
       }
       <Button
-        className={classes.nextButton}
+        className={clsx({ [classes.nextButton2]: loginkey }, classes.nextButton)}
         color='primary'
         disabled={isNextDisabled || loading}
         fullWidth
@@ -431,13 +434,6 @@ evitar cualquier inconveniente más adelante.
           </div>
         ) : null
       }
-      {
-        openPasswordNotify ? (
-          <PasswordNotify
-            onClose={_handleClosePasswordNotify}
-            onCreate={_handlePasswordCreate} />
-        ) : null
-      }
     </>
   )
 }
@@ -460,6 +456,9 @@ const useStyles = makeStyles(({ spacing, palette }) => ({
     justifyContent: 'center',
     marginTop     : spacing(3)
   },
+  fieldEmail: {
+    marginTop: spacing(1.5)
+  },
   helperText: {
     marginLeft: 0
   },
@@ -476,8 +475,14 @@ const useStyles = makeStyles(({ spacing, palette }) => ({
   labelOutlined: {
     transform: 'translate(14px, 14px)'
   },
+  margintop: {
+    marginTop: spacing(4)
+  },
   nextButton: {
     marginTop: spacing(4)
+  },
+  nextButton2: {
+    marginTop: spacing(2)
   },
   outlinedLabel: {
     top: -8

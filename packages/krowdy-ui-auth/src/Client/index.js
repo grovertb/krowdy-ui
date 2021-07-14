@@ -65,9 +65,10 @@ class AuthClient {
     }
   }
 
-  async validateAccount(source) {
+  async validateAccount({ source, recoveryPass }) {
     try {
       const response = await this.postData(`${this.urlApi}/onetap/validate`, {
+        recoveryPass,
         source
       })
       if(!response || !response.success) return { success: false }
@@ -80,7 +81,7 @@ class AuthClient {
     }
   }
 
-  async verifyCode({ code, value, type, clientId ='candidate', clientSecret }) {
+  async verifyCode({ code, value, type, clientId ='candidate', clientSecret = 'nuevo' }) {
     try {
       const response = await this.postDataEncoded(`${this.urlApi}/onetap/verifycode`, {
         client_id    : clientId,

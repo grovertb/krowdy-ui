@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import LoginContext from './LoginContext'
 import AuthClient from '../Client'
 import { initialState, updateStorage, clearStorage } from './utils'
+import PasswordNotify from '../LoginSinglePage/PasswordNotify'
+import OnetapAuth from '../OnetapAuth'
 
 const AuthProvider = ({
   children,
@@ -95,14 +97,14 @@ const AuthProvider = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const _handleVerifyAccount = useCallback(async (source) => {
+  const _handleVerifyAccount = useCallback(async (source, recoveryPass = false) => {
     setState(prev=>({
       ...prev,
       loading: true
     }))
-    let data
+    let data = { }
     if(authClient && authClient.current)
-      data = await authClient.current.validateAccount(source)
+      data = await authClient.current.validateAccount({ recoveryPass, source })
 
     let result = data
 
@@ -238,7 +240,7 @@ const AuthProvider = ({
     }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ authClient, authClient.current ])
+  }, [ authClient, authClient.current, clientSecret, clientId, state.allowAds ])
 
   const _handleSuccessLogin = useCallback((successLogin) => {
     setState(prev => ({
@@ -377,6 +379,53 @@ const AuthProvider = ({
     }))
   }, [])
 
+  const _handlePasswordNotify = useCallback((value) => {
+    setState(prev=>({
+      ...prev,
+      openPasswordNotify: value
+    }))
+  }, [])
+
+  const _handlePasswordCreate = useCallback(()=>{
+    setState(prev=>({
+      ...prev,
+      openBackdrop      : true,
+      openPasswordNotify: false,
+      typeView          : 'newPassword'
+    }))
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const _handleClosePasswordNotify = useCallback(()=>{
+    setState(prev=>({
+      ...prev,
+      flowFinished      : true,
+      openPasswordNotify: false
+    }))
+  }, [])
+
+  const _handleChangeView = useCallback((typeView)=>{
+    setState(prev=>({
+      ...prev,
+      typeView
+    }))
+  }, [])
+
+  const _handleCloseModal = useCallback(()=>{
+    setState(prev=>({
+      ...prev,
+      openBackdrop: false
+    }))
+  }, [])
+
+  const _handleOpenModal = useCallback(()=>{
+    setState(prev=>({
+      ...prev,
+      openBackdrop: true
+    }))
+  }, [])
+
   return (
     <LoginContext.Provider
       value={{
@@ -391,8 +440,12 @@ const AuthProvider = ({
         logout               : _handleLogOut,
         microsoftCredentials : microsoft,
         onAllowAds           : _handleAllowAds,
+        onChangeView         : _handleChangeView,
+        onClose              : _handleCloseModal,
         onFlowFinished       : _handleFlowFinished,
         onMsalInstanceChange : _handleMsalInstanceChange,
+        onOpen               : _handleOpenModal,
+        onPasswordNotify     : _handlePasswordNotify,
         onSuccessLogin       : _handleSuccessLogin,
         onUpdatePassword     : createPassword,
         onUpdateState        : _handleUpdateState,
@@ -413,7 +466,19 @@ const AuthProvider = ({
             width='0px' /> :
           null
       }
+      {
+        state.openPasswordNotify ? (
+          <PasswordNotify
+            onClose={_handleClosePasswordNotify}
+            onCreate={_handlePasswordCreate} />
+        ) : null
+      }
       {children}
+      {
+        state.openBackdrop ?(
+          <OnetapAuth />
+        ) : null
+      }
     </LoginContext.Provider>
   )
 }

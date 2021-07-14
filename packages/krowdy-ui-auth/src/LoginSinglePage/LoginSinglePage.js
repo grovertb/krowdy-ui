@@ -43,17 +43,16 @@ const LoginSinglePage = () => {
   const classes = useStyles()
   const { template:{ header:{ logo } = {} } = {} } = useTheme()
   const [ prevViews, setPrevViews ] = useState([])
-  const [ typeView, setTypeView ] = useState('main')
   const [ currentUser, setCurrentUser ] = useState('')
 
-  const { loginWith, referrer } = useAuth()
+  const { loginWith, referrer, typeView, onChangeView } = useAuth()
 
   const paramsLinkedin = parseQueryString(window.location.search)
 
   const _handleChangeView = useCallback((view) => {
     setPrevViews([ ...prevViews, typeView ])
-    setTypeView(view)
-  }, [ prevViews, typeView ])
+    onChangeView(view)
+  }, [ prevViews, typeView, onChangeView ])
 
   const _handleCurrentUser = useCallback((text) => {
     setCurrentUser(text)
@@ -63,8 +62,8 @@ const LoginSinglePage = () => {
     const lastView = prevViews[prevViews.length - 1]
 
     setPrevViews(prevViews.slice(0, prevViews.length - 1))
-    setTypeView(lastView)
-  }, [ prevViews ])
+    onChangeView(lastView)
+  }, [ prevViews, onChangeView ])
 
   const _handleChangeLogin = useCallback(() => {
     _handleChangeView('login')
@@ -135,7 +134,6 @@ const LoginSinglePage = () => {
             <KrowdyOneTap
               currentUser={currentUser}
               onChangeUserLogin={_handleCurrentUser}
-              onChangeView={_handleChangeView}
               typeView={typeView} />
           )
         }

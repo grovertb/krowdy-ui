@@ -15,7 +15,7 @@ const Footer = ({
 
   return (
     <div className={classes.containerFooter}>
-      <Typography className={classes.content} >
+      <Typography className={classes.content} component='div' >
 Recuerda que al usar Krowdy aceptas los {' '}
         <a
           className={classes.textRef}

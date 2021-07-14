@@ -11,7 +11,7 @@ declare class AuthClient {
     refreshToken?: string,
     iduser?: string
   }): { success?: boolean } | unknown;
-  validateAccount(source: string): unknown;
+  validateAccount(args: {source: string, recoveryPass: boolean}): unknown;
   verifyCode(params: {
     code?: string,
     value?: string,
