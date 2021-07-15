@@ -52,7 +52,6 @@ const KrowdyOneTap = ({
     onUpdatePassword,
     onUpdateState,
     referrer,
-    onPasswordNotify,
     onChangeView
   } = useAuth()
   const [ loginkey, setLoginKey ] = useState(null)
@@ -156,7 +155,6 @@ const KrowdyOneTap = ({
       case 'register':
         const { success: successRegister } = await updateAccount(register) || {}
         if(successRegister) {
-          onPasswordNotify(true)
           setValueInput('')
           setPasswordValue('')
         }
