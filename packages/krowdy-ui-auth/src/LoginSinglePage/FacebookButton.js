@@ -41,7 +41,7 @@ const useStyles = makeStyles(({ spacing, palette })=>({
     cursor      : 'pointer',
     fontSize    : 14,
     height      : 40,
-    marginTop   : spacing(1.5),
+    marginTop   : spacing(2),
     width       : '100%'
   },
   icon: {

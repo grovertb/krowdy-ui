@@ -72,7 +72,7 @@ const LoginSinglePage = () => {
   return (
     <div>
       {
-        typeView !== 'main' ? (
+        (typeView !== 'main' && prevViews.length)? (
           <Button
             className={classes.buttonBack}
             onClick={_handleChangePrevView}

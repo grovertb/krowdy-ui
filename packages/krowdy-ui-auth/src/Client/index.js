@@ -81,15 +81,16 @@ class AuthClient {
     }
   }
 
-  async verifyCode({ code, value, type, clientId ='candidate', clientSecret = 'nuevo' }) {
+  async verifyCode({ code, value, type, clientId ='candidate', clientSecret = 'nuevo', keepSession, allowAds }) {
     try {
       const response = await this.postDataEncoded(`${this.urlApi}/onetap/verifycode`, {
+        allowAds,
         client_id    : clientId,
         client_secret: clientSecret,
         code,
         grant_type   : 'authorization_code',
-        type,
-        value
+        keepSession,
+        type, value
       })
       if(!response || !response.success) return { success: false }
 

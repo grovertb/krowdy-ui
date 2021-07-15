@@ -18,16 +18,16 @@ declare class AuthClient {
     type?: string,
     clientId?: string,
     clientSecret?: string,
-    allowAds?: boolean,
-    keepSession?: boolean,
+    allowAds?: number,
+    keepSession?: number,
   }): unknown;
   loginByPassword(params : {
     email?: string,
     password?: string,
     clientId?: string,
     clientSecret?: string,
-    allowAds?: boolean,
-    keepSession?: boolean,
+    allowAds?: number,
+    keepSession?: number,
   }): unknown;
   updateAccount(accessToken: string, body: unknown): unknown;
   updatePassword(args: {accessToken: string, password: string}): unknown;
@@ -36,7 +36,9 @@ declare class AuthClient {
     network?: string, 
     authorizationCode?: string, 
     clientId?: string, 
-    clientSecret?: string
+    clientSecret?: string,
+    allowAds?: number,
+    keepSession?: number
   } ,referrer : string): unknown;
 }
 
