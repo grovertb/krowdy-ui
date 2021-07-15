@@ -91,7 +91,7 @@ const KrowdyOneTap = ({
     if(name === 'login' && value) {
       const res = value.split(new RegExp('[ @ | . ]'))
 
-      const [ , domain ] = res
+      const domain = res ? res[res.length - 2] : null
 
       if(domain && 'gmail'.indexOf(domain) !== -1)
         setLoginKey('google')

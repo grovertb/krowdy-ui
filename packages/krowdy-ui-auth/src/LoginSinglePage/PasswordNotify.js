@@ -47,7 +47,7 @@ const useStyles = makeStyles(({ palette, spacing, zIndex, breakpoints })=>({
     position  : 'fixed',
     right     : 16,
     top       : 32,
-    zIndex    : zIndex.modal
+    zIndex    : zIndex.modal + 10
   }
 }), { name: 'PasswordNotify' })
 
