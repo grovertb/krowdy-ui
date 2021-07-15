@@ -383,7 +383,7 @@ const KrowdyOneTap = ({
         typeView === 'newPassword'? (
           <Typography
             align='center'
-            className={clsx(classes.textfield, classes.textEnd)}
+            className={clsx(classes.textfield, classes.textEnd, classes.nextButton2)}
             color='disabled'>
       No olvides revisar tu contraseña antes de establecerla para
 evitar cualquier inconveniente más adelante.

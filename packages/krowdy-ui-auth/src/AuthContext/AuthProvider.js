@@ -141,11 +141,11 @@ const AuthProvider = ({
       }))
 
       return authClient.current.loginByPassword({
-        allowAds: state.allowAds,
+        allowAds   : state.allowAds ? 1 : 0,
         clientId,
         clientSecret,
         email,
-        keepSession,
+        keepSession: keepSession ? 1 :0,
         password
       }).then((data)=>{
         let result = {}
@@ -196,11 +196,11 @@ const AuthProvider = ({
       }))
 
       return authClient.current.verifyCode({
-        allowAds: state.allowAds,
+        allowAds   : state.allowAds ? 1 : 0,
         clientId,
         clientSecret,
         code,
-        keepSession,
+        keepSession: keepSession ? 1 : 0,
         type,
         value }).then((data)=>{
         let result = {}
