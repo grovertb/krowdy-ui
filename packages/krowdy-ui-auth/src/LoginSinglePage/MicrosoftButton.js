@@ -44,7 +44,7 @@ const MicrosoftButton = () => {
 
   const handleResponseMicrosoft = useCallback((err, response, msal) => {
     if(err) {
-      verifying(false)
+      setVerifying(false)
       console.log(err)
 
       return
@@ -63,6 +63,7 @@ const MicrosoftButton = () => {
     <MicrosoftLogin
       authCallback={handleResponseMicrosoft}
       clientId={clientId}
+      forceRedirectStrategy
       redirectUri={redirectUri}>
       <button className={classes.btnSocialMicrosoft}>
         <img alt='microsoftSocial' src={IMAGES_SOCIAL.microsoft} />
