@@ -269,7 +269,7 @@ const AuthProvider = ({
     return data
   }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  , [ state.accessToken ])
+  , [ authClient, authClient.current, state.accessToken ])
 
   const _handleValidateSocial = useCallback(async (network, response) => {
     const { tokenId } = response
@@ -284,6 +284,7 @@ const AuthProvider = ({
       }, referrer)
 
       if(!error) {
+        sendMessageToLoginApp('logged', { accessToken, iduser: userId, refreshToken })
         updateStorage(storage, { accessToken, iduser: userId, refreshToken })
         setState(prev => ({
           ...prev,
@@ -355,18 +356,22 @@ const AuthProvider = ({
     const { accessToken, refreshToken } = state
 
     if(accessToken || refreshToken)
-      authClient.current.logout({ accessToken, refreshToken })
-        .then((res) => {
-          const { data: { success = null } = {} } = res
-          if(!success) return console.error('Error when user closing session')
-          deleteSession()
-        })
-        .catch(() => {
-          deleteSession()
-        })
-    else
+    {authClient.current.logout({ accessToken, refreshToken })
+      .then((res) => {
+        const { data: { success = null } = {} } = res
+        if(!success) return console.error('Error when user closing session')
+        deleteSession()
+        sendMessageToLoginApp('unlogged')
+      })
+      .catch(() => {
+        deleteSession()
+        sendMessageToLoginApp('unlogged')
+      })}
+    else {
       deleteSession()
-  }, [ msalInstance, state, storage ])
+      sendMessageToLoginApp('unlogged')
+    }
+  }, [ msalInstance, sendMessageToLoginApp, state, storage ])
 
   const _handleMsalInstanceChange = useCallback((msal) => {
     setMsalInstance(msal)

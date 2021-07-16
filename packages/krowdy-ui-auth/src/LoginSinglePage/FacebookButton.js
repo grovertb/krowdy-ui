@@ -10,8 +10,8 @@ const FacebookButton = () => {
   const { facebookCredentials : { clientId } = {}, validateSocialNetwork } = useAuth()
 
   const _handleSuccess = useCallback((response)=>{
-    if(response && response.tokenId) {
-      const { tokenId } = response
+    if(response && response.accessToken) {
+      const { accessToken : tokenId } = response
       validateSocialNetwork('facebook', { tokenId } )
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
