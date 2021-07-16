@@ -3,7 +3,7 @@ import { useAuth } from '@krowdy-ui/auth'
 import { Button } from '@krowdy-ui/core'
 
 const Test =  () => {
-  const { onOpen = () => {}, onClose, successLogin, onPasswordNotify, flowFinished } = useAuth()
+  const { onOpen = () => {}, onClose, successLogin, onPasswordNotify, flowFinished, logout } = useAuth()
 
   useEffect(()=>{
     if(successLogin)
@@ -31,6 +31,13 @@ const Test =  () => {
           <Button color='krowdy' onClick={openAlreadySession}>
             CREAR O ACTUALIZAR CONTRASEÑA</Button>
         ) : null
+      }
+      {
+        flowFinished ? <Button
+          color='primary'
+          onClick={logout}
+          variant='contained'>DESLOGUEAR
+        </Button> : null
       }
     </>
   )
