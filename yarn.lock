@@ -1326,14 +1326,6 @@
     "@krowdy-ui/styles" "^0.0.23"
     "@material-ui/core" "4.11.3"
 
-"@krowdy-ui/core@^0.0.76":
-  version "0.0.76"
-  resolved "https://registry.yarnpkg.com/@krowdy-ui/core/-/core-0.0.76.tgz#4a51e462763ae9430a8f6ce182ad8e283c9aca21"
-  integrity sha512-UnLtrHEz+88stvs6wcjCN7XFmh/mNKWNfvIOXVceU1sPUC3pgFTc4bE6SBMUW9gzlXzzprB4HxSt3QIxbwRetQ==
-  dependencies:
-    "@krowdy-ui/styles" "^0.0.23"
-    "@material-ui/core" "4.11.3"
-
 "@krowdy-ui/views@0.0.80":
   version "0.0.80"
   resolved "https://registry.yarnpkg.com/@krowdy-ui/views/-/views-0.0.80.tgz#e26cd38ca8aad2e995b7e238a01eeb596454ae5a"
@@ -5834,9 +5826,9 @@ flush-write-stream@^1.0.0:
     readable-stream "^2.3.6"
 
 follow-redirects@^1.0.0:
-  version "1.13.2"
-  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.13.2.tgz#dd73c8effc12728ba5cf4259d760ea5fb83e3147"
-  integrity sha512-6mPTgLxYm3r6Bkkg0vNM0HTjfGrOEtsfbhagQvbxDEsEkpNhw582upBaoRZylzen6krEmxXJgt9Ju6HiI4O7BA==
+  version "1.14.8"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.8.tgz#016996fb9a11a100566398b1c6839337d7bfa8fc"
+  integrity sha512-1x0S9UVJHsQprFcEC/qnNzBLcIxsjAV905f/UkQxbclCsoTWlacCNOpQa/anodLl2uaEKFhfWOvM2Qg77+15zA==
 
 for-each@^0.3.3:
   version "0.3.3"
