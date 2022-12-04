@@ -1326,14 +1326,6 @@
     "@krowdy-ui/styles" "^0.0.23"
     "@material-ui/core" "4.11.3"
 
-"@krowdy-ui/core@^0.0.76":
-  version "0.0.76"
-  resolved "https://registry.yarnpkg.com/@krowdy-ui/core/-/core-0.0.76.tgz#4a51e462763ae9430a8f6ce182ad8e283c9aca21"
-  integrity sha512-UnLtrHEz+88stvs6wcjCN7XFmh/mNKWNfvIOXVceU1sPUC3pgFTc4bE6SBMUW9gzlXzzprB4HxSt3QIxbwRetQ==
-  dependencies:
-    "@krowdy-ui/styles" "^0.0.23"
-    "@material-ui/core" "4.11.3"
-
 "@krowdy-ui/views@0.0.80":
   version "0.0.80"
   resolved "https://registry.yarnpkg.com/@krowdy-ui/views/-/views-0.0.80.tgz#e26cd38ca8aad2e995b7e238a01eeb596454ae5a"
@@ -4387,9 +4379,9 @@ decamelize@^1.2.0:
   integrity sha1-9lNNFRSCabIDUue+4m9QH5oZEpA=
 
 decode-uri-component@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.0.tgz#eb3913333458775cb84cd1a1fae062106bb87545"
-  integrity sha1-6zkTMzRYd1y4TNGh+uBiEGu4dUU=
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.2.tgz#e69dbe25d37941171dd540e024c444cd5188e1e9"
+  integrity sha512-FqUYQ+8o158GyGTrMFJms9qh3CqTKvAqgqsTnkLI8sKu0028orqBhxNMFkFen0zGyg6epACD32pjVk58ngIErQ==
 
 dedent@^0.7.0:
   version "0.7.0"
